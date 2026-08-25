@@ -373,6 +373,34 @@
     flex:none;
   }
 
+  .about{margin-top:40px;}
+  .about summary{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    padding:6px 0;
+  }
+  .about summary:hover{color:var(--ink);}
+  .about-body{
+    margin-top:12px;
+    padding:16px 18px;
+    background:var(--paper-alt);
+    border:1px solid var(--rule);
+    border-radius:2px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--ink);
+  }
+  .about-body h4{
+    font-family:'Lora', serif;
+    font-size:14.5px;
+    margin:16px 0 6px;
+  }
+  .about-body h4:first-child{margin-top:0;}
+  .about-body ul{margin:6px 0; padding-left:20px;}
+  .about-body p{margin:6px 0;}
+
   /* Cursos */
   .courses{display:flex;flex-direction:column;gap:10px;}
   .course{
@@ -606,6 +634,22 @@
   <div class="section-title" id="cursos"><span class="num">04</span><h2>Cursos</h2><span class="count" id="cntCourses"></span><div class="rule"></div></div>
 
   <div class="courses" id="courses"></div>
+
+  <details class="about">
+    <summary>ℹ️ Sobre o Drive e este painel</summary>
+    <div class="about-body">
+      <h4>Sobre o Drive</h4>
+      <p>Este drive é uma iniciativa feita de aluno para aluno. Ele não possui qualquer ligação com o corpo docente ou com funcionários da Afya. Os conteúdos aqui são materiais enviados por professores, colegas ou que eu mesmo possuo e decidi centralizar em um único lugar, no espírito de comunidade.</p>
+      <p>Não é uma atividade remunerada nem gera qualquer benefício acadêmico, como pontos extras. Peço compreensão caso exista algum erro, algum arquivo faltando ou algum material com problema.</p>
+      <p>Toda a organização é feita de forma voluntária — inicialmente era só controle pessoal, mas achei que poderia ajudar outros colegas também. Além dos conteúdos das disciplinas, também adiciono materiais que considero interessantes ou úteis. Se perceberem que algo importante está faltando, podem avisar e eu avalio a inclusão — sem garantia de prazo, já que também estudo, trabalho e tenho outras responsabilidades.</p>
+      <p>O drive está hospedado em conta pessoal, com limitações de espaço — em algum momento pode ser necessário excluir arquivos. Se encontrar algo importante, o ideal é baixar e guardar no seu próprio dispositivo, sem depender só daqui.</p>
+      <h4>Navegação do Drive</h4>
+      <p>As disciplinas são organizadas por numeração. O <strong>Primeiro Semestre</strong> vai de 01 a 07. O <strong>Segundo Semestre</strong> tem sua própria numeração, de 01 a 06, dentro da pasta do semestre.</p>
+      <p>Dentro de cada disciplina existem três pastas principais — Livros, Slides e Conteúdos Extras — cada uma com a numeração da disciplina ao lado (ex: "03 Slides" pertence à disciplina 03).</p>
+      <h4>Sobre este painel (Arquivo Vivo)</h4>
+      <p>Este painel é um complemento visual ao Drive, feito pra concentrar o índice de disciplinas, o que foi adicionado recentemente, prazos de tarefas e cursos recomendados num único lugar. As atualizações aqui são esporádicas — o Drive em si é sempre a fonte mais completa, e os grupos oficiais do WhatsApp da turma continuam sendo o canal mais confiável pra avisos do dia a dia.</p>
+    </div>
+  </details>
 
   <footer>
     <div class="footer-text">
