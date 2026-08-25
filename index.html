@@ -20,6 +20,21 @@
     --rule:#C9C0AC;
     --shadow: rgba(34,38,43,0.10);
   }
+  body.dark{
+    --paper:#1B1E22;
+    --paper-alt:#25292E;
+    --ink:#EDE9DF;
+    --ink-soft:#A8A398;
+    --petrol:#57C2B6;
+    --petrol-dark:#3A9187;
+    --ochre:#E0A94A;
+    --rule:#3A3F44;
+    --shadow: rgba(0,0,0,0.35);
+  }
+  body.dark{
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
@@ -82,6 +97,39 @@
     max-width:56ch;
   }
   .notice strong{color:var(--ink);}
+
+  .sticky-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    background:var(--paper);
+    border-bottom:1px solid var(--rule);
+    padding:10px 0;
+    margin:0 0 8px;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .sticky-nav button{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    background:none;
+    border:none;
+    color:var(--ink);
+    cursor:pointer;
+    padding:6px 10px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+  .sticky-nav button:hover{background:var(--paper-alt);}
+  .sticky-nav .theme-toggle{
+    margin-left:auto;
+    flex:none;
+    font-size:15px;
+    padding:6px 8px;
+  }
 
   .quicknav{
     display:flex;
@@ -150,6 +198,35 @@
     color:var(--ink);
   }
   .top-deadline .txt strong{font-family:'Lora', serif;}
+
+  .sync-badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:6px;
+  }
+  .sync-badge .dot{color:var(--petrol);}
+
+  .progress-block{margin:20px 0 0;}
+  .progress-block .label{
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-bottom:5px;
+  }
+  .progress-track{
+    height:6px;
+    background:var(--paper-alt);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--petrol);
+  }
 
   .new-badge{
     display:inline-block;
@@ -240,6 +317,20 @@
   .task.urgent .countdown{background:var(--ochre);}
   .countdown .n{font-size:18px;font-weight:700;line-height:1;}
   .countdown .u{font-size:9px;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+  .cal-btn{
+    flex:none;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--petrol-dark);
+    background:none;
+    border:1px solid var(--rule);
+    border-radius:2px;
+    padding:6px 8px;
+    cursor:pointer;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .cal-btn:hover{border-color:var(--petrol);color:var(--petrol);}
 
   .graveyard{margin-top:18px;}
   .graveyard summary{
@@ -366,6 +457,8 @@
     gap:6px;
   }
   .card:hover .open{color:var(--petrol);}
+  .card-top{display:flex;align-items:center;justify-content:space-between;}
+  .drive-icon{flex:none;}
 
   /* Updates feed */
   .feed{display:flex;flex-direction:column;gap:18px;}
@@ -447,7 +540,7 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="top">
 
   <header>
     <div class="header-top">
@@ -456,18 +549,35 @@
         <h1>Arquivo Vivo</h1>
         <div class="byline">por Thiago Monteiro</div>
       </div>
-      <button class="share-icon" id="shareBtn" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.48 2 2 6.32 2 11.65c0 1.86.55 3.6 1.5 5.08L2 22l5.46-1.42a10.4 10.4 0 0 0 4.54 1.02c5.52 0 10-4.32 10-9.65C22 6.32 17.52 2 12 2Z" fill="#fff"/>
-          <path d="M9.1 7.6c-.2-.45-.42-.46-.62-.47h-.53c-.18 0-.48.07-.73.34-.25.27-.96.93-.96 2.27 0 1.34.98 2.63 1.12 2.81.14.18 1.9 2.98 4.62 4.06 2.26.9 2.72.72 3.21.68.5-.05 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.11-.25-.18-.53-.32-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.18-1.34-.8-.72-1.35-1.6-1.5-1.87-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.6-1.5-.85-2.03Z" fill="#25D366"/>
-        </svg>
-      </button>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button class="share-icon" id="themeBtn" aria-label="Alternar modo escuro" title="Modo escuro" style="background:var(--paper-alt); border:1px solid var(--rule);">
+          <span id="themeIcon" style="font-size:16px;">🌙</span>
+        </button>
+        <button class="share-icon" id="shareBtn" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.32 2 11.65c0 1.86.55 3.6 1.5 5.08L2 22l5.46-1.42a10.4 10.4 0 0 0 4.54 1.02c5.52 0 10-4.32 10-9.65C22 6.32 17.52 2 12 2Z" fill="#fff"/>
+            <path d="M9.1 7.6c-.2-.45-.42-.46-.62-.47h-.53c-.18 0-.48.07-.73.34-.25.27-.96.93-.96 2.27 0 1.34.98 2.63 1.12 2.81.14.18 1.9 2.98 4.62 4.06 2.26.9 2.72.72 3.21.68.5-.05 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.11-.25-.18-.53-.32-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.18-1.34-.8-.72-1.35-1.6-1.5-1.87-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.6-1.5-.85-2.03Z" fill="#25D366"/>
+          </svg>
+        </button>
+      </div>
     </div>
     <p>Índice de todas as disciplinas e um registro do que foi adicionado recentemente — pra você não precisar caçar pasta por pasta pra saber se tem material novo.</p>
+    <div class="sync-badge"><span class="dot">●</span> <span id="syncText"></span></div>
+    <div class="progress-block">
+      <div class="label"><span>Semestre em andamento</span><span id="progressPct"></span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
     <div class="notice">
       <strong>Atualizações aqui são esporádicas.</strong> Pra material sempre em dia, o ideal é acompanhar os grupos oficiais do WhatsApp da turma — este painel serve pra concentrar tudo em um único lugar, não substitui os avisos de lá.
     </div>
   </header>
+
+  <nav class="sticky-nav">
+    <button data-scroll="top">⌂ Início</button>
+    <button data-scroll="disciplinas">📚 Disciplinas</button>
+    <button data-scroll="atualizacoes">🆕 Novidades</button>
+    <button data-scroll="prazos">📅 Prazos</button>
+  </nav>
 
   <div id="topDeadline"></div>
 
@@ -557,7 +667,12 @@ function renderGrid(sem){
   DISC[sem].forEach(d=>{
     const a = document.createElement('a');
     a.className='card'; a.href=d.url; a.target='_blank'; a.rel='noopener';
-    a.innerHTML = `<span class="idx">${d.n}</span><span class="name">${d.name}</span><span class="open">Abrir pasta →</span>`;
+    a.setAttribute('data-search', d.name.toLowerCase());
+    a.innerHTML = `<div class="card-top">
+        <span class="idx">${d.n}</span>
+        <svg class="drive-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 8H6l-4-8Z" fill="none"/><path d="M8.5 3 3 12.5 6 18 11.5 8.5Z" fill="#4285F4"/><path d="M15.5 3 21 12.5 18 18h-6.5L17 8.5Z" fill="#34A853"/><path d="M6 18h12l-2.5-4.5h-7Z" fill="#FBBC05"/></svg>
+      </div>
+      <span class="name">${d.name}</span><span class="open">Abrir pasta →</span>`;
     grid.appendChild(a);
   });
 }
@@ -587,7 +702,7 @@ function renderFeed(items){
   const sorted = [...items].sort((a,b)=> new Date(b.date) - new Date(a.date));
   feed.innerHTML = sorted.map(it=>{
     const s = fmtStamp(it.date);
-    return `<div class="entry">
+    return `<div class="entry" data-search="${(it.disc + ' ' + it.desc).toLowerCase()}">
       <div class="stamp"><div class="d">${s.d}</div><div class="m">${s.m}</div></div>
       <div class="entry-body">
         <span class="tag">${it.disc}</span>${newBadge(it.date)}
@@ -637,12 +752,17 @@ function renderTasks(items){
       if(t.diffDays === 0){ n = 'hoje'; u = ''; }
       else if(t.diffDays === 1){ n = '1'; u = 'dia'; }
       else { n = String(t.diffDays); u = 'dias'; }
-      return `<div class="task${urgent ? ' urgent' : ''}">
+      const dStart = t.prazo.replace(/-/g,'');
+      const nextDay = new Date(t.prazo + 'T00:00:00'); nextDay.setDate(nextDay.getDate()+1);
+      const dEnd = nextDay.toISOString().slice(0,10).replace(/-/g,'');
+      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t.materia + ' — ' + t.tarefa)}&dates=${dStart}/${dEnd}&details=${encodeURIComponent('Prazo do Arquivo Vivo — Psicologia')}`;
+      return `<div class="task${urgent ? ' urgent' : ''}" data-search="${(t.materia + ' ' + t.tarefa).toLowerCase()}">
         <div class="task-info">
           <div class="materia">${t.materia}${newBadge(t.added || t.prazo)}</div>
           <div class="tarefa">${t.tarefa}</div>
           <div class="prazo-data">até ${dueFmt}</div>
         </div>
+        <a class="cal-btn" href="${calUrl}" target="_blank" rel="noopener">📅 Agenda</a>
         <div class="countdown"><div class="n">${n}</div><div class="u">${u}</div></div>
       </div>`;
     }).join('');
@@ -688,7 +808,7 @@ function renderCourses(items){
     return;
   }
   el.innerHTML = items.map(c => `
-    <a class="course" href="${c.link}" target="_blank" rel="noopener">
+    <a class="course" href="${c.link}" target="_blank" rel="noopener" data-search="${c.nome.toLowerCase()}">
       <div class="course-info">
         <div class="nome">${c.nome}${newBadge(c.added)}</div>
         ${c.nota ? `<div class="nota">${c.nota}</div>` : ''}
@@ -719,6 +839,48 @@ if(window.QRCode){
 } else {
   document.getElementById('qrcode').outerHTML = '';
 }
+
+// Modo escuro (não persiste entre sessões)
+document.getElementById('themeBtn').addEventListener('click', ()=>{
+  document.body.classList.toggle('dark');
+  document.getElementById('themeIcon').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+});
+
+// Navegação fixa
+document.querySelectorAll('.sticky-nav [data-scroll]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.getElementById(btn.dataset.scroll)?.scrollIntoView({behavior:'smooth', block: btn.dataset.scroll === 'top' ? 'start' : 'center'});
+  });
+});
+
+// Progresso do semestre — início assumido em 22/07/2026, fim em 17/12/2026 (Thiago pode corrigir a data de início)
+(function(){
+  const start = new Date('2026-07-22T00:00:00');
+  const end = new Date('2026-12-17T00:00:00');
+  const now = new Date();
+  let pct = ((now - start) / (end - start)) * 100;
+  pct = Math.max(0, Math.min(100, pct));
+  document.getElementById('progressFill').style.width = pct.toFixed(0) + '%';
+  document.getElementById('progressPct').textContent = pct.toFixed(0) + '% concluído · encerra em 17/12';
+})();
+
+// Selo de última atualização (baseado no registro mais recente que temos, não é sincronização automática em tempo real)
+(function(){
+  const allDates = [
+    ...UPDATES.map(u=>u.date),
+    ...TASKS.map(t=>t.added || t.prazo),
+    ...COURSES.map(c=>c.added)
+  ].filter(Boolean);
+  if(allDates.length === 0){ document.getElementById('syncText').textContent = 'Sem registros ainda'; return; }
+  const latest = new Date(allDates.sort().slice(-1)[0] + 'T12:00:00');
+  const diffMs = new Date() - latest;
+  const diffH = Math.floor(diffMs / 3600000);
+  let txt;
+  if(diffH < 1) txt = 'Última atualização: agora há pouco';
+  else if(diffH < 24) txt = `Última atualização: há ${diffH} hora${diffH>1?'s':''}`;
+  else txt = `Última atualização: há ${Math.floor(diffH/24)} dia${Math.floor(diffH/24)>1?'s':''}`;
+  document.getElementById('syncText').textContent = txt;
+})();
 </script>
 </body>
 </html>
