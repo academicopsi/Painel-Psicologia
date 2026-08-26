@@ -501,6 +501,18 @@
   }
   .card:hover .open{color:var(--petrol);}
   .card-top{display:flex;align-items:center;justify-content:space-between;}
+  .drive-tag{
+    flex:none;
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+  .drive-tag span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
   .drive-icon{flex:none;}
 
   /* Updates feed */
@@ -725,7 +737,10 @@ function renderGrid(sem){
     a.setAttribute('data-search', d.name.toLowerCase());
     a.innerHTML = `<div class="card-top">
         <span class="idx">${d.n}</span>
-        <svg class="drive-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 8H6l-4-8Z" fill="none"/><path d="M8.5 3 3 12.5 6 18 11.5 8.5Z" fill="#4285F4"/><path d="M15.5 3 21 12.5 18 18h-6.5L17 8.5Z" fill="#34A853"/><path d="M6 18h12l-2.5-4.5h-7Z" fill="#FBBC05"/></svg>
+        <span class="drive-tag">
+          <svg class="drive-icon" width="30" height="30" viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 8H6l-4-8Z" fill="none"/><path d="M8.5 3 3 12.5 6 18 11.5 8.5Z" fill="#4285F4"/><path d="M15.5 3 21 12.5 18 18h-6.5L17 8.5Z" fill="#34A853"/><path d="M6 18h12l-2.5-4.5h-7Z" fill="#FBBC05"/></svg>
+          <span>Acesse o Drive</span>
+        </span>
       </div>
       <span class="name">${d.name}</span><span class="open">Abrir pasta →</span>`;
     grid.appendChild(a);
