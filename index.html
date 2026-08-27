@@ -578,6 +578,117 @@
     flex-wrap:wrap;
     gap:16px;
   }
+
+  /* Página Ferramentas (view separada, dentro do mesmo arquivo) */
+  .tool-card{
+    background:var(--paper-alt);
+    border:1px solid var(--rule);
+    border-radius:2px;
+    padding:22px;
+    margin-top:8px;
+  }
+  .tool-card h2{font-family:'Lora', serif;font-size:19px;margin:0 0 6px;}
+  .tool-card .sub{font-size:13px;color:var(--ink-soft);margin-bottom:20px;line-height:1.5;}
+  .prompt-box{
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--ochre);
+    border-radius:2px;
+    padding:16px 18px;
+    margin-bottom:16px;
+  }
+  .prompt-box .plabel{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .prompt-box .pfrase{font-family:'Lora', serif;font-size:16px;font-style:italic;color:var(--ink);line-height:1.45;}
+  .shuffle-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    background:none;
+    border:1px solid var(--rule);
+    color:var(--ink-soft);
+    padding:7px 12px;
+    border-radius:2px;
+    cursor:pointer;
+    margin-top:10px;
+  }
+  .shuffle-btn:hover{border-color:var(--petrol);color:var(--petrol);}
+  .tool-card textarea{
+    width:100%;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:14.5px;
+    padding:12px 14px;
+    border:1px solid var(--rule);
+    border-radius:2px;
+    background:var(--paper);
+    color:var(--ink);
+    min-height:100px;
+    resize:vertical;
+    margin-bottom:12px;
+  }
+  .correct-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    font-weight:600;
+    background:var(--petrol);
+    color:#fff;
+    border:none;
+    padding:11px 20px;
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .correct-btn:hover{background:var(--petrol-dark);}
+  .pfeedback{
+    margin-top:18px;
+    padding:16px 18px;
+    border-radius:2px;
+    font-size:13.5px;
+    line-height:1.55;
+    display:none;
+  }
+  .pfeedback.show{display:block;}
+  .pfeedback.good{background:rgba(58,145,135,0.14); border-left:3px solid var(--petrol); color:var(--ink);}
+  .pfeedback.partial{background:rgba(201,138,44,0.14); border-left:3px solid var(--ochre); color:var(--ink);}
+  .pfeedback.bad{background:rgba(181,67,46,0.10); border-left:3px solid #B5432E; color:var(--ink);}
+  .pfeedback strong{display:block;margin-bottom:6px;font-family:'Lora', serif;font-size:14.5px;}
+  .reveal-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    background:none;
+    border:none;
+    color:var(--petrol);
+    text-decoration:underline;
+    cursor:pointer;
+    padding:0;
+    margin-top:14px;
+    display:none;
+  }
+  .model-answer{
+    display:none;
+    margin-top:10px;
+    padding:12px 14px;
+    background:var(--paper);
+    border:1px dashed var(--rule);
+    border-radius:2px;
+    font-size:13px;
+    font-style:italic;
+    color:var(--ink-soft);
+  }
+  .model-answer.show{display:block;}
+  .tool-disclaimer{
+    margin-top:28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    line-height:1.5;
+    border-top:1px solid var(--rule);
+    padding-top:14px;
+  }
   .footer-text{display:flex;flex-direction:column;gap:4px;}
   .qr-block{
     display:flex;
@@ -633,6 +744,7 @@
     <button data-scroll="atualizacoes">🆕 Quer ver as últimas atualizações?</button>
     <button data-scroll="prazos">📅 Quer ver os próximos prazos?</button>
     <button data-scroll="cursos">🎓 Cursos Extras</button>
+    <button data-scroll="ferramentas">🛠 Ferramentas</button>
   </nav>
 
   <div id="topDeadline"></div>
@@ -662,6 +774,34 @@
   <div class="section-title" id="cursos"><span class="num">04</span><h2>Cursos</h2><span class="count" id="cntCourses"></span><div class="rule"></div></div>
 
   <div class="courses" id="courses"></div>
+
+  <div class="section-title" id="ferramentas"><span class="num">05</span><h2>Ferramentas</h2><div class="rule"></div></div>
+
+  <details class="graveyard">
+    <summary>🛠 Conversor para Linguagem Científica (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a frase do dia a dia abaixo e reescreva com linguagem científica/acadêmica. Depois clique em "Corrigir" pra ver como você se saiu.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Frase para converter</div>
+        <div class="pfrase" id="fraseAtual"></div>
+      </div>
+      <button class="shuffle-btn" id="shuffleBtn">🔀 Sortear outra frase</button>
+
+      <div style="margin-top:20px;">
+        <textarea id="respostaInput" placeholder="Escreva aqui sua versão em linguagem científica..."></textarea>
+        <button class="correct-btn" id="corrigirBtn">Corrigir</button>
+      </div>
+
+      <div class="pfeedback" id="feedbackBox"></div>
+      <button class="reveal-btn" id="revealBtn">Ver uma sugestão de resposta</button>
+      <div class="model-answer" id="modelAnswer"></div>
+
+      <div class="tool-disclaimer">
+        Essa correção é automática, baseada em termos-chave esperados — não é uma inteligência artificial avaliando sua redação com profundidade. Ela indica pistas, não substitui a avaliação de um professor.
+      </div>
+    </div>
+  </details>
 
   <details class="about">
     <summary>ℹ️ Sobre o Drive e este painel</summary>
@@ -719,13 +859,13 @@ function newBadge(dateStr){
 }
 
 // Lista de atualizações — editada só via Claude (a partir do que você me avisa) e republicada.
+// REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
 const UPDATES = [
-  {date: '2026-08-19', disc: 'Bases Biológicas', desc: 'Slides das aulas 1 (Citologia) e 2 (Mitose e Meiose).'},
-  {date: '2026-08-19', disc: 'Neuroanatomia Humana', desc: 'Slide da aula de Introdução a Neurociências.'},
+  {date: '2026-08-27', disc: 'Psicologia Experimental', desc: 'Arquivo sobre Linguagem Científica.'},
+  {date: '2026-08-27', disc: 'Psicologia Experimental', desc: 'Arquivos para o trabalho: Termos de Consentimento para adultos e para crianças.'},
+  {date: '2026-08-27', disc: 'Psicologia Experimental', desc: 'PDF com instruções para o trabalho.'},
   {date: '2026-08-20', disc: 'Neuroanatomia Humana', desc: 'Slides com imagens do cérebro.'},
-  {date: '2026-08-19', disc: 'Psicologia da Aprendizagem', desc: 'Slide da aula 1 — Behaviorismo, Humanismo e Cognitivismo.'},
-  {date: '2026-08-19', disc: 'Psicologia Experimental', desc: '3 artigos novos: DRL e privação alimentar em ratos; fluoxetina e nado forçado; Promove-Universitários.'},
-  {date: '2026-08-19', disc: 'Geral', desc: 'Reorganização geral do Drive: pastas numeradas por disciplina, subpastas de Livros/Slides/Conteúdos Extras padronizadas e este painel criado.'}
+  {date: '2026-08-19', disc: 'Psicologia Experimental', desc: '3 artigos novos: DRL e privação alimentar em ratos; fluoxetina e nado forçado; Promove-Universitários.'}
 ];
 
 function renderGrid(sem){
@@ -791,6 +931,7 @@ renderFeed(UPDATES);
 const TASKS = [
   {materia: 'Bases Biológicas', tarefa: 'Pesquisar Divisão Celular — Mitose e Meiose (fases e principais características)', prazo: '2026-08-24', added: '2026-08-20'},
   {materia: 'Bases Biológicas', tarefa: 'Estudar sobre Gametogênese — Masculina / Feminina', prazo: '2026-08-31', added: '2026-08-20'},
+  {materia: 'Psicologia da Aprendizagem', tarefa: 'Prova de Psicologia da Aprendizagem', prazo: '2026-09-23', added: '2026-08-27'},
 ];
 
 function renderTasks(items){
@@ -951,6 +1092,91 @@ document.querySelectorAll('.sticky-nav [data-scroll]').forEach(btn=>{
   else txt = `Última atualização: há ${Math.floor(diffH/24)} dia${Math.floor(diffH/24)>1?'s':''}`;
   document.getElementById('syncText').textContent = txt;
 })();
+
+// --- Ferramenta: Conversor para Linguagem Científica ---
+const FRASES = [
+  {frase:"Depois que a gente juntou todos os números, deu pra ver que a média das notas subiu bastante do primeiro pro segundo semestre.", esperadas:["a média apresentou aumento","observou-se aumento","os dados indicam"], evitar:["a gente","deu pra ver"], sugestao:"A análise dos dados indicou um aumento na média das notas entre o primeiro e o segundo semestre."},
+  {frase:"Olhando pro gráfico que a gente montou, dá pra perceber que a maioria das respostas ficou concentrada bem no meio da escala.", esperadas:["observa-se concentração","majoritariamente concentradas","os dados evidenciam"], evitar:["dá pra perceber","a gente montou"], sugestao:"A representação gráfica evidencia que a maioria das respostas concentrou-se na região intermediária da escala."},
+  {frase:"Quando a gente colocou os bichos numa gaiola diferente, eles ficaram andando de um lado pro outro sem parar durante quase todo o teste.", esperadas:["observou-se comportamento de deambulação","os sujeitos apresentaram"], evitar:["os bichos","a gente colocou"], sugestao:"Observou-se que os sujeitos apresentaram comportamento de deambulação constante ao longo de quase toda a sessão experimental."},
+  {frase:"Só porque duas coisas acontecem quase ao mesmo tempo não quer dizer necessariamente que uma delas seja a causa direta da outra, sabe.", esperadas:["correlação não implica causalidade","não necessariamente indica relação causal"], evitar:["não quer dizer","sabe"], sugestao:"A ocorrência simultânea de dois eventos não implica necessariamente uma relação de causalidade entre eles."},
+  {frase:"A gente reparou que os animais que tomaram o remédio comeram bem menos do que os outros durante todo o período em que o teste rolou.", esperadas:["observou-se redução na ingestão","os sujeitos experimentais apresentaram"], evitar:["a gente reparou","rolou"], sugestao:"Observou-se redução na ingestão alimentar dos sujeitos submetidos ao fármaco em comparação ao grupo controle."},
+  {frase:"O número de gente que melhorou foi bem maior no grupo que fez terapia do que no grupo que não fez nada.", esperadas:["a proporção de participantes","significativamente maior"], evitar:["número de gente","não fez nada"], sugestao:"A proporção de participantes que apresentou melhora foi significativamente maior no grupo submetido à terapia em relação ao grupo controle."},
+  {frase:"Dava pra perceber que quanto mais a pessoa dormia, menos estressada ela ficava, mas isso não significa que o sono resolve tudo sozinho.", esperadas:["correlação negativa","não implica relação causal direta"], evitar:["dava pra perceber"], sugestao:"Observou-se correlação negativa entre horas de sono e níveis de estresse, o que não implica, por si só, relação causal direta."},
+  {frase:"A gente contou quantas vezes cada criança levantou da cadeira durante a aula pra ver se tinha diferença entre os dois grupos.", esperadas:["registrou-se a frequência","comportamento de levantar"], evitar:["a gente contou"], sugestao:"Registrou-se a frequência com que cada criança apresentou o comportamento de levantar da cadeira, comparando-se os dois grupos."},
+  {frase:"Só um número bem pequeno de gente participou desse teste, então não dá pra confiar demais nos resultados que a gente encontrou.", esperadas:["amostra reduzida","limita a confiabilidade"], evitar:["número bem pequeno de gente","não dá pra confiar"], sugestao:"A amostra reduzida de participantes limita a confiabilidade e a generalização dos resultados obtidos."},
+  {frase:"Olhando os dados com calma, dá pra ver que os resultados variaram muito de pessoa pra pessoa, sem um padrão bem definido.", esperadas:["alta variabilidade","dispersão dos dados"], evitar:["dá pra ver","sem um padrão bem definido"], sugestao:"A análise dos dados revelou alta variabilidade interindividual, sem um padrão de resposta claramente definido."},
+  {frase:"Cada vez que a gente batia palma perto do bebê, ele virava a cabeça na direção do som quase na mesma hora.", esperadas:["observou-se resposta comportamental","o participante apresentou orientação"], evitar:["a gente batia palma"], sugestao:"Observou-se que o participante apresentou resposta de orientação em direção ao estímulo sonoro de forma quase imediata."},
+  {frase:"A tabela que a gente montou mostrou que a maior parte das pessoas respondeu que se sentia mais ansiosa de manhã do que à noite.", esperadas:["os dados indicaram","a maioria dos participantes relatou"], evitar:["a tabela que a gente montou"], sugestao:"Os dados tabulados indicaram que a maioria dos participantes relatou maior ansiedade no período matutino em comparação ao noturno."},
+  {frase:"Não dá pra dizer que o tratamento funcionou de verdade só porque alguns pacientes melhoraram depois de um tempo de acompanhamento clínico.", esperadas:["não permite inferir eficácia","não é possível atribuir causalidade"], evitar:["não dá pra dizer"], sugestao:"A melhora de alguns pacientes não permite, por si só, inferir a eficácia do tratamento sem um grupo de comparação adequado."},
+  {frase:"A gente anotou o tempo que cada participante levou pra resolver o quebra-cabeça e depois comparou os resultados entre os grupos.", esperadas:["registrou-se o tempo de execução","procedeu-se à comparação entre grupos"], evitar:["a gente anotou"], sugestao:"Registrou-se o tempo de execução da tarefa por participante, procedendo-se posteriormente à comparação entre os grupos experimentais."},
+  {frase:"Parece que quanto mais velho o participante, menos ele errava no teste, mas isso também pode ser só uma coincidência.", esperadas:["associação aparente","não necessariamente indica relação causal"], evitar:["parece que","coincidência"], sugestao:"Observou-se uma associação aparente entre idade e desempenho no teste, que não necessariamente indica relação causal."},
+  {frase:"O gráfico de barras que a gente fez deixou bem claro que um grupo foi bem melhor que o outro no teste final.", esperadas:["os dados evidenciaram","diferença significativa entre os grupos"], evitar:["deixou bem claro","a gente fez"], sugestao:"A representação gráfica evidenciou uma diferença significativa de desempenho entre os grupos no teste final."},
+  {frase:"A gente ficou de olho pra ver se as crianças brincavam mais sozinhas ou em grupo durante o horário do recreio.", esperadas:["registrou-se a frequência de interação","comportamento social observado"], evitar:["a gente ficou de olho"], sugestao:"Registrou-se a frequência de interação social das crianças, comparando-se o brincar individual e o brincar em grupo durante o recreio."},
+  {frase:"Metade dos participantes disse que sim e a outra metade disse que não, então ficou bem dividido esse resultado da pesquisa.", esperadas:["os resultados apresentaram distribuição equilibrada","metade da amostra"], evitar:["ficou bem dividido"], sugestao:"Os resultados apresentaram distribuição equilibrada, com metade da amostra respondendo afirmativamente e a outra metade negativamente."},
+  {frase:"Só porque o número de casos aumentou junto com o preço do combustível não quer dizer que um causou o outro diretamente.", esperadas:["coincidência temporal não implica causalidade","correlação espúria"], evitar:["não quer dizer"], sugestao:"A coincidência temporal entre as duas variáveis não implica causalidade, podendo tratar-se de uma correlação espúria."},
+  {frase:"A gente percebeu que os participantes que estavam mais estressados demoravam bem mais tempo pra responder as perguntas do questionário que a gente aplicou.", esperadas:["observou-se maior tempo de resposta","associação entre estresse e latência"], evitar:["a gente percebeu","a gente aplicou"], sugestao:"Observou-se associação entre níveis mais elevados de estresse e maior tempo de resposta ao instrumento aplicado."},
+  {frase:"Quando a gente olhou pra média geral, dava pra ver que esse ano os alunos foram bem melhor do que no ano passado.", esperadas:["a média geral indicou aumento","desempenho superior em relação ao período anterior"], evitar:["dava pra ver","a gente olhou"], sugestao:"A análise da média geral indicou desempenho superior dos alunos no período atual em relação ao ano anterior."},
+  {frase:"Uns bichos ficaram andando de um lado pro outro da gaiola o tempo todo, outros ficaram paradinhos durante quase todo o experimento.", esperadas:["observou-se variabilidade comportamental","padrões distintos de atividade"], evitar:["uns bichos","paradinhos"], sugestao:"Observou-se variabilidade comportamental entre os sujeitos, com padrões distintos de atividade ao longo do experimento."},
+  {frase:"Só porque a amostra era pequena não quer dizer que os resultados não sirvam pra nada, mas precisa ter cuidado na hora de generalizar.", esperadas:["amostra reduzida não invalida os achados","cautela quanto à generalização"], evitar:["não quer dizer","não sirvam pra nada"], sugestao:"A amostra reduzida não invalida os achados, mas recomenda-se cautela quanto à generalização dos resultados."},
+  {frase:"A gente separou os participantes em dois grupos só no olho mesmo, sem sortear ninguém direito antes de começar o experimento.", esperadas:["a alocação não foi aleatorizada","ausência de randomização compromete"], evitar:["a gente separou","só no olho"], sugestao:"A alocação dos participantes não foi aleatorizada, e a ausência de randomização compromete a validade interna do estudo."},
+  {frase:"Reparei que quase todo mundo que dormiu pouco errou mais questões na prova do que quem tinha dormido bem na noite anterior.", esperadas:["observou-se associação entre privação de sono e desempenho","dados sugerem correlação"], evitar:["reparei que","quase todo mundo"], sugestao:"Os dados sugerem correlação entre privação de sono e maior número de erros na avaliação realizada."},
+  {frase:"A gente fez um gráfico de linha pra mostrar como o humor dos participantes foi mudando ao longo da semana inteira.", esperadas:["elaborou-se um gráfico para ilustrar a variação","representação gráfica da flutuação"], evitar:["a gente fez"], sugestao:"Elaborou-se uma representação gráfica para ilustrar a flutuação do humor dos participantes ao longo da semana."},
+  {frase:"A gente viu que o desvio dos dados foi bem grande, ou seja, as respostas variaram demais de uma pessoa pra outra.", esperadas:["alta variabilidade","desvio padrão elevado"], evitar:["a gente viu"], sugestao:"Constatou-se um desvio padrão elevado, indicando alta variabilidade nas respostas entre os participantes."},
+  {frase:"Não dá pra saber se foi o remédio mesmo que ajudou, porque os participantes também mudaram a rotina de sono na mesma época.", esperadas:["variável confundidora","não permite isolar o efeito"], evitar:["não dá pra saber"], sugestao:"A mudança concomitante na rotina de sono constitui uma variável confundidora que não permite isolar o efeito do fármaco."},
+  {frase:"Olhando os números de novo, percebi que tinha um valor bem fora da curva que talvez tenha puxado a média pra cima.", esperadas:["valor atípico","outlier pode ter influenciado a média"], evitar:["percebi que","fora da curva"], sugestao:"A reanálise dos dados revelou um valor atípico que pode ter influenciado o resultado da média geral."},
+  {frase:"A gente contou quantas vezes cada pessoa sorriu durante a entrevista pra tentar medir o quanto ela parecia à vontade na conversa.", esperadas:["registrou-se a frequência de sorrisos","medida comportamental utilizada como indicador"], evitar:["a gente contou"], sugestao:"Registrou-se a frequência de sorrisos como medida comportamental indicadora do nível de conforto do participante durante a entrevista."}
+];
+
+let atual = null;
+function sortear(){
+  let nova;
+  do{ nova = FRASES[Math.floor(Math.random()*FRASES.length)]; } while(nova === atual && FRASES.length > 1);
+  atual = nova;
+  document.getElementById('fraseAtual').textContent = atual.frase;
+  document.getElementById('respostaInput').value = '';
+  document.getElementById('feedbackBox').className = 'pfeedback';
+  document.getElementById('feedbackBox').innerHTML = '';
+  document.getElementById('revealBtn').style.display = 'none';
+  document.getElementById('modelAnswer').className = 'model-answer';
+}
+document.getElementById('shuffleBtn').addEventListener('click', sortear);
+sortear();
+
+document.getElementById('corrigirBtn').addEventListener('click', ()=>{
+  const resposta = document.getElementById('respostaInput').value.trim().toLowerCase();
+  const box = document.getElementById('feedbackBox');
+  const revealBtn = document.getElementById('revealBtn');
+  if(!resposta){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escreva sua versão antes de corrigir.</strong>';
+    return;
+  }
+  const acertos = atual.esperadas.filter(termo => resposta.includes(termo));
+  const informais = atual.evitar.filter(termo => resposta.includes(termo));
+  let html = '';
+  if(acertos.length > 0 && informais.length === 0){
+    box.className = 'pfeedback show good';
+    html = '<strong>Boa! Sua resposta usa linguagem científica adequada.</strong>';
+    html += `<p>Identificamos o uso de: "${acertos.join('", "')}".</p>`;
+  } else if(acertos.length > 0 && informais.length > 0){
+    box.className = 'pfeedback show partial';
+    html = '<strong>Quase lá — ainda tem expressão informal na resposta.</strong>';
+    html += `<p>Você usou corretamente: "${acertos.join('", "')}".</p>`;
+    html += `<p>Mas ainda apareceu linguagem informal: "${informais.join('", "')}" — tente substituir por um termo mais impessoal/técnico.</p>`;
+  } else {
+    box.className = 'pfeedback show bad';
+    html = '<strong>Ainda não identifiquei linguagem científica na resposta.</strong>';
+    html += '<p>Pense em como reformular de forma impessoal (ex: usando "observa-se", "verificou-se", "sugere-se") e evite expressões do dia a dia.</p>';
+    if(informais.length > 0) html += `<p>Expressões informais encontradas: "${informais.join('", "')}".</p>`;
+  }
+  box.innerHTML = html;
+  revealBtn.style.display = 'inline-block';
+});
+document.getElementById('revealBtn').addEventListener('click', ()=>{
+  const m = document.getElementById('modelAnswer');
+  m.textContent = atual.sugestao;
+  m.classList.add('show');
+});
 </script>
 </body>
 </html>
