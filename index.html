@@ -580,6 +580,19 @@
   }
 
   /* Página Ferramentas (view separada, dentro do mesmo arquivo) */
+  .back-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:20px;
+    cursor:pointer;
+    background:none;
+    border:none;
+  }
+  .back-link:hover{color:var(--petrol);}
+
   .tool-card{
     background:var(--paper-alt);
     border:1px solid var(--rule);
@@ -703,6 +716,119 @@
     line-height:0;
   }
   .qr-block span{font-size:10.5px;max-width:90px;line-height:1.3;}
+
+  /* ===== Página Vídeos — tema de sala de projeção ===== */
+  .cine{
+    background:#141110;
+    color:#F2EDE3;
+    max-width:820px;
+    border-radius:2px;
+    padding-top:36px;
+  }
+  .cine-back{color:#B8AFA0;}
+  .cine-back:hover{color:#E3A83B;}
+  .cine-header{border-bottom:2px solid #3A322C; padding-bottom:22px; margin-bottom:28px;}
+  .cine-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.14em;
+    color:#E3A83B;
+    margin-bottom:10px;
+  }
+  .cine-title{
+    font-family:'Lora', serif;
+    font-weight:700;
+    font-style:italic;
+    font-size:clamp(30px, 6vw, 44px);
+    color:#F2EDE3;
+    margin:0 0 10px;
+  }
+  .cine-sub{font-size:14px; color:#B8AFA0; line-height:1.55; max-width:56ch; margin:0;}
+
+  .video-disc{
+    background:#1C1815;
+    border:1px solid #3A322C;
+    border-radius:2px;
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .video-disc summary{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 18px;
+    cursor:pointer;
+    list-style:none;
+  }
+  .video-disc summary::-webkit-details-marker{display:none;}
+  .video-disc .vd-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:#E3A83B;
+    flex:none;
+  }
+  .video-disc .vd-name{
+    font-family:'Lora', serif;
+    font-size:15.5px;
+    color:#F2EDE3;
+    flex:1;
+  }
+  .video-disc .vd-count{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:#B8AFA0;
+    flex:none;
+  }
+  .video-disc .vd-caret{
+    flex:none;
+    font-size:11px;
+    color:#E3A83B;
+    transition:transform .15s ease;
+  }
+  .video-disc[open] .vd-caret{transform:rotate(90deg);}
+  .video-list{
+    padding:4px 18px 18px;
+    border-top:1px solid #3A322C;
+  }
+  .video-empty{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:#7A7168;
+    padding:14px 0 4px;
+  }
+  .video-item{margin-top:16px;}
+  .video-item .vi-title{
+    font-family:'Lora', serif;
+    font-size:14.5px;
+    color:#F2EDE3;
+    margin-bottom:3px;
+  }
+  .video-item .vi-nota{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:#B8AFA0;
+    margin-bottom:8px;
+  }
+  .video-frame{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    background:#000;
+    border:1px solid #3A322C;
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .video-frame iframe{
+    position:absolute; top:0; left:0; width:100%; height:100%; border:none;
+  }
+  .cine-footer{
+    margin-top:40px;
+    padding-top:16px;
+    border-top:1px solid #3A322C;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:#7A7168;
+  }
 </style>
 </head>
 <body>
@@ -744,7 +870,8 @@
     <button data-scroll="atualizacoes">🆕 Quer ver as últimas atualizações?</button>
     <button data-scroll="prazos">📅 Quer ver os próximos prazos?</button>
     <button data-scroll="cursos">🎓 Cursos Extras</button>
-    <button data-scroll="ferramentas">🛠 Ferramentas</button>
+    <button data-page="viewFerramentas">🛠 Ferramentas</button>
+    <button data-page="viewVideos">🎥 Vídeos</button>
   </nav>
 
   <div id="topDeadline"></div>
@@ -775,34 +902,6 @@
 
   <div class="courses" id="courses"></div>
 
-  <div class="section-title" id="ferramentas"><span class="num">05</span><h2>Ferramentas</h2><div class="rule"></div></div>
-
-  <details class="graveyard">
-    <summary>🛠 Conversor para Linguagem Científica (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a frase do dia a dia abaixo e reescreva com linguagem científica/acadêmica. Depois clique em "Corrigir" pra ver como você se saiu.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Frase para converter</div>
-        <div class="pfrase" id="fraseAtual"></div>
-      </div>
-      <button class="shuffle-btn" id="shuffleBtn">🔀 Sortear outra frase</button>
-
-      <div style="margin-top:20px;">
-        <textarea id="respostaInput" placeholder="Escreva aqui sua versão em linguagem científica..."></textarea>
-        <button class="correct-btn" id="corrigirBtn">Corrigir</button>
-      </div>
-
-      <div class="pfeedback" id="feedbackBox"></div>
-      <button class="reveal-btn" id="revealBtn">Ver uma sugestão de resposta</button>
-      <div class="model-answer" id="modelAnswer"></div>
-
-      <div class="tool-disclaimer">
-        Essa correção é automática, baseada em termos-chave esperados — não é uma inteligência artificial avaliando sua redação com profundidade. Ela indica pistas, não substitui a avaliação de um professor.
-      </div>
-    </div>
-  </details>
-
   <details class="about">
     <summary>ℹ️ Sobre o Drive e este painel</summary>
     <div class="about-body">
@@ -825,6 +924,58 @@
     </div>
   </footer>
 
+</div>
+
+<!-- ============ PÁGINA: FERRAMENTAS ============ -->
+<div class="wrap" id="viewFerramentas" style="display:none;">
+  <button class="back-link" id="backFromFerramentas">← Voltar ao Arquivo Vivo</button>
+
+  <header>
+    <div class="eyebrow">Ferramentas · Arquivo Vivo</div>
+    <h1>Ferramentas</h1>
+    <p>Pequenos exercícios pra praticar habilidades do dia a dia acadêmico. Comece pelo conversor abaixo.</p>
+  </header>
+
+  <div class="tool-card">
+    <h2>Conversor para Linguagem Científica</h2>
+    <div class="sub">Leia a frase do dia a dia abaixo e reescreva com linguagem científica/acadêmica. Depois clique em "Corrigir" pra ver como você se saiu.</div>
+
+    <div class="prompt-box">
+      <div class="plabel">Frase para converter</div>
+      <div class="pfrase" id="fraseAtual"></div>
+    </div>
+    <button class="shuffle-btn" id="shuffleBtn">🔀 Sortear outra frase</button>
+
+    <div style="margin-top:20px;">
+      <textarea id="respostaInput" placeholder="Escreva aqui sua versão em linguagem científica..."></textarea>
+      <button class="correct-btn" id="corrigirBtn">Corrigir</button>
+    </div>
+
+    <div class="pfeedback" id="feedbackBox"></div>
+    <button class="reveal-btn" id="revealBtn">Ver uma sugestão de resposta</button>
+    <div class="model-answer" id="modelAnswer"></div>
+
+    <div class="tool-disclaimer">
+      Essa correção é automática, baseada em termos-chave esperados — não é uma inteligência artificial avaliando sua redação com profundidade. Ela indica pistas, não substitui a avaliação de um professor.
+    </div>
+  </div>
+
+  <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
+</div>
+
+<!-- ============ PÁGINA: VÍDEOS ============ -->
+<div class="wrap cine" id="viewVideos" style="display:none;">
+  <button class="back-link cine-back" id="backFromVideos">← Voltar ao Arquivo Vivo</button>
+
+  <header class="cine-header">
+    <div class="cine-eyebrow">🎬 SALA DE PROJEÇÃO · SEGUNDO SEMESTRE</div>
+    <h1 class="cine-title">Vídeos</h1>
+    <p class="cine-sub">Vídeo-aulas e conteúdos em vídeo recomendados, organizados por disciplina. Clique numa disciplina pra abrir.</p>
+  </header>
+
+  <div id="videosAccordion"></div>
+
+  <footer class="cine-footer">Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
 
 <script>
@@ -861,11 +1012,11 @@ function newBadge(dateStr){
 // Lista de atualizações — editada só via Claude (a partir do que você me avisa) e republicada.
 // REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
 const UPDATES = [
+  {date: '2026-08-27', disc: 'Ferramentas', desc: 'Nova ferramenta: Conversor para Linguagem Científica.'},
+  {date: '2026-08-27', disc: 'Geral', desc: 'Nova página: Vídeos para suporte nos estudos.'},
+  {date: '2026-08-27', disc: 'Neuroanatomia Humana', desc: 'Novo vídeo: Resumão Sistema Nervoso Central.'},
   {date: '2026-08-27', disc: 'Psicologia Experimental', desc: 'Arquivo sobre Linguagem Científica.'},
-  {date: '2026-08-27', disc: 'Psicologia Experimental', desc: 'Arquivos para o trabalho: Termos de Consentimento para adultos e para crianças.'},
-  {date: '2026-08-27', disc: 'Psicologia Experimental', desc: 'PDF com instruções para o trabalho.'},
-  {date: '2026-08-20', disc: 'Neuroanatomia Humana', desc: 'Slides com imagens do cérebro.'},
-  {date: '2026-08-19', disc: 'Psicologia Experimental', desc: '3 artigos novos: DRL e privação alimentar em ratos; fluoxetina e nado forçado; Promove-Universitários.'}
+  {date: '2026-08-27', disc: 'Psicologia Experimental', desc: 'Arquivos para o trabalho: Termos de Consentimento para adultos e para crianças.'}
 ];
 
 function renderGrid(sem){
@@ -1057,12 +1208,59 @@ document.getElementById('themeBtn').addEventListener('click', ()=>{
   document.getElementById('themeIcon').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
 });
 
-// Navegação fixa
+// Navegação fixa (scroll dentro da página principal)
 document.querySelectorAll('.sticky-nav [data-scroll]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    document.getElementById(btn.dataset.scroll)?.scrollIntoView({behavior:'smooth', block: btn.dataset.scroll === 'top' ? 'start' : 'center'});
+    switchPage('top');
+    setTimeout(()=>{
+      document.getElementById(btn.dataset.scroll)?.scrollIntoView({behavior:'smooth', block: btn.dataset.scroll === 'top' ? 'start' : 'center'});
+    }, 0);
   });
 });
+
+// Navegação entre páginas (Ferramentas / Vídeos)
+function switchPage(id){
+  document.getElementById('top').style.display = (id === 'top') ? 'block' : 'none';
+  document.getElementById('viewFerramentas').style.display = (id === 'viewFerramentas') ? 'block' : 'none';
+  document.getElementById('viewVideos').style.display = (id === 'viewVideos') ? 'block' : 'none';
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.sticky-nav [data-page]').forEach(btn=>{
+  btn.addEventListener('click', ()=> switchPage(btn.dataset.page));
+});
+document.getElementById('backFromFerramentas').addEventListener('click', ()=> switchPage('top'));
+document.getElementById('backFromVideos').addEventListener('click', ()=> switchPage('top'));
+
+// Página Vídeos — accordion por disciplina (Segundo Semestre)
+// Formato para adicionar vídeos futuramente: {titulo, youtubeId, nota}
+const VIDEOS = {
+  '01': [], '02': [{titulo:'Resumão Sistema Nervoso Central', youtubeId:'KBaRemG4_s0'}], '03': [], '04': [], '05': [], '06': []
+};
+function renderVideos(){
+  const el = document.getElementById('videosAccordion');
+  el.innerHTML = DISC[2].map(d=>{
+    const items = VIDEOS[d.n] || [];
+    const listHtml = items.length === 0
+      ? '<div class="video-empty">Nenhum vídeo adicionado ainda nesta disciplina.</div>'
+      : items.map(v => `
+          <div class="video-item">
+            <div class="vi-title">${v.titulo}</div>
+            ${v.nota ? `<div class="vi-nota">${v.nota}</div>` : ''}
+            <div class="video-frame"><iframe src="https://www.youtube.com/embed/${v.youtubeId}" title="${v.titulo}" allowfullscreen></iframe></div>
+          </div>
+        `).join('');
+    return `<details class="video-disc">
+      <summary>
+        <span class="vd-num">${d.n}</span>
+        <span class="vd-name">${d.name}</span>
+        <span class="vd-count">${items.length} vídeo${items.length === 1 ? '' : 's'}</span>
+        <span class="vd-caret">▶</span>
+      </summary>
+      <div class="video-list">${listHtml}</div>
+    </details>`;
+  }).join('');
+}
+renderVideos();
 
 // Progresso do semestre — início assumido em 22/07/2026, fim em 17/12/2026 (Thiago pode corrigir a data de início)
 (function(){
