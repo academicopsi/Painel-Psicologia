@@ -1193,7 +1193,6 @@ const COURSES = [
 
 function renderCourses(items){
   const el = document.getElementById('courses');
-  document.getElementById('cntCourses').textContent = `(${items.length})`;
   if(items.length === 0){
     el.innerHTML = '<div class="empty">Nenhum curso adicionado ainda.</div>';
     return;
