@@ -105,23 +105,6 @@
   }
   .notice strong{color:var(--ink);}
 
-  .install-btn{
-    display:none;
-    align-items:center;
-    gap:8px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12.5px;
-    font-weight:600;
-    background:var(--petrol);
-    color:#fff;
-    border:none;
-    padding:10px 16px;
-    border-radius:2px;
-    cursor:pointer;
-    margin:16px 0 0;
-  }
-  .install-btn:hover{background:var(--petrol-dark);}
-
   .sticky-nav{
     position:sticky;
     top:0;
@@ -883,7 +866,6 @@
       <div class="label"><span>Semestre em andamento</span><span id="progressPct"></span></div>
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     </div>
-    <button id="installBtnHome" class="install-btn" style="display:none;">📲 Baixar o aplicativo do Arquivo Vivo</button>
     <div class="notice">
       <strong>Atualizações aqui são esporádicas.</strong> Pra material sempre em dia, o ideal é acompanhar os grupos oficiais do WhatsApp da turma — este painel serve pra concentrar tudo em um único lugar, não substitui os avisos de lá.
     </div>
@@ -894,9 +876,10 @@
     <button data-scroll="disciplinas">📚 Quer ver o Drive com os arquivos?</button>
     <button data-scroll="atualizacoes">🆕 Quer ver as últimas atualizações?</button>
     <button data-scroll="prazos">📅 Quer ver os próximos prazos?</button>
-    <button data-scroll="cursos">🎓 Cursos Extras</button>
+    <button data-page="viewCursos">🎓 Cursos Extras</button>
     <button data-page="viewFerramentas">🛠 Ferramentas</button>
     <button data-page="viewVideos">🎥 Vídeos</button>
+    <button data-page="viewSobre">ℹ️ Sobre o site</button>
   </nav>
 
   <div id="topDeadline"></div>
@@ -923,25 +906,11 @@
     <div class="grave-list" id="graveList"></div>
   </details>
 
-  <div class="section-title" id="cursos"><span class="num">04</span><h2>Cursos</h2><span class="count" id="cntCourses"></span><div class="rule"></div></div>
-
-  <div class="courses" id="courses"></div>
-
-  <details class="about">
-    <summary>ℹ️ Sobre o Drive e este painel</summary>
-    <div class="about-body">
-      <p>Este painel organiza, num único lugar, o material que a turma de Psicologia compartilha ao longo do curso. É uma iniciativa de aluno para aluno — sem vínculo com a coordenação ou com a Afya, sem fins remunerados e sem gerar qualquer benefício acadêmico.</p>
-      <p>Mantenho o Drive e este painel de forma voluntária, junto das minhas outras responsabilidades — por isso as atualizações acontecem quando dá, não em um cronograma fixo. Mesmo assim, sigo revisando e adicionando material com regularidade. Se notar algo faltando ou desatualizado, me avisa que eu avalio incluir.</p>
-      <p>O Drive é a fonte mais completa; este painel é só um atalho visual pra ela. Os grupos oficiais do WhatsApp continuam sendo o canal mais confiável pra avisos do dia a dia. Como o Drive está numa conta pessoal com espaço limitado, se encontrar algo importante, baixe e guarde no seu dispositivo.</p>
-      <h4>Navegação do Drive</h4>
-      <p>As disciplinas são numeradas: o <strong>Primeiro Semestre</strong> vai de 01 a 07, e o <strong>Segundo Semestre</strong> tem numeração própria, de 01 a 06. Dentro de cada disciplina há três pastas — Livros, Slides e Conteúdos Extras — com a numeração da disciplina ao lado (ex: "03 Slides" pertence à disciplina 03).</p>
-    </div>
-  </details>
-
   <footer>
     <div class="footer-text">
       <span>Arquivo Vivo · Psicologia · por Thiago Monteiro</span>
       <span id="footDate"></span>
+      <span><button id="installBtnHome" class="back-link" style="display:none; text-decoration:underline; margin:0;">📲 Baixar o aplicativo do Arquivo Vivo</button></span>
     </div>
     <div class="qr-block">
       <span>Aponte a câmera pra abrir no celular</span>
@@ -949,6 +918,41 @@
     </div>
   </footer>
 
+</div>
+
+<!-- ============ PÁGINA: CURSOS ============ -->
+<div class="wrap" id="viewCursos" style="display:none;">
+  <button class="back-link" id="backFromCursos">← Voltar ao Arquivo Vivo</button>
+
+  <header>
+    <div class="eyebrow">Cursos Extras · Arquivo Vivo</div>
+    <h1>Cursos Extras</h1>
+    <p>Cursos complementares recomendados, gratuitos ou com certificado, pra quem quiser ir além do conteúdo das disciplinas.</p>
+  </header>
+
+  <div class="courses" id="courses"></div>
+
+  <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
+</div>
+
+<!-- ============ PÁGINA: SOBRE O SITE ============ -->
+<div class="wrap" id="viewSobre" style="display:none;">
+  <button class="back-link" id="backFromSobre">← Voltar ao Arquivo Vivo</button>
+
+  <header>
+    <div class="eyebrow">Sobre · Arquivo Vivo</div>
+    <h1>Sobre o Drive e este painel</h1>
+  </header>
+
+  <div class="about-body" style="background:var(--paper-alt); border:1px solid var(--rule); border-radius:2px; padding:20px 22px;">
+    <p>Este painel organiza, num único lugar, o material que a turma de Psicologia compartilha ao longo do curso. É uma iniciativa de aluno para aluno — sem vínculo com a coordenação ou com a Afya, sem fins remunerados e sem gerar qualquer benefício acadêmico.</p>
+    <p>Mantenho o Drive e este painel de forma voluntária, junto das minhas outras responsabilidades — por isso as atualizações acontecem quando dá, não em um cronograma fixo. Mesmo assim, sigo revisando e adicionando material com regularidade. Se notar algo faltando ou desatualizado, me avisa que eu avalio incluir.</p>
+    <p>O Drive é a fonte mais completa; este painel é só um atalho visual pra ela. Os grupos oficiais do WhatsApp continuam sendo o canal mais confiável pra avisos do dia a dia. Como o Drive está numa conta pessoal com espaço limitado, se encontrar algo importante, baixe e guarde no seu dispositivo.</p>
+    <h4>Navegação do Drive</h4>
+    <p>As disciplinas são numeradas: o <strong>Primeiro Semestre</strong> vai de 01 a 07, e o <strong>Segundo Semestre</strong> tem numeração própria, de 01 a 06. Dentro de cada disciplina há três pastas — Livros, Slides e Conteúdos Extras — com a numeração da disciplina ao lado (ex: "03 Slides" pertence à disciplina 03).</p>
+  </div>
+
+  <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
 
 <!-- ============ PÁGINA: FERRAMENTAS ============ -->
@@ -1243,18 +1247,21 @@ document.querySelectorAll('.sticky-nav [data-scroll]').forEach(btn=>{
   });
 });
 
-// Navegação entre páginas (Ferramentas / Vídeos)
+// Navegação entre páginas (Cursos / Ferramentas / Vídeos / Sobre)
+const ALL_PAGES = ['top', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSobre'];
 function switchPage(id){
-  document.getElementById('top').style.display = (id === 'top') ? 'block' : 'none';
-  document.getElementById('viewFerramentas').style.display = (id === 'viewFerramentas') ? 'block' : 'none';
-  document.getElementById('viewVideos').style.display = (id === 'viewVideos') ? 'block' : 'none';
+  ALL_PAGES.forEach(pid=>{
+    document.getElementById(pid).style.display = (pid === id) ? 'block' : 'none';
+  });
   window.scrollTo(0,0);
 }
 document.querySelectorAll('.sticky-nav [data-page]').forEach(btn=>{
   btn.addEventListener('click', ()=> switchPage(btn.dataset.page));
 });
+document.getElementById('backFromCursos').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromFerramentas').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromVideos').addEventListener('click', ()=> switchPage('top'));
+document.getElementById('backFromSobre').addEventListener('click', ()=> switchPage('top'));
 
 // Página Vídeos — accordion por disciplina (Segundo Semestre)
 // Formato para adicionar vídeos futuramente: {titulo, youtubeId, nota}
@@ -1406,7 +1413,7 @@ let deferredInstallPrompt = null;
 const installBtnHome = document.getElementById('installBtnHome');
 
 function showInstallButtons(){
-  installBtnHome.style.display = 'inline-flex';
+  installBtnHome.style.display = 'inline-block';
 }
 
 window.addEventListener('beforeinstallprompt', (e)=>{
