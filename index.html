@@ -801,6 +801,7 @@
     border-radius:2px;
   }
   .install-tab.active{background:var(--ink); color:var(--paper);}
+
   .install-steps{display:flex; flex-direction:column; gap:16px;}
   .install-step{
     display:flex;
@@ -1186,11 +1187,12 @@
   <header>
     <div class="eyebrow">Ferramentas · Arquivo Vivo</div>
     <h1>Ferramentas</h1>
-    <p>Pequenos exercícios pra praticar habilidades do dia a dia acadêmico. Comece pelo conversor abaixo.</p>
+    <p>Pequenos exercícios pra praticar habilidades do dia a dia acadêmico.</p>
   </header>
 
-  <div class="tool-card">
-    <h2>Conversor para Linguagem Científica</h2>
+  <details class="graveyard">
+    <summary>Conversor para Linguagem Científica (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
     <div class="sub">Leia a frase do dia a dia abaixo e reescreva com linguagem científica/acadêmica. Depois clique em "Corrigir" pra ver como você se saiu.</div>
 
     <div class="prompt-box">
@@ -1211,7 +1213,52 @@
     <div class="tool-disclaimer">
       Essa correção é automática, baseada em termos-chave esperados — não é uma inteligência artificial avaliando sua redação com profundidade. Ela indica pistas, não substitui a avaliação de um professor.
     </div>
-  </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary>Psicologia Experimental — Qual é a Variável? (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a situação de pesquisa e associe cada elemento ao conceito certo. Clique em "Corrigir" pra conferir.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Situação de pesquisa</div>
+        <div class="pfrase" id="varCenarioTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="varShuffleBtn">🔀 Sortear outra situação</button>
+
+      <div id="varCampos" style="margin-top:18px; display:flex; flex-direction:column; gap:12px;"></div>
+
+      <button class="correct-btn" id="varCorrigirBtn" style="margin-top:8px;">Corrigir</button>
+      <div class="pfeedback" id="varFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        Correção automática por associação exata — cada situação tem uma resposta certa definida. Não é IA analisando texto livre; é um exercício de reconhecimento de conceitos.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary>Psicologia Experimental — Monte o Experimento (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Você recebe só a pergunta de pesquisa. Escolha, campo por campo, como desenharia o experimento. Cada escolha errada explica qual problema metodológico ela introduziria.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Pergunta de pesquisa</div>
+        <div class="pfrase" id="montarPerguntaTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="montarShuffleBtn">🔀 Sortear outra pergunta</button>
+
+      <div id="montarCampos" style="margin-top:18px; display:flex; flex-direction:column; gap:16px;"></div>
+
+      <button class="correct-btn" id="montarCorrigirBtn" style="margin-top:8px;">Corrigir Desenho</button>
+      <div class="pfeedback" id="montarFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        Cada campo tem uma opção correta e uma opção com um erro metodológico comum, sempre explicado ao errar. Ainda não é IA lendo justificativas livres — é um exercício guiado de reconhecimento de erros típicos.
+      </div>
+    </div>
+  </details>
 
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
@@ -1265,11 +1312,10 @@ function newBadge(dateStr){
 // Lista de atualizações — editada só via Claude (a partir do que você me avisa) e republicada.
 // REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
 const UPDATES = [
+  {date: '2026-08-29', disc: 'Psicologia Experimental', desc: 'Nova ferramenta: Monte o Experimento.'},
+  {date: '2026-08-29', disc: 'Psicologia Experimental', desc: 'Nova ferramenta: Qual é a Variável?'},
   {date: '2026-08-28', disc: 'Bases Biológicas', desc: 'Novo vídeo: O que é genética comportamental?'},
-  {date: '2026-08-28', disc: 'Psicologia da Aprendizagem', desc: 'Novo vídeo: Teorias da aprendizagem e do desenvolvimento.'},
-  {date: '2026-08-28', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Novo vídeo: Desenvolvimento Humano — A adultez.'},
-  {date: '2026-08-27', disc: 'Ferramentas', desc: 'Nova ferramenta: Conversor para Linguagem Científica.'},
-  {date: '2026-08-27', disc: 'Geral', desc: 'Nova página: Vídeos para suporte nos estudos.'}
+  {date: '2026-08-28', disc: 'Psicologia da Aprendizagem', desc: 'Novo vídeo: Teorias da aprendizagem e do desenvolvimento.'}
 ];
 
 function renderGrid(sem){
@@ -1550,9 +1596,9 @@ renderVideos();
   const diffMs = new Date() - latest;
   const diffH = Math.floor(diffMs / 3600000);
   let txt;
-  if(diffH < 1) txt = 'Última atualização: agora há pouco';
-  else if(diffH < 24) txt = `Última atualização: há ${diffH} hora${diffH>1?'s':''}`;
-  else txt = `Última atualização: há ${Math.floor(diffH/24)} dia${Math.floor(diffH/24)>1?'s':''}`;
+  if(diffH < 1) txt = 'Última atualização no site: agora há pouco';
+  else if(diffH < 24) txt = `Última atualização no site: há ${diffH} hora${diffH>1?'s':''}`;
+  else txt = `Última atualização no site: há ${Math.floor(diffH/24)} dia${Math.floor(diffH/24)>1?'s':''}`;
   document.getElementById('syncText').textContent = txt;
 })();
 
@@ -1639,6 +1685,435 @@ document.getElementById('revealBtn').addEventListener('click', ()=>{
   const m = document.getElementById('modelAnswer');
   m.textContent = atual.sugestao;
   m.classList.add('show');
+});
+
+// --- Ferramenta: Qual é a Variável? (Psicologia Experimental) ---
+const VAR_CENARIOS = [
+  {
+    texto: "Pesquisadores querem saber se o nível de ruído ambiente durante uma prova afeta o desempenho de estudantes. Um grupo faz a prova em sala silenciosa; outro, em sala com ruído de fundo constante. Todos fazem a mesma prova de matemática, no mesmo horário.",
+    campos: {
+      vi: "Nível de ruído ambiente durante a prova (silencioso vs. ruidoso)",
+      vd: "Pontuação obtida na prova de matemática",
+      grupoExp: "Alunos que fizeram a prova em sala com ruído de fundo",
+      grupoCtrl: "Alunos que fizeram a prova em sala silenciosa",
+      varControle: "Mesma prova aplicada a todos, no mesmo horário do dia",
+      hipotese: "Alunos expostos a ruído durante a prova terão desempenho pior do que os que fizeram a prova em silêncio"
+    }
+  },
+  {
+    texto: "Um estudo investiga se a privação de sono afeta a memória. Um grupo dorme apenas 3 horas na noite anterior; outro dorme 8 horas. No dia seguinte, ambos tentam recordar uma mesma lista de 20 palavras, no mesmo horário da manhã.",
+    campos: {
+      vi: "Quantidade de horas de sono na noite anterior (privado vs. normal)",
+      vd: "Número de palavras recordadas corretamente na lista",
+      grupoExp: "Participantes que dormiram apenas 3 horas",
+      grupoCtrl: "Participantes que dormiram 8 horas",
+      varControle: "Mesma lista de palavras e mesmo horário de teste pela manhã",
+      hipotese: "Participantes com privação de sono recordarão menos palavras do que os que dormiram normalmente"
+    }
+  },
+  {
+    texto: "Uma pesquisa testa se a cor da embalagem influencia a percepção de sabor de um mesmo produto. Um grupo prova o produto numa embalagem vermelha; outro, na mesma bebida numa embalagem azul. Ambos avaliam o sabor numa escala de 1 a 10, na mesma temperatura.",
+    campos: {
+      vi: "Cor da embalagem do produto (vermelha vs. azul)",
+      vd: "Nota de 1 a 10 dada ao sabor do produto",
+      grupoExp: "Participantes que provaram o produto na embalagem vermelha",
+      grupoCtrl: "Participantes que provaram o produto na embalagem azul",
+      varControle: "Mesmo produto, mesma temperatura e mesmo ambiente de degustação",
+      hipotese: "A cor da embalagem influencia a nota atribuída ao sabor do produto"
+    }
+  },
+  {
+    texto: "Pesquisadores testam se exercício físico melhora o humor. Um grupo corre por 20 minutos antes de responder uma escala de humor; outro fica sentado pelos mesmos 20 minutos antes de responder a mesma escala, no mesmo horário do dia.",
+    campos: {
+      vi: "Prática de exercício físico antes do teste (sim vs. não)",
+      vd: "Escore obtido numa escala de humor positivo",
+      grupoExp: "Participantes que correram 20 minutos antes do teste",
+      grupoCtrl: "Participantes que ficaram sentados 20 minutos antes do teste",
+      varControle: "Mesmo horário do dia e mesma escala de humor aplicada",
+      hipotese: "Participantes que se exercitaram apresentarão escores de humor mais positivos"
+    }
+  },
+  {
+    texto: "Um experimento avalia se elogios aumentam a persistência numa tarefa difícil. Após tentarem resolver um quebra-cabeça, um grupo recebe um elogio do experimentador; outro recebe apenas a confirmação neutra de que terminou. Depois, mede-se quanto tempo cada um continua tentando.",
+    campos: {
+      vi: "Tipo de feedback recebido após a tarefa (elogio vs. neutro)",
+      vd: "Tempo que o participante continua tentando resolver o quebra-cabeça",
+      grupoExp: "Participantes que receberam elogio pelo desempenho",
+      grupoCtrl: "Participantes que receberam apenas confirmação neutra",
+      varControle: "Mesmo quebra-cabeça e mesmo experimentador aplicando o teste",
+      hipotese: "Participantes que recebem elogio persistirão por mais tempo na tarefa do que os que recebem feedback neutro"
+    }
+  },
+  {
+    texto: "Um estudo investiga se a exposição à luz azul de telas antes de dormir afeta o tempo para adormecer. Um grupo usa o celular por 1 hora antes de deitar; outro passa 1 hora sem nenhuma tela. Ambos dormem no mesmo horário e no mesmo ambiente escuro.",
+    campos: {
+      vi: "Exposição à luz azul de telas antes de dormir (sim vs. não)",
+      vd: "Tempo, em minutos, até o participante adormecer",
+      grupoExp: "Participantes que usaram celular por 1 hora antes de dormir",
+      grupoCtrl: "Participantes que não usaram nenhuma tela por 1 hora antes de dormir",
+      varControle: "Mesmo horário de dormir e mesmo ambiente (temperatura, escuridão)",
+      hipotese: "A exposição à luz azul antes de dormir aumenta o tempo necessário para adormecer"
+    }
+  },
+  {
+    texto: "Pesquisadores testam se mascar chiclete durante o estudo melhora a memorização. Um grupo estuda uma lista de termos mascando chiclete; outro estuda a mesma lista sem mascar nada. Depois, ambos fazem o mesmo teste de recordação, no mesmo horário.",
+    campos: {
+      vi: "Mascar chiclete durante o estudo (sim vs. não)",
+      vd: "Número de termos corretamente recordados no teste",
+      grupoExp: "Participantes que estudaram mascando chiclete",
+      grupoCtrl: "Participantes que estudaram sem mascar chiclete",
+      varControle: "Mesma lista de termos e mesmo tempo de estudo para os dois grupos",
+      hipotese: "Mascar chiclete durante o estudo melhora a recordação posterior dos termos"
+    }
+  },
+  {
+    texto: "Um experimento avalia se a temperatura da sala influencia a produtividade em tarefas de escrita. Um grupo trabalha numa sala a 18°C; outro, numa sala a 26°C. Ambos têm 30 minutos para escrever um texto sobre o mesmo tema.",
+    campos: {
+      vi: "Temperatura da sala durante a tarefa (18°C vs. 26°C)",
+      vd: "Número de palavras produzidas no texto em 30 minutos",
+      grupoExp: "Participantes que escreveram na sala a 26°C",
+      grupoCtrl: "Participantes que escreveram na sala a 18°C",
+      varControle: "Mesmo tema de redação e mesmo tempo disponível para os dois grupos",
+      hipotese: "A temperatura mais alta da sala reduz a produtividade na tarefa de escrita"
+    }
+  },
+  {
+    texto: "Uma pesquisa investiga se ouvir uma voz calma antes de uma injeção reduz a percepção de dor. Um grupo ouve instruções faladas em tom calmo antes do procedimento; outro recebe a injeção sem qualquer instrução verbal prévia. Depois, ambos avaliam a dor sentida numa escala de 0 a 10.",
+    campos: {
+      vi: "Instrução verbal em tom calmo antes da injeção (presente vs. ausente)",
+      vd: "Nota de dor percebida numa escala de 0 a 10",
+      grupoExp: "Participantes que ouviram instruções em tom calmo antes da injeção",
+      grupoCtrl: "Participantes que receberam a injeção sem instrução verbal prévia",
+      varControle: "Mesmo profissional aplicando a injeção e mesmo local de aplicação",
+      hipotese: "Ouvir instruções em tom calmo antes da injeção reduz a percepção de dor"
+    }
+  },
+  {
+    texto: "Um estudo testa se fazer uma pausa de 5 minutos a cada 25 minutos de estudo melhora o desempenho em uma prova. Um grupo estuda com pausas regulares; outro estuda o mesmo tempo total sem nenhuma pausa. Ambos fazem a mesma prova ao final.",
+    campos: {
+      vi: "Realização de pausas regulares durante o estudo (sim vs. não)",
+      vd: "Pontuação obtida na prova aplicada ao final do estudo",
+      grupoExp: "Participantes que estudaram com pausas de 5 minutos a cada 25 minutos",
+      grupoCtrl: "Participantes que estudaram o mesmo tempo total sem pausas",
+      varControle: "Mesmo conteúdo de estudo e mesmo tempo total dedicado pelos dois grupos",
+      hipotese: "Estudar com pausas regulares melhora o desempenho na prova em comparação a estudar sem pausas"
+    }
+  }
+];
+const VAR_LABELS = {vi:'Variável Independente', vd:'Variável Dependente', grupoExp:'Grupo Experimental', grupoCtrl:'Grupo Controle', varControle:'Variável de Controle', hipotese:'Hipótese'};
+let varAtual = null;
+
+function varSortear(){
+  let novo;
+  do{ novo = VAR_CENARIOS[Math.floor(Math.random()*VAR_CENARIOS.length)]; } while(novo === varAtual && VAR_CENARIOS.length > 1);
+  varAtual = novo;
+  document.getElementById('varCenarioTexto').textContent = varAtual.texto;
+
+  const opcoes = Object.keys(varAtual.campos).map(k => varAtual.campos[k]);
+  const shuffled = [...opcoes].sort(()=> Math.random() - 0.5);
+
+  const camposEl = document.getElementById('varCampos');
+  camposEl.innerHTML = Object.keys(VAR_LABELS).map(key => `
+    <div>
+      <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">${VAR_LABELS[key]}</label>
+      <select data-campo="${key}" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);">
+        <option value="">Selecione...</option>
+        ${shuffled.map(op => `<option value="${op.replace(/"/g,'&quot;')}">${op}</option>`).join('')}
+      </select>
+    </div>
+  `).join('');
+  document.getElementById('varFeedbackBox').className = 'pfeedback';
+  document.getElementById('varFeedbackBox').innerHTML = '';
+}
+document.getElementById('varShuffleBtn').addEventListener('click', varSortear);
+varSortear();
+
+document.getElementById('varCorrigirBtn').addEventListener('click', ()=>{
+  const selects = document.querySelectorAll('#varCampos select');
+  let acertos = 0;
+  let algumVazio = false;
+  const erros = [];
+  selects.forEach(sel=>{
+    const campo = sel.dataset.campo;
+    const correta = varAtual.campos[campo];
+    if(!sel.value){ algumVazio = true; return; }
+    if(sel.value === correta){ acertos++; }
+    else{ erros.push(VAR_LABELS[campo]); }
+  });
+  const box = document.getElementById('varFeedbackBox');
+  const total = selects.length;
+  if(algumVazio){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Preencha todos os campos antes de corrigir.</strong>';
+    return;
+  }
+  if(acertos === total){
+    box.className = 'pfeedback show good';
+    box.innerHTML = `<strong>Acertou todos os ${total}!</strong> Você identificou corretamente cada elemento do desenho experimental.`;
+  } else {
+    box.className = 'pfeedback show partial';
+    box.innerHTML = `<strong>${acertos} de ${total} corretos.</strong><p>Revise: ${erros.join(', ')}.</p>`;
+  }
+});
+
+// --- Ferramenta: Monte o Experimento (Psicologia Experimental) ---
+const MONTAR_CENARIOS = [
+  {
+    pergunta: "A técnica de estudo Pomodoro melhora a retenção de conteúdo em estudantes universitários?",
+    campos: [
+      {chave:'vi', label:'Variável Independente', opcoes:[
+        {texto:'Uso da técnica Pomodoro durante o estudo (sim vs. não)', correta:true},
+        {texto:'Nota final do estudante no semestre', correta:false, problema:'Isso é uma consequência distante e genérica, não a variável manipulada especificamente nesse estudo.'}
+      ]},
+      {chave:'vd', label:'Variável Dependente', opcoes:[
+        {texto:'Número de itens corretamente recordados num teste após o estudo', correta:true},
+        {texto:'Se o aluno gostou ou não da técnica', correta:false, problema:'Isso mede preferência subjetiva, não retenção de conteúdo — que é o que a pergunta de pesquisa pede.'}
+      ]},
+      {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
+        {texto:'Estudantes que usaram a técnica Pomodoro durante as sessões de estudo', correta:true},
+        {texto:'Estudantes com histórico de notas altas', correta:false, problema:'Selecionar participantes pela nota introduz viés de seleção — o grupo experimental precisa ser definido pelo uso ou não da técnica, não por desempenho prévio.'}
+      ]},
+      {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
+        {texto:'Estudantes que estudaram o mesmo conteúdo sem usar a técnica Pomodoro', correta:true},
+        {texto:'Não ter grupo controle — comparar só o antes e depois do mesmo grupo', correta:false, problema:'Sem grupo controle, não dá pra saber se a melhora veio da técnica ou de outro fator, como simplesmente ter revisado a matéria de novo.'}
+      ]},
+      {chave:'varControle', label:'Variável de Controle', opcoes:[
+        {texto:'Mesmo conteúdo de estudo e mesmo tempo total disponível para os dois grupos', correta:true},
+        {texto:'Deixar cada grupo escolher livremente quanto tempo quer estudar', correta:false, problema:'Isso vira uma variável não controlada — pode ser a real explicação da diferença de resultado, não a técnica em si.'}
+      ]},
+      {chave:'hipotese', label:'Hipótese', opcoes:[
+        {texto:'Estudantes que usam a técnica Pomodoro reterão mais conteúdo do que os que não usam', correta:true},
+        {texto:'A técnica Pomodoro é a melhor técnica de estudo que existe', correta:false, problema:'Isso é uma afirmação absoluta e não testável diretamente por esse experimento específico — a hipótese precisa ser proporcional ao que foi de fato testado.'}
+      ]}
+    ]
+  },
+  {
+    pergunta: "Assistir a vídeos com legenda em outro idioma melhora a compreensão auditiva em quem estuda essa língua?",
+    campos: [
+      {chave:'vi', label:'Variável Independente', opcoes:[
+        {texto:'Presença ou ausência de legenda no idioma estudado durante os vídeos', correta:true},
+        {texto:'Nível de proficiência declarado pelo próprio participante', correta:false, problema:'Isso é uma característica prévia do participante, não algo manipulado pelo pesquisador — não pode ser a variável independente.'}
+      ]},
+      {chave:'vd', label:'Variável Dependente', opcoes:[
+        {texto:'Pontuação num teste de compreensão auditiva aplicado após os vídeos', correta:true},
+        {texto:'Quantos vídeos o participante assistiu no total', correta:false, problema:'Isso mede exposição, não o resultado de compreensão que a pergunta de pesquisa quer investigar.'}
+      ]},
+      {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
+        {texto:'Participantes que assistiram aos vídeos com legenda no idioma estudado', correta:true},
+        {texto:'Participantes que já moraram no exterior', correta:false, problema:'Isso é um critério de histórico de vida, não o tratamento que está sendo testado no experimento.'}
+      ]},
+      {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
+        {texto:'Participantes que assistiram aos mesmos vídeos, sem legenda', correta:true},
+        {texto:'Participantes que assistiram vídeos totalmente diferentes, sem legenda', correta:false, problema:'Mudar o conteúdo dos vídeos introduz uma segunda variável — o grupo controle precisa diferir só na presença da legenda.'}
+      ]},
+      {chave:'varControle', label:'Variável de Controle', opcoes:[
+        {texto:'Mesmo conteúdo e duração dos vídeos para os dois grupos', correta:true},
+        {texto:'Não é necessário controlar o conteúdo, já que o importante é só a legenda', correta:false, problema:'Sem controlar o conteúdo dos vídeos, uma diferença de resultado pode vir do conteúdo em si, não da legenda.'}
+      ]},
+      {chave:'hipotese', label:'Hipótese', opcoes:[
+        {texto:'Participantes expostos a vídeos com legenda no idioma estudado terão melhor compreensão auditiva do que os que assistiram sem legenda', correta:true},
+        {texto:'Assistir vídeos em outro idioma é a melhor forma de aprender uma língua', correta:false, problema:'Essa afirmação é ampla demais e não corresponde ao que o experimento especificamente testa (o efeito da legenda, não do método como um todo).'}
+      ]}
+    ]
+  },
+  {
+    pergunta: "A prática de mindfulness antes de uma apresentação reduz os níveis de ansiedade percebida?",
+    campos: [
+      {chave:'vi', label:'Variável Independente', opcoes:[
+        {texto:'Realização ou não de uma sessão guiada de mindfulness antes da apresentação', correta:true},
+        {texto:'Quanto tempo o participante levou se preparando para a apresentação', correta:false, problema:'Isso é uma variável de confusão em potencial, não o que está sendo manipulado no experimento.'}
+      ]},
+      {chave:'vd', label:'Variável Dependente', opcoes:[
+        {texto:'Nível de ansiedade autorrelatado numa escala, momentos antes de apresentar', correta:true},
+        {texto:'Nota final que o participante recebeu na apresentação', correta:false, problema:'Isso mede desempenho, não ansiedade percebida — que é o que a pergunta de pesquisa pede especificamente.'}
+      ]},
+      {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
+        {texto:'Participantes que fizeram a sessão guiada de mindfulness antes de apresentar', correta:true},
+        {texto:'Participantes que relataram ser naturalmente mais calmos', correta:false, problema:'Isso é uma característica de personalidade prévia, não o tratamento aplicado pelo pesquisador.'}
+      ]},
+      {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
+        {texto:'Participantes que aguardaram em silêncio pelo mesmo tempo, sem a sessão guiada', correta:true},
+        {texto:'Participantes que assistiram a um vídeo motivacional no mesmo tempo', correta:false, problema:'Isso introduz uma segunda intervenção — o grupo controle deveria diferir do experimental só pela ausência do mindfulness.'}
+      ]},
+      {chave:'varControle', label:'Variável de Controle', opcoes:[
+        {texto:'Mesmo tempo de espera e mesmo contexto de apresentação para os dois grupos', correta:true},
+        {texto:'Permitir que cada grupo apresente em um dia diferente, conforme a agenda', correta:false, problema:'Isso pode introduzir variação de contexto (público diferente, humor do dia) que confunde o efeito real do mindfulness.'}
+      ]},
+      {chave:'hipotese', label:'Hipótese', opcoes:[
+        {texto:'Participantes que praticam mindfulness antes de apresentar relatarão menor ansiedade do que os que não praticam', correta:true},
+        {texto:'Mindfulness resolve problemas de ansiedade', correta:false, problema:'Essa hipótese é ampla e não testável diretamente por esse desenho específico, que mede só um momento pontual antes de uma apresentação.'}
+      ]}
+    ]
+  },
+  {
+    pergunta: "Ouvir música instrumental durante tarefas de concentração melhora o desempenho?",
+    campos: [
+      {chave:'vi', label:'Variável Independente', opcoes:[
+        {texto:'Presença ou ausência de música instrumental durante a tarefa (sim vs. não)', correta:true},
+        {texto:'Gênero musical preferido do participante', correta:false, problema:'Essa é uma característica prévia do participante, não o que o pesquisador está manipulando no experimento.'}
+      ]},
+      {chave:'vd', label:'Variável Dependente', opcoes:[
+        {texto:'Número de tarefas de concentração resolvidas corretamente em 10 minutos', correta:true},
+        {texto:'Se o participante achou a música agradável', correta:false, problema:'Isso mede preferência subjetiva, não desempenho na tarefa, que é o efeito que a pergunta de pesquisa quer medir.'}
+      ]},
+      {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
+        {texto:'Participantes que realizaram a tarefa ouvindo música instrumental', correta:true},
+        {texto:'Participantes que disseram gostar de estudar com música', correta:false, problema:'Isso é uma preferência autodeclarada, não o critério que separa os grupos no experimento — o grupo precisa ser definido pela exposição real à música durante a tarefa.'}
+      ]},
+      {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
+        {texto:'Participantes que realizaram a mesma tarefa em silêncio', correta:true},
+        {texto:'Participantes que realizaram uma tarefa diferente, também em silêncio', correta:false, problema:'Mudar a tarefa introduz uma segunda variável — o grupo controle deveria fazer exatamente a mesma tarefa, só sem a música.'}
+      ]},
+      {chave:'varControle', label:'Variável de Controle', opcoes:[
+        {texto:'Mesma tarefa, mesmo tempo disponível e mesmo ambiente para os dois grupos', correta:true},
+        {texto:'Deixar o volume da música à escolha de cada participante', correta:false, problema:'Isso introduz uma variável não controlada (o volume) que pode ser a real explicação de qualquer diferença encontrada.'}
+      ]},
+      {chave:'hipotese', label:'Hipótese', opcoes:[
+        {texto:'Participantes que ouvem música instrumental durante a tarefa terão melhor desempenho do que os que trabalham em silêncio', correta:true},
+        {texto:'Música ajuda a estudar', correta:false, problema:'Essa afirmação é genérica demais e não corresponde ao que o experimento especificamente testa (tarefas de concentração com música instrumental).'}
+      ]}
+    ]
+  },
+  {
+    pergunta: "Escrever à mão, em vez de digitar, melhora a retenção de conteúdo em aulas expositivas?",
+    campos: [
+      {chave:'vi', label:'Variável Independente', opcoes:[
+        {texto:'Forma de anotação usada durante a aula (à mão vs. digitada)', correta:true},
+        {texto:'Quantidade de páginas de anotação produzidas', correta:false, problema:'Isso é uma consequência da forma de anotação, não a variável manipulada — o pesquisador está testando o método, não a quantidade produzida.'}
+      ]},
+      {chave:'vd', label:'Variável Dependente', opcoes:[
+        {texto:'Pontuação num teste de conteúdo aplicado uma semana depois da aula', correta:true},
+        {texto:'Velocidade com que o participante conseguiu anotar', correta:false, problema:'Isso mede a rapidez da anotação, não a retenção de conteúdo, que é o efeito que a pergunta de pesquisa quer investigar.'}
+      ]},
+      {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
+        {texto:'Participantes que anotaram a aula à mão', correta:true},
+        {texto:'Participantes que já tinham familiaridade prévia com o tema da aula', correta:false, problema:'Isso é uma característica prévia dos participantes, não o tratamento (forma de anotação) que está sendo testado.'}
+      ]},
+      {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
+        {texto:'Participantes que digitaram as anotações da mesma aula', correta:true},
+        {texto:'Participantes que assistiram à aula sem fazer nenhuma anotação', correta:false, problema:'Isso muda demais a condição testada — a pergunta compara duas formas de anotar, não anotar contra não anotar.'}
+      ]},
+      {chave:'varControle', label:'Variável de Controle', opcoes:[
+        {texto:'Mesma aula, mesmo professor e mesmo tempo de duração para os dois grupos', correta:true},
+        {texto:'Deixar cada grupo assistir a aula em dias diferentes, com professores diferentes', correta:false, problema:'Trocar o professor ou o dia introduz variáveis de confusão que podem explicar a diferença de resultado, não a forma de anotação em si.'}
+      ]},
+      {chave:'hipotese', label:'Hipótese', opcoes:[
+        {texto:'Participantes que anotam à mão reterão mais conteúdo do que os que digitam', correta:true},
+        {texto:'Anotar à mão é sempre melhor do que digitar', correta:false, problema:'Essa afirmação é absoluta e vai além do que esse experimento específico (uma aula, um teste posterior) pode comprovar.'}
+      ]}
+    ]
+  },
+  {
+    pergunta: "A presença de plantas numa sala de trabalho reduz os níveis de estresse percebido?",
+    campos: [
+      {chave:'vi', label:'Variável Independente', opcoes:[
+        {texto:'Presença de plantas na sala durante a tarefa (com vs. sem plantas)', correta:true},
+        {texto:'Se o participante gosta de plantas', correta:false, problema:'Isso é uma preferência pessoal prévia, não a condição manipulada pelo pesquisador no ambiente.'}
+      ]},
+      {chave:'vd', label:'Variável Dependente', opcoes:[
+        {texto:'Nível de estresse autorrelatado numa escala, ao final da tarefa', correta:true},
+        {texto:'Quantidade de plantas que havia na sala', correta:false, problema:'Isso descreve a própria variável independente (a condição do ambiente), não o efeito medido nos participantes.'}
+      ]},
+      {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
+        {texto:'Participantes que realizaram a tarefa numa sala com plantas', correta:true},
+        {texto:'Participantes que trabalham em escritórios com plantas no dia a dia', correta:false, problema:'Isso é uma característica do ambiente de trabalho habitual do participante, não a condição controlada criada para o experimento.'}
+      ]},
+      {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
+        {texto:'Participantes que realizaram a mesma tarefa numa sala idêntica, sem plantas', correta:true},
+        {texto:'Participantes que realizaram a tarefa em casa, no próprio ambiente', correta:false, problema:'Mudar o local de casa para laboratório introduz muitas variáveis de confusão além da presença de plantas.'}
+      ]},
+      {chave:'varControle', label:'Variável de Controle', opcoes:[
+        {texto:'Mesma tarefa, mesma iluminação e mesmo layout de sala para os dois grupos', correta:true},
+        {texto:'Não é necessário controlar a sala, já que o importante são só as plantas', correta:false, problema:'Sem controlar outros aspectos da sala, diferenças de iluminação ou layout podem ser a real causa de qualquer resultado encontrado, não as plantas.'}
+      ]},
+      {chave:'hipotese', label:'Hipótese', opcoes:[
+        {texto:'Participantes que trabalham em salas com plantas relatarão menor estresse do que os que trabalham em salas sem plantas', correta:true},
+        {texto:'Plantas deixam qualquer ambiente mais agradável', correta:false, problema:'Essa afirmação é genérica e subjetiva demais, e não corresponde à variável dependente específica (estresse percebido) medida no experimento.'}
+      ]}
+    ]
+  },
+  {
+    pergunta: "Fazer uma breve caminhada antes de uma tarefa criativa aumenta a quantidade de ideias geradas?",
+    campos: [
+      {chave:'vi', label:'Variável Independente', opcoes:[
+        {texto:'Realização de uma caminhada de 10 minutos antes da tarefa (sim vs. não)', correta:true},
+        {texto:'Nível de criatividade autoavaliado pelo participante', correta:false, problema:'Isso é uma característica ou percepção prévia do participante, não a condição manipulada pelo pesquisador.'}
+      ]},
+      {chave:'vd', label:'Variável Dependente', opcoes:[
+        {texto:'Número de ideias diferentes geradas numa tarefa de brainstorming em 5 minutos', correta:true},
+        {texto:'Se o participante gostou da caminhada', correta:false, problema:'Isso mede satisfação com a caminhada, não o resultado criativo que a pergunta de pesquisa quer investigar.'}
+      ]},
+      {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
+        {texto:'Participantes que caminharam por 10 minutos antes da tarefa criativa', correta:true},
+        {texto:'Participantes que praticam caminhada regularmente no dia a dia', correta:false, problema:'Isso é um hábito prévio do participante, não o tratamento específico (caminhar antes da tarefa) aplicado no experimento.'}
+      ]},
+      {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
+        {texto:'Participantes que ficaram sentados por 10 minutos antes da mesma tarefa', correta:true},
+        {texto:'Participantes que fizeram a tarefa em outro dia, sem caminhada nem espera', correta:false, problema:'Trocar o dia da coleta introduz variação de contexto que pode confundir o efeito real da caminhada.'}
+      ]},
+      {chave:'varControle', label:'Variável de Controle', opcoes:[
+        {texto:'Mesma tarefa criativa e mesmo tempo disponível para os dois grupos', correta:true},
+        {texto:'Permitir que cada grupo tenha um tempo diferente para a tarefa criativa', correta:false, problema:'Tempos diferentes de tarefa tornam os grupos incomparáveis — essa variável precisa ser igual para isolar o efeito da caminhada.'}
+      ]},
+      {chave:'hipotese', label:'Hipótese', opcoes:[
+        {texto:'Participantes que caminham antes da tarefa criativa gerarão mais ideias do que os que não caminham', correta:true},
+        {texto:'Exercício físico é bom para o cérebro', correta:false, problema:'Essa hipótese é ampla demais e não corresponde ao que o experimento especificamente testa (uma caminhada curta e uma tarefa criativa pontual).'}
+      ]}
+    ]
+  }
+];
+const MONTAR_LABELS_ORDER = ['vi','vd','grupoExp','grupoCtrl','varControle','hipotese'];
+let montarAtual = null;
+
+function montarSortear(){
+  let novo;
+  do{ novo = MONTAR_CENARIOS[Math.floor(Math.random()*MONTAR_CENARIOS.length)]; } while(novo === montarAtual && MONTAR_CENARIOS.length > 1);
+  montarAtual = novo;
+  document.getElementById('montarPerguntaTexto').textContent = montarAtual.pergunta;
+
+  const camposEl = document.getElementById('montarCampos');
+  camposEl.innerHTML = montarAtual.campos.map((campo, idx) => {
+    const shuffled = [...campo.opcoes].sort(()=> Math.random() - 0.5);
+    return `<div>
+      <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:6px;">${campo.label}</label>
+      ${shuffled.map((op, oi) => `
+        <label style="display:flex; align-items:flex-start; gap:8px; font-size:13.5px; padding:6px 0; cursor:pointer;">
+          <input type="radio" name="montar-${idx}" value="${oi}" data-correta="${op.correta}" data-problema="${(op.problema||'').replace(/"/g,'&quot;')}" style="margin-top:3px;">
+          <span>${op.texto}</span>
+        </label>
+      `).join('')}
+    </div>`;
+  }).join('');
+  document.getElementById('montarFeedbackBox').className = 'pfeedback';
+  document.getElementById('montarFeedbackBox').innerHTML = '';
+}
+document.getElementById('montarShuffleBtn').addEventListener('click', montarSortear);
+montarSortear();
+
+document.getElementById('montarCorrigirBtn').addEventListener('click', ()=>{
+  const box = document.getElementById('montarFeedbackBox');
+  let acertos = 0;
+  let algumVazio = false;
+  const problemas = [];
+  montarAtual.campos.forEach((campo, idx) => {
+    const marcado = document.querySelector(`input[name="montar-${idx}"]:checked`);
+    if(!marcado){ algumVazio = true; return; }
+    if(marcado.dataset.correta === 'true'){ acertos++; }
+    else{ problemas.push(`<li><strong>${campo.label}:</strong> ${marcado.dataset.problema}</li>`); }
+  });
+  const total = montarAtual.campos.length;
+  if(algumVazio){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção em cada campo antes de corrigir.</strong>';
+    return;
+  }
+  if(acertos === total){
+    box.className = 'pfeedback show good';
+    box.innerHTML = `<strong>Desenho experimental correto — ${total} de ${total}!</strong> Nenhum problema metodológico identificado nas suas escolhas.`;
+  } else {
+    box.className = 'pfeedback show partial';
+    box.innerHTML = `<strong>${acertos} de ${total} corretos. Problemas metodológicos encontrados:</strong><ul>${problemas.join('')}</ul>`;
+  }
 });
 
 // --- Instalar como app (PWA) ---
