@@ -787,6 +787,17 @@
     border-top:1px solid var(--rule);
     padding-top:14px;
   }
+  .opcao-radio{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    font-size:13.5px;
+    padding:9px 4px;
+    cursor:pointer;
+    border-radius:2px;
+  }
+  .opcao-radio:hover{background:var(--paper-alt);}
+  .opcao-radio input{margin-top:3px;}
 
   /* Página Como Instalar */
   .install-tabs{display:flex; gap:8px; margin:24px 0 20px;}
@@ -847,7 +858,7 @@
   }
   .qr-block span{font-size:10.5px;max-width:90px;line-height:1.3;}
 
-  /* ===== Página Vídeos — tema de sala de projeção ===== */
+  /* ===== Página Vídeos: tema de sala de projeção ===== */
   .cine{
     background:#141110;
     color:#F2EDE3;
@@ -1027,7 +1038,7 @@
   <div class="thin-rule"></div>
 
   <div class="notice">
-    <strong>Atualizações aqui são esporádicas.</strong> Pra material sempre em dia, o ideal é acompanhar os grupos oficiais do WhatsApp da turma — este painel serve pra concentrar tudo em um único lugar, não substitui os avisos de lá.
+    <strong>Atualizações aqui são esporádicas.</strong> Pra material sempre em dia, o ideal é acompanhar os grupos oficiais do WhatsApp da turma. Este painel serve pra concentrar tudo em um único lugar, não substitui os avisos de lá.
   </div>
 
   <footer>
@@ -1088,15 +1099,16 @@
   </header>
 
   <div class="about-body" style="background:var(--paper-alt); border:1px solid var(--rule); border-radius:2px; padding:20px 22px;">
-    <p>Este painel organiza, num único lugar, o material que a turma de Psicologia compartilha ao longo do curso. É uma iniciativa de aluno para aluno — sem vínculo com a coordenação ou com a Afya, sem fins remunerados e sem gerar qualquer benefício acadêmico.</p>
-    <p>Mantenho o Drive e este painel de forma voluntária, junto das minhas outras responsabilidades — por isso as atualizações acontecem quando dá, não em um cronograma fixo. Mesmo assim, sigo revisando e adicionando material com regularidade. Se notar algo faltando ou desatualizado, me avisa que eu avalio incluir.</p>
+    <p>Este painel organiza, num único lugar, o material que a turma de Psicologia compartilha ao longo do curso. É uma iniciativa de aluno para aluno, sem vínculo com a coordenação ou com a Afya, sem fins remunerados e sem gerar qualquer benefício acadêmico.</p>
+    <p>Mantenho o Drive e este painel de forma voluntária, junto das minhas outras responsabilidades, por isso as atualizações acontecem quando dá, não em um cronograma fixo. Mesmo assim, sigo revisando e adicionando material com regularidade. Se notar algo faltando ou desatualizado, me avisa que eu avalio incluir.</p>
     <p>O Drive é a fonte mais completa; este painel é só um atalho visual pra ela. Os grupos oficiais do WhatsApp continuam sendo o canal mais confiável pra avisos do dia a dia. Como o Drive está numa conta pessoal com espaço limitado, se encontrar algo importante, baixe e guarde no seu dispositivo.</p>
     <h4>Navegação do Drive</h4>
-    <p>As disciplinas são numeradas: o <strong>Primeiro Semestre</strong> vai de 01 a 07, e o <strong>Segundo Semestre</strong> tem numeração própria, de 01 a 06. Dentro de cada disciplina há três pastas — Livros, Slides e Conteúdos Extras — com a numeração da disciplina ao lado (ex: "03 Slides" pertence à disciplina 03).</p>
+    <p>As disciplinas são numeradas: o <strong>Primeiro Semestre</strong> vai de 01 a 07, e o <strong>Segundo Semestre</strong> tem numeração própria, de 01 a 06. Dentro de cada disciplina há três pastas: Livros, Slides e Conteúdos Extras, com a numeração da disciplina ao lado (ex: "03 Slides" pertence à disciplina 03).</p>
+    <p style="font-size:12px; color:var(--ink-soft);">O painel apenas organiza links de acesso a materiais disponibilizados para fins exclusivamente didáticos no âmbito acadêmico. A propriedade intelectual dos livros, slides e artigos pertence aos seus respectivos autores e editoras.</p>
   </div>
 
   <div class="notice" style="max-width:none;">
-    <strong>Este painel não substitui os grupos oficiais.</strong> As informações aqui são atualizadas manualmente e de forma esporádica — para novidades em tempo real, o canal mais confiável continua sendo os grupos oficiais do WhatsApp da turma.
+    <strong>Este painel não substitui os grupos oficiais.</strong> As informações aqui são atualizadas manualmente e de forma esporádica. Para novidades em tempo real, o canal mais confiável continua sendo os grupos oficiais do WhatsApp da turma.
   </div>
 
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
@@ -1109,7 +1121,7 @@
   <header>
     <div class="eyebrow">Como Instalar · Arquivo Vivo</div>
     <h1>Baixe o Aplicativo</h1>
-    <p>O Arquivo Vivo pode ser instalado no seu celular e abrir como um app de verdade — com ícone na tela inicial e sem a barra do navegador. Siga o passo a passo do seu aparelho abaixo.</p>
+    <p>O Arquivo Vivo pode ser instalado no seu celular e abrir como um app de verdade, com ícone na tela inicial e sem a barra do navegador. Siga o passo a passo do seu aparelho abaixo.</p>
   </header>
 
   <div class="install-tabs">
@@ -1142,7 +1154,7 @@
       </div>
       <div class="install-text">
         <div class="install-num">Passo 3</div>
-        <p>Confirme tocando em <strong>"Instalar"</strong>. Pronto — o ícone do Arquivo Vivo aparece na sua tela inicial, junto dos outros apps.</p>
+        <p>Confirme tocando em <strong>"Instalar"</strong>. Pronto: o ícone do Arquivo Vivo aparece na sua tela inicial, junto dos outros apps.</p>
       </div>
     </div>
     <button class="correct-btn" id="installNowBtn" style="margin-top:8px;">Tentar instalar agora</button>
@@ -1176,7 +1188,7 @@
         <p>Confirme tocando em <strong>"Adicionar"</strong> no canto superior direito. O ícone do Arquivo Vivo aparece na sua tela inicial, igual um app baixado da App Store.</p>
       </div>
     </div>
-    <div class="tool-disclaimer">No iPhone, esse passo é sempre manual — a Apple não permite que nenhum site dispare a instalação sozinho, então não tem botão de "instalar automaticamente" por aqui.</div>
+    <div class="tool-disclaimer">No iPhone, esse passo é sempre manual: a Apple não permite que nenhum site dispare a instalação sozinho, então não tem botão de "instalar automaticamente" por aqui.</div>
   </div>
 
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
@@ -1188,10 +1200,13 @@
     <div class="eyebrow">Ferramentas · Arquivo Vivo</div>
     <h1>Ferramentas</h1>
     <p>Pequenos exercícios pra praticar habilidades do dia a dia acadêmico.</p>
+    <div class="notice">
+      <strong>Todas as ferramentas abaixo são didáticas.</strong> Servem pra praticar raciocínio e reconhecer conceitos, não pra diagnóstico, avaliação clínica ou qualquer decisão sobre pessoas reais. As respostas refletem simplificações e associações mais destacadas na literatura; sempre valide com seu professor.
+    </div>
   </header>
 
   <details class="graveyard">
-    <summary>Conversor para Linguagem Científica (clique pra abrir)</summary>
+    <summary><strong>Psicologia Experimental</strong> · Conversor para Linguagem Científica (clique pra abrir)</summary>
     <div class="tool-card" style="margin-top:12px;">
     <div class="sub">Leia a frase do dia a dia abaixo e reescreva com linguagem científica/acadêmica. Depois clique em "Corrigir" pra ver como você se saiu.</div>
 
@@ -1211,13 +1226,13 @@
     <div class="model-answer" id="modelAnswer"></div>
 
     <div class="tool-disclaimer">
-      Essa correção é automática, baseada em termos-chave esperados — não é uma inteligência artificial avaliando sua redação com profundidade. Ela indica pistas, não substitui a avaliação de um professor.
+      Essa correção é automática, baseada em termos-chave esperados; não é uma inteligência artificial avaliando sua redação com profundidade. Ela indica pistas, não substitui a avaliação de um professor.
     </div>
     </div>
   </details>
 
   <details class="graveyard">
-    <summary>Psicologia Experimental — Qual é a Variável? (clique pra abrir)</summary>
+    <summary><strong>Psicologia Experimental</strong> · Qual é a Variável? (clique pra abrir)</summary>
     <div class="tool-card" style="margin-top:12px;">
       <div class="sub">Leia a situação de pesquisa e associe cada elemento ao conceito certo. Clique em "Corrigir" pra conferir.</div>
 
@@ -1233,13 +1248,13 @@
       <div class="pfeedback" id="varFeedbackBox"></div>
 
       <div class="tool-disclaimer">
-        Correção automática por associação exata — cada situação tem uma resposta certa definida. Não é IA analisando texto livre; é um exercício de reconhecimento de conceitos.
+        Correção automática por associação exata: cada situação tem uma resposta certa definida. Não é IA analisando texto livre; é um exercício de reconhecimento de conceitos.
       </div>
     </div>
   </details>
 
   <details class="graveyard">
-    <summary>Psicologia Experimental — Monte o Experimento (clique pra abrir)</summary>
+    <summary><strong>Psicologia Experimental</strong> · Monte o Experimento (clique pra abrir)</summary>
     <div class="tool-card" style="margin-top:12px;">
       <div class="sub">Você recebe só a pergunta de pesquisa. Escolha, campo por campo, como desenharia o experimento. Cada escolha errada explica qual problema metodológico ela introduziria.</div>
 
@@ -1255,10 +1270,190 @@
       <div class="pfeedback" id="montarFeedbackBox"></div>
 
       <div class="tool-disclaimer">
-        Cada campo tem uma opção correta e uma opção com um erro metodológico comum, sempre explicado ao errar. Ainda não é IA lendo justificativas livres — é um exercício guiado de reconhecimento de erros típicos.
+        Cada campo tem uma opção correta e uma opção com um erro metodológico comum, sempre explicado ao errar. Ainda não é IA lendo justificativas livres; é um exercício guiado de reconhecimento de erros típicos.
       </div>
     </div>
   </details>
+
+  <details class="graveyard">
+    <summary><strong>Psicologia da Aprendizagem</strong> · Reforço ou Punição? (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a situação e classifique: reforço positivo, reforço negativo, punição positiva ou punição negativa. É a distinção que mais confunde na prova: o "positivo/negativo" aqui é sobre adicionar ou remover algo, não sobre bom ou ruim.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Situação</div>
+        <div class="pfrase" id="rpSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="rpShuffleBtn">🔀 Sortear outra situação</button>
+
+      <div id="rpOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="rpCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="rpFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        Correção automática por classificação exata: cada situação tem uma resposta certa definida com base na definição operante clássica (Skinner).
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Psicologia da Aprendizagem</strong> · Identifique o Paradigma (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a situação e identifique qual paradigma de aprendizagem ela ilustra: condicionamento clássico, condicionamento operante ou aprendizagem observacional.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Situação</div>
+        <div class="pfrase" id="pdSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="pdShuffleBtn">🔀 Sortear outra situação</button>
+
+      <div id="pdOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="pdCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="pdFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        Correção automática por classificação exata. Cada situação foi escrita pra ilustrar um paradigma predominante. Na prática, alguns comportamentos podem envolver mais de um mecanismo ao mesmo tempo.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Desenvolvimento Adulto e Idoso</strong> · Padrão Esperado ou Sinal de Atenção? (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a situação e avalie: ela é algo que pode ocorrer no envelhecimento típico, ou algo que costuma justificar avaliação profissional?</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Situação</div>
+        <div class="pfrase" id="peSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="peShuffleBtn">🔀 Sortear outra situação</button>
+
+      <div id="peOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="peCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="peFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        <strong>Isso não é uma ferramenta de diagnóstico.</strong> Cada classificação aqui reflete o que a literatura considera mais provável ou mais típico, não uma certeza. Fatores como escolaridade, saúde geral, contexto cultural e histórico individual mudam bastante o que é "esperado" pra cada pessoa, e mesmo um "sinal de atenção" isolado não confirma nada sozinho, só sinaliza que vale conversar com um profissional. Evite generalizar essas situações pra pessoas reais que você conhece.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Desenvolvimento Adulto e Idoso</strong> · Qual a Tarefa Desenvolvimental? (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a situação e identifique qual conflito psicossocial da fase adulta (Erikson) ela ilustra melhor.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Situação</div>
+        <div class="pfrase" id="tdSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="tdShuffleBtn">🔀 Sortear outra situação</button>
+
+      <div id="tdOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="tdCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="tdFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        As faixas etárias de cada estágio são aproximadas e variam por autor, cultura e trajetória de vida; não são cortes rígidos. O modelo de Erikson também é um entre vários referenciais teóricos sobre desenvolvimento adulto, não uma verdade universal.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Bases Biológicas</strong> · Qual Neurotransmissor? (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a descrição e identifique qual neurotransmissor está mais associado a ela na literatura.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Descrição</div>
+        <div class="pfrase" id="ntSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="ntShuffleBtn">🔀 Sortear outra descrição</button>
+
+      <div id="ntOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="ntCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="ntFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        <strong>Isto não é diagnóstico nem afirmação de causa única.</strong> Relacionar um sintoma ou processo a "um neurotransmissor responsável" é uma simplificação didática. Na prática, comportamento e humor resultam da interação de vários sistemas de neurotransmissores, além de fatores genéticos, psicológicos e sociais. Cada associação aqui reflete o que é mais destacado na literatura, não uma relação de causa e efeito isolada.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Bases Biológicas</strong> · Simpático ou Parassimpático? (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a resposta fisiológica descrita e identifique qual ramo do sistema nervoso autônomo está predominantemente ativo.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Resposta fisiológica</div>
+        <div class="pfrase" id="snSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="snShuffleBtn">🔀 Sortear outra situação</button>
+
+      <div id="snOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="snCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="snFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        Os dois ramos costumam atuar em conjunto e com intensidades variáveis, não como um interruptor de "liga/desliga", e a resposta de cada pessoa pode variar por condições de saúde, uso de medicamentos e outros fatores individuais. Essas situações representam o padrão mais típico esperado, não uma regra absoluta.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Neuroanatomia</strong> · Localize a Lesão (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia o quadro de sintomas e identifique qual estrutura está mais associada a esse padrão na literatura.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Quadro de sintomas</div>
+        <div class="pfrase" id="llSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="llShuffleBtn">🔀 Sortear outro quadro</button>
+
+      <div id="llOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="llCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="llFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        <strong>Isto não é uma ferramenta de diagnóstico.</strong> Localizar mentalmente uma lesão a partir de um parágrafo de sintomas é um exercício didático simplificado. Na prática clínica real, isso exige exame neurológico completo, exames de imagem e correlação cuidadosa; muitas lesões afetam mais de uma estrutura, e sintomas parecidos podem ter origens diferentes. Cada resposta aqui reflete a associação mais clássica/destacada na literatura, não uma certeza.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Neuroanatomia</strong> · Função ou Estrutura? (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a função descrita e identifique a estrutura mais associada a ela.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Função</div>
+        <div class="pfrase" id="feSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="feShuffleBtn">🔀 Sortear outra função</button>
+
+      <div id="feOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="feCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="feFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        Atribuir "uma função" a "uma estrutura" isolada é uma simplificação didática. Praticamente toda função cerebral complexa depende de redes distribuídas entre várias estruturas trabalhando juntas, não de um único "centro" responsável sozinho. Aqui apresentamos a associação mais conhecida/estudada de cada estrutura, não a função exclusiva dela.
+      </div>
+    </div>
+  </details>
+
+  <div class="tool-disclaimer" style="margin-top:32px; border-top:1px solid var(--rule); padding-top:14px;">
+    Apesar de todo o material ser constantemente revisado e alinhado com a literatura, o painel não se responsabiliza por eventuais divergências em avaliações oficiais. O conteúdo das aulas ministradas pelos professores sempre prevalece como referência final.
+  </div>
 
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
@@ -1284,7 +1479,7 @@ const DISC = {
     {n:'01', name:'Estatística Aplicada à Psicologia', url:'https://drive.google.com/drive/folders/1kiPG5CsHaQoyuZJE5xRM2pBNUKdLSLux'},
     {n:'02', name:'Fenômenos e Processos Psicológicos Básicos', url:'https://drive.google.com/drive/folders/1VmaCFELi-RJfb3OqolN60dfzZtuv7yWz'},
     {n:'03', name:'Introdução à Psicologia', url:'https://drive.google.com/drive/folders/1ySZ8RMbnr7oI2xUlypekVrB_EzjONQZZ'},
-    {n:'04', name:'Psicologia do Desenvolvimento — Infância e Adolescência', url:'https://drive.google.com/drive/folders/1DgQKq_NNPJKkNV5q9iTj4LWtT6vXJMRH'},
+    {n:'04', name:'Psicologia do Desenvolvimento: Infância e Adolescência', url:'https://drive.google.com/drive/folders/1DgQKq_NNPJKkNV5q9iTj4LWtT6vXJMRH'},
     {n:'05', name:'Psicologia e Artes', url:'https://drive.google.com/drive/folders/1dDbvtliXGNopD4z9O1GpJQOSyUMcAwn3'},
     {n:'06', name:'Filosofia', url:'https://drive.google.com/drive/folders/1IfblTgec1PL0lWiEE3M13Uiu6sDallsk'},
     {n:'07', name:'Outros', url:'https://drive.google.com/drive/folders/1WQyLzo-2sAC0de89p1Bi33fHTmJHG5QB'},
@@ -1309,13 +1504,14 @@ function newBadge(dateStr){
   return isNew(dateStr) ? '<span class="new-badge">New!</span>' : '';
 }
 
-// Lista de atualizações — editada só via Claude (a partir do que você me avisa) e republicada.
+// Lista de atualizações (editada só via Claude (a partir do que você me avisa) e republicada.
 // REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
 const UPDATES = [
-  {date: '2026-08-29', disc: 'Psicologia Experimental', desc: 'Nova ferramenta: Monte o Experimento.'},
-  {date: '2026-08-29', disc: 'Psicologia Experimental', desc: 'Nova ferramenta: Qual é a Variável?'},
-  {date: '2026-08-28', disc: 'Bases Biológicas', desc: 'Novo vídeo: O que é genética comportamental?'},
-  {date: '2026-08-28', disc: 'Psicologia da Aprendizagem', desc: 'Novo vídeo: Teorias da aprendizagem e do desenvolvimento.'}
+  {date: '2026-08-29', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Localize a Lesão.'},
+  {date: '2026-08-29', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Função ou Estrutura?'},
+  {date: '2026-08-29', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Qual Neurotransmissor?'},
+  {date: '2026-08-29', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Simpático ou Parassimpático?'},
+  {date: '2026-08-29', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Nova ferramenta: Padrão Esperado ou Sinal de Atenção?'}
 ];
 
 function renderGrid(sem){
@@ -1376,11 +1572,11 @@ const ALL_DISC = [...DISC[1].map(d=>({...d, sem:'1º sem.'})), ...DISC[2].map(d=
 
 renderFeed(UPDATES);
 
-// Prazos e Tarefas — lista editada só via Claude (a partir do que você manda no chat).
+// Prazos e Tarefas (lista editada só via Claude (a partir do que você manda no chat).
 // Formato: materia, tarefa, prazo (AAAA-MM-DD). Itens com prazo já vencido somem sozinhos.
 const TASKS = [
-  {materia: 'Bases Biológicas', tarefa: 'Pesquisar Divisão Celular — Mitose e Meiose (fases e principais características)', prazo: '2026-08-24', added: '2026-08-20'},
-  {materia: 'Bases Biológicas', tarefa: 'Estudar sobre Gametogênese — Masculina / Feminina', prazo: '2026-08-31', added: '2026-08-20'},
+  {materia: 'Bases Biológicas', tarefa: 'Pesquisar Divisão Celular: Mitose e Meiose (fases e principais características)', prazo: '2026-08-24', added: '2026-08-20'},
+  {materia: 'Bases Biológicas', tarefa: 'Estudar sobre Gametogênese (Masculina / Feminina)', prazo: '2026-08-31', added: '2026-08-20'},
   {materia: 'Psicologia da Aprendizagem', tarefa: 'Prova de Psicologia da Aprendizagem', prazo: '2026-09-23', added: '2026-08-27'},
 ];
 
@@ -1416,7 +1612,7 @@ function renderTasks(items){
       const dStart = t.prazo.replace(/-/g,'');
       const nextDay = new Date(t.prazo + 'T00:00:00'); nextDay.setDate(nextDay.getDate()+1);
       const dEnd = nextDay.toISOString().slice(0,10).replace(/-/g,'');
-      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t.materia + ' — ' + t.tarefa)}&dates=${dStart}/${dEnd}&details=${encodeURIComponent('Prazo do Arquivo Vivo — Psicologia')}`;
+      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(t.materia + ': ' + t.tarefa)}&dates=${dStart}/${dEnd}&details=${encodeURIComponent('Prazo do Arquivo Vivo: Psicologia')}`;
       return `<div class="task${urgent ? ' urgent' : ''}" data-search="${(t.materia + ' ' + t.tarefa).toLowerCase()}">
         <div class="task-info">
           <div class="materia">${t.materia}</div>
@@ -1439,7 +1635,7 @@ function renderTasks(items){
     else nextTxt = `vence em ${next.diffDays} dias`;
     topEl.innerHTML = `<div class="top-deadline${nextUrgent ? ' alert' : ''}">
       ${nextUrgent ? '<span class="alert-badge">Fique Atento! Prazo se encerrando</span>' : '<span class="alert-badge" style="background:var(--petrol-dark)">Próximo prazo</span>'}
-      <span class="txt"><strong>${next.materia}</strong> — ${next.tarefa} (<strong class="vence-destaque">${nextTxt}</strong>)<br><a href="#" class="deadline-more-link" onclick="switchPage('viewPrazos'); return false;">Veja mais prazos e tarefas aqui</a></span>
+      <span class="txt"><strong>${next.materia}</strong> · ${next.tarefa} (<strong class="vence-destaque">${nextTxt}</strong>)<br><a href="#" class="deadline-more-link" onclick="switchPage('viewPrazos'); return false;">Veja mais prazos e tarefas aqui</a></span>
     </div>`;
   }
 
@@ -1456,10 +1652,10 @@ function renderTasks(items){
 }
 renderTasks(TASKS);
 
-// Cursos — lista editada só via Claude (a partir do que você manda no chat com "CURSOS").
+// Cursos (lista editada só via Claude (a partir do que você manda no chat com "CURSOS").
 // Formato: nome, link, nota (opcional).
 const COURSES = [
-  {nome: 'Introdução à Epistemologia Genética de Jean Piaget — Edição 2026', link: 'https://lumina.ufrgs.br/course/view.php?id=605', nota: 'Com certificado', added: '2026-08-20'},
+  {nome: 'Introdução à Epistemologia Genética de Jean Piaget (Edição 2026)', link: 'https://lumina.ufrgs.br/course/view.php?id=605', nota: 'Com certificado', added: '2026-08-20'},
   {nome: 'Saúde mental na escola', link: 'https://lumina.ufrgs.br/course/view.php?id=570', nota: 'Gratuito e com certificado', added: '2026-08-20'},
   {nome: 'Saúde mental, Direitos Humanos e Sistema Penal', link: 'https://lumina.ufrgs.br/course/view.php?id=571', nota: 'Gratuito e com certificado', added: '2026-08-20'},
 ];
@@ -1487,7 +1683,7 @@ document.getElementById('footDate').textContent = new Date().toLocaleDateString(
 const PUBLIC_URL = 'https://academicopsi.github.io/Painel-Psicologia/';
 
 document.getElementById('shareBtn').addEventListener('click', ()=>{
-  const msg = `Confira o Arquivo Vivo — painel do Drive de Psicologia: ${PUBLIC_URL}`;
+  const msg = `Confira o Arquivo Vivo, painel do Drive de Psicologia: ${PUBLIC_URL}`;
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 });
 
@@ -1537,7 +1733,7 @@ document.getElementById('backFromVideos').addEventListener('click', ()=> switchP
 document.getElementById('backFromSobre').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromInstalar').addEventListener('click', ()=> switchPage('top'));
 
-// Página Vídeos — accordion por disciplina (Segundo Semestre)
+// Página Vídeos: accordion por disciplina (Segundo Semestre)
 // Formato para adicionar vídeos futuramente: {titulo, youtubeId, nota}
 const VIDEOS = {
   '01': [{titulo:'O que é genética comportamental?', youtubeId:'5OaRKEhwnsc'}],
@@ -1573,7 +1769,7 @@ function renderVideos(){
 }
 renderVideos();
 
-// Progresso do semestre — início assumido em 22/07/2026, fim em 17/12/2026 (Thiago pode corrigir a data de início)
+// Progresso do semestre (início assumido em 22/07/2026, fim em 17/12/2026 - Thiago pode corrigir a data de início)
 (function(){
   const start = new Date('2026-07-22T00:00:00');
   const end = new Date('2026-12-17T00:00:00');
@@ -1609,7 +1805,7 @@ const FRASES = [
   {frase:"Quando a gente colocou os bichos numa gaiola diferente, eles ficaram andando de um lado pro outro sem parar durante quase todo o teste.", esperadas:["observou-se comportamento de deambulação","os sujeitos apresentaram"], evitar:["os bichos","a gente colocou"], sugestao:"Observou-se que os sujeitos apresentaram comportamento de deambulação constante ao longo de quase toda a sessão experimental."},
   {frase:"Só porque duas coisas acontecem quase ao mesmo tempo não quer dizer necessariamente que uma delas seja a causa direta da outra, sabe.", esperadas:["correlação não implica causalidade","não necessariamente indica relação causal"], evitar:["não quer dizer","sabe"], sugestao:"A ocorrência simultânea de dois eventos não implica necessariamente uma relação de causalidade entre eles."},
   {frase:"A gente reparou que os animais que tomaram o remédio comeram bem menos do que os outros durante todo o período em que o teste rolou.", esperadas:["observou-se redução na ingestão","os sujeitos experimentais apresentaram"], evitar:["a gente reparou","rolou"], sugestao:"Observou-se redução na ingestão alimentar dos sujeitos submetidos ao fármaco em comparação ao grupo controle."},
-  {frase:"O número de gente que melhorou foi bem maior no grupo que fez terapia do que no grupo que não fez nada.", esperadas:["a proporção de participantes","significativamente maior"], evitar:["número de gente","não fez nada"], sugestao:"A proporção de participantes que apresentou melhora foi significativamente maior no grupo submetido à terapia em relação ao grupo controle."},
+  {frase:"O número de gente que melhorou foi bem maior no grupo que fez terapia do que no grupo que não fez nada.", esperadas:["a proporção de participantes","foi maior"], evitar:["número de gente","não fez nada"], sugestao:"A proporção de participantes que apresentou melhora foi maior no grupo submetido à terapia em comparação ao grupo controle."},
   {frase:"Dava pra perceber que quanto mais a pessoa dormia, menos estressada ela ficava, mas isso não significa que o sono resolve tudo sozinho.", esperadas:["correlação negativa","não implica relação causal direta"], evitar:["dava pra perceber"], sugestao:"Observou-se correlação negativa entre horas de sono e níveis de estresse, o que não implica, por si só, relação causal direta."},
   {frase:"A gente contou quantas vezes cada criança levantou da cadeira durante a aula pra ver se tinha diferença entre os dois grupos.", esperadas:["registrou-se a frequência","comportamento de levantar"], evitar:["a gente contou"], sugestao:"Registrou-se a frequência com que cada criança apresentou o comportamento de levantar da cadeira, comparando-se os dois grupos."},
   {frase:"Só um número bem pequeno de gente participou desse teste, então não dá pra confiar demais nos resultados que a gente encontrou.", esperadas:["amostra reduzida","limita a confiabilidade"], evitar:["número bem pequeno de gente","não dá pra confiar"], sugestao:"A amostra reduzida de participantes limita a confiabilidade e a generalização dos resultados obtidos."},
@@ -1619,21 +1815,21 @@ const FRASES = [
   {frase:"Não dá pra dizer que o tratamento funcionou de verdade só porque alguns pacientes melhoraram depois de um tempo de acompanhamento clínico.", esperadas:["não permite inferir eficácia","não é possível atribuir causalidade"], evitar:["não dá pra dizer"], sugestao:"A melhora de alguns pacientes não permite, por si só, inferir a eficácia do tratamento sem um grupo de comparação adequado."},
   {frase:"A gente anotou o tempo que cada participante levou pra resolver o quebra-cabeça e depois comparou os resultados entre os grupos.", esperadas:["registrou-se o tempo de execução","procedeu-se à comparação entre grupos"], evitar:["a gente anotou"], sugestao:"Registrou-se o tempo de execução da tarefa por participante, procedendo-se posteriormente à comparação entre os grupos experimentais."},
   {frase:"Parece que quanto mais velho o participante, menos ele errava no teste, mas isso também pode ser só uma coincidência.", esperadas:["associação aparente","não necessariamente indica relação causal"], evitar:["parece que","coincidência"], sugestao:"Observou-se uma associação aparente entre idade e desempenho no teste, que não necessariamente indica relação causal."},
-  {frase:"O gráfico de barras que a gente fez deixou bem claro que um grupo foi bem melhor que o outro no teste final.", esperadas:["os dados evidenciaram","diferença significativa entre os grupos"], evitar:["deixou bem claro","a gente fez"], sugestao:"A representação gráfica evidenciou uma diferença significativa de desempenho entre os grupos no teste final."},
+  {frase:"O gráfico de barras que a gente fez deixou bem claro que um grupo foi bem melhor que o outro no teste final.", esperadas:["os dados evidenciaram","diferença de desempenho entre os grupos"], evitar:["deixou bem claro","a gente fez"], sugestao:"A representação gráfica evidenciou diferença de desempenho entre os grupos no teste final."},
   {frase:"A gente ficou de olho pra ver se as crianças brincavam mais sozinhas ou em grupo durante o horário do recreio.", esperadas:["registrou-se a frequência de interação","comportamento social observado"], evitar:["a gente ficou de olho"], sugestao:"Registrou-se a frequência de interação social das crianças, comparando-se o brincar individual e o brincar em grupo durante o recreio."},
   {frase:"Metade dos participantes disse que sim e a outra metade disse que não, então ficou bem dividido esse resultado da pesquisa.", esperadas:["os resultados apresentaram distribuição equilibrada","metade da amostra"], evitar:["ficou bem dividido"], sugestao:"Os resultados apresentaram distribuição equilibrada, com metade da amostra respondendo afirmativamente e a outra metade negativamente."},
-  {frase:"Só porque o número de casos aumentou junto com o preço do combustível não quer dizer que um causou o outro diretamente.", esperadas:["coincidência temporal não implica causalidade","correlação espúria"], evitar:["não quer dizer"], sugestao:"A coincidência temporal entre as duas variáveis não implica causalidade, podendo tratar-se de uma correlação espúria."},
+  {frase:"Só porque o número de casos aumentou junto com o preço do combustível não quer dizer que um causou o outro diretamente.", esperadas:["coincidência temporal não implica causalidade","não permite inferir uma relação causal"], evitar:["não quer dizer"], sugestao:"A associação temporal entre as duas variáveis não permite inferir uma relação causal entre elas."},
   {frase:"A gente percebeu que os participantes que estavam mais estressados demoravam bem mais tempo pra responder as perguntas do questionário que a gente aplicou.", esperadas:["observou-se maior tempo de resposta","associação entre estresse e latência"], evitar:["a gente percebeu","a gente aplicou"], sugestao:"Observou-se associação entre níveis mais elevados de estresse e maior tempo de resposta ao instrumento aplicado."},
   {frase:"Quando a gente olhou pra média geral, dava pra ver que esse ano os alunos foram bem melhor do que no ano passado.", esperadas:["a média geral indicou aumento","desempenho superior em relação ao período anterior"], evitar:["dava pra ver","a gente olhou"], sugestao:"A análise da média geral indicou desempenho superior dos alunos no período atual em relação ao ano anterior."},
   {frase:"Uns bichos ficaram andando de um lado pro outro da gaiola o tempo todo, outros ficaram paradinhos durante quase todo o experimento.", esperadas:["observou-se variabilidade comportamental","padrões distintos de atividade"], evitar:["uns bichos","paradinhos"], sugestao:"Observou-se variabilidade comportamental entre os sujeitos, com padrões distintos de atividade ao longo do experimento."},
   {frase:"Só porque a amostra era pequena não quer dizer que os resultados não sirvam pra nada, mas precisa ter cuidado na hora de generalizar.", esperadas:["amostra reduzida não invalida os achados","cautela quanto à generalização"], evitar:["não quer dizer","não sirvam pra nada"], sugestao:"A amostra reduzida não invalida os achados, mas recomenda-se cautela quanto à generalização dos resultados."},
-  {frase:"A gente separou os participantes em dois grupos só no olho mesmo, sem sortear ninguém direito antes de começar o experimento.", esperadas:["a alocação não foi aleatorizada","ausência de randomização compromete"], evitar:["a gente separou","só no olho"], sugestao:"A alocação dos participantes não foi aleatorizada, e a ausência de randomização compromete a validade interna do estudo."},
+  {frase:"A gente separou os participantes em dois grupos só no olho mesmo, sem sortear ninguém direito antes de começar o experimento.", esperadas:["a alocação não foi aleatorizada","pode comprometer a validade interna"], evitar:["a gente separou","só no olho"], sugestao:"A alocação dos participantes não foi aleatorizada, e a ausência de randomização pode comprometer a validade interna do estudo."},
   {frase:"Reparei que quase todo mundo que dormiu pouco errou mais questões na prova do que quem tinha dormido bem na noite anterior.", esperadas:["observou-se associação entre privação de sono e desempenho","dados sugerem correlação"], evitar:["reparei que","quase todo mundo"], sugestao:"Os dados sugerem correlação entre privação de sono e maior número de erros na avaliação realizada."},
   {frase:"A gente fez um gráfico de linha pra mostrar como o humor dos participantes foi mudando ao longo da semana inteira.", esperadas:["elaborou-se um gráfico para ilustrar a variação","representação gráfica da flutuação"], evitar:["a gente fez"], sugestao:"Elaborou-se uma representação gráfica para ilustrar a flutuação do humor dos participantes ao longo da semana."},
-  {frase:"A gente viu que o desvio dos dados foi bem grande, ou seja, as respostas variaram demais de uma pessoa pra outra.", esperadas:["alta variabilidade","desvio padrão elevado"], evitar:["a gente viu"], sugestao:"Constatou-se um desvio padrão elevado, indicando alta variabilidade nas respostas entre os participantes."},
-  {frase:"Não dá pra saber se foi o remédio mesmo que ajudou, porque os participantes também mudaram a rotina de sono na mesma época.", esperadas:["variável confundidora","não permite isolar o efeito"], evitar:["não dá pra saber"], sugestao:"A mudança concomitante na rotina de sono constitui uma variável confundidora que não permite isolar o efeito do fármaco."},
+  {frase:"A gente viu que o desvio dos dados foi bem grande, ou seja, as respostas variaram demais de uma pessoa pra outra.", esperadas:["alta variabilidade","dispersão elevada"], evitar:["a gente viu"], sugestao:"Observou-se alta variabilidade nas respostas entre os participantes, indicando dispersão elevada dos dados."},
+  {frase:"Não dá pra saber se foi o remédio mesmo que ajudou, porque os participantes também mudaram a rotina de sono na mesma época.", esperadas:["variável de confusão","não permite isolar o efeito"], evitar:["não dá pra saber"], sugestao:"A mudança concomitante na rotina de sono constitui uma variável de confusão que não permite isolar o efeito do fármaco."},
   {frase:"Olhando os números de novo, percebi que tinha um valor bem fora da curva que talvez tenha puxado a média pra cima.", esperadas:["valor atípico","outlier pode ter influenciado a média"], evitar:["percebi que","fora da curva"], sugestao:"A reanálise dos dados revelou um valor atípico que pode ter influenciado o resultado da média geral."},
-  {frase:"A gente contou quantas vezes cada pessoa sorriu durante a entrevista pra tentar medir o quanto ela parecia à vontade na conversa.", esperadas:["registrou-se a frequência de sorrisos","medida comportamental utilizada como indicador"], evitar:["a gente contou"], sugestao:"Registrou-se a frequência de sorrisos como medida comportamental indicadora do nível de conforto do participante durante a entrevista."}
+  {frase:"A gente contou quantas vezes cada pessoa sorriu durante a entrevista pra tentar medir o quanto ela parecia à vontade na conversa.", esperadas:["registrou-se a frequência de sorrisos","medida comportamental observável"], evitar:["a gente contou"], sugestao:"Registrou-se a frequência de sorrisos como medida comportamental observável durante a entrevista."}
 ];
 
 let atual = null;
@@ -1669,9 +1865,9 @@ document.getElementById('corrigirBtn').addEventListener('click', ()=>{
     html += `<p>Identificamos o uso de: "${acertos.join('", "')}".</p>`;
   } else if(acertos.length > 0 && informais.length > 0){
     box.className = 'pfeedback show partial';
-    html = '<strong>Quase lá — ainda tem expressão informal na resposta.</strong>';
+    html = '<strong>Quase lá: ainda tem expressão informal na resposta.</strong>';
     html += `<p>Você usou corretamente: "${acertos.join('", "')}".</p>`;
-    html += `<p>Mas ainda apareceu linguagem informal: "${informais.join('", "')}" — tente substituir por um termo mais impessoal/técnico.</p>`;
+    html += `<p>Mas ainda apareceu linguagem informal: "${informais.join('", "')}", tente substituir por um termo mais impessoal/técnico.</p>`;
   } else {
     box.className = 'pfeedback show bad';
     html = '<strong>Ainda não identifiquei linguagem científica na resposta.</strong>';
@@ -1716,8 +1912,8 @@ const VAR_CENARIOS = [
     campos: {
       vi: "Cor da embalagem do produto (vermelha vs. azul)",
       vd: "Nota de 1 a 10 dada ao sabor do produto",
-      grupoExp: "Participantes que provaram o produto na embalagem vermelha",
-      grupoCtrl: "Participantes que provaram o produto na embalagem azul",
+      grupoExp: "Participantes que provaram o produto na embalagem vermelha (uma das duas condições testadas)",
+      grupoCtrl: "Participantes que provaram o produto na embalagem azul (condição de comparação, não ausência de manipulação)",
       varControle: "Mesmo produto, mesma temperatura e mesmo ambiente de degustação",
       hipotese: "A cor da embalagem influencia a nota atribuída ao sabor do produto"
     }
@@ -1745,14 +1941,14 @@ const VAR_CENARIOS = [
     }
   },
   {
-    texto: "Um estudo investiga se a exposição à luz azul de telas antes de dormir afeta o tempo para adormecer. Um grupo usa o celular por 1 hora antes de deitar; outro passa 1 hora sem nenhuma tela. Ambos dormem no mesmo horário e no mesmo ambiente escuro.",
+    texto: "Um estudo investiga se o uso de telas (celular) antes de dormir afeta o tempo para adormecer. Um grupo usa o celular por 1 hora antes de deitar; outro passa 1 hora sem nenhuma tela. Ambos dormem no mesmo horário e no mesmo ambiente escuro.",
     campos: {
-      vi: "Exposição à luz azul de telas antes de dormir (sim vs. não)",
+      vi: "Uso de tela/celular antes de dormir (sim vs. não)",
       vd: "Tempo, em minutos, até o participante adormecer",
       grupoExp: "Participantes que usaram celular por 1 hora antes de dormir",
       grupoCtrl: "Participantes que não usaram nenhuma tela por 1 hora antes de dormir",
       varControle: "Mesmo horário de dormir e mesmo ambiente (temperatura, escuridão)",
-      hipotese: "A exposição à luz azul antes de dormir aumenta o tempo necessário para adormecer"
+      hipotese: "O uso de telas antes de dormir aumenta o tempo necessário para adormecer"
     }
   },
   {
@@ -1771,8 +1967,8 @@ const VAR_CENARIOS = [
     campos: {
       vi: "Temperatura da sala durante a tarefa (18°C vs. 26°C)",
       vd: "Número de palavras produzidas no texto em 30 minutos",
-      grupoExp: "Participantes que escreveram na sala a 26°C",
-      grupoCtrl: "Participantes que escreveram na sala a 18°C",
+      grupoExp: "Participantes que escreveram na sala a 26°C (uma das duas condições testadas)",
+      grupoCtrl: "Participantes que escreveram na sala a 18°C (condição de referência/baseline)",
       varControle: "Mesmo tema de redação e mesmo tempo disponível para os dois grupos",
       hipotese: "A temperatura mais alta da sala reduz a produtividade na tarefa de escrita"
     }
@@ -1867,23 +2063,23 @@ const MONTAR_CENARIOS = [
       ]},
       {chave:'vd', label:'Variável Dependente', opcoes:[
         {texto:'Número de itens corretamente recordados num teste após o estudo', correta:true},
-        {texto:'Se o aluno gostou ou não da técnica', correta:false, problema:'Isso mede preferência subjetiva, não retenção de conteúdo — que é o que a pergunta de pesquisa pede.'}
+        {texto:'Se o aluno gostou ou não da técnica', correta:false, problema:'Isso mede preferência subjetiva, não retenção de conteúdo, que é o que a pergunta de pesquisa pede.'}
       ]},
       {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
         {texto:'Estudantes que usaram a técnica Pomodoro durante as sessões de estudo', correta:true},
-        {texto:'Estudantes com histórico de notas altas', correta:false, problema:'Selecionar participantes pela nota introduz viés de seleção — o grupo experimental precisa ser definido pelo uso ou não da técnica, não por desempenho prévio.'}
+        {texto:'Estudantes com histórico de notas altas', correta:false, problema:'Selecionar participantes pela nota introduz viés de seleção: o grupo experimental precisa ser definido pelo uso ou não da técnica, não por desempenho prévio.'}
       ]},
       {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
         {texto:'Estudantes que estudaram o mesmo conteúdo sem usar a técnica Pomodoro', correta:true},
-        {texto:'Não ter grupo controle — comparar só o antes e depois do mesmo grupo', correta:false, problema:'Sem grupo controle, não dá pra saber se a melhora veio da técnica ou de outro fator, como simplesmente ter revisado a matéria de novo.'}
+        {texto:'Não ter grupo controle: comparar só o antes e depois do mesmo grupo', correta:false, problema:'Sem grupo controle, não dá pra saber se a melhora veio da técnica ou de outro fator, como simplesmente ter revisado a matéria de novo.'}
       ]},
       {chave:'varControle', label:'Variável de Controle', opcoes:[
         {texto:'Mesmo conteúdo de estudo e mesmo tempo total disponível para os dois grupos', correta:true},
-        {texto:'Deixar cada grupo escolher livremente quanto tempo quer estudar', correta:false, problema:'Isso vira uma variável não controlada — pode ser a real explicação da diferença de resultado, não a técnica em si.'}
+        {texto:'Deixar cada grupo escolher livremente quanto tempo quer estudar', correta:false, problema:'Isso vira uma variável não controlada: pode ser a real explicação da diferença de resultado, não a técnica em si.'}
       ]},
       {chave:'hipotese', label:'Hipótese', opcoes:[
         {texto:'Estudantes que usam a técnica Pomodoro reterão mais conteúdo do que os que não usam', correta:true},
-        {texto:'A técnica Pomodoro é a melhor técnica de estudo que existe', correta:false, problema:'Isso é uma afirmação absoluta e não testável diretamente por esse experimento específico — a hipótese precisa ser proporcional ao que foi de fato testado.'}
+        {texto:'A técnica Pomodoro é a melhor técnica de estudo que existe', correta:false, problema:'Isso é uma afirmação absoluta e não testável diretamente por esse experimento específico: a hipótese precisa ser proporcional ao que foi de fato testado.'}
       ]}
     ]
   },
@@ -1892,7 +2088,7 @@ const MONTAR_CENARIOS = [
     campos: [
       {chave:'vi', label:'Variável Independente', opcoes:[
         {texto:'Presença ou ausência de legenda no idioma estudado durante os vídeos', correta:true},
-        {texto:'Nível de proficiência declarado pelo próprio participante', correta:false, problema:'Isso é uma característica prévia do participante, não algo manipulado pelo pesquisador — não pode ser a variável independente.'}
+        {texto:'Nível de proficiência declarado pelo próprio participante', correta:false, problema:'Isso é uma característica prévia do participante, não algo manipulado pelo pesquisador: não pode ser a variável independente.'}
       ]},
       {chave:'vd', label:'Variável Dependente', opcoes:[
         {texto:'Pontuação num teste de compreensão auditiva aplicado após os vídeos', correta:true},
@@ -1904,7 +2100,7 @@ const MONTAR_CENARIOS = [
       ]},
       {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
         {texto:'Participantes que assistiram aos mesmos vídeos, sem legenda', correta:true},
-        {texto:'Participantes que assistiram vídeos totalmente diferentes, sem legenda', correta:false, problema:'Mudar o conteúdo dos vídeos introduz uma segunda variável — o grupo controle precisa diferir só na presença da legenda.'}
+        {texto:'Participantes que assistiram vídeos totalmente diferentes, sem legenda', correta:false, problema:'Mudar o conteúdo dos vídeos introduz uma segunda variável: o grupo controle precisa diferir só na presença da legenda.'}
       ]},
       {chave:'varControle', label:'Variável de Controle', opcoes:[
         {texto:'Mesmo conteúdo e duração dos vídeos para os dois grupos', correta:true},
@@ -1920,12 +2116,12 @@ const MONTAR_CENARIOS = [
     pergunta: "A prática de mindfulness antes de uma apresentação reduz os níveis de ansiedade percebida?",
     campos: [
       {chave:'vi', label:'Variável Independente', opcoes:[
-        {texto:'Realização ou não de uma sessão guiada de mindfulness antes da apresentação', correta:true},
+        {texto:'Prática de sessão guiada de mindfulness vs. espera em silêncio antes da apresentação', correta:true},
         {texto:'Quanto tempo o participante levou se preparando para a apresentação', correta:false, problema:'Isso é uma variável de confusão em potencial, não o que está sendo manipulado no experimento.'}
       ]},
       {chave:'vd', label:'Variável Dependente', opcoes:[
         {texto:'Nível de ansiedade autorrelatado numa escala, momentos antes de apresentar', correta:true},
-        {texto:'Nota final que o participante recebeu na apresentação', correta:false, problema:'Isso mede desempenho, não ansiedade percebida — que é o que a pergunta de pesquisa pede especificamente.'}
+        {texto:'Nota final que o participante recebeu na apresentação', correta:false, problema:'Isso mede desempenho, não ansiedade percebida, que é o que a pergunta de pesquisa pede especificamente.'}
       ]},
       {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
         {texto:'Participantes que fizeram a sessão guiada de mindfulness antes de apresentar', correta:true},
@@ -1933,7 +2129,7 @@ const MONTAR_CENARIOS = [
       ]},
       {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
         {texto:'Participantes que aguardaram em silêncio pelo mesmo tempo, sem a sessão guiada', correta:true},
-        {texto:'Participantes que assistiram a um vídeo motivacional no mesmo tempo', correta:false, problema:'Isso introduz uma segunda intervenção — o grupo controle deveria diferir do experimental só pela ausência do mindfulness.'}
+        {texto:'Participantes que assistiram a um vídeo motivacional no mesmo tempo', correta:false, problema:'Isso introduz uma segunda intervenção: o grupo controle deveria diferir do experimental só pela ausência do mindfulness.'}
       ]},
       {chave:'varControle', label:'Variável de Controle', opcoes:[
         {texto:'Mesmo tempo de espera e mesmo contexto de apresentação para os dois grupos', correta:true},
@@ -1958,11 +2154,11 @@ const MONTAR_CENARIOS = [
       ]},
       {chave:'grupoExp', label:'Grupo Experimental', opcoes:[
         {texto:'Participantes que realizaram a tarefa ouvindo música instrumental', correta:true},
-        {texto:'Participantes que disseram gostar de estudar com música', correta:false, problema:'Isso é uma preferência autodeclarada, não o critério que separa os grupos no experimento — o grupo precisa ser definido pela exposição real à música durante a tarefa.'}
+        {texto:'Participantes que disseram gostar de estudar com música', correta:false, problema:'Isso é uma preferência autodeclarada, não o critério que separa os grupos no experimento: o grupo precisa ser definido pela exposição real à música durante a tarefa.'}
       ]},
       {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
         {texto:'Participantes que realizaram a mesma tarefa em silêncio', correta:true},
-        {texto:'Participantes que realizaram uma tarefa diferente, também em silêncio', correta:false, problema:'Mudar a tarefa introduz uma segunda variável — o grupo controle deveria fazer exatamente a mesma tarefa, só sem a música.'}
+        {texto:'Participantes que realizaram uma tarefa diferente, também em silêncio', correta:false, problema:'Mudar a tarefa introduz uma segunda variável: o grupo controle deveria fazer exatamente a mesma tarefa, só sem a música.'}
       ]},
       {chave:'varControle', label:'Variável de Controle', opcoes:[
         {texto:'Mesma tarefa, mesmo tempo disponível e mesmo ambiente para os dois grupos', correta:true},
@@ -1979,7 +2175,7 @@ const MONTAR_CENARIOS = [
     campos: [
       {chave:'vi', label:'Variável Independente', opcoes:[
         {texto:'Forma de anotação usada durante a aula (à mão vs. digitada)', correta:true},
-        {texto:'Quantidade de páginas de anotação produzidas', correta:false, problema:'Isso é uma consequência da forma de anotação, não a variável manipulada — o pesquisador está testando o método, não a quantidade produzida.'}
+        {texto:'Quantidade de páginas de anotação produzidas', correta:false, problema:'Isso é uma consequência da forma de anotação, não a variável manipulada: o pesquisador está testando o método, não a quantidade produzida.'}
       ]},
       {chave:'vd', label:'Variável Dependente', opcoes:[
         {texto:'Pontuação num teste de conteúdo aplicado uma semana depois da aula', correta:true},
@@ -1991,7 +2187,7 @@ const MONTAR_CENARIOS = [
       ]},
       {chave:'grupoCtrl', label:'Grupo Controle', opcoes:[
         {texto:'Participantes que digitaram as anotações da mesma aula', correta:true},
-        {texto:'Participantes que assistiram à aula sem fazer nenhuma anotação', correta:false, problema:'Isso muda demais a condição testada — a pergunta compara duas formas de anotar, não anotar contra não anotar.'}
+        {texto:'Participantes que assistiram à aula sem fazer nenhuma anotação', correta:false, problema:'Isso muda demais a condição testada: a pergunta compara duas formas de anotar, não anotar contra não anotar.'}
       ]},
       {chave:'varControle', label:'Variável de Controle', opcoes:[
         {texto:'Mesma aula, mesmo professor e mesmo tempo de duração para os dois grupos', correta:true},
@@ -2053,7 +2249,7 @@ const MONTAR_CENARIOS = [
       ]},
       {chave:'varControle', label:'Variável de Controle', opcoes:[
         {texto:'Mesma tarefa criativa e mesmo tempo disponível para os dois grupos', correta:true},
-        {texto:'Permitir que cada grupo tenha um tempo diferente para a tarefa criativa', correta:false, problema:'Tempos diferentes de tarefa tornam os grupos incomparáveis — essa variável precisa ser igual para isolar o efeito da caminhada.'}
+        {texto:'Permitir que cada grupo tenha um tempo diferente para a tarefa criativa', correta:false, problema:'Tempos diferentes de tarefa tornam os grupos incomparáveis: essa variável precisa ser igual para isolar o efeito da caminhada.'}
       ]},
       {chave:'hipotese', label:'Hipótese', opcoes:[
         {texto:'Participantes que caminham antes da tarefa criativa gerarão mais ideias do que os que não caminham', correta:true},
@@ -2109,12 +2305,394 @@ document.getElementById('montarCorrigirBtn').addEventListener('click', ()=>{
   }
   if(acertos === total){
     box.className = 'pfeedback show good';
-    box.innerHTML = `<strong>Desenho experimental correto — ${total} de ${total}!</strong> Nenhum problema metodológico identificado nas suas escolhas.`;
+    box.innerHTML = `<strong>Desenho experimental correto: ${total} de ${total}!</strong> Nenhum problema metodológico identificado nas suas escolhas.`;
   } else {
     box.className = 'pfeedback show partial';
     box.innerHTML = `<strong>${acertos} de ${total} corretos. Problemas metodológicos encontrados:</strong><ul>${problemas.join('')}</ul>`;
   }
 });
+
+// --- Ferramenta: Reforço ou Punição? (Psicologia da Aprendizagem) ---
+const RP_OPCOES = ['Reforço Positivo', 'Reforço Negativo', 'Punição Positiva', 'Punição Negativa'];
+const RP_CENARIOS = [
+  {situacao:"Toda vez que a criança termina a lição de casa sem reclamar, os pais dão um elogio entusiasmado.", correta:'Reforço Positivo', explicacao:"Um estímulo agradável (o elogio) é adicionado após o comportamento, aumentando a chance dele se repetir: isso é reforço positivo."},
+  {situacao:"Um funcionário para de receber cobranças repetidas do chefe assim que entrega o relatório atrasado.", correta:'Reforço Negativo', explicacao:"Um estímulo desagradável (as cobranças) é removido depois do comportamento (entregar o relatório), aumentando a chance de esse comportamento se repetir: isso é reforço negativo, não punição."},
+  {situacao:"Uma criança que bate no irmão perde o direito de assistir TV à noite.", correta:'Punição Negativa', explicacao:"Um estímulo agradável (assistir TV) é removido após o comportamento, com o objetivo de diminuir esse comportamento: isso é punição negativa (também chamada de custo de resposta)."},
+  {situacao:"Um aluno que fala palavrão na sala recebe uma tarefa extra de redação como consequência.", correta:'Punição Positiva', explicacao:"Um estímulo desagradável (a tarefa extra) é adicionado após o comportamento, com o objetivo de diminuí-lo: isso é punição positiva."},
+  {situacao:"Um cachorro para de puxar a guia assim que o dono para de puxar a coleira em resposta.", correta:'Reforço Negativo', explicacao:"O comportamento de parar de puxar é reforçado pela remoção do estímulo desagradável (a coleira puxando): reforço negativo, mesmo envolvendo algo que parece desagradável no processo."},
+  {situacao:"Um adolescente ganha folga das tarefas domésticas por uma semana depois de tirar notas altas.", correta:'Reforço Negativo', explicacao:"Apesar de parecer uma recompensa, o que acontece aqui é a remoção de uma exigência aversiva (as tarefas domésticas) após o comportamento desejado (tirar notas altas): isso é reforço negativo, não positivo. Reforço positivo seria adicionar algo agradável (como um presente), não retirar uma obrigação."},
+  {situacao:"Um motorista recebe multa por excesso de velocidade.", correta:'Punição Positiva', explicacao:"Um estímulo desagradável (a multa) é adicionado após o comportamento, com o objetivo de reduzi-lo: punição positiva."},
+  {situacao:"Uma criança guarda os brinquedos rapidamente pra evitar ouvir a mãe repetindo o pedido várias vezes.", correta:'Reforço Negativo', explicacao:"O comportamento de guardar os brinquedos é reforçado pela remoção de um estímulo desagradável (os pedidos repetidos): reforço negativo."}
+];
+let rpAtual = null;
+function rpRender(){
+  const opcoesEl = document.getElementById('rpOpcoes');
+  opcoesEl.innerHTML = RP_OPCOES.map((op,i) => `
+    <label class="opcao-radio">
+      <input type="radio" name="rp-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('rpFeedbackBox').className = 'pfeedback';
+  document.getElementById('rpFeedbackBox').innerHTML = '';
+}
+function rpSortear(){
+  let novo;
+  do{ novo = RP_CENARIOS[Math.floor(Math.random()*RP_CENARIOS.length)]; } while(novo === rpAtual && RP_CENARIOS.length > 1);
+  rpAtual = novo;
+  document.getElementById('rpSituacaoTexto').textContent = rpAtual.situacao;
+  rpRender();
+}
+document.getElementById('rpShuffleBtn').addEventListener('click', rpSortear);
+document.getElementById('rpCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="rp-opcao"]:checked');
+  const box = document.getElementById('rpFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === rpAtual.correta;
+  box.className = `pfeedback show ${acertou ? 'good' : 'bad'}`;
+  box.innerHTML = `<strong>${acertou ? 'Correto!' : `Não foi dessa vez: a resposta certa é ${rpAtual.correta}.`}</strong><p>${rpAtual.explicacao}</p>`;
+});
+rpSortear();
+
+// --- Ferramenta: Identifique o Paradigma (Psicologia da Aprendizagem) ---
+const PD_OPCOES = ['Condicionamento Clássico', 'Condicionamento Operante', 'Aprendizagem Observacional'];
+const PD_CENARIOS = [
+  {situacao:"Um cão passa a salivar só de ouvir o barulho da embalagem de ração sendo aberta, mesmo antes de ver a comida.", correta:'Condicionamento Clássico', explicacao:"Um estímulo neutro (o som) passou a provocar uma resposta antes associada só ao estímulo incondicionado (a comida): associação entre estímulos, marca do condicionamento clássico."},
+  {situacao:"Uma criança aprende a jogar bola observando o irmão mais velho jogar e sendo elogiado por isso.", correta:'Aprendizagem Observacional', explicacao:"O comportamento é adquirido pela observação de um modelo e das consequências que ele recebe, sem que a criança precise passar pela tentativa e erro diretamente: aprendizagem observacional (Bandura)."},
+  {situacao:"Um funcionário passa a chegar sempre no horário depois que a empresa começou a dar um bônus para quem não se atrasa.", correta:'Condicionamento Operante', explicacao:"O comportamento (chegar no horário) é moldado por uma consequência que vem depois dele (o bônus): condicionamento operante."},
+  {situacao:"Depois de ser picada por uma abelha perto de um jardim florido, uma criança passa a ter medo de jardins floridos em geral.", correta:'Condicionamento Clássico', explicacao:"Houve associação entre um estímulo neutro (o jardim) e um estímulo aversivo (a picada), gerando uma resposta condicionada de medo, e a generalização pra jardins parecidos é típica do condicionamento clássico."},
+  {situacao:"Um estagiário aprende a redigir e-mails formais assistindo como o gerente escreve os dele.", correta:'Aprendizagem Observacional', explicacao:"O comportamento é adquirido por observação de um modelo, sem reforço direto ao estagiário durante o processo de observar: aprendizagem observacional."},
+  {situacao:"Um rato aprende a pressionar uma alavanca porque isso libera comida.", correta:'Condicionamento Operante', explicacao:"O comportamento (pressionar a alavanca) é fortalecido por uma consequência que o segue (a liberação de comida): condicionamento operante, no clássico modelo da caixa de Skinner."},
+  {situacao:"Uma pessoa sente ansiedade ao ouvir uma música que tocava durante um acidente de carro que sofreu.", correta:'Condicionamento Clássico', explicacao:"A música (estímulo neutro) foi associada temporalmente ao trauma do acidente (estímulo aversivo), passando a provocar a resposta de ansiedade sozinha: condicionamento clássico."},
+  {situacao:"Uma criança para de fazer birra em público porque percebe que os pais pararam de dar atenção quando isso acontece.", correta:'Condicionamento Operante', explicacao:"A ausência de uma consequência que antes mantinha o comportamento (a atenção dos pais) leva à extinção dele, tecnicamente chamada de Extinção Operante, um fenômeno estudado dentro do condicionamento operante."}
+];
+let pdAtual = null;
+function pdRender(){
+  const opcoesEl = document.getElementById('pdOpcoes');
+  opcoesEl.innerHTML = PD_OPCOES.map((op,i) => `
+    <label class="opcao-radio">
+      <input type="radio" name="pd-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('pdFeedbackBox').className = 'pfeedback';
+  document.getElementById('pdFeedbackBox').innerHTML = '';
+}
+function pdSortear(){
+  let novo;
+  do{ novo = PD_CENARIOS[Math.floor(Math.random()*PD_CENARIOS.length)]; } while(novo === pdAtual && PD_CENARIOS.length > 1);
+  pdAtual = novo;
+  document.getElementById('pdSituacaoTexto').textContent = pdAtual.situacao;
+  pdRender();
+}
+document.getElementById('pdShuffleBtn').addEventListener('click', pdSortear);
+document.getElementById('pdCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="pd-opcao"]:checked');
+  const box = document.getElementById('pdFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === pdAtual.correta;
+  box.className = `pfeedback show ${acertou ? 'good' : 'bad'}`;
+  box.innerHTML = `<strong>${acertou ? 'Correto!' : `Não foi dessa vez: a resposta certa é ${pdAtual.correta}.`}</strong><p>${pdAtual.explicacao}</p>`;
+});
+pdSortear();
+
+// --- Ferramenta: Padrão Esperado ou Sinal de Atenção? (Desenvolvimento Adulto e Idoso) ---
+const PE_OPCOES = ['Pode ocorrer no envelhecimento típico', 'Pode ser um sinal que merece atenção profissional'];
+const PE_CENARIOS = [
+  {situacao:"Dona Marta, 72 anos, às vezes esquece onde deixou os óculos, mas consegue reconstituir o caminho até encontrá-los.", correta:PE_OPCOES[0], explicacao:"Esquecer temporariamente a localização de um objeto, e depois conseguir reconstituir o raciocínio pra encontrá-lo, costuma ser considerado um padrão comum do envelhecimento; não é, sozinho, motivo de preocupação.", ambiguo:false},
+  {situacao:"Seu Antônio, 80 anos, se perdeu no bairro onde mora há 40 anos e não conseguiu explicar como voltar pra casa.", correta:PE_OPCOES[1], explicacao:"Desorientação espacial num ambiente muito familiar costuma ser um tipo de mudança que a literatura sugere merecer avaliação, mas isso sozinho não fecha nada; pode ter causas variadas, inclusive não cognitivas (visão, por exemplo).", ambiguo:true},
+  {situacao:"Dona Cecília, 68 anos, demora mais que antes pra aprender a usar um aplicativo novo no celular.", correta:PE_OPCOES[0], explicacao:"A velocidade de aprendizagem de novas tecnologias tende a diminuir com a idade: é uma mudança amplamente descrita como normativa no envelhecimento cognitivo típico, não um sinal isolado de alerta.", ambiguo:false},
+  {situacao:"Seu Roberto, 75 anos, repetiu a mesma pergunta cinco vezes na mesma conversa, sem lembrar que já tinha perguntado.", correta:PE_OPCOES[1], explicacao:"Repetição frequente da mesma pergunta num curto intervalo, sem registro de já ter perguntado, é um padrão que costuma chamar atenção clínica, mas uma situação pontual, isolada, não permite nenhuma conclusão sozinha.", ambiguo:true},
+  {situacao:"Dona Helena, 90 anos, ficou mais devagar pra caminhar, mas continua indo ao mercado sozinha sem se perder.", correta:PE_OPCOES[0], explicacao:"Lentificação motora é uma mudança física comum do envelhecimento. Manter autonomia e orientação nas atividades do dia a dia costuma ser um bom indicador de que não há necessariamente problema cognitivo associado.", ambiguo:false},
+  {situacao:"Seu Joaquim, 77 anos, esqueceu completamente pra que serve um garfo durante o almoço.", correta:PE_OPCOES[1], explicacao:"Esquecer a função de objetos do cotidiano (não só o nome, mas o uso) foge do que costuma ser considerado esquecimento benigno: é um padrão que a literatura tende a sugerir como digno de investigação.", ambiguo:true},
+  {situacao:"Dona Rita, 65 anos, às vezes troca o nome dos netos na hora de chamar, mas se corrige rápido.", correta:PE_OPCOES[0], explicacao:"Pequenos deslizes de nomeação entre pessoas do mesmo grupo (como vários netos) são extremamente comuns e, isoladamente, não costumam ser considerados um sinal de alerta.", ambiguo:false},
+  {situacao:"Seu Nelson, 82 anos, parou de conseguir controlar as próprias finanças (algo que sempre fez sozinho) e não percebe que está cometendo erros.", correta:PE_OPCOES[1], explicacao:"Perda de uma habilidade complexa antes bem estabelecida, especialmente sem consciência do próprio erro, costuma ser considerada mais preocupante do que esquecimentos pontuais, mas ainda assim exige avaliação, não uma conclusão à distância.", ambiguo:true}
+];
+let peAtual = null;
+function peRender(){
+  const opcoesEl = document.getElementById('peOpcoes');
+  opcoesEl.innerHTML = PE_OPCOES.map(op => `
+    <label class="opcao-radio">
+      <input type="radio" name="pe-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('peFeedbackBox').className = 'pfeedback';
+  document.getElementById('peFeedbackBox').innerHTML = '';
+}
+function peSortear(){
+  let novo;
+  do{ novo = PE_CENARIOS[Math.floor(Math.random()*PE_CENARIOS.length)]; } while(novo === peAtual && PE_CENARIOS.length > 1);
+  peAtual = novo;
+  document.getElementById('peSituacaoTexto').textContent = peAtual.situacao;
+  peRender();
+}
+document.getElementById('peShuffleBtn').addEventListener('click', peSortear);
+document.getElementById('peCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="pe-opcao"]:checked');
+  const box = document.getElementById('peFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === peAtual.correta;
+  let html = `<strong>${acertou ? 'Consistente com a literatura.' : `A leitura mais consistente com a literatura, nesse caso, é: ${peAtual.correta}.`}</strong><p>${peAtual.explicacao}</p>`;
+  if(peAtual.ambiguo){
+    html += `<p style="font-style:italic; color:var(--ink-soft);">Esse caso, especificamente, é mais delicado: na vida real, essa mesma situação isolada não seria suficiente pra qualquer conclusão: precisaria de histórico, frequência e avaliação profissional.</p>`;
+  }
+  box.className = `pfeedback show ${acertou ? 'good' : 'partial'}`;
+  box.innerHTML = html;
+});
+peSortear();
+
+// --- Ferramenta: Qual a Tarefa Desenvolvimental? (Desenvolvimento Adulto e Idoso) ---
+const TD_OPCOES = ['Intimidade vs. Isolamento', 'Generatividade vs. Estagnação', 'Integridade vs. Desespero'];
+const TD_CENARIOS = [
+  {situacao:"Aos 28 anos, Marina reflete se está pronta pra se comprometer seriamente com um parceiro ou se prefere continuar priorizando sua independência.", correta:'Intimidade vs. Isolamento', explicacao:"Esse conflito, segundo Erikson, é típico do início da vida adulta: construir relações íntimas e comprometidas versus o risco de isolamento emocional."},
+  {situacao:"Aos 50 anos, Carlos sente que quer deixar um legado pras próximas gerações, seja pelos filhos, pelo trabalho ou por projetos na comunidade.", correta:'Generatividade vs. Estagnação', explicacao:"O desejo de contribuir com algo que ultrapasse a própria vida (cuidar, ensinar, produzir algo duradouro) é a marca da generatividade, típica da meia-idade nesse modelo."},
+  {situacao:"Aos 78 anos, Dona Alzira revisita a própria vida e avalia se sente que viveu de forma significativa ou se carrega arrependimentos profundos.", correta:'Integridade vs. Desespero', explicacao:"Esse balanço retrospectivo (aceitar a vida vivida ou se afundar em arrependimento) é o conflito que Erikson associa à velhice."},
+  {situacao:"Aos 45 anos, Paulo sente que sua rotina perdeu o propósito e que não está contribuindo com nada além de si mesmo.", correta:'Generatividade vs. Estagnação', explicacao:"Esse é o lado de estagnação do mesmo conflito da meia-idade: a sensação de estar preso numa rotina sem sentido ou contribuição maior."},
+  {situacao:"Aos 24 anos, Bruno evita relacionamentos mais sérios porque teme perder a própria identidade dentro de uma parceria.", correta:'Intimidade vs. Isolamento', explicacao:"O medo de se perder numa relação, levando ao afastamento, ilustra o polo de isolamento desse conflito do início da vida adulta."},
+  {situacao:"Aos 85 anos, Seu Vicente sente paz ao olhar pra trás e aceita tanto os acertos quanto os erros que cometeu na vida.", correta:'Integridade vs. Desespero', explicacao:"Esse é o polo positivo do conflito da velhice: a integridade, marcada pela aceitação da própria história de vida como um todo."}
+];
+let tdAtual = null;
+function tdRender(){
+  const opcoesEl = document.getElementById('tdOpcoes');
+  opcoesEl.innerHTML = TD_OPCOES.map(op => `
+    <label class="opcao-radio">
+      <input type="radio" name="td-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('tdFeedbackBox').className = 'pfeedback';
+  document.getElementById('tdFeedbackBox').innerHTML = '';
+}
+function tdSortear(){
+  let novo;
+  do{ novo = TD_CENARIOS[Math.floor(Math.random()*TD_CENARIOS.length)]; } while(novo === tdAtual && TD_CENARIOS.length > 1);
+  tdAtual = novo;
+  document.getElementById('tdSituacaoTexto').textContent = tdAtual.situacao;
+  tdRender();
+}
+document.getElementById('tdShuffleBtn').addEventListener('click', tdSortear);
+document.getElementById('tdCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="td-opcao"]:checked');
+  const box = document.getElementById('tdFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === tdAtual.correta;
+  box.className = `pfeedback show ${acertou ? 'good' : 'bad'}`;
+  box.innerHTML = `<strong>${acertou ? 'Correto!' : `Não foi dessa vez: a resposta certa é ${tdAtual.correta}.`}</strong><p>${tdAtual.explicacao}</p>`;
+});
+tdSortear();
+
+// --- Ferramenta: Qual Neurotransmissor? (Bases Biológicas) ---
+const NT_OPCOES = ['Dopamina', 'Serotonina', 'GABA', 'Acetilcolina', 'Noradrenalina', 'Glutamato'];
+const NT_CENARIOS = [
+  {situacao:"Uma pessoa apresenta tremores em repouso, rigidez muscular e lentidão de movimentos, sintomas centrais da doença de Parkinson.", correta:'Dopamina', explicacao:"A doença de Parkinson está associada à degeneração de neurônios dopaminérgicos numa região chamada substância negra, uma das relações neurotransmissor-condição mais bem estabelecidas na literatura.", simplificacao:null},
+  {situacao:"Um medicamento aumenta a atividade desse neurotransmissor inibitório no cérebro, produzindo efeito calmante e sendo usado em quadros de ansiedade.", correta:'GABA', explicacao:"O GABA é o principal neurotransmissor inibitório do sistema nervoso central: aumentar sua atividade reduz a excitabilidade neuronal, efeito buscado por ansiolíticos como os benzodiazepínicos.", simplificacao:null},
+  {situacao:"Pesquisas associam a perda progressiva de neurônios que utilizam esse neurotransmissor aos prejuízos de memória observados na doença de Alzheimer.", correta:'Acetilcolina', explicacao:"A chamada 'hipótese colinérgica' do Alzheimer relaciona a perda de neurônios colinérgicos a prejuízos de memória, um dos motivos por trás de medicamentos que tentam preservar a acetilcolina disponível.", simplificacao:"Vale notar que o Alzheimer envolve múltiplos mecanismos além da acetilcolina (como acúmulo de placas amiloides), então essa é só uma parte de um quadro bem mais complexo."},
+  {situacao:"Esse neurotransmissor está envolvido nos circuitos de recompensa cerebral, sendo liberado em situações prazerosas e também implicado em quadros de dependência química.", correta:'Dopamina', explicacao:"A dopamina tem papel central no chamado sistema de recompensa, envolvido tanto em prazer natural quanto no mecanismo de reforço presente na dependência química."},
+  {situacao:"Em situações de estresse agudo, esse neurotransmissor contribui pra respostas de alerta, como aumento da frequência cardíaca e da atenção.", correta:'Noradrenalina', explicacao:"A noradrenalina (norepinefrina) é liberada em situações de estresse e alerta, contribuindo pra resposta de 'luta ou fuga'."},
+  {situacao:"Alguns antidepressivos (os ISRS) agem aumentando a disponibilidade desse neurotransmissor na fenda sináptica.", correta:'Serotonina', explicacao:"Os ISRS (inibidores seletivos de recaptação de serotonina) atuam sobre esse neurotransmissor, mas a relação entre serotonina e humor é hoje entendida como bem mais complexa do que 'baixa serotonina causa depressão'.", simplificacao:"Esse é o exemplo mais importante de simplificação nessa ferramenta: revisões científicas recentes contestam a ideia de que a depressão seja causada simplesmente por 'falta de serotonina'. O mecanismo de ação desses medicamentos é real, mas não prova essa hipótese causal simples: a causa da depressão é multifatorial (biológica, psicológica e social)."},
+  {situacao:"É o principal neurotransmissor excitatório do sistema nervoso central, envolvido em praticamente todo processo de aprendizagem e plasticidade sináptica.", correta:'Glutamato', explicacao:"O glutamato é o principal neurotransmissor excitatório do SNC e tem papel central em processos de plasticidade sináptica, como a potenciação de longo prazo relacionada à memória."},
+  {situacao:"Esse neurotransmissor age nas junções neuromusculares e é essencial pra contração muscular voluntária.", correta:'Acetilcolina', explicacao:"Além do seu papel no sistema nervoso central, a acetilcolina é o neurotransmissor liberado nas junções neuromusculares, essencial pra ativação da contração muscular."}
+];
+let ntAtual = null;
+function ntRender(){
+  const opcoesEl = document.getElementById('ntOpcoes');
+  opcoesEl.innerHTML = NT_OPCOES.map(op => `
+    <label class="opcao-radio">
+      <input type="radio" name="nt-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('ntFeedbackBox').className = 'pfeedback';
+  document.getElementById('ntFeedbackBox').innerHTML = '';
+}
+function ntSortear(){
+  let novo;
+  do{ novo = NT_CENARIOS[Math.floor(Math.random()*NT_CENARIOS.length)]; } while(novo === ntAtual && NT_CENARIOS.length > 1);
+  ntAtual = novo;
+  document.getElementById('ntSituacaoTexto').textContent = ntAtual.situacao;
+  ntRender();
+}
+document.getElementById('ntShuffleBtn').addEventListener('click', ntSortear);
+document.getElementById('ntCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="nt-opcao"]:checked');
+  const box = document.getElementById('ntFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === ntAtual.correta;
+  let html = `<strong>${acertou ? 'Correto: é a associação mais destacada na literatura.' : `A associação mais destacada na literatura, aqui, é: ${ntAtual.correta}.`}</strong><p>${ntAtual.explicacao}</p>`;
+  if(ntAtual.simplificacao){
+    html += `<p style="font-style:italic; color:var(--ink-soft);">${ntAtual.simplificacao}</p>`;
+  }
+  box.className = `pfeedback show ${acertou ? 'good' : 'partial'}`;
+  box.innerHTML = html;
+});
+ntSortear();
+
+// --- Ferramenta: Simpático ou Parassimpático? (Bases Biológicas) ---
+const SN_OPCOES = ['Sistema Nervoso Simpático', 'Sistema Nervoso Parassimpático'];
+const SN_CENARIOS = [
+  {situacao:"Aumento da frequência cardíaca e dilatação das pupilas diante de um perigo repentino.", correta:SN_OPCOES[0], explicacao:"Resposta de alerta/emergência ('luta ou fuga'), típica da ativação simpática."},
+  {situacao:"Redução da frequência cardíaca e aumento dos movimentos intestinais logo após uma refeição tranquila.", correta:SN_OPCOES[1], explicacao:"Favorecer a digestão e reduzir o ritmo cardíaco em momentos de repouso é uma função clássica do sistema parassimpático ('repouso e digestão')."},
+  {situacao:"Sudorese nas mãos e boca seca minutos antes de uma apresentação importante.", correta:SN_OPCOES[0], explicacao:"Sinais físicos de ansiedade antecipatória, mediados pela ativação do sistema simpático diante de uma situação percebida como ameaçadora."},
+  {situacao:"Diminuição da frequência respiratória e relaxamento muscular durante o sono profundo.", correta:SN_OPCOES[1], explicacao:"Estados de repouso profundo, como o sono, são predominantemente regulados pelo sistema parassimpático."},
+  {situacao:"Redirecionamento do fluxo sanguíneo dos órgãos digestivos para os músculos esqueléticos durante uma corrida de emergência.", correta:SN_OPCOES[0], explicacao:"Priorizar músculos em detrimento da digestão numa situação de esforço/emergência é uma resposta simpática típica."},
+  {situacao:"Contração da pupila (miose) e aumento da salivação enquanto a pessoa relaxa depois do trabalho.", correta:SN_OPCOES[1], explicacao:"Miose e salivação aumentada em contexto de relaxamento são efeitos associados à ativação parassimpática."},
+  {situacao:"Liberação de adrenalina pelas glândulas suprarrenais diante de uma ameaça súbita.", correta:SN_OPCOES[0], explicacao:"A liberação de adrenalina é uma resposta clássica de ativação do sistema simpático diante de ameaça."},
+  {situacao:"Redução da pressão arterial e da frequência cardíaca durante uma sessão de meditação.", correta:SN_OPCOES[1], explicacao:"Práticas que induzem relaxamento profundo tendem a favorecer a atividade parassimpática, reduzindo indicadores de ativação como pressão e frequência cardíaca."}
+];
+let snAtual = null;
+function snRender(){
+  const opcoesEl = document.getElementById('snOpcoes');
+  opcoesEl.innerHTML = SN_OPCOES.map(op => `
+    <label class="opcao-radio">
+      <input type="radio" name="sn-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('snFeedbackBox').className = 'pfeedback';
+  document.getElementById('snFeedbackBox').innerHTML = '';
+}
+function snSortear(){
+  let novo;
+  do{ novo = SN_CENARIOS[Math.floor(Math.random()*SN_CENARIOS.length)]; } while(novo === snAtual && SN_CENARIOS.length > 1);
+  snAtual = novo;
+  document.getElementById('snSituacaoTexto').textContent = snAtual.situacao;
+  snRender();
+}
+document.getElementById('snShuffleBtn').addEventListener('click', snSortear);
+document.getElementById('snCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="sn-opcao"]:checked');
+  const box = document.getElementById('snFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === snAtual.correta;
+  box.className = `pfeedback show ${acertou ? 'good' : 'bad'}`;
+  box.innerHTML = `<strong>${acertou ? 'Correto!' : `Não foi dessa vez: a resposta certa é ${snAtual.correta}.`}</strong><p>${snAtual.explicacao}</p>`;
+});
+snSortear();
+
+// --- Ferramenta: Localize a Lesão (Neuroanatomia) ---
+const LL_OPCOES = ['Cerebelo', 'Gânglios da base', 'Área de Broca', 'Área de Wernicke', 'Córtex occipital', 'Hipocampo', 'Córtex pré-frontal', 'Amígdala'];
+const LL_CENARIOS = [
+  {situacao:"Paciente perde a coordenação motora fina ao tentar tocar o próprio nariz com o dedo (teste dedo-nariz alterado), mas mantém a força muscular normal.", correta:'Cerebelo', explicacao:"Incoordenação motora (ataxia) sem perda de força é o padrão clássico associado a lesões cerebelares, diferente de lesões na via motora principal, que costumam causar fraqueza.", ambiguo:false},
+  {situacao:"Paciente apresenta rigidez muscular, tremor de repouso e lentidão de movimentos (bradicinesia).", correta:'Gânglios da base', explicacao:"Esse conjunto de sintomas (a tríade motora clássica) é mais associado a disfunção dos gânglios da base, especialmente da via dopaminérgica nigroestriatal, como visto na doença de Parkinson.", ambiguo:false},
+  {situacao:"Paciente tem fala truncada e com muito esforço, mas compreende perfeitamente o que lhe é dito.", correta:'Área de Broca', explicacao:"Fala não-fluente com compreensão preservada é o padrão clássico da afasia de Broca, associada a lesões na área de Broca (região frontal).", ambiguo:true},
+  {situacao:"Paciente fala de forma fluente, mas com conteúdo sem sentido, e tem dificuldade importante pra compreender o que os outros dizem.", correta:'Área de Wernicke', explicacao:"Fala fluente porém incoerente, com compreensão prejudicada, é o padrão clássico da afasia de Wernicke, associada a lesões na área de Wernicke (região temporal).", ambiguo:true},
+  {situacao:"Paciente perde a visão numa parte do campo visual em ambos os olhos, mantendo o restante da visão preservado.", correta:'Córtex occipital', explicacao:"Perdas de campo visual desse tipo costumam estar associadas a lesões nas vias visuais pós-quiasmáticas, incluindo o córtex occipital, mas a localização exata depende de qual parte do campo é afetada.", ambiguo:true},
+  {situacao:"Paciente não consegue formar novas memórias (esquece o que aconteceu minutos atrás), mas lembra bem de fatos de décadas passadas.", correta:'Hipocampo', explicacao:"Incapacidade de formar novas memórias com preservação de memórias antigas é o padrão clássico associado a lesões no hipocampo, estrutura central na consolidação da memória.", ambiguo:false},
+  {situacao:"Após um acidente, o paciente muda de personalidade, ficando impulsivo e com dificuldade de planejamento e julgamento social, um caso que lembra o histórico relato de Phineas Gage.", correta:'Córtex pré-frontal', explicacao:"Mudanças de personalidade com prejuízo do planejamento e do julgamento social são classicamente associadas a lesões no córtex pré-frontal.", ambiguo:false},
+  {situacao:"Paciente apresenta respostas de medo ausentes ou muito reduzidas diante de estímulos claramente ameaçadores.", correta:'Amígdala', explicacao:"A amígdala tem papel central no processamento do medo: lesões nela podem reduzir ou eliminar essa resposta emocional específica.", ambiguo:false}
+];
+let llAtual = null;
+function llRender(){
+  const opcoesEl = document.getElementById('llOpcoes');
+  opcoesEl.innerHTML = LL_OPCOES.map(op => `
+    <label class="opcao-radio">
+      <input type="radio" name="ll-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('llFeedbackBox').className = 'pfeedback';
+  document.getElementById('llFeedbackBox').innerHTML = '';
+}
+function llSortear(){
+  let novo;
+  do{ novo = LL_CENARIOS[Math.floor(Math.random()*LL_CENARIOS.length)]; } while(novo === llAtual && LL_CENARIOS.length > 1);
+  llAtual = novo;
+  document.getElementById('llSituacaoTexto').textContent = llAtual.situacao;
+  llRender();
+}
+document.getElementById('llShuffleBtn').addEventListener('click', llSortear);
+document.getElementById('llCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="ll-opcao"]:checked');
+  const box = document.getElementById('llFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === llAtual.correta;
+  let html = `<strong>${acertou ? 'Consistente com o padrão clássico descrito na literatura.' : `A associação mais destacada na literatura, aqui, é: ${llAtual.correta}.`}</strong><p>${llAtual.explicacao}</p>`;
+  if(llAtual.ambiguo){
+    html += `<p style="font-style:italic; color:var(--ink-soft);">Esse caso é mais delicado na prática real: o padrão de sintomas pode variar bastante entre pessoas, e uma localização precisa dependeria de exame clínico e de imagem, não só da descrição do quadro.</p>`;
+  }
+  box.className = `pfeedback show ${acertou ? 'good' : 'partial'}`;
+  box.innerHTML = html;
+});
+llSortear();
+
+// --- Ferramenta: Função ou Estrutura? (Neuroanatomia) ---
+const FE_OPCOES = ['Hipotálamo', 'Tálamo', 'Cerebelo', 'Hipocampo', 'Amígdala', 'Córtex pré-frontal', 'Corpo caloso'];
+const FE_CENARIOS = [
+  {situacao:"Regula o ciclo sono-vigília e outras funções circadianas, respondendo principalmente à quantidade de luz recebida.", correta:'Hipotálamo', explicacao:"O hipotálamo (em especial o núcleo supraquiasmático) é a estrutura mais associada à regulação do ritmo circadiano.", simplificacao:null},
+  {situacao:"Atua como uma espécie de estação de retransmissão para praticamente toda informação sensorial (exceto olfato) antes de chegar ao córtex.", correta:'Tálamo', explicacao:"O tálamo é classicamente descrito como o principal centro de retransmissão sensorial a caminho do córtex.", simplificacao:null},
+  {situacao:"Coordena o equilíbrio, o tônus muscular e a precisão dos movimentos voluntários.", correta:'Cerebelo', explicacao:"O cerebelo é a estrutura mais associada à coordenação motora fina, equilíbrio e ajuste do tônus muscular.", simplificacao:null},
+  {situacao:"Regula funções vegetativas como fome, sede e temperatura corporal, além de controlar a liberação de hormônios pela hipófise.", correta:'Hipotálamo', explicacao:"O hipotálamo é o principal centro regulador dessas funções vegetativas e da conexão entre sistema nervoso e sistema endócrino."},
+  {situacao:"Tem papel central na consolidação de memórias de curto prazo em memórias de longo prazo.", correta:'Hipocampo', explicacao:"O hipocampo é classicamente associado à consolidação da memória: pacientes com lesão nele têm dificuldade de formar novas memórias duradouras.", simplificacao:"O hipocampo participa da consolidação, mas não é um 'depósito' onde memórias ficam guardadas. Elas parecem ser armazenadas de forma mais distribuída pelo córtex, em redes que envolvem várias estruturas."},
+  {situacao:"Processa e atribui significado emocional a estímulos, tendo papel central nas respostas de medo.", correta:'Amígdala', explicacao:"A amígdala é a estrutura mais associada ao processamento do medo e de outras respostas emocionais.", simplificacao:"Vale lembrar que a amígdala participa de várias emoções, não só do medo, e trabalha em rede com outras regiões: reduzi-la a 'o centro do medo' é uma simplificação comum, mas imprecisa."},
+  {situacao:"Está envolvido no planejamento, na tomada de decisão e no controle de impulsos.", correta:'Córtex pré-frontal', explicacao:"O córtex pré-frontal é a região mais associada a essas funções executivas.", simplificacao:"O córtex pré-frontal tem várias subdivisões com papéis distintos entre si: tratá-lo como uma unidade única e uniforme também é uma simplificação didática."},
+  {situacao:"Conecta os dois hemisférios cerebrais, permitindo a comunicação entre eles.", correta:'Corpo caloso', explicacao:"O corpo caloso é o principal feixe de fibras que interliga os hemisférios cerebrais."}
+];
+let feAtual = null;
+function feRender(){
+  const opcoesEl = document.getElementById('feOpcoes');
+  opcoesEl.innerHTML = FE_OPCOES.map(op => `
+    <label class="opcao-radio">
+      <input type="radio" name="fe-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('feFeedbackBox').className = 'pfeedback';
+  document.getElementById('feFeedbackBox').innerHTML = '';
+}
+function feSortear(){
+  let novo;
+  do{ novo = FE_CENARIOS[Math.floor(Math.random()*FE_CENARIOS.length)]; } while(novo === feAtual && FE_CENARIOS.length > 1);
+  feAtual = novo;
+  document.getElementById('feSituacaoTexto').textContent = feAtual.situacao;
+  feRender();
+}
+document.getElementById('feShuffleBtn').addEventListener('click', feSortear);
+document.getElementById('feCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="fe-opcao"]:checked');
+  const box = document.getElementById('feFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === feAtual.correta;
+  let html = `<strong>${acertou ? 'Correto: é a associação mais destacada na literatura.' : `A associação mais destacada na literatura, aqui, é: ${feAtual.correta}.`}</strong><p>${feAtual.explicacao}</p>`;
+  if(feAtual.simplificacao){
+    html += `<p style="font-style:italic; color:var(--ink-soft);">${feAtual.simplificacao}</p>`;
+  }
+  box.className = `pfeedback show ${acertou ? 'good' : 'partial'}`;
+  box.innerHTML = html;
+});
+feSortear();
 
 // --- Instalar como app (PWA) ---
 let deferredInstallPrompt = null;
@@ -2131,7 +2709,7 @@ async function tentarInstalar(){
     deferredInstallPrompt = null;
     return;
   }
-  alert('Se o botão de instalação automática não abrir, segue o passo a passo acima mesmo — funciona igual.');
+  alert('Se o botão de instalação automática não abrir, segue o passo a passo acima mesmo: funciona igual.');
 }
 document.getElementById('installNowBtn').addEventListener('click', tentarInstalar);
 
