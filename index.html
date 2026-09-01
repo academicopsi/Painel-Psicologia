@@ -1415,6 +1415,28 @@
   </details>
 
   <details class="graveyard">
+    <summary><strong>Bases Biológicas</strong> · Mitose ou Meiose? (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a descrição do processo celular e identifique se é mitose ou meiose.</div>
+
+      <div class="prompt-box">
+        <div class="plabel">Descrição</div>
+        <div class="pfrase" id="mmSituacaoTexto"></div>
+      </div>
+      <button class="shuffle-btn" id="mmShuffleBtn">🔀 Sortear outra descrição</button>
+
+      <div id="mmOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+      <button class="correct-btn" id="mmCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+      <div class="pfeedback" id="mmFeedbackBox"></div>
+
+      <div class="tool-disclaimer">
+        Essas descrições seguem o padrão típico em animais. Em plantas e fungos, por exemplo, a meiose pode gerar esporos em vez de gametas diretamente, e o ciclo de vida completo costuma ser mais complexo do que o resumido aqui.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
     <summary><strong>Neuroanatomia</strong> · Localize a Lesão (clique pra abrir)</summary>
     <div class="tool-card" style="margin-top:12px;">
       <div class="sub">Leia o quadro de sintomas e identifique qual estrutura está mais associada a esse padrão na literatura.</div>
@@ -1514,11 +1536,11 @@ function newBadge(dateStr){
 // Lista de atualizações (editada só via Claude (a partir do que você me avisa) e republicada.
 // REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
 const UPDATES = [
+  {date: '2026-08-31', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Mitose ou Meiose?'},
   {date: '2026-08-31', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Localize a Lesão.'},
   {date: '2026-08-31', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Função ou Estrutura?'},
   {date: '2026-08-31', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Qual Neurotransmissor?'},
-  {date: '2026-08-29', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Simpático ou Parassimpático?'},
-  {date: '2026-08-29', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Nova ferramenta: Padrão Esperado ou Sinal de Atenção?'}
+  {date: '2026-08-29', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Simpático ou Parassimpático?'}
 ];
 
 function renderGrid(sem){
@@ -2600,6 +2622,52 @@ document.getElementById('snCorrigirBtn').addEventListener('click', ()=>{
   box.innerHTML = `<strong>${acertou ? 'Correto!' : `Não foi dessa vez: a resposta certa é ${snAtual.correta}.`}</strong><p>${snAtual.explicacao}</p>`;
 });
 snSortear();
+
+// --- Ferramenta: Mitose ou Meiose? (Bases Biológicas) ---
+const MM_OPCOES = ['Mitose', 'Meiose'];
+const MM_CENARIOS = [
+  {situacao:"Uma célula somática se divide originando duas células-filhas geneticamente idênticas à célula-mãe, com o mesmo número de cromossomos (2n).", correta:'Mitose', explicacao:"Gerar duas células-filhas idênticas à original, mantendo o número de cromossomos, é a marca da mitose."},
+  {situacao:"Uma célula germinativa passa por duas divisões sucessivas, originando quatro células-filhas com metade do número de cromossomos da célula original (n).", correta:'Meiose', explicacao:"Duas divisões sucessivas gerando quatro células com metade do número de cromossomos é o padrão característico da meiose."},
+  {situacao:"Esse tipo de divisão é responsável pelo crescimento do organismo e pela reposição de células da pele após um corte.", correta:'Mitose', explicacao:"Crescimento e reposição de tecidos são funções da mitose, que ocorre continuamente em células somáticas ao longo da vida."},
+  {situacao:"Esse tipo de divisão é responsável pela formação de gametas (óvulos e espermatozoides) e ocorre nas gônadas.", correta:'Meiose', explicacao:"A formação de gametas é a função central da meiose, reduzindo o número de cromossomos à metade para a reprodução sexuada."},
+  {situacao:"Durante essa divisão, ocorre o fenômeno de crossing-over (permutação genética) entre cromossomos homólogos, na prófase I.", correta:'Meiose', explicacao:"O crossing-over é um evento específico da prófase I da meiose, e é uma das principais fontes de variabilidade genética."},
+  {situacao:"As células-filhas produzidas por essa divisão têm exatamente a mesma informação genética da célula original, sem recombinação genética.", correta:'Mitose', explicacao:"Ausência de recombinação e identidade genética total com a célula-mãe são características da mitose."},
+  {situacao:"Esse processo contribui pra variabilidade genética da espécie, já que gera combinações novas de genes em cada gameta produzido.", correta:'Meiose', explicacao:"A geração de novas combinações genéticas em cada gameta é uma consequência direta da meiose (por crossing-over e segregação independente)."},
+  {situacao:"Uma célula de levedura (organismo unicelular) se divide para gerar uma colônia geneticamente idêntica à célula original.", correta:'Mitose', explicacao:"Reprodução assexuada gerando descendentes geneticamente idênticos, mesmo em organismos unicelulares, é um processo mitótico."}
+];
+let mmAtual = null;
+function mmRender(){
+  const opcoesEl = document.getElementById('mmOpcoes');
+  opcoesEl.innerHTML = MM_OPCOES.map(op => `
+    <label class="opcao-radio">
+      <input type="radio" name="mm-opcao" value="${op}">
+      <span>${op}</span>
+    </label>
+  `).join('');
+  document.getElementById('mmFeedbackBox').className = 'pfeedback';
+  document.getElementById('mmFeedbackBox').innerHTML = '';
+}
+function mmSortear(){
+  let novo;
+  do{ novo = MM_CENARIOS[Math.floor(Math.random()*MM_CENARIOS.length)]; } while(novo === mmAtual && MM_CENARIOS.length > 1);
+  mmAtual = novo;
+  document.getElementById('mmSituacaoTexto').textContent = mmAtual.situacao;
+  mmRender();
+}
+document.getElementById('mmShuffleBtn').addEventListener('click', mmSortear);
+document.getElementById('mmCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="mm-opcao"]:checked');
+  const box = document.getElementById('mmFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === mmAtual.correta;
+  box.className = `pfeedback show ${acertou ? 'good' : 'bad'}`;
+  box.innerHTML = `<strong>${acertou ? 'Correto!' : `Não foi dessa vez: a resposta certa é ${mmAtual.correta}.`}</strong><p>${mmAtual.explicacao}</p>`;
+});
+mmSortear();
 
 // --- Ferramenta: Localize a Lesão (Neuroanatomia) ---
 const LL_OPCOES = ['Cerebelo', 'Gânglios da base', 'Área de Broca', 'Área de Wernicke', 'Córtex occipital', 'Hipocampo', 'Córtex pré-frontal', 'Amígdala'];
