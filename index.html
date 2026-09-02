@@ -1480,6 +1480,40 @@
     </div>
   </details>
 
+  <details class="graveyard">
+    <summary><strong>Neuroanatomia</strong> · Mapa do Cérebro (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Clique num dos números marcados no desenho do cérebro. Depois, identifique o nome da estrutura e sua função principal.</div>
+
+      <div class="prompt-box" style="padding:14px;">
+        <svg id="brainSvg" viewBox="0 0 400 300" style="width:100%; max-width:420px; display:block; margin:0 auto;">
+          <path d="M100,150 C90,90 140,40 200,35 C260,30 320,55 340,100 C360,140 355,170 330,180 C345,198 320,218 288,212 C270,238 228,242 200,222 C168,238 128,222 118,196 C88,190 84,164 100,150 Z" fill="var(--paper)" stroke="var(--petrol)" stroke-width="2"/>
+          <path d="M330,180 C350,180 365,195 358,215 C352,232 328,232 315,218 C305,235 285,238 278,222 C270,205 285,188 305,188 Z" fill="var(--paper)" stroke="var(--petrol)" stroke-width="2"/>
+          <path d="M282,210 C280,225 282,240 288,255" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round"/>
+          <g id="brainMarkers" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700"></g>
+        </svg>
+      </div>
+
+      <div id="brainPanel" style="display:none;">
+        <div class="plabel" style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;">Estrutura selecionada: <span id="brainRegionLabel"></span></div>
+        <div style="margin-bottom:14px;">
+          <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é o nome desta estrutura?</label>
+          <select id="brainNomeSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é a função principal dela?</label>
+          <select id="brainFuncaoSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
+        </div>
+        <button class="correct-btn" id="brainCorrigirBtn">Corrigir</button>
+        <div class="pfeedback" id="brainFeedbackBox"></div>
+      </div>
+
+      <div class="tool-disclaimer">
+        Mapa esquemático e simplificado, feito só para fins didáticos, sem correspondência anatômica exata. Estruturas reais têm limites e subdivisões bem mais complexos do que o representado aqui, e funções cerebrais complexas dependem de redes distribuídas entre várias áreas, não de uma única região isolada.
+      </div>
+    </div>
+  </details>
+
   <div class="tool-disclaimer" style="margin-top:32px; border-top:1px solid var(--rule); padding-top:14px;">
     Apesar de todo o material ser constantemente revisado e alinhado com a literatura, o painel não se responsabiliza por eventuais divergências em avaliações oficiais. O conteúdo das aulas ministradas pelos professores sempre prevalece como referência final.
   </div>
@@ -1536,11 +1570,11 @@ function newBadge(dateStr){
 // Lista de atualizações (editada só via Claude (a partir do que você me avisa) e republicada.
 // REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
 const UPDATES = [
+  {date: '2026-09-01', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Mapa do Cérebro.'},
   {date: '2026-08-31', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Mitose ou Meiose?'},
   {date: '2026-08-31', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Localize a Lesão.'},
   {date: '2026-08-31', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Função ou Estrutura?'},
-  {date: '2026-08-31', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Qual Neurotransmissor?'},
-  {date: '2026-08-29', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Simpático ou Parassimpático?'}
+  {date: '2026-08-31', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Qual Neurotransmissor?'}
 ];
 
 function renderGrid(sem){
@@ -2768,6 +2802,76 @@ document.getElementById('feCorrigirBtn').addEventListener('click', ()=>{
   box.innerHTML = html;
 });
 feSortear();
+
+// --- Ferramenta: Mapa do Cérebro (Neuroanatomia) ---
+const BRAIN_REGIONS = [
+  {id:'frontal', x:165, y:75, nome:'Lobo Frontal', funcao:'Planejamento, tomada de decisão, controle motor voluntário e produção da fala (área de Broca)'},
+  {id:'parietal', x:255, y:55, nome:'Lobo Parietal', funcao:'Processamento de sensações do corpo (tato, dor, temperatura) e percepção espacial'},
+  {id:'occipital', x:325, y:95, nome:'Lobo Occipital', funcao:'Processamento primário das informações visuais'},
+  {id:'temporal', x:195, y:165, nome:'Lobo Temporal', funcao:'Processamento auditivo, compreensão da linguagem (área de Wernicke) e memória'},
+  {id:'cerebelo', x:330, y:205, nome:'Cerebelo', funcao:'Coordenação motora, equilíbrio e ajuste fino dos movimentos voluntários'},
+  {id:'tronco', x:283, y:240, nome:'Tronco Encefálico', funcao:'Controle de funções vitais automáticas, como respiração, frequência cardíaca e ciclo sono-vigília'}
+];
+let brainAtualId = null;
+const brainAcertos = new Set();
+
+function renderBrainMarkers(){
+  const g = document.getElementById('brainMarkers');
+  g.innerHTML = BRAIN_REGIONS.map((r,i) => `
+    <g style="cursor:pointer;" onclick="selecionarRegiaoCerebro('${r.id}')">
+      <circle cx="${r.x}" cy="${r.y}" r="13" fill="${brainAcertos.has(r.id) ? 'var(--petrol)' : 'var(--paper)'}" stroke="${brainAcertos.has(r.id) ? 'var(--petrol)' : 'var(--ochre)'}" stroke-width="2"/>
+      <text x="${r.x}" y="${r.y+4}" text-anchor="middle" fill="${brainAcertos.has(r.id) ? '#fff' : 'var(--ink)'}">${i+1}</text>
+    </g>
+  `).join('');
+}
+renderBrainMarkers();
+
+function selecionarRegiaoCerebro(id){
+  brainAtualId = id;
+  document.getElementById('brainPanel').style.display = 'block';
+  document.getElementById('brainRegionLabel').textContent = `nº ${BRAIN_REGIONS.findIndex(r=>r.id===id)+1}`;
+
+  const nomes = [...BRAIN_REGIONS.map(r=>r.nome)].sort(()=> Math.random()-0.5);
+  const funcoes = [...BRAIN_REGIONS.map(r=>r.funcao)].sort(()=> Math.random()-0.5);
+
+  document.getElementById('brainNomeSelect').innerHTML = '<option value="">Selecione...</option>' + nomes.map(n=>`<option value="${n.replace(/"/g,'&quot;')}">${n}</option>`).join('');
+  document.getElementById('brainFuncaoSelect').innerHTML = '<option value="">Selecione...</option>' + funcoes.map(f=>`<option value="${f.replace(/"/g,'&quot;')}">${f}</option>`).join('');
+
+  document.getElementById('brainFeedbackBox').className = 'pfeedback';
+  document.getElementById('brainFeedbackBox').innerHTML = '';
+  document.getElementById('brainPanel').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+document.getElementById('brainCorrigirBtn').addEventListener('click', ()=>{
+  const regiao = BRAIN_REGIONS.find(r => r.id === brainAtualId);
+  const nomeSel = document.getElementById('brainNomeSelect').value;
+  const funcaoSel = document.getElementById('brainFuncaoSelect').value;
+  const box = document.getElementById('brainFeedbackBox');
+  if(!regiao){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Clique numa região do desenho primeiro.</strong>';
+    return;
+  }
+  if(!nomeSel || !funcaoSel){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Selecione o nome e a função antes de corrigir.</strong>';
+    return;
+  }
+  const nomeCerto = nomeSel === regiao.nome;
+  const funcaoCerta = funcaoSel === regiao.funcao;
+  if(nomeCerto && funcaoCerta){
+    brainAcertos.add(brainAtualId);
+    renderBrainMarkers();
+    box.className = 'pfeedback show good';
+    box.innerHTML = `<strong>Correto! Essa região é o ${regiao.nome}.</strong><p>${regiao.funcao}</p>`;
+  } else {
+    box.className = 'pfeedback show bad';
+    let msg = '<strong>Ainda não é isso.</strong>';
+    if(!nomeCerto) msg += `<p>O nome correto dessa estrutura é <strong>${regiao.nome}</strong>.</p>`;
+    if(!funcaoCerta) msg += `<p>A função principal dela é: ${regiao.funcao}</p>`;
+    box.innerHTML = msg;
+  }
+});
 
 // --- Instalar como app (PWA) ---
 let deferredInstallPrompt = null;
