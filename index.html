@@ -936,15 +936,25 @@
 
   /* ===== Página Vídeos: tema de sala de projeção ===== */
   .cine{
-    background:#141110;
+    position:relative;
+    background:
+      radial-gradient(ellipse 640px 360px at 50% 4%, rgba(227,168,58,0.11), transparent 62%),
+      radial-gradient(ellipse 900px 700px at 50% 0%, #241D19 0%, #17130F 50%, #0C0A09 100%);
     color:#F2EDE3;
     max-width:820px;
     border-radius:2px;
-    padding-top:36px;
+    padding-top:8px;
   }
+  .filmstrip{
+    height:14px;
+    background: repeating-linear-gradient(90deg, #2A2118 0 10px, #0C0A09 10px 24px);
+    border-radius:2px;
+    margin-bottom:26px;
+  }
+  .filmstrip.bottom{margin-top:32px; margin-bottom:0;}
   .cine-back{color:#B8AFA0;}
   .cine-back:hover{color:#E3A83B;}
-  .cine-header{border-bottom:2px solid #3A322C; padding-bottom:22px; margin-bottom:28px;}
+  .cine-header{border-bottom:2px solid #3A322C; padding-bottom:22px; margin-bottom:28px; position:relative;}
   .cine-eyebrow{
     font-family:'IBM Plex Mono', monospace;
     font-size:11.5px;
@@ -959,6 +969,7 @@
     font-size:clamp(30px, 6vw, 44px);
     color:#F2EDE3;
     margin:0 0 10px;
+    text-shadow:0 0 28px rgba(227,168,58,0.25);
   }
   .cine-sub{font-size:14px; color:#B8AFA0; line-height:1.55; max-width:56ch; margin:0;}
 
@@ -1031,9 +1042,10 @@
     width:100%;
     padding-top:56.25%;
     background:#000;
-    border:1px solid #3A322C;
+    border:1px solid #E3A83B44;
     border-radius:2px;
     overflow:hidden;
+    box-shadow:0 0 32px rgba(227,168,58,0.10);
   }
   .video-frame iframe{
     position:absolute; top:0; left:0; width:100%; height:100%; border:none;
@@ -1052,42 +1064,48 @@
     .section-title{scroll-margin-top: 210px;}
   }
 
-  /* ===== Página Simulados: tema "modo desafio" / placar ===== */
+  /* ===== Página Simulados: tema claro e gamificado ===== */
   .arena{
-    background:#0B0F14;
-    color:#EAF2E8;
+    background:#FAFAF7;
+    color:#22262B;
     max-width:820px;
     border-radius:2px;
     padding-top:36px;
   }
-  .arena-back{color:#8A9B94;}
-  .arena-back:hover{color:#C6FF3D;}
-  .arena-header{border-bottom:2px solid #232B32; padding-bottom:22px; margin-bottom:28px;}
+  .arena-back{color:#9B9788;}
+  .arena-back:hover{color:#6C5CE7;}
+  .arena-header{border-bottom:2px solid #6C5CE7; padding-bottom:22px; margin-bottom:28px;}
   .arena-eyebrow{
     font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;
+    font-size:11px;
     font-weight:700;
-    letter-spacing:.16em;
-    color:#C6FF3D;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#6C5CE7;
     margin-bottom:10px;
   }
   .arena-title{
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'IBM Plex Sans', sans-serif;
     font-weight:700;
-    font-size:clamp(30px, 6vw, 44px);
-    text-transform:uppercase;
-    letter-spacing:.02em;
-    color:#EAF2E8;
+    font-style:italic;
+    font-size:clamp(32px, 7vw, 48px);
+    letter-spacing:-0.01em;
+    background:linear-gradient(90deg, #A855F7, #4C8DFF);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
     margin:0 0 10px;
   }
-  .arena-sub{font-size:14px; color:#8A9B94; line-height:1.55; max-width:56ch; margin:0;}
+  .arena-sub{font-size:14px; color:#6B685D; line-height:1.55; max-width:56ch; margin:0;}
 
   .arena-disc{
-    background:#141A21;
-    border:1px solid #232B32;
-    border-radius:2px;
+    background:#FFFFFF;
+    border:1px solid #EAE6DB;
+    border-top:4px solid var(--rarity, #A855F7);
+    border-radius:14px;
     margin-bottom:14px;
     overflow:hidden;
+    box-shadow:0 2px 6px rgba(34,38,43,0.05);
   }
   .arena-disc summary{
     display:flex;
@@ -1099,45 +1117,50 @@
   }
   .arena-disc summary::-webkit-details-marker{display:none;}
   .arena-disc .ad-num{
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:700;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:800;
+    font-style:italic;
     font-size:12px;
-    color:#0B0F14;
-    background:#C6FF3D;
-    padding:3px 7px;
-    border-radius:2px;
+    color:#fff;
+    background:var(--rarity, #6C5CE7);
+    padding:4px 10px;
+    border-radius:6px;
+    transform:skewX(-8deg);
+    display:inline-block;
     flex:none;
   }
   .arena-disc .ad-name{
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'IBM Plex Sans', sans-serif;
     font-weight:600;
-    font-size:14.5px;
-    text-transform:uppercase;
-    letter-spacing:.03em;
-    color:#EAF2E8;
+    font-size:15px;
+    color:#22262B;
     flex:1;
   }
   .arena-disc .ad-count{
     font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
     font-size:11px;
-    color:#8A9B94;
+    color:#00A896;
+    background:rgba(0,168,150,0.12);
+    padding:4px 9px;
+    border-radius:20px;
     flex:none;
   }
   .arena-disc .ad-caret{
     flex:none;
     font-size:11px;
-    color:#C6FF3D;
+    color:#6C5CE7;
     transition:transform .15s ease;
   }
   .arena-disc[open] .ad-caret{transform:rotate(90deg);}
   .arena-quiz-list{
     padding:4px 18px 18px;
-    border-top:1px solid #232B32;
+    border-top:1px solid #F1EEE5;
   }
   .arena-empty{
     font-family:'IBM Plex Mono', monospace;
     font-size:12.5px;
-    color:#5C6A64;
+    color:#B8B4A6;
     padding:14px 0 4px;
   }
   .arena-quiz{
@@ -1147,43 +1170,52 @@
     gap:14px;
     margin-top:14px;
     padding:14px 16px;
-    background:#0B0F14;
-    border:1px solid #232B32;
-    border-radius:2px;
+    background:#FAFAF7;
+    border:1px solid #EAE6DB;
+    border-radius:12px;
   }
   .arena-quiz-info .aq-title{
     font-family:'Lora', serif;
+    font-weight:600;
     font-size:14.5px;
-    color:#EAF2E8;
+    color:#22262B;
     margin-bottom:3px;
   }
   .arena-quiz-info .aq-nota{
     font-family:'IBM Plex Mono', monospace;
     font-size:11px;
-    color:#8A9B94;
+    color:#A29E90;
   }
   .arena-play-btn{
     flex:none;
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:700;
-    font-size:11.5px;
-    letter-spacing:.04em;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:800;
+    font-style:italic;
+    font-size:12.5px;
     text-transform:uppercase;
-    color:#0B0F14;
-    background:#C6FF3D;
-    padding:9px 14px;
-    border-radius:2px;
+    letter-spacing:.02em;
+    color:#fff;
+    background:linear-gradient(90deg, #A855F7, #4C8DFF);
+    padding:10px 18px;
+    border-radius:8px;
+    transform:skewX(-8deg);
     text-decoration:none;
     white-space:nowrap;
+    box-shadow:0 3px 10px rgba(108,92,231,0.35);
+    transition:box-shadow .15s ease, transform .15s ease;
   }
-  .arena-play-btn:hover{background:#FF3D7A; color:#0B0F14;}
+  .arena-play-btn svg, .arena-play-btn span{transform:skewX(8deg); display:inline-block;}
+  .arena-play-btn:hover{box-shadow:0 4px 16px rgba(108,92,231,0.55); transform:skewX(-8deg) translateY(-1px);}
   .arena-footer{
     margin-top:40px;
     padding-top:16px;
-    border-top:1px solid #232B32;
+    border-top:1px solid #EAE6DB;
     font-family:'IBM Plex Mono', monospace;
     font-size:11px;
-    color:#5C6A64;
+    color:#B8B4A6;
   }
 </style>
 </head>
@@ -1802,6 +1834,7 @@
 
 <!-- ============ PÁGINA: VÍDEOS ============ -->
 <div class="wrap cine" id="viewVideos" style="display:none;">
+  <div class="filmstrip"></div>
   <button class="back-link cine-back" id="backFromVideos">← Voltar ao Arquivo Vivo</button>
 
   <header class="cine-header">
@@ -1813,6 +1846,7 @@
   <div id="videosAccordion"></div>
 
   <footer class="cine-footer">Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
+  <div class="filmstrip bottom"></div>
 </div>
 
 <!-- ============ PÁGINA: SIMULADOS ============ -->
@@ -1864,11 +1898,11 @@ function newBadge(dateStr){
 // Lista de atualizações (editada só via Claude (a partir do que você me avisa) e republicada.
 // REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
 const UPDATES = [
+  {date: '2026-09-04', disc: 'Bases Biológicas', desc: 'Novo vídeo: Gametogênese.'},
   {date: '2026-09-03', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Mapa do Cérebro.'},
   {date: '2026-09-03', disc: 'Geral', desc: 'Nova página: Simulados (quizzes do Wayground).'},
   {date: '2026-09-03', disc: 'Bases Biológicas', desc: 'Simulado adicionado: Processos Biológicos.'},
-  {date: '2026-09-03', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Simulado adicionado: Desenvolvimento Adulto e Idoso.'},
-  {date: '2026-09-02', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Classifique a Gametogênese.'}
+  {date: '2026-09-03', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Simulado adicionado: Desenvolvimento Adulto e Idoso.'}
 ];
 
 function renderGrid(sem){
@@ -2102,7 +2136,7 @@ document.getElementById('backFromInstalar').addEventListener('click', ()=> switc
 // Página Vídeos: accordion por disciplina (Segundo Semestre)
 // Formato para adicionar vídeos futuramente: {titulo, youtubeId, nota}
 const VIDEOS = {
-  '01': [{titulo:'O que é genética comportamental?', youtubeId:'5OaRKEhwnsc'}],
+  '01': [{titulo:'O que é genética comportamental?', youtubeId:'5OaRKEhwnsc'}, {titulo:'Gametogênese', youtubeId:'04l1AdA_Sb4'}],
   '02': [{titulo:'Resumão Sistema Nervoso Central', youtubeId:'KBaRemG4_s0'}],
   '03': [{titulo:'Teorias da aprendizagem e do desenvolvimento', youtubeId:'JBcjnLDtRYs'}],
   '04': [],
@@ -3087,8 +3121,10 @@ const SIMULADOS = {
 };
 function renderSimulados(){
   const el = document.getElementById('simuladosLista');
-  el.innerHTML = DISC[2].map(d=>{
+  const RARITY_CORES = ['#9AA0A6', '#3DDC97', '#4C8DFF', '#A855F7', '#FF9F1C', '#FF3D9A'];
+  el.innerHTML = DISC[2].map((d, idx)=>{
     const items = SIMULADOS[d.n] || [];
+    const cor = RARITY_CORES[idx % RARITY_CORES.length];
     const listHtml = items.length === 0
       ? '<div class="arena-empty">Nenhum simulado adicionado ainda nesta disciplina.</div>'
       : items.map(q => `
@@ -3097,12 +3133,12 @@ function renderSimulados(){
               <div class="aq-title">${q.titulo}</div>
               ${q.nota ? `<div class="aq-nota">${q.nota}</div>` : ''}
             </div>
-            <a class="arena-play-btn" href="${q.url}" target="_blank" rel="noopener">Jogar →</a>
+            <a class="arena-play-btn" href="${q.url}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Jogar</span></a>
           </div>
         `).join('');
-    return `<details class="arena-disc">
+    return `<details class="arena-disc" style="--rarity:${cor};">
       <summary>
-        <span class="ad-num">${d.n}</span>
+        <span class="ad-num" style="background:${cor};">${d.n}</span>
         <span class="ad-name">${d.name}</span>
         <span class="ad-count">${items.length} quiz${items.length === 1 ? '' : 'zes'}</span>
         <span class="ad-caret">▶</span>
