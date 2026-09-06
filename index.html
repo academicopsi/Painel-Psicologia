@@ -802,6 +802,37 @@
   .opcao-radio:hover{background:var(--paper-alt);}
   .opcao-radio input{margin-top:3px;}
 
+  .gm-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 12px;
+    background:var(--paper-alt);
+    border:1px solid var(--rule);
+    border-radius:2px;
+  }
+  .gm-item.ok{border-color:var(--petrol); background:rgba(31,92,86,0.08);}
+  .gm-item.err{border-color:#B5432E; background:rgba(181,67,46,0.08);}
+  .gm-item .gm-texto{flex:1; font-size:13.5px; line-height:1.4;}
+  .gm-item select{
+    flex:none;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13px;
+    padding:7px 8px;
+    border:1px solid var(--rule);
+    border-radius:2px;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .gm-item .gm-nota{
+    flex-basis:100%;
+    font-size:12px;
+    color:var(--ink-soft);
+    font-style:italic;
+    display:none;
+  }
+  .gm-item.err .gm-nota{display:block;}
+
   /* Página Como Instalar */
   .install-tabs{display:flex; gap:8px; margin:24px 0 20px;}
   .install-tab{
@@ -978,6 +1009,140 @@
   @media (max-width: 640px){
     .section-title{scroll-margin-top: 210px;}
   }
+
+  /* ===== Página Simulados: tema "modo desafio" / placar ===== */
+  .arena{
+    background:#0B0F14;
+    color:#EAF2E8;
+    max-width:820px;
+    border-radius:2px;
+    padding-top:36px;
+  }
+  .arena-back{color:#8A9B94;}
+  .arena-back:hover{color:#C6FF3D;}
+  .arena-header{border-bottom:2px solid #232B32; padding-bottom:22px; margin-bottom:28px;}
+  .arena-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.16em;
+    color:#C6FF3D;
+    margin-bottom:10px;
+  }
+  .arena-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700;
+    font-size:clamp(30px, 6vw, 44px);
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    color:#EAF2E8;
+    margin:0 0 10px;
+  }
+  .arena-sub{font-size:14px; color:#8A9B94; line-height:1.55; max-width:56ch; margin:0;}
+
+  .arena-disc{
+    background:#141A21;
+    border:1px solid #232B32;
+    border-radius:2px;
+    margin-bottom:14px;
+    overflow:hidden;
+  }
+  .arena-disc summary{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 18px;
+    cursor:pointer;
+    list-style:none;
+  }
+  .arena-disc summary::-webkit-details-marker{display:none;}
+  .arena-disc .ad-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700;
+    font-size:12px;
+    color:#0B0F14;
+    background:#C6FF3D;
+    padding:3px 7px;
+    border-radius:2px;
+    flex:none;
+  }
+  .arena-disc .ad-name{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:14.5px;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    color:#EAF2E8;
+    flex:1;
+  }
+  .arena-disc .ad-count{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:#8A9B94;
+    flex:none;
+  }
+  .arena-disc .ad-caret{
+    flex:none;
+    font-size:11px;
+    color:#C6FF3D;
+    transition:transform .15s ease;
+  }
+  .arena-disc[open] .ad-caret{transform:rotate(90deg);}
+  .arena-quiz-list{
+    padding:4px 18px 18px;
+    border-top:1px solid #232B32;
+  }
+  .arena-empty{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:#5C6A64;
+    padding:14px 0 4px;
+  }
+  .arena-quiz{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    margin-top:14px;
+    padding:14px 16px;
+    background:#0B0F14;
+    border:1px solid #232B32;
+    border-radius:2px;
+  }
+  .arena-quiz-info .aq-title{
+    font-family:'Lora', serif;
+    font-size:14.5px;
+    color:#EAF2E8;
+    margin-bottom:3px;
+  }
+  .arena-quiz-info .aq-nota{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:#8A9B94;
+  }
+  .arena-play-btn{
+    flex:none;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700;
+    font-size:11.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:#0B0F14;
+    background:#C6FF3D;
+    padding:9px 14px;
+    border-radius:2px;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .arena-play-btn:hover{background:#FF3D7A; color:#0B0F14;}
+  .arena-footer{
+    margin-top:40px;
+    padding-top:16px;
+    border-top:1px solid #232B32;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:#5C6A64;
+  }
 </style>
 </head>
 <body>
@@ -1019,6 +1184,7 @@
     <button data-page="viewCursos"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5 12 5l9.5 4.5-9.5 4.5-9.5-4.5Z"/><path d="M6.5 11.5v4.5c0 1 2.5 2 5.5 2s5.5-1 5.5-2v-4.5"/></svg>Cursos Extras</button>
     <button data-page="viewFerramentas"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a3.5 3.5 0 0 0-4.6 4.1L4 16.5V20h3.5l5.9-5.9a3.5 3.5 0 0 0 4.1-4.6l-2.6 2.6-2-2Z"/></svg>Ferramentas</button>
     <button data-page="viewVideos"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5Z" fill="currentColor" stroke="none"/></svg>Vídeos de Apoio</button>
+    <button data-page="viewSimulados"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>Simulados</button>
     <button data-page="viewSobre"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.1"/></svg>Sobre o Site</button>
     <button data-page="viewInstalar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11M8 11l4 4 4-4"/><path d="M4.5 16.5v2.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-2.5"/></svg>Instale o App</button>
   </nav>
@@ -1370,7 +1536,7 @@
     </div>
   </details>
 
-  <details class="graveyard">
+  <details class="graveyard" style="display:none;">
     <summary><strong>Bases Biológicas</strong> · Qual Neurotransmissor? (clique pra abrir)</summary>
     <div class="tool-card" style="margin-top:12px;">
       <div class="sub">Leia a descrição e identifique qual neurotransmissor está mais associado a ela na literatura.</div>
@@ -1392,7 +1558,7 @@
     </div>
   </details>
 
-  <details class="graveyard">
+  <details class="graveyard" style="display:none;">
     <summary><strong>Bases Biológicas</strong> · Simpático ou Parassimpático? (clique pra abrir)</summary>
     <div class="tool-card" style="margin-top:12px;">
       <div class="sub">Leia a resposta fisiológica descrita e identifique qual ramo do sistema nervoso autônomo está predominantemente ativo.</div>
@@ -1432,6 +1598,93 @@
 
       <div class="tool-disclaimer">
         Essas descrições seguem o padrão típico em animais. Em plantas e fungos, por exemplo, a meiose pode gerar esporos em vez de gametas diretamente, e o ciclo de vida completo costuma ser mais complexo do que o resumido aqui.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Bases Biológicas</strong> · Classifique a Gametogênese (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Cada característica abaixo pertence à espermatogênese, à ovogênese, ou às duas (muita coisa é compartilhada entre os dois processos, não force uma escolha binária onde não existe). Classifique todas e clique em Corrigir.</div>
+
+      <div id="gmLista" style="display:flex; flex-direction:column; gap:10px; margin-top:16px;"></div>
+
+      <button class="correct-btn" id="gmCorrigirBtn" style="margin-top:16px;">Corrigir</button>
+      <div class="pfeedback" id="gmFeedbackBox"></div>
+      <button class="shuffle-btn" id="gmReiniciarBtn" style="margin-top:10px; display:none;">🔀 Embaralhar e tentar de novo</button>
+
+      <div class="tool-disclaimer">
+        Simplificações comuns em livro-texto podem sugerir que espermatogênese e ovogênese são só "espelhos" uma da outra: não são. Os dois processos têm fases análogas, mas com timing, regulação e resultados bem diferentes, resumidos aqui só até onde cabe num curso introdutório.
+      </div>
+    </div>
+  </details>
+
+  <details class="graveyard">
+    <summary><strong>Neuroanatomia</strong> · Mapa do Cérebro (clique pra abrir)</summary>
+    <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Clique num dos números marcados no desenho do cérebro. Depois, identifique o nome da estrutura e sua função principal. Regiões já acertadas ficam marcadas em verde.</div>
+
+      <div class="prompt-box" style="padding:14px;">
+        <svg id="brainSvg" viewBox="0 0 520 360" style="width:100%; max-width:520px; display:block; margin:0 auto;">
+          <path d="M256,206 C268,193 288,189 304,196 C317,201 326,212 328,226 C332,238 330,252 323,262 C327,274 324,288 316,297 C312,309 305,321 295,327 C288,332 279,330 274,323 C267,313 263,301 262,288 C255,279 252,266 253,253 C247,241 247,227 253,216 C254,212 255,209 256,206 Z" fill="hsl(324,36%,42%)" stroke="#22262B" stroke-width="1.5"/>
+          <path d="M330,205 C352,190 382,190 402,208 C420,224 424,248 412,266 C424,278 415,296 394,296 C386,308 366,310 356,299 C338,300 326,286 330,270 C316,258 320,236 330,220 C328,215 328,209 330,205 Z" fill="hsl(288,40%,45%)" stroke="#22262B" stroke-width="1.5"/>
+          <g stroke="#22262B" stroke-width="1" opacity="0.32" fill="none">
+            <path d="M328,232 C348,224 370,226 388,236"/>
+            <path d="M326,248 C350,240 376,241 398,252"/>
+            <path d="M332,264 C356,258 382,258 402,268"/>
+            <path d="M344,280 C364,275 384,276 398,283"/>
+          </g>
+          <path d="M76,168 C70,150 71,130 78,112 C73,104 76,94 84,90 C82,80 88,70 97,68 C97,58 106,49 116,50 C119,42 129,35 139,37 C145,29 158,24 170,27 C178,20 192,17 203,21 C209,15 219,13 227,17 C218,38 210,62 208,88 C207,104 207,120 209,136 C210,148 211,158 213,167 C200,175 185,180 170,181 C168,188 158,192 150,188 C142,194 130,193 124,186 C114,190 103,187 98,179 C90,182 82,178 79,171 C78,170 77,169 76,168 Z" fill="hsl(36,46%,46%)" stroke="#22262B" stroke-width="1.5"/>
+          <path d="M227,17 C238,10 251,8 263,12 C272,6 285,5 295,10 C306,6 319,8 327,16 C334,12 344,15 348,23 C338,45 330,70 327,96 C325,116 325,134 328,150 C329,160 330,168 332,175 C319,180 305,183 291,183 C280,183 269,181 259,178 C246,183 231,181 220,173 C216,171 214,169 213,167 C211,158 210,148 209,136 C207,120 207,104 208,88 C210,62 218,38 227,17 Z" fill="hsl(212,38%,42%)" stroke="#22262B" stroke-width="1.5"/>
+          <path d="M348,23 C362,20 376,26 385,37 C393,32 403,37 407,47 C417,58 424,73 428,90 C434,88 440,95 439,104 C446,116 448,131 445,146 C450,155 447,167 438,172 C440,182 433,192 422,192 C420,201 411,208 401,206 C395,213 384,215 376,210 C366,214 355,210 349,201 C340,197 336,187 338,178 C332,175 330,168 332,158 C329,160 328,150 327,96 C330,70 338,45 348,23 Z" fill="hsl(252,36%,45%)" stroke="#22262B" stroke-width="1.5"/>
+          <path d="M98,179 C103,187 114,190 124,186 C130,193 142,194 150,188 C158,192 168,188 170,181 C185,180 200,175 213,167 C214,169 216,171 220,173 C231,181 246,183 259,178 C260,188 258,199 261,210 C263,222 258,232 246,234 C248,244 240,252 228,251 C224,260 211,264 202,258 C193,265 179,264 172,255 C160,258 148,252 145,241 C133,241 124,232 125,220 C112,216 106,204 111,192 C104,192 98,188 96,181 C97,180 98,180 98,179 Z" fill="hsl(180,40%,36%)" stroke="#22262B" stroke-width="1.5"/>
+          <g stroke="#22262B" stroke-width="1" opacity="0.18" fill="none">
+            <path d="M100,90 C120,84 140,86 156,96"/>
+            <path d="M92,120 C114,112 138,114 156,126"/>
+            <path d="M88,150 C112,142 138,144 158,155"/>
+            <path d="M245,40 C265,34 288,36 305,46"/>
+            <path d="M240,70 C262,63 288,65 308,76"/>
+            <path d="M240,100 C264,94 290,96 310,106"/>
+            <path d="M370,55 C388,52 405,60 415,74"/>
+            <path d="M362,90 C382,85 402,92 414,106"/>
+            <path d="M355,125 C376,120 397,126 410,138"/>
+            <path d="M130,205 C150,200 172,202 190,212"/>
+            <path d="M140,228 C160,224 182,226 198,235"/>
+          </g>
+          <g stroke="#EFEAE0" stroke-width="2" stroke-dasharray="3,2">
+            <ellipse cx="110" cy="102" rx="23" ry="27" fill="hsl(18,55%,50%)" opacity="0.5" transform="rotate(-8 110 102)"/>
+            <path d="M188,28 C196,24 205,24 212,28 C214,50 214,78 213,102 C213,125 212,148 210,167 C202,169 194,169 187,166 C188,145 189,120 190,98 C190,72 189,48 188,28 Z" fill="hsl(2,52%,48%)" opacity="0.5"/>
+            <path d="M222,22 C230,18 240,18 248,22 C251,45 252,70 251,95 C251,118 250,140 248,158 C240,161 231,161 224,158 C224,136 224,110 224,88 C224,65 223,42 222,22 Z" fill="hsl(158,42%,40%)" opacity="0.5"/>
+            <ellipse cx="130" cy="170" rx="17" ry="13" fill="hsl(280,45%,48%)" opacity="0.5" transform="rotate(10 130 170)"/>
+            <ellipse cx="225" cy="205" rx="18" ry="14" fill="hsl(340,48%,50%)" opacity="0.5" transform="rotate(-6 225 205)"/>
+          </g>
+          <g id="brainMarkers" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700"></g>
+        </svg>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--ink-soft);">
+          <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#EFEAE0; border:2px solid #C98A2C; vertical-align:middle; margin-right:5px;"></span>não respondido</span>
+          <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#EFEAE0; border:2px dashed #153F3B; vertical-align:middle; margin-right:5px;"></span>selecionado agora</span>
+          <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#1F5C56; vertical-align:middle; margin-right:5px;"></span>já acertado</span>
+        </div>
+      </div>
+
+      <div id="brainPanel" style="display:none; margin-top:16px;">
+        <div class="plabel" style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;">Estrutura selecionada: <span id="brainRegionLabel"></span></div>
+        <div style="margin-bottom:14px;">
+          <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é o nome desta estrutura?</label>
+          <select id="brainNomeSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é a função principal dela?</label>
+          <select id="brainFuncaoSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
+        </div>
+        <button class="correct-btn" id="brainCorrigirBtn">Corrigir</button>
+        <div class="pfeedback" id="brainFeedbackBox"></div>
+        <button class="reveal-btn" id="brainVerRespostaBtn" style="display:none;">Ver resposta correta</button>
+        <div id="brainRespostaCorreta" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft);"></div>
+      </div>
+
+      <div class="tool-disclaimer">
+        Mapa esquemático e simplificado, feito só para fins didáticos, sem correspondência anatômica exata. As posições marcadas são aproximadas: os limites reais entre giros e áreas funcionais variam de pessoa pra pessoa e não são visíveis a olho nu num cérebro real. Funções cerebrais complexas também dependem de redes distribuídas entre várias áreas, não de uma única região isolada.
       </div>
     </div>
   </details>
@@ -1480,40 +1733,6 @@
     </div>
   </details>
 
-  <details class="graveyard">
-    <summary><strong>Neuroanatomia</strong> · Mapa do Cérebro (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Clique num dos números marcados no desenho do cérebro. Depois, identifique o nome da estrutura e sua função principal.</div>
-
-      <div class="prompt-box" style="padding:14px;">
-        <svg id="brainSvg" viewBox="0 0 400 300" style="width:100%; max-width:420px; display:block; margin:0 auto;">
-          <path d="M100,150 C90,90 140,40 200,35 C260,30 320,55 340,100 C360,140 355,170 330,180 C345,198 320,218 288,212 C270,238 228,242 200,222 C168,238 128,222 118,196 C88,190 84,164 100,150 Z" fill="var(--paper)" stroke="var(--petrol)" stroke-width="2"/>
-          <path d="M330,180 C350,180 365,195 358,215 C352,232 328,232 315,218 C305,235 285,238 278,222 C270,205 285,188 305,188 Z" fill="var(--paper)" stroke="var(--petrol)" stroke-width="2"/>
-          <path d="M282,210 C280,225 282,240 288,255" fill="none" stroke="var(--petrol)" stroke-width="4" stroke-linecap="round"/>
-          <g id="brainMarkers" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700"></g>
-        </svg>
-      </div>
-
-      <div id="brainPanel" style="display:none;">
-        <div class="plabel" style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;">Estrutura selecionada: <span id="brainRegionLabel"></span></div>
-        <div style="margin-bottom:14px;">
-          <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é o nome desta estrutura?</label>
-          <select id="brainNomeSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
-        </div>
-        <div style="margin-bottom:14px;">
-          <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é a função principal dela?</label>
-          <select id="brainFuncaoSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
-        </div>
-        <button class="correct-btn" id="brainCorrigirBtn">Corrigir</button>
-        <div class="pfeedback" id="brainFeedbackBox"></div>
-      </div>
-
-      <div class="tool-disclaimer">
-        Mapa esquemático e simplificado, feito só para fins didáticos, sem correspondência anatômica exata. Estruturas reais têm limites e subdivisões bem mais complexos do que o representado aqui, e funções cerebrais complexas dependem de redes distribuídas entre várias áreas, não de uma única região isolada.
-      </div>
-    </div>
-  </details>
-
   <div class="tool-disclaimer" style="margin-top:32px; border-top:1px solid var(--rule); padding-top:14px;">
     Apesar de todo o material ser constantemente revisado e alinhado com a literatura, o painel não se responsabiliza por eventuais divergências em avaliações oficiais. O conteúdo das aulas ministradas pelos professores sempre prevalece como referência final.
   </div>
@@ -1534,6 +1753,21 @@
   <div id="videosAccordion"></div>
 
   <footer class="cine-footer">Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
+</div>
+
+<!-- ============ PÁGINA: SIMULADOS ============ -->
+<div class="wrap arena" id="viewSimulados" style="display:none;">
+  <button class="back-link arena-back" id="backFromSimulados">← Voltar ao Arquivo Vivo</button>
+
+  <header class="arena-header">
+    <div class="arena-eyebrow">MODO DESAFIO · SEGUNDO SEMESTRE</div>
+    <h1 class="arena-title">Simulados</h1>
+    <p class="arena-sub">Quizzes no Wayground pra treinar antes da prova, organizados por disciplina. Cada um abre numa aba nova.</p>
+  </header>
+
+  <div id="simuladosLista"></div>
+
+  <footer class="arena-footer">Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
 
 <script>
@@ -1570,11 +1804,11 @@ function newBadge(dateStr){
 // Lista de atualizações (editada só via Claude (a partir do que você me avisa) e republicada.
 // REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
 const UPDATES = [
-  {date: '2026-09-01', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Mapa do Cérebro.'},
-  {date: '2026-08-31', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Mitose ou Meiose?'},
-  {date: '2026-08-31', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Localize a Lesão.'},
-  {date: '2026-08-31', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Função ou Estrutura?'},
-  {date: '2026-08-31', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Qual Neurotransmissor?'}
+  {date: '2026-09-03', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Mapa do Cérebro.'},
+  {date: '2026-09-03', disc: 'Geral', desc: 'Nova página: Simulados (quizzes do Wayground).'},
+  {date: '2026-09-03', disc: 'Bases Biológicas', desc: 'Simulado adicionado: Processos Biológicos.'},
+  {date: '2026-09-03', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Simulado adicionado: Desenvolvimento Adulto e Idoso.'},
+  {date: '2026-09-02', disc: 'Bases Biológicas', desc: 'Nova ferramenta: Classifique a Gametogênese.'}
 ];
 
 function renderGrid(sem){
@@ -1640,7 +1874,15 @@ renderFeed(UPDATES);
 const TASKS = [
   {materia: 'Bases Biológicas', tarefa: 'Pesquisar Divisão Celular: Mitose e Meiose (fases e principais características)', prazo: '2026-08-24', added: '2026-08-20'},
   {materia: 'Bases Biológicas', tarefa: 'Estudar sobre Gametogênese (Masculina / Feminina)', prazo: '2026-08-31', added: '2026-08-20'},
-  {materia: 'Psicologia da Aprendizagem', tarefa: 'Prova de Psicologia da Aprendizagem', prazo: '2026-09-23', added: '2026-08-27'},
+  {materia: 'Bases Biológicas', tarefa: 'Prova N1', prazo: '2026-09-14', added: '2026-09-06'},
+  {materia: 'Psicologia da Aprendizagem', tarefa: 'Trabalho N1', prazo: '2026-09-09', added: '2026-09-06'},
+  {materia: 'Neuroanatomia', tarefa: 'Trabalho N1', prazo: '2026-09-15', added: '2026-09-06'},
+  {materia: 'Desenvolvimento Adulto e Idoso', tarefa: 'Prova N1', prazo: '2026-09-22', added: '2026-09-06'},
+  {materia: 'Neuroanatomia', tarefa: 'Prova N1', prazo: '2026-09-22', added: '2026-09-06'},
+  {materia: 'Psicologia da Aprendizagem', tarefa: 'Prova N1', prazo: '2026-09-23', added: '2026-08-27'},
+  {materia: 'Psicologia Experimental', tarefa: 'Trabalho N1', prazo: '2026-09-23', added: '2026-09-06'},
+  {materia: 'Psicologia Experimental', tarefa: 'Prova N1', prazo: '2026-09-23', added: '2026-09-06'},
+  {materia: 'Desenvolvimento Adulto e Idoso', tarefa: 'Trabalho N1', prazo: '2026-10-20', added: '2026-09-06'},
 ];
 
 function renderTasks(items){
@@ -1779,7 +2021,7 @@ document.querySelectorAll('.sticky-nav [data-scroll]').forEach(btn=>{
 });
 
 // Navegação entre páginas (Cursos / Ferramentas / Vídeos / Sobre)
-const ALL_PAGES = ['top', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSobre', 'viewInstalar'];
+const ALL_PAGES = ['top', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewSobre', 'viewInstalar'];
 function switchPage(id){
   ALL_PAGES.forEach(pid=>{
     document.getElementById(pid).style.display = (pid === id) ? 'block' : 'none';
@@ -1793,6 +2035,7 @@ document.getElementById('backFromCursos').addEventListener('click', ()=> switchP
 document.getElementById('backFromPrazos').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromFerramentas').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromVideos').addEventListener('click', ()=> switchPage('top'));
+document.getElementById('backFromSimulados').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromSobre').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromInstalar').addEventListener('click', ()=> switchPage('top'));
 
@@ -2703,6 +2946,224 @@ document.getElementById('mmCorrigirBtn').addEventListener('click', ()=>{
 });
 mmSortear();
 
+// --- Ferramenta: Classifique a Gametogênese (Bases Biológicas) ---
+const GM_OPCOES = ['Espermatogênese', 'Ovogênese', 'Ambos'];
+const GM_CARACTERISTICAS = [
+  {texto:"Produz 4 células (gametas) viáveis a partir de cada célula germinativa.", correta:'Espermatogênese', nota:"Na ovogênese, só 1 dos 4 produtos vira gameta viável: os outros 3 são corpos polares que degeneram."},
+  {texto:"Produz apenas 1 gameta viável e até 3 corpos polares (que degeneram) a partir de cada célula germinativa.", correta:'Ovogênese', nota:"Na espermatogênese, os 4 produtos da meiose viram espermatozoides funcionais."},
+  {texto:"Envolve as duas divisões da meiose (Meiose I e Meiose II).", correta:'Ambos', nota:"Tanto a formação do espermatozoide quanto a do óvulo passam pelas duas divisões meióticas."},
+  {texto:"Ocorre nos testículos.", correta:'Espermatogênese', nota:"A ovogênese ocorre nos ovários, não nos testículos."},
+  {texto:"Ocorre nos ovários.", correta:'Ovogênese', nota:"A espermatogênese ocorre nos testículos, não nos ovários."},
+  {texto:"Resulta em gametas haploides (n), com metade do número de cromossomos da célula original.", correta:'Ambos', nota:"Esse é o objetivo central de qualquer meiose que gera gametas, independente do sexo."},
+  {texto:"Se inicia durante a vida fetal e fica com as células paradas em prófase I até a puberdade.", correta:'Ovogênese', nota:"Na espermatogênese não existe essa longa parada; o processo começa mesmo na puberdade."},
+  {texto:"Se inicia na puberdade e continua de forma praticamente contínua ao longo da vida adulta.", correta:'Espermatogênese', nota:"Na ovogênese, os oócitos já existem desde antes do nascimento: não há produção contínua de novas células germinativas."},
+  {texto:"Envolve uma divisão do citoplasma desigual entre as células-filhas durante a meiose.", correta:'Ovogênese', nota:"Essa divisão desigual é o que garante que o óvulo fique com reservas de nutrientes suficientes, enquanto os corpos polares recebem quase só material genético."},
+  {texto:"Os gametas produzidos apresentam flagelo, estrutura essencial pra locomoção.", correta:'Espermatogênese', nota:"O óvulo não tem flagelo: é o espermatozoide que precisa se locomover até ele."},
+  {texto:"É regulada por hormônios do eixo hipotálamo-hipófise-gônadas (como FSH e LH).", correta:'Ambos', nota:"Os dois processos dependem desse mesmo eixo hormonal, mesmo com diferenças nos padrões de liberação."},
+  {texto:"O número total de células germinativas disponíveis é definido antes do nascimento, sem produção de novas células ao longo da vida.", correta:'Ovogênese', nota:"Na espermatogênese, novas células germinativas continuam sendo produzidas ao longo da vida adulta, diferente da ovogênese."}
+];
+let gmRespondido = false;
+
+function gmRenderLista(){
+  const embaralhado = [...GM_CARACTERISTICAS].sort(()=> Math.random() - 0.5);
+  const listaEl = document.getElementById('gmLista');
+  listaEl.innerHTML = embaralhado.map((item, i) => `
+    <div class="gm-item" data-idx="${i}" data-correta="${item.correta}">
+      <span class="gm-texto">${item.texto}</span>
+      <select>
+        <option value="">Classificar...</option>
+        ${GM_OPCOES.map(op => `<option value="${op}">${op}</option>`).join('')}
+      </select>
+      <span class="gm-nota">${item.nota}</span>
+    </div>
+  `).join('');
+  document.getElementById('gmFeedbackBox').className = 'pfeedback';
+  document.getElementById('gmFeedbackBox').innerHTML = '';
+  document.getElementById('gmReiniciarBtn').style.display = 'none';
+  gmRespondido = false;
+}
+gmRenderLista();
+document.getElementById('gmReiniciarBtn').addEventListener('click', gmRenderLista);
+
+document.getElementById('gmCorrigirBtn').addEventListener('click', ()=>{
+  const itens = document.querySelectorAll('#gmLista .gm-item');
+  const box = document.getElementById('gmFeedbackBox');
+  let algumVazio = false;
+  let acertos = 0;
+  itens.forEach(item=>{
+    const select = item.querySelector('select');
+    const correta = item.dataset.correta;
+    item.classList.remove('ok','err');
+    if(!select.value){ algumVazio = true; return; }
+    if(select.value === correta){ item.classList.add('ok'); acertos++; }
+    else{ item.classList.add('err'); }
+  });
+  if(algumVazio){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Classifique todas as características antes de corrigir.</strong>';
+    return;
+  }
+  const total = itens.length;
+  if(acertos === total){
+    box.className = 'pfeedback show good';
+    box.innerHTML = `<strong>Acertou todas as ${total}!</strong>`;
+  } else {
+    box.className = 'pfeedback show partial';
+    box.innerHTML = `<strong>${acertos} de ${total} corretas.</strong><p>Os itens destacados em vermelho abaixo têm uma nota explicando o porquê.</p>`;
+  }
+  gmRespondido = true;
+  document.getElementById('gmReiniciarBtn').style.display = 'inline-block';
+});
+
+// --- Página Simulados (links do Wayground) ---
+// Formato para adicionar quizzes: {titulo, url, nota}
+const SIMULADOS = {
+  '01': [{titulo:'Simulado: Processos Biológicos', url:'https://wayground.com/join?gc=54972837', nota:'Código de sessão do Wayground'}],
+  '02': [],
+  '03': [],
+  '04': [],
+  '05': [{titulo:'Simulado: Desenvolvimento Adulto e Idoso', url:'https://wayground.com/join?gc=26202533', nota:'Código de sessão do Wayground'}],
+  '06': []
+};
+function renderSimulados(){
+  const el = document.getElementById('simuladosLista');
+  el.innerHTML = DISC[2].map(d=>{
+    const items = SIMULADOS[d.n] || [];
+    const listHtml = items.length === 0
+      ? '<div class="arena-empty">Nenhum simulado adicionado ainda nesta disciplina.</div>'
+      : items.map(q => `
+          <div class="arena-quiz">
+            <div class="arena-quiz-info">
+              <div class="aq-title">${q.titulo}</div>
+              ${q.nota ? `<div class="aq-nota">${q.nota}</div>` : ''}
+            </div>
+            <a class="arena-play-btn" href="${q.url}" target="_blank" rel="noopener">Jogar →</a>
+          </div>
+        `).join('');
+    return `<details class="arena-disc">
+      <summary>
+        <span class="ad-num">${d.n}</span>
+        <span class="ad-name">${d.name}</span>
+        <span class="ad-count">${items.length} quiz${items.length === 1 ? '' : 'zes'}</span>
+        <span class="ad-caret">▶</span>
+      </summary>
+      <div class="arena-quiz-list">${listHtml}</div>
+    </details>`;
+  }).join('');
+}
+renderSimulados();
+
+// --- Ferramenta: Mapa do Cérebro (Neuroanatomia) ---
+// Os 5 pontos marcados correspondem às sub-regiões destacadas no desenho (elipses/formas com contorno tracejado).
+const BRAIN_REGIOES = [
+  {id:1, x:110, y:102, nome:'Córtex Pré-Frontal', funcao:'Planejamento, tomada de decisão e controle de impulsos (funções executivas)'},
+  {id:2, x:200, y:95, nome:'Giro Pré-Central (Córtex Motor Primário)', funcao:'Controla os movimentos voluntários do corpo'},
+  {id:3, x:236, y:90, nome:'Giro Pós-Central (Córtex Somatossensorial Primário)', funcao:'Processa sensações do corpo, como tato, temperatura e dor'},
+  {id:4, x:130, y:170, nome:'Área de Broca', funcao:'Produção da fala (linguagem expressiva)'},
+  {id:5, x:225, y:205, nome:'Área de Wernicke', funcao:'Compreensão da linguagem (linguagem receptiva)'},
+  {id:6, x:90, y:145, nome:'Lobo Frontal', funcao:'Envolvido em planejamento, movimento voluntário, linguagem expressiva e comportamento social, entre outras funções'},
+  {id:7, x:300, y:145, nome:'Lobo Parietal', funcao:'Processa informações sensoriais do corpo e integra informações espaciais'},
+  {id:8, x:155, y:230, nome:'Lobo Temporal', funcao:'Processamento auditivo, compreensão da linguagem e participação na memória, entre outras funções'},
+  {id:9, x:395, y:110, nome:'Lobo Occipital', funcao:'Processamento visual'},
+  {id:10, x:375, y:245, nome:'Cerebelo', funcao:'Coordenação motora fina, equilíbrio e ajuste do tônus muscular'},
+  {id:11, x:295, y:275, nome:'Tronco Encefálico', funcao:'Controla funções vitais automáticas (respiração, frequência cardíaca, estado de alerta) e conecta o encéfalo à medula espinhal'}
+];
+const BRAIN_NOME_OPCOES = ['Córtex Pré-Frontal','Giro Pré-Central (Córtex Motor Primário)','Giro Pós-Central (Córtex Somatossensorial Primário)','Área de Broca','Área de Wernicke','Lobo Frontal','Lobo Parietal','Lobo Temporal','Lobo Occipital','Cerebelo','Tronco Encefálico','Hipocampo','Amígdala'];
+const BRAIN_FUNCAO_OPCOES = [
+  'Planejamento, tomada de decisão e controle de impulsos (funções executivas)',
+  'Controla os movimentos voluntários do corpo',
+  'Processa sensações do corpo, como tato, temperatura e dor',
+  'Produção da fala (linguagem expressiva)',
+  'Compreensão da linguagem (linguagem receptiva)',
+  'Envolvido em planejamento, movimento voluntário, linguagem expressiva e comportamento social, entre outras funções',
+  'Processa informações sensoriais do corpo e integra informações espaciais',
+  'Processamento auditivo, compreensão da linguagem e participação na memória, entre outras funções',
+  'Processamento visual',
+  'Coordenação motora fina, equilíbrio e ajuste do tônus muscular',
+  'Controla funções vitais automáticas (respiração, frequência cardíaca, estado de alerta) e conecta o encéfalo à medula espinhal',
+  'Consolidação de memórias de curto prazo em memórias de longo prazo',
+  'Processamento de emoções, com papel central no medo'
+];
+let brainAtivo = null;
+const brainAcertados = new Set();
+
+function brainRenderMarkers(){
+  const g = document.getElementById('brainMarkers');
+  g.innerHTML = BRAIN_REGIOES.map(r => {
+    const acertado = brainAcertados.has(r.id);
+    const selecionado = brainAtivo === r.id;
+    let fill = '#EFEAE0', stroke = '#C98A2C', dash = '';
+    if(acertado){ fill = '#1F5C56'; stroke = '#1F5C56'; }
+    else if(selecionado){ stroke = '#153F3B'; dash = 'stroke-dasharray="3,2"'; }
+    return `<g class="brain-marker" data-id="${r.id}" style="cursor:pointer;">
+      <circle cx="${r.x}" cy="${r.y}" r="12" fill="${fill}" stroke="${stroke}" stroke-width="2.5" ${dash}/>
+      <text x="${r.x}" y="${r.y+4}" text-anchor="middle" fill="${acertado ? '#EFEAE0' : '#22262B'}">${r.id}</text>
+    </g>`;
+  }).join('');
+  g.querySelectorAll('.brain-marker').forEach(m=>{
+    m.addEventListener('click', ()=> brainSelecionar(parseInt(m.dataset.id)));
+  });
+}
+
+function brainSelecionar(id){
+  brainAtivo = id;
+  brainRenderMarkers();
+  document.getElementById('brainPanel').style.display = 'block';
+  document.getElementById('brainRegionLabel').textContent = `Ponto ${id}`;
+  const nomeSel = document.getElementById('brainNomeSelect');
+  const funcSel = document.getElementById('brainFuncaoSelect');
+  nomeSel.innerHTML = '<option value="">Selecione...</option>' + [...BRAIN_NOME_OPCOES].sort(()=> Math.random()-0.5).map(o => `<option value="${o}">${o}</option>`).join('');
+  funcSel.innerHTML = '<option value="">Selecione...</option>' + [...BRAIN_FUNCAO_OPCOES].sort(()=> Math.random()-0.5).map(o => `<option value="${o}">${o}</option>`).join('');
+  const box = document.getElementById('brainFeedbackBox');
+  box.className = 'pfeedback';
+  box.innerHTML = '';
+  document.getElementById('brainVerRespostaBtn').style.display = 'none';
+  document.getElementById('brainRespostaCorreta').style.display = 'none';
+  document.getElementById('brainRespostaCorreta').innerHTML = '';
+}
+
+document.getElementById('brainCorrigirBtn').addEventListener('click', ()=>{
+  if(!brainAtivo) return;
+  const regiao = BRAIN_REGIOES.find(r => r.id === brainAtivo);
+  const nomeVal = document.getElementById('brainNomeSelect').value;
+  const funcVal = document.getElementById('brainFuncaoSelect').value;
+  const box = document.getElementById('brainFeedbackBox');
+  const verBtn = document.getElementById('brainVerRespostaBtn');
+  const respostaEl = document.getElementById('brainRespostaCorreta');
+  respostaEl.style.display = 'none';
+  respostaEl.innerHTML = '';
+  if(!nomeVal || !funcVal){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha o nome e a função antes de corrigir.</strong>';
+    verBtn.style.display = 'none';
+    return;
+  }
+  const nomeOk = nomeVal === regiao.nome;
+  const funcOk = funcVal === regiao.funcao;
+  if(nomeOk && funcOk){
+    brainAcertados.add(brainAtivo);
+    brainRenderMarkers();
+    box.className = 'pfeedback show good';
+    box.innerHTML = `<strong>Correto! Ponto ${brainAtivo}: ${regiao.nome}.</strong>`;
+    verBtn.style.display = 'none';
+  } else {
+    box.className = 'pfeedback show bad';
+    box.innerHTML = `<strong>Incorreto.</strong><p>${nomeOk ? 'Você acertou o nome, mas não a função.' : (funcOk ? 'Você acertou a função, mas não o nome.' : 'Nome e função não bateram com esse ponto.')}</p>`;
+    verBtn.style.display = 'inline-block';
+    verBtn.dataset.regiaoId = brainAtivo;
+  }
+});
+
+document.getElementById('brainVerRespostaBtn').addEventListener('click', ()=>{
+  const id = parseInt(document.getElementById('brainVerRespostaBtn').dataset.regiaoId);
+  const regiao = BRAIN_REGIOES.find(r => r.id === id);
+  const respostaEl = document.getElementById('brainRespostaCorreta');
+  respostaEl.innerHTML = `<strong>Nome:</strong> ${regiao.nome}<br><strong>Função:</strong> ${regiao.funcao}`;
+  respostaEl.style.display = 'block';
+});
+
+brainRenderMarkers();
+
 // --- Ferramenta: Localize a Lesão (Neuroanatomia) ---
 const LL_OPCOES = ['Cerebelo', 'Gânglios da base', 'Área de Broca', 'Área de Wernicke', 'Córtex occipital', 'Hipocampo', 'Córtex pré-frontal', 'Amígdala'];
 const LL_CENARIOS = [
@@ -2802,76 +3263,6 @@ document.getElementById('feCorrigirBtn').addEventListener('click', ()=>{
   box.innerHTML = html;
 });
 feSortear();
-
-// --- Ferramenta: Mapa do Cérebro (Neuroanatomia) ---
-const BRAIN_REGIONS = [
-  {id:'frontal', x:165, y:75, nome:'Lobo Frontal', funcao:'Planejamento, tomada de decisão, controle motor voluntário e produção da fala (área de Broca)'},
-  {id:'parietal', x:255, y:55, nome:'Lobo Parietal', funcao:'Processamento de sensações do corpo (tato, dor, temperatura) e percepção espacial'},
-  {id:'occipital', x:325, y:95, nome:'Lobo Occipital', funcao:'Processamento primário das informações visuais'},
-  {id:'temporal', x:195, y:165, nome:'Lobo Temporal', funcao:'Processamento auditivo, compreensão da linguagem (área de Wernicke) e memória'},
-  {id:'cerebelo', x:330, y:205, nome:'Cerebelo', funcao:'Coordenação motora, equilíbrio e ajuste fino dos movimentos voluntários'},
-  {id:'tronco', x:283, y:240, nome:'Tronco Encefálico', funcao:'Controle de funções vitais automáticas, como respiração, frequência cardíaca e ciclo sono-vigília'}
-];
-let brainAtualId = null;
-const brainAcertos = new Set();
-
-function renderBrainMarkers(){
-  const g = document.getElementById('brainMarkers');
-  g.innerHTML = BRAIN_REGIONS.map((r,i) => `
-    <g style="cursor:pointer;" onclick="selecionarRegiaoCerebro('${r.id}')">
-      <circle cx="${r.x}" cy="${r.y}" r="13" fill="${brainAcertos.has(r.id) ? 'var(--petrol)' : 'var(--paper)'}" stroke="${brainAcertos.has(r.id) ? 'var(--petrol)' : 'var(--ochre)'}" stroke-width="2"/>
-      <text x="${r.x}" y="${r.y+4}" text-anchor="middle" fill="${brainAcertos.has(r.id) ? '#fff' : 'var(--ink)'}">${i+1}</text>
-    </g>
-  `).join('');
-}
-renderBrainMarkers();
-
-function selecionarRegiaoCerebro(id){
-  brainAtualId = id;
-  document.getElementById('brainPanel').style.display = 'block';
-  document.getElementById('brainRegionLabel').textContent = `nº ${BRAIN_REGIONS.findIndex(r=>r.id===id)+1}`;
-
-  const nomes = [...BRAIN_REGIONS.map(r=>r.nome)].sort(()=> Math.random()-0.5);
-  const funcoes = [...BRAIN_REGIONS.map(r=>r.funcao)].sort(()=> Math.random()-0.5);
-
-  document.getElementById('brainNomeSelect').innerHTML = '<option value="">Selecione...</option>' + nomes.map(n=>`<option value="${n.replace(/"/g,'&quot;')}">${n}</option>`).join('');
-  document.getElementById('brainFuncaoSelect').innerHTML = '<option value="">Selecione...</option>' + funcoes.map(f=>`<option value="${f.replace(/"/g,'&quot;')}">${f}</option>`).join('');
-
-  document.getElementById('brainFeedbackBox').className = 'pfeedback';
-  document.getElementById('brainFeedbackBox').innerHTML = '';
-  document.getElementById('brainPanel').scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-
-document.getElementById('brainCorrigirBtn').addEventListener('click', ()=>{
-  const regiao = BRAIN_REGIONS.find(r => r.id === brainAtualId);
-  const nomeSel = document.getElementById('brainNomeSelect').value;
-  const funcaoSel = document.getElementById('brainFuncaoSelect').value;
-  const box = document.getElementById('brainFeedbackBox');
-  if(!regiao){
-    box.className = 'pfeedback show bad';
-    box.innerHTML = '<strong>Clique numa região do desenho primeiro.</strong>';
-    return;
-  }
-  if(!nomeSel || !funcaoSel){
-    box.className = 'pfeedback show bad';
-    box.innerHTML = '<strong>Selecione o nome e a função antes de corrigir.</strong>';
-    return;
-  }
-  const nomeCerto = nomeSel === regiao.nome;
-  const funcaoCerta = funcaoSel === regiao.funcao;
-  if(nomeCerto && funcaoCerta){
-    brainAcertos.add(brainAtualId);
-    renderBrainMarkers();
-    box.className = 'pfeedback show good';
-    box.innerHTML = `<strong>Correto! Essa região é o ${regiao.nome}.</strong><p>${regiao.funcao}</p>`;
-  } else {
-    box.className = 'pfeedback show bad';
-    let msg = '<strong>Ainda não é isso.</strong>';
-    if(!nomeCerto) msg += `<p>O nome correto dessa estrutura é <strong>${regiao.nome}</strong>.</p>`;
-    if(!funcaoCerta) msg += `<p>A função principal dela é: ${regiao.funcao}</p>`;
-    box.innerHTML = msg;
-  }
-});
 
 // --- Instalar como app (PWA) ---
 let deferredInstallPrompt = null;
