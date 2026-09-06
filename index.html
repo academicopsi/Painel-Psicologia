@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script data-goatcounter="https://thiagomonteiro.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
   :root{
     --paper:#EFEAE0;
@@ -124,6 +125,47 @@
   }
   .notice strong{color:var(--ink);}
   .thin-rule{border-top:1px solid var(--rule); margin:28px 0 24px;}
+
+  .stats-block{margin-top:8px;}
+  .stats-title{
+    font-family:'Lora', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink);
+    margin-bottom:12px;
+  }
+  .stats-strip{display:flex; flex-wrap:wrap; gap:10px;}
+  .stat-chip{
+    background:var(--paper-alt);
+    border:1px solid var(--rule);
+    border-radius:2px;
+    padding:12px 14px;
+    text-align:center;
+    min-width:96px;
+    flex:1 1 96px;
+  }
+  .stat-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700;
+    font-size:21px;
+    color:var(--petrol);
+    line-height:1.1;
+  }
+  .stat-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    margin-top:4px;
+  }
+  .stats-nota{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    margin-top:10px;
+    line-height:1.5;
+  }
 
   .menu-label{
     font-family:'IBM Plex Mono', monospace;
@@ -1208,6 +1250,24 @@
 
   <div class="notice">
     <strong>Atualizações aqui são esporádicas.</strong> Pra material sempre em dia, o ideal é acompanhar os grupos oficiais do WhatsApp da turma. Este painel serve pra concentrar tudo em um único lugar, não substitui os avisos de lá.
+  </div>
+
+  <div class="thin-rule"></div>
+
+  <div class="stats-block">
+    <div class="stats-title">Arquivo Vivo em números</div>
+    <div class="stats-strip">
+      <div class="stat-chip"><div class="stat-num" id="statViews">···</div><div class="stat-label">Visualizações</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statDisciplinas">–</div><div class="stat-label">Disciplinas</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statFerramentas">–</div><div class="stat-label">Ferramentas</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statQuestoes">–</div><div class="stat-label">Questões de prática</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statVideos">–</div><div class="stat-label">Vídeos de apoio</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statSimulados">–</div><div class="stat-label">Simulados</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statCursos">–</div><div class="stat-label">Cursos extras</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statDias">–</div><div class="stat-label">Dias no ar</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statHoras">–</div><div class="stat-label">Horas de conteúdo*</div></div>
+    </div>
+    <div class="stats-nota">*Estimativa (não é medição real): ~1,5 min por questão de prática + ~8 min por vídeo. Visualizações são contadas pelo GoatCounter.</div>
   </div>
 
   <footer>
@@ -3296,6 +3356,38 @@ document.querySelectorAll('.install-tab').forEach(tab=>{
 if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   document.querySelector('.install-tab[data-os="ios"]')?.click();
 }
+
+// --- Placar "Arquivo Vivo em números" ---
+(function(){
+  const totalDisciplinas = DISC[1].length + DISC[2].length;
+  const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length;
+  const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
+  const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
+  const totalCursos = COURSES.length;
+
+  const lancamento = new Date('2026-08-19T00:00:00');
+  const hoje = new Date();
+  const diasNoAr = Math.max(0, Math.floor((hoje - lancamento) / 86400000));
+
+  const minutosEstimados = (totalQuestoes * 1.5) + (totalVideos * 8);
+  const horasEstimadas = (minutosEstimados / 60).toFixed(1);
+
+  document.getElementById('statDisciplinas').textContent = totalDisciplinas;
+  document.getElementById('statFerramentas').textContent = totalFerramentas;
+  document.getElementById('statQuestoes').textContent = totalQuestoes;
+  document.getElementById('statVideos').textContent = totalVideos;
+  document.getElementById('statSimulados').textContent = totalSimulados;
+  document.getElementById('statCursos').textContent = totalCursos;
+  document.getElementById('statDias').textContent = diasNoAr;
+  document.getElementById('statHoras').textContent = horasEstimadas + 'h';
+
+  // Visualizações reais via GoatCounter (requer "Allow adding visitor counts" ativado no site do GoatCounter)
+  fetch('https://thiagomonteiro.goatcounter.com/counter/TOTAL.json')
+    .then(r => { if(!r.ok) throw new Error('not enabled'); return r.json(); })
+    .then(data => { document.getElementById('statViews').textContent = data.count; })
+    .catch(()=> { document.getElementById('statViews').textContent = 'ative no GoatCounter'; });
+})();
 </script>
 </body>
 </html>
