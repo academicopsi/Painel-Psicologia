@@ -1289,7 +1289,6 @@
   <div class="stats-block">
     <div class="stats-title">Arquivo Vivo em números</div>
     <div class="stats-strip">
-      <div class="stat-chip"><div class="stat-num" id="statViews">···</div><div class="stat-label">Visualizações</div></div>
       <div class="stat-chip"><div class="stat-num" id="statDisciplinas">–</div><div class="stat-label">Disciplinas</div></div>
       <div class="stat-chip"><div class="stat-num" id="statFerramentas">–</div><div class="stat-label">Ferramentas</div></div>
       <div class="stat-chip"><div class="stat-num" id="statQuestoes">–</div><div class="stat-label">Questões de prática</div></div>
@@ -1299,7 +1298,7 @@
       <div class="stat-chip"><div class="stat-num" id="statDias">–</div><div class="stat-label">Dias no ar</div></div>
       <div class="stat-chip"><div class="stat-num" id="statHoras">–</div><div class="stat-label">Horas de conteúdo*</div></div>
     </div>
-    <div class="stats-nota">*Estimativa (não é medição real): ~1,5 min por questão de prática + ~8 min por vídeo. Visualizações são contadas pelo GoatCounter.</div>
+    <div class="stats-nota">*Estimativa (não é medição real): ~2,2 min por questão de prática + ~11 min por vídeo, com base em médias observadas.</div>
   </div>
 
   <footer>
@@ -1854,7 +1853,7 @@
   <button class="back-link arena-back" id="backFromSimulados">← Voltar ao Arquivo Vivo</button>
 
   <header class="arena-header">
-    <div class="arena-eyebrow">MODO DESAFIO · SEGUNDO SEMESTRE</div>
+    <div class="arena-eyebrow">SEGUNDO SEMESTRE</div>
     <h1 class="arena-title">Simulados</h1>
     <p class="arena-sub">Quizzes no Wayground pra treinar antes da prova, organizados por disciplina. Cada um abre numa aba nova.</p>
   </header>
@@ -3406,7 +3405,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   const hoje = new Date();
   const diasNoAr = Math.max(0, Math.floor((hoje - lancamento) / 86400000));
 
-  const minutosEstimados = (totalQuestoes * 1.5) + (totalVideos * 8);
+  const minutosEstimados = (totalQuestoes * 2.2) + (totalVideos * 11);
   const horasEstimadas = (minutosEstimados / 60).toFixed(1);
 
   document.getElementById('statDisciplinas').textContent = totalDisciplinas;
@@ -3418,11 +3417,6 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   document.getElementById('statDias').textContent = diasNoAr;
   document.getElementById('statHoras').textContent = horasEstimadas + 'h';
 
-  // Visualizações reais via GoatCounter (requer "Allow adding visitor counts" ativado no site do GoatCounter)
-  fetch('https://thiagomonteiro.goatcounter.com/counter/TOTAL.json')
-    .then(r => { if(!r.ok) throw new Error('not enabled'); return r.json(); })
-    .then(data => { document.getElementById('statViews').textContent = data.count; })
-    .catch(()=> { document.getElementById('statViews').textContent = 'ative no GoatCounter'; });
 })();
 </script>
 </body>
