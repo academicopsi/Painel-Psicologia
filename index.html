@@ -1289,6 +1289,7 @@
   <div class="stats-block">
     <div class="stats-title">Arquivo Vivo em números</div>
     <div class="stats-strip">
+      <div class="stat-chip"><div class="stat-num" id="statViews">···</div><div class="stat-label">Visualizações</div></div>
       <div class="stat-chip"><div class="stat-num" id="statDisciplinas">–</div><div class="stat-label">Disciplinas</div></div>
       <div class="stat-chip"><div class="stat-num" id="statFerramentas">–</div><div class="stat-label">Ferramentas</div></div>
       <div class="stat-chip"><div class="stat-num" id="statQuestoes">–</div><div class="stat-label">Questões de prática</div></div>
@@ -1298,7 +1299,7 @@
       <div class="stat-chip"><div class="stat-num" id="statDias">–</div><div class="stat-label">Dias no ar</div></div>
       <div class="stat-chip"><div class="stat-num" id="statHoras">–</div><div class="stat-label">Horas de conteúdo*</div></div>
     </div>
-    <div class="stats-nota">*Estimativa (não é medição real): ~2,2 min por questão de prática + ~11 min por vídeo, com base em médias observadas.</div>
+    <div class="stats-nota">*Estimativa (não é medição real): ~2,2 min por questão de prática + ~11 min por vídeo, com base em médias observadas. Visualizações são contadas pelo GoatCounter.</div>
   </div>
 
   <footer>
@@ -3417,6 +3418,11 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   document.getElementById('statDias').textContent = diasNoAr;
   document.getElementById('statHoras').textContent = horasEstimadas + 'h';
 
+  // Visualizações reais via GoatCounter (requer "Allow adding visitor counts" ativado no site do GoatCounter)
+  fetch('https://thiagomonteiro.goatcounter.com/counter/TOTAL.json')
+    .then(r => { if(!r.ok) throw new Error('not enabled'); return r.json(); })
+    .then(data => { document.getElementById('statViews').textContent = data.count; })
+    .catch(()=> { document.getElementById('statViews').textContent = 'ative no GoatCounter'; });
 })();
 </script>
 </body>
