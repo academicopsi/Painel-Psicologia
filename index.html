@@ -580,6 +580,61 @@
     white-space:nowrap;
   }
 
+  /* Pra estudar */
+  .study-list{display:flex;flex-direction:column;gap:12px;}
+  .study-card{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+    background:var(--paper-alt);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--petrol);
+    border-radius:2px;
+    padding:17px 18px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .study-card:hover{
+    transform:translateY(-1px);
+    box-shadow:0 5px 14px var(--shadow);
+    border-left-color:var(--ochre);
+  }
+  .study-card .study-subject{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--petrol-dark);
+    margin-bottom:5px;
+  }
+  .study-card .study-title{
+    font-family:'Lora', serif;
+    font-weight:600;
+    font-size:16px;
+    line-height:1.35;
+  }
+  .study-card .study-desc{
+    font-size:13.5px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    margin-top:5px;
+    max-width:72ch;
+  }
+  .study-card .study-go{
+    flex:none;
+    align-self:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--petrol);
+    white-space:nowrap;
+  }
+  @media (max-width:600px){
+    .study-card{flex-direction:column;gap:12px;}
+    .study-card .study-go{align-self:flex-start;}
+  }
+
   /* Semester tabs */
   .tabs{display:flex;gap:8px;margin-bottom:24px;}
   .tab{
@@ -1259,6 +1314,7 @@
     <button data-page="viewFerramentas"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a3.5 3.5 0 0 0-4.6 4.1L4 16.5V20h3.5l5.9-5.9a3.5 3.5 0 0 0 4.1-4.6l-2.6 2.6-2-2Z"/></svg>Ferramentas</button>
     <button data-page="viewVideos"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5Z" fill="currentColor" stroke="none"/></svg>Vídeos de Apoio</button>
     <button data-page="viewSimulados"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>Simulados</button>
+    <button data-page="viewEstudar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 5.5v14"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>Pra estudar!</button>
     <button data-page="viewSobre"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.1"/></svg>Sobre o Site</button>
     <button data-page="viewInstalar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11M8 11l4 4 4-4"/><path d="M4.5 16.5v2.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-2.5"/></svg>Instale o App</button>
   </nav>
@@ -1864,6 +1920,21 @@
   <footer class="arena-footer">Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
 
+<!-- ============ PÁGINA: PRA ESTUDAR ============ -->
+<div class="wrap" id="viewEstudar" style="display:none;">
+  <button class="back-link" id="backFromEstudar">← Voltar ao Arquivo Vivo</button>
+
+  <header>
+    <div class="eyebrow">Pra estudar! · Arquivo Vivo</div>
+    <h1>Pra estudar!</h1>
+    <p>Materiais interativos para estudar de verdade: testar, recuperar o conteúdo da memória e revisar de formas diferentes.</p>
+  </header>
+
+  <div class="study-list" id="studyList"></div>
+
+  <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
+</div>
+
 <script>
 const DISC = {
   1: [
@@ -2077,6 +2148,50 @@ function renderCourses(items){
 }
 renderCourses(COURSES);
 
+// Materiais para estudo ativo.
+// Cada cartão abre o material em uma nova aba.
+const STUDY = [
+  {
+    materia: 'Neuroanatomia',
+    titulo: 'Telencéfalo & Diencéfalo',
+    desc: 'Três formas de testar o que você sabe — não só reler. Localize estruturas no esquema, treine com flashcards nos dois sentidos, e feche com um simulado.',
+    link: 'https://resumoneuro.netlify.app/'
+  },
+  {
+    materia: 'Neuroanatomia',
+    titulo: 'Lobo occipital',
+    desc: 'A mesma cena, vista através de cada função visual, e o que acontece quando essa função para de funcionar.',
+    link: 'https://trabalhoneuro.netlify.app/'
+  },
+  {
+    materia: 'Psicologia da Aprendizagem',
+    titulo: 'Teorias de aprendizagem: do Behaviorismo ao Humanismo',
+    desc: 'Leia a teoria, depois force o cérebro a buscar a resposta sozinho. É esse esforço de buscar, e não reler, que fixa o conteúdo.',
+    link: 'https://resumoaprendizagem.netlify.app/'
+  },
+  {
+    materia: 'Psicologia Experimental',
+    titulo: 'Teoria organizada para a prova',
+    desc: 'Leia o tópico, responda o Teste-se de cabeça e, no fim, revise com os cartões.',
+    link: 'https://resumoexperimental.netlify.app/'
+  }
+];
+
+function renderStudy(){
+  const el = document.getElementById('studyList');
+  el.innerHTML = STUDY.map(s => `
+    <a class="study-card" href="${s.link}" target="_blank" rel="noopener">
+      <div class="study-info">
+        <div class="study-subject">${s.materia}</div>
+        <div class="study-title">${s.titulo}</div>
+        <div class="study-desc">${s.desc}</div>
+      </div>
+      <span class="study-go">Estudar →</span>
+    </a>
+  `).join('');
+}
+renderStudy();
+
 document.getElementById('footDate').textContent = new Date().toLocaleDateString('pt-BR', {day:'2-digit', month:'long', year:'numeric'});
 
 const PUBLIC_URL = 'https://academicopsi.github.io/Painel-Psicologia/';
@@ -2115,7 +2230,7 @@ document.querySelectorAll('.sticky-nav [data-scroll]').forEach(btn=>{
 });
 
 // Navegação entre páginas (Cursos / Ferramentas / Vídeos / Sobre)
-const ALL_PAGES = ['top', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewSobre', 'viewInstalar'];
+const ALL_PAGES = ['top', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewEstudar', 'viewSobre', 'viewInstalar'];
 function switchPage(id){
   ALL_PAGES.forEach(pid=>{
     document.getElementById(pid).style.display = (pid === id) ? 'block' : 'none';
@@ -2130,6 +2245,7 @@ document.getElementById('backFromPrazos').addEventListener('click', ()=> switchP
 document.getElementById('backFromFerramentas').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromVideos').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromSimulados').addEventListener('click', ()=> switchPage('top'));
+document.getElementById('backFromEstudar').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromSobre').addEventListener('click', ()=> switchPage('top'));
 document.getElementById('backFromInstalar').addEventListener('click', ()=> switchPage('top'));
 
