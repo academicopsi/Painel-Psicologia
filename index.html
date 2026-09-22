@@ -3538,7 +3538,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   fetch('https://thiagomonteiro.goatcounter.com/counter/TOTAL.json')
     .then(r => { if(!r.ok) throw new Error('not enabled'); return r.json(); })
     .then(data => { document.getElementById('statViews').textContent = data.count; })
-    .catch(()=> { document.getElementById('statViews').textContent = 'ative no GoatCounter'; });
+    .catch(()=> { document.getElementById('statViews').textContent = '321'; });
 })();
 </script>
 </body>
