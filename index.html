@@ -68,7 +68,7 @@
     margin-bottom:18px;
   }
   @media (min-width:600px){
-    header{padding-bottom:24px; margin-bottom:18px;}
+    header{padding-bottom:28px; margin-bottom:18px;}
   }
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
@@ -115,8 +115,7 @@
   }
   .notice{
     display:block;
-    width:100%;
-    margin:0 0 18px;
+    margin:0 0 24px;
     font-size:13px;
     line-height:1.5;
     color:var(--petrol-dark);
@@ -126,7 +125,7 @@
     max-width:none;
   }
   .notice strong{color:var(--ink);}
-  .thin-rule{border-top:1px solid var(--rule); margin:22px 0 18px;}
+  .thin-rule{border-top:1px solid var(--rule); margin:18px 0 16px;}
 
   .stats-block{margin-top:4px;}
   .stats-title{
@@ -179,16 +178,15 @@
   }
   .sticky-nav{
     position:relative;
-    z-index:2;
+    z-index:10;
     display:flex;
     flex-wrap:wrap;
-    gap:6px;
-    align-items:center;
+    gap:5px;
     background:transparent;
-    border-top:1px solid var(--rule);
-    border-bottom:1px solid var(--rule);
-    padding:8px 0;
-    margin:0 0 10px;
+    border-top:0;
+    border-bottom:2px solid var(--rule);
+    padding:7px 0 9px;
+    margin:0 0 8px;
   }
   .sticky-nav button{
     display:inline-flex;
@@ -196,11 +194,11 @@
     gap:6px;
     font-family:'IBM Plex Mono', monospace;
     font-size:11.5px;
-    background:transparent;
-    border:1px solid transparent;
+    background:rgba(31,92,86,0.05);
+    border:1px solid rgba(31,92,86,0.13);
     color:var(--petrol-dark);
     cursor:pointer;
-    padding:6px 9px;
+    padding:6px 10px;
     border-radius:3px;
     white-space:nowrap;
     transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
@@ -214,27 +212,27 @@
   }
   .sticky-nav button.nav-home svg{opacity:1;}
   .sticky-nav button:hover{
-    background:rgba(31,92,86,0.07);
-    border-color:rgba(31,92,86,0.12);
+    background:rgba(31,92,86,0.14);
+    transform:translateY(-1px);
+    box-shadow:0 3px 8px var(--shadow);
   }
   .sticky-nav button.nav-home:hover{background:var(--petrol-dark);}
   @media (max-width: 640px){
     .sticky-nav{
-      flex-wrap:nowrap;
-      overflow-x:auto;
-      gap:4px;
-      padding:7px 0;
-      scrollbar-width:none;
-      -webkit-overflow-scrolling:touch;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6px;
     }
-    .sticky-nav::-webkit-scrollbar{display:none;}
     .sticky-nav button{
-      flex:0 0 auto;
-      white-space:nowrap;
-      line-height:1.2;
-      font-size:10.5px;
-      padding:6px 8px;
+      white-space:normal;
+      line-height:1.25;
+      text-align:left;
+      font-size:11.5px;
+      padding:9px 11px;
+      border-radius:3px;
     }
+    .sticky-nav button svg{margin-top:1px;}
+    .sticky-nav button[data-scroll="top"]{grid-column:1 / -1; justify-content:center;}
   }
   .sticky-nav .theme-toggle{
     margin-left:auto;
@@ -279,14 +277,14 @@
     background:var(--paper-alt);
     border:1px solid var(--rule);
     border-left:3px solid #5F8F83;
-    padding:16px 17px 17px;
+    padding:10px 12px 11px;
     box-shadow:0 3px 10px var(--shadow);
   }
   .whatsapp-callout p{
-    margin:0 0 14px;
+    margin:0 0 10px;
     max-width:none;
-    font-size:12.5px;
-    line-height:1.5;
+    font-size:11.5px;
+    line-height:1.45;
     color:var(--ink-soft);
   }
   .whatsapp-callout .whatsapp-join{
@@ -350,12 +348,12 @@
   .top-deadline{
     display:flex;
     align-items:center;
-    gap:14px;
+    gap:12px;
     background:var(--paper-alt);
     border:1px solid var(--rule);
     border-left:3px solid var(--petrol);
     border-radius:2px;
-    padding:12px 16px;
+    padding:10px 14px;
     margin:0;
     flex-wrap:nowrap;
   }
@@ -404,9 +402,9 @@
   }
   .sync-badge .dot{color:var(--petrol);}
 
-  .progress-block{margin:10px 0 0;}
+  .progress-block{margin:12px 0 0;}
   @media (min-width:600px){
-    .progress-block{margin:16px 0 0;}
+    .progress-block{margin:20px 0 0;}
   }
   .progress-block .label{
     display:flex;
@@ -458,11 +456,11 @@
 
   /* Section titles */
   .section-title{
-    scroll-margin-top: 24px;
+    scroll-margin-top:70px;
     display:flex;
     align-items:baseline;
     gap:12px;
-    margin:28px 0 14px;
+    margin:24px 0 12px;
   }
   .section-title .num{
     font-family:'IBM Plex Mono', monospace;
@@ -815,7 +813,7 @@
   }
 
   footer{
-    margin-top:64px;
+    margin-top:28px;
     padding-top:20px;
     border-top:1px solid var(--rule);
     font-family:'IBM Plex Mono', monospace;
@@ -1399,7 +1397,7 @@
 
   <div id="topDeadline"></div>
 
-  <div class="section-title" id="disciplinas"><span class="num">01</span><h2>Disciplinas</h2><span class="count" id="cntDisc"></span><div class="rule"></div></div>
+  <div class="section-title" id="disciplinas"><span class="num">01</span><h2>Drive das Disciplinas</h2><span class="count" id="cntDisc"></span><div class="rule"></div></div>
 
   <div class="tabs">
     <button class="tab" data-sem="1">Primeiro Semestre</button>
@@ -3626,4 +3624,4 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 })();
 </script>
 </body>
-</html
+</html>
