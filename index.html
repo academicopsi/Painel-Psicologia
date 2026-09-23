@@ -58,16 +58,17 @@
     background-size: 22px 22px;
   }
   a{color:var(--petrol);}
-  .wrap{max-width:920px;margin:0 auto;padding:48px 24px 96px;}
+  .wrap{max-width:920px;margin:0 auto;padding:42px 24px 78px;}
+  #top{padding-top:34px;}
 
   /* Header */
   header{
     border-bottom:2px solid var(--ink);
     padding-bottom:16px;
-    margin-bottom:24px;
+    margin-bottom:18px;
   }
   @media (min-width:600px){
-    header{padding-bottom:28px; margin-bottom:40px;}
+    header{padding-bottom:24px; margin-bottom:18px;}
   }
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
@@ -95,7 +96,7 @@
   header p{
     font-size:13.5px;
     color:var(--ink-soft);
-    max-width:56ch;
+    max-width:none;
     line-height:1.45;
     margin:0;
   }
@@ -114,19 +115,20 @@
   }
   .notice{
     display:block;
-    margin:0 0 24px;
+    width:100%;
+    margin:0 0 18px;
     font-size:13px;
     line-height:1.5;
     color:var(--petrol-dark);
     background:rgba(201,138,44,0.14);
     border-left:3px solid var(--ochre);
     padding:10px 14px;
-    max-width:56ch;
+    max-width:none;
   }
   .notice strong{color:var(--ink);}
-  .thin-rule{border-top:1px solid var(--rule); margin:28px 0 24px;}
+  .thin-rule{border-top:1px solid var(--rule); margin:22px 0 18px;}
 
-  .stats-block{margin-top:8px;}
+  .stats-block{margin-top:4px;}
   .stats-title{
     font-family:'Lora', serif;
     font-style:italic;
@@ -176,28 +178,29 @@
     margin:28px 0 6px;
   }
   .sticky-nav{
-    position:sticky;
-    top:0;
-    z-index:50;
+    position:relative;
+    z-index:2;
     display:flex;
     flex-wrap:wrap;
-    gap:4px;
-    background:var(--paper);
+    gap:6px;
+    align-items:center;
+    background:transparent;
+    border-top:1px solid var(--rule);
     border-bottom:1px solid var(--rule);
-    padding:10px 0;
-    margin:0 0 8px;
+    padding:8px 0;
+    margin:0 0 10px;
   }
   .sticky-nav button{
     display:inline-flex;
     align-items:center;
-    gap:7px;
+    gap:6px;
     font-family:'IBM Plex Mono', monospace;
-    font-size:12.5px;
-    background:rgba(31,92,86,0.07);
-    border:1px solid rgba(31,92,86,0.16);
+    font-size:11.5px;
+    background:transparent;
+    border:1px solid transparent;
     color:var(--petrol-dark);
     cursor:pointer;
-    padding:7px 12px;
+    padding:6px 9px;
     border-radius:3px;
     white-space:nowrap;
     transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
@@ -211,27 +214,27 @@
   }
   .sticky-nav button.nav-home svg{opacity:1;}
   .sticky-nav button:hover{
-    background:rgba(31,92,86,0.14);
-    transform:translateY(-1px);
-    box-shadow:0 3px 8px var(--shadow);
+    background:rgba(31,92,86,0.07);
+    border-color:rgba(31,92,86,0.12);
   }
   .sticky-nav button.nav-home:hover{background:var(--petrol-dark);}
   @media (max-width: 640px){
     .sticky-nav{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:6px;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      gap:4px;
+      padding:7px 0;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
     }
+    .sticky-nav::-webkit-scrollbar{display:none;}
     .sticky-nav button{
-      white-space:normal;
-      line-height:1.25;
-      text-align:left;
-      font-size:11.5px;
-      padding:9px 11px;
-      border-radius:3px;
+      flex:0 0 auto;
+      white-space:nowrap;
+      line-height:1.2;
+      font-size:10.5px;
+      padding:6px 8px;
     }
-    .sticky-nav button svg{margin-top:1px;}
-    .sticky-nav button[data-scroll="top"]{grid-column:1 / -1; justify-content:center;}
   }
   .sticky-nav .theme-toggle{
     margin-left:auto;
@@ -346,14 +349,14 @@
 
   .top-deadline{
     display:flex;
-    align-items:flex-start;
-    gap:12px;
+    align-items:center;
+    gap:14px;
     background:var(--paper-alt);
     border:1px solid var(--rule);
     border-left:3px solid var(--petrol);
     border-radius:2px;
-    padding:14px 16px;
-    margin:32px 0 -8px;
+    padding:12px 16px;
+    margin:0;
     flex-wrap:nowrap;
   }
   .top-deadline.alert{border-left-color:var(--ochre);}
@@ -401,9 +404,9 @@
   }
   .sync-badge .dot{color:var(--petrol);}
 
-  .progress-block{margin:12px 0 0;}
+  .progress-block{margin:10px 0 0;}
   @media (min-width:600px){
-    .progress-block{margin:20px 0 0;}
+    .progress-block{margin:16px 0 0;}
   }
   .progress-block .label{
     display:flex;
@@ -455,11 +458,11 @@
 
   /* Section titles */
   .section-title{
-    scroll-margin-top: 90px;
+    scroll-margin-top: 24px;
     display:flex;
     align-items:baseline;
     gap:12px;
-    margin:56px 0 20px;
+    margin:28px 0 14px;
   }
   .section-title .num{
     font-family:'IBM Plex Mono', monospace;
@@ -762,7 +765,7 @@
   .drive-icon{flex:none;}
 
   /* Updates feed */
-  .feed{display:flex;flex-direction:column;gap:18px;}
+  .feed{display:flex;flex-direction:column;gap:12px;}
   .entry{
     display:flex;
     gap:18px;
@@ -1380,7 +1383,6 @@
     </div>
   </header>
 
-  <div class="menu-label">Menu</div>
   <nav class="sticky-nav">
     <button data-scroll="top" class="nav-home"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/></svg>Início</button>
     <button data-scroll="disciplinas"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H10l2 2h7.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5Z"/></svg>Drive com os Arquivos</button>
@@ -1431,7 +1433,7 @@
       <div class="stat-chip"><div class="stat-num" id="statDias">–</div><div class="stat-label">Dias no ar</div></div>
       <div class="stat-chip"><div class="stat-num" id="statHoras">–</div><div class="stat-label">Horas de conteúdo*</div></div>
     </div>
-    <div class="stats-nota">*Estimativa (não é medição real): ~2,2 min por questão de prática + ~11 min por vídeo, com base em médias observadas. Visualizações são contadas pelo GoatCounter.</div>
+    <div class="stats-nota">*Estimativa (não é medição real): ~2,2 min por questão de prática + ~11 min por vídeo + ~30 min por material de 'Pra estudar!', com base em médias observadas. Visualizações são contadas pelo GoatCounter.</div>
   </div>
 
   <footer>
@@ -2042,14 +2044,19 @@ function newBadge(dateStr){
   return isNew(dateStr) ? '<span class="new-badge">New!</span>' : '';
 }
 
-// Lista de atualizações (editada só via Claude (a partir do que você me avisa) e republicada.
-// REGRA: manter no máximo 5 itens. Ao adicionar um novo, remova o mais antigo se passar de 5.
+// ============================================================
+// ÚLTIMA ATUALIZAÇÃO / HISTÓRICO
+// Para registrar uma nova atualização, altere SOMENTE o primeiro
+// item abaixo (data, disc e desc). Depois me diga o que você
+// adicionou e eu já sei exatamente qual registro atualizar.
+// REGRA: manter no máximo 5 itens; o mais antigo fica no final.
+// ============================================================
 const UPDATES = [
+  {date: '2026-09-22', disc: 'Geral', desc: 'Página Nova "Pra Estudar!": resumos em HTML pra você estudar e memorizar.'},
   {date: '2026-09-05', disc: 'Neuroanatomia', desc: 'Simulado adicionado: Neuroanatomia.'},
   {date: '2026-09-05', disc: 'Psicologia da Aprendizagem', desc: 'Simulado adicionado: Psicologia da Aprendizagem.'},
   {date: '2026-09-05', disc: 'Psicologia Experimental', desc: 'Simulado adicionado: Psicologia Experimental.'},
-  {date: '2026-09-04', disc: 'Bases Biológicas', desc: 'Novo vídeo: Gametogênese.'},
-  {date: '2026-09-03', disc: 'Neuroanatomia', desc: 'Nova ferramenta: Mapa do Cérebro.'}
+  {date: '2026-09-04', disc: 'Bases Biológicas', desc: 'Novo vídeo: Gametogênese.'}
 ];
 
 function renderGrid(sem){
@@ -3588,7 +3595,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 // --- Placar "Arquivo Vivo em números" ---
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
-  const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length;
+  const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
   const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
@@ -3598,7 +3605,8 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   const hoje = new Date();
   const diasNoAr = Math.max(0, Math.floor((hoje - lancamento) / 86400000));
 
-  const minutosEstimados = (totalQuestoes * 2.2) + (totalVideos * 11);
+  // Estimativa: cada material de 'Pra estudar!' representa ~30 min de estudo.
+  const minutosEstimados = (totalQuestoes * 2.2) + (totalVideos * 11) + (STUDY.length * 30);
   const horasEstimadas = (minutosEstimados / 60).toFixed(1);
 
   document.getElementById('statDisciplinas').textContent = totalDisciplinas;
@@ -3618,4 +3626,4 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 })();
 </script>
 </body>
-</html>
+</html
