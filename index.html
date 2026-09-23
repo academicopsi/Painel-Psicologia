@@ -643,7 +643,17 @@
   }
 
   /* Pra estudar */
-  .study-list{display:flex;flex-direction:column;gap:12px;}
+  .study-list{display:flex;flex-direction:column;gap:22px;}
+  .study-group{display:flex;flex-direction:column;gap:10px;}
+  .study-group-title{
+    font-family:'Lora', serif;
+    font-size:17px;
+    font-weight:600;
+    color:var(--ink);
+    margin:0 0 2px;
+    padding-bottom:7px;
+    border-bottom:1px solid var(--rule);
+  }
   .study-card{
     display:flex;
     align-items:flex-start;
@@ -676,6 +686,12 @@
     font-weight:600;
     font-size:16px;
     line-height:1.35;
+  }
+  .study-card .study-subtitle{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--petrol);
+    margin-top:3px;
   }
   .study-card .study-desc{
     font-size:13.5px;
@@ -2229,8 +2245,7 @@ function renderCourses(items){
 }
 renderCourses(COURSES);
 
-// Materiais para estudo ativo.
-// Cada cartão abre o material em uma nova aba.
+// Materiais para estudo ativo, organizados por disciplina.
 const STUDY = [
   {
     materia: 'Neuroanatomia',
@@ -2245,30 +2260,57 @@ const STUDY = [
     link: 'https://trabalhoneuro.netlify.app/'
   },
   {
+    materia: 'Neuroanatomia',
+    titulo: 'Neuroanatomia',
+    subtitulo: 'De forma rápida e prática',
+    desc: 'Um material interativo para revisar os principais conteúdos de Neuroanatomia de forma objetiva, com recursos pensados para facilitar a retomada e a fixação do conteúdo.',
+    link: 'https://neuroanatomia.netlify.app/'
+  },
+  {
     materia: 'Psicologia da Aprendizagem',
     titulo: 'Teorias de aprendizagem: do Behaviorismo ao Humanismo',
     desc: 'Leia a teoria, depois force o cérebro a buscar a resposta sozinho. É esse esforço de buscar, e não reler, que fixa o conteúdo.',
     link: 'https://resumoaprendizagem.netlify.app/'
   },
   {
+    materia: 'Psicologia da Aprendizagem',
+    titulo: 'Psicologia da Aprendizagem',
+    subtitulo: 'Testes rápidos e práticos',
+    desc: 'Uma ferramenta para revisar os conteúdos da disciplina por meio de testes rápidos, ajudando a recuperar as informações da memória e identificar o que ainda precisa ser revisado.',
+    link: 'https://psiaprendizagem.netlify.app/'
+  },
+  {
     materia: 'Psicologia Experimental',
     titulo: 'Teoria organizada para a prova',
     desc: 'Leia o tópico, responda o Teste-se de cabeça e, no fim, revise com os cartões.',
     link: 'https://resumoexperimental.netlify.app/'
+  },
+  {
+    materia: 'Psicologia Experimental',
+    titulo: 'Psicologia Experimental',
+    subtitulo: 'Testes para treinar e fixar conteúdo',
+    desc: 'Material de revisão com testes para praticar os conceitos da disciplina, conferir as respostas e reforçar os conteúdos estudados antes das avaliações.',
+    link: 'https://psiexperimental.netlify.app/'
   }
 ];
 
 function renderStudy(){
   const el = document.getElementById('studyList');
-  el.innerHTML = STUDY.map(s => `
-    <a class="study-card" href="${s.link}" target="_blank" rel="noopener">
-      <div class="study-info">
-        <div class="study-subject">${s.materia}</div>
-        <div class="study-title">${s.titulo}</div>
-        <div class="study-desc">${s.desc}</div>
-      </div>
-      <span class="study-go">Estudar →</span>
-    </a>
+  const groups = [...new Set(STUDY.map(s => s.materia))];
+  el.innerHTML = groups.map(materia => `
+    <section class="study-group">
+      <h2 class="study-group-title">${materia}</h2>
+      ${STUDY.filter(s => s.materia === materia).map(s => `
+        <a class="study-card" href="${s.link}" target="_blank" rel="noopener">
+          <div class="study-info">
+            <div class="study-title">${s.titulo}</div>
+            <div class="study-subtitle">${s.subtitulo || "Material de estudo"}</div>
+            <div class="study-desc">${s.desc}</div>
+          </div>
+          <span class="study-go">Estudar →</span>
+        </a>
+      `).join('')}
+    </section>
   `).join('');
 }
 renderStudy();
@@ -3311,7 +3353,7 @@ document.getElementById('gmCorrigirBtn').addEventListener('click', ()=>{
 const SIMULADOS = {
   '01': [{titulo:'Simulado: Processos Biológicos', url:'https://wayground.com/join?gc=54972837', nota:'Código de sessão do Wayground'}],
   '02': [{titulo:'Simulado: Neuroanatomia', url:'https://wayground.com/join?gc=36380213', nota:'Código de sessão do Wayground'}],
-  '03': [{titulo:'Simulado: Psicologia da Aprendizagem', url:'https://wayground.com/join?gc=36208181', nota:'Código de sessão do Wayground'}],
+  '03': [{titulo:'Simulado: Psicologia da Aprendizagem', url:'https://wayground.com/join?gc=13357069', nota:'Código de sessão do Wayground'}],
   '04': [{titulo:'Simulado: Psicologia Experimental', url:'https://wayground.com/join?gc=58654261', nota:'Código de sessão do Wayground'}],
   '05': [{titulo:'Simulado: Desenvolvimento Adulto e Idoso', url:'https://wayground.com/join?gc=62884597', nota:'Código de sessão do Wayground'}],
   '06': []
