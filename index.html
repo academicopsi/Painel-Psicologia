@@ -1350,9 +1350,147 @@
     font-size:11px;
     color:#B8B4A6;
   }
+
+/* ===== INÍCIO: POP-UP ELEIÇÕES 2026 — REMOVER ESTE BLOCO CSS APÓS AS ELEIÇÕES ===== */
+#av-eleicoes-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(35, 12, 16, .68);
+  backdrop-filter: blur(4px);
+}
+#av-eleicoes-overlay[hidden] { display: none !important; }
+#av-eleicoes-popup {
+  position: relative;
+  width: min(100%, 590px);
+  max-height: min(88vh, 820px);
+  overflow-y: auto;
+  padding: clamp(24px, 5vw, 42px);
+  color: #4B2025;
+  background: #FFF8F6;
+  border: 1px solid #F0C7C5;
+  border-top: 7px solid #D9434B;
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(20, 0, 0, .3);
+  font-family: inherit;
+}
+#av-eleicoes-popup .av-eleicoes-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 16px;
+  padding: 6px 10px;
+  color: #A52D36;
+  background: #FCE4E2;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+#av-eleicoes-popup h2 {
+  margin: 0 34px 18px 0;
+  color: #B52F3A;
+  font-size: clamp(27px, 5vw, 36px);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+#av-eleicoes-popup p {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.65;
+}
+#av-eleicoes-popup .av-eleicoes-voto {
+  margin: 20px 0;
+  padding: 16px 18px;
+  color: #9F2632;
+  background: #FCE8E6;
+  border-left: 4px solid #D9434B;
+  border-radius: 8px;
+  font-size: 17px;
+  line-height: 1.5;
+}
+#av-eleicoes-popup .av-eleicoes-voto strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 22px;
+}
+#av-eleicoes-popup .av-eleicoes-nota {
+  color: #795B5D;
+  font-size: 12px;
+  line-height: 1.5;
+}
+#av-eleicoes-fechar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  color: #8C5559;
+  background: #FCE8E6;
+  border: 0;
+  border-radius: 50%;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+#av-eleicoes-fechar:hover { background: #F5D4D1; }
+#av-eleicoes-continuar {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 13px 18px;
+  color: #fff;
+  background: #C93642;
+  border: 0;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+#av-eleicoes-continuar:hover { background: #A92A35; transform: translateY(-1px); }
+#av-eleicoes-fechar:focus-visible,
+#av-eleicoes-continuar:focus-visible {
+  outline: 3px solid #6D1821;
+  outline-offset: 3px;
+}
+@media (max-width: 480px) {
+  #av-eleicoes-popup { padding: 25px 21px; border-radius: 14px; }
+  #av-eleicoes-popup p { font-size: 14px; }
+}
+/* ===== FIM: POP-UP ELEIÇÕES 2026 — REMOVER ESTE BLOCO CSS APÓS AS ELEIÇÕES ===== */
+
 </style>
 </head>
 <body>
+
+<!-- ===== INÍCIO: POP-UP ELEIÇÕES 2026 — REMOVER ESTE BLOCO HTML E O SCRIPT AO FINAL APÓS AS ELEIÇÕES ===== -->
+<div id="av-eleicoes-overlay" role="presentation" hidden>
+  <section id="av-eleicoes-popup" role="dialog" aria-modal="true" aria-labelledby="av-eleicoes-titulo" aria-describedby="av-eleicoes-texto">
+    <button id="av-eleicoes-fechar" type="button" aria-label="Fechar mensagem" title="Fechar">&times;</button>
+    <div class="av-eleicoes-selo">Arquivo Vivo · posicionamento pessoal</div>
+    <h2 id="av-eleicoes-titulo">Psicologia não é neutra.</h2>
+    <div id="av-eleicoes-texto">
+      <p>Este site é de aluno para aluno e não tem nenhuma relação com a faculdade. Mas a profissão que a gente está estudando depende de política pública: de CAPS funcionando, de psicólogo no SUS, nas escolas e na assistência social, de saúde mental como direito e não como privilégio de quem pode pagar.</p>
+      <p>A gente se forma para cuidar de gente, e não adianta formar profissional se o país não investe onde esse cuidado acontece.</p>
+      <div class="av-eleicoes-voto"><strong>Por isso, eu voto 13.</strong>Voto por um governo que fortaleça o SUS, invista em saúde mental e valorize a psicologia.</div>
+      <p>Essa é uma posição pessoal minha, não da turma nem da instituição. Você pode pensar diferente, e o site continua aqui para todo mundo. Mas se a psicologia importa para você, política pública importa também.</p>
+      <p class="av-eleicoes-nota">Esta mensagem expressa uma opinião pessoal do criador do site e não representa a faculdade nem os colegas.</p>
+    </div>
+    <button id="av-eleicoes-continuar" type="button">Entendi, continuar para o site</button>
+  </section>
+</div>
+<!-- ===== FIM: POP-UP ELEIÇÕES 2026 — REMOVER ESTE BLOCO HTML E O SCRIPT AO FINAL APÓS AS ELEIÇÕES ===== -->
+
 <div class="wrap" id="top">
 
   <header>
@@ -3665,5 +3803,44 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
     .catch(()=> { document.getElementById('statViews').textContent = '321'; });
 })();
 </script>
+
+<!-- ===== INÍCIO: SCRIPT DO POP-UP ELEIÇÕES 2026 — REMOVER ESTE BLOCO APÓS AS ELEIÇÕES ===== -->
+<script>
+(function () {
+  const overlay = document.getElementById('av-eleicoes-overlay');
+  const fechar = document.getElementById('av-eleicoes-fechar');
+  const continuar = document.getElementById('av-eleicoes-continuar');
+  if (!overlay || !fechar || !continuar) return;
+
+  // Mostra uma vez por sessão do navegador. Para mostrar em toda visita,
+  // remova a verificação sessionStorage abaixo e a linha que grava a sessão.
+  const chaveSessao = 'arquivoVivoPopupEleicoes2026Visto';
+  try {
+    if (sessionStorage.getItem(chaveSessao) === 'sim') return;
+  } catch (e) {
+    // Se o navegador bloquear sessionStorage, o pop-up continua funcionando.
+  }
+
+  function fecharPopup() {
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+    try { sessionStorage.setItem(chaveSessao, 'sim'); } catch (e) {}
+  }
+
+  overlay.hidden = false;
+  document.body.style.overflow = 'hidden';
+  continuar.addEventListener('click', fecharPopup);
+  fechar.addEventListener('click', fecharPopup);
+  overlay.addEventListener('click', function (evento) {
+    if (evento.target === overlay) fecharPopup();
+  });
+  document.addEventListener('keydown', function (evento) {
+    if (evento.key === 'Escape' && !overlay.hidden) fecharPopup();
+  });
+  fechar.focus();
+})();
+</script>
+<!-- ===== FIM: SCRIPT DO POP-UP ELEIÇÕES 2026 — REMOVER ESTE BLOCO APÓS AS ELEIÇÕES ===== -->
+
 </body>
 </html>
