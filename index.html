@@ -1360,6 +1360,157 @@
     .dp-videos{grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px;}
     .dp-video .dp-row-title{font-size:13px;}
   }
+
+  /* ===== Ferramentas visuais ===== */
+  .viz-box{padding:14px !important;}
+  .viz-svg{width:100%; max-width:560px; display:block; margin:0 auto; touch-action:manipulation; -webkit-tap-highlight-color:transparent; user-select:none;}
+  .viz-axis{font-size:11px; font-weight:700; letter-spacing:.08em; fill:var(--ink-faint);}
+  .viz-mk{cursor:pointer;}
+  .viz-mk circle{fill:var(--paper); stroke:var(--ochre); stroke-width:2.5;}
+  .viz-mk text{font-size:12px; font-weight:800; fill:var(--ink); pointer-events:none;}
+  .viz-mk.sel circle{stroke:var(--petrol-dark); stroke-dasharray:3 2; stroke-width:3; fill:var(--petrol-soft);}
+  .viz-mk.ok circle{fill:var(--petrol); stroke:var(--petrol);}
+  .viz-mk.ok text{fill:#fff;}
+  .viz-mk:focus{outline:none;} .viz-mk:focus-visible circle{stroke-width:4;}
+  .viz-legend{display:flex; flex-wrap:wrap; justify-content:center; gap:6px 16px; margin-top:10px; font-size:12px; color:var(--ink-soft);}
+  .lg{display:inline-block; width:11px; height:11px; border-radius:50%; vertical-align:-1px; margin-right:5px; border:2px solid var(--ochre); background:var(--paper);}
+  .lg-sel{border:2px dashed var(--petrol-dark); background:var(--petrol-soft);} .lg-ok{background:var(--petrol); border-color:var(--petrol);}
+  .viz-panel{margin-top:14px;}
+  .viz-panel .plabel{font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px;}
+  .viz-chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .viz-chip{font:inherit; font-size:14px; font-weight:600; padding:9px 13px; border-radius:10px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); cursor:pointer; text-align:left;}
+  .viz-chip:hover{border-color:var(--petrol-line); color:var(--petrol);}
+  .viz-chip.on{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  body.dark .viz-chip.on{color:#0F1615;}
+  .viz-chip.certo{border-color:var(--petrol); background:var(--petrol-soft); color:var(--petrol);}
+  .viz-chip.errado{border-color:var(--danger); background:rgba(181,67,46,.08); color:var(--danger);}
+  .viz-status{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:12px; font-size:14px; font-weight:600; color:var(--petrol);}
+  .viz-status .shuffle-btn{margin-top:0;}
+  .viz-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:12px;}
+  .viz-info{margin-top:12px; background:var(--paper-alt); border-left:3px solid var(--petrol); border-radius:8px; padding:11px 13px; font-size:14.5px; line-height:1.55;}
+  .viz-muted{font-size:13.5px; color:var(--ink-faint);}
+
+  /* corte da medula */
+  .cm-branca{fill:#EFE9DC; stroke:#B9AE98; stroke-width:2;}
+  .cm-cinza{fill:#9FB0AC; stroke:#6E817C; stroke-width:1.5;}
+  .cm-septo{fill:none; stroke:#B9AE98; stroke-width:1.2; stroke-dasharray:3 3;}
+  .cm-sulco{stroke:#8E8470; stroke-width:2;}
+  .cm-fissura{fill:var(--bg); stroke:#B9AE98; stroke-width:1.5;}
+  .cm-canal{fill:#fff; stroke:#6E817C; stroke-width:1.5;}
+  .cm-root path{fill:none; stroke:#C9A15A; stroke-width:5; stroke-linecap:round;}
+  .cm-ganglio{fill:#E3C68C; stroke:#B98F45; stroke-width:1.5;}
+  .cm-leader{stroke:var(--ink-faint); stroke-width:1.5;}
+  body.dark .cm-branca{fill:#D9D2C4;} body.dark .cm-fissura{fill:var(--bg);}
+
+  /* meninges */
+  .mn-wrap{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:18px; align-items:start;}
+  .mn-stack{display:flex; flex-direction:column; gap:3px; background:var(--paper-alt); border-radius:12px; padding:10px;}
+  .mn-agulha{font-size:12px; font-weight:700; color:var(--ink-faint); text-align:center; margin-bottom:4px;}
+  .mn-slot{display:flex; align-items:center; gap:10px; font:inherit; font-size:14px; font-weight:700; text-align:left; border:none; border-radius:8px; padding:10px 12px; min-height:40px; color:#1F2A28; cursor:default;}
+  .mn-slot span{flex:none; width:22px; height:22px; border-radius:50%; background:rgba(255,255,255,.7); font-size:12px; display:flex; align-items:center; justify-content:center; color:#1F2A28;}
+  .mn-slot.vazio{border:2px dashed var(--rule); background:transparent; color:var(--ink-faint);}
+  .mn-slot.vazio span{background:var(--paper);}
+  button.mn-slot[data-k]{cursor:pointer;}
+  .mn-osso{background:repeating-linear-gradient(45deg,#E6DCC6,#E6DCC6 6px,#D8CBB0 6px,#D8CBB0 12px); min-height:48px;}
+  .mn-epidural{background:#F6E7A8;}
+  .mn-dura{background:#C98F7A; color:#fff; min-height:46px;} .mn-dura span{color:#1F2A28;}
+  .mn-subdural{background:#F3E6E1; min-height:30px; font-size:13px;}
+  .mn-aracnoide{background:radial-gradient(circle at 20% 50%, #fff 0 2px, transparent 3px) 0 0/14px 14px, #E8D9EE;}
+  .mn-liquor{background:#BFE0F2; min-height:48px;}
+  .mn-pia{background:#F2B8C6; min-height:30px; font-size:13px;}
+  .mn-medula{background:#9FB0AC; min-height:54px;}
+  .mn-slot.certo{box-shadow:inset 0 0 0 3px var(--petrol);}
+  .mn-slot.errado{box-shadow:inset 0 0 0 3px var(--danger);}
+
+  /* painel do SNA */
+  .pa-wrap{display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:18px; align-items:start; margin-top:4px;}
+  .pa-svg{max-width:300px; background:var(--paper-alt); border-radius:14px; padding:6px;}
+  .pa-pele{fill:#F1C7B5; stroke:#B98E7E; stroke-width:1.5; transition:fill .3s ease;}
+  .pa-olho ellipse{fill:#fff; stroke:#7a6a62; stroke-width:1;}
+  .pa-pupila{fill:#1F2A28; transition:r .3s ease;}
+  .pa-suor path{fill:#7EC3E6;} .pa-saliva path{fill:#9FD3EC;}
+  #paSuor, #paSaliva{transition:opacity .3s ease;}
+  .pa-pulmao{fill:#F4B4B4; stroke:#C77B7B; stroke-width:1.2; opacity:.85;}
+  .pa-bronquio path{fill:none; stroke:#8F3B3B; stroke-linecap:round; transition:stroke-width .3s ease;}
+  .pa-bronquio{stroke-width:2;}
+  .pa-coracao path{fill:#C62E40; stroke:#8C1E2C; stroke-width:1;}
+  .pa-coracao{transform-box:fill-box; transform-origin:center; animation:pa-bate 0.9s ease-in-out infinite;}
+  @keyframes pa-bate{0%,100%{transform:scale(1);} 15%{transform:scale(1.18);} 30%{transform:scale(1);} 45%{transform:scale(1.1);}}
+  .pa-adrenal{fill:#C9A15A; stroke:#8a6a2c; stroke-width:1;}
+  .pa-estomago{fill:#E9B79A; stroke:#B07B5F; stroke-width:1.2;}
+  .pa-intestino{fill:none; stroke:#C48A6A; stroke-width:5; stroke-linecap:round; stroke-dasharray:10 6; animation:pa-peristalse 1.2s linear infinite;}
+  @keyframes pa-peristalse{to{stroke-dashoffset:-32;}}
+  .pa-vaso{stroke:#C62E40; stroke-linecap:round; transition:stroke-width .3s ease;}
+  .pa-slider{background:var(--paper-alt); border-radius:12px; padding:12px 14px;}
+  .pa-slider-labels{display:flex; justify-content:space-between; gap:10px; font-size:12.5px; color:var(--ink-soft); line-height:1.35;}
+  .pa-slider-labels b{color:var(--ink);}
+  #paRange, .eb-range{width:100%; margin:12px 0 6px; accent-color:var(--petrol); height:28px;}
+  .pa-estado{font-size:14px; font-weight:700; text-align:center; color:var(--ink-soft); padding:6px; border-radius:8px;}
+  .pa-estado.para{color:var(--petrol); background:var(--petrol-soft);}
+  .pa-estado.simp{color:var(--ochre); background:var(--ochre-soft);}
+  .pa-lista{list-style:none; padding:0; margin:12px 0 0; display:flex; flex-direction:column; gap:6px;}
+  .pa-lista li{display:flex; gap:9px; align-items:flex-start; font-size:14px; line-height:1.4; background:var(--paper); border:1px solid var(--rule); border-radius:9px; padding:8px 10px;}
+  .pa-ic{flex:none;}
+  .pa-desafio{margin-top:16px; background:var(--paper-alt); border-radius:12px; padding:14px;}
+  .pa-desafio .plabel{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
+  .pa-desafio .pfrase{font-size:15.5px; line-height:1.5;}
+
+  /* embrião */
+  .eb-top{display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:6px;}
+  .eb-top strong{font-size:20px; font-weight:800; color:var(--petrol);}
+  .eb-top span{font-size:14px; font-weight:600; color:var(--ink-soft);}
+  .eb-ticks{display:flex; justify-content:space-between; font-size:11px; color:var(--ink-faint); padding:0 4px;}
+  .eb-nomes{display:flex; align-items:center; gap:7px; font-size:13.5px; color:var(--ink-soft); margin-top:8px;}
+  .eb-nomes input{accent-color:var(--petrol);}
+  #ebSvg [data-est]{cursor:pointer; transition:filter .15s ease;}
+  #ebSvg .eb-on{filter:drop-shadow(0 0 4px #F08A24) brightness(1.06);}
+  .eb-zona{fill:none; stroke:#D9CFE8; stroke-width:12;}
+  .eb-zona.some{stroke-dasharray:8 8; opacity:.55;}
+  .eb-cito{fill:#F6E3D3; stroke:#C9A88E; stroke-width:1.5;}
+  .eb-nucleo{fill:#B78BB0; stroke:#7E5677; stroke-width:1.5;}
+  .eb-polar{fill:#E7CFE0; stroke:#9E7C96; stroke-width:1;}
+  .eb-cel{fill:#F3D9C4; stroke:#B98F72; stroke-width:1.5;}
+  .eb-cavidade{fill:#DDEFF7; stroke:none;}
+  .eb-trofo{fill:none; stroke:#D8A25E; stroke-width:8;}
+  .eb-embrio{fill:#C77D8E; stroke:#8E4B5B; stroke-width:1.2;}
+  .eb-endo{fill:#F4D3D6; stroke:#D9A0A6; stroke-width:1.2;}
+  .eb-sincicio{fill:#E3A564; stroke:#B07432; stroke-width:1.2; opacity:.92;}
+  .eb-lacuna{fill:#C62E40; opacity:.75;}
+  .eb-heuser{fill:none; stroke:#7FA6C9; stroke-width:3;}
+  .eb-meso{fill:#E9E0C8; stroke:none;}
+  .eb-celoma{fill:#D3ECF5; stroke:#9CC6D8; stroke-width:1;}
+  .eb-amnio-cav{fill:#BFE0F2; stroke:none;}
+  .eb-amnio{fill:none; stroke:#3B6EA5; stroke-width:3;}
+  .eb-svs{fill:#F7E39A; stroke:#C9A93A; stroke-width:2;}
+  .eb-cisto{fill:#F7E39A; stroke:#C9A93A; stroke-width:1.5; opacity:.7;}
+  .eb-epi{fill:#3B6EA5;}
+  .eb-hipo{fill:#E2B43A;}
+  .eb-pediculo{fill:#B9A27A; stroke:#8a744d; stroke-width:1;}
+  .eb-rot path{stroke:#5B6A67; stroke-width:1; fill:none;}
+  .eb-rot text{font-size:11px; font-weight:700; fill:#33403E; paint-order:stroke; stroke:#ffffffcc; stroke-width:3px;}
+  .eb-hcg{font-size:10.5px; font-weight:700; fill:#B07432;}
+  body.dark .eb-rot text{fill:#E8EFED; stroke:#0F1615cc;} body.dark .eb-rot path{stroke:#A3B2AF;}
+
+  /* ZDP */
+  .zd-banco{min-height:44px; padding:10px; border:1px dashed var(--rule); border-radius:10px; margin-bottom:12px;}
+  .zd-zonas{margin-top:4px;}
+  .zd-zona{border-radius:16px; padding:10px; cursor:pointer; transition:box-shadow .15s ease;}
+  .zd-zona.alvo{box-shadow:0 0 0 2px var(--petrol-line);}
+  .zd-z3{background:var(--paper-alt); border:1px solid var(--rule);}
+  .zd-z2{background:var(--ochre-soft); border:2px solid rgba(183,121,31,.45); margin-top:8px;}
+  .zd-z1{background:var(--petrol-soft); border:2px solid var(--petrol-line); margin-top:8px;}
+  .zd-zt{font-size:12.5px; font-weight:700; color:var(--ink-soft); margin:0 0 8px 2px;}
+  .zd-z2 > .zd-zt{color:var(--ochre);} .zd-z1 > .zd-zt{color:var(--petrol);}
+  .zd-itens{display:flex; flex-wrap:wrap; gap:6px; min-height:38px;}
+  .zd-chip{font-size:13.5px; padding:7px 11px;}
+
+  @media (max-width:600px){
+    .mn-wrap, .pa-wrap{grid-template-columns:1fr;}
+    .pa-svg{max-width:240px;}
+    .viz-chip{font-size:13.5px; padding:8px 11px;}
+    .eb-rot text{font-size:15px;}
+    .viz-axis{font-size:13px;}
+  }
 </style>
 </head>
 <body>
@@ -1742,7 +1893,7 @@
   </header>
 
   <section class="tool-group">
-    <h2 class="tool-group-title"><span class="tg-idx">01</span>Bases Biológicas<span class="tg-count">4 exercícios</span></h2>
+    <h2 class="tool-group-title"><span class="tg-idx">01</span>Bases Biológicas<span class="tg-count">5 exercícios</span></h2>
     <details class="graveyard" style="display:none;">
       <summary>Qual Neurotransmissor?</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -1831,10 +1982,34 @@
         </div>
       </div>
     </details>
+    <details class="graveyard">
+      <summary>Do Zigoto ao Disco Bilaminar (linha do tempo)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Arraste o controle do dia 0 ao dia 14 e veja o embrião se desenvolver. Toque numa estrutura do desenho para ver o nome e a função. No fim, faça o desafio.</div>
+        <div class="prompt-box viz-box">
+          <div class="eb-top"><strong id="ebDia"></strong><span id="ebFase"></span></div>
+          <svg class="viz-svg" id="ebSvg" viewBox="-100 0 560 260" role="img" aria-label="Desenho do embrião no dia escolhido"></svg>
+          <input type="range" id="ebRange" min="0" max="14" step="1" value="0" aria-label="Dia do desenvolvimento" class="eb-range">
+          <div class="eb-ticks"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span><span>12</span><span>14</span></div>
+          <label class="eb-nomes"><input type="checkbox" id="ebNomes" checked> Mostrar nomes no desenho</label>
+        </div>
+        <div class="viz-info" id="ebInfo">Toque numa estrutura do desenho.</div>
+        <div class="pa-desafio">
+          <div class="plabel">Desafio: leve o controle até o dia em que…</div>
+          <div class="pfrase" id="ebDesafioTexto"></div>
+          <div class="viz-row">
+            <button class="correct-btn" id="ebCorrigirBtn" style="margin-top:0;">Conferir</button>
+            <button class="shuffle-btn" id="ebShuffleBtn" style="margin-top:0;">🔀 Outro desafio</button>
+          </div>
+          <div class="pfeedback" id="ebFeedbackBox"></div>
+        </div>
+        <div class="tool-disclaimer">Desenhos esquemáticos, fora de escala. Os dias são aproximados e seguem os slides de Bases Biológicas (fertilização à 2ª semana).</div>
+      </div>
+    </details>
   </section>
 
   <section class="tool-group">
-    <h2 class="tool-group-title"><span class="tg-idx">02</span>Neuroanatomia<span class="tg-count">6 exercícios</span></h2>
+    <h2 class="tool-group-title"><span class="tg-idx">02</span>Neuroanatomia<span class="tg-count">9 exercícios</span></h2>
     <details class="graveyard">
       <summary>Mapa do Cérebro</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -1997,10 +2172,126 @@
         <div class="tool-disclaimer">Os dois sistemas interagem o tempo todo; cada situação foi escrita para destacar o sistema predominante.</div>
       </div>
     </details>
+    <details class="graveyard">
+      <summary>Corte da Medula</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Corte transversal da medula espinhal. Toque num número, escolha o nome da estrutura e clique em "Corrigir". As estruturas que você acertar ficam verdes e mostram a função.</div>
+        <div class="prompt-box viz-box">
+          <svg class="viz-svg" id="cmSvg" viewBox="0 0 420 334" role="img" aria-label="Corte transversal da medula espinhal">
+            <text x="210" y="24" text-anchor="middle" class="viz-axis">POSTERIOR (DORSAL)</text>
+            <text x="210" y="328" text-anchor="middle" class="viz-axis">ANTERIOR (VENTRAL)</text>
+            <!-- raízes e nervos (esquerda e direita) -->
+            <g class="cm-root">
+              <path d="M162,86 C135,70 105,66 78,74 C60,80 48,104 40,140"/>
+              <path d="M148,236 C122,252 92,256 66,244 C52,236 44,206 40,182"/>
+              <path d="M40,140 L40,182 M40,161 L8,161"/>
+              <path d="M258,86 C285,70 315,66 342,74 C360,80 372,104 380,140"/>
+              <path d="M272,236 C298,252 328,256 354,244 C368,236 376,206 380,182"/>
+              <path d="M380,140 L380,182 M380,161 L412,161"/>
+            </g>
+            <ellipse class="cm-ganglio" cx="88" cy="72" rx="20" ry="13"/>
+            <ellipse class="cm-ganglio" cx="332" cy="72" rx="20" ry="13"/>
+            <!-- substância branca -->
+            <ellipse class="cm-branca" cx="210" cy="165" rx="140" ry="105"/>
+            <!-- septos do funículo posterior (grácil × cuneiforme) -->
+            <path class="cm-septo" d="M193,64 C195,80 197,98 199,118 M227,64 C225,80 223,98 221,118"/>
+            <!-- substância cinzenta em H -->
+            <path class="cm-cinza" d="M210,150 C200,148 190,140 185,125 L172,88 Q166,78 160,86 L168,112 C172,135 168,150 158,160 C140,172 128,195 138,218 C146,236 172,240 188,222 C198,205 203,188 210,182 C217,188 222,205 232,222 C248,240 274,236 282,218 C292,195 280,172 262,160 C252,150 248,135 252,112 L260,86 Q254,78 248,88 L235,125 C230,140 220,148 210,150 Z"/>
+            <!-- sulco mediano posterior e fissura mediana anterior -->
+            <path class="cm-sulco" d="M210,60 L210,112"/>
+            <path class="cm-fissura" d="M200,270 L208,228 Q210,224 212,228 L220,270 Z"/>
+            <circle class="cm-canal" cx="210" cy="166" r="4"/>
+            <g id="cmMarkers"></g>
+          </svg>
+          <div class="viz-legend"><span><i class="lg lg-pend"></i>não respondido</span><span><i class="lg lg-sel"></i>selecionado</span><span><i class="lg lg-ok"></i>acertado</span></div>
+        </div>
+        <div class="viz-panel" id="cmPanel" hidden>
+          <div class="plabel">Estrutura nº <span id="cmNum"></span>: qual é o nome?</div>
+          <div class="viz-chips" id="cmOpcoes"></div>
+          <button class="correct-btn" id="cmCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+          <div class="pfeedback" id="cmFeedbackBox"></div>
+        </div>
+        <div class="viz-status"><span id="cmStatus"></span><button class="shuffle-btn" id="cmResetBtn">↺ Recomeçar</button></div>
+        <div class="tool-disclaimer">Desenho esquemático e simplificado, com base na aula "Medula espinhal e envoltórios". Os fascículos grácil e cuneiforme existem dos dois lados; aqui cada um está marcado de um lado só, para não poluir o desenho.</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Camadas das Meninges</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Monte o caminho de uma agulha de fora para dentro, do osso até a medula. Toque nas camadas na ordem certa; elas vão se empilhando no desenho. Depois clique em "Corrigir".</div>
+        <div class="mn-wrap">
+          <div class="mn-stack" id="mnStack" aria-label="Camadas montadas"></div>
+          <div>
+            <div class="plabel" style="margin-bottom:8px;">Camadas disponíveis</div>
+            <div class="viz-chips" id="mnBanco"></div>
+            <div class="viz-row">
+              <button class="shuffle-btn" id="mnDesfazerBtn" style="margin-top:0;">← Desfazer</button>
+              <button class="shuffle-btn" id="mnResetBtn" style="margin-top:0;">↺ Recomeçar</button>
+            </div>
+          </div>
+        </div>
+        <button class="correct-btn" id="mnCorrigirBtn" style="margin-top:14px;">Corrigir</button>
+        <div class="pfeedback" id="mnFeedbackBox"></div>
+        <div class="viz-info" id="mnInfo" hidden></div>
+        <div class="tool-disclaimer">Esquema didático. O espaço subdural é considerado um espaço virtual (praticamente sem conteúdo em condições normais).</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Painel do SNA: Repouso × Luta ou Fuga</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Arraste o controle e veja o corpo mudar: de um lado, repouso e digestão (parassimpático); do outro, luta ou fuga (simpático). Depois faça o desafio.</div>
+        <div class="pa-wrap">
+          <svg class="viz-svg pa-svg" id="paSvg" viewBox="0 0 300 430" role="img" aria-label="Corpo humano com órgãos controlados pelo sistema nervoso autônomo">
+            <!-- corpo -->
+            <path class="pa-pele" id="paPele" d="M150,18 C176,18 192,38 192,62 C192,86 176,104 150,104 C124,104 108,86 108,62 C108,38 124,18 150,18 Z M134,104 L166,104 L168,118 C200,120 222,132 226,160 L240,250 C242,262 230,266 226,254 L212,180 L210,300 L204,410 C203,422 188,422 186,410 L176,310 L150,310 L124,310 L114,410 C112,422 97,422 96,410 L90,300 L88,180 L74,254 C70,266 58,262 60,250 L74,160 C78,132 100,120 132,118 Z"/>
+            <!-- olhos -->
+            <g class="pa-olho"><ellipse cx="134" cy="58" rx="10" ry="6"/><ellipse cx="166" cy="58" rx="10" ry="6"/></g>
+            <circle class="pa-pupila" id="paPupilaE" cx="134" cy="58" r="2.5"/>
+            <circle class="pa-pupila" id="paPupilaD" cx="166" cy="58" r="2.5"/>
+            <!-- suor e saliva -->
+            <g id="paSuor" class="pa-suor"><path d="M118,40 q3,6 0,9 q-3,-3 0,-9 Z"/><path d="M182,36 q3,6 0,9 q-3,-3 0,-9 Z"/><path d="M190,50 q3,6 0,9 q-3,-3 0,-9 Z"/></g>
+            <g id="paSaliva" class="pa-saliva"><path d="M146,88 q4,6 0,10 q-4,-4 0,-10 Z"/><path d="M155,90 q3,5 0,8 q-3,-3 0,-8 Z"/></g>
+            <!-- pulmões e brônquios -->
+            <path class="pa-pulmao" d="M118,140 C100,150 98,200 104,222 C112,230 132,226 140,214 L142,150 C136,140 126,136 118,140 Z"/>
+            <path class="pa-pulmao" d="M182,140 C200,150 202,200 196,222 C188,230 168,226 160,214 L158,150 C164,140 174,136 182,140 Z"/>
+            <g id="paBronquios" class="pa-bronquio"><path d="M150,118 L150,150 M150,150 L132,166 L124,186 M132,166 L136,196 M150,150 L168,166 L176,186 M168,166 L164,196"/></g>
+            <!-- coração -->
+            <g id="paCoracao" class="pa-coracao"><path d="M156,176 C156,166 168,162 172,170 C176,162 188,166 188,176 C188,188 172,198 172,204 C172,198 156,188 156,176 Z"/></g>
+            <!-- suprarrenais, estômago e intestino -->
+            <path class="pa-adrenal" id="paAdrenalE" d="M118,236 l10,-12 l10,12 Z"/>
+            <path class="pa-adrenal" id="paAdrenalD" d="M162,236 l10,-12 l10,12 Z"/>
+            <path class="pa-estomago" d="M150,232 C172,226 188,236 184,250 C180,262 160,262 150,256 Z"/>
+            <path class="pa-intestino" id="paIntestino" d="M112,272 C122,262 132,282 142,272 C152,262 162,282 172,272 C182,262 192,282 192,272 M112,290 C122,280 132,300 142,290 C152,280 162,300 172,290 C182,280 192,300 192,290"/>
+            <!-- vasos dos músculos (pernas) -->
+            <path class="pa-vaso" id="paVasoE" d="M106,320 L104,400"/>
+            <path class="pa-vaso" id="paVasoD" d="M194,320 L196,400"/>
+            <text x="150" y="426" text-anchor="middle" class="viz-axis" id="paBpm">♥ 70 bpm</text>
+          </svg>
+          <div>
+            <div class="pa-slider">
+              <div class="pa-slider-labels"><span>Repouso e digestão<br><b>parassimpático</b></span><span style="text-align:right">Luta ou fuga<br><b>simpático</b></span></div>
+              <input type="range" id="paRange" min="0" max="100" value="50" aria-label="Do repouso (parassimpático) à luta ou fuga (simpático)">
+              <div class="pa-estado" id="paEstado"></div>
+            </div>
+            <ul class="pa-lista" id="paLista"></ul>
+          </div>
+        </div>
+        <div class="pa-desafio">
+          <div class="plabel">Desafio</div>
+          <div class="pfrase" id="paDesafioTexto"></div>
+          <div class="viz-row">
+            <button class="correct-btn" id="paCorrigirBtn" style="margin-top:0;">Conferir</button>
+            <button class="shuffle-btn" id="paShuffleBtn" style="margin-top:0;">🔀 Outro desafio</button>
+          </div>
+          <div class="pfeedback" id="paFeedbackBox"></div>
+        </div>
+        <div class="tool-disclaimer">Simulação didática: os valores de batimento são ilustrativos e o desenho é esquemático. Na vida real, os dois ramos atuam juntos e com intensidades diferentes em cada órgão.</div>
+      </div>
+    </details>
   </section>
 
   <section class="tool-group">
-    <h2 class="tool-group-title"><span class="tg-idx">03</span>Psicologia da Aprendizagem<span class="tg-count">6 exercícios</span></h2>
+    <h2 class="tool-group-title"><span class="tg-idx">03</span>Psicologia da Aprendizagem<span class="tg-count">7 exercícios</span></h2>
     <details class="graveyard">
       <summary>Reforço ou Punição?</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -2097,6 +2388,32 @@
         <div class="pfeedback" id="dxFeedbackBox"></div>
         <button class="shuffle-btn" id="dxShuffleBtn">🔀 Embaralhar de novo</button>
         <div class="tool-disclaimer">Marcos conforme a aula 6 (Rotta et al., <em>Transtornos da aprendizagem</em>, cap. 11).</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Monte a ZDP (Vygotsky)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a observação, toque numa tarefa e depois toque na zona onde ela fica. Clique em "Corrigir". Depois, use o botão "O tempo passa" para ver a ZDP se deslocar.</div>
+        <div class="prompt-box">
+          <div class="plabel">Observação</div>
+          <div class="pfrase" id="zdCaso"></div>
+        </div>
+        <div class="plabel" style="margin:4px 0 8px;">Tarefas (toque para escolher)</div>
+        <div class="viz-chips zd-banco" id="zdBanco"></div>
+        <div class="zd-zonas">
+          <div class="zd-zona zd-z3" data-zona="nao"><div class="zd-zt">Ainda não consegue, nem com ajuda</div><div class="zd-itens" data-itens="nao"></div>
+            <div class="zd-zona zd-z2" data-zona="zdp"><div class="zd-zt">Consegue com ajuda · <b>ZDP</b></div><div class="zd-itens" data-itens="zdp"></div>
+              <div class="zd-zona zd-z1" data-zona="real"><div class="zd-zt">Consegue sozinho · <b>nível real</b></div><div class="zd-itens" data-itens="real"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="viz-row">
+          <button class="correct-btn" id="zdCorrigirBtn" style="margin-top:0;">Corrigir</button>
+          <button class="shuffle-btn" id="zdTempoBtn" style="margin-top:0;" disabled>⏩ O tempo passa (ensino na ZDP)</button>
+          <button class="shuffle-btn" id="zdShuffleBtn" style="margin-top:0;">🔀 Outro caso</button>
+        </div>
+        <div class="pfeedback" id="zdFeedbackBox"></div>
+        <div class="tool-disclaimer">Casos fictícios, para treinar os conceitos de nível real, nível potencial e ZDP (aula 4, Moreira cap. 7). A ZDP é dinâmica: muda o tempo todo.</div>
       </div>
     </details>
   </section>
@@ -2492,11 +2809,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-10-30', disc: 'Geral', desc: 'Cinco ferramentas interativas novas em Na prática: Corte da Medula, Camadas das Meninges, Painel do SNA, linha do tempo do embrião (do zigoto ao disco bilaminar) e Monte a ZDP.', link: {page:'viewFerramentas'}},
   {date: '2026-10-30', disc: 'Neuroanatomia', desc: 'Medula espinhal e sistema nervoso autônomo: resumo interativo, exercícios novos em Na prática e 21 termos no glossário.', link: {disc:'02'}},
   {date: '2026-10-30', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 4 a 6 (Vygotsky, Paulo Freire e dislexia): resumo interativo, quatro exercícios novos em Na prática e 24 termos no glossário.', link: {disc:'03'}},
   {date: '2026-10-30', disc: 'Bases Biológicas', desc: 'Embriologia: linha do tempo interativa da fertilização à 2ª semana, dois exercícios novos em Na prática e 22 termos no glossário.', link: {disc:'01'}},
-  {date: '2026-10-30', disc: 'Geral', desc: 'Páginas por disciplina, busca no site, modo prova, progresso salvo no aparelho e prazos direto na agenda do celular.', link: {scroll:'disciplinas'}},
-  {date: '2026-10-30', disc: 'Geral', desc: 'Calendário de prazos na página Prazos e Tarefas. E a antiga "Conteúdo de apoio" virou "Extras", com glossário das disciplinas e guia ABNT com gerador de referências.', link: {page:'viewPrazos', target:'calendario'}}
+  {date: '2026-10-30', disc: 'Geral', desc: 'Páginas por disciplina, busca no site, modo prova, progresso salvo no aparelho e prazos direto na agenda do celular.', link: {scroll:'disciplinas'}}
 ];
 
 
@@ -4782,6 +5099,435 @@ const SA_CENARIOS = [
 ];
 criarClassificador({pre:'sa', cenarios:SA_CENARIOS, opcoes:['Sistema nervoso somático','Sistema nervoso autônomo']});
 
+
+// =====================================================================
+// FERRAMENTAS VISUAIS (desenhos interativos)
+// =====================================================================
+function vizSalvar(k, v){ try{ localStorage.setItem('av-viz-' + k, JSON.stringify(v)); }catch(e){} }
+function vizLer(k, padrao){ try{ const v = JSON.parse(localStorage.getItem('av-viz-' + k)); return v == null ? padrao : v; }catch(e){ return padrao; } }
+function vizAviso(box, msg){ box.className = 'pfeedback show bad aviso'; box.innerHTML = `<strong>${msg}</strong>`; }
+
+// --- Corte da Medula (Neuroanatomia) ---
+const CM_REGIOES = [
+  {n:1, nome:'Corno posterior (dorsal)', x:170, y:102, info:'Braço posterior do H. Recebe as fibras sensitivas que chegam pela raiz dorsal.'},
+  {n:2, nome:'Corno anterior (ventral)', x:158, y:212, info:'Braço anterior do H, mais largo. Abriga os neurônios motores, cujas fibras saem pela raiz ventral.'},
+  {n:3, nome:'Canal central', x:210, y:166, info:'Canal do epêndima: resquício da luz do tubo neural do embrião.'},
+  {n:4, nome:'Funículo anterior', x:244, y:252, info:'Substância branca entre a fissura mediana anterior e o corno anterior. Por ela passa, por exemplo, o tracto córtico-espinhal anterior.'},
+  {n:5, nome:'Funículo lateral', x:318, y:165, info:'Substância branca da lateral da medula. Por ela desce o tracto córtico-espinhal lateral, depois da decussação das pirâmides.'},
+  {n:6, nome:'Fascículo grácil', x:202, y:90, info:'Parte medial do funículo posterior. Leva tato fino e propriocepção da metade inferior do corpo até o encéfalo.'},
+  {n:7, nome:'Fascículo cuneiforme', x:238, y:82, info:'Parte lateral do funículo posterior (aparece da região torácica alta para cima). Leva tato fino e propriocepção da metade superior do corpo.'},
+  {n:8, nome:'Raiz dorsal e gânglio', x:88, y:72, info:'Raiz sensitiva do nervo espinhal. O gânglio da raiz dorsal guarda os corpos dos neurônios sensitivos.'},
+  {n:9, nome:'Raiz ventral', x:94, y:252, info:'Raiz motora: leva as fibras dos neurônios do corno anterior até o nervo espinhal.'},
+  {n:10, nome:'Fissura mediana anterior', x:210, y:292, info:'Sulco profundo na face anterior da medula, que separa os dois funículos anteriores.'},
+];
+(function(){
+  const svg = document.getElementById('cmSvg'); if(!svg) return;
+  let acertos = vizLer('cm', []), sel = null, escolha = null, erros = {};
+  const ordemNomes = embaralhar(CM_REGIOES.map(r=>r.nome));
+  function desenhar(){
+    document.getElementById('cmMarkers').innerHTML = CM_REGIOES.map(r=>{
+      const st = acertos.includes(r.n) ? 'ok' : (sel === r.n ? 'sel' : 'pend');
+      const linha = r.n === 10 ? '<path class="cm-leader" d="M210,281 L210,268"/>' : '';
+      return `${linha}<g class="viz-mk ${st}" data-n="${r.n}" tabindex="0" role="button" aria-label="Estrutura ${r.n}"><circle cx="${r.x}" cy="${r.y}" r="11"/><text x="${r.x}" y="${r.y+4}" text-anchor="middle">${r.n}</text></g>`;
+    }).join('');
+    document.getElementById('cmStatus').textContent = `${acertos.length} de ${CM_REGIOES.length} identificadas${acertos.length === CM_REGIOES.length ? ' · completo! 🎉' : ''}`;
+  }
+  function abrir(n){
+    sel = n; escolha = null; desenhar();
+    const r = CM_REGIOES.find(x=>x.n===n);
+    document.getElementById('cmPanel').hidden = false;
+    document.getElementById('cmNum').textContent = n;
+    const box = document.getElementById('cmFeedbackBox');
+    if(acertos.includes(n)){ box.className = 'pfeedback show good'; box.innerHTML = `<strong>${r.nome}</strong><p>${r.info}</p>`; }
+    else { box.className = 'pfeedback'; box.innerHTML = ''; }
+    document.getElementById('cmOpcoes').innerHTML = ordemNomes.map(nm=>`<button class="viz-chip" data-nome="${nm}">${nm}</button>`).join('');
+  }
+  svg.addEventListener('click', e=>{ const g = e.target.closest('.viz-mk'); if(g) abrir(+g.dataset.n); });
+  svg.addEventListener('keydown', e=>{ const g = e.target.closest('.viz-mk'); if(g && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); abrir(+g.dataset.n); } });
+  document.getElementById('cmOpcoes').addEventListener('click', e=>{
+    const b = e.target.closest('.viz-chip'); if(!b) return;
+    escolha = b.dataset.nome;
+    document.querySelectorAll('#cmOpcoes .viz-chip').forEach(x=>x.classList.toggle('on', x === b));
+  });
+  document.getElementById('cmCorrigirBtn').addEventListener('click', ()=>{
+    const box = document.getElementById('cmFeedbackBox');
+    if(sel == null){ vizAviso(box, 'Escolha uma opção: toque num número do desenho.'); return; }
+    if(!escolha){ vizAviso(box, 'Escolha uma opção antes de corrigir.'); return; }
+    const r = CM_REGIOES.find(x=>x.n===sel);
+    if(escolha === r.nome){
+      if(!acertos.includes(r.n)) acertos.push(r.n);
+      vizSalvar('cm', acertos);
+      box.className = 'pfeedback show good';
+      box.innerHTML = `<strong>Correto! ${r.nome}.</strong><p>${r.info}</p>`;
+      desenhar();
+    } else {
+      erros[r.n] = (erros[r.n] || 0) + 1;
+      box.className = 'pfeedback show bad';
+      box.innerHTML = erros[r.n] >= 2
+        ? `<strong>Não é ${escolha}. A resposta é ${r.nome}.</strong><p>${r.info}</p>`
+        : `<strong>Não é ${escolha}. Tente de novo.</strong><p>Dica: observe se o número está na substância cinzenta (o H), na branca (em volta) ou fora da medula.</p>`;
+    }
+  });
+  document.getElementById('cmResetBtn').addEventListener('click', ()=>{
+    acertos = []; erros = {}; sel = null; vizSalvar('cm', acertos);
+    document.getElementById('cmPanel').hidden = true; desenhar();
+  });
+  desenhar();
+})();
+
+// --- Camadas das Meninges (Neuroanatomia) ---
+const MN_CAMADAS = [
+  {nome:'Vértebra (osso)', cls:'mn-osso', info:'Parede óssea do canal vertebral, que protege a medula.'},
+  {nome:'Espaço epidural', cls:'mn-epidural', info:'Entre o osso e a dura-máter, com gordura e veias. É onde se aplica a anestesia peridural.'},
+  {nome:'Dura-máter', cls:'mn-dura', info:'Meninge mais externa: espessa e resistente.'},
+  {nome:'Espaço subdural', cls:'mn-subdural', info:'Espaço virtual entre a dura-máter e a aracnoide.'},
+  {nome:'Aracnoide', cls:'mn-aracnoide', info:'Meninge intermediária, delicada, com trabéculas que lembram uma teia de aranha.'},
+  {nome:'Espaço subaracnóideo', cls:'mn-liquor', info:'Entre a aracnoide e a pia-máter. É por onde circula o líquor, colhido na punção lombar.'},
+  {nome:'Pia-máter', cls:'mn-pia', info:'Meninge mais interna e fina, aderida diretamente à medula.'},
+  {nome:'Medula espinhal', cls:'mn-medula', info:'Tecido nervoso, protegido por todas as camadas anteriores.'},
+];
+(function(){
+  const stack = document.getElementById('mnStack'); if(!stack) return;
+  let montadas = [], corrigido = false;
+  function render(marcar){
+    stack.innerHTML = '<div class="mn-agulha" aria-hidden="true">↓ agulha entra por aqui</div>' + MN_CAMADAS.map((_, pos)=>{
+      const k = montadas[pos];
+      if(k == null) return `<div class="mn-slot vazio"><span>${pos+1}</span></div>`;
+      const c = MN_CAMADAS[k];
+      const st = marcar ? (k === pos ? ' certo' : ' errado') : '';
+      return `<button class="mn-slot ${c.cls}${st}" data-k="${k}"><span>${pos+1}</span>${c.nome}</button>`;
+    }).join('');
+    const restam = embaralharEstavel(MN_CAMADAS.map((_, i)=>i).filter(i=>!montadas.includes(i)));
+    document.getElementById('mnBanco').innerHTML = restam.length ? restam.map(i=>`<button class="viz-chip" data-k="${i}">${MN_CAMADAS[i].nome}</button>`).join('') : '<span class="viz-muted">Todas as camadas foram colocadas.</span>';
+  }
+  let ordemBanco = embaralhar(MN_CAMADAS.map((_, i)=>i));
+  function embaralharEstavel(lista){ return ordemBanco.filter(i=>lista.includes(i)); }
+  document.getElementById('mnBanco').addEventListener('click', e=>{
+    const b = e.target.closest('.viz-chip'); if(!b || corrigido) return;
+    montadas.push(+b.dataset.k); render();
+    document.getElementById('mnFeedbackBox').className = 'pfeedback';
+  });
+  stack.addEventListener('click', e=>{
+    const b = e.target.closest('.mn-slot[data-k]'); if(!b || !corrigido) return;
+    const c = MN_CAMADAS[+b.dataset.k];
+    const info = document.getElementById('mnInfo'); info.hidden = false;
+    info.innerHTML = `<strong>${c.nome}:</strong> ${c.info}`;
+  });
+  document.getElementById('mnDesfazerBtn').addEventListener('click', ()=>{ if(corrigido) return; montadas.pop(); render(); });
+  document.getElementById('mnResetBtn').addEventListener('click', ()=>{
+    montadas = []; corrigido = false; ordemBanco = embaralhar(MN_CAMADAS.map((_, i)=>i));
+    document.getElementById('mnFeedbackBox').className = 'pfeedback'; document.getElementById('mnInfo').hidden = true; render();
+  });
+  document.getElementById('mnCorrigirBtn').addEventListener('click', ()=>{
+    const box = document.getElementById('mnFeedbackBox');
+    if(montadas.length < MN_CAMADAS.length){ vizAviso(box, `Escolha uma opção para cada camada: faltam ${MN_CAMADAS.length - montadas.length}.`); return; }
+    const certos = montadas.filter((k, pos)=>k===pos).length;
+    render(true);
+    if(certos === MN_CAMADAS.length){
+      corrigido = true;
+      box.className = 'pfeedback show good';
+      box.innerHTML = '<strong>Ordem perfeita!</strong><p>Toque em cada camada do desenho para ver a função.</p>';
+    } else {
+      box.className = `pfeedback show ${certos >= 5 ? 'partial' : 'bad'}`;
+      box.innerHTML = `<strong>${certos} de ${MN_CAMADAS.length} no lugar certo.</strong><p>As camadas em vermelho estão fora de posição. De fora para dentro: ${MN_CAMADAS.map(c=>c.nome).join(' → ')}.</p><p>Use "Desfazer" ou "Recomeçar" e tente de novo.</p>`;
+    }
+  });
+  render();
+})();
+
+// --- Painel do SNA: Repouso × Luta ou Fuga (Neuroanatomia) ---
+const PA_DESAFIOS = [
+  {txt:'Depois de um almoço tranquilo, o corpo precisa digerir a comida.', alvo:'para', why:'Digestão, salivação e coração mais lento: predomínio parassimpático (repouso e digestão).'},
+  {txt:'Um cachorro bravo aparece correndo na sua direção.', alvo:'simp', why:'Ameaça súbita: luta ou fuga. Pupilas dilatam, o coração acelera e a suprarrenal libera adrenalina.'},
+  {txt:'Cochilando no sofá, numa tarde de domingo.', alvo:'para', why:'Repouso profundo: coração e respiração mais lentos, predomínio parassimpático.'},
+  {txt:'Faltam cinco minutos para começar a sua apresentação de seminário.', alvo:'simp', why:'Ansiedade antecipatória ativa o simpático: boca seca, mãos suando, coração acelerado.'},
+  {txt:'Correndo para pegar o ônibus que está saindo do ponto.', alvo:'simp', why:'Esforço intenso e urgência: brônquios dilatados, coração acelerado e mais sangue para os músculos.'},
+  {txt:'Meditando, com a respiração lenta e profunda.', alvo:'para', why:'Relaxamento profundo favorece a atividade parassimpática.'},
+];
+(function(){
+  const range = document.getElementById('paRange'); if(!range) return;
+  const mix = (a, b, t)=> a + (b - a) * t;
+  const cor = (c1, c2, t)=>{ const h = s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)); const a=h(c1), b=h(c2); return '#' + a.map((v,i)=>Math.round(mix(v,b[i],t)).toString(16).padStart(2,'0')).join(''); };
+  function itens(t){
+    const s = t >= 0.65, p = t <= 0.35;
+    const est = (para, simp, meio)=> p ? para : s ? simp : meio;
+    const bpm = Math.round(mix(58, 130, t));
+    return [
+      ['👁️','Pupilas', est('contraídas (miose)', 'dilatadas (midríase)', 'tamanho intermediário')],
+      ['❤️','Coração', `${est('mais lento', 'acelerado e com mais força', 'ritmo intermediário')} · ≈ ${bpm} bpm`],
+      ['🫁','Brônquios', est('mais contraídos', 'dilatados: entra mais ar', 'intermediários')],
+      ['🍽️','Digestão', est('estimulada: mais movimento e secreções', 'inibida: o intestino quase para', 'funcionando normalmente')],
+      ['💧','Saliva', est('abundante', 'reduzida: boca seca', 'normal')],
+      ['🩸','Vasos da pele e das vísceras', est('dilatados', 'contraídos: palidez', 'normais')],
+      ['💪','Vasos dos músculos', est('sem alteração', 'dilatados: mais sangue para correr ou lutar', 'normais')],
+      ['⚡','Suprarrenal', est('em repouso', 'libera adrenalina', 'em repouso')],
+      ['🍬','Glicose', est('armazenada', 'liberada para dar energia', 'equilibrada')],
+    ];
+  }
+  function atualizar(){
+    const t = range.value / 100;
+    const r = mix(2, 5.4, t);
+    ['paPupilaE','paPupilaD'].forEach(id=>document.getElementById(id).setAttribute('r', r.toFixed(2)));
+    const bpm = Math.round(mix(58, 130, t));
+    document.getElementById('paCoracao').style.animationDuration = (60 / bpm).toFixed(2) + 's';
+    document.getElementById('paBpm').textContent = `♥ ${bpm} bpm`;
+    document.getElementById('paBronquios').style.strokeWidth = mix(2, 6.5, t).toFixed(1);
+    const intest = document.getElementById('paIntestino');
+    intest.style.animationDuration = mix(1.2, 9, t).toFixed(1) + 's';
+    intest.style.opacity = mix(1, 0.4, t).toFixed(2);
+    document.getElementById('paSuor').style.opacity = t > 0.6 ? ((t - 0.6) / 0.4).toFixed(2) : 0;
+    document.getElementById('paSaliva').style.opacity = (1 - t).toFixed(2);
+    document.getElementById('paPele').style.fill = cor('#F1C7B5', '#EEE6DD', t);
+    ['paAdrenalE','paAdrenalD'].forEach(id=>document.getElementById(id).style.fill = t > 0.6 ? cor('#C9A15A', '#F08A24', (t - 0.6)/0.4) : '#C9A15A');
+    ['paVasoE','paVasoD'].forEach(id=>document.getElementById(id).style.strokeWidth = mix(1.5, 5, t).toFixed(1));
+    const est = document.getElementById('paEstado');
+    est.textContent = t <= 0.35 ? 'Predomínio parassimpático: repouso e digestão' : t >= 0.65 ? 'Predomínio simpático: luta ou fuga' : 'Equilíbrio entre os dois ramos';
+    est.className = 'pa-estado ' + (t <= 0.35 ? 'para' : t >= 0.65 ? 'simp' : '');
+    document.getElementById('paLista').innerHTML = itens(t).map(([ic, nome, txt])=>`<li><span class="pa-ic">${ic}</span><span><b>${nome}:</b> ${txt}</span></li>`).join('');
+  }
+  let desafio = null;
+  function novoDesafio(){
+    let n; do{ n = PA_DESAFIOS[Math.floor(Math.random()*PA_DESAFIOS.length)]; } while(n === desafio);
+    desafio = n;
+    document.getElementById('paDesafioTexto').textContent = `${desafio.txt} Ajuste o controle para o estado do corpo nessa situação e clique em "Conferir".`;
+    document.getElementById('paFeedbackBox').className = 'pfeedback';
+  }
+  range.addEventListener('input', atualizar);
+  document.getElementById('paShuffleBtn').addEventListener('click', novoDesafio);
+  document.getElementById('paCorrigirBtn').addEventListener('click', ()=>{
+    const v = +range.value, box = document.getElementById('paFeedbackBox');
+    const ok = desafio.alvo === 'para' ? v <= 35 : v >= 65;
+    const quase = !ok && v > 35 && v < 65;
+    box.className = `pfeedback show ${ok ? 'good' : quase ? 'partial' : 'bad'}`;
+    box.innerHTML = ok ? `<strong>Isso!</strong><p>${desafio.why}</p>`
+      : quase ? `<strong>Quase: leve o controle mais para o lado ${desafio.alvo === 'para' ? 'do repouso (parassimpático)' : 'da luta ou fuga (simpático)'}.</strong>`
+      : `<strong>Não: essa situação pede o ${desafio.alvo === 'para' ? 'parassimpático' : 'simpático'}.</strong><p>${desafio.why}</p>`;
+  });
+  atualizar(); novoDesafio();
+})();
+
+// --- Do Zigoto ao Disco Bilaminar (Bases Biológicas) ---
+const EB_INFO = {
+  'Zona pelúcida':'Camada de glicoproteínas em volta do ovócito e do embrião inicial. Impede a polispermia e desaparece quando o blastocisto está no útero.',
+  'Zigoto':'Célula totipotente formada na fertilização, com cromossomos da mãe e do pai.',
+  'Pronúcleos':'Pronúcleo feminino e masculino. Replicam o DNA e se unem para a primeira mitose do zigoto.',
+  'Corpúsculos polares':'Pequenas células que sobram das divisões meióticas do ovócito.',
+  'Blastômeros':'Células formadas pela clivagem. A cada divisão ficam menores.',
+  'Mórula':'Conjunto de 12 a 32 blastômeros compactados, ainda dentro da zona pelúcida.',
+  'Trofoblasto':'Camada externa do blastocisto. Dará origem à placenta.',
+  'Embrioblasto':'Massa celular interna: o primórdio do embrião.',
+  'Cavidade blastocística':'Cavidade cheia de líquido que separa o trofoblasto do embrioblasto.',
+  'Endométrio':'Revestimento interno do útero, onde o blastocisto se implanta.',
+  'Citotrofoblasto':'Camada interna do trofoblasto, de células individualizadas.',
+  'Sinciciotrofoblasto':'Camada externa e multinucleada do trofoblasto. Invade o endométrio e produz hCG.',
+  'Epiblasto':'Camada superior do disco embrionário bilaminar, voltada para a cavidade amniótica.',
+  'Hipoblasto':'Camada inferior do disco embrionário bilaminar, voltada para a cavidade blastocística.',
+  'Cavidade amniótica':'Surge entre o epiblasto e o citotrofoblasto e se enche de líquido: o futuro líquido amniótico.',
+  'Âmnio':'Membrana formada pelos amnioblastos (células do epiblasto) que envolve a cavidade amniótica.',
+  'Lacunas':'Espaços no sinciciotrofoblasto por onde passa a circular sangue materno.',
+  'Membrana exocelômica (de Heuser)':'Reveste a cavidade blastocística, que passa a se chamar saco vitelino primário.',
+  'Saco vitelino primário':'A cavidade exocelômica, revestida pela membrana de Heuser.',
+  'Mesoderme extraembrionária':'Tecido conjuntivo frouxo que passa a envolver o disco, o âmnio e o saco vitelino.',
+  'Celoma extraembrionário':'Grande cavidade formada pela união de lacunas dentro da mesoderme extraembrionária.',
+  'Saco vitelino secundário':'Saco vitelino definitivo, menor. Em mamíferos não armazena vitelo (vesícula umbilical).',
+  'Cisto exocelômico':'Resto do saco vitelino primário, que degenera.',
+  'Pedículo de conexão':'Única região onde o celoma não avança. Liga o embrião ao trofoblasto e será o cordão umbilical.',
+};
+const EB_FASES = ['Fertilização: o zigoto','Clivagem: 2 blastômeros','Clivagem: 4 blastômeros','Mórula','Blastocisto chega ao útero','Blastocisto livre no útero','O blastocisto se fixa no endométrio','Implantação superficial (fim da 1ª semana)','Disco bilaminar e cavidade amniótica','Âmnio formado','Saco vitelino primário e lacunas','Saco vitelino primário e lacunas','Mesoderme extraembrionária','Celoma e saco vitelino secundário','Pedículo de conexão (fim da 2ª semana)'];
+const EB_DESAFIOS = [
+  {txt:'acontece a fertilização, na ampola da tuba uterina.', min:0, max:0},
+  {txt:'o zigoto já se dividiu em 2 blastômeros.', min:1, max:1},
+  {txt:'aparece a mórula, com 12 a 32 blastômeros.', min:3, max:3},
+  {txt:'a mórula chega ao útero e se transforma em blastocisto.', min:4, max:5},
+  {txt:'o blastocisto começa a se fixar no endométrio.', min:6, max:7},
+  {txt:'surge o disco embrionário bilaminar (epiblasto e hipoblasto).', min:8, max:9},
+  {txt:'aparecem as lacunas com sangue materno no sinciciotrofoblasto.', min:10, max:14},
+  {txt:'o pedículo de conexão (futuro cordão umbilical) já está formado.', min:14, max:14},
+];
+(function(){
+  const svg = document.getElementById('ebSvg'); if(!svg) return;
+  const range = document.getElementById('ebRange');
+  const E = (nome, el)=> el.replace(/^<(\w+)/, `<$1 data-est="${nome}"`);
+  const rotulo = (x, y, tx, ty, txt, anc)=> `<g class="eb-rot"><path d="M${x},${y} L${tx},${ty}"/><text x="${tx + (anc==='end' ? -3 : 3)}" y="${ty + 4}" text-anchor="${anc||'start'}">${txt}</text></g>`;
+  function cena(d){
+    let s = '', L = '';
+    if(d <= 3){
+      s += E('Zona pelúcida', `<circle class="eb-zona" cx="180" cy="135" r="80"/>`);
+      if(d === 0){
+        s += E('Zigoto', `<circle class="eb-cito" cx="180" cy="135" r="66"/>`);
+        s += E('Pronúcleos', `<circle class="eb-nucleo" cx="160" cy="138" r="14"/>`) + E('Pronúcleos', `<circle class="eb-nucleo" cx="200" cy="132" r="14"/>`);
+        s += E('Corpúsculos polares', `<circle class="eb-polar" cx="172" cy="64" r="6"/>`) + E('Corpúsculos polares', `<circle class="eb-polar" cx="188" cy="65" r="5"/>`);
+        L += rotulo(250, 110, 300, 70, 'Zona pelúcida') + rotulo(130, 170, 60, 210, 'Zigoto', 'end') + rotulo(200, 132, 290, 170, 'Pronúcleos') + rotulo(176, 62, 110, 34, 'Corpúsculos polares', 'end');
+      } else if(d <= 2){
+        const pts = d === 1 ? [[152,135,30],[208,135,30]] : [[156,111,26],[204,111,26],[156,159,26],[204,159,26]];
+        pts.forEach(([x,y,r])=> s += E('Blastômeros', `<circle class="eb-cel" cx="${x}" cy="${y}" r="${r}"/>`));
+        L += rotulo(250, 110, 300, 70, 'Zona pelúcida') + rotulo(d===1?130:140, d===1?135:159, 60, 200, 'Blastômeros', 'end');
+      } else {
+        const pts = [[180,135]]; for(let i=0;i<6;i++){ const a=i*Math.PI/3; pts.push([180+30*Math.cos(a),135+30*Math.sin(a)]); } for(let i=0;i<6;i++){ const a=i*Math.PI/3+Math.PI/6; pts.push([180+54*Math.cos(a),135+54*Math.sin(a)]); }
+        pts.forEach(([x,y])=> s += E('Mórula', `<circle class="eb-cel" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17"/>`));
+        L += rotulo(250, 110, 300, 70, 'Zona pelúcida') + rotulo(134, 162, 60, 205, 'Mórula (12–32 células)', 'end');
+      }
+    } else if(d <= 5){
+      s += E('Zona pelúcida', `<circle class="eb-zona${d===5?' some':''}" cx="180" cy="135" r="82"/>`);
+      s += E('Cavidade blastocística', `<circle class="eb-cavidade" cx="180" cy="135" r="62"/>`);
+      s += E('Trofoblasto', `<circle class="eb-trofo" cx="180" cy="135" r="66"/>`);
+      [[160,96],[180,90],[200,96],[170,110],[190,110],[180,102]].forEach(([x,y])=> s += E('Embrioblasto', `<circle class="eb-embrio" cx="${x}" cy="${y}" r="12"/>`));
+      L += rotulo(252, 112, 305, 72, d===5 ? 'Zona pelúcida (sumindo)' : 'Zona pelúcida') + rotulo(118, 150, 58, 190, 'Trofoblasto', 'end') + rotulo(200, 96, 290, 40, 'Embrioblasto') + rotulo(190, 160, 280, 215, 'Cavidade blastocística');
+    } else if(d <= 7){
+      const fundo = d === 6 ? 70 : 92, cy = d === 6 ? 150 : 140;
+      s += E('Endométrio', `<path class="eb-endo" d="M-100,0 L460,0 L460,${fundo} C300,${fundo+8} 240,${fundo-4} 180,${fundo+4} C120,${fundo-4} 60,${fundo+8} -100,${fundo} Z"/>`);
+      s += E('Cavidade blastocística', `<circle class="eb-cavidade" cx="180" cy="${cy}" r="58"/>`);
+      s += E('Citotrofoblasto', `<circle class="eb-trofo" cx="180" cy="${cy}" r="62"/>`);
+      const prof = d === 6 ? 16 : 34;
+      s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="M136,${cy-44} C140,${cy-62-prof} 160,${cy-70-prof} 180,${cy-74-prof} C200,${cy-70-prof} 222,${cy-62-prof} 224,${cy-44} C210,${cy-58} 150,${cy-58} 136,${cy-44} Z"/>`);
+      [[164,cy-42],[180,cy-48],[196,cy-42],[172,cy-30],[188,cy-30]].forEach(([x,y])=> s += E('Embrioblasto', `<circle class="eb-embrio" cx="${x}" cy="${y}" r="11"/>`));
+      L += rotulo(60, 30, 18, 18, 'Endométrio') + rotulo(212, cy-70, 300, cy-90, 'Sinciciotrofoblasto') + rotulo(120, cy+10, 50, cy+50, 'Citotrofoblasto', 'end') + rotulo(196, cy-40, 290, cy-20, 'Embrioblasto') + rotulo(190, cy+30, 270, cy+90, 'Cavidade blastocística');
+    } else {
+      const cy = 128;
+      s += E('Endométrio', `<path class="eb-endo" d="M-100,0 L460,0 L460,226 C300,232 240,222 180,230 C120,222 60,232 -100,226 Z"/>`);
+      s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="M180,${cy-96} C236,${cy-96} 268,${cy-50} 266,${cy} C266,${cy+56} 236,${cy+90} 180,${cy+90} C124,${cy+90} 94,${cy+56} 94,${cy} C92,${cy-50} 124,${cy-96} 180,${cy-96} Z"/>`);
+      if(d >= 10){
+        [[128,cy-50],[236,cy-40],[110,cy+20],[250,cy+30],[150,cy+76],[214,cy+74],[180,cy-82]].forEach(([x,y])=> s += E('Lacunas', `<ellipse class="eb-lacuna" cx="${x}" cy="${y}" rx="9" ry="6"/>`));
+      }
+      s += E('Citotrofoblasto', `<circle class="eb-trofo" cx="180" cy="${cy}" r="66"/>`);
+      if(d <= 11){
+        s += E(d >= 10 ? 'Saco vitelino primário' : 'Cavidade blastocística', `<circle class="eb-cavidade" cx="180" cy="${cy}" r="62"/>`);
+        if(d >= 10) s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M136,${cy-12} C120,${cy+20} 126,${cy+52} 152,${cy+60} C170,${cy+66} 190,${cy+66} 208,${cy+60} C234,${cy+52} 240,${cy+20} 224,${cy-12}"/>`);
+      } else {
+        s += E('Mesoderme extraembrionária', `<circle class="eb-meso" cx="180" cy="${cy}" r="62"/>`);
+        if(d >= 13) s += E('Celoma extraembrionário', `<path class="eb-celoma" d="M180,${cy-52} C222,${cy-52} 236,${cy-20} 236,${cy+10} C236,${cy+46} 210,${cy+56} 180,${cy+56} C150,${cy+56} 124,${cy+46} 124,${cy+10} C124,${cy-20} 138,${cy-52} 180,${cy-52} Z"/>`);
+      }
+      // complexo do embrião: cavidade amniótica, disco bilaminar, saco vitelino
+      s += E('Cavidade amniótica', `<path class="eb-amnio-cav" d="M146,${cy-18} C150,${cy-48} 210,${cy-48} 214,${cy-18} Z"/>`);
+      if(d >= 9) s += E('Âmnio', `<path class="eb-amnio" d="M146,${cy-18} C150,${cy-48} 210,${cy-48} 214,${cy-18}"/>`);
+      if(d >= 13){
+        s += E('Saco vitelino secundário', `<path class="eb-svs" d="M150,${cy-6} C146,${cy+30} 214,${cy+30} 210,${cy-6} Z"/>`);
+        if(d === 13) s += E('Cisto exocelômico', `<circle class="eb-cisto" cx="196" cy="${cy+42}" r="8"/>`);
+      } else if(d >= 12){
+        s += E('Saco vitelino primário', `<path class="eb-cavidade" d="M140,${cy-6} C130,${cy+44} 230,${cy+44} 220,${cy-6} Z"/>`);
+        s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M140,${cy-6} C130,${cy+44} 230,${cy+44} 220,${cy-6}"/>`);
+      }
+      s += E('Epiblasto', `<rect class="eb-epi" x="144" y="${cy-18}" width="72" height="11" rx="3"/>`);
+      s += E('Hipoblasto', `<rect class="eb-hipo" x="144" y="${cy-7}" width="72" height="7" rx="3"/>`);
+      if(d >= 14) s += E('Pedículo de conexão', `<path class="eb-pediculo" d="M170,${cy-62} L190,${cy-62} L188,${cy-40} L172,${cy-40} Z"/>`);
+      L += rotulo(40, 30, 12, 16, 'Endométrio') + rotulo(246, cy-60, 300, cy-104, 'Sinciciotrofoblasto') + rotulo(116, cy+20, 46, cy+40, 'Citotrofoblasto', 'end');
+      L += rotulo(180, cy-30, 300, cy-66, d >= 9 ? 'Âmnio / cav. amniótica' : 'Cavidade amniótica') + rotulo(216, cy-13, 300, cy-24, 'Epiblasto') + rotulo(216, cy-3, 300, cy+6, 'Hipoblasto');
+      if(d >= 10) L += rotulo(250, cy+30, 312, cy+44, 'Lacunas');
+      if(d >= 10 && d <= 12) L += rotulo(150, cy+40, 60, cy+80, d >= 12 ? 'Saco vitelino 1º' : 'Saco vitelino primário', 'end');
+      if(d <= 9) L += rotulo(150, cy+40, 60, cy+80, 'Cavidade blastocística', 'end');
+      if(d >= 12) L += rotulo(226, cy+44, 300, cy+80, d >= 13 ? 'Celoma extraemb.' : 'Mesoderme extraemb.');
+      if(d >= 13) L += rotulo(170, cy+16, 60, cy+80, 'Saco vitelino 2º', 'end');
+      if(d >= 14) L += rotulo(170, cy-52, 70, cy-80, 'Pedículo de conexão', 'end');
+      if(d >= 10) L += `<text class="eb-hcg" x="450" y="250" text-anchor="end">sinciciotrofoblasto produz hCG</text>`;
+    }
+    return s + (document.getElementById('ebNomes').checked ? L : '');
+  }
+  function atualizar(){
+    const d = +range.value;
+    svg.innerHTML = cena(d);
+    document.getElementById('ebDia').textContent = `Dia ${d}`;
+    document.getElementById('ebFase').textContent = EB_FASES[d];
+  }
+  svg.addEventListener('click', e=>{
+    const el = e.target.closest('[data-est]'); if(!el) return;
+    const nome = el.dataset.est;
+    svg.querySelectorAll('.eb-on').forEach(x=>x.classList.remove('eb-on'));
+    svg.querySelectorAll(`[data-est="${nome}"]`).forEach(x=>x.classList.add('eb-on'));
+    document.getElementById('ebInfo').innerHTML = `<strong>${nome}:</strong> ${EB_INFO[nome] || ''}`;
+  });
+  range.addEventListener('input', atualizar);
+  document.getElementById('ebNomes').addEventListener('change', atualizar);
+  let desafio = null;
+  function novoDesafio(){
+    let n; do{ n = EB_DESAFIOS[Math.floor(Math.random()*EB_DESAFIOS.length)]; } while(n === desafio);
+    desafio = n; document.getElementById('ebDesafioTexto').textContent = desafio.txt;
+    document.getElementById('ebFeedbackBox').className = 'pfeedback';
+  }
+  document.getElementById('ebShuffleBtn').addEventListener('click', novoDesafio);
+  document.getElementById('ebCorrigirBtn').addEventListener('click', ()=>{
+    const d = +range.value, box = document.getElementById('ebFeedbackBox');
+    const ok = d >= desafio.min && d <= desafio.max;
+    const alvo = desafio.min === desafio.max ? `dia ${desafio.min}` : `dias ${desafio.min} a ${desafio.max}`;
+    box.className = `pfeedback show ${ok ? 'good' : Math.min(Math.abs(d-desafio.min), Math.abs(d-desafio.max)) <= 1 ? 'partial' : 'bad'}`;
+    box.innerHTML = ok ? `<strong>Isso! ${alvo[0].toUpperCase() + alvo.slice(1)}: ${EB_FASES[d].toLowerCase()}.</strong>`
+      : `<strong>Você está no dia ${d} (${EB_FASES[d].toLowerCase()}).</strong><p>A resposta é ${alvo}. Os dias são aproximados.</p>`;
+  });
+  atualizar(); novoDesafio();
+})();
+
+// --- Monte a ZDP (Psicologia da Aprendizagem · Vygotsky) ---
+const ZD_CASOS = [
+  {quem:'Ana', obs:'Ana, 6 anos. Na avaliação, contou até 20 e leu palavras simples sem ajuda. Com a professora mostrando nos dedos, conseguiu somar 5 + 3; com um colega lendo junto, leu frases curtas. Mesmo com ajuda, não conseguiu multiplicar nem ler um livro sem figuras.',
+   tarefas:[['Contar até 20','real'],['Ler palavras simples','real'],['Somar 5 + 3','zdp'],['Ler frases curtas','zdp'],['Multiplicar','nao'],['Ler um livro sem figuras','nao']]},
+  {quem:'Pedro', obs:'Pedro, 14 anos, está aprendendo violão. Sozinho, toca três acordes básicos e afina o violão com um aplicativo. Com o professor marcando o ritmo, consegue trocar de acorde sem parar e tocar uma música simples inteira. Mesmo com ajuda, ainda não faz solos rápidos nem lê partitura.',
+   tarefas:[['Tocar três acordes básicos','real'],['Afinar com aplicativo','real'],['Trocar de acorde sem parar','zdp'],['Tocar uma música simples inteira','zdp'],['Fazer solos rápidos','nao'],['Ler partitura','nao']]},
+  {quem:'Júlia', obs:'Júlia, 4 anos. Sozinha, calça os sapatos e lava as mãos. Com a mãe orientando passo a passo, consegue abotoar a camisa e escovar os dentes direito. Mesmo com ajuda, ainda não consegue amarrar o cadarço nem fazer uma trança.',
+   tarefas:[['Calçar os sapatos','real'],['Lavar as mãos','real'],['Abotoar a camisa','zdp'],['Escovar os dentes direito','zdp'],['Amarrar o cadarço','nao'],['Fazer uma trança','nao']]},
+];
+(function(){
+  const banco = document.getElementById('zdBanco'); if(!banco) return;
+  let casoI = -1, caso, lugar = {}, sel = null, ordem = [], resolvido = false;
+  const ZN = {real:'nível real', zdp:'ZDP', nao:'ainda não consegue'};
+  function novo(){
+    let i; do{ i = Math.floor(Math.random()*ZD_CASOS.length); } while(i === casoI && ZD_CASOS.length > 1);
+    casoI = i; caso = ZD_CASOS[i]; lugar = {}; sel = null; resolvido = false;
+    ordem = embaralhar(caso.tarefas.map((_, k)=>k));
+    document.getElementById('zdCaso').textContent = caso.obs;
+    document.getElementById('zdTempoBtn').disabled = true;
+    document.getElementById('zdFeedbackBox').className = 'pfeedback';
+    render();
+  }
+  function chip(k, marcar){
+    const st = marcar && lugar[k] ? (lugar[k] === caso.tarefas[k][1] ? ' certo' : ' errado') : '';
+    return `<button class="viz-chip zd-chip${sel === k ? ' on' : ''}${st}" data-k="${k}">${caso.tarefas[k][0]}</button>`;
+  }
+  function render(marcar){
+    const soltas = ordem.filter(k=>!lugar[k]);
+    banco.innerHTML = soltas.length ? soltas.map(k=>chip(k)).join('') : '<span class="viz-muted">Todas as tarefas foram colocadas. Toque numa tarefa para mudar de zona.</span>';
+    document.querySelectorAll('.zd-itens').forEach(el=>{
+      const z = el.dataset.itens;
+      el.innerHTML = ordem.filter(k=>lugar[k] === z).map(k=>chip(k, marcar)).join('');
+    });
+    document.querySelectorAll('.zd-zona').forEach(z=> z.classList.toggle('alvo', sel != null));
+  }
+  document.querySelector('.zd-zonas').parentElement.addEventListener('click', e=>{
+    const c = e.target.closest('.zd-chip');
+    if(c){ e.stopPropagation(); const k = +c.dataset.k; sel = (sel === k ? null : k); render(); return; }
+    const z = e.target.closest('.zd-zona');
+    if(z && sel != null && !resolvido){
+      lugar[sel] = z.dataset.zona; sel = null; render();
+      document.getElementById('zdFeedbackBox').className = 'pfeedback';
+    }
+  });
+  document.getElementById('zdCorrigirBtn').addEventListener('click', ()=>{
+    const box = document.getElementById('zdFeedbackBox');
+    const falta = caso.tarefas.filter((_, k)=>!lugar[k]).length;
+    if(falta){ vizAviso(box, `Escolha uma opção para todas as tarefas: falta${falta>1?'m':''} ${falta}.`); return; }
+    const certos = caso.tarefas.filter((t, k)=>lugar[k] === t[1]).length;
+    render(true);
+    if(certos === caso.tarefas.length){
+      resolvido = true;
+      document.getElementById('zdTempoBtn').disabled = false;
+      box.className = 'pfeedback show good';
+      box.innerHTML = `<strong>Tudo certo!</strong><p>O que ${caso.quem} faz sozinho(a) é o nível real; o que faz com ajuda está na ZDP. Agora toque em "O tempo passa" para ver o que acontece depois de um tempo de ensino dentro da ZDP.</p>`;
+    } else {
+      box.className = `pfeedback show ${certos >= 4 ? 'partial' : 'bad'}`;
+      box.innerHTML = `<strong>${certos} de ${caso.tarefas.length} no lugar certo.</strong><p>Releia a observação: "sem ajuda" ou "sozinho" é nível real; "com ajuda" é a ZDP; "mesmo com ajuda, não" fica de fora. Toque numa tarefa em vermelho para mudá-la de zona.</p>`;
+    }
+  });
+  document.getElementById('zdTempoBtn').addEventListener('click', ()=>{
+    caso.tarefas.forEach((t, k)=>{ if(lugar[k] === 'zdp') lugar[k] = 'real'; else if(lugar[k] === 'nao') lugar[k] = 'zdp'; });
+    caso = {...caso, tarefas: caso.tarefas.map((t, k)=>[t[0], lugar[k]])};
+    render(true);
+    document.getElementById('zdTempoBtn').disabled = true;
+    const box = document.getElementById('zdFeedbackBox');
+    box.className = 'pfeedback show good';
+    box.innerHTML = `<strong>A ZDP se deslocou.</strong><p>Com ensino dentro da ZDP, o que ${caso.quem} fazia com ajuda passou a fazer sozinho(a): virou nível real. E o que antes era impossível entrou na ZDP. Para Vygotsky, a aprendizagem puxa o desenvolvimento: o bom ensino está sempre um passo à frente.</p>`;
+  });
+  document.getElementById('zdShuffleBtn').addEventListener('click', novo);
+  novo();
+})();
+
 // --- Ferramenta: Classifique a Gametogênese (Bases Biológicas) ---
 const GM_OPCOES = ['Espermatogênese', 'Ovogênese', 'Ambos'];
 const GM_CARACTERISTICAS = [
@@ -5529,7 +6275,7 @@ document.querySelectorAll('#viewFerramentas details[id^="tool-"] .correct-btn').
     const det = btn.closest('details[id^="tool-"]');
     setTimeout(()=>{
       const fb = [...det.querySelectorAll('.pfeedback.show')].pop();
-      if(!fb || /Escolha uma opção/.test(fb.textContent)) return;
+      if(!fb || fb.classList.contains('aviso') || /Escolha uma opção/.test(fb.textContent)) return;
       const p = progLoad();
       const t = p.tools[det.id] || {t:0, a:0};
       t.t += 1; if(fb.classList.contains('good')) t.a += 1;
