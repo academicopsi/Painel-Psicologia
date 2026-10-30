@@ -1431,6 +1431,75 @@
 .apx-table th{background:var(--paper-alt);color:var(--ink-soft);font-weight:500}
 .apx-table td.f{color:var(--petrol);font-weight:600}
 .apx-steps code{background:var(--paper);border:1px solid var(--rule);padding:1px 5px;border-radius:2px;font-size:12.5px}
+
+/* ARQUIVO VIVO — redesign editorial 2026 */
+:root{--paper:#f7f5f0;--paper-alt:#eeebe3;--ink:#252a31;--ink-soft:#687078;--petrol:#8e3447;--petrol-dark:#672434;--ochre:#bd8a4b;--rule:#ded9cf;--shadow:rgba(37,42,49,.07)}
+body{background:var(--paper);font-family:'IBM Plex Sans',sans-serif;letter-spacing:-.012em}
+body:before{opacity:.16}
+.wrap{max-width:1180px}
+header{padding-top:48px;padding-bottom:30px;border-bottom:1px solid var(--rule)}
+header h1{font-family:'Lora',serif;font-size:clamp(48px,7vw,82px);letter-spacing:-.065em;line-height:.98;color:var(--ink)}
+.eyebrow{letter-spacing:.13em;text-transform:uppercase;font-size:10px;font-weight:600;color:var(--petrol)}
+.byline{font-size:13px;color:var(--ink-soft)}
+.header-body{margin-top:28px}
+.sticky-nav{background:rgba(247,245,240,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--rule);padding:10px 0;gap:5px}
+.sticky-nav button{border-radius:999px;padding:9px 13px;font-size:12px}
+.sticky-nav button:hover,.sticky-nav button.active{background:var(--ink);color:#fff}
+.section-title{margin-top:56px;margin-bottom:20px;gap:14px}
+.section-title h2{font-family:'Lora',serif;font-size:clamp(24px,3vw,34px);letter-spacing:-.035em}
+.section-title .num{color:var(--petrol);font-family:'IBM Plex Mono',monospace}
+.tabs{gap:8px;margin:20px 0}
+.tab{border:1px solid var(--rule);border-radius:999px;padding:10px 17px;background:transparent}
+.tab.active{background:var(--ink);border-color:var(--ink);color:white}
+.grid{grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px}
+.card,.tool-card,.entry,.course-card,.video-card{border:1px solid var(--rule);border-radius:14px;box-shadow:none;background:var(--paper-alt);transition:transform .18s ease,border-color .18s ease}
+.card{padding:20px;min-height:150px}
+.card:hover,.tool-card:hover{transform:translateY(-2px);border-color:var(--petrol)}
+.card .name{font-size:17px;line-height:1.3;font-weight:600}
+.card .idx{font-family:'IBM Plex Mono',monospace;color:var(--petrol)}
+.feed{display:grid;gap:10px;position:relative}
+.entry{padding:18px 20px;display:grid;grid-template-columns:58px 1fr;gap:18px;align-items:start}
+.entry .stamp{border-right:1px solid var(--rule);padding-right:14px}
+.entry .d{font-family:'Lora',serif;font-size:28px;color:var(--petrol)}
+.entry .m{font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+.entry-body p{margin:8px 0 0;line-height:1.55}
+.tag{font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--petrol)}
+.notice{border:1px solid var(--rule);border-left:3px solid var(--ochre);border-radius:10px;background:var(--paper-alt)}
+.stats-block{border-top:1px solid var(--rule);padding-top:28px}
+.stats-title{font-family:'Lora',serif;font-size:25px}
+.stat-chip{border:1px solid var(--rule);border-radius:10px;background:var(--paper-alt);padding:14px}
+.stat-num{font-family:'Lora',serif;color:var(--petrol)}
+/* busca e descoberta */
+.av-discovery{margin:28px 0 34px;padding:clamp(20px,4vw,36px);background:#ede8df;border:1px solid #ddd5c9;border-radius:18px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+.av-kicker{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--petrol)}
+.av-discovery h2{font:600 clamp(28px,4vw,43px)/1.08 'Lora',serif;letter-spacing:-.045em;margin:9px 0 10px;max-width:520px}
+.av-discovery p{color:#62666b;line-height:1.6;font-size:14px;max-width:490px;margin:0}
+.av-search-wrap{position:relative}
+.av-search{width:100%;padding:17px 18px 17px 48px;border:1px solid #d1c9bd;border-radius:12px;background:#fff;color:#252a31;font:15px 'IBM Plex Sans',sans-serif;outline:none;box-shadow:0 8px 24px rgba(30,30,30,.04)}
+.av-search:focus{border-color:#8e3447;box-shadow:0 0 0 3px rgba(142,52,71,.12)}
+.av-search-icon{position:absolute;left:17px;top:16px;color:#8e3447;font-size:18px}
+.av-results{display:none;position:absolute;z-index:30;top:calc(100% + 8px);left:0;right:0;max-height:340px;overflow:auto;background:#fff;border:1px solid #ddd5c9;border-radius:12px;box-shadow:0 16px 40px rgba(0,0,0,.13);padding:6px}
+.av-results.show{display:block}
+.av-result{display:block;width:100%;text-align:left;padding:12px;border:0;border-radius:8px;background:transparent;color:#252a31;cursor:pointer}
+.av-result:hover{background:#f4f0eb}
+.av-result strong{display:block;font-size:13px}
+.av-result small{display:block;color:#70757b;margin-top:3px;font-size:11px}
+.av-filterbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 18px}
+.av-filterbar label{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.av-filterbar select{border:1px solid var(--rule);border-radius:999px;background:var(--paper-alt);padding:10px 34px 10px 14px;color:var(--ink);font:13px 'IBM Plex Sans',sans-serif}
+.av-filter-note{font-size:12px;color:var(--ink-soft)}
+.av-quicklinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.av-quicklinks a{font-size:11px;color:#743044;text-decoration:none;border:1px solid #d4c8bd;border-radius:999px;padding:7px 11px}
+.av-quicklinks a:hover{background:#fff}
+[hidden]{display:none!important}
+body.dark .av-discovery{background:#292a2e;border-color:#414148}
+body.dark .av-discovery p{color:#c4c0b7}
+body.dark .av-search,body.dark .av-results{background:#202328;color:#eee;border-color:#49464a}
+body.dark .av-result{color:#eee}
+body.dark .av-result:hover{background:#333238}
+body.dark .av-quicklinks a{color:#e0b2bc;border-color:#5b4a50}
+@media(max-width:700px){.av-discovery{grid-template-columns:1fr;gap:18px;padding:22px}.sticky-nav{overflow-x:auto;white-space:nowrap}.sticky-nav button{flex-shrink:0}.entry{grid-template-columns:48px 1fr;padding:14px;gap:12px}header{padding-top:32px}}
+
 </style>
 </head>
 <body>
@@ -1493,7 +1562,26 @@
     <button data-page="viewInstalar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11M8 11l4 4 4-4"/><path d="M4.5 16.5v2.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-2.5"/></svg>Instale o App</button>
   </nav>
 
-  <div id="topDeadline"></div>
+  
+<section class="av-discovery" aria-label="Busca e atalhos">
+  <div>
+    <div class="av-kicker">Um espaço de estudo compartilhado</div>
+    <h2>O que você precisa encontrar hoje?</h2>
+    <p>Materiais, disciplinas, ferramentas e atualizações da turma em um só lugar. Pesquise por assunto ou explore os atalhos.</p>
+    <div class="av-quicklinks">
+      <a href="#disciplinas">Disciplinas</a><a href="#atualizacoes">Atualizações</a>
+      <a href="#" data-av-page="viewFerramentas">Ferramentas</a><a href="#" data-av-page="viewSimulados">Simulados</a>
+      <a href="#" data-av-page="viewPrazos">Prazos e tarefas</a>
+    </div>
+  </div>
+  <div class="av-search-wrap">
+    <span class="av-search-icon" aria-hidden="true">⌕</span>
+    <input id="avGlobalSearch" class="av-search" type="search" placeholder="Buscar disciplina, tema, ferramenta..." autocomplete="off" aria-label="Buscar em todo o Arquivo Vivo">
+    <div id="avSearchResults" class="av-results" role="listbox" aria-label="Resultados da busca"></div>
+  </div>
+</section>
+
+<div id="topDeadline"></div>
 
   <div style="display:none"><span id="cntHomeTasks"></span><div id="homeTasks"></div><div id="homeTasksMore"></div></div>
 
@@ -1504,7 +1592,14 @@
     <button class="tab active" data-sem="2">Segundo Semestre</button>
   </div>
 
-  <div class="grid" id="grid"></div>
+  
+<div class="av-filterbar" aria-label="Filtros de disciplinas">
+  <label for="avDisciplineFilter">Filtrar disciplina</label>
+  <select id="avDisciplineFilter"><option value="">Todas as disciplinas</option></select>
+  <span class="av-filter-note" id="avFilterCount" aria-live="polite"></span>
+</div>
+
+<div class="grid" id="grid"></div>
 
   <div class="section-title" id="atualizacoes"><span class="num">02</span><h2>Atualizações</h2><span class="count" id="cntFeed"></span><div class="rule"></div></div>
 
@@ -3875,6 +3970,61 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
     .then(data => { document.getElementById('statViews').textContent = data.count; })
     .catch(()=> { document.getElementById('statViews').textContent = '412'; });
 })();
+
+/* Busca geral + filtro de disciplinas */
+(function(){
+  const input=document.getElementById('avGlobalSearch');
+  const results=document.getElementById('avSearchResults');
+  const filter=document.getElementById('avDisciplineFilter');
+  const count=document.getElementById('avFilterCount');
+  if(!input||!results||!filter)return;
+  const norm=v=>(v||'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').trim();
+  const disciplines=[...DISC[1].map(x=>x.name),...DISC[2].map(x=>x.name)];
+  disciplines.forEach(name=>{const o=document.createElement('option');o.value=name;o.textContent=name;filter.appendChild(o)});
+  function applyFilter(){
+    const chosen=filter.value;
+    const cards=[...document.querySelectorAll('#grid .card')];
+    cards.forEach(card=>card.hidden=!!chosen&&!norm(card.textContent).includes(norm(chosen)));
+    count.textContent=chosen?cards.filter(c=>!c.hidden).length+' resultado(s)':'';
+  }
+  filter.addEventListener('change',applyFilter);
+  function searchable(){
+    const found=[];
+    document.querySelectorAll('#grid .card, #feed .entry, #viewFerramentas .tool-card, #viewCursos .course-card, #viewVideos .video-card, #viewSimulados a, #viewEstudar a, #viewApoio a').forEach(el=>{
+      const title=(el.querySelector('.name,.entry-body p,h3,h4,strong')||el).textContent.trim().replace(/\\s+/g,' ');
+      const text=el.textContent.trim().replace(/\\s+/g,' ');
+      if(text.length>4)found.push({el,title:title.slice(0,100),text:text.slice(0,260)});
+    });
+    return found;
+  }
+  function go(item){
+    const page=item.el.closest('.wrap[id^="view"]');
+    if(page&&page.id!=='top')switchPage(page.id);
+    const details=item.el.closest('details');if(details)details.open=true;
+    if(item.el.classList.contains('card')&&item.el.href){window.open(item.el.href,'_blank','noopener');return}
+    setTimeout(()=>{item.el.scrollIntoView({behavior:'smooth',block:'center'});item.el.style.outline='2px solid var(--petrol)';setTimeout(()=>item.el.style.outline='',1500)},80);
+    results.classList.remove('show');
+  }
+  input.addEventListener('input',()=>{
+    const q=norm(input.value);results.innerHTML='';
+    if(q.length<2){results.classList.remove('show');return}
+    const matches=searchable().filter(x=>norm(x.text).includes(q)).slice(0,9);
+    if(!matches.length){results.innerHTML='<div class="av-result"><strong>Nenhum resultado encontrado</strong><small>Tente outro termo ou nome de disciplina.</small></div>'}
+    else matches.forEach(item=>{
+      const b=document.createElement('button');b.type='button';b.className='av-result';
+      const t=document.createElement('strong');t.textContent=item.title;
+      const sm=document.createElement('small');sm.textContent=item.text.slice(0,115)+(item.text.length>115?'…':'');
+      b.append(t,sm);b.addEventListener('click',()=>go(item));results.appendChild(b);
+    });
+    results.classList.add('show');
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.av-search-wrap'))results.classList.remove('show')});
+  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();input.focus()}if(e.key==='Escape'){results.classList.remove('show');input.blur()}});
+  document.querySelectorAll('[data-av-page]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();switchPage(a.dataset.avPage)}));
+  // A busca também localiza materiais quando o semestre ativo muda.
+  applyFilter();
+})();
+
 </script>
 </body>
 </html>
