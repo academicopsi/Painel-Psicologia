@@ -1054,6 +1054,16 @@
   body.dark .extras-index button.on{color:#0F1615;}
   .extras-hint{font-size:14px !important; color:var(--ink-faint) !important; margin:12px 0 0 !important;}
   .ex-section[hidden]{display:none;}
+
+  /* Ferramentas agrupadas por disciplina */
+  .tool-group{margin-top:36px;}
+  .tool-group:first-of-type{margin-top:8px;}
+  .tool-group-title{display:flex; align-items:center; flex-wrap:wrap; gap:10px; font-size:20px; font-weight:800; letter-spacing:-0.02em; margin:0 0 4px;}
+  .tg-idx{font-size:12.5px; font-weight:700; color:#fff; background:var(--petrol); padding:4px 9px; border-radius:7px;}
+  body.dark .tg-idx{color:#0F1615;}
+  .tg-count{font-size:13px; font-weight:500; color:var(--ink-faint); letter-spacing:0;}
+  .tool-group .graveyard summary{font-weight:600;}
+  @media (max-width:600px){ .tool-group-title{font-size:18px;} }
 </style>
 </head>
 <body>
@@ -1395,360 +1405,367 @@
     </div>
   </header>
 
-  <details class="graveyard">
-    <summary><strong>Psicologia Experimental</strong> · Conversor para Linguagem Científica (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-    <div class="sub">Leia a frase do dia a dia abaixo e reescreva com linguagem científica/acadêmica. Depois clique em "Corrigir" pra ver como você se saiu.</div>
+  <section class="tool-group">
+    <h2 class="tool-group-title"><span class="tg-idx">01</span>Bases Biológicas<span class="tg-count">2 ferramentas</span></h2>
+    <details class="graveyard" style="display:none;">
+      <summary>Qual Neurotransmissor?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a descrição e identifique qual neurotransmissor está mais associado a ela na literatura.</div>
 
-    <div class="prompt-box">
-      <div class="plabel">Frase para converter</div>
-      <div class="pfrase" id="fraseAtual"></div>
-    </div>
-    <button class="shuffle-btn" id="shuffleBtn">🔀 Sortear outra frase</button>
+        <div class="prompt-box">
+          <div class="plabel">Descrição</div>
+          <div class="pfrase" id="ntSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="ntShuffleBtn">🔀 Sortear outra descrição</button>
 
-    <div style="margin-top:20px;">
-      <textarea id="respostaInput" placeholder="Escreva aqui sua versão em linguagem científica..."></textarea>
-      <button class="correct-btn" id="corrigirBtn">Corrigir</button>
-    </div>
+        <div id="ntOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
 
-    <div class="pfeedback" id="feedbackBox"></div>
-    <button class="reveal-btn" id="revealBtn">Ver uma sugestão de resposta</button>
-    <div class="model-answer" id="modelAnswer"></div>
+        <button class="correct-btn" id="ntCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="ntFeedbackBox"></div>
 
-    <div class="tool-disclaimer">
-      Essa correção é automática, baseada em termos-chave esperados; não é uma inteligência artificial avaliando sua redação com profundidade. Ela indica pistas, não substitui a avaliação de um professor.
-    </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Psicologia Experimental</strong> · Qual é a Variável? (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a situação de pesquisa e associe cada elemento ao conceito certo. Clique em "Corrigir" pra conferir.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Situação de pesquisa</div>
-        <div class="pfrase" id="varCenarioTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="varShuffleBtn">🔀 Sortear outra situação</button>
-
-      <div id="varCampos" style="margin-top:18px; display:flex; flex-direction:column; gap:12px;"></div>
-
-      <button class="correct-btn" id="varCorrigirBtn" style="margin-top:8px;">Corrigir</button>
-      <div class="pfeedback" id="varFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        Correção automática por associação exata: cada situação tem uma resposta certa definida. Não é IA analisando texto livre; é um exercício de reconhecimento de conceitos.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Psicologia Experimental</strong> · Monte o Experimento (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Você recebe só a pergunta de pesquisa. Escolha, campo por campo, como desenharia o experimento. Cada escolha errada explica qual problema metodológico ela introduziria.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Pergunta de pesquisa</div>
-        <div class="pfrase" id="montarPerguntaTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="montarShuffleBtn">🔀 Sortear outra pergunta</button>
-
-      <div id="montarCampos" style="margin-top:18px; display:flex; flex-direction:column; gap:16px;"></div>
-
-      <button class="correct-btn" id="montarCorrigirBtn" style="margin-top:8px;">Corrigir Desenho</button>
-      <div class="pfeedback" id="montarFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        Cada campo tem uma opção correta e uma opção com um erro metodológico comum, sempre explicado ao errar. Ainda não é IA lendo justificativas livres; é um exercício guiado de reconhecimento de erros típicos.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Psicologia da Aprendizagem</strong> · Reforço ou Punição? (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a situação e classifique: reforço positivo, reforço negativo, punição positiva ou punição negativa. É a distinção que mais confunde na prova: o "positivo/negativo" aqui é sobre adicionar ou remover algo, não sobre bom ou ruim.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Situação</div>
-        <div class="pfrase" id="rpSituacaoTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="rpShuffleBtn">🔀 Sortear outra situação</button>
-
-      <div id="rpOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-      <button class="correct-btn" id="rpCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="rpFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        Correção automática por classificação exata: cada situação tem uma resposta certa definida com base na definição operante clássica (Skinner).
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Psicologia da Aprendizagem</strong> · Identifique o Paradigma (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a situação e identifique qual paradigma de aprendizagem ela ilustra: condicionamento clássico, condicionamento operante ou aprendizagem observacional.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Situação</div>
-        <div class="pfrase" id="pdSituacaoTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="pdShuffleBtn">🔀 Sortear outra situação</button>
-
-      <div id="pdOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-      <button class="correct-btn" id="pdCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="pdFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        Correção automática por classificação exata. Cada situação foi escrita pra ilustrar um paradigma predominante. Na prática, alguns comportamentos podem envolver mais de um mecanismo ao mesmo tempo.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Desenvolvimento Adulto e Idoso</strong> · Padrão Esperado ou Sinal de Atenção? (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a situação e avalie: ela é algo que pode ocorrer no envelhecimento típico, ou algo que costuma justificar avaliação profissional?</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Situação</div>
-        <div class="pfrase" id="peSituacaoTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="peShuffleBtn">🔀 Sortear outra situação</button>
-
-      <div id="peOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-      <button class="correct-btn" id="peCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="peFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        <strong>Isso não é uma ferramenta de diagnóstico.</strong> Cada classificação aqui reflete o que a literatura considera mais provável ou mais típico, não uma certeza. Fatores como escolaridade, saúde geral, contexto cultural e histórico individual mudam bastante o que é "esperado" pra cada pessoa, e mesmo um "sinal de atenção" isolado não confirma nada sozinho, só sinaliza que vale conversar com um profissional. Evite generalizar essas situações pra pessoas reais que você conhece.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Desenvolvimento Adulto e Idoso</strong> · Qual a Tarefa Desenvolvimental? (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a situação e identifique qual conflito psicossocial da fase adulta (Erikson) ela ilustra melhor.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Situação</div>
-        <div class="pfrase" id="tdSituacaoTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="tdShuffleBtn">🔀 Sortear outra situação</button>
-
-      <div id="tdOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-      <button class="correct-btn" id="tdCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="tdFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        As faixas etárias de cada estágio são aproximadas e variam por autor, cultura e trajetória de vida; não são cortes rígidos. O modelo de Erikson também é um entre vários referenciais teóricos sobre desenvolvimento adulto, não uma verdade universal.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard" style="display:none;">
-    <summary><strong>Bases Biológicas</strong> · Qual Neurotransmissor? (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a descrição e identifique qual neurotransmissor está mais associado a ela na literatura.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Descrição</div>
-        <div class="pfrase" id="ntSituacaoTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="ntShuffleBtn">🔀 Sortear outra descrição</button>
-
-      <div id="ntOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-      <button class="correct-btn" id="ntCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="ntFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        <strong>Isto não é diagnóstico nem afirmação de causa única.</strong> Relacionar um sintoma ou processo a "um neurotransmissor responsável" é uma simplificação didática. Na prática, comportamento e humor resultam da interação de vários sistemas de neurotransmissores, além de fatores genéticos, psicológicos e sociais. Cada associação aqui reflete o que é mais destacado na literatura, não uma relação de causa e efeito isolada.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard" style="display:none;">
-    <summary><strong>Bases Biológicas</strong> · Simpático ou Parassimpático? (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a resposta fisiológica descrita e identifique qual ramo do sistema nervoso autônomo está predominantemente ativo.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Resposta fisiológica</div>
-        <div class="pfrase" id="snSituacaoTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="snShuffleBtn">🔀 Sortear outra situação</button>
-
-      <div id="snOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-      <button class="correct-btn" id="snCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="snFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        Os dois ramos costumam atuar em conjunto e com intensidades variáveis, não como um interruptor de "liga/desliga", e a resposta de cada pessoa pode variar por condições de saúde, uso de medicamentos e outros fatores individuais. Essas situações representam o padrão mais típico esperado, não uma regra absoluta.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Bases Biológicas</strong> · Mitose ou Meiose? (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a descrição do processo celular e identifique se é mitose ou meiose.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Descrição</div>
-        <div class="pfrase" id="mmSituacaoTexto"></div>
-      </div>
-      <button class="shuffle-btn" id="mmShuffleBtn">🔀 Sortear outra descrição</button>
-
-      <div id="mmOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-      <button class="correct-btn" id="mmCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="mmFeedbackBox"></div>
-
-      <div class="tool-disclaimer">
-        Essas descrições seguem o padrão típico em animais. Em plantas e fungos, por exemplo, a meiose pode gerar esporos em vez de gametas diretamente, e o ciclo de vida completo costuma ser mais complexo do que o resumido aqui.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Bases Biológicas</strong> · Classifique a Gametogênese (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Cada característica abaixo pertence à espermatogênese, à ovogênese, ou às duas (muita coisa é compartilhada entre os dois processos, não force uma escolha binária onde não existe). Classifique todas e clique em Corrigir.</div>
-
-      <div id="gmLista" style="display:flex; flex-direction:column; gap:10px; margin-top:16px;"></div>
-
-      <button class="correct-btn" id="gmCorrigirBtn" style="margin-top:16px;">Corrigir</button>
-      <div class="pfeedback" id="gmFeedbackBox"></div>
-      <button class="shuffle-btn" id="gmReiniciarBtn" style="margin-top:10px; display:none;">🔀 Embaralhar e tentar de novo</button>
-
-      <div class="tool-disclaimer">
-        Simplificações comuns em livro-texto podem sugerir que espermatogênese e ovogênese são só "espelhos" uma da outra: não são. Os dois processos têm fases análogas, mas com timing, regulação e resultados bem diferentes, resumidos aqui só até onde cabe num curso introdutório.
-      </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Neuroanatomia</strong> · Mapa do Cérebro (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Clique num dos números marcados no desenho do cérebro. Depois, identifique o nome da estrutura e sua função principal. Regiões já acertadas ficam marcadas em verde.</div>
-
-      <div class="prompt-box" style="padding:14px;">
-        <svg id="brainSvg" viewBox="0 0 520 360" style="width:100%; max-width:520px; display:block; margin:0 auto;">
-          <path d="M256,206 C268,193 288,189 304,196 C317,201 326,212 328,226 C332,238 330,252 323,262 C327,274 324,288 316,297 C312,309 305,321 295,327 C288,332 279,330 274,323 C267,313 263,301 262,288 C255,279 252,266 253,253 C247,241 247,227 253,216 C254,212 255,209 256,206 Z" fill="hsl(324,36%,42%)" stroke="#22262B" stroke-width="1.5"/>
-          <path d="M330,205 C352,190 382,190 402,208 C420,224 424,248 412,266 C424,278 415,296 394,296 C386,308 366,310 356,299 C338,300 326,286 330,270 C316,258 320,236 330,220 C328,215 328,209 330,205 Z" fill="hsl(288,40%,45%)" stroke="#22262B" stroke-width="1.5"/>
-          <g stroke="#22262B" stroke-width="1" opacity="0.32" fill="none">
-            <path d="M328,232 C348,224 370,226 388,236"/>
-            <path d="M326,248 C350,240 376,241 398,252"/>
-            <path d="M332,264 C356,258 382,258 402,268"/>
-            <path d="M344,280 C364,275 384,276 398,283"/>
-          </g>
-          <path d="M76,168 C70,150 71,130 78,112 C73,104 76,94 84,90 C82,80 88,70 97,68 C97,58 106,49 116,50 C119,42 129,35 139,37 C145,29 158,24 170,27 C178,20 192,17 203,21 C209,15 219,13 227,17 C218,38 210,62 208,88 C207,104 207,120 209,136 C210,148 211,158 213,167 C200,175 185,180 170,181 C168,188 158,192 150,188 C142,194 130,193 124,186 C114,190 103,187 98,179 C90,182 82,178 79,171 C78,170 77,169 76,168 Z" fill="hsl(36,46%,46%)" stroke="#22262B" stroke-width="1.5"/>
-          <path d="M227,17 C238,10 251,8 263,12 C272,6 285,5 295,10 C306,6 319,8 327,16 C334,12 344,15 348,23 C338,45 330,70 327,96 C325,116 325,134 328,150 C329,160 330,168 332,175 C319,180 305,183 291,183 C280,183 269,181 259,178 C246,183 231,181 220,173 C216,171 214,169 213,167 C211,158 210,148 209,136 C207,120 207,104 208,88 C210,62 218,38 227,17 Z" fill="hsl(212,38%,42%)" stroke="#22262B" stroke-width="1.5"/>
-          <path d="M348,23 C362,20 376,26 385,37 C393,32 403,37 407,47 C417,58 424,73 428,90 C434,88 440,95 439,104 C446,116 448,131 445,146 C450,155 447,167 438,172 C440,182 433,192 422,192 C420,201 411,208 401,206 C395,213 384,215 376,210 C366,214 355,210 349,201 C340,197 336,187 338,178 C332,175 330,168 332,158 C329,160 328,150 327,96 C330,70 338,45 348,23 Z" fill="hsl(252,36%,45%)" stroke="#22262B" stroke-width="1.5"/>
-          <path d="M98,179 C103,187 114,190 124,186 C130,193 142,194 150,188 C158,192 168,188 170,181 C185,180 200,175 213,167 C214,169 216,171 220,173 C231,181 246,183 259,178 C260,188 258,199 261,210 C263,222 258,232 246,234 C248,244 240,252 228,251 C224,260 211,264 202,258 C193,265 179,264 172,255 C160,258 148,252 145,241 C133,241 124,232 125,220 C112,216 106,204 111,192 C104,192 98,188 96,181 C97,180 98,180 98,179 Z" fill="hsl(180,40%,36%)" stroke="#22262B" stroke-width="1.5"/>
-          <g stroke="#22262B" stroke-width="1" opacity="0.18" fill="none">
-            <path d="M100,90 C120,84 140,86 156,96"/>
-            <path d="M92,120 C114,112 138,114 156,126"/>
-            <path d="M88,150 C112,142 138,144 158,155"/>
-            <path d="M245,40 C265,34 288,36 305,46"/>
-            <path d="M240,70 C262,63 288,65 308,76"/>
-            <path d="M240,100 C264,94 290,96 310,106"/>
-            <path d="M370,55 C388,52 405,60 415,74"/>
-            <path d="M362,90 C382,85 402,92 414,106"/>
-            <path d="M355,125 C376,120 397,126 410,138"/>
-            <path d="M130,205 C150,200 172,202 190,212"/>
-            <path d="M140,228 C160,224 182,226 198,235"/>
-          </g>
-          <g stroke="#EFEAE0" stroke-width="2" stroke-dasharray="3,2">
-            <ellipse cx="110" cy="102" rx="23" ry="27" fill="hsl(18,55%,50%)" opacity="0.5" transform="rotate(-8 110 102)"/>
-            <path d="M188,28 C196,24 205,24 212,28 C214,50 214,78 213,102 C213,125 212,148 210,167 C202,169 194,169 187,166 C188,145 189,120 190,98 C190,72 189,48 188,28 Z" fill="hsl(2,52%,48%)" opacity="0.5"/>
-            <path d="M222,22 C230,18 240,18 248,22 C251,45 252,70 251,95 C251,118 250,140 248,158 C240,161 231,161 224,158 C224,136 224,110 224,88 C224,65 223,42 222,22 Z" fill="hsl(158,42%,40%)" opacity="0.5"/>
-            <ellipse cx="130" cy="170" rx="17" ry="13" fill="hsl(280,45%,48%)" opacity="0.5" transform="rotate(10 130 170)"/>
-            <ellipse cx="225" cy="205" rx="18" ry="14" fill="hsl(340,48%,50%)" opacity="0.5" transform="rotate(-6 225 205)"/>
-          </g>
-          <g id="brainMarkers" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700"></g>
-        </svg>
-        <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--ink-soft);">
-          <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#EFEAE0; border:2px solid #C98A2C; vertical-align:middle; margin-right:5px;"></span>não respondido</span>
-          <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#EFEAE0; border:2px dashed #153F3B; vertical-align:middle; margin-right:5px;"></span>selecionado agora</span>
-          <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#1F5C56; vertical-align:middle; margin-right:5px;"></span>já acertado</span>
+        <div class="tool-disclaimer">
+          <strong>Isto não é diagnóstico nem afirmação de causa única.</strong> Relacionar um sintoma ou processo a "um neurotransmissor responsável" é uma simplificação didática. Na prática, comportamento e humor resultam da interação de vários sistemas de neurotransmissores, além de fatores genéticos, psicológicos e sociais. Cada associação aqui reflete o que é mais destacado na literatura, não uma relação de causa e efeito isolada.
         </div>
       </div>
+    </details>
+    <details class="graveyard" style="display:none;">
+      <summary>Simpático ou Parassimpático?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a resposta fisiológica descrita e identifique qual ramo do sistema nervoso autônomo está predominantemente ativo.</div>
 
-      <div id="brainPanel" style="display:none; margin-top:16px;">
-        <div class="plabel" style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;">Estrutura selecionada: <span id="brainRegionLabel"></span></div>
-        <div style="margin-bottom:14px;">
-          <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é o nome desta estrutura?</label>
-          <select id="brainNomeSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
+        <div class="prompt-box">
+          <div class="plabel">Resposta fisiológica</div>
+          <div class="pfrase" id="snSituacaoTexto"></div>
         </div>
-        <div style="margin-bottom:14px;">
-          <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é a função principal dela?</label>
-          <select id="brainFuncaoSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
+        <button class="shuffle-btn" id="snShuffleBtn">🔀 Sortear outra situação</button>
+
+        <div id="snOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="snCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="snFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          Os dois ramos costumam atuar em conjunto e com intensidades variáveis, não como um interruptor de "liga/desliga", e a resposta de cada pessoa pode variar por condições de saúde, uso de medicamentos e outros fatores individuais. Essas situações representam o padrão mais típico esperado, não uma regra absoluta.
         </div>
-        <button class="correct-btn" id="brainCorrigirBtn">Corrigir</button>
-        <div class="pfeedback" id="brainFeedbackBox"></div>
-        <button class="reveal-btn" id="brainVerRespostaBtn" style="display:none;">Ver resposta correta</button>
-        <div id="brainRespostaCorreta" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft);"></div>
       </div>
+    </details>
+    <details class="graveyard">
+      <summary>Mitose ou Meiose?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a descrição do processo celular e identifique se é mitose ou meiose.</div>
 
-      <div class="tool-disclaimer">
-        Mapa esquemático e simplificado, feito só para fins didáticos, sem correspondência anatômica exata. As posições marcadas são aproximadas: os limites reais entre giros e áreas funcionais variam de pessoa pra pessoa e não são visíveis a olho nu num cérebro real. Funções cerebrais complexas também dependem de redes distribuídas entre várias áreas, não de uma única região isolada.
+        <div class="prompt-box">
+          <div class="plabel">Descrição</div>
+          <div class="pfrase" id="mmSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="mmShuffleBtn">🔀 Sortear outra descrição</button>
+
+        <div id="mmOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="mmCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="mmFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          Essas descrições seguem o padrão típico em animais. Em plantas e fungos, por exemplo, a meiose pode gerar esporos em vez de gametas diretamente, e o ciclo de vida completo costuma ser mais complexo do que o resumido aqui.
+        </div>
       </div>
-    </div>
-  </details>
+    </details>
+    <details class="graveyard">
+      <summary>Classifique a Gametogênese</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Cada característica abaixo pertence à espermatogênese, à ovogênese, ou às duas (muita coisa é compartilhada entre os dois processos, não force uma escolha binária onde não existe). Classifique todas e clique em Corrigir.</div>
 
-  <details class="graveyard">
-    <summary><strong>Neuroanatomia</strong> · Localize a Lesão (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia o quadro de sintomas e identifique qual estrutura está mais associada a esse padrão na literatura.</div>
+        <div id="gmLista" style="display:flex; flex-direction:column; gap:10px; margin-top:16px;"></div>
+
+        <button class="correct-btn" id="gmCorrigirBtn" style="margin-top:16px;">Corrigir</button>
+        <div class="pfeedback" id="gmFeedbackBox"></div>
+        <button class="shuffle-btn" id="gmReiniciarBtn" style="margin-top:10px; display:none;">🔀 Embaralhar e tentar de novo</button>
+
+        <div class="tool-disclaimer">
+          Simplificações comuns em livro-texto podem sugerir que espermatogênese e ovogênese são só "espelhos" uma da outra: não são. Os dois processos têm fases análogas, mas com timing, regulação e resultados bem diferentes, resumidos aqui só até onde cabe num curso introdutório.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tool-group">
+    <h2 class="tool-group-title"><span class="tg-idx">02</span>Neuroanatomia<span class="tg-count">3 ferramentas</span></h2>
+    <details class="graveyard">
+      <summary>Mapa do Cérebro</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Clique num dos números marcados no desenho do cérebro. Depois, identifique o nome da estrutura e sua função principal. Regiões já acertadas ficam marcadas em verde.</div>
+
+        <div class="prompt-box" style="padding:14px;">
+          <svg id="brainSvg" viewBox="0 0 520 360" style="width:100%; max-width:520px; display:block; margin:0 auto;">
+            <path d="M256,206 C268,193 288,189 304,196 C317,201 326,212 328,226 C332,238 330,252 323,262 C327,274 324,288 316,297 C312,309 305,321 295,327 C288,332 279,330 274,323 C267,313 263,301 262,288 C255,279 252,266 253,253 C247,241 247,227 253,216 C254,212 255,209 256,206 Z" fill="hsl(324,36%,42%)" stroke="#22262B" stroke-width="1.5"/>
+            <path d="M330,205 C352,190 382,190 402,208 C420,224 424,248 412,266 C424,278 415,296 394,296 C386,308 366,310 356,299 C338,300 326,286 330,270 C316,258 320,236 330,220 C328,215 328,209 330,205 Z" fill="hsl(288,40%,45%)" stroke="#22262B" stroke-width="1.5"/>
+            <g stroke="#22262B" stroke-width="1" opacity="0.32" fill="none">
+              <path d="M328,232 C348,224 370,226 388,236"/>
+              <path d="M326,248 C350,240 376,241 398,252"/>
+              <path d="M332,264 C356,258 382,258 402,268"/>
+              <path d="M344,280 C364,275 384,276 398,283"/>
+            </g>
+            <path d="M76,168 C70,150 71,130 78,112 C73,104 76,94 84,90 C82,80 88,70 97,68 C97,58 106,49 116,50 C119,42 129,35 139,37 C145,29 158,24 170,27 C178,20 192,17 203,21 C209,15 219,13 227,17 C218,38 210,62 208,88 C207,104 207,120 209,136 C210,148 211,158 213,167 C200,175 185,180 170,181 C168,188 158,192 150,188 C142,194 130,193 124,186 C114,190 103,187 98,179 C90,182 82,178 79,171 C78,170 77,169 76,168 Z" fill="hsl(36,46%,46%)" stroke="#22262B" stroke-width="1.5"/>
+            <path d="M227,17 C238,10 251,8 263,12 C272,6 285,5 295,10 C306,6 319,8 327,16 C334,12 344,15 348,23 C338,45 330,70 327,96 C325,116 325,134 328,150 C329,160 330,168 332,175 C319,180 305,183 291,183 C280,183 269,181 259,178 C246,183 231,181 220,173 C216,171 214,169 213,167 C211,158 210,148 209,136 C207,120 207,104 208,88 C210,62 218,38 227,17 Z" fill="hsl(212,38%,42%)" stroke="#22262B" stroke-width="1.5"/>
+            <path d="M348,23 C362,20 376,26 385,37 C393,32 403,37 407,47 C417,58 424,73 428,90 C434,88 440,95 439,104 C446,116 448,131 445,146 C450,155 447,167 438,172 C440,182 433,192 422,192 C420,201 411,208 401,206 C395,213 384,215 376,210 C366,214 355,210 349,201 C340,197 336,187 338,178 C332,175 330,168 332,158 C329,160 328,150 327,96 C330,70 338,45 348,23 Z" fill="hsl(252,36%,45%)" stroke="#22262B" stroke-width="1.5"/>
+            <path d="M98,179 C103,187 114,190 124,186 C130,193 142,194 150,188 C158,192 168,188 170,181 C185,180 200,175 213,167 C214,169 216,171 220,173 C231,181 246,183 259,178 C260,188 258,199 261,210 C263,222 258,232 246,234 C248,244 240,252 228,251 C224,260 211,264 202,258 C193,265 179,264 172,255 C160,258 148,252 145,241 C133,241 124,232 125,220 C112,216 106,204 111,192 C104,192 98,188 96,181 C97,180 98,180 98,179 Z" fill="hsl(180,40%,36%)" stroke="#22262B" stroke-width="1.5"/>
+            <g stroke="#22262B" stroke-width="1" opacity="0.18" fill="none">
+              <path d="M100,90 C120,84 140,86 156,96"/>
+              <path d="M92,120 C114,112 138,114 156,126"/>
+              <path d="M88,150 C112,142 138,144 158,155"/>
+              <path d="M245,40 C265,34 288,36 305,46"/>
+              <path d="M240,70 C262,63 288,65 308,76"/>
+              <path d="M240,100 C264,94 290,96 310,106"/>
+              <path d="M370,55 C388,52 405,60 415,74"/>
+              <path d="M362,90 C382,85 402,92 414,106"/>
+              <path d="M355,125 C376,120 397,126 410,138"/>
+              <path d="M130,205 C150,200 172,202 190,212"/>
+              <path d="M140,228 C160,224 182,226 198,235"/>
+            </g>
+            <g stroke="#EFEAE0" stroke-width="2" stroke-dasharray="3,2">
+              <ellipse cx="110" cy="102" rx="23" ry="27" fill="hsl(18,55%,50%)" opacity="0.5" transform="rotate(-8 110 102)"/>
+              <path d="M188,28 C196,24 205,24 212,28 C214,50 214,78 213,102 C213,125 212,148 210,167 C202,169 194,169 187,166 C188,145 189,120 190,98 C190,72 189,48 188,28 Z" fill="hsl(2,52%,48%)" opacity="0.5"/>
+              <path d="M222,22 C230,18 240,18 248,22 C251,45 252,70 251,95 C251,118 250,140 248,158 C240,161 231,161 224,158 C224,136 224,110 224,88 C224,65 223,42 222,22 Z" fill="hsl(158,42%,40%)" opacity="0.5"/>
+              <ellipse cx="130" cy="170" rx="17" ry="13" fill="hsl(280,45%,48%)" opacity="0.5" transform="rotate(10 130 170)"/>
+              <ellipse cx="225" cy="205" rx="18" ry="14" fill="hsl(340,48%,50%)" opacity="0.5" transform="rotate(-6 225 205)"/>
+            </g>
+            <g id="brainMarkers" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="700"></g>
+          </svg>
+          <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--ink-soft);">
+            <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#EFEAE0; border:2px solid #C98A2C; vertical-align:middle; margin-right:5px;"></span>não respondido</span>
+            <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#EFEAE0; border:2px dashed #153F3B; vertical-align:middle; margin-right:5px;"></span>selecionado agora</span>
+            <span><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#1F5C56; vertical-align:middle; margin-right:5px;"></span>já acertado</span>
+          </div>
+        </div>
+
+        <div id="brainPanel" style="display:none; margin-top:16px;">
+          <div class="plabel" style="font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;">Estrutura selecionada: <span id="brainRegionLabel"></span></div>
+          <div style="margin-bottom:14px;">
+            <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é o nome desta estrutura?</label>
+            <select id="brainNomeSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label style="font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; color:var(--ink-soft); display:block; margin-bottom:5px;">Qual é a função principal dela?</label>
+            <select id="brainFuncaoSelect" style="width:100%; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; padding:9px 10px; border:1px solid var(--rule); border-radius:2px; background:var(--paper); color:var(--ink);"><option value="">Selecione...</option></select>
+          </div>
+          <button class="correct-btn" id="brainCorrigirBtn">Corrigir</button>
+          <div class="pfeedback" id="brainFeedbackBox"></div>
+          <button class="reveal-btn" id="brainVerRespostaBtn" style="display:none;">Ver resposta correta</button>
+          <div id="brainRespostaCorreta" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft);"></div>
+        </div>
+
+        <div class="tool-disclaimer">
+          Mapa esquemático e simplificado, feito só para fins didáticos, sem correspondência anatômica exata. As posições marcadas são aproximadas: os limites reais entre giros e áreas funcionais variam de pessoa pra pessoa e não são visíveis a olho nu num cérebro real. Funções cerebrais complexas também dependem de redes distribuídas entre várias áreas, não de uma única região isolada.
+        </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Localize a Lesão</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia o quadro de sintomas e identifique qual estrutura está mais associada a esse padrão na literatura.</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Quadro de sintomas</div>
+          <div class="pfrase" id="llSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="llShuffleBtn">🔀 Sortear outro quadro</button>
+
+        <div id="llOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="llCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="llFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          <strong>Isto não é uma ferramenta de diagnóstico.</strong> Localizar mentalmente uma lesão a partir de um parágrafo de sintomas é um exercício didático simplificado. Na prática clínica real, isso exige exame neurológico completo, exames de imagem e correlação cuidadosa; muitas lesões afetam mais de uma estrutura, e sintomas parecidos podem ter origens diferentes. Cada resposta aqui reflete a associação mais clássica/destacada na literatura, não uma certeza.
+        </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Função ou Estrutura?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a função descrita e identifique a estrutura mais associada a ela.</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Função</div>
+          <div class="pfrase" id="feSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="feShuffleBtn">🔀 Sortear outra função</button>
+
+        <div id="feOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="feCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="feFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          Atribuir "uma função" a "uma estrutura" isolada é uma simplificação didática. Praticamente toda função cerebral complexa depende de redes distribuídas entre várias estruturas trabalhando juntas, não de um único "centro" responsável sozinho. Aqui apresentamos a associação mais conhecida/estudada de cada estrutura, não a função exclusiva dela.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tool-group">
+    <h2 class="tool-group-title"><span class="tg-idx">03</span>Psicologia da Aprendizagem<span class="tg-count">2 ferramentas</span></h2>
+    <details class="graveyard">
+      <summary>Reforço ou Punição?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e classifique: reforço positivo, reforço negativo, punição positiva ou punição negativa. É a distinção que mais confunde na prova: o "positivo/negativo" aqui é sobre adicionar ou remover algo, não sobre bom ou ruim.</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="rpSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="rpShuffleBtn">🔀 Sortear outra situação</button>
+
+        <div id="rpOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="rpCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="rpFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          Correção automática por classificação exata: cada situação tem uma resposta certa definida com base na definição operante clássica (Skinner).
+        </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Identifique o Paradigma</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e identifique qual paradigma de aprendizagem ela ilustra: condicionamento clássico, condicionamento operante ou aprendizagem observacional.</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="pdSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="pdShuffleBtn">🔀 Sortear outra situação</button>
+
+        <div id="pdOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="pdCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="pdFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          Correção automática por classificação exata. Cada situação foi escrita pra ilustrar um paradigma predominante. Na prática, alguns comportamentos podem envolver mais de um mecanismo ao mesmo tempo.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tool-group">
+    <h2 class="tool-group-title"><span class="tg-idx">04</span>Psicologia Experimental<span class="tg-count">3 ferramentas</span></h2>
+    <details class="graveyard">
+      <summary>Conversor para Linguagem Científica</summary>
+      <div class="tool-card" style="margin-top:12px;">
+      <div class="sub">Leia a frase do dia a dia abaixo e reescreva com linguagem científica/acadêmica. Depois clique em "Corrigir" pra ver como você se saiu.</div>
 
       <div class="prompt-box">
-        <div class="plabel">Quadro de sintomas</div>
-        <div class="pfrase" id="llSituacaoTexto"></div>
+        <div class="plabel">Frase para converter</div>
+        <div class="pfrase" id="fraseAtual"></div>
       </div>
-      <button class="shuffle-btn" id="llShuffleBtn">🔀 Sortear outro quadro</button>
+      <button class="shuffle-btn" id="shuffleBtn">🔀 Sortear outra frase</button>
 
-      <div id="llOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+      <div style="margin-top:20px;">
+        <textarea id="respostaInput" placeholder="Escreva aqui sua versão em linguagem científica..."></textarea>
+        <button class="correct-btn" id="corrigirBtn">Corrigir</button>
+      </div>
 
-      <button class="correct-btn" id="llCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="llFeedbackBox"></div>
+      <div class="pfeedback" id="feedbackBox"></div>
+      <button class="reveal-btn" id="revealBtn">Ver uma sugestão de resposta</button>
+      <div class="model-answer" id="modelAnswer"></div>
 
       <div class="tool-disclaimer">
-        <strong>Isto não é uma ferramenta de diagnóstico.</strong> Localizar mentalmente uma lesão a partir de um parágrafo de sintomas é um exercício didático simplificado. Na prática clínica real, isso exige exame neurológico completo, exames de imagem e correlação cuidadosa; muitas lesões afetam mais de uma estrutura, e sintomas parecidos podem ter origens diferentes. Cada resposta aqui reflete a associação mais clássica/destacada na literatura, não uma certeza.
+        Essa correção é automática, baseada em termos-chave esperados; não é uma inteligência artificial avaliando sua redação com profundidade. Ela indica pistas, não substitui a avaliação de um professor.
       </div>
-    </div>
-  </details>
-
-  <details class="graveyard">
-    <summary><strong>Neuroanatomia</strong> · Função ou Estrutura? (clique pra abrir)</summary>
-    <div class="tool-card" style="margin-top:12px;">
-      <div class="sub">Leia a função descrita e identifique a estrutura mais associada a ela.</div>
-
-      <div class="prompt-box">
-        <div class="plabel">Função</div>
-        <div class="pfrase" id="feSituacaoTexto"></div>
       </div>
-      <button class="shuffle-btn" id="feShuffleBtn">🔀 Sortear outra função</button>
+    </details>
+    <details class="graveyard">
+      <summary>Qual é a Variável?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação de pesquisa e associe cada elemento ao conceito certo. Clique em "Corrigir" pra conferir.</div>
 
-      <div id="feOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <div class="prompt-box">
+          <div class="plabel">Situação de pesquisa</div>
+          <div class="pfrase" id="varCenarioTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="varShuffleBtn">🔀 Sortear outra situação</button>
 
-      <button class="correct-btn" id="feCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-      <div class="pfeedback" id="feFeedbackBox"></div>
+        <div id="varCampos" style="margin-top:18px; display:flex; flex-direction:column; gap:12px;"></div>
 
-      <div class="tool-disclaimer">
-        Atribuir "uma função" a "uma estrutura" isolada é uma simplificação didática. Praticamente toda função cerebral complexa depende de redes distribuídas entre várias estruturas trabalhando juntas, não de um único "centro" responsável sozinho. Aqui apresentamos a associação mais conhecida/estudada de cada estrutura, não a função exclusiva dela.
+        <button class="correct-btn" id="varCorrigirBtn" style="margin-top:8px;">Corrigir</button>
+        <div class="pfeedback" id="varFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          Correção automática por associação exata: cada situação tem uma resposta certa definida. Não é IA analisando texto livre; é um exercício de reconhecimento de conceitos.
+        </div>
       </div>
-    </div>
-  </details>
+    </details>
+    <details class="graveyard">
+      <summary>Monte o Experimento</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Você recebe só a pergunta de pesquisa. Escolha, campo por campo, como desenharia o experimento. Cada escolha errada explica qual problema metodológico ela introduziria.</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Pergunta de pesquisa</div>
+          <div class="pfrase" id="montarPerguntaTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="montarShuffleBtn">🔀 Sortear outra pergunta</button>
+
+        <div id="montarCampos" style="margin-top:18px; display:flex; flex-direction:column; gap:16px;"></div>
+
+        <button class="correct-btn" id="montarCorrigirBtn" style="margin-top:8px;">Corrigir Desenho</button>
+        <div class="pfeedback" id="montarFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          Cada campo tem uma opção correta e uma opção com um erro metodológico comum, sempre explicado ao errar. Ainda não é IA lendo justificativas livres; é um exercício guiado de reconhecimento de erros típicos.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="tool-group">
+    <h2 class="tool-group-title"><span class="tg-idx">05</span>Desenvolvimento Adulto e Idoso<span class="tg-count">2 ferramentas</span></h2>
+    <details class="graveyard">
+      <summary>Padrão Esperado ou Sinal de Atenção?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e avalie: ela é algo que pode ocorrer no envelhecimento típico, ou algo que costuma justificar avaliação profissional?</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="peSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="peShuffleBtn">🔀 Sortear outra situação</button>
+
+        <div id="peOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="peCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="peFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          <strong>Isso não é uma ferramenta de diagnóstico.</strong> Cada classificação aqui reflete o que a literatura considera mais provável ou mais típico, não uma certeza. Fatores como escolaridade, saúde geral, contexto cultural e histórico individual mudam bastante o que é "esperado" pra cada pessoa, e mesmo um "sinal de atenção" isolado não confirma nada sozinho, só sinaliza que vale conversar com um profissional. Evite generalizar essas situações pra pessoas reais que você conhece.
+        </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Qual a Tarefa Desenvolvimental?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e identifique qual conflito psicossocial da fase adulta (Erikson) ela ilustra melhor.</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="tdSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="tdShuffleBtn">🔀 Sortear outra situação</button>
+
+        <div id="tdOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="tdCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="tdFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          As faixas etárias de cada estágio são aproximadas e variam por autor, cultura e trajetória de vida; não são cortes rígidos. O modelo de Erikson também é um entre vários referenciais teóricos sobre desenvolvimento adulto, não uma verdade universal.
+        </div>
+      </div>
+    </details>
+  </section>
+
 
   <div class="tool-disclaimer" style="margin-top:32px; border-top:1px solid var(--rule); padding-top:14px;">
     Apesar de todo o material ser constantemente revisado e alinhado com a literatura, o painel não se responsabiliza por eventuais divergências em avaliações oficiais. O conteúdo das aulas ministradas pelos professores sempre prevalece como referência final.
