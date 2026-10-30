@@ -3988,6 +3988,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
     count.textContent=chosen?cards.filter(c=>!c.hidden).length+' resultado(s)':'';
   }
   filter.addEventListener('change',applyFilter);
+  document.querySelectorAll('.tabs .tab').forEach(btn=>btn.addEventListener('click',()=>setTimeout(applyFilter,0)));
   function searchable(){
     const found=[];
     document.querySelectorAll('#grid .card, #feed .entry, #viewFerramentas .tool-card, #viewCursos .course-card, #viewVideos .video-card, #viewSimulados a, #viewEstudar a, #viewApoio a').forEach(el=>{
