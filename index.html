@@ -1049,6 +1049,11 @@
     .ref-form{grid-template-columns:1fr;}
     .extras-index button{font-size:13px; padding:8px 12px;}
   }
+
+  .extras-index button.on{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  body.dark .extras-index button.on{color:#0F1615;}
+  .extras-hint{font-size:14px !important; color:var(--ink-faint) !important; margin:12px 0 0 !important;}
+  .ex-section[hidden]{display:none;}
 </style>
 </head>
 <body>
@@ -1791,12 +1796,13 @@
     <div class="eyebrow">Extras · Arquivo Vivo</div>
     <h1>Extras</h1>
     <p>Glossário das disciplinas, normas ABNT e guias práticos pra te ajudar nos trabalhos e nas provas.</p>
-    <div class="extras-index"><button data-goto="glossario">📖 Glossário</button><button data-goto="abnt">📝 Normas ABNT</button><button data-goto="graficos">📊 Gráficos</button></div>
+    <div class="extras-index"><button data-goto="glossario" aria-expanded="false">Glossário</button><button data-goto="abnt" aria-expanded="false">Normas ABNT</button><button data-goto="graficos" aria-expanded="false">Gráficos</button></div>
+    <p class="extras-hint" id="extrasHint">Escolha um item acima pra abrir.</p>
   </header>
 
 
 
-  <section class="ex-section" id="glossario">
+  <section class="ex-section" id="glossario" hidden>
     <div class="cal-head">
       <h2>Glossário</h2>
       <p>Os termos que mais aparecem nas disciplinas do semestre, explicados de forma curta. Busque ou filtre por disciplina.</p>
@@ -1809,7 +1815,7 @@
     </div>
   </section>
 
-  <section class="ex-section" id="abnt">
+  <section class="ex-section" id="abnt" hidden>
     <div class="cal-head">
       <h2>Normas ABNT</h2>
       <p>Resumo de citações (NBR 10520:2023) e um gerador de referências (NBR 6023). Sempre confira se o professor pede alguma regra diferente.</p>
@@ -1869,7 +1875,7 @@
     </details>
   </section>
 
-  <section class="ex-section" id="graficos">
+  <section class="ex-section" id="graficos" hidden>
     <div class="cal-head">
       <h2>Gráficos</h2>
       <p>Passo a passo pra montar gráficos nos trabalhos.</p>
@@ -3816,9 +3822,20 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   render();
 })();
 
-// ===== Extras: índice da página =====
+// ===== Extras: cada item só abre quando clicado (um de cada vez) =====
 document.querySelectorAll('.extras-index [data-goto]').forEach(b=>{
-  b.addEventListener('click', ()=> document.getElementById(b.dataset.goto)?.scrollIntoView({behavior:'smooth', block:'start'}));
+  b.addEventListener('click', ()=>{
+    const alvo = b.dataset.goto;
+    const jaAberto = b.classList.contains('on');
+    document.querySelectorAll('.extras-index [data-goto]').forEach(x=>{
+      const abrir = !jaAberto && x === b;
+      x.classList.toggle('on', abrir);
+      x.setAttribute('aria-expanded', String(abrir));
+      const sec = document.getElementById(x.dataset.goto);
+      if(sec) sec.hidden = !abrir;
+    });
+    document.getElementById('extrasHint').hidden = !jaAberto;
+  });
 });
 
 // ===== Extras: Glossário =====
