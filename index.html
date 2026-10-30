@@ -1227,6 +1227,18 @@
     .brand-mark{width:34px; height:34px;}
   }
   @media (max-width:350px){ #shareBtn{display:none;} }
+
+  .ord-list{display:flex; flex-direction:column; gap:8px;}
+  .ord-item{display:flex; align-items:center; gap:12px; background:var(--paper-alt); border:1px solid var(--rule); border-radius:10px; padding:10px 12px;}
+  .ord-item.ok{border-color:var(--petrol); background:var(--petrol-soft);}
+  .ord-item.err{border-color:var(--danger); background:rgba(181,67,46,.07);}
+  .ord-num{flex:none; width:26px; height:26px; border-radius:50%; background:var(--petrol); color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+  body.dark .ord-num{color:#0F1615;}
+  .ord-txt{flex:1; font-size:14.5px; font-weight:600; line-height:1.4;}
+  .ord-btns{flex:none; display:flex; gap:4px;}
+  .ord-mv{width:36px; height:34px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); cursor:pointer; font-size:12px;}
+  .ord-mv:hover:not(:disabled){border-color:var(--petrol-line); color:var(--petrol);}
+  .ord-mv:disabled{opacity:.35; cursor:default;}
 </style>
 </head>
 <body>
@@ -1603,7 +1615,7 @@
   </header>
 
   <section class="tool-group">
-    <h2 class="tool-group-title"><span class="tg-idx">01</span>Bases Biológicas<span class="tg-count">2 exercícios</span></h2>
+    <h2 class="tool-group-title"><span class="tg-idx">01</span>Bases Biológicas<span class="tg-count">4 exercícios</span></h2>
     <details class="graveyard" style="display:none;">
       <summary>Qual Neurotransmissor?</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -1680,6 +1692,36 @@
 
         <div class="tool-disclaimer">
           Simplificações comuns em livro-texto podem sugerir que espermatogênese e ovogênese são só "espelhos" uma da outra: não são. Os dois processos têm fases análogas, mas com timing, regulação e resultados bem diferentes, resumidos aqui só até onde cabe num curso introdutório.
+        </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Ordene as Fases da Fertilização</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">As 6 fases da fertilização estão embaralhadas. Use as setas pra colocar na ordem em que acontecem e clique em "Corrigir".</div>
+        <div class="ord-list" id="ordLista"></div>
+        <button class="correct-btn" id="ordCorrigirBtn" style="margin-top:14px;">Corrigir</button>
+        <div class="pfeedback" id="ordFeedbackBox"></div>
+        <button class="shuffle-btn" id="ordShuffleBtn">🔀 Embaralhar de novo</button>
+        <div class="tool-disclaimer">
+          Sequência conforme os slides de Bases Biológicas (Desenvolvimento embrionário: da fertilização à 2ª semana). Na prática, algumas dessas etapas se sobrepõem no tempo.
+        </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Qual é a Estrutura? (Embriologia)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a descrição e identifique a estrutura do desenvolvimento embrionário (da fertilização à 2ª semana).</div>
+        <div class="prompt-box">
+          <div class="plabel">Descrição</div>
+          <div class="pfrase" id="esSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="esShuffleBtn">🔀 Sortear outra descrição</button>
+        <div id="esOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="esCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="esFeedbackBox"></div>
+        <div class="tool-disclaimer">
+          Descrições simplificadas para fins didáticos, baseadas nos slides da disciplina. Os dias do desenvolvimento são aproximados.
         </div>
       </div>
     </details>
@@ -2237,11 +2279,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-10-30', disc: 'Bases Biológicas', desc: 'Embriologia: linha do tempo interativa da fertilização à 2ª semana, dois exercícios novos em Na prática e 22 termos no glossário.', link: {disc:'01'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Páginas por disciplina, busca no site, modo prova, progresso salvo no aparelho e prazos direto na agenda do celular.', link: {scroll:'disciplinas'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Calendário de prazos na página Prazos e Tarefas. E a antiga "Conteúdo de apoio" virou "Extras", com glossário das disciplinas e guia ABNT com gerador de referências.', link: {page:'viewPrazos', target:'calendario'}},
   {date: '2026-10-28', disc: 'Geral', desc: 'Nova página "Conteúdo de apoio" (hoje Extras): passo a passo pra montar gráficos no Excel e no Google Planilhas.', link: {page:'viewApoio', target:'graficos'}},
-  {date: '2026-10-27', disc: 'Bases Biológicas', desc: 'Novos slides das últimas aulas.', link: {drive:'01'}},
-  {date: '2026-09-22', disc: 'Geral', desc: 'Página nova "Resumos interativos": resumos em HTML pra você estudar e memorizar.', link: {page:'viewEstudar'}}
+  {date: '2026-10-27', disc: 'Bases Biológicas', desc: 'Novos slides das últimas aulas.', link: {drive:'01'}}
 ];
 
 
@@ -2278,6 +2320,13 @@ const DISC = {
      {materia: 'Neuroanatomia', titulo: 'Título', subtitulo: 'opcional', desc: 'Descrição curta.', link: 'https://...'},
    --------------------------------------------------------------------- */
 const STUDY = [
+  {
+    materia: 'Bases Biológicas',
+    titulo: 'Da fertilização à 2ª semana',
+    subtitulo: 'Linha do tempo interativa',
+    desc: 'Percorra o desenvolvimento embrionário etapa por etapa, responda o "Teste-se" de cabeça antes de ver a resposta e feche com um quiz rápido.',
+    link: 'resumo-embriologia.html'
+  },
   {
     materia: 'Neuroanatomia',
     titulo: 'Telencéfalo & Diencéfalo',
@@ -2430,6 +2479,30 @@ const GLOSSARIO = [
   {t:'Genótipo e fenótipo', disc:'Bases Biológicas', d:'Genótipo é o conjunto de genes de um indivíduo; fenótipo é o que se manifesta (características observáveis), resultado da interação entre genes e ambiente.'},
   {t:'Herdabilidade', disc:'Bases Biológicas', d:'Proporção da variação de uma característica numa população que pode ser atribuída a diferenças genéticas. Não diz o quanto de uma pessoa é "genético".'},
   {t:'Genética comportamental', disc:'Bases Biológicas', d:'Campo que estuda como fatores genéticos e ambientais influenciam diferenças de comportamento, por exemplo com estudos de gêmeos e de adoção.'},
+
+  // Bases Biológicas · Embriologia (fertilização à 2ª semana)
+  {t:'Zigoto', disc:'Bases Biológicas', d:'Célula formada na fertilização, com cromossomos da mãe e do pai. É totipotente: pode originar qualquer tipo de célula.'},
+  {t:'Fertilização', disc:'Bases Biológicas', d:'Encontro do espermatozoide com o ovócito, que forma o zigoto. Acontece habitualmente na ampola da tuba uterina.'},
+  {t:'Coroa radiada', disc:'Bases Biológicas', d:'Camada de células que envolve o ovócito e atrai os espermatozoides por sinais químicos. É a primeira barreira atravessada na fertilização.'},
+  {t:'Zona pelúcida', disc:'Bases Biológicas', d:'Revestimento de glicoproteínas em volta do ovócito. Depois da entrada do primeiro espermatozoide, se altera e impede a polispermia.'},
+  {t:'Acrossomo', disc:'Bases Biológicas', d:'Estrutura na cabeça do espermatozoide que libera enzimas (hialuronidase, acrosina) para atravessar a coroa radiada e a zona pelúcida.'},
+  {t:'Reação cortical', disc:'Bases Biológicas', d:'Liberação do conteúdo dos grânulos corticais do ovócito após a fusão com o espermatozoide. Altera a zona pelúcida e bloqueia outros espermatozoides.'},
+  {t:'Clivagem', disc:'Bases Biológicas', d:'Divisões mitóticas repetidas do zigoto, a partir de cerca de 30 horas após a fertilização. O número de células aumenta, mas elas ficam menores.'},
+  {t:'Blastômero', disc:'Bases Biológicas', d:'Cada uma das células formadas durante a clivagem do zigoto.'},
+  {t:'Mórula', disc:'Bases Biológicas', d:'Conjunto de 12 a 32 blastômeros compactados, ainda dentro da zona pelúcida.'},
+  {t:'Blastocisto', disc:'Bases Biológicas', d:'Estrutura com uma cavidade cheia de líquido, formada por volta do 4º dia, que separa o trofoblasto do embrioblasto.'},
+  {t:'Embrioblasto', disc:'Bases Biológicas', d:'Massa celular interna do blastocisto: o primórdio do embrião.'},
+  {t:'Trofoblasto', disc:'Bases Biológicas', d:'Camada externa de células do blastocisto, que dará origem à placenta. Divide-se em citotrofoblasto e sinciciotrofoblasto.'},
+  {t:'Citotrofoblasto', disc:'Bases Biológicas', d:'Camada interna do trofoblasto, formada por células individualizadas.'},
+  {t:'Sinciciotrofoblasto', disc:'Bases Biológicas', d:'Camada externa e multinucleada do trofoblasto. Invade o endométrio, produz enzimas para a implantação e produz hCG.'},
+  {t:'hCG (gonadotrofina coriônica humana)', disc:'Bases Biológicas', d:'Hormônio produzido pelo sinciciotrofoblasto. É o que os testes de gravidez detectam, a partir do fim da 2ª semana.'},
+  {t:'Disco embrionário bilaminar', disc:'Bases Biológicas', d:'Estrutura da 2ª semana formada por duas camadas, epiblasto e hipoblasto, que dará origem a todos os tecidos e órgãos do embrião.'},
+  {t:'Âmnio', disc:'Bases Biológicas', d:'Membrana formada por células do epiblasto (amnioblastos) que envolve a cavidade amniótica.'},
+  {t:'Saco vitelino', disc:'Bases Biológicas', d:'Cavidade revestida pela membrana exocelômica (saco vitelino primário), que depois é reduzida ao saco vitelino secundário. Em mamíferos não armazena vitelo.'},
+  {t:'Mesoderme extraembrionária', disc:'Bases Biológicas', d:'Tecido conjuntivo frouxo que envolve o disco, o âmnio e o saco vitelino. Divide-se em lâmina somática e esplâncnica.'},
+  {t:'Celoma extraembrionário', disc:'Bases Biológicas', d:'Cavidade formada por lacunas dentro da mesoderme extraembrionária, que separa suas lâminas somática e esplâncnica.'},
+  {t:'Pedículo de conexão', disc:'Bases Biológicas', d:'Região onde o celoma extraembrionário não avança e que liga o embrião ao trofoblasto. Será o cordão umbilical.'},
+  {t:'Gravidez ectópica', disc:'Bases Biológicas', d:'Implantação fora do útero. Entre 95% e 98% acontecem na tuba uterina, mais na ampola e no istmo.'},
 
   // Desenvolvimento Adulto e Idoso
   {t:'Intimidade x isolamento', disc:'Desenvolvimento Adulto e Idoso', d:'Estágio de Erikson do início da vida adulta: o desafio é construir vínculos próximos e duradouros sem perder a própria identidade.'},
@@ -3730,6 +3803,111 @@ document.getElementById('mmCorrigirBtn').addEventListener('click', ()=>{
 });
 mmSortear();
 
+
+// --- Ferramenta: Ordene as Fases da Fertilização (Bases Biológicas) ---
+const FERT_FASES = [
+  {t:'Passagem pela coroa radiada', d:'A hialuronidase liberada pelo acrossomo, junto com o movimento do flagelo, abre caminho entre as células da coroa radiada.'},
+  {t:'Penetração da zona pelúcida', d:'Enzimas do acrossomo (acrosina, esterases, neuraminidase) fazem a lise da zona pelúcida, e o espermatozoide alcança o ovócito.'},
+  {t:'Fusão das membranas do ovócito e do espermatozoide', d:'Os grânulos corticais liberam seu conteúdo e a zona pelúcida muda, impedindo a entrada de outros espermatozoides.'},
+  {t:'Conclusão da 2ª divisão meiótica do ovócito', d:'Forma o óvulo maduro e o 2º corpúsculo polar; o núcleo do óvulo vira o pronúcleo feminino.'},
+  {t:'Formação do pronúcleo masculino', d:'A cromatina do espermatozoide se descondensa dentro do ovócito; os dois pronúcleos replicam o DNA.'},
+  {t:'Ruptura das membranas pronucleares', d:'Os cromossomos se condensam e o zigoto faz a 1ª mitose: duas células com 46 cromossomos cada.'},
+];
+let ordAtual = [];
+function ordEmbaralhar(){
+  do{ ordAtual = FERT_FASES.map((_, i)=>i).sort(()=>Math.random()-0.5); } while(ordAtual.every((v, i)=>v===i));
+  ordRender();
+  const box = document.getElementById('ordFeedbackBox'); box.className = 'pfeedback'; box.innerHTML = '';
+}
+function ordRender(marcar){
+  document.getElementById('ordLista').innerHTML = ordAtual.map((f, pos)=>{
+    const st = marcar ? (f === pos ? ' ok' : ' err') : '';
+    return `<div class="ord-item${st}">
+      <span class="ord-num">${pos+1}</span>
+      <span class="ord-txt">${FERT_FASES[f].t}</span>
+      <span class="ord-btns">
+        <button class="ord-mv" data-mv="-1" data-pos="${pos}" aria-label="Subir" ${pos===0?'disabled':''}>▲</button>
+        <button class="ord-mv" data-mv="1" data-pos="${pos}" aria-label="Descer" ${pos===ordAtual.length-1?'disabled':''}>▼</button>
+      </span>
+    </div>`;
+  }).join('');
+}
+document.getElementById('ordLista').addEventListener('click', e=>{
+  const b = e.target.closest('.ord-mv'); if(!b) return;
+  const p = +b.dataset.pos, q = p + (+b.dataset.mv);
+  [ordAtual[p], ordAtual[q]] = [ordAtual[q], ordAtual[p]];
+  ordRender();
+  document.getElementById('ordFeedbackBox').className = 'pfeedback';
+});
+document.getElementById('ordShuffleBtn').addEventListener('click', ordEmbaralhar);
+document.getElementById('ordCorrigirBtn').addEventListener('click', ()=>{
+  const certos = ordAtual.filter((f, pos)=>f===pos).length;
+  const box = document.getElementById('ordFeedbackBox');
+  ordRender(true);
+  const lista = FERT_FASES.map((f, i)=>`<li><strong>${f.t}.</strong> ${f.d}</li>`).join('');
+  if(certos === FERT_FASES.length){
+    box.className = 'pfeedback show good';
+    box.innerHTML = `<strong>Ordem perfeita!</strong><p>As 6 fases estão na sequência certa.</p>`;
+  } else {
+    box.className = `pfeedback show ${certos >= 3 ? 'partial' : 'bad'}`;
+    box.innerHTML = `<strong>${certos} de 6 no lugar certo.</strong><p>Os itens em vermelho estão fora de posição. A ordem correta é:</p><ol style="margin:6px 0 0; padding-left:20px; line-height:1.55;">${lista}</ol>`;
+  }
+});
+ordEmbaralhar();
+
+// --- Ferramenta: Qual é a Estrutura? Embriologia (Bases Biológicas) ---
+const ES_ESTRUTURAS = ['Zona pelúcida','Coroa radiada','Acrossomo','Grânulos corticais','Ampola da tuba uterina','Mórula','Blastocisto','Trofoblasto','Embrioblasto','Citotrofoblasto','Sinciciotrofoblasto','Epiblasto','Hipoblasto','Âmnio','Membrana exocelômica (de Heuser)','Mesoderme extraembrionária','Celoma extraembrionário','Saco vitelino secundário','Pedículo de conexão'];
+const ES_CENARIOS = [
+  {situacao:'Camada de glicoproteínas que envolve o ovócito. Depois que o primeiro espermatozoide entra, ela se altera e impede a entrada de outros.', correta:'Zona pelúcida', explicacao:'A zona pelúcida protege o ovócito e, após a reação cortical, evita a polispermia. Também impede a fecundação por espermatozoides de outras espécies.'},
+  {situacao:'Camada de células que envolve o ovócito, sai com ele na ovulação e libera sinais químicos que atraem os espermatozoides.', correta:'Coroa radiada', explicacao:'A coroa radiada é a primeira barreira atravessada pelo espermatozoide, e seus sinais químicos participam da quimiotaxia.'},
+  {situacao:'Estrutura do espermatozoide que libera hialuronidase, acrosina e outras enzimas para atravessar as camadas do ovócito.', correta:'Acrossomo', explicacao:'As enzimas do acrossomo dissolvem o caminho pela coroa radiada e pela zona pelúcida.'},
+  {situacao:'Vesículas do ovócito, vindas do complexo de Golgi, cujas enzimas alteram ZP2 e ZP3 logo após a fusão com o espermatozoide.', correta:'Grânulos corticais', explicacao:'A liberação dos grânulos corticais (reação cortical) modifica a zona pelúcida e bloqueia outros espermatozoides.'},
+  {situacao:'Dilatação da tuba uterina onde a fertilização habitualmente acontece.', correta:'Ampola da tuba uterina', explicacao:'A ampola é o local mais comum da fertilização, e também um dos locais frequentes de gravidez ectópica.'},
+  {situacao:'Esfera de 12 a 32 blastômeros compactados, ainda dentro da zona pelúcida.', correta:'Mórula', explicacao:'Depois da compactação (a partir de 8 células), o conjunto de 12 a 32 blastômeros recebe o nome de mórula.'},
+  {situacao:'Estrutura que se forma quando o fluido uterino cria uma cavidade e separa as células em duas porções, por volta do 4º dia.', correta:'Blastocisto', explicacao:'No blastocisto, a cavidade blastocística separa o trofoblasto (futura placenta) do embrioblasto (futuro embrião).'},
+  {situacao:'Camada externa de células do blastocisto que dará origem à placenta.', correta:'Trofoblasto', explicacao:'O trofoblasto forma a parte fetal da placenta e, ao se fixar no endométrio, se divide em citotrofoblasto e sinciciotrofoblasto.'},
+  {situacao:'Grupo de células internas do blastocisto: o primórdio do embrião.', correta:'Embrioblasto', explicacao:'O embrioblasto (massa celular interna) forma o disco embrionário, que dará origem ao embrião.'},
+  {situacao:'Massa multinucleada, formada pela fusão de células, que invade o endométrio, produz enzimas para a implantação e produz hCG.', correta:'Sinciciotrofoblasto', explicacao:'É a camada externa do trofoblasto. A hCG que ele produz é o que o teste de gravidez detecta.'},
+  {situacao:'Camada interna do trofoblasto, formada por células individualizadas.', correta:'Citotrofoblasto', explicacao:'O citotrofoblasto fica por dentro do sinciciotrofoblasto e mantém células com limites bem definidos.'},
+  {situacao:'Camada do disco embrionário bilaminar voltada para a cavidade amniótica; dela saem os amnioblastos.', correta:'Epiblasto', explicacao:'O epiblasto forma o assoalho da cavidade amniótica, e suas células laterais (amnioblastos) formam o âmnio.'},
+  {situacao:'Camada do disco embrionário bilaminar cujas células revestem a cavidade blastocística.', correta:'Hipoblasto', explicacao:'Junto com a membrana exocelômica, o hipoblasto delimita o saco vitelino primário.'},
+  {situacao:'Membrana formada pelos amnioblastos que envolve a cavidade amniótica.', correta:'Âmnio', explicacao:'O âmnio envolve a cavidade amniótica, onde se acumula o futuro líquido amniótico.'},
+  {situacao:'Membrana que reveste a cavidade exocelômica, transformando-a no saco vitelino primário.', correta:'Membrana exocelômica (de Heuser)', explicacao:'A membrana de Heuser fica junto ao citotrofoblasto e reveste o saco vitelino primário.'},
+  {situacao:'Tecido conjuntivo frouxo, rico em matriz extracelular, que passa a envolver o disco bilaminar, o âmnio e o saco vitelino.', correta:'Mesoderme extraembrionária', explicacao:'A mesoderme extraembrionária depois se divide em lâmina somática (junto ao citotrofoblasto) e esplâncnica (junto ao saco vitelino).'},
+  {situacao:'Cavidade formada pela união de lacunas dentro da mesoderme extraembrionária.', correta:'Celoma extraembrionário', explicacao:'O celoma extraembrionário separa as lâminas somática e esplâncnica e "estrangula" o saco vitelino primário.'},
+  {situacao:'Em mamíferos não armazena vitelo e também é chamado de vesícula umbilical.', correta:'Saco vitelino secundário', explicacao:'O saco vitelino secundário (definitivo) se forma quando o celoma estrangula o primário; sobra um cisto exocelômico que degenera.'},
+  {situacao:'Única região onde o celoma extraembrionário não avança; será o futuro cordão umbilical.', correta:'Pedículo de conexão', explicacao:'O pedículo de conexão (ou de fixação) mantém o embrião ligado ao trofoblasto e dará origem ao cordão umbilical.'},
+];
+let esAtual = null;
+function esSortear(){
+  let novo;
+  do{ novo = ES_CENARIOS[Math.floor(Math.random()*ES_CENARIOS.length)]; } while(novo === esAtual && ES_CENARIOS.length > 1);
+  esAtual = novo;
+  document.getElementById('esSituacaoTexto').textContent = esAtual.situacao;
+  const outras = ES_ESTRUTURAS.filter(x=>x !== esAtual.correta).sort(()=>Math.random()-0.5).slice(0, 3);
+  const opcoes = [esAtual.correta, ...outras].sort(()=>Math.random()-0.5);
+  document.getElementById('esOpcoes').innerHTML = opcoes.map(op=>`
+    <label class="opcao-radio">
+      <input type="radio" name="es-opcao" value="${op}">
+      <span>${op}</span>
+    </label>`).join('');
+  const box = document.getElementById('esFeedbackBox'); box.className = 'pfeedback'; box.innerHTML = '';
+}
+document.getElementById('esShuffleBtn').addEventListener('click', esSortear);
+document.getElementById('esCorrigirBtn').addEventListener('click', ()=>{
+  const marcado = document.querySelector('input[name="es-opcao"]:checked');
+  const box = document.getElementById('esFeedbackBox');
+  if(!marcado){
+    box.className = 'pfeedback show bad';
+    box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>';
+    return;
+  }
+  const acertou = marcado.value === esAtual.correta;
+  box.className = `pfeedback show ${acertou ? 'good' : 'bad'}`;
+  box.innerHTML = `<strong>${acertou ? 'Correto!' : `Não foi dessa vez: a resposta certa é ${esAtual.correta}.`}</strong><p>${esAtual.explicacao}</p>`;
+});
+esSortear();
+
 // --- Ferramenta: Classifique a Gametogênese (Bases Biológicas) ---
 const GM_OPCOES = ['Espermatogênese', 'Ovogênese', 'Ambos'];
 const GM_CARACTERISTICAS = [
@@ -4131,7 +4309,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
   const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
-  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
   const totalCursos = COURSES.length;
@@ -4477,7 +4655,7 @@ document.querySelectorAll('#viewFerramentas details[id^="tool-"] .correct-btn').
     const det = btn.closest('details[id^="tool-"]');
     setTimeout(()=>{
       const fb = [...det.querySelectorAll('.pfeedback.show')].pop();
-      if(!fb) return;
+      if(!fb || /Escolha uma opção/.test(fb.textContent)) return;
       const p = progLoad();
       const t = p.tools[det.id] || {t:0, a:0};
       t.t += 1; if(fb.classList.contains('good')) t.a += 1;

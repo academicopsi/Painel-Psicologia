@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Da fertilização à 2ª semana · Arquivo Vivo</title>
+<meta name="theme-color" content="#1F5C56">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F7F6; --paper:#FFFFFF; --paper-alt:#F0F4F3; --ink:#14211F; --ink-soft:#5B6A67; --ink-faint:#8A9794;
+    --petrol:#1F5C56; --petrol-dark:#153F3B; --petrol-soft:#E3EFEC; --petrol-line:#C4DCD7;
+    --ochre:#B7791F; --ochre-soft:#FBF1E1; --danger:#B5432E; --rule:#DFE6E4; --shadow:rgba(20,33,31,.07);
+  }
+  body.dark{
+    --bg:#0F1615; --paper:#16201F; --paper-alt:#1C2826; --ink:#E8EFED; --ink-soft:#A3B2AF; --ink-faint:#7A8A87;
+    --petrol:#5CC2B5; --petrol-dark:#3E9C90; --petrol-soft:#1B3330; --petrol-line:#2A4A46;
+    --ochre:#E0A94A; --ochre-soft:#2E2617; --danger:#E07A63; --rule:#26332F; --shadow:rgba(0,0,0,.3);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:780px; margin:0 auto; padding:28px 20px 72px;}
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:28px;}
+  .back{font-size:14px; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .back:hover{color:var(--petrol);}
+  .theme{display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); cursor:pointer; font-size:16px;}
+  .eyebrow{display:inline-block; font-size:12.5px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); padding:5px 11px; border-radius:999px; margin-bottom:14px;}
+  h1{font-size:clamp(30px, 6vw, 44px); font-weight:800; letter-spacing:-0.035em; line-height:1.08; margin:0 0 12px;}
+  .lead{font-size:17px; color:var(--ink-soft); margin:0 0 22px;}
+  .how{background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:14px 16px; font-size:14.5px; color:var(--ink-soft);}
+  .how strong{color:var(--ink);}
+  .progress{position:sticky; top:0; z-index:5; background:var(--bg); padding:12px 0 10px; margin:22px 0 4px;}
+  .progress-label{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:6px;}
+  .bar{height:6px; background:var(--paper-alt); border-radius:999px; overflow:hidden;}
+  .bar i{display:block; height:100%; width:0; background:var(--petrol); border-radius:999px; transition:width .25s ease;}
+
+  .phase{font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); margin:34px 0 12px;}
+  .timeline{position:relative; padding-left:28px;}
+  .timeline::before{content:""; position:absolute; left:8px; top:8px; bottom:8px; width:2px; background:var(--petrol-line);}
+  .step{position:relative; background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px 18px 16px; margin-bottom:14px; box-shadow:0 6px 18px var(--shadow);}
+  .step::before{content:""; position:absolute; left:-26px; top:22px; width:14px; height:14px; border-radius:50%; background:var(--paper); border:3px solid var(--petrol);}
+  .step.done::before{background:var(--petrol);}
+  .when{display:inline-block; font-size:12.5px; font-weight:700; color:var(--ochre); background:var(--ochre-soft); padding:3px 10px; border-radius:999px; margin-bottom:8px;}
+  .step h2{font-size:19px; font-weight:800; letter-spacing:-0.015em; margin:0 0 8px; line-height:1.3;}
+  .step ul{margin:0 0 4px; padding-left:20px;}
+  .step li{margin:4px 0; font-size:15.5px;}
+  .step li strong{color:var(--petrol);}
+  .test{margin-top:14px; border-top:1px dashed var(--rule); padding-top:12px;}
+  .test-q{font-size:14.5px; font-weight:700; margin-bottom:8px;}
+  .test-q span{font-size:11.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#fff; background:var(--petrol); padding:2px 8px; border-radius:6px; margin-right:6px; vertical-align:1px;}
+  body.dark .test-q span{color:#0F1615;}
+  .reveal{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); border:1px solid var(--petrol-line); border-radius:9px; padding:7px 12px; cursor:pointer;}
+  .answer{display:none; margin-top:10px; background:var(--paper-alt); border-left:3px solid var(--petrol); border-radius:8px; padding:10px 12px; font-size:15px;}
+  .answer.show{display:block;}
+  .self{display:none; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center; font-size:13px; color:var(--ink-soft);}
+  .self.show{display:flex;}
+  .self button{font:inherit; font-size:13px; font-weight:600; border-radius:8px; padding:6px 11px; cursor:pointer; border:1px solid var(--rule); background:var(--paper); color:var(--ink);}
+  .self button.on-ok{background:var(--petrol-soft); border-color:var(--petrol); color:var(--petrol);}
+  .self button.on-no{background:var(--ochre-soft); border-color:var(--ochre); color:var(--ochre);}
+
+  .table{width:100%; border-collapse:collapse; background:var(--paper); border:1px solid var(--rule); border-radius:14px; overflow:hidden; font-size:15px;}
+  .table th, .table td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .table th{background:var(--paper-alt); font-size:12.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft);}
+  .table tr:last-child td{border-bottom:none;}
+  .table td:first-child{font-weight:700;}
+
+  .box{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px; margin-bottom:14px;}
+  .box h3{margin:0 0 8px; font-size:17px;}
+  .box p, .box li{font-size:15px; color:var(--ink-soft);}
+  .box ul{padding-left:20px; margin:6px 0 0;}
+
+  .quiz-q{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:16px 18px; margin-bottom:12px;}
+  .quiz-q p{margin:0 0 10px; font-weight:700;}
+  .opt{display:block; width:100%; text-align:left; font:inherit; font-size:15px; background:var(--paper-alt); border:1px solid transparent; border-radius:10px; padding:10px 12px; margin-top:6px; cursor:pointer; color:var(--ink);}
+  .opt:hover{border-color:var(--petrol-line);}
+  .opt.ok{background:var(--petrol-soft); border-color:var(--petrol); font-weight:600;}
+  .opt.no{background:rgba(181,67,46,.09); border-color:var(--danger);}
+  .opt:disabled{cursor:default;}
+  .why{display:none; font-size:14px; color:var(--ink-soft); margin-top:10px;}
+  .why.show{display:block;}
+  .score{display:none; background:var(--petrol); color:#fff; border-radius:16px; padding:18px; font-size:17px; font-weight:700; text-align:center;}
+  body.dark .score{color:#0F1615;}
+  .score.show{display:block;}
+  .again{font:inherit; font-size:14px; font-weight:600; margin-top:12px; padding:9px 16px; border-radius:10px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); cursor:pointer;}
+  .foot{margin-top:44px; padding-top:16px; border-top:1px solid var(--rule); font-size:13px; color:var(--ink-faint);}
+  @media (max-width:520px){ .wrap{padding:20px 14px 60px;} .timeline{padding-left:22px;} .step::before{left:-21px;} .step{padding:16px 14px 14px;} .table{font-size:14px;} .table th,.table td{padding:9px 10px;} }
+</style>
+</head>
+<body>
+<script>try{if(localStorage.getItem("av-theme")==="dark")document.body.classList.add("dark")}catch(e){}</script>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="./#disc-01">← Voltar ao Arquivo Vivo</a>
+    <button class="theme" id="theme" aria-label="Alternar modo escuro"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></button>
+  </div>
+
+  <span class="eyebrow">Bases Biológicas · Embriologia</span>
+  <h1>Da fertilização à 2ª semana</h1>
+  <p class="lead">O começo do desenvolvimento humano, etapa por etapa: o que acontece, quando e com que nome.</p>
+  <div class="how"><strong>Como usar:</strong> leia cada etapa e, antes de abrir a resposta, tente responder o <strong>Teste-se</strong> de cabeça. Depois marque se acertou. É esse esforço de lembrar que fixa o conteúdo. No fim tem um quiz rápido.</div>
+
+  <div class="progress" aria-live="polite">
+    <div class="progress-label"><span>Seu caminho</span><span id="progTxt">0 de 0 etapas</span></div>
+    <div class="bar"><i id="progBar"></i></div>
+  </div>
+
+  <div id="timeline"></div>
+
+  <div class="phase">Resumo: quem vira o quê</div>
+  <table class="table">
+    <thead><tr><th>Estrutura</th><th>O que forma / função</th></tr></thead>
+    <tbody>
+      <tr><td>Trofoblasto</td><td>Placenta (parte fetal)</td></tr>
+      <tr><td>Embrioblasto</td><td>Embrião (via disco embrionário)</td></tr>
+      <tr><td>Sinciciotrofoblasto</td><td>Invade o endométrio, produz enzimas e hCG</td></tr>
+      <tr><td>Citotrofoblasto</td><td>Camada interna do trofoblasto, de células individualizadas</td></tr>
+      <tr><td>Epiblasto + hipoblasto</td><td>Disco embrionário bilaminar: dará origem a todos os tecidos e órgãos do embrião</td></tr>
+      <tr><td>Amnioblastos (do epiblasto)</td><td>Âmnio, que envolve a cavidade amniótica</td></tr>
+      <tr><td>Pedículo de conexão</td><td>Futuro cordão umbilical</td></tr>
+    </tbody>
+  </table>
+
+  <div class="phase">Quando algo sai do esperado</div>
+  <div class="box">
+    <h3>Gravidez ectópica</h3>
+    <p>É a implantação fora do útero. Entre 95% e 98% acontecem na tuba uterina, mais na ampola e no istmo, em geral por algo que atrasa ou impede o transporte do zigoto (como uma tuba bloqueada). Costuma levar à ruptura da tuba e hemorragia nas primeiras 8 semanas.</p>
+  </div>
+  <div class="box">
+    <h3>Fertilização in vitro (FIV)</h3>
+    <p>Desde 1978: os ovócitos são fertilizados em laboratório e o embrião em clivagem (ou o blastocisto) é transferido para o útero. Indicada, por exemplo, em tubas bloqueadas ou oligospermia. Pode ser combinada com o diagnóstico genético pré-implantação.</p>
+  </div>
+
+  <div class="phase">Quiz rápido</div>
+  <div id="quiz"></div>
+  <div class="score" id="score"></div>
+  <div style="text-align:center"><button class="again" id="again" hidden>Refazer o quiz</button></div>
+
+  <div class="foot">Arquivo Vivo · Psicologia · Resumo feito a partir dos slides de Bases Biológicas (Desenvolvimento embrionário: da fertilização à 2ª semana). Os dias são aproximados. O conteúdo das aulas sempre prevalece como referência final.</div>
+</div>
+
+<script>
+const ETAPAS = [
+  {fase:'1ª semana', when:'Dia 0', titulo:'Fertilização', pontos:[
+    'Acontece habitualmente na <strong>ampola</strong>, uma dilatação da tuba uterina.',
+    'O espermatozoide penetra o ovócito e forma o <strong>zigoto</strong>: uma célula <strong>totipotente</strong>, com cromossomos da mãe e do pai.',
+    'Se o ovócito não é fertilizado, segue até o útero, degenera e é reabsorvido.'],
+    q:'Onde a fertilização costuma acontecer?', a:'Na ampola da tuba uterina.'},
+  {fase:'1ª semana', when:'Dia 0', titulo:'As 6 fases da fertilização', pontos:[
+    '<strong>1.</strong> Passagem pela <strong>coroa radiada</strong>, com a hialuronidase do acrossomo e o movimento do flagelo.',
+    '<strong>2.</strong> Penetração da <strong>zona pelúcida</strong>, com enzimas do acrossomo (acrosina, esterases, neuraminidase).',
+    '<strong>3.</strong> <strong>Fusão das membranas</strong> do ovócito e do espermatozoide. Cabeça e cauda entram; membrana e mitocôndrias do espermatozoide, não.',
+    '<strong>4.</strong> O ovócito <strong>conclui a 2ª divisão meiótica</strong>: óvulo maduro + 2º corpúsculo polar. O núcleo vira o pronúcleo feminino.',
+    '<strong>5.</strong> Formação do <strong>pronúcleo masculino</strong>. Os dois pronúcleos replicam o DNA.',
+    '<strong>6.</strong> <strong>Ruptura das membranas pronucleares</strong> e primeira mitose do zigoto: duas células com 46 cromossomos.'],
+    q:'Qual enzima do acrossomo ajuda o espermatozoide a atravessar a coroa radiada?', a:'A hialuronidase, junto com os movimentos do flagelo.'},
+  {fase:'1ª semana', when:'Dia 0', titulo:'Um espermatozoide só', pontos:[
+    'Depois da fusão, os <strong>grânulos corticais</strong> do ovócito liberam seu conteúdo no espaço perivitelino.',
+    'As enzimas alteram as glicoproteínas <strong>ZP2 e ZP3</strong> da zona pelúcida, e outros espermatozoides não conseguem mais entrar.',
+    'Isso evita a <strong>polispermia</strong>. A zona pelúcida também impede a fecundação por espermatozoides de outras espécies.'],
+    q:'O que impede que um segundo espermatozoide entre no ovócito?', a:'A liberação dos grânulos corticais, que altera a zona pelúcida (ZP2 e ZP3).'},
+  {fase:'1ª semana', when:'Dia 0', titulo:'O que a fertilização garante', pontos:[
+    'Restaura o número <strong>diploide (46)</strong> de cromossomos.',
+    'Determina o <strong>sexo cromossômico</strong>: espermatozoide com X gera embrião feminino; com Y, masculino.',
+    'Gera <strong>variabilidade</strong>: herança biparental + crossing over.',
+    'Ativa o metabolismo do ovócito e dá início à <strong>clivagem</strong>.'],
+    q:'Quem determina o sexo cromossômico do embrião?', a:'O espermatozoide: se carrega X, o embrião é feminino; se carrega Y, masculino.'},
+  {fase:'1ª semana', when:'≈ 30 horas', titulo:'Clivagem', pontos:[
+    'Divisões <strong>mitóticas</strong> repetidas do zigoto, que aumentam rápido o número de células: os <strong>blastômeros</strong>.',
+    'A cada divisão, os blastômeros ficam <strong>menores</strong>: o tamanho total não aumenta.',
+    'O zigoto continua dentro da <strong>zona pelúcida</strong>.'],
+    q:'O que acontece com o tamanho dos blastômeros durante a clivagem?', a:'Ficam cada vez menores: o número de células aumenta, mas o tamanho total não.'},
+  {fase:'1ª semana', when:'A partir de 8 células', titulo:'Compactação e mórula', pontos:[
+    'Com 8 células, os blastômeros se aproximam fortemente: é a <strong>compactação</strong>, feita por glicoproteínas de adesão e junções.',
+    'A <strong>mórula</strong> tem de <strong>12 a 32 blastômeros</strong>, ainda totipotentes.',
+    'Células internas formam o <strong>embrioblasto</strong>; a camada achatada em volta forma o <strong>trofoblasto</strong>.'],
+    q:'Quantos blastômeros tem a mórula?', a:'De 12 a 32 blastômeros.'},
+  {fase:'1ª semana', when:'≈ Dia 4', titulo:'Blastocisto', pontos:[
+    'A mórula <strong>entra no útero</strong>.',
+    'O fluido uterino forma a <strong>cavidade blastocística</strong> e separa as células em duas partes.',
+    '<strong>Trofoblasto</strong>: dará origem à placenta. <strong>Embrioblasto</strong>: o primórdio do embrião.',
+    'Esse período é a <strong>blastogênese</strong>.'],
+    q:'Qual parte do blastocisto dará origem à placenta, e qual ao embrião?', a:'Trofoblasto → placenta. Embrioblasto → embrião.'},
+  {fase:'1ª semana', when:'≈ Dia 6', titulo:'O blastocisto se fixa', pontos:[
+    'O blastocisto se prende ao <strong>epitélio endometrial</strong>.',
+    'O trofoblasto se divide em duas camadas: o <strong>citotrofoblasto</strong> (interno, de células individualizadas) e o <strong>sinciciotrofoblasto</strong> (externo).',
+    'O sinciciotrofoblasto é uma massa <strong>multinucleada</strong>, formada pela fusão de células, que adere ao endométrio e produz enzimas que permitem a implantação.'],
+    q:'Qual camada do trofoblasto é multinucleada e invade o endométrio?', a:'O sinciciotrofoblasto.'},
+  {fase:'1ª semana', when:'Fim da 1ª semana', titulo:'Implantação superficial', pontos:[
+    'O blastocisto está implantado <strong>superficialmente</strong> na camada compacta do endométrio.',
+    'Ele se nutre dos <strong>tecidos maternos erodidos</strong>.',
+    'O local mais comum é a parte superior do corpo do útero, um pouco mais na parede posterior.'],
+    q:'Como o blastocisto se nutre no fim da 1ª semana?', a:'Dos tecidos maternos erodidos do endométrio.'},
+  {fase:'2ª semana', when:'2ª semana', titulo:'Implantação completa e hCG', pontos:[
+    'A implantação se <strong>completa</strong> e o sinciciotrofoblasto invade o tecido conjuntivo do endométrio.',
+    'O sinciciotrofoblasto produz a <strong>gonadotrofina coriônica humana (hCG)</strong>.',
+    'Os <strong>testes de gravidez</strong> detectam a hCG no fim da 2ª semana.',
+    'Surgem <strong>lacunas</strong> no sinciciotrofoblasto, por onde passa a circular sangue materno.'],
+    q:'O que o teste de gravidez detecta, e quem produz essa substância?', a:'A hCG, produzida pelo sinciciotrofoblasto.'},
+  {fase:'2ª semana', when:'2ª semana', titulo:'Disco bilaminar e âmnio', pontos:[
+    'O embrioblasto forma o <strong>disco embrionário bilaminar</strong>: <strong>epiblasto</strong> e <strong>hipoblasto</strong>.',
+    'O disco dará origem a <strong>todos os tecidos e órgãos</strong> do embrião.',
+    'Entre o epiblasto e o citotrofoblasto surge a <strong>cavidade amniótica</strong>, com líquido vindo do endométrio.',
+    'Células do epiblasto (<strong>amnioblastos</strong>) formam a membrana do <strong>âmnio</strong>.'],
+    q:'Quais são as duas camadas do disco embrionário bilaminar?', a:'Epiblasto e hipoblasto.'},
+  {fase:'2ª semana', when:'2ª semana', titulo:'Saco vitelino primário', pontos:[
+    'Células do hipoblasto revestem a cavidade blastocística e formam a <strong>membrana exocelômica</strong> (de Heuser).',
+    'A cavidade passa a se chamar <strong>cavidade exocelômica</strong> ou <strong>saco vitelino primário</strong>.'],
+    q:'Que outro nome recebe a membrana exocelômica?', a:'Membrana de Heuser.'},
+  {fase:'2ª semana', when:'2ª semana', titulo:'Mesoderme e celoma extraembrionários', pontos:[
+    'Surge a <strong>mesoderme extraembrionária</strong>, um tecido conjuntivo frouxo que envolve o disco, o âmnio e o saco vitelino.',
+    'Lacunas dentro dela se juntam e formam o <strong>celoma extraembrionário</strong>.',
+    'A mesoderme se divide em <strong>somática</strong> (perto do citotrofoblasto) e <strong>esplâncnica</strong> (perto do saco vitelino).'],
+    q:'Qual lâmina da mesoderme extraembrionária fica junto ao saco vitelino?', a:'A mesoderme extraembrionária esplâncnica (a somática fica junto ao citotrofoblasto).'},
+  {fase:'2ª semana', when:'Fim da 2ª semana', titulo:'Saco vitelino secundário e pedículo', pontos:[
+    'O celoma "estrangula" o saco vitelino primário: forma-se o <strong>saco vitelino secundário</strong> (definitivo), e sobra um <strong>cisto exocelômico</strong>, que degenera.',
+    'Em mamíferos o saco vitelino <strong>não armazena vitelo</strong>; também é chamado de <strong>vesícula umbilical</strong>.',
+    'O <strong>pedículo de conexão</strong> é a única região onde o celoma não avança: será o <strong>cordão umbilical</strong>.'],
+    q:'O que o pedículo de conexão vai formar?', a:'O cordão umbilical.'},
+];
+
+const QUIZ = [
+  {p:'A primeira divisão do zigoto é uma…', o:['Mitose','Meiose I','Meiose II','Compactação'], c:0, w:'Depois da fusão dos pronúcleos, o zigoto se divide por mitose: duas células com 46 cromossomos cada.'},
+  {p:'A mórula chega ao útero por volta do…', o:['1º dia','4º dia','10º dia','14º dia'], c:1, w:'Por volta do 4º dia a mórula entra no útero e logo se transforma em blastocisto.'},
+  {p:'Qual estrutura produz a hCG?', o:['Citotrofoblasto','Embrioblasto','Sinciciotrofoblasto','Hipoblasto'], c:2, w:'O sinciciotrofoblasto produz a hCG, detectada nos testes de gravidez no fim da 2ª semana.'},
+  {p:'A zona pelúcida tem como função…', o:['Formar a placenta','Impedir a polispermia','Produzir hCG','Formar o âmnio'], c:1, w:'Após a reação cortical, a zona pelúcida impede a entrada de outros espermatozoides.'},
+  {p:'O disco embrionário bilaminar é formado por…', o:['Citotrofoblasto e sinciciotrofoblasto','Âmnio e cório','Epiblasto e hipoblasto','Trofoblasto e embrioblasto'], c:2, w:'Na 2ª semana o embrioblasto forma epiblasto e hipoblasto, o disco bilaminar.'},
+  {p:'A gravidez ectópica acontece mais na…', o:['Tuba uterina','Parede posterior do útero','Cavidade amniótica','Bexiga'], c:0, w:'Entre 95% e 98% das gestações ectópicas acontecem na tuba uterina, sobretudo na ampola e no istmo.'},
+];
+
+/* ---------- Linha do tempo ---------- */
+const KEY = 'av-resumo-embrio';
+let estado = {};
+try{ estado = JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){}
+function salvar(){ try{ localStorage.setItem(KEY, JSON.stringify(estado)); }catch(e){} }
+
+function render(){
+  let html = '', faseAtual = '';
+  ETAPAS.forEach((e, i)=>{
+    if(e.fase !== faseAtual){
+      if(faseAtual) html += '</div>';
+      faseAtual = e.fase;
+      html += `<div class="phase">${e.fase === '1ª semana' ? '1ª semana · da fertilização à implantação' : '2ª semana · o disco bilaminar'}</div><div class="timeline">`;
+    }
+    const st = estado[i];
+    html += `<article class="step${st ? ' done' : ''}" id="e${i}">
+      <span class="when">${e.when}</span>
+      <h2>${e.titulo}</h2>
+      <ul>${e.pontos.map(p=>`<li>${p}</li>`).join('')}</ul>
+      <div class="test">
+        <div class="test-q"><span>Teste-se</span>${e.q}</div>
+        <button class="reveal" data-i="${i}">${st ? 'Ver a resposta de novo' : 'Pensei. Ver a resposta'}</button>
+        <div class="answer${st ? ' show' : ''}">${e.a}</div>
+        <div class="self${st ? ' show' : ''}">Você acertou?
+          <button data-ok="${i}" class="${st==='ok' ? 'on-ok' : ''}">Acertei</button>
+          <button data-no="${i}" class="${st==='no' ? 'on-no' : ''}">Errei, vou revisar</button>
+        </div>
+      </div>
+    </article>`;
+  });
+  html += '</div>';
+  document.getElementById('timeline').innerHTML = html;
+  progresso();
+}
+function progresso(){
+  const feitas = Object.keys(estado).length, total = ETAPAS.length;
+  const ok = Object.values(estado).filter(v=>v==='ok').length;
+  document.getElementById('progTxt').textContent = `${feitas} de ${total} etapas${feitas ? ` · ${ok} acerto${ok===1?'':'s'}` : ''}`;
+  document.getElementById('progBar').style.width = (100*feitas/total) + '%';
+}
+document.getElementById('timeline').addEventListener('click', ev=>{
+  const r = ev.target.closest('.reveal');
+  if(r){
+    const art = r.closest('.step');
+    art.querySelector('.answer').classList.add('show');
+    art.querySelector('.self').classList.add('show');
+    return;
+  }
+  const ok = ev.target.closest('[data-ok]'), no = ev.target.closest('[data-no]');
+  if(ok || no){
+    const i = (ok || no).dataset.ok ?? (ok || no).dataset.no;
+    estado[i] = ok ? 'ok' : 'no';
+    salvar();
+    const art = document.getElementById('e' + i);
+    art.classList.add('done');
+    art.querySelector('[data-ok]').className = ok ? 'on-ok' : '';
+    art.querySelector('[data-no]').className = no ? 'on-no' : '';
+    progresso();
+  }
+});
+render();
+
+/* ---------- Quiz ---------- */
+let pontos = 0, respondidas = 0;
+function renderQuiz(){
+  pontos = 0; respondidas = 0;
+  document.getElementById('quiz').innerHTML = QUIZ.map((q, i)=>`<div class="quiz-q" data-q="${i}">
+    <p>${i+1}. ${q.p}</p>
+    ${q.o.map((o, j)=>`<button class="opt" data-j="${j}">${o}</button>`).join('')}
+    <div class="why">${q.w}</div>
+  </div>`).join('');
+  document.getElementById('score').className = 'score';
+  document.getElementById('again').hidden = true;
+}
+document.getElementById('quiz').addEventListener('click', ev=>{
+  const b = ev.target.closest('.opt'); if(!b || b.disabled) return;
+  const box = b.closest('.quiz-q'); const q = QUIZ[+box.dataset.q]; const j = +b.dataset.j;
+  box.querySelectorAll('.opt').forEach((x, k)=>{ x.disabled = true; if(k === q.c) x.classList.add('ok'); });
+  if(j === q.c) pontos++; else b.classList.add('no');
+  box.querySelector('.why').classList.add('show');
+  respondidas++;
+  if(respondidas === QUIZ.length){
+    const s = document.getElementById('score');
+    s.textContent = `Você acertou ${pontos} de ${QUIZ.length}. ${pontos === QUIZ.length ? 'Excelente!' : pontos >= 4 ? 'Muito bom: revise as que errou.' : 'Vale reler as etapas e tentar de novo.'}`;
+    s.className = 'score show';
+    document.getElementById('again').hidden = false;
+  }
+});
+document.getElementById('again').addEventListener('click', ()=>{ renderQuiz(); document.getElementById('quiz').scrollIntoView({behavior:'smooth'}); });
+renderQuiz();
+
+/* ---------- Tema (o mesmo do Arquivo Vivo) ---------- */
+document.getElementById('theme').addEventListener('click', ()=>{
+  const d = document.body.classList.toggle('dark');
+  try{ localStorage.setItem('av-theme', d ? 'dark' : 'light'); }catch(e){}
+});
+</script>
+</body>
+</html>
