@@ -2240,8 +2240,8 @@
      {materia: 'Neuroanatomia', tarefa: 'Prova', prazo: '2026-11-24', added: '2026-10-27'},
    • prazo: data de entrega/prova. Vencidos vão sozinhos pro "cemitério".
    • added: dia em que você cadastrou (mostra o selo "New!" por 4 dias).
-   • O Modo prova aparece 7 dias antes quando a tarefa tem "Prova",
-     "Simulado", "Avaliação", "Teste", "N1" ou "N2" no nome.
+   • O Modo prova aparece 7 dias antes quando a tarefa tem a palavra
+     "Prova" no nome (simulados e trabalhos não ativam).
    • Tarefa de várias matérias: use materia: 'Geral' e cite os nomes
      das disciplinas no texto da tarefa (o site reconhece).
    --------------------------------------------------------------------- */
@@ -4774,7 +4774,7 @@ function conteudoDisc(d){
 }
 
 // ---------- Modo prova ----------
-const RE_PROVA = /prova|simulado|avalia|\bn1\b|\bn2\b|\bav\d?\b|teste/i;
+const RE_PROVA = /\bprova\b/i; // só provas: simulados, trabalhos e outras entregas não ativam o Modo prova
 function provasProximas(dias){
   dias = dias == null ? 7 : dias;
   return TASKS.filter(t => t.prazo && RE_PROVA.test(t.tarefa))
