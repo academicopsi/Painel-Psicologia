@@ -1394,11 +1394,13 @@
   .cm-branca{fill:#EFE9DC; stroke:#B9AE98; stroke-width:2;}
   .cm-cinza{fill:#9FB0AC; stroke:#6E817C; stroke-width:1.5;}
   .cm-septo{fill:none; stroke:#B9AE98; stroke-width:1.2; stroke-dasharray:3 3;}
-  .cm-sulco{stroke:#8E8470; stroke-width:2;}
+  .cm-sulco{stroke:#8E8470; stroke-width:1.6;}
   .cm-fissura{fill:var(--bg); stroke:#B9AE98; stroke-width:1.5;}
   .cm-canal{fill:#fff; stroke:#6E817C; stroke-width:1.5;}
   .cm-root path{fill:none; stroke:#C9A15A; stroke-width:5; stroke-linecap:round;}
   .cm-ganglio{fill:#E3C68C; stroke:#B98F45; stroke-width:1.5;}
+  .cm-radicula path{fill:none; stroke:#C9A15A; stroke-width:2; stroke-linecap:round;}
+  .cm-comissura{fill:#9FB0AC;}
   .cm-leader{stroke:var(--ink-faint); stroke-width:1.5;}
   body.dark .cm-branca{fill:#D9D2C4;} body.dark .cm-fissura{fill:var(--bg);}
 
@@ -1423,37 +1425,50 @@
   .mn-slot.errado{box-shadow:inset 0 0 0 3px var(--danger);}
 
   /* painel do SNA */
-  .pa-wrap{display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:18px; align-items:start; margin-top:4px;}
-  .pa-svg{max-width:300px; background:var(--paper-alt); border-radius:14px; padding:6px;}
-  .pa-pele{fill:#F1C7B5; stroke:#B98E7E; stroke-width:1.5; transition:fill .3s ease;}
-  .pa-olho ellipse{fill:#fff; stroke:#7a6a62; stroke-width:1;}
-  .pa-pupila{fill:#1F2A28; transition:r .3s ease;}
-  .pa-suor path{fill:#7EC3E6;} .pa-saliva path{fill:#9FD3EC;}
-  #paSuor, #paSaliva{transition:opacity .3s ease;}
-  .pa-pulmao{fill:#F4B4B4; stroke:#C77B7B; stroke-width:1.2; opacity:.85;}
-  .pa-bronquio path{fill:none; stroke:#8F3B3B; stroke-linecap:round; transition:stroke-width .3s ease;}
-  .pa-bronquio{stroke-width:2;}
-  .pa-coracao path{fill:#C62E40; stroke:#8C1E2C; stroke-width:1;}
-  .pa-coracao{transform-box:fill-box; transform-origin:center; animation:pa-bate 0.9s ease-in-out infinite;}
-  @keyframes pa-bate{0%,100%{transform:scale(1);} 15%{transform:scale(1.18);} 30%{transform:scale(1);} 45%{transform:scale(1.1);}}
-  .pa-adrenal{fill:#C9A15A; stroke:#8a6a2c; stroke-width:1;}
-  .pa-estomago{fill:#E9B79A; stroke:#B07B5F; stroke-width:1.2;}
-  .pa-intestino{fill:none; stroke:#C48A6A; stroke-width:5; stroke-linecap:round; stroke-dasharray:10 6; animation:pa-peristalse 1.2s linear infinite;}
-  @keyframes pa-peristalse{to{stroke-dashoffset:-32;}}
-  .pa-vaso{stroke:#C62E40; stroke-linecap:round; transition:stroke-width .3s ease;}
-  .pa-slider{background:var(--paper-alt); border-radius:12px; padding:12px 14px;}
-  .pa-slider-labels{display:flex; justify-content:space-between; gap:10px; font-size:12.5px; color:var(--ink-soft); line-height:1.35;}
-  .pa-slider-labels b{color:var(--ink);}
-  #paRange, .eb-range{width:100%; margin:12px 0 6px; accent-color:var(--petrol); height:28px;}
-  .pa-estado{font-size:14px; font-weight:700; text-align:center; color:var(--ink-soft); padding:6px; border-radius:8px;}
-  .pa-estado.para{color:var(--petrol); background:var(--petrol-soft);}
-  .pa-estado.simp{color:var(--ochre); background:var(--ochre-soft);}
-  .pa-lista{list-style:none; padding:0; margin:12px 0 0; display:flex; flex-direction:column; gap:6px;}
-  .pa-lista li{display:flex; gap:9px; align-items:flex-start; font-size:14px; line-height:1.4; background:var(--paper); border:1px solid var(--rule); border-radius:9px; padding:8px 10px;}
-  .pa-ic{flex:none;}
+  .eb-range{width:100%; margin:12px 0 6px; accent-color:var(--petrol); height:28px;}
   .pa-desafio{margin-top:16px; background:var(--paper-alt); border-radius:12px; padding:14px;}
   .pa-desafio .plabel{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
   .pa-desafio .pfrase{font-size:15.5px; line-height:1.5;}
+
+  /* esquema do SNA (fiel ao slide) */
+  .sn-modos{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;}
+  .sn-svg{max-width:560px; background:#fff; border-radius:12px;}
+  .sn-encefalo{fill:#EAD2B2; stroke:#B88E5E; stroke-width:1.5;}
+  .sn-cerebelo{fill:#E2C39C; stroke:#B88E5E; stroke-width:1;}
+  .sn-medula{fill:#E9C99B; stroke:#B88E5E; stroke-width:1.2;}
+  .sn-cadeia{stroke:#C9B04A; stroke-width:3;}
+  .sn-ganglio{fill:#E8D57A; stroke:#A8902E; stroke-width:1;}
+  .sn-seg{font-size:9.5px; font-weight:600; fill:#6B7A77;}
+  .sn-seg.simp{fill:#2E8B3E;}
+  .sn-lado{font-size:14px; font-weight:800;}
+  .sn-lado.para, .sn-i.para{fill:#C62E40; color:#C62E40;}
+  .sn-lado.simp, .sn-i.simp{fill:#2E8B3E; color:#2E8B3E;}
+  .sn-i{font-weight:700;}
+  .sn-fibra{fill:none; stroke-width:2; opacity:.9;}
+  .sn-fibra.para{stroke:#D7263D;}
+  .sn-fibra.simp{stroke:#2FA84F;}
+  .sn-txt{font-size:11.5px; font-weight:600; fill:#22302E;}
+  .sn-olho{fill:#fff; stroke:#7A6A62; stroke-width:1.2;}
+  .sn-iris{fill:#5B8DB8;} .sn-pupila{fill:#111;}
+  .sn-gland circle{fill:#E9C07F; stroke:#B88A3E; stroke-width:1;}
+  .sn-pulmao{fill:#E9A0A6; stroke:#B5616B; stroke-width:1.2;}
+  .sn-bronq{fill:none; stroke:#8C3B45; stroke-linecap:round;}
+  .sn-cor{fill:#C62E40; stroke:#8C1E2C; stroke-width:1.2;}
+  .sn-figado{fill:#A8553A; stroke:#7A3A26; stroke-width:1.2;}
+  .sn-estomago{fill:#EBB0A3; stroke:#B9786A; stroke-width:1.2;}
+  .sn-rim{fill:#B5545C; stroke:#7E333A; stroke-width:1.2;} .sn-supra{fill:#F0C24E; stroke:#B08A22; stroke-width:1;}
+  .sn-intest{fill:#EBB79C; stroke:#B07B5F; stroke-width:1.4;}
+  .sn-bexiga{fill:#F0C9A5; stroke:#B98A62; stroke-width:1.2;}
+  .sn-org{cursor:pointer;} .sn-efeito{cursor:pointer;}
+  .sn-org:focus{outline:none;} .sn-org:focus-visible{outline:2px solid var(--petrol);}
+  .sn-org.sn-on{filter:drop-shadow(0 0 5px #F08A24);}
+  .sn-fibra.sn-on{stroke-width:4; opacity:1;}
+  .sn-esconde, .sn-q{display:none;}
+  .sn-esconde{fill:#EEF2F1; stroke:#C9D3D1;} .sn-q{font-size:16px; font-weight:800; fill:#6B7A77;}
+  .modo-estudo .sn-efeito:not(.revelado) .sn-txt{display:none;}
+  .modo-estudo .sn-efeito:not(.revelado) .sn-esconde, .modo-estudo .sn-efeito:not(.revelado) .sn-q{display:inline;}
+  .modo-para .simp:not(.sn-lado), .modo-simp .para:not(.sn-lado){opacity:.12;}
+  .modo-para .sn-ganglio, .modo-para .sn-cadeia{opacity:.25;}
 
   /* embrião */
   .eb-top{display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:6px;}
@@ -1473,19 +1488,25 @@
   .eb-cavidade{fill:#DDEFF7; stroke:none;}
   .eb-trofo{fill:none; stroke:#D8A25E; stroke-width:8;}
   .eb-embrio{fill:#C77D8E; stroke:#8E4B5B; stroke-width:1.2;}
-  .eb-endo{fill:#F4D3D6; stroke:#D9A0A6; stroke-width:1.2;}
-  .eb-sincicio{fill:#E3A564; stroke:#B07432; stroke-width:1.2; opacity:.92;}
-  .eb-lacuna{fill:#C62E40; opacity:.75;}
-  .eb-heuser{fill:none; stroke:#7FA6C9; stroke-width:3;}
-  .eb-meso{fill:#E9E0C8; stroke:none;}
-  .eb-celoma{fill:#D3ECF5; stroke:#9CC6D8; stroke-width:1;}
-  .eb-amnio-cav{fill:#BFE0F2; stroke:none;}
-  .eb-amnio{fill:none; stroke:#3B6EA5; stroke-width:3;}
-  .eb-svs{fill:#F7E39A; stroke:#C9A93A; stroke-width:2;}
-  .eb-cisto{fill:#F7E39A; stroke:#C9A93A; stroke-width:1.5; opacity:.7;}
-  .eb-epi{fill:#3B6EA5;}
-  .eb-hipo{fill:#E2B43A;}
-  .eb-pediculo{fill:#B9A27A; stroke:#8a744d; stroke-width:1;}
+  .eb-endo{fill:#F3E6D3; stroke:#D8C3A5; stroke-width:1.2;}
+  .eb-glandula circle{fill:none; stroke:#A0522D; stroke-width:3;} .eb-glandula circle+circle{stroke-width:1.5; fill:#F8EFE2;}
+  .eb-vaso{fill:#E36464;}
+  .eb-sincicio{fill:#3FBF4D; stroke:#24873A; stroke-width:1.5;}
+  .eb-sinc-nuc{fill:#1F6B32;}
+  .eb-lacuna{fill:#F6EEC4; stroke:#C9BB7A; stroke-width:1;}
+  .eb-lacuna.sangue{fill:#E05A5A; stroke:#A8323A;}
+  .eb-citoring{fill:none; stroke:#2C8A3E; stroke-width:7;}
+  .eb-cito-cel circle{fill:#14502A;}
+  .eb-cav{fill:#FFFFFF; stroke:none;}
+  .eb-heuser{fill:none; stroke:#7A7F86; stroke-width:2.5; stroke-dasharray:5 3;}
+  .eb-meso{fill:#F4C6CB; stroke:#D98F98; stroke-width:1.2; stroke-dasharray:2 3;}
+  .eb-pedic{fill:#E9A3AC;}
+  .eb-amnio{fill:none; stroke:#5F6B69; stroke-width:2.5;}
+  .eb-svs{fill:#FFFFFF; stroke:#8A9095; stroke-width:2.5;}
+  .eb-cisto{fill:#FFFFFF; stroke:#8A9095; stroke-width:2; stroke-dasharray:4 3;}
+  .eb-epi{fill:#9AA1A6; stroke:#4F575C; stroke-width:1.2;}
+  .eb-epi-cel{stroke:#4F575C; stroke-width:1; fill:none;}
+  .eb-hipo{fill:#D7DEE3; stroke:#6E777D; stroke-width:1.2;}
   .eb-rot path{stroke:#5B6A67; stroke-width:1; fill:none;}
   .eb-rot text{font-size:11px; font-weight:700; fill:#33403E; paint-order:stroke; stroke:#ffffffcc; stroke-width:3px;}
   .eb-hcg{font-size:10.5px; font-weight:700; fill:#B07432;}
@@ -1506,7 +1527,7 @@
 
   @media (max-width:600px){
     .mn-wrap, .pa-wrap{grid-template-columns:1fr;}
-    .pa-svg{max-width:240px;}
+
     .viz-chip{font-size:13.5px; padding:8px 11px;}
     .eb-rot text{font-size:15px;}
     .viz-axis{font-size:13px;}
@@ -2003,7 +2024,7 @@
           </div>
           <div class="pfeedback" id="ebFeedbackBox"></div>
         </div>
-        <div class="tool-disclaimer">Desenhos esquemáticos, fora de escala. Os dias são aproximados e seguem os slides de Bases Biológicas (fertilização à 2ª semana).</div>
+        <div class="tool-disclaimer">Desenhos fora de escala. Da implantação em diante, seguem as cores e a posição das figuras do slide de Bases Biológicas: sinciciotrofoblasto verde, lacunas com sangue materno, disco vertical à direita. Os dias são aproximados.</div>
       </div>
     </details>
   </section>
@@ -2177,30 +2198,30 @@
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Corte transversal da medula espinhal. Toque num número, escolha o nome da estrutura e clique em "Corrigir". As estruturas que você acertar ficam verdes e mostram a função.</div>
         <div class="prompt-box viz-box">
-          <svg class="viz-svg" id="cmSvg" viewBox="0 0 420 334" role="img" aria-label="Corte transversal da medula espinhal">
-            <text x="210" y="24" text-anchor="middle" class="viz-axis">POSTERIOR (DORSAL)</text>
-            <text x="210" y="328" text-anchor="middle" class="viz-axis">ANTERIOR (VENTRAL)</text>
-            <!-- raízes e nervos (esquerda e direita) -->
+          <svg class="viz-svg" id="cmSvg" viewBox="0 0 460 340" role="img" aria-label="Corte transversal da medula espinhal">
+            <text x="452" y="20" text-anchor="end" class="viz-axis">POSTERIOR (DORSAL)</text>
+            <text x="452" y="334" text-anchor="end" class="viz-axis">ANTERIOR (VENTRAL)</text>
+            <!-- radículas, raízes, gânglio sensitivo e nervo espinhal (lado esquerdo, como no slide) -->
+            
             <g class="cm-root">
-              <path d="M162,86 C135,70 105,66 78,74 C60,80 48,104 40,140"/>
-              <path d="M148,236 C122,252 92,256 66,244 C52,236 44,206 40,182"/>
-              <path d="M40,140 L40,182 M40,161 L8,161"/>
-              <path d="M258,86 C285,70 315,66 342,74 C360,80 372,104 380,140"/>
-              <path d="M272,236 C298,252 328,256 354,244 C368,236 376,206 380,182"/>
-              <path d="M380,140 L380,182 M380,161 L412,161"/>
+              <path d="M104,66 C70,72 52,110 46,160"/>
+              <path d="M100,282 C70,276 52,240 46,200"/>
+              <path d="M46,156 L46,204 M46,180 L8,180"/>
             </g>
-            <ellipse class="cm-ganglio" cx="88" cy="72" rx="20" ry="13"/>
-            <ellipse class="cm-ganglio" cx="332" cy="72" rx="20" ry="13"/>
-            <!-- substância branca -->
-            <ellipse class="cm-branca" cx="210" cy="165" rx="140" ry="105"/>
-            <!-- septos do funículo posterior (grácil × cuneiforme) -->
-            <path class="cm-septo" d="M193,64 C195,80 197,98 199,118 M227,64 C225,80 223,98 221,118"/>
-            <!-- substância cinzenta em H -->
-            <path class="cm-cinza" d="M210,150 C200,148 190,140 185,125 L172,88 Q166,78 160,86 L168,112 C172,135 168,150 158,160 C140,172 128,195 138,218 C146,236 172,240 188,222 C198,205 203,188 210,182 C217,188 222,205 232,222 C248,240 274,236 282,218 C292,195 280,172 262,160 C252,150 248,135 252,112 L260,86 Q254,78 248,88 L235,125 C230,140 220,148 210,150 Z"/>
-            <!-- sulco mediano posterior e fissura mediana anterior -->
-            <path class="cm-sulco" d="M210,60 L210,112"/>
-            <path class="cm-fissura" d="M200,270 L208,228 Q210,224 212,228 L220,270 Z"/>
-            <circle class="cm-canal" cx="210" cy="166" r="4"/>
+            <ellipse class="cm-ganglio" cx="84" cy="80" rx="22" ry="13" transform="rotate(-38 84 80)"/>
+            <!-- substância branca (funículos) -->
+            <ellipse class="cm-branca" cx="230" cy="175" rx="150" ry="120"/>
+            <g class="cm-radicula"><path d="M174,63 C160,41 120,60 104,66"/><path d="M166,66 C152,44 120,60 104,66"/><path d="M158,70 C144,48 120,60 104,66"/><path d="M166,278 C156,292 120,288 100,282"/><path d="M156,274 C146,288 120,288 100,282"/><path d="M146,269 C136,283 120,288 100,282"/></g>
+            <!-- sulco mediano posterior + septo e sulcos intermédios posteriores -->
+            <path class="cm-sulco" d="M230,55 L230,156"/>
+            <path class="cm-septo" d="M214,58 C215,76 216,92 216,108 M246,58 C245,76 244,92 244,108"/>
+            <!-- substância cinzenta em H (cornos posterior, lateral e anterior) -->
+            <path class="cm-cinza" d="M230,160 C224,158 220,152 216,144 C210,128 204,108 198,90 C194,78 188,68 182,64 C176,62 172,66 174,74 C180,96 184,116 184,132 C184,142 178,148 168,152 C158,155 150,158 150,164 C150,170 158,174 164,178 C158,190 146,206 146,226 C146,246 168,256 188,248 C202,242 210,224 214,206 C218,196 224,192 230,192 Z"/>
+            <path class="cm-cinza" transform="translate(460,0) scale(-1,1)" d="M230,160 C224,158 220,152 216,144 C210,128 204,108 198,90 C194,78 188,68 182,64 C176,62 172,66 174,74 C180,96 184,116 184,132 C184,142 178,148 168,152 C158,155 150,158 150,164 C150,170 158,174 164,178 C158,190 146,206 146,226 C146,246 168,256 188,248 C202,242 210,224 214,206 C218,196 224,192 230,192 Z"/>
+            <rect class="cm-comissura" x="225" y="160" width="10" height="34"/>
+            <!-- fissura mediana anterior -->
+            <path class="cm-fissura" d="M221,296 L228,262 Q230,258 232,262 L239,296 Z"/>
+            <circle class="cm-canal" cx="230" cy="175" r="4"/>
             <g id="cmMarkers"></g>
           </svg>
           <div class="viz-legend"><span><i class="lg lg-pend"></i>não respondido</span><span><i class="lg lg-sel"></i>selecionado</span><span><i class="lg lg-ok"></i>acertado</span></div>
@@ -2212,7 +2233,7 @@
           <div class="pfeedback" id="cmFeedbackBox"></div>
         </div>
         <div class="viz-status"><span id="cmStatus"></span><button class="shuffle-btn" id="cmResetBtn">↺ Recomeçar</button></div>
-        <div class="tool-disclaimer">Desenho esquemático e simplificado, com base na aula "Medula espinhal e envoltórios". Os fascículos grácil e cuneiforme existem dos dois lados; aqui cada um está marcado de um lado só, para não poluir o desenho.</div>
+        <div class="tool-disclaimer">Desenho baseado nos cortes da aula "Medula espinhal e envoltórios" (sulcos, cornos e funículos). O corno lateral só existe de T1 a L2. Raízes e fascículos existem dos dois lados; aqui as raízes estão só à esquerda e os fascículos só à direita, para não poluir o desenho.</div>
       </div>
     </details>
     <details class="graveyard">
@@ -2237,55 +2258,30 @@
       </div>
     </details>
     <details class="graveyard">
-      <summary>Painel do SNA: Repouso × Luta ou Fuga</summary>
+      <summary>Painel do SNA: Parassimpático × Simpático</summary>
       <div class="tool-card" style="margin-top:12px;">
-        <div class="sub">Arraste o controle e veja o corpo mudar: de um lado, repouso e digestão (parassimpático); do outro, luta ou fuga (simpático). Depois faça o desafio.</div>
-        <div class="pa-wrap">
-          <svg class="viz-svg pa-svg" id="paSvg" viewBox="0 0 300 430" role="img" aria-label="Corpo humano com órgãos controlados pelo sistema nervoso autônomo">
-            <!-- corpo -->
-            <path class="pa-pele" id="paPele" d="M150,18 C176,18 192,38 192,62 C192,86 176,104 150,104 C124,104 108,86 108,62 C108,38 124,18 150,18 Z M134,104 L166,104 L168,118 C200,120 222,132 226,160 L240,250 C242,262 230,266 226,254 L212,180 L210,300 L204,410 C203,422 188,422 186,410 L176,310 L150,310 L124,310 L114,410 C112,422 97,422 96,410 L90,300 L88,180 L74,254 C70,266 58,262 60,250 L74,160 C78,132 100,120 132,118 Z"/>
-            <!-- olhos -->
-            <g class="pa-olho"><ellipse cx="134" cy="58" rx="10" ry="6"/><ellipse cx="166" cy="58" rx="10" ry="6"/></g>
-            <circle class="pa-pupila" id="paPupilaE" cx="134" cy="58" r="2.5"/>
-            <circle class="pa-pupila" id="paPupilaD" cx="166" cy="58" r="2.5"/>
-            <!-- suor e saliva -->
-            <g id="paSuor" class="pa-suor"><path d="M118,40 q3,6 0,9 q-3,-3 0,-9 Z"/><path d="M182,36 q3,6 0,9 q-3,-3 0,-9 Z"/><path d="M190,50 q3,6 0,9 q-3,-3 0,-9 Z"/></g>
-            <g id="paSaliva" class="pa-saliva"><path d="M146,88 q4,6 0,10 q-4,-4 0,-10 Z"/><path d="M155,90 q3,5 0,8 q-3,-3 0,-8 Z"/></g>
-            <!-- pulmões e brônquios -->
-            <path class="pa-pulmao" d="M118,140 C100,150 98,200 104,222 C112,230 132,226 140,214 L142,150 C136,140 126,136 118,140 Z"/>
-            <path class="pa-pulmao" d="M182,140 C200,150 202,200 196,222 C188,230 168,226 160,214 L158,150 C164,140 174,136 182,140 Z"/>
-            <g id="paBronquios" class="pa-bronquio"><path d="M150,118 L150,150 M150,150 L132,166 L124,186 M132,166 L136,196 M150,150 L168,166 L176,186 M168,166 L164,196"/></g>
-            <!-- coração -->
-            <g id="paCoracao" class="pa-coracao"><path d="M156,176 C156,166 168,162 172,170 C176,162 188,166 188,176 C188,188 172,198 172,204 C172,198 156,188 156,176 Z"/></g>
-            <!-- suprarrenais, estômago e intestino -->
-            <path class="pa-adrenal" id="paAdrenalE" d="M118,236 l10,-12 l10,12 Z"/>
-            <path class="pa-adrenal" id="paAdrenalD" d="M162,236 l10,-12 l10,12 Z"/>
-            <path class="pa-estomago" d="M150,232 C172,226 188,236 184,250 C180,262 160,262 150,256 Z"/>
-            <path class="pa-intestino" id="paIntestino" d="M112,272 C122,262 132,282 142,272 C152,262 162,282 172,272 C182,262 192,282 192,272 M112,290 C122,280 132,300 142,290 C152,280 162,300 172,290 C182,280 192,300 192,290"/>
-            <!-- vasos dos músculos (pernas) -->
-            <path class="pa-vaso" id="paVasoE" d="M106,320 L104,400"/>
-            <path class="pa-vaso" id="paVasoD" d="M194,320 L196,400"/>
-            <text x="150" y="426" text-anchor="middle" class="viz-axis" id="paBpm">♥ 70 bpm</text>
-          </svg>
-          <div>
-            <div class="pa-slider">
-              <div class="pa-slider-labels"><span>Repouso e digestão<br><b>parassimpático</b></span><span style="text-align:right">Luta ou fuga<br><b>simpático</b></span></div>
-              <input type="range" id="paRange" min="0" max="100" value="50" aria-label="Do repouso (parassimpático) à luta ou fuga (simpático)">
-              <div class="pa-estado" id="paEstado"></div>
-            </div>
-            <ul class="pa-lista" id="paLista"></ul>
-          </div>
+        <div class="sub">O mesmo esquema do slide do professor: parassimpático à esquerda (vermelho) e simpático à direita (verde). Toque num órgão para ver os dois efeitos. Use "Modo estudo" para esconder os efeitos e testar a memória. No fim, faça o desafio.</div>
+        <div class="sn-modos" role="group" aria-label="O que mostrar">
+          <button class="viz-chip on" data-sn-modo="ambos">Os dois</button>
+          <button class="viz-chip" data-sn-modo="para">Só parassimpático</button>
+          <button class="viz-chip" data-sn-modo="simp">Só simpático</button>
+          <button class="viz-chip" data-sn-modo="estudo">Modo estudo (esconder efeitos)</button>
         </div>
+        <div class="prompt-box viz-box">
+          <svg class="viz-svg sn-svg modo-ambos" id="snaSvg" viewBox="0 0 470 640" role="img" aria-label="Esquema do sistema nervoso autônomo: parassimpático à esquerda, simpático à direita"></svg>
+        </div>
+        <div class="viz-info" id="snaInfo">Toque num órgão do esquema.</div>
         <div class="pa-desafio">
-          <div class="plabel">Desafio</div>
-          <div class="pfrase" id="paDesafioTexto"></div>
+          <div class="plabel">Desafio: esse efeito é do parassimpático ou do simpático?</div>
+          <div class="pfrase" id="paSituacaoTexto"></div>
+          <div id="paOpcoes" style="margin-top:12px; display:flex; flex-direction:column; gap:4px;"></div>
           <div class="viz-row">
-            <button class="correct-btn" id="paCorrigirBtn" style="margin-top:0;">Conferir</button>
-            <button class="shuffle-btn" id="paShuffleBtn" style="margin-top:0;">🔀 Outro desafio</button>
+            <button class="correct-btn" id="paCorrigirBtn" style="margin-top:0;">Corrigir</button>
+            <button class="shuffle-btn" id="paShuffleBtn" style="margin-top:0;">🔀 Outro</button>
           </div>
           <div class="pfeedback" id="paFeedbackBox"></div>
         </div>
-        <div class="tool-disclaimer">Simulação didática: os valores de batimento são ilustrativos e o desenho é esquemático. Na vida real, os dois ramos atuam juntos e com intensidades diferentes em cada órgão.</div>
+        <div class="tool-disclaimer">Esquema redesenhado a partir do slide "Representação esquemática do sistema nervoso autônomo" (aula de SNA). Desenho simplificado, fora de escala.</div>
       </div>
     </details>
   </section>
@@ -2809,11 +2805,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-10-30', disc: 'Neuroanatomia', desc: 'Desenhos refeitos para seguir os slides do professor: Corte da Medula (com corno lateral, sulcos, radículas e nervo espinhal), Painel do SNA no esquema parassimpático × simpático do slide e linha do tempo do embrião com as cores das figuras da aula.', link: {page:'viewFerramentas'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Cinco ferramentas interativas novas em Na prática: Corte da Medula, Camadas das Meninges, Painel do SNA, linha do tempo do embrião (do zigoto ao disco bilaminar) e Monte a ZDP.', link: {page:'viewFerramentas'}},
   {date: '2026-10-30', disc: 'Neuroanatomia', desc: 'Medula espinhal e sistema nervoso autônomo: resumo interativo, exercícios novos em Na prática e 21 termos no glossário.', link: {disc:'02'}},
   {date: '2026-10-30', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 4 a 6 (Vygotsky, Paulo Freire e dislexia): resumo interativo, quatro exercícios novos em Na prática e 24 termos no glossário.', link: {disc:'03'}},
   {date: '2026-10-30', disc: 'Bases Biológicas', desc: 'Embriologia: linha do tempo interativa da fertilização à 2ª semana, dois exercícios novos em Na prática e 22 termos no glossário.', link: {disc:'01'}},
-  {date: '2026-10-30', disc: 'Geral', desc: 'Páginas por disciplina, busca no site, modo prova, progresso salvo no aparelho e prazos direto na agenda do celular.', link: {scroll:'disciplinas'}}
 ];
 
 
@@ -5109,25 +5105,28 @@ function vizAviso(box, msg){ box.className = 'pfeedback show bad aviso'; box.inn
 
 // --- Corte da Medula (Neuroanatomia) ---
 const CM_REGIOES = [
-  {n:1, nome:'Corno posterior (dorsal)', x:170, y:102, info:'Braço posterior do H. Recebe as fibras sensitivas que chegam pela raiz dorsal.'},
-  {n:2, nome:'Corno anterior (ventral)', x:158, y:212, info:'Braço anterior do H, mais largo. Abriga os neurônios motores, cujas fibras saem pela raiz ventral.'},
-  {n:3, nome:'Canal central', x:210, y:166, info:'Canal do epêndima: resquício da luz do tubo neural do embrião.'},
-  {n:4, nome:'Funículo anterior', x:244, y:252, info:'Substância branca entre a fissura mediana anterior e o corno anterior. Por ela passa, por exemplo, o tracto córtico-espinhal anterior.'},
-  {n:5, nome:'Funículo lateral', x:318, y:165, info:'Substância branca da lateral da medula. Por ela desce o tracto córtico-espinhal lateral, depois da decussação das pirâmides.'},
-  {n:6, nome:'Fascículo grácil', x:202, y:90, info:'Parte medial do funículo posterior. Leva tato fino e propriocepção da metade inferior do corpo até o encéfalo.'},
-  {n:7, nome:'Fascículo cuneiforme', x:238, y:82, info:'Parte lateral do funículo posterior (aparece da região torácica alta para cima). Leva tato fino e propriocepção da metade superior do corpo.'},
-  {n:8, nome:'Raiz dorsal e gânglio', x:88, y:72, info:'Raiz sensitiva do nervo espinhal. O gânglio da raiz dorsal guarda os corpos dos neurônios sensitivos.'},
-  {n:9, nome:'Raiz ventral', x:94, y:252, info:'Raiz motora: leva as fibras dos neurônios do corno anterior até o nervo espinhal.'},
-  {n:10, nome:'Fissura mediana anterior', x:210, y:292, info:'Sulco profundo na face anterior da medula, que separa os dois funículos anteriores.'},
+  {n:1, nome:'Corno posterior (dorsal)', x:192, y:108, info:'Braço posterior do H, fino e longo, quase chegando ao sulco lateral posterior. Recebe as fibras sensitivas que entram pela raiz dorsal.'},
+  {n:2, nome:'Corno lateral', x:156, y:164, info:'Pequena ponta lateral do H, presente só de T1 a L2. É a coluna lateral: abriga os neurônios pré-ganglionares do simpático (neurônios radiculares viscerais).'},
+  {n:3, nome:'Corno anterior (ventral)', x:172, y:224, info:'Braço anterior do H, mais largo. Abriga os neurônios motores (alfa e gama), cujas fibras saem pela raiz ventral.'},
+  {n:4, nome:'Canal central (ependimário)', x:230, y:175, info:'Canal do epêndima, no meio da comissura cinzenta: resquício da luz do tubo neural do embrião.'},
+  {n:5, nome:'Fascículo grácil', x:238, y:90, info:'Parte medial do funículo posterior, entre o sulco mediano e o sulco intermédio posterior. Leva tato fino e propriocepção da metade inferior do corpo.'},
+  {n:6, nome:'Fascículo cuneiforme', x:258, y:76, info:'Parte lateral do funículo posterior, entre o sulco intermédio e o corno posterior (aparece da região torácica alta para cima). Leva tato fino e propriocepção da metade superior do corpo.'},
+  {n:7, nome:'Funículo lateral', x:336, y:172, info:'Substância branca da lateral da medula, entre os sulcos lateral posterior e lateral anterior. Por ela desce o tracto córtico-espinhal lateral, depois da decussação das pirâmides.'},
+  {n:8, nome:'Funículo anterior', x:252, y:274, info:'Substância branca entre a fissura mediana anterior e o sulco lateral anterior. Por ela passa, por exemplo, o tracto córtico-espinhal anterior.'},
+  {n:9, nome:'Fissura mediana anterior', x:230, y:320, lead:'M230,309 L230,294', info:'Fenda profunda no meio da face anterior da medula, que separa os dois funículos anteriores.'},
+  {n:10, nome:'Sulco mediano posterior', x:230, y:32, lead:'M230,43 L230,56', info:'Sulco raso no meio da face posterior. Dele parte o septo mediano posterior, que separa os dois funículos posteriores.'},
+  {n:11, nome:'Raiz dorsal e gânglio sensitivo', x:84, y:80, info:'Raiz sensitiva: as radículas entram pelo sulco lateral posterior. O gânglio sensitivo (da raiz dorsal) guarda os corpos dos neurônios sensitivos.'},
+  {n:12, nome:'Raiz ventral', x:84, y:268, info:'Raiz motora: as radículas saem pelo sulco lateral anterior e levam as fibras dos neurônios do corno anterior (e, de T1 a L2, do corno lateral).'},
+  {n:13, nome:'Nervo espinhal (misto)', x:22, y:162, info:'União da raiz dorsal (sensitiva) com a ventral (motora): por isso é um nervo misto. São 31 pares de nervos espinhais.'},
 ];
 (function(){
   const svg = document.getElementById('cmSvg'); if(!svg) return;
-  let acertos = vizLer('cm', []), sel = null, escolha = null, erros = {};
+  let acertos = vizLer('cm2', []), sel = null, escolha = null, erros = {};
   const ordemNomes = embaralhar(CM_REGIOES.map(r=>r.nome));
   function desenhar(){
     document.getElementById('cmMarkers').innerHTML = CM_REGIOES.map(r=>{
       const st = acertos.includes(r.n) ? 'ok' : (sel === r.n ? 'sel' : 'pend');
-      const linha = r.n === 10 ? '<path class="cm-leader" d="M210,281 L210,268"/>' : '';
+      const linha = r.lead ? `<path class="cm-leader" d="${r.lead}"/>` : '';
       return `${linha}<g class="viz-mk ${st}" data-n="${r.n}" tabindex="0" role="button" aria-label="Estrutura ${r.n}"><circle cx="${r.x}" cy="${r.y}" r="11"/><text x="${r.x}" y="${r.y+4}" text-anchor="middle">${r.n}</text></g>`;
     }).join('');
     document.getElementById('cmStatus').textContent = `${acertos.length} de ${CM_REGIOES.length} identificadas${acertos.length === CM_REGIOES.length ? ' · completo! 🎉' : ''}`;
@@ -5156,7 +5155,7 @@ const CM_REGIOES = [
     const r = CM_REGIOES.find(x=>x.n===sel);
     if(escolha === r.nome){
       if(!acertos.includes(r.n)) acertos.push(r.n);
-      vizSalvar('cm', acertos);
+      vizSalvar('cm2', acertos);
       box.className = 'pfeedback show good';
       box.innerHTML = `<strong>Correto! ${r.nome}.</strong><p>${r.info}</p>`;
       desenhar();
@@ -5169,7 +5168,7 @@ const CM_REGIOES = [
     }
   });
   document.getElementById('cmResetBtn').addEventListener('click', ()=>{
-    acertos = []; erros = {}; sel = null; vizSalvar('cm', acertos);
+    acertos = []; erros = {}; sel = null; vizSalvar('cm2', acertos);
     document.getElementById('cmPanel').hidden = true; desenhar();
   });
   desenhar();
@@ -5235,76 +5234,96 @@ const MN_CAMADAS = [
   render();
 })();
 
-// --- Painel do SNA: Repouso × Luta ou Fuga (Neuroanatomia) ---
-const PA_DESAFIOS = [
-  {txt:'Depois de um almoço tranquilo, o corpo precisa digerir a comida.', alvo:'para', why:'Digestão, salivação e coração mais lento: predomínio parassimpático (repouso e digestão).'},
-  {txt:'Um cachorro bravo aparece correndo na sua direção.', alvo:'simp', why:'Ameaça súbita: luta ou fuga. Pupilas dilatam, o coração acelera e a suprarrenal libera adrenalina.'},
-  {txt:'Cochilando no sofá, numa tarde de domingo.', alvo:'para', why:'Repouso profundo: coração e respiração mais lentos, predomínio parassimpático.'},
-  {txt:'Faltam cinco minutos para começar a sua apresentação de seminário.', alvo:'simp', why:'Ansiedade antecipatória ativa o simpático: boca seca, mãos suando, coração acelerado.'},
-  {txt:'Correndo para pegar o ônibus que está saindo do ponto.', alvo:'simp', why:'Esforço intenso e urgência: brônquios dilatados, coração acelerado e mais sangue para os músculos.'},
-  {txt:'Meditando, com a respiração lenta e profunda.', alvo:'para', why:'Relaxamento profundo favorece a atividade parassimpática.'},
+// --- Esquema do SNA: Parassimpático × Simpático (Neuroanatomia) ---
+// Efeitos com o mesmo texto do slide do professor.
+const SNA_ORGAOS = [
+  {id:'olho', nome:'Olho', y:118, para:'Contrai a pupila.', simp:'Dilata a pupila.'},
+  {id:'gland', nome:'Glândulas salivares e lacrimais', y:184, para:'Estimula o fluxo salivar e lacrimal.', simp:'Inibe o fluxo salivar.'},
+  {id:'pulm', nome:'Pulmões (brônquios)', y:248, para:'Contrai os brônquios.', simp:'Dilata os brônquios.'},
+  {id:'cor', nome:'Coração', y:306, para:'Retarda os batimentos cardíacos.', simp:'Acelera os batimentos cardíacos.'},
+  {id:'fig', nome:'Fígado', y:364, para:'Estimula a liberação de bile.', simp:'Estimula a conversão do glicogênio em glicose.'},
+  {id:'est', nome:'Estômago', y:420, para:'Estimula o peristaltismo e a secreção.', simp:'Inibe o peristaltismo e a secreção.'},
+  {id:'supra', nome:'Suprarrenal', y:472, para:null, simp:'Estimula a secreção de adrenalina e noradrenalina.'},
+  {id:'int', nome:'Intestino', y:524, para:'Estimula o peristaltismo.', simp:'Inibe o peristaltismo.'},
+  {id:'bex', nome:'Bexiga', y:590, para:'Contrai a bexiga.', simp:'Inibe a contração da bexiga.'},
 ];
 (function(){
-  const range = document.getElementById('paRange'); if(!range) return;
-  const mix = (a, b, t)=> a + (b - a) * t;
-  const cor = (c1, c2, t)=>{ const h = s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)); const a=h(c1), b=h(c2); return '#' + a.map((v,i)=>Math.round(mix(v,b[i],t)).toString(16).padStart(2,'0')).join(''); };
-  function itens(t){
-    const s = t >= 0.65, p = t <= 0.35;
-    const est = (para, simp, meio)=> p ? para : s ? simp : meio;
-    const bpm = Math.round(mix(58, 130, t));
-    return [
-      ['👁️','Pupilas', est('contraídas (miose)', 'dilatadas (midríase)', 'tamanho intermediário')],
-      ['❤️','Coração', `${est('mais lento', 'acelerado e com mais força', 'ritmo intermediário')} · ≈ ${bpm} bpm`],
-      ['🫁','Brônquios', est('mais contraídos', 'dilatados: entra mais ar', 'intermediários')],
-      ['🍽️','Digestão', est('estimulada: mais movimento e secreções', 'inibida: o intestino quase para', 'funcionando normalmente')],
-      ['💧','Saliva', est('abundante', 'reduzida: boca seca', 'normal')],
-      ['🩸','Vasos da pele e das vísceras', est('dilatados', 'contraídos: palidez', 'normais')],
-      ['💪','Vasos dos músculos', est('sem alteração', 'dilatados: mais sangue para correr ou lutar', 'normais')],
-      ['⚡','Suprarrenal', est('em repouso', 'libera adrenalina', 'em repouso')],
-      ['🍬','Glicose', est('armazenada', 'liberada para dar energia', 'equilibrada')],
-    ];
+  const svg = document.getElementById('snaSvg'); if(!svg) return;
+  const CX = 235, XL = 118, XR = 352;
+  // quebra o texto em linhas de até n caracteres
+  const quebra = (t, n)=>{ const out = []; let l = ''; t.split(' ').forEach(w=>{ if((l + ' ' + w).trim().length > n){ out.push(l.trim()); l = w; } else l += ' ' + w; }); out.push(l.trim()); return out; };
+  const txt = (x, y, t, anc, cls)=>{ const ls = quebra(t, 15); const y0 = y - (ls.length - 1) * 6.5; return `<text class="${cls}" x="${x}" y="${y0}" text-anchor="${anc}">${ls.map((l, i)=>`<tspan x="${x}" dy="${i ? 13 : 0}">${l}</tspan>`).join('')}</text>`; };
+  function icone(id, x, y, lado){
+    const espelho = lado === 'simp' ? -1 : 1;
+    switch(id){
+      case 'olho': return `<ellipse cx="${x}" cy="${y}" rx="22" ry="11" class="sn-olho"/><circle cx="${x}" cy="${y}" r="8.5" class="sn-iris"/><circle cx="${x}" cy="${y}" r="${lado==='para' ? 2.4 : 6}" class="sn-pupila"/>`;
+      case 'gland': return `<g class="sn-gland"><circle cx="${x-8}" cy="${y-4}" r="8"/><circle cx="${x+4}" cy="${y-8}" r="7"/><circle cx="${x+8}" cy="${y+4}" r="8"/><circle cx="${x-4}" cy="${y+7}" r="7"/></g>`;
+      case 'pulm': return `<path class="sn-pulmao" d="M${x},${y-22} C${x-18*espelho},${y-18} ${x-22*espelho},${y+8} ${x-16*espelho},${y+22} C${x-6*espelho},${y+26} ${x+4*espelho},${y+18} ${x+4*espelho},${y+8} L${x+4*espelho},${y-14} Z"/><path class="sn-bronq" style="stroke-width:${lado==='para' ? 2 : 5}" d="M${x+14*espelho},${y-24} L${x+4*espelho},${y-14} L${x-4*espelho},${y} M${x+4*espelho},${y-14} L${x-8*espelho},${y-8}"/>`;
+      case 'cor': return `<path class="sn-cor" d="M${x},${y+20} C${x-24},${y+2} ${x-22},${y-18} ${x-9},${y-18} C${x-3},${y-18} ${x},${y-12} ${x},${y-8} C${x},${y-12} ${x+3},${y-18} ${x+9},${y-18} C${x+22},${y-18} ${x+24},${y+2} ${x},${y+20} Z"/>`;
+      case 'fig': return `<path class="sn-figado" d="M${x-26},${y-6} C${x-12},${y-18} ${x+20},${y-18} ${x+26},${y-8} C${x+20},${y+4} ${x-6},${y+16} ${x-24},${y+8} Z"/>`;
+      case 'est': return `<path class="sn-estomago" d="M${x-6*espelho},${y-20} C${x-10*espelho},${y-4} ${x-22*espelho},${y+2} ${x-16*espelho},${y+14} C${x-8*espelho},${y+24} ${x+18*espelho},${y+16} ${x+20*espelho},${y} C${x+20*espelho},${y-10} ${x+6*espelho},${y-12} ${x+2*espelho},${y-20} Z"/>`;
+      case 'supra': return `<path class="sn-rim" d="M${x},${y-14} C${x-14},${y-14} ${x-16},${y+14} ${x},${y+16} C${x+10},${y+16} ${x+8},${y+6} ${x+4},${y+1} C${x+8},${y-4} ${x+10},${y-14} ${x},${y-14} Z"/><path class="sn-supra" d="M${x-10},${y-12} L${x},${y-26} L${x+10},${y-12} Z"/>`;
+      case 'int': return `<path class="sn-intest" d="M${x-24},${y-14} C${x-8},${y-24} ${x+8},${y-24} ${x+24},${y-14} L${x+24},${y+10} C${x+8},${y+20} ${x-8},${y+20} ${x-24},${y+10} Z M${x-14},${y-6} C${x-4},${y+2} ${x+4},${y-10} ${x+14},${y-2} M${x-14},${y+6} C${x-4},${y+14} ${x+4},${y+2} ${x+14},${y+10}"/>`;
+      case 'bex': return `<path class="sn-bexiga" d="M${x},${y-18} C${x+20},${y-18} ${x+22},${y+6} ${x+10},${y+14} L${x+4},${y+22} L${x-4},${y+22} L${x-10},${y+14} C${x-22},${y+6} ${x-20},${y-18} ${x},${y-18} Z"/>`;
+    }
+    return '';
   }
-  function atualizar(){
-    const t = range.value / 100;
-    const r = mix(2, 5.4, t);
-    ['paPupilaE','paPupilaD'].forEach(id=>document.getElementById(id).setAttribute('r', r.toFixed(2)));
-    const bpm = Math.round(mix(58, 130, t));
-    document.getElementById('paCoracao').style.animationDuration = (60 / bpm).toFixed(2) + 's';
-    document.getElementById('paBpm').textContent = `♥ ${bpm} bpm`;
-    document.getElementById('paBronquios').style.strokeWidth = mix(2, 6.5, t).toFixed(1);
-    const intest = document.getElementById('paIntestino');
-    intest.style.animationDuration = mix(1.2, 9, t).toFixed(1) + 's';
-    intest.style.opacity = mix(1, 0.4, t).toFixed(2);
-    document.getElementById('paSuor').style.opacity = t > 0.6 ? ((t - 0.6) / 0.4).toFixed(2) : 0;
-    document.getElementById('paSaliva').style.opacity = (1 - t).toFixed(2);
-    document.getElementById('paPele').style.fill = cor('#F1C7B5', '#EEE6DD', t);
-    ['paAdrenalE','paAdrenalD'].forEach(id=>document.getElementById(id).style.fill = t > 0.6 ? cor('#C9A15A', '#F08A24', (t - 0.6)/0.4) : '#C9A15A');
-    ['paVasoE','paVasoD'].forEach(id=>document.getElementById(id).style.strokeWidth = mix(1.5, 5, t).toFixed(1));
-    const est = document.getElementById('paEstado');
-    est.textContent = t <= 0.35 ? 'Predomínio parassimpático: repouso e digestão' : t >= 0.65 ? 'Predomínio simpático: luta ou fuga' : 'Equilíbrio entre os dois ramos';
-    est.className = 'pa-estado ' + (t <= 0.35 ? 'para' : t >= 0.65 ? 'simp' : '');
-    document.getElementById('paLista').innerHTML = itens(t).map(([ic, nome, txt])=>`<li><span class="pa-ic">${ic}</span><span><b>${nome}:</b> ${txt}</span></li>`).join('');
+  function desenhar(){
+    let s = '';
+    // encéfalo, tronco, medula e cadeia simpática
+    s += `<path class="sn-encefalo" d="M${CX-74},70 C${CX-80},30 ${CX-40},8 ${CX},8 C${CX+42},8 ${CX+78},28 ${CX+74},64 C${CX+70},88 ${CX+40},94 ${CX+12},92 L${CX+8},108 L${CX-8},108 L${CX-10},92 C${CX-40},94 ${CX-70},90 ${CX-74},70 Z"/>`;
+    s += `<path class="sn-cerebelo" d="M${CX+14},76 C${CX+30},70 ${CX+52},78 ${CX+50},92 C${CX+44},104 ${CX+22},102 ${CX+14},94 Z"/>`;
+    s += `<path class="sn-medula" d="M${CX-7},104 L${CX+7},104 L${CX+6},600 C${CX+4},612 ${CX-4},612 ${CX-6},600 Z"/>`;
+    s += `<text class="sn-seg" x="${CX-14}" y="102" text-anchor="end">tronco encefálico</text><text class="sn-seg" x="${CX-12}" y="596" text-anchor="end">medula sacral</text>`;
+    s += `<text class="sn-seg simp" x="${CX+34}" y="214">T1</text><text class="sn-seg simp" x="${CX+34}" y="462">L2</text>`;
+    s += `<path class="sn-cadeia" d="M${CX+22},200 L${CX+22},470"/>`;
+    for(let y = 202; y <= 468; y += 15) s += `<circle class="sn-ganglio" cx="${CX+22}" cy="${y}" r="5"/>`;
+    s += `<text class="sn-lado para" x="12" y="24">Parassimpático</text><text class="sn-lado simp" x="458" y="24" text-anchor="end">Simpático</text>`;
+    s += `<text class="sn-seg" x="${CX+30}" y="618">cadeia ganglionar</text><text class="sn-seg" x="${CX+30}" y="630">do simpático (T1–L2)</text>`;
+    // fibras
+    SNA_ORGAOS.forEach(o=>{
+      if(o.para){
+        const origem = (o.id === 'bex' || o.id === 'int') ? [CX-6, o.id === 'bex' ? 586 : 578] : [CX-7, 112 + (SNA_ORGAOS.indexOf(o) * 4)];
+        s += `<path class="sn-fibra para" data-org="${o.id}" d="M${origem[0]},${origem[1]} C${CX-50},${origem[1]} ${XL+60},${o.y} ${XL+30},${o.y}"/>`;
+      }
+      const yc = o.id === 'olho' ? 202 : o.id === 'gland' ? 207 : Math.min(468, Math.max(217, 190 + (o.y - 120) * 0.62));
+      s += `<path class="sn-fibra simp" data-org="${o.id}" d="M${CX+27},${yc} C${CX+60},${yc} ${XR-60},${o.y} ${XR-30},${o.y}"/>`;
+    });
+    // órgãos e textos
+    SNA_ORGAOS.forEach(o=>{
+      if(o.para){
+        s += `<g class="sn-org para" data-org="${o.id}" data-lado="para" role="button" tabindex="0">${icone(o.id, XL, o.y, 'para')}<rect x="${XL-30}" y="${o.y-28}" width="60" height="56" fill="transparent"/></g>`;
+        s += `<g class="sn-efeito para" data-org="${o.id}">${txt(10, o.y, o.para, 'start', 'sn-txt para')}<rect class="sn-esconde" x="8" y="${o.y-16}" width="70" height="30" rx="6"/><text class="sn-q" x="43" y="${o.y+5}" text-anchor="middle">?</text></g>`;
+      }
+      s += `<g class="sn-org simp" data-org="${o.id}" data-lado="simp" role="button" tabindex="0">${icone(o.id, XR, o.y, 'simp')}<rect x="${XR-30}" y="${o.y-28}" width="60" height="56" fill="transparent"/></g>`;
+      s += `<g class="sn-efeito simp" data-org="${o.id}">${txt(460, o.y, o.simp, 'end', 'sn-txt simp')}<rect class="sn-esconde" x="392" y="${o.y-16}" width="70" height="30" rx="6"/><text class="sn-q" x="427" y="${o.y+5}" text-anchor="middle">?</text></g>`;
+    });
+    svg.innerHTML = s;
   }
-  let desafio = null;
-  function novoDesafio(){
-    let n; do{ n = PA_DESAFIOS[Math.floor(Math.random()*PA_DESAFIOS.length)]; } while(n === desafio);
-    desafio = n;
-    document.getElementById('paDesafioTexto').textContent = `${desafio.txt} Ajuste o controle para o estado do corpo nessa situação e clique em "Conferir".`;
-    document.getElementById('paFeedbackBox').className = 'pfeedback';
+  function mostrar(id, lado){
+    const o = SNA_ORGAOS.find(x=>x.id===id);
+    svg.querySelectorAll('.sn-on').forEach(x=>x.classList.remove('sn-on'));
+    svg.querySelectorAll(`[data-org="${id}"]`).forEach(x=>x.classList.add('sn-on'));
+    if(svg.classList.contains('modo-estudo') && lado) svg.querySelectorAll(`.sn-efeito.${lado}[data-org="${id}"]`).forEach(x=>x.classList.add('revelado'));
+    document.getElementById('snaInfo').innerHTML = `<strong>${o.nome}</strong><br><span class="sn-i para">Parassimpático:</span> ${o.para || 'sem inervação parassimpática relevante no esquema.'}<br><span class="sn-i simp">Simpático:</span> ${o.simp}`;
   }
-  range.addEventListener('input', atualizar);
-  document.getElementById('paShuffleBtn').addEventListener('click', novoDesafio);
-  document.getElementById('paCorrigirBtn').addEventListener('click', ()=>{
-    const v = +range.value, box = document.getElementById('paFeedbackBox');
-    const ok = desafio.alvo === 'para' ? v <= 35 : v >= 65;
-    const quase = !ok && v > 35 && v < 65;
-    box.className = `pfeedback show ${ok ? 'good' : quase ? 'partial' : 'bad'}`;
-    box.innerHTML = ok ? `<strong>Isso!</strong><p>${desafio.why}</p>`
-      : quase ? `<strong>Quase: leve o controle mais para o lado ${desafio.alvo === 'para' ? 'do repouso (parassimpático)' : 'da luta ou fuga (simpático)'}.</strong>`
-      : `<strong>Não: essa situação pede o ${desafio.alvo === 'para' ? 'parassimpático' : 'simpático'}.</strong><p>${desafio.why}</p>`;
-  });
-  atualizar(); novoDesafio();
+  svg.addEventListener('click', e=>{ const g = e.target.closest('.sn-org, .sn-efeito'); if(g) mostrar(g.dataset.org, g.classList.contains('para') ? 'para' : 'simp'); });
+  svg.addEventListener('keydown', e=>{ const g = e.target.closest('.sn-org'); if(g && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); mostrar(g.dataset.org, g.dataset.lado); } });
+  document.querySelectorAll('[data-sn-modo]').forEach(b=> b.addEventListener('click', ()=>{
+    document.querySelectorAll('[data-sn-modo]').forEach(x=>x.classList.toggle('on', x === b));
+    svg.classList.remove('modo-ambos','modo-para','modo-simp','modo-estudo');
+    svg.classList.add('modo-' + b.dataset.snModo);
+    svg.querySelectorAll('.revelado').forEach(x=>x.classList.remove('revelado'));
+  }));
+  desenhar();
 })();
+// desafio: classificar o efeito (mesmo texto do slide)
+const PA_CENARIOS = [];
+SNA_ORGAOS.forEach(o=>{
+  if(o.para) PA_CENARIOS.push({situacao:`${o.nome}: ${o.para}`, correta:'Parassimpático', explicacao:`No parassimpático: ${o.para.toLowerCase()} No simpático: ${o.simp.toLowerCase()}`});
+  PA_CENARIOS.push({situacao:`${o.nome}: ${o.simp}`, correta:'Simpático', explicacao:`No simpático: ${o.simp.toLowerCase()}${o.para ? ` No parassimpático: ${o.para.toLowerCase()}` : ''}`});
+});
+criarClassificador({pre:'pa', cenarios:PA_CENARIOS, opcoes:['Parassimpático','Simpático']});
 
 // --- Do Zigoto ao Disco Bilaminar (Bases Biológicas) ---
 const EB_INFO = {
@@ -5377,48 +5396,64 @@ const EB_DESAFIOS = [
       const fundo = d === 6 ? 70 : 92, cy = d === 6 ? 150 : 140;
       s += E('Endométrio', `<path class="eb-endo" d="M-100,0 L460,0 L460,${fundo} C300,${fundo+8} 240,${fundo-4} 180,${fundo+4} C120,${fundo-4} 60,${fundo+8} -100,${fundo} Z"/>`);
       s += E('Cavidade blastocística', `<circle class="eb-cavidade" cx="180" cy="${cy}" r="58"/>`);
-      s += E('Citotrofoblasto', `<circle class="eb-trofo" cx="180" cy="${cy}" r="62"/>`);
+      s += E('Citotrofoblasto', `<circle class="eb-citoring" cx="180" cy="${cy}" r="62"/>`);
       const prof = d === 6 ? 16 : 34;
       s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="M136,${cy-44} C140,${cy-62-prof} 160,${cy-70-prof} 180,${cy-74-prof} C200,${cy-70-prof} 222,${cy-62-prof} 224,${cy-44} C210,${cy-58} 150,${cy-58} 136,${cy-44} Z"/>`);
       [[164,cy-42],[180,cy-48],[196,cy-42],[172,cy-30],[188,cy-30]].forEach(([x,y])=> s += E('Embrioblasto', `<circle class="eb-embrio" cx="${x}" cy="${y}" r="11"/>`));
       L += rotulo(60, 30, 18, 18, 'Endométrio') + rotulo(212, cy-70, 300, cy-90, 'Sinciciotrofoblasto') + rotulo(120, cy+10, 50, cy+50, 'Citotrofoblasto', 'end') + rotulo(196, cy-40, 290, cy-20, 'Embrioblasto') + rotulo(190, cy+30, 270, cy+90, 'Cavidade blastocística');
     } else {
-      const cy = 128;
-      s += E('Endométrio', `<path class="eb-endo" d="M-100,0 L460,0 L460,226 C300,232 240,222 180,230 C120,222 60,232 -100,226 Z"/>`);
-      s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="M180,${cy-96} C236,${cy-96} 268,${cy-50} 266,${cy} C266,${cy+56} 236,${cy+90} 180,${cy+90} C124,${cy+90} 94,${cy+56} 94,${cy} C92,${cy-50} 124,${cy-96} 180,${cy-96} Z"/>`);
+      // dias 8 a 14: mesmas convenções do slide (sinciciotrofoblasto verde, lacunas, disco vertical à direita)
+      const cx = 180, cy = 130;
+      let blob = '';
+      for(let i=0;i<=48;i++){ const a = i/48*2*Math.PI; const w = 1 + 0.06*Math.sin(a*7) + 0.04*Math.cos(a*11); blob += (i ? ' L' : 'M') + (cx + 118*w*Math.cos(a)).toFixed(1) + ',' + (cy + 112*w*Math.sin(a)).toFixed(1); }
+      s += E('Endométrio', `<rect class="eb-endo" x="-100" y="0" width="560" height="260"/>`);
+      [[-70,36],[-62,206],[4,22],[352,30],[368,214],[430,118],[-84,122],[-10,140],[340,130]].forEach(([x,y])=> s += E('Endométrio', `<g class="eb-glandula"><circle cx="${x}" cy="${y}" r="13"/><circle cx="${x}" cy="${y}" r="5"/></g>`));
+      [[-36,86],[392,78],[40,8]].forEach(([x,y])=> s += E('Endométrio', `<ellipse class="eb-vaso" cx="${x}" cy="${y}" rx="18" ry="8" transform="rotate(${(x*7)%60-30} ${x} ${y})"/>`));
+      s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="${blob} Z"/>`);
+      [[120,40],[250,48],[86,110],[278,120],[96,188],[262,200],[180,232],[180,28],[140,226],[226,24]].forEach(([x,y])=> s += E('Sinciciotrofoblasto', `<circle class="eb-sinc-nuc" cx="${x}" cy="${y}" r="2.2"/>`));
       if(d >= 10){
-        [[128,cy-50],[236,cy-40],[110,cy+20],[250,cy+30],[150,cy+76],[214,cy+74],[180,cy-82]].forEach(([x,y])=> s += E('Lacunas', `<ellipse class="eb-lacuna" cx="${x}" cy="${y}" rx="9" ry="6"/>`));
+        [[132,46,-35],[232,44,35],[90,140,80],[272,96,100],[118,206,30],[244,212,-30],[180,236,0]].forEach(([x,y,r])=> s += E('Lacunas', `<ellipse class="eb-lacuna${d >= 11 ? ' sangue' : ''}" cx="${x}" cy="${y}" rx="15" ry="5.5" transform="rotate(${r} ${x} ${y})"/>`));
       }
-      s += E('Citotrofoblasto', `<circle class="eb-trofo" cx="180" cy="${cy}" r="66"/>`);
+      // citotrofoblasto: anel de células
+      s += E('Citotrofoblasto', `<circle class="eb-citoring" cx="${cx}" cy="${cy}" r="80"/>`);
+      let cel = ''; for(let i=0;i<36;i++){ const a = i/36*2*Math.PI; cel += `<circle cx="${(cx+80*Math.cos(a)).toFixed(1)}" cy="${(cy+80*Math.sin(a)).toFixed(1)}" r="2.4"/>`; }
+      s += E('Citotrofoblasto', `<g class="eb-cito-cel">${cel}</g>`);
+      // posição do disco (vertical, à direita); a partir do dia 13 ele se afasta do citotrofoblasto (pedículo)
+      const ex = d >= 13 ? cx + 4 : cx + 30;
       if(d <= 11){
-        s += E(d >= 10 ? 'Saco vitelino primário' : 'Cavidade blastocística', `<circle class="eb-cavidade" cx="180" cy="${cy}" r="62"/>`);
-        if(d >= 10) s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M136,${cy-12} C120,${cy+20} 126,${cy+52} 152,${cy+60} C170,${cy+66} 190,${cy+66} 208,${cy+60} C234,${cy+52} 240,${cy+20} 224,${cy-12}"/>`);
+        s += E(d >= 10 ? 'Saco vitelino primário' : 'Cavidade blastocística', `<circle class="eb-cav" cx="${cx}" cy="${cy}" r="76"/>`);
+        if(d >= 10) s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M${ex-2},${cy-34} C${cx-30},${cy-80} ${cx-82},${cy-40} ${cx-74},${cy} C${cx-80},${cy+40} ${cx-30},${cy+80} ${ex-2},${cy+34}"/>`);
+      } else if(d === 12){
+        s += E('Mesoderme extraembrionária', `<circle class="eb-meso" cx="${cx}" cy="${cy}" r="76"/>`);
+        s += E('Saco vitelino primário', `<path class="eb-cav" d="M${ex-2},${cy-34} C${cx-24},${cy-62} ${cx-62},${cy-34} ${cx-58},${cy} C${cx-62},${cy+34} ${cx-24},${cy+62} ${ex-2},${cy+34} Z"/>`);
+        s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M${ex-2},${cy-34} C${cx-24},${cy-62} ${cx-62},${cy-34} ${cx-58},${cy} C${cx-62},${cy+34} ${cx-24},${cy+62} ${ex-2},${cy+34}"/>`);
       } else {
-        s += E('Mesoderme extraembrionária', `<circle class="eb-meso" cx="180" cy="${cy}" r="62"/>`);
-        if(d >= 13) s += E('Celoma extraembrionário', `<path class="eb-celoma" d="M180,${cy-52} C222,${cy-52} 236,${cy-20} 236,${cy+10} C236,${cy+46} 210,${cy+56} 180,${cy+56} C150,${cy+56} 124,${cy+46} 124,${cy+10} C124,${cy-20} 138,${cy-52} 180,${cy-52} Z"/>`);
+        s += E('Mesoderme extraembrionária', `<circle class="eb-meso" cx="${cx}" cy="${cy}" r="76"/>`);
+        s += E('Celoma extraembrionário', `<circle class="eb-cav" cx="${cx}" cy="${cy}" r="68"/>`);
+        // mesoderme cobrindo âmnio e saco vitelino + pedículo
+        s += E(d >= 14 ? 'Pedículo de conexão' : 'Mesoderme extraembrionária', `<path class="eb-meso${d >= 14 ? ' eb-pedic' : ''}" d="M${ex+38},${cy-22} L${cx+72},${cy-16} L${cx+72},${cy+16} L${ex+38},${cy+22} Z"/>`);
+        s += E('Mesoderme extraembrionária', `<ellipse class="eb-meso" cx="${ex+20}" cy="${cy}" rx="26" ry="44"/>`);
+        s += E('Saco vitelino secundário', `<circle class="eb-svs" cx="${ex-24}" cy="${cy}" r="22"/>`);
+        if(d === 13) s += E('Cisto exocelômico', `<circle class="eb-cisto" cx="${cx-46}" cy="${cy+18}" r="14"/>`);
       }
-      // complexo do embrião: cavidade amniótica, disco bilaminar, saco vitelino
-      s += E('Cavidade amniótica', `<path class="eb-amnio-cav" d="M146,${cy-18} C150,${cy-48} 210,${cy-48} 214,${cy-18} Z"/>`);
-      if(d >= 9) s += E('Âmnio', `<path class="eb-amnio" d="M146,${cy-18} C150,${cy-48} 210,${cy-48} 214,${cy-18}"/>`);
-      if(d >= 13){
-        s += E('Saco vitelino secundário', `<path class="eb-svs" d="M150,${cy-6} C146,${cy+30} 214,${cy+30} 210,${cy-6} Z"/>`);
-        if(d === 13) s += E('Cisto exocelômico', `<circle class="eb-cisto" cx="196" cy="${cy+42}" r="8"/>`);
-      } else if(d >= 12){
-        s += E('Saco vitelino primário', `<path class="eb-cavidade" d="M140,${cy-6} C130,${cy+44} 230,${cy+44} 220,${cy-6} Z"/>`);
-        s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M140,${cy-6} C130,${cy+44} 230,${cy+44} 220,${cy-6}"/>`);
-      }
-      s += E('Epiblasto', `<rect class="eb-epi" x="144" y="${cy-18}" width="72" height="11" rx="3"/>`);
-      s += E('Hipoblasto', `<rect class="eb-hipo" x="144" y="${cy-7}" width="72" height="7" rx="3"/>`);
-      if(d >= 14) s += E('Pedículo de conexão', `<path class="eb-pediculo" d="M170,${cy-62} L190,${cy-62} L188,${cy-40} L172,${cy-40} Z"/>`);
-      L += rotulo(40, 30, 12, 16, 'Endométrio') + rotulo(246, cy-60, 300, cy-104, 'Sinciciotrofoblasto') + rotulo(116, cy+20, 46, cy+40, 'Citotrofoblasto', 'end');
-      L += rotulo(180, cy-30, 300, cy-66, d >= 9 ? 'Âmnio / cav. amniótica' : 'Cavidade amniótica') + rotulo(216, cy-13, 300, cy-24, 'Epiblasto') + rotulo(216, cy-3, 300, cy+6, 'Hipoblasto');
-      if(d >= 10) L += rotulo(250, cy+30, 312, cy+44, 'Lacunas');
-      if(d >= 10 && d <= 12) L += rotulo(150, cy+40, 60, cy+80, d >= 12 ? 'Saco vitelino 1º' : 'Saco vitelino primário', 'end');
-      if(d <= 9) L += rotulo(150, cy+40, 60, cy+80, 'Cavidade blastocística', 'end');
-      if(d >= 12) L += rotulo(226, cy+44, 300, cy+80, d >= 13 ? 'Celoma extraemb.' : 'Mesoderme extraemb.');
-      if(d >= 13) L += rotulo(170, cy+16, 60, cy+80, 'Saco vitelino 2º', 'end');
-      if(d >= 14) L += rotulo(170, cy-52, 70, cy-80, 'Pedículo de conexão', 'end');
-      if(d >= 10) L += `<text class="eb-hcg" x="450" y="250" text-anchor="end">sinciciotrofoblasto produz hCG</text>`;
+      // âmnio e cavidade amniótica (à direita do epiblasto)
+      s += E('Cavidade amniótica', `<path class="eb-cav" d="M${ex+16},${cy-32} C${ex+44},${cy-30} ${ex+44},${cy+30} ${ex+16},${cy+32} Z"/>`);
+      if(d >= 9) s += E('Âmnio', `<path class="eb-amnio" d="M${ex+16},${cy-32} C${ex+44},${cy-30} ${ex+44},${cy+30} ${ex+16},${cy+32}"/>`);
+      // disco bilaminar vertical: epiblasto (colunar, cinza) e hipoblasto
+      let linhas = ''; for(let y = cy-30; y <= cy+30; y += 6) linhas += `M${ex+2},${y} L${ex+16},${y} `;
+      s += E('Epiblasto', `<g><rect class="eb-epi" x="${ex+2}" y="${cy-34}" width="14" height="68" rx="5"/><path class="eb-epi-cel" d="${linhas}"/></g>`);
+      s += E('Hipoblasto', `<rect class="eb-hipo" x="${ex-6}" y="${cy-32}" width="8" height="64" rx="4"/>`);
+      // rótulos
+      L += rotulo(-70, 36, -94, 14, 'Endométrio (glândulas e vasos)') + rotulo(268, 40, 310, 14, 'Sinciciotrofoblasto') + rotulo(cx-80, cy+10, 30, cy+86, 'Citotrofoblasto', 'end');
+      L += rotulo(ex+28, cy-12, 320, cy-64, d >= 9 ? 'Âmnio / cav. amniótica' : 'Cavidade amniótica') + rotulo(ex+10, cy-34, 320, cy-90, 'Epiblasto') + rotulo(ex-2, cy+30, 320, cy+96, 'Hipoblasto');
+      if(d >= 10) L += rotulo(90, 140, 40, 150, d >= 11 ? 'Lacunas (sangue)' : 'Lacunas', 'end');
+      if(d <= 9) L += rotulo(cx-40, cy+30, 30, cy+60, 'Cavidade blastocística', 'end');
+      if(d >= 10 && d <= 11) L += rotulo(cx-40, cy+30, 30, cy+60, 'Saco vitelino primário', 'end') + rotulo(cx-56, cy-40, 30, cy-60, 'Membrana de Heuser', 'end');
+      if(d === 12) L += rotulo(cx-40, cy+20, 30, cy+60, 'Saco vitelino 1º', 'end') + rotulo(cx-60, cy-50, 30, cy-60, 'Mesoderme extraemb.', 'end');
+      if(d >= 13) L += rotulo(cx-30, cy-50, 40, cy-60, 'Celoma extraemb.', 'end') + rotulo(ex-30, cy+16, 320, cy+120, 'Saco vitelino 2º');
+      if(d === 13) L += rotulo(cx-56, cy+28, 30, cy+60, 'Cisto exocelômico', 'end');
+      if(d >= 14) L += rotulo(cx+66, cy+12, 320, cy+36, 'Pedículo de conexão');
+      if(d >= 10) L += `<text class="eb-hcg" x="-94" y="252">sinciciotrofoblasto produz hCG</text>`;
     }
     return s + (document.getElementById('ebNomes').checked ? L : '');
   }
