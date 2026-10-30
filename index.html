@@ -1240,6 +1240,80 @@
   .ord-mv:hover:not(:disabled){border-color:var(--petrol-line); color:var(--petrol);}
   .ord-mv:disabled{opacity:.35; cursor:default;}
   .ord-marca{font-style:normal; font-weight:700; color:var(--petrol); margin-left:4px;}
+
+  /* ===== Resumos interativos dentro do site ===== */
+  .rs-header{padding:0 0 22px; margin:0 0 6px;}
+  .rs-header .eyebrow{display:inline-flex; font-size:12.5px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); padding:5px 11px; border-radius:999px; margin-bottom:14px;}
+  .rs-header h1{font-size:clamp(30px, 5vw, 44px); font-weight:800; letter-spacing:-0.035em; line-height:1.08; margin:0 0 12px;}
+  .rs-header p{font-size:16.5px; color:var(--ink-soft); margin:0;}
+  .rs-tabs{display:flex; gap:8px; flex-wrap:wrap; margin:4px 0 0;}
+  .rs-tab{font:inherit; font-size:14px; font-weight:700; padding:10px 14px; border-radius:12px; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); cursor:pointer; display:flex; flex-direction:column; align-items:flex-start; gap:2px; text-align:left;}
+  .rs-tab small{font-size:11.5px; font-weight:600; color:var(--ink-faint);}
+  .rs-tab:hover{border-color:var(--petrol-line); color:var(--petrol);}
+  .rs-tab.on{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  .rs-tab.on small{color:rgba(255,255,255,.8);}
+  body.dark .rs-tab.on{color:#0F1615;} body.dark .rs-tab.on small{color:rgba(15,22,21,.75);}
+  .rs-progress{position:sticky; top:var(--nav-h); z-index:5; background:var(--bg); padding:12px 0 10px; margin:12px 0 4px;}
+  .rs-progress-label{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:6px;}
+  .rs-bar{height:6px; background:var(--paper-alt); border-radius:999px; overflow:hidden;}
+  .rs-bar i{display:block; height:100%; width:0; background:var(--petrol); border-radius:999px; transition:width .25s ease;}
+  .rs-cap-title{font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:16px 0 6px;}
+  .rs-cap-intro{font-size:15.5px; color:var(--ink-soft); margin:0 0 16px;}
+  .rs-phase{font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); margin:32px 0 12px;}
+  .rs-timeline{position:relative; padding-left:28px; margin-top:14px;}
+  .rs-timeline::before{content:""; position:absolute; left:8px; top:8px; bottom:8px; width:2px; background:var(--petrol-line);}
+  .rs-step{position:relative; background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px 18px 16px; margin-bottom:14px; box-shadow:0 6px 18px var(--shadow);}
+  .rs-step::before{content:""; position:absolute; left:-26px; top:22px; width:14px; height:14px; border-radius:50%; background:var(--paper); border:3px solid var(--petrol);}
+  .rs-step.done::before{background:var(--petrol);}
+  .rs-when{display:inline-block; font-size:12.5px; font-weight:700; color:var(--ochre); background:var(--ochre-soft); padding:3px 10px; border-radius:999px; margin-bottom:8px;}
+  .rs-step h3{font-size:19px; font-weight:800; letter-spacing:-0.015em; margin:0 0 8px; line-height:1.3;}
+  .rs-step ul{margin:0 0 4px; padding-left:20px;}
+  .rs-step li{margin:4px 0; font-size:15.5px; line-height:1.6;}
+  .rs-step li strong{color:var(--petrol);}
+  .rs-test{margin-top:14px; border-top:1px dashed var(--rule); padding-top:12px;}
+  .rs-test-q{font-size:14.5px; font-weight:700; margin-bottom:8px;}
+  .rs-test-q span{font-size:11.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#fff; background:var(--petrol); padding:2px 8px; border-radius:6px; margin-right:6px; vertical-align:1px;}
+  body.dark .rs-test-q span{color:#0F1615;}
+  .rs-reveal{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); border:1px solid var(--petrol-line); border-radius:9px; padding:7px 12px; cursor:pointer;}
+  .rs-answer{display:none; margin-top:10px; background:var(--paper-alt); border-left:3px solid var(--petrol); border-radius:8px; padding:10px 12px; font-size:15px;}
+  .rs-answer.show{display:block;}
+  .rs-self{display:none; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center; font-size:13px; color:var(--ink-soft);}
+  .rs-self.show{display:flex;}
+  .rs-self button{font:inherit; font-size:13px; font-weight:600; border-radius:8px; padding:6px 11px; cursor:pointer; border:1px solid var(--rule); background:var(--paper); color:var(--ink);}
+  .rs-self button.on-ok{background:var(--petrol-soft); border-color:var(--petrol); color:var(--petrol);}
+  .rs-self button.on-no{background:var(--ochre-soft); border-color:var(--ochre); color:var(--ochre);}
+  .rs-table-wrap{overflow-x:auto;}
+  .rs-table{width:100%; border-collapse:collapse; background:var(--paper); border:1px solid var(--rule); border-radius:14px; overflow:hidden; font-size:15px;}
+  .rs-table th, .rs-table td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .rs-table th{background:var(--paper-alt); font-size:12.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft);}
+  .rs-table tr:last-child td{border-bottom:none;}
+  .rs-table td:first-child{font-weight:700;}
+  .rs-box{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px; margin-bottom:12px;}
+  .rs-box h3{margin:0 0 8px; font-size:17px;}
+  .rs-box p{margin:0; font-size:15px; color:var(--ink-soft);}
+  .rs-quiz-q{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:16px 18px; margin-bottom:12px;}
+  .rs-quiz-q p{margin:0 0 10px; font-weight:700;}
+  .rs-opt{display:block; width:100%; text-align:left; font:inherit; font-size:15px; background:var(--paper-alt); border:1px solid transparent; border-radius:10px; padding:10px 12px; margin-top:6px; cursor:pointer; color:var(--ink);}
+  .rs-opt:hover{border-color:var(--petrol-line);}
+  .rs-opt.ok{background:var(--petrol-soft); border-color:var(--petrol); font-weight:600;}
+  .rs-opt.no{background:rgba(181,67,46,.09); border-color:var(--danger);}
+  .rs-opt:disabled{cursor:default;}
+  .rs-why{display:none; font-size:14px; color:var(--ink-soft); margin-top:10px;}
+  .rs-why.show{display:block;}
+  .rs-score{display:none; background:var(--petrol); color:#fff; border-radius:16px; padding:18px; font-size:17px; font-weight:700; text-align:center;}
+  body.dark .rs-score{color:#0F1615;}
+  .rs-score.show{display:block;}
+  .rs-center{text-align:center;}
+  .rs-again{font:inherit; font-size:14px; font-weight:600; margin-top:12px; padding:9px 16px; border-radius:10px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); cursor:pointer;}
+  .rs-again[hidden]{display:none;}
+  .rs-next{font:inherit; font-size:15px; font-weight:700; margin-top:24px; padding:12px 18px; border-radius:12px; border:none; background:var(--petrol); color:#fff; cursor:pointer;}
+  body.dark .rs-next{color:#0F1615;}
+  .rs-foot{margin-top:40px; padding-top:16px; border-top:1px solid var(--rule); font-size:13px; color:var(--ink-faint);}
+  @media (max-width:600px){
+    .rs-timeline{padding-left:22px;} .rs-step::before{left:-21px;} .rs-step{padding:16px 14px 14px;}
+    .rs-tab{flex:1 1 30%; font-size:13px; padding:9px 10px;}
+    .rs-table{font-size:14px;} .rs-table th, .rs-table td{padding:9px 10px;}
+  }
 </style>
 </head>
 <body>
@@ -1433,6 +1507,12 @@
 <div class="wrap" id="viewDisc" style="display:none;">
   <button class="back-link" id="backFromDisc">← Voltar ao início</button>
   <div id="discPage"></div>
+</div>
+
+<!-- ============ PÁGINA: RESUMO INTERATIVO (conteúdo em RESUMOS, no bloco DADOS DO SITE) ============ -->
+<div class="wrap" id="viewResumo" style="display:none;">
+  <button class="back-link" id="backFromResumo">← Voltar</button>
+  <div id="resumoPage" class="rs"></div>
 </div>
 
 <!-- ============ PÁGINA: PRAZOS E TAREFAS ============ -->
@@ -2382,14 +2462,14 @@ const STUDY = [
     titulo: 'Vygotsky, Freire e dislexia',
     subtitulo: 'Aulas 4, 5 e 6 num só resumo',
     desc: 'Uma aba para cada aula: mediação e ZDP, educação bancária × dialógica e dislexia. Responda o "Teste-se" de cabeça e feche cada aula com um quiz rápido.',
-    link: 'resumo-aprendizagem.html'
+    link: '#resumo-aprendizagem-4-6'
   },
   {
     materia: 'Bases Biológicas',
     titulo: 'Da fertilização à 2ª semana',
     subtitulo: 'Linha do tempo interativa',
     desc: 'Percorra o desenvolvimento embrionário etapa por etapa, responda o "Teste-se" de cabeça antes de ver a resposta e feche com um quiz rápido.',
-    link: 'resumo-embriologia.html'
+    link: '#resumo-embriologia'
   },
   {
     materia: 'Neuroanatomia',
@@ -2643,6 +2723,323 @@ const DISC_ALIASES = {
   '06': ['Projeto de Extensão', 'Extensão'],
 };
 
+
+/* ---------------------------------------------------------------------
+   10. RESUMOS INTERATIVOS FEITOS DENTRO DO SITE
+   Cada resumo abre numa página do próprio site (endereço #resumo-ID) e
+   aparece em "Resumos interativos" quando a lista STUDY tem
+   link: '#resumo-ID'.
+   Estrutura:
+     'id': {disc:'01', eyebrow, titulo, lead, fonte, caps:[ … ]}
+   Cada cap (aba) tem: id, aba (nome da aba; se houver só 1 cap, as abas
+   não aparecem), titulo, intro, etapas, extras (opcional) e quiz.
+     etapa: {fase (opcional, título de grupo), when, titulo, pontos:[…], q, a}
+     quiz:  {p:'pergunta', o:['opção 0','opção 1',…], c:índice da certa, w:'explicação'}
+     extras: {tipo:'tabela', titulo, cab:[…], linhas:[[…]]} ou {tipo:'caixas', titulo, itens:[{t, d}]}
+   --------------------------------------------------------------------- */
+const RESUMOS = {
+  'embriologia': {
+    disc: '01',
+    eyebrow: 'Bases Biológicas · Embriologia',
+    titulo: 'Da fertilização à 2ª semana',
+    lead: 'O começo do desenvolvimento humano, etapa por etapa: o que acontece, quando e com que nome. Tente responder o "Teste-se" de cabeça antes de abrir a resposta.',
+    fonte: 'Resumo feito a partir dos slides de Bases Biológicas (Desenvolvimento embrionário: da fertilização à 2ª semana). Os dias são aproximados.',
+    caps: [{
+      id: 'embrio', aba: null, titulo: null, intro: null,
+      etapas: [
+        {fase:'1ª semana · da fertilização à implantação', when:'Dia 0', titulo:'Fertilização', pontos:[
+          'Acontece habitualmente na <strong>ampola</strong>, uma dilatação da tuba uterina.',
+          'O espermatozoide penetra o ovócito e forma o <strong>zigoto</strong>: uma célula <strong>totipotente</strong>, com cromossomos da mãe e do pai.',
+          'Se o ovócito não é fertilizado, segue até o útero, degenera e é reabsorvido.'],
+          q:'Onde a fertilização costuma acontecer?', a:'Na ampola da tuba uterina.'},
+        {fase:'1ª semana · da fertilização à implantação', when:'Dia 0', titulo:'As 6 fases da fertilização', pontos:[
+          '<strong>1.</strong> Passagem pela <strong>coroa radiada</strong>, com a hialuronidase do acrossomo e o movimento do flagelo.',
+          '<strong>2.</strong> Penetração da <strong>zona pelúcida</strong>, com enzimas do acrossomo (acrosina, esterases, neuraminidase).',
+          '<strong>3.</strong> <strong>Fusão das membranas</strong> do ovócito e do espermatozoide. Cabeça e cauda entram; membrana e mitocôndrias do espermatozoide, não.',
+          '<strong>4.</strong> O ovócito <strong>conclui a 2ª divisão meiótica</strong>: óvulo maduro + 2º corpúsculo polar. O núcleo vira o pronúcleo feminino.',
+          '<strong>5.</strong> Formação do <strong>pronúcleo masculino</strong>. Os dois pronúcleos replicam o DNA.',
+          '<strong>6.</strong> <strong>Ruptura das membranas pronucleares</strong> e primeira mitose do zigoto: duas células com 46 cromossomos.'],
+          q:'Qual enzima do acrossomo ajuda o espermatozoide a atravessar a coroa radiada?', a:'A hialuronidase, junto com os movimentos do flagelo.'},
+        {fase:'1ª semana · da fertilização à implantação', when:'Dia 0', titulo:'Um espermatozoide só', pontos:[
+          'Depois da fusão, os <strong>grânulos corticais</strong> do ovócito liberam seu conteúdo no espaço perivitelino.',
+          'As enzimas alteram as glicoproteínas <strong>ZP2 e ZP3</strong> da zona pelúcida, e outros espermatozoides não conseguem mais entrar.',
+          'Isso evita a <strong>polispermia</strong>. A zona pelúcida também impede a fecundação por espermatozoides de outras espécies.'],
+          q:'O que impede que um segundo espermatozoide entre no ovócito?', a:'A liberação dos grânulos corticais, que altera a zona pelúcida (ZP2 e ZP3).'},
+        {fase:'1ª semana · da fertilização à implantação', when:'Dia 0', titulo:'O que a fertilização garante', pontos:[
+          'Restaura o número <strong>diploide (46)</strong> de cromossomos.',
+          'Determina o <strong>sexo cromossômico</strong>: espermatozoide com X gera embrião feminino; com Y, masculino.',
+          'Gera <strong>variabilidade</strong>: herança biparental + crossing over.',
+          'Ativa o metabolismo do ovócito e dá início à <strong>clivagem</strong>.'],
+          q:'Quem determina o sexo cromossômico do embrião?', a:'O espermatozoide: se carrega X, o embrião é feminino; se carrega Y, masculino.'},
+        {fase:'1ª semana · da fertilização à implantação', when:'≈ 30 horas', titulo:'Clivagem', pontos:[
+          'Divisões <strong>mitóticas</strong> repetidas do zigoto, que aumentam rápido o número de células: os <strong>blastômeros</strong>.',
+          'A cada divisão, os blastômeros ficam <strong>menores</strong>: o tamanho total não aumenta.',
+          'O zigoto continua dentro da <strong>zona pelúcida</strong>.'],
+          q:'O que acontece com o tamanho dos blastômeros durante a clivagem?', a:'Ficam cada vez menores: o número de células aumenta, mas o tamanho total não.'},
+        {fase:'1ª semana · da fertilização à implantação', when:'A partir de 8 células', titulo:'Compactação e mórula', pontos:[
+          'Com 8 células, os blastômeros se aproximam fortemente: é a <strong>compactação</strong>, feita por glicoproteínas de adesão e junções.',
+          'A <strong>mórula</strong> tem de <strong>12 a 32 blastômeros</strong>, ainda totipotentes.',
+          'Células internas formam o <strong>embrioblasto</strong>; a camada achatada em volta forma o <strong>trofoblasto</strong>.'],
+          q:'Quantos blastômeros tem a mórula?', a:'De 12 a 32 blastômeros.'},
+        {fase:'1ª semana · da fertilização à implantação', when:'≈ Dia 4', titulo:'Blastocisto', pontos:[
+          'A mórula <strong>entra no útero</strong>.',
+          'O fluido uterino forma a <strong>cavidade blastocística</strong> e separa as células em duas partes.',
+          '<strong>Trofoblasto</strong>: dará origem à placenta. <strong>Embrioblasto</strong>: o primórdio do embrião.',
+          'Esse período é a <strong>blastogênese</strong>.'],
+          q:'Qual parte do blastocisto dará origem à placenta, e qual ao embrião?', a:'Trofoblasto → placenta. Embrioblasto → embrião.'},
+        {fase:'1ª semana · da fertilização à implantação', when:'≈ Dia 6', titulo:'O blastocisto se fixa', pontos:[
+          'O blastocisto se prende ao <strong>epitélio endometrial</strong>.',
+          'O trofoblasto se divide em duas camadas: o <strong>citotrofoblasto</strong> (interno, de células individualizadas) e o <strong>sinciciotrofoblasto</strong> (externo).',
+          'O sinciciotrofoblasto é uma massa <strong>multinucleada</strong>, formada pela fusão de células, que adere ao endométrio e produz enzimas que permitem a implantação.'],
+          q:'Qual camada do trofoblasto é multinucleada e invade o endométrio?', a:'O sinciciotrofoblasto.'},
+        {fase:'1ª semana · da fertilização à implantação', when:'Fim da 1ª semana', titulo:'Implantação superficial', pontos:[
+          'O blastocisto está implantado <strong>superficialmente</strong> na camada compacta do endométrio.',
+          'Ele se nutre dos <strong>tecidos maternos erodidos</strong>.',
+          'O local mais comum é a parte superior do corpo do útero, um pouco mais na parede posterior.'],
+          q:'Como o blastocisto se nutre no fim da 1ª semana?', a:'Dos tecidos maternos erodidos do endométrio.'},
+        {fase:'2ª semana · o disco bilaminar', when:'2ª semana', titulo:'Implantação completa e hCG', pontos:[
+          'A implantação se <strong>completa</strong> e o sinciciotrofoblasto invade o tecido conjuntivo do endométrio.',
+          'O sinciciotrofoblasto produz a <strong>gonadotrofina coriônica humana (hCG)</strong>.',
+          'Os <strong>testes de gravidez</strong> detectam a hCG no fim da 2ª semana.',
+          'Surgem <strong>lacunas</strong> no sinciciotrofoblasto, por onde passa a circular sangue materno.'],
+          q:'O que o teste de gravidez detecta, e quem produz essa substância?', a:'A hCG, produzida pelo sinciciotrofoblasto.'},
+        {fase:'2ª semana · o disco bilaminar', when:'2ª semana', titulo:'Disco bilaminar e âmnio', pontos:[
+          'O embrioblasto forma o <strong>disco embrionário bilaminar</strong>: <strong>epiblasto</strong> e <strong>hipoblasto</strong>.',
+          'O disco dará origem a <strong>todos os tecidos e órgãos</strong> do embrião.',
+          'Entre o epiblasto e o citotrofoblasto surge a <strong>cavidade amniótica</strong>, com líquido vindo do endométrio.',
+          'Células do epiblasto (<strong>amnioblastos</strong>) formam a membrana do <strong>âmnio</strong>.'],
+          q:'Quais são as duas camadas do disco embrionário bilaminar?', a:'Epiblasto e hipoblasto.'},
+        {fase:'2ª semana · o disco bilaminar', when:'2ª semana', titulo:'Saco vitelino primário', pontos:[
+          'Células do hipoblasto revestem a cavidade blastocística e formam a <strong>membrana exocelômica</strong> (de Heuser).',
+          'A cavidade passa a se chamar <strong>cavidade exocelômica</strong> ou <strong>saco vitelino primário</strong>.'],
+          q:'Que outro nome recebe a membrana exocelômica?', a:'Membrana de Heuser.'},
+        {fase:'2ª semana · o disco bilaminar', when:'2ª semana', titulo:'Mesoderme e celoma extraembrionários', pontos:[
+          'Surge a <strong>mesoderme extraembrionária</strong>, um tecido conjuntivo frouxo que envolve o disco, o âmnio e o saco vitelino.',
+          'Lacunas dentro dela se juntam e formam o <strong>celoma extraembrionário</strong>.',
+          'A mesoderme se divide em <strong>somática</strong> (perto do citotrofoblasto) e <strong>esplâncnica</strong> (perto do saco vitelino).'],
+          q:'Qual lâmina da mesoderme extraembrionária fica junto ao saco vitelino?', a:'A mesoderme extraembrionária esplâncnica (a somática fica junto ao citotrofoblasto).'},
+        {fase:'2ª semana · o disco bilaminar', when:'Fim da 2ª semana', titulo:'Saco vitelino secundário e pedículo', pontos:[
+          'O celoma "estrangula" o saco vitelino primário: forma-se o <strong>saco vitelino secundário</strong> (definitivo), e sobra um <strong>cisto exocelômico</strong>, que degenera.',
+          'Em mamíferos o saco vitelino <strong>não armazena vitelo</strong>; também é chamado de <strong>vesícula umbilical</strong>.',
+          'O <strong>pedículo de conexão</strong> é a única região onde o celoma não avança: será o <strong>cordão umbilical</strong>.'],
+          q:'O que o pedículo de conexão vai formar?', a:'O cordão umbilical.'},
+      ],
+      extras: [
+        {tipo:'tabela', titulo:'Resumo: quem vira o quê', cab:['Estrutura','O que forma / função'], linhas:[
+          ['Trofoblasto','Placenta (parte fetal)'],
+          ['Embrioblasto','Embrião (via disco embrionário)'],
+          ['Sinciciotrofoblasto','Invade o endométrio, produz enzimas e hCG'],
+          ['Citotrofoblasto','Camada interna do trofoblasto, de células individualizadas'],
+          ['Epiblasto + hipoblasto','Disco embrionário bilaminar: dará origem a todos os tecidos e órgãos do embrião'],
+          ['Amnioblastos (do epiblasto)','Âmnio, que envolve a cavidade amniótica'],
+          ['Pedículo de conexão','Futuro cordão umbilical'],
+        ]},
+        {tipo:'caixas', titulo:'Quando algo sai do esperado', itens:[
+          {t:'Gravidez ectópica', d:'É a implantação fora do útero. Entre 95% e 98% acontecem na tuba uterina, mais na ampola e no istmo, em geral por algo que atrasa ou impede o transporte do zigoto (como uma tuba bloqueada). Costuma levar à ruptura da tuba e hemorragia nas primeiras 8 semanas.'},
+          {t:'Fertilização in vitro (FIV)', d:'Desde 1978: os ovócitos são fertilizados em laboratório e o embrião em clivagem (ou o blastocisto) é transferido para o útero. Indicada, por exemplo, em tubas bloqueadas ou oligospermia. Pode ser combinada com o diagnóstico genético pré-implantação.'},
+        ]},
+      ],
+      quiz: [
+        {p:'A primeira divisão do zigoto é uma…', o:['Mitose','Meiose I','Meiose II','Compactação'], c:0, w:'Depois da fusão dos pronúcleos, o zigoto se divide por mitose: duas células com 46 cromossomos cada.'},
+        {p:'A mórula chega ao útero por volta do…', o:['1º dia','4º dia','10º dia','14º dia'], c:1, w:'Por volta do 4º dia a mórula entra no útero e logo se transforma em blastocisto.'},
+        {p:'Qual estrutura produz a hCG?', o:['Citotrofoblasto','Embrioblasto','Sinciciotrofoblasto','Hipoblasto'], c:2, w:'O sinciciotrofoblasto produz a hCG, detectada nos testes de gravidez no fim da 2ª semana.'},
+        {p:'A zona pelúcida tem como função…', o:['Formar a placenta','Impedir a polispermia','Produzir hCG','Formar o âmnio'], c:1, w:'Após a reação cortical, a zona pelúcida impede a entrada de outros espermatozoides.'},
+        {p:'O disco embrionário bilaminar é formado por…', o:['Citotrofoblasto e sinciciotrofoblasto','Âmnio e cório','Epiblasto e hipoblasto','Trofoblasto e embrioblasto'], c:2, w:'Na 2ª semana o embrioblasto forma epiblasto e hipoblasto, o disco bilaminar.'},
+        {p:'A gravidez ectópica acontece mais na…', o:['Tuba uterina','Parede posterior do útero','Cavidade amniótica','Bexiga'], c:0, w:'Entre 95% e 98% das gestações ectópicas acontecem na tuba uterina, sobretudo na ampola e no istmo.'},
+      ]
+    }]
+  },
+
+  'aprendizagem-4-6': {
+    disc: '03',
+    eyebrow: 'Psicologia da Aprendizagem · Aulas 4, 5 e 6',
+    titulo: 'Vygotsky, Freire e dislexia',
+    lead: 'As três aulas num só lugar. Escolha a aula, leia cada parte e responda o "Teste-se" de cabeça antes de abrir a resposta.',
+    fonte: 'Resumo feito a partir dos slides das aulas 4, 5 e 6 de Psicologia da Aprendizagem (baseadas em Moreira, Teorias de Aprendizagem, e Rotta et al., Transtornos da aprendizagem).',
+    caps: [
+    {
+      id:'vygotsky', aba:'Aula 4 · Vygotsky', titulo:'A teoria da mediação de Vygotsky',
+      intro:'Lev Vygotsky (1896–1934): o desenvolvimento cognitivo nasce das relações sociais, mediadas por instrumentos e signos.',
+      etapas:[
+        {when:'Quem foi', titulo:'Lev Vygotsky', pontos:[
+          'Psicólogo soviético, formado em <strong>Direito</strong> (1917), com estudos em Literatura, Psicologia e Medicina.',
+          'Morreu de tuberculose em <strong>1934, aos 38 anos</strong>, com a obra incompleta.',
+          'O trabalho foi continuado por colaboradores como <strong>Leontiev</strong> e <strong>Luria</strong>.'],
+          q:'Quais colaboradores continuaram a obra de Vygotsky?', a:'A. N. Leontiev e A. R. Luria.'},
+        {when:'Base da teoria', titulo:'Os três pilares', pontos:[
+          '<strong>Origem social:</strong> os processos mentais superiores têm origem em processos sociais.',
+          '<strong>Mediação:</strong> esses processos só são entendidos pelos instrumentos e signos que os mediam.',
+          '<strong>Método genético-experimental:</strong> estuda o desenvolvimento com ênfase em <strong>processos</strong>, não em produtos ou estágios.'],
+          q:'O método de Vygotsky dá ênfase a processos ou a produtos?', a:'A processos (e não a produtos ou estágios).'},
+        {when:'Ideia central', titulo:'Primeiro o social, depois o mental', pontos:[
+          'O desenvolvimento cognitivo é a <strong>conversão de relações sociais em funções mentais</strong>.',
+          'Não é pelo desenvolvimento cognitivo que a pessoa passa a socializar: é <strong>pela socialização</strong> que se desenvolvem os processos mentais superiores.',
+          'A unidade de análise é a <strong>interação social</strong> (Piaget e Ausubel focam o indivíduo).'],
+          q:'Para Vygotsky, o que vem primeiro: o desenvolvimento cognitivo ou a socialização?', a:'A socialização. É ela que desenvolve os processos mentais superiores.'},
+        {when:'Mediação', titulo:'Instrumentos e signos', pontos:[
+          '<strong>Instrumento:</strong> algo usado para fazer alguma coisa.',
+          '<strong>Signo:</strong> algo que significa outra coisa. Há três tipos:',
+          '<strong>Indicadores:</strong> relação de causa e efeito (fumaça indica fogo). <strong>Icônicos:</strong> imagens ou desenhos do que significam. <strong>Simbólicos:</strong> relação abstrata, como palavras e números.',
+          'A combinação de instrumentos e signos é exclusiva do ser humano.'],
+          q:'A palavra escrita "fogo" é um signo de que tipo?', a:'Simbólico: tem uma relação abstrata com o que significa.'},
+        {when:'Internalização', titulo:'Lei da dupla formação', pontos:[
+          'Toda função aparece <strong>duas vezes</strong>: primeiro no nível <strong>social (interpessoal)</strong>, depois no <strong>individual (intrapessoal)</strong>.',
+          'O desenvolvimento acontece pela <strong>internalização</strong> de instrumentos e signos criados pela cultura.',
+          'Exemplo: o bebê tenta pegar um objeto; alguém responde ao gesto; o bebê capta o significado social e passa a <strong>apontar</strong>.'],
+          q:'Em que ordem aparecem as funções na lei da dupla formação?', a:'Primeiro no nível social (interpessoal), depois no individual (intrapessoal).'},
+        {when:'Linguagem', titulo:'Da fala social à fala interna', pontos:[
+          'A <strong>linguagem</strong> é o sistema de signos mais importante: libera o pensamento do contexto imediato.',
+          'A fala passa por três fases: <strong>social → egocêntrica → interna</strong>.',
+          'Para Vygotsky, a <strong>fala egocêntrica</strong> não é pensamento egocêntrico: é a criança usando a linguagem para <strong>regular a própria ação</strong>.'],
+          q:'Qual é a função da fala egocêntrica para Vygotsky?', a:'Controlar e regular o comportamento da criança: a linguagem mediando a ação.'},
+        {when:'Conceito-chave', titulo:'Zona de Desenvolvimento Proximal (ZDP)', pontos:[
+          'É a distância entre o <strong>nível real</strong> (o que a pessoa faz sozinha) e o <strong>nível potencial</strong> (o que faz com ajuda de um adulto ou colega mais capaz).',
+          'Abrange funções que ainda estão <strong>em maturação</strong>; é dinâmica e muda o tempo todo.',
+          'A <strong>aprendizagem é condição para o desenvolvimento</strong>, e não o contrário. O bom ensino está <strong>à frente</strong> do desenvolvimento.'],
+          q:'O que define o nível real e o nível potencial?', a:'Real: o que a pessoa resolve sozinha. Potencial: o que resolve com ajuda de alguém mais capaz.'},
+        {when:'Pesquisa', titulo:'O método genético-experimental', pontos:[
+          '<strong>Introdução de obstáculos:</strong> atrapalhar a solução de um problema (ex.: trabalho em grupo entre crianças de línguas diferentes).',
+          '<strong>Recursos externos flexíveis:</strong> materiais que podem ser usados de várias formas.',
+          '<strong>Problemas além do nível:</strong> tarefas acima do conhecimento atual da criança.'],
+          q:'Cite as três técnicas usadas por Vygotsky nas pesquisas com crianças.', a:'Introdução de obstáculos, recursos externos flexíveis e problemas além do nível da criança.'},
+        {when:'Conceitos', titulo:'Formação de conceitos', pontos:[
+          '<strong>Agregação desorganizada:</strong> objetos agrupados ao acaso, sem lógica.',
+          '<strong>Pensamento por complexos:</strong> agrupamento por relações reais; o <strong>pseudoconceito</strong> é a ponte para o pensamento adulto.',
+          '<strong>Conceitos potenciais:</strong> abstração primitiva. O verdadeiro conceito só amadurece na <strong>puberdade</strong>.'],
+          q:'Qual é a "ponte" entre o pensamento por complexos e o pensamento adulto?', a:'O pseudoconceito.'},
+        {when:'Sala de aula', titulo:'Ensino como troca de significados', pontos:[
+          'O professor já internalizou os significados aceitos e os <strong>apresenta</strong> ao aluno.',
+          'O aluno <strong>devolve</strong> o significado que captou, para checar se é o compartilhado.',
+          'O ensino se consuma quando os dois <strong>compartilham significados</strong>. Sem interação dentro da ZDP, não há aprendizagem nem desenvolvimento.'],
+          q:'Quando o ensino se consuma, para Vygotsky?', a:'Quando professor e aluno passam a compartilhar os mesmos significados.'},
+      ],
+      quiz:[
+        {p:'Para Vygotsky, a aprendizagem…', o:['Só acontece depois do desenvolvimento','É condição para o desenvolvimento','Não interfere no desenvolvimento','Depende só da maturação biológica'], c:1, w:'A aprendizagem dentro da ZDP é o que provoca o desenvolvimento, e não o contrário.'},
+        {p:'Fumaça indicando fogo é um signo…', o:['Simbólico','Icônico','Indicador','Instrumental'], c:2, w:'Signos indicadores têm relação de causa e efeito com o que significam.'},
+        {p:'A ordem das fases da fala é…', o:['Interna → egocêntrica → social','Social → egocêntrica → interna','Egocêntrica → social → interna','Social → interna → egocêntrica'], c:1, w:'A fala nasce social, passa pela egocêntrica (que regula a ação) e se internaliza.'},
+        {p:'O que a criança faz sozinha corresponde ao…', o:['Nível potencial','Nível real','Limite superior da ZDP','Pseudoconceito'], c:1, w:'O nível real é medido pela resolução independente de problemas.'},
+        {p:'A unidade de análise de Vygotsky é…', o:['O indivíduo','O estágio de desenvolvimento','A interação social','O reflexo condicionado'], c:2, w:'Diferente de Piaget e Ausubel, Vygotsky analisa a interação entre indivíduo e contexto.'},
+      ]
+    },
+    {
+      id:'freire', aba:'Aula 5 · Paulo Freire', titulo:'As pedagogias de Paulo Freire',
+      intro:'Pedagogia do Oprimido, educação bancária × dialógica e Pedagogia da Autonomia: ensinar com o educando, e não sobre ele.',
+      etapas:[
+        {when:'Pedagogia do Oprimido', titulo:'Uma pedagogia da libertação', pontos:[
+          'É a pedagogia de quem luta pela <strong>própria libertação</strong>. Não pode ser feita pelos opressores.',
+          '<strong>1º momento:</strong> os oprimidos desvelam a opressão e se comprometem a transformá-la. <strong>2º momento:</strong> transformada a realidade, a pedagogia passa a ser de todos, em libertação permanente.',
+          'É humanista, democrática, antiautoritária e uma <strong>pedagogia da pergunta</strong>.'],
+          q:'Por que a Pedagogia do Oprimido não pode ser elaborada pelos opressores?', a:'Porque faria dos oprimidos objetos de humanitarismo, mantendo a opressão.'},
+        {when:'O polo a superar', titulo:'Educação bancária', pontos:[
+          'Educar vira <strong>depositar</strong> conhecimentos: o saber é "doado" por quem se julga sábio.',
+          'O <strong>educador</strong> é o sujeito: sabe, fala, escolhe. O <strong>educando</strong> é objeto: escuta, segue e se acomoda.',
+          'Resultado: anula o poder criador, estimula a <strong>ingenuidade</strong> e não a criticidade. Estudar vira memorizar.'],
+          q:'Na educação bancária, quem é sujeito e quem é objeto?', a:'O educador é o sujeito; o educando é mero objeto.'},
+        {when:'O caminho', titulo:'Educação dialógica e problematizadora', pontos:[
+          'O <strong>diálogo</strong> é a essência da educação como prática da liberdade.',
+          'Não se educa <strong>para</strong> nem <strong>sobre</strong> o educando, mas <strong>com</strong> ele.',
+          'O conteúdo é a <strong>devolução organizada</strong> ao povo do que ele entregou de forma desestruturada.'],
+          q:'Na educação dialógica, se educa para, sobre ou com o educando?', a:'Com o educando.'},
+        {when:'Método', titulo:'Temas e palavras geradoras', pontos:[
+          'Etapas: <strong>investigação → tematização → problematização</strong>.',
+          'O <strong>tema gerador</strong> vem das relações pessoa–mundo (ex.: <em>salário</em> → trabalho, classes sociais).',
+          '<strong>Palavras geradoras</strong> são escolhidas pela riqueza fonética, pelas dificuldades fonéticas e pelo aspecto pragmático.',
+          'Na alfabetização buscam-se palavras geradoras; na pós-alfabetização, temas geradores.'],
+          q:'Por quais critérios se escolhem as palavras geradoras?', a:'Riqueza fonética, dificuldades fonéticas e aspecto pragmático.'},
+        {when:'Papel do educador', titulo:'Diretivo, mas não autoritário', pontos:[
+          'O educador sai da posição de <strong>dono do saber</strong>: o educando também tem saberes.',
+          'A educação é sempre <strong>diretiva</strong>, mas isso não é comando nem domesticação.',
+          '"Não há seres educados e não educados. Estamos todos nos educando": somos <strong>inacabados</strong>.'],
+          q:'O educador freireano pode ser diretivo?', a:'Sim, diretivo, mas não autoritário nem manipulador.'},
+        {when:'Consciência', titulo:'Ingênua × crítica', pontos:[
+          '<strong>Ingênua:</strong> simplifica os problemas, aceita a realidade como imutável, aceita explicações mágicas.',
+          '<strong>Crítica:</strong> não se satisfaz com aparências, vê a realidade como mutável, investiga, ama o diálogo e aceita revisões.',
+          'Na escola real ainda predomina a educação bancária, que reforça a consciência ingênua.'],
+          q:'Quem vê a realidade como mutável: a consciência ingênua ou a crítica?', a:'A consciência crítica.'},
+        {when:'Pedagogia da Autonomia', titulo:'Os três princípios', pontos:[
+          '<strong>Não há docência sem discência:</strong> quem ensina aprende ao ensinar, e quem aprende ensina ao aprender.',
+          '<strong>Ensinar não é transferir conhecimento</strong>, mas criar possibilidades para a sua construção.',
+          '<strong>Ensinar é uma especificidade humana:</strong> exige segurança, competência, saber escutar, entender que educar é intervir no mundo e querer bem aos educandos.',
+          'Saberes: rigorosidade metódica, criticidade (curiosidade ingênua → <strong>epistemológica</strong>) e reflexão sobre a prática.'],
+          q:'O que acontece com a curiosidade ingênua quando se torna crítica e metódica?', a:'Torna-se curiosidade epistemológica.'},
+        {when:'Hoje', titulo:'Freire e o discurso pedagógico atual', pontos:[
+          'Ideias atuais já estavam em Freire: <strong>aprender a aprender</strong> (Rogers), <strong>interação social</strong> (Vygotsky), <strong>conhecimento prévio</strong> (Ausubel) e <strong>situações-problema</strong> (Vergnaud).',
+          'A <strong>aprendizagem significativa crítica</strong> (Moreira, 2005) também defende perguntas em vez de respostas.'],
+          q:'Qual autor converge com Freire na ideia de interação social e mediação?', a:'Vygotsky.'},
+      ],
+      quiz:[
+        {p:'Na educação bancária, estudar é…', o:['Problematizar a realidade','Memorizar mecanicamente','Investigar temas geradores','Dialogar com o educador'], c:1, w:'A compreensão não é exigida, só a memorização dos "depósitos".'},
+        {p:'A ordem do método dos temas geradores é…', o:['Problematização → tematização → investigação','Investigação → tematização → problematização','Tematização → investigação → problematização','Alfabetização → investigação → tematização'], c:1, w:'Primeiro se investiga o universo temático, depois se tematiza e se problematiza.'},
+        {p:'"Não há docência sem discência" significa que…', o:['Só o professor ensina','Quem ensina também aprende, e vice-versa','O aluno deve ficar em silêncio','O conteúdo é transferido'], c:1, w:'É o primeiro princípio da Pedagogia da Autonomia.'},
+        {p:'Aceitar explicações mágicas é traço da consciência…', o:['Crítica','Epistemológica','Ingênua','Dialógica'], c:2, w:'A consciência ingênua simplifica e aceita explicações mágicas.'},
+        {p:'Para Freire, o educador deve ser…', o:['Autoritário e diretivo','Neutro e não diretivo','Diretivo, mas não autoritário','Apenas um facilitador passivo'], c:2, w:'A educação libertadora é diretiva, mas não é comando nem domesticação.'},
+      ]
+    },
+    {
+      id:'dislexia', aba:'Aula 6 · Dislexia', titulo:'Transtorno da linguagem escrita: dislexia',
+      intro:'Da "cegueira verbal" do século XIX à genética do século XXI: o que é a dislexia, como aparece e o que a causa.',
+      etapas:[
+        {when:'1872 · 1896 · 1907', titulo:'Os primeiros registros', pontos:[
+          '<strong>1872:</strong> Berlin usa pela primeira vez o termo <strong>dislexia</strong>.',
+          '<strong>1896:</strong> Morgan descreve um adolescente que não conseguia ler, apesar da inteligência normal: <strong>"cegueira verbal"</strong>.',
+          '<strong>1907:</strong> Stevenson relata seis casos numa mesma família, sugerindo origem <strong>genética</strong>.'],
+          q:'Como Morgan chamou a condição em 1896?', a:'"Cegueira verbal".'},
+        {when:'1917 · 1928', titulo:'Do olho para o cérebro', pontos:[
+          '<strong>1917:</strong> Hinshelwood aponta um <strong>defeito congênito cerebral</strong> na memória visual de palavras e letras. Oftalmologistas confirmam: o problema não está nos olhos.',
+          '<strong>1928:</strong> Orton descreve a <strong>estrefossimbolia</strong> ("símbolos invertidos"): inversões e letras espelhadas. Destaca a dificuldade de reconstruir sequências e a relação com a dominância lateral.'],
+          q:'O que é estrefossimbolia?', a:'"Símbolos invertidos": inversões e imagens espelhadas de letras e palavras, descritas por Orton em 1928.'},
+        {when:'1950 · 1970', titulo:'Genética e definição', pontos:[
+          '<strong>1950:</strong> Hallgren publica o primeiro estudo clínico-genético.',
+          '<strong>1970:</strong> Critchley divulga a definição da Federação Mundial de Neurologia (WFN).'],
+          q:'Quem publicou o primeiro estudo clínico-genético da dislexia?', a:'Hallgren, em 1950.'},
+        {when:'Base', titulo:'O que é ler', pontos:[
+          'Ler é <strong>dar sentido</strong> ao que está escrito, não só decodificar sons (Smith).',
+          'Envolve linguagem escrita, atenção, habilidade motora, vários tipos de memória e imagem mental.',
+          'Varia com idade, maturação, hereditariedade, tipo de língua, instrução, prática e motivação.'],
+          q:'Para Smith (1989), ler é só decodificar sons?', a:'Não: é dar sentido ao que está escrito.'},
+        {when:'Definição', titulo:'Do DSM-IV ao DSM-5', pontos:[
+          '<strong>Associação Internacional de Dislexia (2003):</strong> transtorno específico de aprendizagem, de origem <strong>neurobiológica</strong>, com dificuldades em reconhecer palavras, fluência, soletração e decodificação, por <strong>déficit fonológico</strong>.',
+          '<strong>DSM-5:</strong> transtorno do <strong>neurodesenvolvimento</strong>, pela interação de fatores genéticos, epigenéticos e ambientais.'],
+          q:'Como o DSM-5 classifica a dislexia?', a:'Como transtorno do neurodesenvolvimento, de origem biológica (genética, epigenética e ambiente).'},
+        {when:'Clínica', titulo:'Como aparece', pontos:[
+          'Leitura oral com <strong>omissões, distorções e substituições</strong>; leitura lenta e vacilante.',
+          'Dificuldade em transformar <strong>grafemas em sons</strong>, soletrar e calcular; vocabulário pobre para a idade.',
+          'Fica mais evidente entre <strong>6 e 7 anos</strong>, em crianças com inteligência média ou acima da média.'],
+          q:'Em que idade a dislexia costuma ficar mais evidente?', a:'Entre 6 e 7 anos.'},
+        {when:'Números', titulo:'Quantos são', pontos:[
+          'Europa e EUA: de <strong>3% a 18%</strong>, conforme o estudo. <strong>DSM-5:</strong> 5% a 15% das crianças em idade escolar.',
+          'Brasil (2004): <strong>12,1%</strong> em alunos do 3º ano do fundamental.',
+          'Mais comum em meninos: cerca de <strong>1,7 para 1</strong>.'],
+          q:'Qual a prevalência estimada pelo DSM-5?', a:'De 5% a 15% das crianças em idade escolar.'},
+        {when:'Causas', titulo:'Genética, epigenética e ambiente', pontos:[
+          'A dislexia é herdada em cerca de <strong>50%</strong> dos casos; <strong>35–40%</strong> dos parentes de primeiro grau são afetados.',
+          'Alta herdabilidade: decodificação fonológica, consciência de fonemas, reconhecimento de palavras. Baixa: codificação ortográfica e compreensão.',
+          'Vários cromossomos já foram associados (ex.: 6, 15, 3, 1, 7, 18), com transmissão <strong>poligênica</strong>.'],
+          q:'Em cerca de quantos casos a dislexia é herdada?', a:'Em cerca de 50% dos casos.'},
+        {when:'Teorias', titulo:'Por que acontece', pontos:[
+          '<strong>Déficit fonológico:</strong> falha no processamento dos fonemas e na decodificação.',
+          '<strong>Déficit na nomeação rápida:</strong> demora para recuperar nomes de letras, números e objetos.',
+          '<strong>Duplo déficit:</strong> os dois juntos, nas formas mais graves.',
+          '<strong>Déficit perceptivo visual:</strong> escrita em espelho e lateralidade mal estabelecida.'],
+          q:'O que é a teoria do duplo déficit?', a:'Déficit fonológico + déficit na nomeação rápida juntos: as formas mais graves de dislexia.'},
+        {when:'Tipos e sinais precoces', titulo:'Auditiva, visual ou mista', pontos:[
+          '<strong>Auditiva:</strong> dificuldade em discriminar sons e seguir instruções orais. <strong>Visual:</strong> dificuldade com sequências visuais e inversões de letras. <strong>Mista:</strong> a mais frequente.',
+          'Sinais de risco já no jardim de infância: <strong>atraso na fala</strong>, dificuldade com <strong>rimas</strong>, vocabulário pobre.',
+          'A identificação precoce e o apoio adequado reduzem o impacto escolar e social.'],
+          q:'Qual forma de dislexia é a mais frequente na prática clínica?', a:'A forma mista (auditiva + visual).'},
+      ],
+      quiz:[
+        {p:'Quem usou pela primeira vez o termo "dislexia"?', o:['Orton','Berlin','Morgan','Hinshelwood'], c:1, w:'Berlin, em 1872.'},
+        {p:'A dislexia ocorre em crianças com inteligência…', o:['Sempre abaixo da média','Média ou acima da média','Que não pode ser medida','Somente superior'], c:1, w:'A dificuldade de leitura é atípica justamente porque a inteligência está preservada.'},
+        {p:'Para a Associação Internacional de Dislexia (2003), as dificuldades resultam de…', o:['Problemas de visão','Falta de estímulo','Déficit fonológico','Baixa inteligência'], c:2, w:'A definição destaca origem neurobiológica e déficit fonológico.'},
+        {p:'Dificuldade em reconhecer rimas no jardim de infância pode ser…', o:['Sinal de risco para dislexia','Sem importância','Sinal de deficiência visual','Típico de todas as crianças'], c:0, w:'Déficits fonológicos, como a dificuldade com rimas, são indicadores precoces.'},
+        {p:'A proporção entre meninos e meninas com dislexia é de cerca de…', o:['1:1','1,7:1','5:1','1:2'], c:1, w:'Há leve predominância no sexo masculino: cerca de 1,7 para 1.'},
+      ]
+    }
+    ]
+  },
+};
+
 </script>
 <script>
 
@@ -2848,7 +3245,7 @@ function studyCardHTML(s){
       <div class="study-desc">${s.desc}</div>
     </div>
     <div class="study-actions">
-      <a class="study-go" href="${s.link}" target="_blank" rel="noopener">Estudar ↗</a>
+      ${s.link.startsWith('#') ? `<a class="study-go" href="${s.link}">Estudar →</a>` : `<a class="study-go" href="${s.link}" target="_blank" rel="noopener">Estudar ↗</a>`}
       <button class="study-done" data-study-toggle="${s.link}" aria-pressed="${done}">${done ? '✓ Estudado' : 'Marcar como estudado'}</button>
     </div>
   </div>`;
@@ -2893,7 +3290,7 @@ if(document.body.classList.contains('dark')){
 }
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
-const ALL_PAGES = ['top', 'viewDisc', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar'];
+const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar'];
 let currentPage = 'top';
 
 function closeMenus(){
@@ -2987,6 +3384,8 @@ function routeFromHash(){
   const h = decodeURIComponent(location.hash.slice(1));
   const md = h.match(/^disc-(\d\d)$/);
   if(md){ setTimeout(()=> openDisc(md[1], {fromHistory:true}), 0); return; }
+  const mr = h.match(/^resumo-([\w-]+)$/);
+  if(mr){ setTimeout(()=> openResumo(mr[1], {fromHistory:true}), 0); return; }
   if(ALL_PAGES.includes(h)) switchPage(h, {fromHistory:true});
   else if(h && document.getElementById(h)){ switchPage('top', {fromHistory:true}); setTimeout(()=>document.getElementById(h)?.scrollIntoView(), 30); }
   else switchPage('top', {fromHistory:true, keepScroll: !h});
@@ -4910,6 +5309,7 @@ function revealTarget(id){
 }
 function navigateTo(l){
   if(!l) return;
+  if(l.url && l.url.startsWith('#')){ irParaHash(l.url); return; }
   if(l.url){ window.open(l.url, '_blank', 'noopener'); return; }
   if(l.drive){ const d = DISC[2].find(x=>x.n===l.drive) || DISC[1].find(x=>x.n===l.drive); if(d) window.open(d.url, '_blank', 'noopener'); return; }
   if(l.disc){ openDisc(l.disc); return; }
@@ -5177,7 +5577,7 @@ function indiceBusca(){
     closeMenus();
     ov.hidden = false; document.body.classList.add('search-open');
     inp.value = ''; render();
-    setTimeout(()=> inp.focus(), 20);
+    inp.focus(); // foco imediato: no iPhone o teclado só abre se o foco vier no mesmo toque
   }
   function fechar(){ ov.hidden = true; document.body.classList.remove('search-open'); }
   function render(){
@@ -5228,6 +5628,173 @@ function indiceBusca(){
 })();
 
 renderModoProva();
+
+// =====================================================================
+// RESUMOS INTERATIVOS DENTRO DO SITE (conteúdo em RESUMOS, no bloco DADOS DO SITE)
+// =====================================================================
+let resumoAtual = null, capResumo = 0;
+function irParaHash(h){
+  const id = h.replace(/^#/, '');
+  const mr = id.match(/^resumo-([\w-]+)$/);
+  if(mr){ openResumo(mr[1]); return; }
+  const md = id.match(/^disc-(\d\d)$/);
+  if(md){ openDisc(md[1]); return; }
+  if(ALL_PAGES.includes(id)){ switchPage(id); return; }
+}
+function rsEstado(id){ try{ return JSON.parse(localStorage.getItem('av-resumo-' + id)) || {}; }catch(e){ return {}; } }
+function rsSalvar(id, st){ try{ localStorage.setItem('av-resumo-' + id, JSON.stringify(st)); }catch(e){} }
+
+function openResumo(id, opts){
+  opts = opts || {};
+  const r = RESUMOS[id];
+  if(!r){ switchPage('top', opts); return; }
+  resumoAtual = id;
+  const capPedido = opts.cap != null ? opts.cap : 0;
+  capResumo = Math.min(capPedido, r.caps.length - 1);
+  renderResumo();
+  switchPage('viewResumo', {fromHistory:true});
+  document.querySelector('.site-nav .nav-item[data-page="viewEstudar"]')?.classList.add('active');
+  document.querySelector('.site-nav .nav-item[data-page="viewEstudar"]')?.closest('.nav-group')?.querySelector('.nav-trigger')?.classList.add('active');
+  if(!opts.fromHistory && location.hash !== '#resumo-' + id) history.pushState({resumo:id}, '', '#resumo-' + id);
+}
+document.getElementById('backFromResumo').addEventListener('click', ()=>{
+  const r = RESUMOS[resumoAtual];
+  if(r && r.disc) openDisc(r.disc); else switchPage('viewEstudar');
+});
+
+function renderResumo(){
+  const r = RESUMOS[resumoAtual];
+  const c = r.caps[capResumo];
+  const st = (rsEstado(resumoAtual)[c.id]) || {};
+  const el = document.getElementById('resumoPage');
+  const temAbas = r.caps.length > 1;
+  document.getElementById('backFromResumo').textContent = '← ' + (r.disc ? 'Voltar para ' + (DISC[2].find(d=>d.n===r.disc)?.name || 'a disciplina') : 'Voltar');
+
+  let etapasHTML = '', faseAtual = null, aberto = false;
+  c.etapas.forEach((e, i)=>{
+    if(e.fase && e.fase !== faseAtual){
+      if(aberto) etapasHTML += '</div>';
+      etapasHTML += `<div class="rs-phase">${e.fase}</div><div class="rs-timeline">`;
+      faseAtual = e.fase; aberto = true;
+    } else if(!aberto){ etapasHTML += '<div class="rs-timeline">'; aberto = true; }
+    const s = st[i];
+    etapasHTML += `<article class="rs-step${s ? ' done' : ''}" data-i="${i}">
+      <span class="rs-when">${e.when}</span>
+      <h3>${e.titulo}</h3>
+      <ul>${e.pontos.map(p=>`<li>${p}</li>`).join('')}</ul>
+      <div class="rs-test">
+        <div class="rs-test-q"><span>Teste-se</span>${e.q}</div>
+        <button class="rs-reveal">${s ? 'Ver a resposta de novo' : 'Pensei. Ver a resposta'}</button>
+        <div class="rs-answer${s ? ' show' : ''}">${e.a}</div>
+        <div class="rs-self${s ? ' show' : ''}">Você acertou?
+          <button data-rs-ok="${i}" class="${s==='ok' ? 'on-ok' : ''}">Acertei</button>
+          <button data-rs-no="${i}" class="${s==='no' ? 'on-no' : ''}">Errei, vou revisar</button>
+        </div>
+      </div>
+    </article>`;
+  });
+  if(aberto) etapasHTML += '</div>';
+
+  const extras = (c.extras || []).map(x=>{
+    if(x.tipo === 'tabela') return `<div class="rs-phase">${x.titulo}</div><div class="rs-table-wrap"><table class="rs-table"><thead><tr>${x.cab.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${x.linhas.map(l=>`<tr>${l.map(v=>`<td>${v}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    if(x.tipo === 'caixas') return `<div class="rs-phase">${x.titulo}</div>${x.itens.map(b=>`<div class="rs-box"><h3>${b.t}</h3><p>${b.d}</p></div>`).join('')}`;
+    return '';
+  }).join('');
+
+  const abas = temAbas ? `<div class="rs-tabs" role="tablist">${r.caps.map((cp, i)=>{
+    const feitas = Object.keys((rsEstado(resumoAtual)[cp.id]) || {}).length;
+    return `<button role="tab" class="rs-tab${i===capResumo?' on':''}" data-rs-cap="${i}" aria-selected="${i===capResumo}">${cp.aba}<small>${feitas}/${cp.etapas.length}</small></button>`;
+  }).join('')}</div>` : '';
+
+  const prox = r.caps[capResumo + 1];
+  el.innerHTML = `
+    <header class="rs-header">
+      <div class="eyebrow">${r.eyebrow}</div>
+      <h1>${r.titulo}</h1>
+      <p>${r.lead}</p>
+    </header>
+    ${abas}
+    <div class="rs-progress"><div class="rs-progress-label"><span>${temAbas ? c.aba : 'Seu caminho'}</span><span class="rs-prog-txt"></span></div><div class="rs-bar"><i></i></div></div>
+    ${c.titulo ? `<h2 class="rs-cap-title">${c.titulo}</h2>` : ''}${c.intro ? `<p class="rs-cap-intro">${c.intro}</p>` : ''}
+    ${etapasHTML}
+    ${extras}
+    <div class="rs-phase">Quiz rápido</div>
+    <div class="rs-quiz"></div>
+    <div class="rs-score"></div>
+    <div class="rs-center"><button class="rs-again" hidden>Refazer o quiz</button></div>
+    ${prox ? `<div class="rs-center"><button class="rs-next" data-rs-cap="${capResumo+1}">Próxima: ${prox.aba} →</button></div>` : ''}
+    <p class="rs-foot">${r.fonte} O conteúdo das aulas sempre prevalece como referência final.</p>`;
+  rsProgresso();
+  rsRenderQuiz();
+}
+function rsProgresso(){
+  const r = RESUMOS[resumoAtual], c = r.caps[capResumo];
+  const st = (rsEstado(resumoAtual)[c.id]) || {};
+  const feitas = Object.keys(st).length, total = c.etapas.length, ok = Object.values(st).filter(v=>v==='ok').length;
+  const el = document.getElementById('resumoPage');
+  el.querySelector('.rs-prog-txt').textContent = `${feitas} de ${total} partes${feitas ? ` · ${ok} acerto${ok===1?'':'s'}` : ''}`;
+  el.querySelector('.rs-bar i').style.width = (100*feitas/total) + '%';
+  el.querySelectorAll('.rs-tab').forEach((t, i)=>{
+    const cp = r.caps[i]; const n = Object.keys((rsEstado(resumoAtual)[cp.id]) || {}).length;
+    t.querySelector('small').textContent = `${n}/${cp.etapas.length}`;
+  });
+}
+let rsPontos = 0, rsRespondidas = 0;
+function rsRenderQuiz(){
+  const Q = RESUMOS[resumoAtual].caps[capResumo].quiz;
+  const el = document.getElementById('resumoPage');
+  rsPontos = 0; rsRespondidas = 0;
+  el.querySelector('.rs-quiz').innerHTML = Q.map((q, i)=>`<div class="rs-quiz-q" data-q="${i}">
+    <p>${i+1}. ${q.p}</p>
+    ${q.o.map((o, j)=>`<button class="rs-opt" data-j="${j}">${o}</button>`).join('')}
+    <div class="rs-why">${q.w}</div>
+  </div>`).join('');
+  el.querySelector('.rs-score').className = 'rs-score';
+  el.querySelector('.rs-again').hidden = true;
+}
+document.getElementById('resumoPage').addEventListener('click', ev=>{
+  const el = document.getElementById('resumoPage');
+  const r = RESUMOS[resumoAtual]; if(!r) return;
+  const c = r.caps[capResumo];
+  const tab = ev.target.closest('[data-rs-cap]');
+  if(tab){ capResumo = +tab.dataset.rsCap; renderResumo(); el.querySelector('.rs-tabs, .rs-header')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+  const rv = ev.target.closest('.rs-reveal');
+  if(rv){ const art = rv.closest('.rs-step'); art.querySelector('.rs-answer').classList.add('show'); art.querySelector('.rs-self').classList.add('show'); return; }
+  const ok = ev.target.closest('[data-rs-ok]'), no = ev.target.closest('[data-rs-no]');
+  if(ok || no){
+    const i = (ok || no).dataset.rsOk ?? (ok || no).dataset.rsNo;
+    const st = rsEstado(resumoAtual); st[c.id] = st[c.id] || {}; st[c.id][i] = ok ? 'ok' : 'no'; rsSalvar(resumoAtual, st);
+    const art = el.querySelector(`.rs-step[data-i="${i}"]`);
+    art.classList.add('done');
+    art.querySelector('[data-rs-ok]').className = ok ? 'on-ok' : '';
+    art.querySelector('[data-rs-no]').className = no ? 'on-no' : '';
+    rsProgresso();
+    return;
+  }
+  const opt = ev.target.closest('.rs-opt');
+  if(opt && !opt.disabled){
+    const box = opt.closest('.rs-quiz-q'); const q = c.quiz[+box.dataset.q]; const j = +opt.dataset.j;
+    box.querySelectorAll('.rs-opt').forEach((x, k)=>{ x.disabled = true; if(k === q.c) x.classList.add('ok'); });
+    if(j === q.c) rsPontos++; else opt.classList.add('no');
+    box.querySelector('.rs-why').classList.add('show');
+    rsRespondidas++;
+    if(rsRespondidas === c.quiz.length){
+      const sc = el.querySelector('.rs-score');
+      sc.textContent = `Você acertou ${rsPontos} de ${c.quiz.length}. ${rsPontos === c.quiz.length ? 'Excelente!' : rsPontos >= c.quiz.length - 1 ? 'Muito bom: revise a que errou.' : 'Vale reler as partes e tentar de novo.'}`;
+      sc.className = 'rs-score show';
+      el.querySelector('.rs-again').hidden = false;
+    }
+    return;
+  }
+  if(ev.target.closest('.rs-again')){ rsRenderQuiz(); el.querySelector('.rs-quiz').scrollIntoView({behavior:'smooth'}); }
+});
+// links "#resumo-..." e "#disc-..." dentro do site abrem sem recarregar
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href^="#resumo-"], a[href^="#disc-"]');
+  if(!a) return;
+  e.preventDefault();
+  irParaHash(a.getAttribute('href'));
+});
 </script>
 </body>
 </html>
