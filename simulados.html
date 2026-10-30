@@ -2762,7 +2762,8 @@ document.getElementById('themeBtn').addEventListener('click', ()=>{
 const ALL_PAGES = ['top', 'viewPrazos', 'viewAcademicas', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewEstudar', 'viewSobre', 'viewInstalar'];
 function switchPage(id){
   ALL_PAGES.forEach(pid=>{
-    document.getElementById(pid).style.display = (pid === id) ? 'block' : 'none';
+    const page = document.getElementById(pid);
+    if(page) page.style.display = (pid === id) ? 'block' : 'none';
   });
   window.scrollTo(0,0);
 }
@@ -4174,6 +4175,36 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
  if(file==='atualizacoes.html'){document.body.dataset.route='atualizacoes';switchPage('top');setTimeout(()=>document.getElementById('atualizacoes')?.scrollIntoView(),30)}
 })();
 </script>
+
+<script>
+/* Roteamento independente: executa mesmo se algum script secundário falhar. */
+(function(){
+  const routes = {
+    'tarefas.html':'viewPrazos',
+    'ferramentas-academicas.html':'viewAcademicas',
+    'cursos.html':'viewCursos',
+    'ferramentas.html':'viewFerramentas',
+    'videos.html':'viewVideos',
+    'simulados.html':'viewSimulados',
+    'estudar.html':'viewEstudar',
+    'sobre.html':'viewSobre',
+    'instalar.html':'viewInstalar',
+    'drive.html':'top',
+    'atualizacoes.html':'top'
+  };
+  const file = location.pathname.split('/').pop() || 'index.html';
+  const requested = routes[file] || 'top';
+  const target = document.getElementById(requested) ? requested : 'top';
+  ['top','viewPrazos','viewAcademicas','viewCursos','viewFerramentas','viewVideos','viewSimulados','viewEstudar','viewSobre','viewInstalar'].forEach(id=>{
+    const page = document.getElementById(id);
+    if(page) page.style.display = id === target ? 'block' : 'none';
+  });
+  document.body.dataset.route = file === 'index.html' ? 'home' : file.replace('.html','');
+  if(file === 'drive.html') document.getElementById('disciplinas')?.scrollIntoView();
+  if(file === 'atualizacoes.html') document.getElementById('atualizacoes')?.scrollIntoView();
+})();
+</script>
+
 </body>
 </html>
 <!-- novo disparo de publicação do GitHub Pages -->
