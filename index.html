@@ -1630,10 +1630,7 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
 
 </style>
 </head>
-<body>
-<a class="site-home-link" href="index.html" aria-label="Voltar para a página inicial"><span aria-hidden="true">←</span> Início</a>
-    
-
+<body data-route="home">
 <div class="wrap" id="top">
 
   <header>
@@ -1692,17 +1689,17 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
   </div>
   <div class="home-explore-heading"><span>Explore o Arquivo Vivo</span><small>Escolha uma área para começar</small></div>
   <div class="av-quicklinks" aria-label="Áreas do Arquivo Vivo">
-    <a href="drive.html#disciplinas"><span class="home-link-index">01</span><span class="home-link-copy"><strong>Drive com os arquivos</strong><small>Materiais organizados por semestre e disciplina</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="atualizacoes.html#atualizacoes"><span class="home-link-index">02</span><span class="home-link-copy"><strong>Últimas atualizações</strong><small>O que entrou ou mudou recentemente</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="tarefas.html"><span class="home-link-index">03</span><span class="home-link-copy"><strong>Tarefas e prazos</strong><small>Provas, trabalhos e datas importantes</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="ferramentas-academicas.html"><span class="home-link-index">04</span><span class="home-link-copy"><strong>Ferramentas acadêmicas</strong><small>Calendário e glossário de conceitos</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="ferramentas.html"><span class="home-link-index">05</span><span class="home-link-copy"><strong>Ferramentas interativas</strong><small>Exercícios e atividades por disciplina</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="estudar.html"><span class="home-link-index">06</span><span class="home-link-copy"><strong>Pra estudar!</strong><small>Materiais para praticar e revisar</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="videos.html"><span class="home-link-index">07</span><span class="home-link-copy"><strong>Vídeos de apoio</strong><small>Conteúdos complementares por disciplina</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="simulados.html"><span class="home-link-index">08</span><span class="home-link-copy"><strong>Simulados</strong><small>Questões para treinar antes das provas</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="cursos.html"><span class="home-link-index">09</span><span class="home-link-copy"><strong>Cursos extras</strong><small>Oportunidades de aprendizagem</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="sobre.html"><span class="home-link-index">10</span><span class="home-link-copy"><strong>Sobre o projeto</strong><small>Como o Arquivo Vivo funciona</small></span><span class="home-link-arrow">↗</span></a>
-    <a href="instalar.html"><span class="home-link-index">11</span><span class="home-link-copy"><strong>Instale o app</strong><small>Acesse o painel direto do celular</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#disciplinas"><span class="home-link-index">01</span><span class="home-link-copy"><strong>Drive com os arquivos</strong><small>Materiais organizados por semestre e disciplina</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#atualizacoes"><span class="home-link-index">02</span><span class="home-link-copy"><strong>Últimas atualizações</strong><small>O que entrou ou mudou recentemente</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewPrazos"><span class="home-link-index">03</span><span class="home-link-copy"><strong>Tarefas e prazos</strong><small>Provas, trabalhos e datas importantes</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewAcademicas"><span class="home-link-index">04</span><span class="home-link-copy"><strong>Ferramentas acadêmicas</strong><small>Calendário e glossário de conceitos</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewFerramentas"><span class="home-link-index">05</span><span class="home-link-copy"><strong>Ferramentas interativas</strong><small>Exercícios e atividades por disciplina</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewEstudar"><span class="home-link-index">06</span><span class="home-link-copy"><strong>Pra estudar!</strong><small>Materiais para praticar e revisar</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewVideos"><span class="home-link-index">07</span><span class="home-link-copy"><strong>Vídeos de apoio</strong><small>Conteúdos complementares por disciplina</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewSimulados"><span class="home-link-index">08</span><span class="home-link-copy"><strong>Simulados</strong><small>Questões para treinar antes das provas</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewCursos"><span class="home-link-index">09</span><span class="home-link-copy"><strong>Cursos extras</strong><small>Oportunidades de aprendizagem</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewSobre"><span class="home-link-index">10</span><span class="home-link-copy"><strong>Sobre o projeto</strong><small>Como o Arquivo Vivo funciona</small></span><span class="home-link-arrow">↗</span></a>
+    <a href="#viewInstalar"><span class="home-link-index">11</span><span class="home-link-copy"><strong>Instale o app</strong><small>Acesse o painel direto do celular</small></span><span class="home-link-arrow">↗</span></a>
   </div>
 </section>
 
@@ -1764,9 +1761,7 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
 </div>
 
 <!-- ============ PÁGINA: PRAZOS E TAREFAS ============ -->
-<div class="wrap" id="viewPrazos" style="display:none;">
-  <button class="back-link" id="backFromPrazos">← Voltar ao Arquivo Vivo</button>
-
+<div class="wrap" id="viewPrazos">
   <header>
     <div class="eyebrow">Prazos e Tarefas · Arquivo Vivo <span id="cntTasks"></span></div>
     <h1>Prazos e Tarefas</h1>
@@ -1784,8 +1779,7 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
 </div>
 
 <!-- ============ PÁGINA: FERRAMENTAS ACADÊMICAS ============ -->
-<div class="wrap" id="viewAcademicas" style="display:none;">
-<button class="back-link" id="backFromAcademicas">← Voltar ao Arquivo Vivo</button>
+<div class="wrap" id="viewAcademicas">
 <header><div class="eyebrow">Organização e consulta · Arquivo Vivo</div><h1>Ferramentas acadêmicas</h1><p>Recursos para acompanhar a rotina da turma e consultar conceitos importantes da Psicologia.</p></header>
 <section class="academic-section"><div class="academic-section-head"><div><span class="academic-kicker">Organização</span><h2>Calendário de provas e trabalhos</h2><p>Datas cadastradas no painel. Confira sempre os avisos oficiais da disciplina.</p></div><div class="calendar-controls"><button type="button" id="calendarPrev" aria-label="Mês anterior">←</button><strong id="calendarMonthLabel"></strong><button type="button" id="calendarNext" aria-label="Próximo mês">→</button></div></div>
 <div class="calendar-weekdays"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div><div class="calendar-grid" id="academicCalendarGrid"></div><div class="calendar-legend"><span><i class="legend-dot exam"></i> Prova</span><span><i class="legend-dot work"></i> Trabalho / entrega</span><span><i class="legend-dot other"></i> Outros prazos</span></div><div class="calendar-events" id="academicCalendarEvents"></div></section>
@@ -1793,9 +1787,7 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
 <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer></div>
 
 <!-- ============ PÁGINA: CURSOS ============ -->
-<div class="wrap" id="viewCursos" style="display:none;">
-  <button class="back-link" id="backFromCursos">← Voltar ao Arquivo Vivo</button>
-
+<div class="wrap" id="viewCursos">
   <header>
     <div class="eyebrow">Cursos Extras · Arquivo Vivo</div>
     <h1>Cursos Extras</h1>
@@ -1808,9 +1800,7 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
 </div>
 
 <!-- ============ PÁGINA: SOBRE O SITE ============ -->
-<div class="wrap" id="viewSobre" style="display:none;">
-  <button class="back-link" id="backFromSobre">← Voltar ao Arquivo Vivo</button>
-
+<div class="wrap" id="viewSobre">
   <header>
     <div class="eyebrow">Sobre · Arquivo Vivo</div>
     <h1>Sobre o Drive e este painel</h1>
@@ -1837,9 +1827,7 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
 </div>
 
 <!-- ============ PÁGINA: COMO INSTALAR ============ -->
-<div class="wrap" id="viewInstalar" style="display:none;">
-  <button class="back-link" id="backFromInstalar">← Voltar ao Arquivo Vivo</button>
-
+<div class="wrap" id="viewInstalar">
   <header>
     <div class="eyebrow">Como Instalar · Arquivo Vivo</div>
     <h1>Baixe o Aplicativo</h1>
@@ -1915,9 +1903,7 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
 
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
-<div class="wrap" id="viewFerramentas" style="display:none;">
-  <button class="back-link" id="backFromFerramentas">← Voltar ao Arquivo Vivo</button>
-
+<div class="wrap" id="viewFerramentas">
   <header>
     <div class="eyebrow">Ferramentas · Arquivo Vivo</div>
     <h1>Ferramentas</h1>
@@ -2367,10 +2353,27 @@ body.dark .av-result{background:var(--site-surface);color:var(--ink);border-colo
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
 
-<!-- ============ PÁGINA: PRA ESTUDAR ============ -->
-<div class="wrap" id="viewEstudar" style="display:none;">
-  <button class="back-link" id="backFromEstudar">← Voltar ao Arquivo Vivo</button>
 
+<!-- ============ VÍDEOS E SIMULADOS ============ -->
+<div class="wrap" id="viewVideos">
+  <header>
+    <div class="eyebrow">Conteúdo complementar · Arquivo Vivo</div>
+    <h1>Vídeos de apoio</h1>
+    <p>Vídeos organizados por disciplina para complementar os estudos.</p>
+  </header>
+  <div class="videos-accordion" id="videosAccordion"></div>
+</div>
+<div class="wrap" id="viewSimulados">
+  <header>
+    <div class="eyebrow">Prática e revisão · Arquivo Vivo</div>
+    <h1>Simulados</h1>
+    <p>Questões e atividades para revisar os conteúdos das disciplinas.</p>
+  </header>
+  <div class="simulados-lista" id="simuladosLista"></div>
+</div>
+
+<!-- ============ PÁGINA: PRA ESTUDAR ============ -->
+<div class="wrap" id="viewEstudar">
   <header>
     <div class="eyebrow">Pra estudar! · Arquivo Vivo</div>
     <h1>Pra estudar!</h1>
@@ -2759,13 +2762,9 @@ document.getElementById('themeBtn').addEventListener('click', ()=>{
 });
 
 // Navegação entre páginas (Cursos / Ferramentas / Vídeos / Sobre)
-const ALL_PAGES = ['top', 'viewPrazos', 'viewAcademicas', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewEstudar', 'viewSobre', 'viewInstalar'];
 function switchPage(id){
-  ALL_PAGES.forEach(pid=>{
-    const page = document.getElementById(pid);
-    if(page) page.style.display = (pid === id) ? 'block' : 'none';
-  });
-  window.scrollTo(0,0);
+  const target = document.getElementById(id);
+  if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 // Página Vídeos: accordion por disciplina (Segundo Semestre)
@@ -2780,6 +2779,7 @@ const VIDEOS = {
 };
 function renderVideos(){
   const el = document.getElementById('videosAccordion');
+  if(!el) return;
   el.innerHTML = DISC[2].map(d=>{
     const items = VIDEOS[d.n] || [];
     const listHtml = items.length === 0
@@ -2812,7 +2812,8 @@ renderVideos();
   let pct = ((now - start) / (end - start)) * 100;
   pct = Math.max(0, Math.min(100, pct));
   document.getElementById('progressFill').style.width = pct.toFixed(0) + '%';
-  document.getElementById('progressPct').textContent = pct.toFixed(0) + '% concluído · encerra em 17/12';
+  const diasRestantes = Math.max(0, Math.ceil((end - now) / 86400000));
+  document.getElementById('progressPct').textContent = pct.toFixed(0) + '% concluído · ' + diasRestantes + ' dias restantes · encerra em 17/12';
 })();
 
 // Selo de última atualização (baseado no registro mais recente que temos, não é sincronização automática em tempo real)
@@ -3756,6 +3757,7 @@ const SIMULADOS = {
 };
 function renderSimulados(){
   const el = document.getElementById('simuladosLista');
+  if(!el) return;
   const RARITY_CORES = ['#9AA0A6', '#3DDC97', '#4C8DFF', '#A855F7', '#FF9F1C', '#FF3D9A'];
   el.innerHTML = DISC[2].map((d, idx)=>{
     const items = SIMULADOS[d.n] || [];
@@ -4128,7 +4130,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   })); return found;
  }
  function go(item){
-  const page=item.el.closest('.wrap[id^="view"]');switchPage(page&&page.id!=='top'?page.id:'top');
+  const page=item.el.closest('.wrap[id^="view"]');if(page) page.scrollIntoView({behavior:'smooth',block:'start'});
   const details=item.el.closest('details');if(details)details.open=true;
   setTimeout(()=>{item.el.scrollIntoView({behavior:'smooth',block:'center'});item.el.style.outline='2px solid var(--petrol)';setTimeout(()=>item.el.style.outline='',1500)},80);
   results.classList.remove('show');
@@ -4166,44 +4168,10 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
  });
 })();
 
-(function(){
- const routes={'tarefas.html':'viewPrazos','ferramentas-academicas.html':'viewAcademicas','cursos.html':'viewCursos','ferramentas.html':'viewFerramentas','videos.html':'viewVideos','simulados.html':'viewSimulados','estudar.html':'viewEstudar','sobre.html':'viewSobre','instalar.html':'viewInstalar'};
- const file=location.pathname.split('/').pop()||'index.html';
- document.body.dataset.route = file==='index.html' ? 'home' : file.replace('.html','');
- if(routes[file])switchPage(routes[file]);
- if(file==='drive.html'){document.body.dataset.route='drive';switchPage('top');setTimeout(()=>document.getElementById('disciplinas')?.scrollIntoView(),30)}
- if(file==='atualizacoes.html'){document.body.dataset.route='atualizacoes';switchPage('top');setTimeout(()=>document.getElementById('atualizacoes')?.scrollIntoView(),30)}
-})();
+;
 </script>
 
-<script>
-/* Roteamento independente: executa mesmo se algum script secundário falhar. */
-(function(){
-  const routes = {
-    'tarefas.html':'viewPrazos',
-    'ferramentas-academicas.html':'viewAcademicas',
-    'cursos.html':'viewCursos',
-    'ferramentas.html':'viewFerramentas',
-    'videos.html':'viewVideos',
-    'simulados.html':'viewSimulados',
-    'estudar.html':'viewEstudar',
-    'sobre.html':'viewSobre',
-    'instalar.html':'viewInstalar',
-    'drive.html':'top',
-    'atualizacoes.html':'top'
-  };
-  const file = location.pathname.split('/').pop() || 'index.html';
-  const requested = routes[file] || 'top';
-  const target = document.getElementById(requested) ? requested : 'top';
-  ['top','viewPrazos','viewAcademicas','viewCursos','viewFerramentas','viewVideos','viewSimulados','viewEstudar','viewSobre','viewInstalar'].forEach(id=>{
-    const page = document.getElementById(id);
-    if(page) page.style.display = id === target ? 'block' : 'none';
-  });
-  document.body.dataset.route = file === 'index.html' ? 'home' : file.replace('.html','');
-  if(file === 'drive.html') document.getElementById('disciplinas')?.scrollIntoView();
-  if(file === 'atualizacoes.html') document.getElementById('atualizacoes')?.scrollIntoView();
-})();
-</script>
+
 
 </body>
 </html>
