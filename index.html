@@ -42,10 +42,6 @@
     --rule:#3A3F44;
     --shadow: rgba(0,0,0,0.35);
   }
-  body.dark{
-    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
-    background-size: 22px 22px;
-  }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
@@ -53,9 +49,7 @@
     color:var(--ink);
     font-family:'IBM Plex Sans', sans-serif;
     -webkit-font-smoothing:antialiased;
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(34,38,43,0.045) 1px, transparent 0);
-    background-size: 22px 22px;
+    background-image:none;
   }
   a{color:var(--petrol);}
   .wrap{max-width:920px;margin:0 auto;padding:42px 24px 78px;}
@@ -71,7 +65,7 @@
   @media (min-width:600px){
     header{padding-bottom:28px; margin-bottom:18px;}
   }
-  body:not(.dark) .eyebrow::before{content:'\2605\00a0';}
+  body:not(.dark) .eyebrow::before{content:'';}
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
     font-size:9px;
@@ -1528,6 +1522,33 @@ header h1{font-size:clamp(46px,7vw,88px);letter-spacing:-.07em;line-height:.94;c
 body.dark{--paper:#1b2224;--paper-alt:#252f30;--ink:#e9eeeb;--ink-soft:#aab7b4;--petrol:#72b9b0;--petrol-dark:#4c918c;--ochre:#d5ad68;--rule:#3b4a49}body.dark .sticky-nav{background:rgba(27,34,36,.96)}body.dark .av-discovery,body.dark .av-filterbar,body.dark .whatsapp-callout{background:#263536;border-color:#3b4a49}body.dark .av-discovery p{color:#c1ceca}body.dark .av-search,body.dark .av-results{background:#20292a;color:#eee;border-color:#465654}body.dark .av-result{color:#eee}body.dark .entry,body.dark .card,body.dark .tool-card,body.dark .course-card,body.dark .video-card,body.dark .academic-section{background:#222d2e;border-color:#3b4a49}body.dark .entry .stamp{background:#2b4543!important;color:#b5d8d0!important;border-color:#547b73!important}body.dark .entry .stamp .d,body.dark .entry .stamp .m{color:#b5d8d0!important}body.dark .calendar-day,body.dark .glossary-card{background:#263334;color:var(--ink);border-color:#435451}body.dark .calendar-day.has-events{background:#2b403c}body.dark .glossary-search input{background:#20292a;color:#eee}
 @media(max-width:760px){.header-body{grid-template-columns:1fr;gap:20px}.av-discovery{grid-template-columns:1fr;gap:20px}.academic-section-head{align-items:flex-start;flex-direction:column}.calendar-controls{width:100%;justify-content:space-between}.calendar-day{min-height:48px;padding:5px}.calendar-event{grid-template-columns:62px 1fr;gap:9px}.calendar-event .event-type{grid-column:2;justify-self:start}.entry{grid-template-columns:62px 1fr;gap:12px}.entry .stamp{width:62px;min-width:62px;height:68px}}
 
+
+  .sticky-nav{position:relative;z-index:10;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:transparent;border:0;padding:10px 0;margin:0 0 12px}
+  .sticky-nav a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:42px;padding:9px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--paper-alt);color:var(--ink);text-decoration:none;font:500 11px 'IBM Plex Sans',sans-serif;line-height:1.25;white-space:normal}
+  .sticky-nav a:hover{background:var(--paper);border-color:var(--petrol);color:var(--petrol-dark)}
+  .sticky-nav a.nav-home{background:var(--petrol);border-color:var(--petrol);color:#fff}
+  .av-discovery{background:var(--paper-alt);border:1px solid var(--rule);border-radius:16px;box-shadow:0 12px 32px var(--shadow)}
+  .av-discovery p{color:var(--ink-soft)}
+  .av-quicklinks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px}
+  .av-quicklinks a{display:flex;align-items:center;justify-content:center;min-height:40px;text-align:center;font-size:11px;color:var(--petrol-dark);background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;text-decoration:none}
+  .av-quicklinks a:hover{background:var(--paper-alt);border-color:var(--petrol)}
+  .av-search{background:var(--paper);color:var(--ink);border-color:var(--rule)}
+  .av-results{background:var(--paper);border-color:var(--rule)}
+  .av-result{color:var(--ink)}
+  .av-result:hover{background:var(--paper-alt)}
+  body.dark .av-discovery,body.dark .av-quicklinks a,body.dark .av-search,body.dark .av-results{background:var(--paper-alt);border-color:var(--rule);color:var(--ink)}
+  body.dark .av-discovery p,body.dark .av-result small{color:var(--ink-soft)}
+  body.dark .av-result{color:var(--ink)}
+  body.dark .av-result:hover{background:#343b40}
+  body.dark input,body.dark select,body.dark textarea,body.dark button:not(.nav-home){color:var(--ink)}
+  body.dark input:not([type="radio"]):not([type="checkbox"]),body.dark select,body.dark textarea{background:var(--paper-alt);border-color:var(--rule)}
+  body.dark .tool-card,body.dark .academic-section,body.dark .calendar-day,body.dark .calendar-event,body.dark .glossary-card,body.dark .course-card,body.dark .video-disc,body.dark .graveyard,body.dark .tasks,body.dark .task,body.dark .prompt-box,body.dark .model-answer,body.dark .pfeedback,body.dark .opcao-radio,body.dark .stats-block,body.dark .stat-chip,body.dark .notice,body.dark .av-result{background-color:var(--paper-alt);color:var(--ink);border-color:var(--rule)}
+  body.dark .tool-card p,body.dark .academic-section p,body.dark .calendar-event,body.dark .glossary-card p,body.dark .course-card p,body.dark .video-disc,body.dark .task,body.dark .prompt-box,body.dark .model-answer,body.dark .pfeedback,body.dark .notice{color:var(--ink)}
+  body.dark [style*="background:#fff"],body.dark [style*="background: #fff"],body.dark [style*="background:white"],body.dark [style*="background: white"]{background:var(--paper-alt)!important;color:var(--ink)!important;border-color:var(--rule)!important}
+  body.dark [style*="color:#252a31"],body.dark [style*="color: #252a31"],body.dark [style*="color:#222"],body.dark [style*="color: #222"]{color:var(--ink)!important}
+  @media(max-width:760px){.sticky-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.av-quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:420px){.sticky-nav a{font-size:10px;padding:8px 6px}.av-quicklinks a{font-size:10px}}
+
 </style>
 </head>
 <body>
@@ -1575,32 +1596,39 @@ body.dark{--paper:#1b2224;--paper-alt:#252f30;--ink:#e9eeeb;--ink-soft:#aab7b4;-
     </div>
   </header>
 
-  <nav class="sticky-nav">
-    <button data-scroll="top" class="nav-home"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/></svg>Início</button>
-    <button data-scroll="disciplinas"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H10l2 2h7.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5Z"/></svg>Drive com os Arquivos</button>
-    <button data-scroll="atualizacoes"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 12 6 8Z"/><path d="M10 18a2 2 0 0 0 4 0"/></svg>Últimas Atualizações</button>
-    <button data-page="viewPrazos"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg>Tarefas e Prazos</button>
-    <button data-page="viewCursos"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5 12 5l9.5 4.5-9.5 4.5-9.5-4.5Z"/><path d="M6.5 11.5v4.5c0 1 2.5 2 5.5 2s5.5-1 5.5-2v-4.5"/></svg>Cursos Extras</button>
-    <button data-page="viewAcademicas"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2.5v3M16 2.5v3M3 9h18M8 13h3M8 17h7"/></svg>Ferramentas acadêmicas</button>
-     <button data-page="viewFerramentas"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a3.5 3.5 0 0 0-4.6 4.1L4 16.5V20h3.5l5.9-5.9a3.5 3.5 0 0 0 4.1-4.6l-2.6 2.6-2-2Z"/></svg>Ferramentas</button>
-    <button data-page="viewVideos"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5Z" fill="currentColor" stroke="none"/></svg>Vídeos de Apoio</button>
-    <button data-page="viewSimulados" style="display:none"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>Simulados</button>
-    <button data-page="viewApoio"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16"/><path d="M7 15l4-4 3 3 5-6"/></svg>Conteúdo de apoio</button>
-    <button data-page="viewEstudar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 5.5v14"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>Pra estudar!</button>
-    <button data-page="viewSobre"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.1"/></svg>Sobre o Site</button>
-    <button data-page="viewInstalar"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11M8 11l4 4 4-4"/><path d="M4.5 16.5v2.5a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-2.5"/></svg>Instale o App</button>
-  </nav>
-
-  
+  <nav class="sticky-nav" aria-label="Navegação principal">
+    <a href="index.html" class="nav-home">Início</a>
+    <a href="drive.html#disciplinas">Drive com os Arquivos</a>
+    <a href="atualizacoes.html#atualizacoes">Últimas Atualizações</a>
+    <a href="tarefas.html">Tarefas e Prazos</a>
+    <a href="cursos.html">Cursos Extras</a>
+    <a href="ferramentas-academicas.html">Ferramentas acadêmicas</a>
+    <a href="ferramentas.html">Ferramentas interativas</a>
+    <a href="videos.html">Vídeos de Apoio</a>
+    <a href="simulados.html">Simulados</a>
+    <a href="apoio.html">Conteúdo de apoio</a>
+    <a href="estudar.html">Pra estudar!</a>
+    <a href="sobre.html">Sobre o Site</a>
+    <a href="instalar.html">Instale o App</a>
+  </nav>  
 <section class="av-discovery" aria-label="Busca e atalhos">
   <div>
     <div class="av-kicker">Um espaço de estudo compartilhado</div>
     <h2>O que você precisa encontrar hoje?</h2>
     <p>Materiais, disciplinas, ferramentas e atualizações da turma em um só lugar. Pesquise por assunto ou explore os atalhos.</p>
-    <div class="av-quicklinks">
-      <a href="#disciplinas">Disciplinas</a><a href="#atualizacoes">Atualizações</a>
-      <a href="#" data-av-page="viewFerramentas">Ferramentas</a><a href="#" data-av-page="viewSimulados">Simulados</a>
-      <a href="#" data-av-page="viewPrazos">Prazos e tarefas</a><a href="#" data-av-page="viewAcademicas">Calendário e glossário</a>
+    <div class="av-quicklinks" aria-label="Atalhos para todas as áreas">
+      <a href="drive.html#disciplinas">Drive com os arquivos</a>
+      <a href="atualizacoes.html#atualizacoes">Últimas atualizações</a>
+      <a href="tarefas.html">Tarefas e prazos</a>
+      <a href="cursos.html">Cursos extras</a>
+      <a href="ferramentas-academicas.html">Ferramentas acadêmicas</a>
+      <a href="ferramentas.html">Ferramentas interativas</a>
+      <a href="videos.html">Vídeos de apoio</a>
+      <a href="simulados.html">Simulados</a>
+      <a href="apoio.html">Conteúdo de apoio</a>
+      <a href="estudar.html">Pra estudar!</a>
+      <a href="sobre.html">Sobre o site</a>
+      <a href="instalar.html">Instale o app</a>
     </div>
   </div>
   <div class="av-search-wrap">
@@ -1616,19 +1644,13 @@ body.dark{--paper:#1b2224;--paper-alt:#252f30;--ink:#e9eeeb;--ink-soft:#aab7b4;-
 
   <div class="section-title" id="disciplinas"><span class="num">01</span><h2>Drive das Disciplinas</h2><span class="count" id="cntDisc"></span><div class="rule"></div></div>
 
-  <div class="tabs">
+  <div class="tabs" aria-label="Selecionar semestre">
     <button class="tab" data-sem="1">Primeiro Semestre</button>
     <button class="tab active" data-sem="2">Segundo Semestre</button>
   </div>
 
   
-<div class="av-filterbar" aria-label="Filtros de navegação">
-  <span class="filter-heading">Explore por</span>
-  <label for="avSemesterFilter">Semestre</label><select id="avSemesterFilter"><option value="2">Segundo semestre</option><option value="1">Primeiro semestre</option><option value="all">Todos</option></select>
-  <label for="avDisciplineFilter">Disciplina</label><select id="avDisciplineFilter"><option value="">Todas as disciplinas</option></select>
-  <label for="avTypeFilter">Conteúdo</label><select id="avTypeFilter"><option value="all">Todos os conteúdos</option><option value="disc">Disciplinas</option><option value="updates">Atualizações</option><option value="academic">Ferramentas acadêmicas</option><option value="tools">Ferramentas interativas</option><option value="courses">Cursos extras</option><option value="videos">Vídeos</option><option value="quizzes">Simulados</option><option value="support">Conteúdo de apoio</option></select>
-  <span class="av-filter-note" id="avFilterCount" aria-live="polite"></span>
-</div>
+
 
 <div class="grid" id="grid"></div>
 
@@ -2370,6 +2392,7 @@ document.querySelectorAll('.tab').forEach(btn=>{
     renderGrid(btn.dataset.sem);
   });
 });
+document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.sem==='2'));
 renderGrid('2');
 document.getElementById('cntDisc').textContent = `(${DISC[1].length + DISC[2].length})`;
 
@@ -4050,24 +4073,45 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
     .catch(()=> { document.getElementById('statViews').textContent = '412'; });
 })();
 
-/* Busca geral e filtros de navegação */
+/* Busca geral do Arquivo Vivo */
 (function(){
-const input=document.getElementById('avGlobalSearch'),results=document.getElementById('avSearchResults'),discipline=document.getElementById('avDisciplineFilter'),semester=document.getElementById('avSemesterFilter'),type=document.getElementById('avTypeFilter'),count=document.getElementById('avFilterCount');if(!input||!results||!discipline||!semester||!type)return;
-const norm=v=>(v||'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
-const allDisc=[...DISC[1].map(d=>({...d,sem:'1'})),...DISC[2].map(d=>({...d,sem:'2'}))];allDisc.forEach(d=>{const o=document.createElement('option');o.value=d.name;o.textContent=d.name;discipline.appendChild(o)});
-const tabs=[...document.querySelectorAll('.tabs .tab')];
-function apply(){const sem=semester.value,chosen=discipline.value;if(sem!=='all'){const active=tabs.find(x=>x.classList.contains('active'));if(active&&active.dataset.sem!==sem){tabs.forEach(x=>x.classList.toggle('active',x.dataset.sem===sem));renderGrid(sem)}}else renderGrid('all');
-const cards=[...document.querySelectorAll('#grid .card')];cards.forEach(c=>{c.hidden=!!chosen&&!norm(c.textContent).includes(norm(chosen))});
-const selected=type.value;document.getElementById('disciplinas').hidden=selected!=='all'&&selected!=='disc';document.querySelector('.tabs').hidden=selected!=='all'&&selected!=='disc';document.getElementById('grid').hidden=selected!=='all'&&selected!=='disc';document.getElementById('atualizacoes').hidden=selected!=='all'&&selected!=='updates';document.getElementById('feed').hidden=selected!=='all'&&selected!=='updates';count.textContent=(chosen?'Disciplina: '+chosen:'')+(selected!=='all'?' · '+type.options[type.selectedIndex].text:'');
-const pages={academic:'viewAcademicas',tools:'viewFerramentas',courses:'viewCursos',videos:'viewVideos',quizzes:'viewSimulados',support:'viewApoio'};switchPage(pages[selected]||'top')}
-semester.addEventListener('change',()=>{discipline.value='';apply()});discipline.addEventListener('change',apply);type.addEventListener('change',apply);tabs.forEach(btn=>btn.addEventListener('click',()=>{semester.value=btn.dataset.sem;discipline.value='';setTimeout(apply,0)}));
-function searchable(){const found=[];const add=(selector,category)=>document.querySelectorAll(selector).forEach(el=>{const title=(el.querySelector('.name,.entry-body p,h3,h4,strong')||el).textContent.trim().replace(/\s+/g,' '),text=el.textContent.trim().replace(/\s+/g,' ');if(text.length>4)found.push({el,title:title.slice(0,100),text:text.slice(0,260),category})});add('#grid .card','disc');add('#feed .entry','updates');add('#viewFerramentas .tool-card','tools');add('#viewCursos .course-card','courses');add('#viewVideos details','videos');add('#viewSimulados a','quizzes');add('#viewEstudar a,#viewApoio a','support');add('#glossaryGrid .glossary-card','tools');return found}
-function go(item){const page=item.el.closest('.wrap[id^="view"]');if(page&&page.id!=='top')switchPage(page.id);else switchPage('top');const details=item.el.closest('details');if(details)details.open=true;if(item.el.classList.contains('card')&&item.el.href){window.open(item.el.href,'_blank','noopener');return}setTimeout(()=>{item.el.scrollIntoView({behavior:'smooth',block:'center'});item.el.style.outline='2px solid var(--petrol)';setTimeout(()=>item.el.style.outline='',1500)},80);results.classList.remove('show')}
-input.addEventListener('input',()=>{const q=norm(input.value);results.innerHTML='';if(q.length<2){results.classList.remove('show');return}const matches=searchable().filter(x=>norm(x.text).includes(q)).slice(0,10);if(!matches.length)results.innerHTML='<div class="av-result"><strong>Nenhum resultado encontrado</strong><small>Tente outro termo ou nome de disciplina.</small></div>';else matches.forEach(item=>{const btn=document.createElement('button');btn.type='button';btn.className='av-result';const title=document.createElement('strong');title.textContent=item.title;const sub=document.createElement('small');sub.textContent=item.category.toUpperCase()+' · '+item.text.slice(0,105);btn.append(title,sub);btn.addEventListener('click',()=>go(item));results.appendChild(btn)});results.classList.add('show')});
-document.addEventListener('click',e=>{if(!e.target.closest('.av-search-wrap'))results.classList.remove('show')});document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();input.focus()}if(e.key==='Escape'){results.classList.remove('show');input.blur()}});
-document.querySelectorAll('[data-av-page]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();switchPage(a.dataset.avPage)}));apply();
+ const input=document.getElementById('avGlobalSearch'),results=document.getElementById('avSearchResults');
+ if(!input||!results)return;
+ const norm=v=>(v||'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
+ function searchable(){
+  const found=[];
+  const selectors=[['#grid .card','Disciplinas'],['#feed .entry','Atualizações'],['#viewFerramentas .tool-card','Ferramentas interativas'],['#viewCursos .course-card','Cursos extras'],['#viewVideos details','Vídeos'],['#viewSimulados a','Simulados'],['#viewEstudar a,#viewApoio a','Conteúdo de apoio'],['#glossaryGrid .glossary-card','Glossário']];
+  selectors.forEach(([selector,category])=>document.querySelectorAll(selector).forEach(el=>{
+   const title=(el.querySelector('.name,.entry-body p,h3,h4,strong,summary')||el).textContent.trim().replace(/\s+/g,' ');
+   const text=el.textContent.trim().replace(/\s+/g,' ');
+   if(text.length>4)found.push({el,title:title.slice(0,100),text:text.slice(0,260),category});
+  })); return found;
+ }
+ function go(item){
+  const page=item.el.closest('.wrap[id^="view"]');switchPage(page&&page.id!=='top'?page.id:'top');
+  const details=item.el.closest('details');if(details)details.open=true;
+  setTimeout(()=>{item.el.scrollIntoView({behavior:'smooth',block:'center'});item.el.style.outline='2px solid var(--petrol)';setTimeout(()=>item.el.style.outline='',1500)},80);
+  results.classList.remove('show');
+ }
+ input.addEventListener('input',()=>{
+  const q=norm(input.value);results.innerHTML='';if(q.length<2){results.classList.remove('show');return;}
+  const matches=searchable().filter(x=>norm(x.text).includes(q)).slice(0,12);
+  if(!matches.length)results.innerHTML='<div class="av-result"><strong>Nenhum resultado encontrado</strong><small>Tente outro termo ou nome de disciplina.</small></div>';
+  else matches.forEach(item=>{const btn=document.createElement('button');btn.type='button';btn.className='av-result';const title=document.createElement('strong');title.textContent=item.title;const sub=document.createElement('small');sub.textContent=item.category+' · '+item.text.slice(0,105);btn.append(title,sub);btn.addEventListener('click',()=>go(item));results.appendChild(btn)});
+  results.classList.add('show');
+ });
+ document.addEventListener('click',e=>{if(!e.target.closest('.av-search-wrap'))results.classList.remove('show')});
+ document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();input.focus()}if(e.key==='Escape'){results.classList.remove('show');input.blur()}});
 })();;
 
+
+(function(){
+ const routes={'tarefas.html':'viewPrazos','ferramentas-academicas.html':'viewAcademicas','cursos.html':'viewCursos','ferramentas.html':'viewFerramentas','videos.html':'viewVideos','simulados.html':'viewSimulados','apoio.html':'viewApoio','estudar.html':'viewEstudar','sobre.html':'viewSobre','instalar.html':'viewInstalar'};
+ const file=location.pathname.split('/').pop()||'index.html';
+ if(routes[file])switchPage(routes[file]);
+ if(file==='drive.html'){switchPage('top');setTimeout(()=>document.getElementById('disciplinas')?.scrollIntoView(),30)}
+ if(file==='atualizacoes.html'){switchPage('top');setTimeout(()=>document.getElementById('atualizacoes')?.scrollIntoView(),30)}
+})();
 </script>
 </body>
 </html>
