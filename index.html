@@ -1314,6 +1314,52 @@
     .rs-tab{flex:1 1 30%; font-size:13px; padding:9px 10px;}
     .rs-table{font-size:14px;} .rs-table th, .rs-table td{padding:9px 10px;}
   }
+
+  /* ===== Página da disciplina: blocos no mesmo formato (cards pequenos lado a lado) ===== */
+  .dp-header{padding:0 0 22px; margin:0 0 26px;}
+  .dp-header h1{margin-bottom:16px;}
+  .dp-jump{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+  .dp-jump button{font:inherit; font-size:13.5px; font-weight:600; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:999px; padding:7px 13px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;}
+  .dp-jump button span{font-size:12px; font-weight:700; color:var(--petrol); background:var(--petrol-soft); border-radius:999px; padding:1px 7px;}
+  .dp-jump button:hover{border-color:var(--petrol-line); color:var(--petrol);}
+  .dp-section{scroll-margin-top:calc(var(--nav-h) + 16px); margin:0 0 30px;}
+  .dp-sec-head{align-items:center;}
+  .dp-tiles{display:grid; grid-template-columns:repeat(auto-fill, minmax(210px, 1fr)); gap:12px;}
+  .dp-tiles-prazo{grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));}
+  .dp-tile{position:relative; display:flex; flex-direction:column; gap:6px; text-align:left; font:inherit; color:var(--ink);
+    background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:14px 15px; min-height:92px;
+    transition:border-color .15s ease, box-shadow .15s ease;}
+  button.dp-tile, .dp-tile-link{cursor:pointer;}
+  button.dp-tile:hover, .dp-resumo:hover{border-color:var(--petrol-line); box-shadow:0 8px 20px var(--shadow);}
+  .dp-tile.done{border-color:var(--petrol-line);}
+  .dp-tile-title{font-size:15px; font-weight:700; line-height:1.35;}
+  .dp-tile-sub{font-size:13px; color:var(--ink-soft); margin-top:auto;}
+  .dp-ex .dp-tile-sub{color:var(--petrol); font-weight:600;}
+  .dp-clamp{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .dp-prazo{flex-direction:row; align-items:center; gap:12px; min-height:0;}
+  .dp-date{flex:none; width:50px; text-align:center; background:var(--petrol-soft); color:var(--petrol); border-radius:10px; padding:7px 0 6px; line-height:1.05;}
+  .dp-date b{display:block; font-size:20px; font-weight:800;}
+  .dp-date span{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;}
+  .dp-prazo.urgente .dp-date{background:var(--ochre-soft); color:var(--ochre);}
+  .dp-prazo .dp-tile-body{min-width:0; display:flex; flex-direction:column; gap:3px;}
+  .dp-prazo .dp-tile-sub{margin-top:0; font-weight:600; color:var(--petrol);}
+  .dp-prazo.urgente .dp-tile-sub{color:var(--ochre);}
+  .dp-resumo{padding:0; overflow:hidden;}
+  .dp-tile-link{display:flex; flex-direction:column; gap:6px; padding:14px 15px 10px; color:inherit; text-decoration:none; flex:1;}
+  .dp-tile-link .dp-tile-sub{color:var(--petrol); font-weight:600;}
+  .dp-check{font:inherit; font-size:12.5px; font-weight:600; text-align:left; color:var(--ink-faint); background:var(--paper-alt); border:none; border-top:1px solid var(--rule); padding:8px 15px; cursor:pointer;}
+  .dp-check:hover{color:var(--petrol);}
+  .dp-resumo.done .dp-check{color:var(--petrol); background:var(--petrol-soft);}
+  @media (max-width:600px){
+    .dp-tiles{grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px;}
+    .dp-tiles-prazo{grid-template-columns:1fr;}
+    .dp-tile{padding:12px; min-height:84px;}
+    .dp-tile-link{padding:12px 12px 8px;}
+    .dp-check{padding:7px 12px; font-size:12px;}
+    .dp-tile-title{font-size:14px;}
+    .dp-videos{grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px;}
+    .dp-video .dp-row-title{font-size:13px;}
+  }
 </style>
 </head>
 <body>
@@ -5438,37 +5484,54 @@ function renderDiscPage(d){
   const prova = provasProximas(7).find(p => p.discs.some(x=>x.n===d.n));
   const resumosFeitos = c.resumos.filter(r=>progStudyDone(r.link)).length;
   const exFeitos = c.exercicios.filter(t=>progTool(t.id).t > 0).length;
-  const vazios = [];
-  if(!c.resumos.length) vazios.push('resumos interativos');
-  if(!c.exercicios.length) vazios.push('exercícios');
-  if(!c.videos.length) vazios.push('vídeos');
-  if(!c.termos.length) vazios.push('termos no glossário');
+  const mesCurto = iso => new Date(iso+'T00:00:00').toLocaleDateString('pt-BR', {month:'short'}).replace('.', '');
+  const diaNum = iso => new Date(iso+'T00:00:00').getDate();
 
-  const secPrazos = `<section class="dp-section">
-    <div class="dp-sec-head"><h2>Próximos prazos</h2>${c.prazos.length ? `<button class="link-btn" data-ics="${d.n}">Adicionar à agenda do celular</button>` : ''}</div>
-    ${c.prazos.length ? `<div class="dp-list">${c.prazos.map(t=>{ const dd = diasAte(t.prazo); return `
-      <div class="dp-row${dd<=3?' urgente':''}"><div><div class="dp-row-title">${escHTML(t.tarefa)}</div><div class="dp-row-sub">até ${fmtDia(t.prazo)}${discOf(t.materia) ? '' : ' · ' + escHTML(t.materia)}</div></div><span class="dp-chip">${quandoTxt(dd)}</span></div>`; }).join('')}</div>
-      <button class="link-btn" data-page-go="viewPrazos" data-target-go="calendario">Ver no calendário →</button>`
-      : '<div class="dp-empty">Nenhum prazo com data por enquanto.</div>'}
+  // atalhos do topo: só o que existe nesta disciplina
+  const atalhos = [
+    ['dpPrazos', 'Prazos', c.prazos.length],
+    ['dpResumos', 'Resumos', c.resumos.length],
+    ['dpPratica', 'Na prática', c.exercicios.length],
+    ['dpVideos', 'Vídeos', c.videos.length],
+    ['dpGlossario', 'Glossário', c.termos.length],
+  ].filter(a=>a[2] > 0);
+
+  const sec = (id, titulo, meta, corpo) => `<section class="dp-section" id="${id}">
+    <div class="dp-sec-head"><h2>${titulo}</h2>${meta ? `<span class="dp-count">${meta}</span>` : ''}</div>
+    ${corpo}
   </section>`;
 
-  const secResumos = c.resumos.length ? `<section class="dp-section">
-    <div class="dp-sec-head"><h2>Resumos interativos</h2><span class="dp-count">${resumosFeitos}/${c.resumos.length} estudados</span></div>
-    ${c.resumos.map(studyCardHTML).join('')}
-  </section>` : '';
+  const secPrazos = c.prazos.length ? sec('dpPrazos', 'Próximos prazos', `<button class="link-btn" data-page-go="viewPrazos" data-target-go="calendario">Ver no calendário</button>`,
+    `<div class="dp-tiles dp-tiles-prazo">${c.prazos.map(t=>{ const dd = diasAte(t.prazo); return `
+      <div class="dp-tile dp-prazo${dd<=3?' urgente':''}">
+        <div class="dp-date"><b>${diaNum(t.prazo)}</b><span>${mesCurto(t.prazo)}</span></div>
+        <div class="dp-tile-body">
+          <div class="dp-tile-title dp-clamp">${escHTML(t.tarefa)}</div>
+          <div class="dp-tile-sub">${quandoTxt(dd)}${discOf(t.materia) ? '' : ' · várias disciplinas'}</div>
+        </div>
+      </div>`; }).join('')}</div>`) : '';
 
-  const secEx = c.exercicios.length ? `<section class="dp-section">
-    <div class="dp-sec-head"><h2>Na prática</h2><span class="dp-count">${exFeitos}/${c.exercicios.length} praticados</span></div>
-    <div class="dp-list">${c.exercicios.map(t=>{ const p = progTool(t.id); return `
-      <button class="dp-row dp-row-btn" data-tool-go="${t.id}"><div><div class="dp-row-title">${escHTML(t.titulo)}</div><div class="dp-row-sub">${p.t ? `${p.a} acerto${p.a===1?'':'s'} em ${p.t} tentativa${p.t===1?'':'s'}` : 'Ainda não praticado'}</div></div><span class="dp-go">Praticar →</span></button>`; }).join('')}</div>
-  </section>` : '';
+  const secResumos = c.resumos.length ? sec('dpResumos', 'Resumos interativos', `${resumosFeitos}/${c.resumos.length} estudados`,
+    `<div class="dp-tiles">${c.resumos.map(r=>{ const done = progStudyDone(r.link); const interno = r.link.startsWith('#'); return `
+      <div class="dp-tile dp-resumo${done ? ' done' : ''}">
+        <a class="dp-tile-link" href="${r.link}"${interno ? '' : ' target="_blank" rel="noopener"'}>
+          <div class="dp-tile-title">${escHTML(r.titulo)}</div>
+          <div class="dp-tile-sub">${escHTML(r.subtitulo || 'Material de estudo')}${interno ? '' : ' ↗'}</div>
+        </a>
+        <button class="dp-check" data-study-toggle="${r.link}" aria-pressed="${done}" title="${done ? 'Desmarcar' : 'Marcar como estudado'}">${done ? '✓ Estudado' : 'Marcar como estudado'}</button>
+      </div>`; }).join('')}</div>`) : '';
 
-  const secVid = c.videos.length ? `<section class="dp-section">
-    <div class="dp-sec-head"><h2>Vídeos</h2><span class="dp-count">${c.videos.length}</span></div>
-    <div class="dp-videos">${c.videos.map(v=>`<div class="dp-video"><div class="video-frame">${videoLiteHTML(v)}</div><div class="dp-row-title">${escHTML(v.titulo)}</div></div>`).join('')}</div>
-  </section>` : '';
+  const secEx = c.exercicios.length ? sec('dpPratica', 'Na prática', `${exFeitos}/${c.exercicios.length} praticados`,
+    `<div class="dp-tiles">${c.exercicios.map(t=>{ const p = progTool(t.id); return `
+      <button class="dp-tile dp-ex${p.t ? ' done' : ''}" data-tool-go="${t.id}">
+        <div class="dp-tile-title">${escHTML(t.titulo)}</div>
+        <div class="dp-tile-sub">${p.t ? `✓ ${p.a} de ${p.t} acertos` : 'Praticar →'}</div>
+      </button>`; }).join('')}</div>`) : '';
 
-  const secGl = c.termos.length ? `<section class="dp-section">
+  const secVid = c.videos.length ? sec('dpVideos', 'Vídeos', c.videos.length,
+    `<div class="dp-videos">${c.videos.map(v=>`<div class="dp-video"><div class="video-frame">${videoLiteHTML(v)}</div><div class="dp-row-title">${escHTML(v.titulo)}</div></div>`).join('')}</div>`) : '';
+
+  const secGl = c.termos.length ? `<section class="dp-section" id="dpGlossario">
     <details class="graveyard dp-gloss">
       <summary><strong>Glossário</strong> ${c.termos.length} termos desta disciplina</summary>
       <div class="dp-gl-list">${c.termos.map(g=>`<div class="gl-item"><div class="gl-top"><strong>${escHTML(g.t)}</strong></div><p>${escHTML(g.d)}</p></div>`).join('')}</div>
@@ -5479,20 +5542,23 @@ function renderDiscPage(d){
     <header class="dp-header">
       <div class="eyebrow">Disciplina ${d.n} · 2º semestre</div>
       <h1>${escHTML(d.name)}</h1>
-      <p>Tudo da disciplina num lugar só: Drive, prazos, resumos, exercícios, vídeos e glossário.</p>
       <div class="dp-actions">
         <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">Abrir pasta no Drive ↗</a>
+        ${c.prazos.length ? `<button class="btn btn-ghost" data-ics="${d.n}">Prazos na agenda do celular</button>` : ''}
       </div>
-      ${(c.resumos.length || c.exercicios.length) ? `<div class="dp-progress">
-        ${c.resumos.length ? `<div><span>Resumos estudados</span><strong>${resumosFeitos}/${c.resumos.length}</strong><div class="dp-bar"><i style="width:${Math.round(100*resumosFeitos/c.resumos.length)}%"></i></div></div>` : ''}
-        ${c.exercicios.length ? `<div><span>Exercícios praticados</span><strong>${exFeitos}/${c.exercicios.length}</strong><div class="dp-bar"><i style="width:${Math.round(100*exFeitos/c.exercicios.length)}%"></i></div></div>` : ''}
-      </div>` : ''}
+      ${atalhos.length ? `<nav class="dp-jump" aria-label="Nesta página">${atalhos.map(a=>`<button data-dp-jump="${a[0]}">${a[1]} <span>${a[2]}</span></button>`).join('')}</nav>` : ''}
     </header>
     ${prova ? `<div class="modo-prova dp-mp">${modoProvaCard(prova)}</div>` : ''}
     ${secPrazos}${secResumos}${secEx}${secVid}${secGl}
-    ${vazios.length ? `<p class="dp-note">Ainda não há ${vazios.join(', ').replace(/, ([^,]*)$/, ' nem $1')} nesta disciplina.</p>` : ''}
+    ${!c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
   `;
 }
+document.getElementById('discPage').addEventListener('click', e=>{
+  const j = e.target.closest('[data-dp-jump]');
+  if(!j) return;
+  const alvo = document.getElementById(j.dataset.dpJump);
+  if(alvo){ if(alvo.querySelector('details')) alvo.querySelector('details').open = true; alvo.scrollIntoView({behavior:'smooth', block:'start'}); }
+});
 let discAtual = null;
 function openDisc(n, opts){
   opts = opts || {};
