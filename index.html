@@ -1523,7 +1523,7 @@ body.dark{--paper:#1b2224;--paper-alt:#252f30;--ink:#e9eeeb;--ink-soft:#aab7b4;-
 @media(max-width:760px){.header-body{grid-template-columns:1fr;gap:20px}.av-discovery{grid-template-columns:1fr;gap:20px}.academic-section-head{align-items:flex-start;flex-direction:column}.calendar-controls{width:100%;justify-content:space-between}.calendar-day{min-height:48px;padding:5px}.calendar-event{grid-template-columns:62px 1fr;gap:9px}.calendar-event .event-type{grid-column:2;justify-self:start}.entry{grid-template-columns:62px 1fr;gap:12px}.entry .stamp{width:62px;min-width:62px;height:68px}}
 
 
-  .sticky-nav{position:relative;z-index:10;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:transparent;border:0;padding:10px 0;margin:0 0 12px}
+  .sticky-nav{position:relative;z-index:10;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:transparent;border:0;padding:18px 24px 10px;margin:0 auto 8px;max-width:968px}
   .sticky-nav a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:42px;padding:9px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--paper-alt);color:var(--ink);text-decoration:none;font:500 11px 'IBM Plex Sans',sans-serif;line-height:1.25;white-space:normal}
   .sticky-nav a:hover{background:var(--paper);border-color:var(--petrol);color:var(--petrol-dark)}
   .sticky-nav a.nav-home{background:var(--petrol);border-color:var(--petrol);color:#fff}
@@ -1546,12 +1546,28 @@ body.dark{--paper:#1b2224;--paper-alt:#252f30;--ink:#e9eeeb;--ink-soft:#aab7b4;-
   body.dark .tool-card p,body.dark .academic-section p,body.dark .calendar-event,body.dark .glossary-card p,body.dark .course-card p,body.dark .video-disc,body.dark .task,body.dark .prompt-box,body.dark .model-answer,body.dark .pfeedback,body.dark .notice{color:var(--ink)}
   body.dark [style*="background:#fff"],body.dark [style*="background: #fff"],body.dark [style*="background:white"],body.dark [style*="background: white"]{background:var(--paper-alt)!important;color:var(--ink)!important;border-color:var(--rule)!important}
   body.dark [style*="color:#252a31"],body.dark [style*="color: #252a31"],body.dark [style*="color:#222"],body.dark [style*="color: #222"]{color:var(--ink)!important}
-  @media(max-width:760px){.sticky-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.av-quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:760px){.sticky-nav{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px 16px 8px}.av-quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media(max-width:420px){.sticky-nav a{font-size:10px;padding:8px 6px}.av-quicklinks a{font-size:10px}}
 
 </style>
 </head>
 <body>
+  <nav class="sticky-nav" aria-label="Navegação principal">
+    <a href="index.html" class="nav-home">Início</a>
+    <a href="drive.html#disciplinas">Drive com os Arquivos</a>
+    <a href="atualizacoes.html#atualizacoes">Últimas Atualizações</a>
+    <a href="tarefas.html">Tarefas e Prazos</a>
+    <a href="cursos.html">Cursos Extras</a>
+    <a href="ferramentas-academicas.html">Ferramentas acadêmicas</a>
+    <a href="ferramentas.html">Ferramentas interativas</a>
+    <a href="videos.html">Vídeos de Apoio</a>
+    <a href="simulados.html">Simulados</a>
+    <a href="apoio.html">Conteúdo de apoio</a>
+    <a href="estudar.html">Pra estudar!</a>
+    <a href="sobre.html">Sobre o Site</a>
+    <a href="instalar.html">Instale o App</a>
+  </nav>  
+
 <div class="wrap" id="top">
 
   <header>
@@ -1596,21 +1612,7 @@ body.dark{--paper:#1b2224;--paper-alt:#252f30;--ink:#e9eeeb;--ink-soft:#aab7b4;-
     </div>
   </header>
 
-  <nav class="sticky-nav" aria-label="Navegação principal">
-    <a href="index.html" class="nav-home">Início</a>
-    <a href="drive.html#disciplinas">Drive com os Arquivos</a>
-    <a href="atualizacoes.html#atualizacoes">Últimas Atualizações</a>
-    <a href="tarefas.html">Tarefas e Prazos</a>
-    <a href="cursos.html">Cursos Extras</a>
-    <a href="ferramentas-academicas.html">Ferramentas acadêmicas</a>
-    <a href="ferramentas.html">Ferramentas interativas</a>
-    <a href="videos.html">Vídeos de Apoio</a>
-    <a href="simulados.html">Simulados</a>
-    <a href="apoio.html">Conteúdo de apoio</a>
-    <a href="estudar.html">Pra estudar!</a>
-    <a href="sobre.html">Sobre o Site</a>
-    <a href="instalar.html">Instale o App</a>
-  </nav>  
+
 <section class="av-discovery" aria-label="Busca e atalhos">
   <div>
     <div class="av-kicker">Um espaço de estudo compartilhado</div>
