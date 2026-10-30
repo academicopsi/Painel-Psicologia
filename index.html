@@ -1124,13 +1124,26 @@
   .card-drive{background:var(--petrol); color:#fff; border:1px solid var(--petrol);}
   body.dark .card-drive{color:#0F1615;}
   .card-drive:hover{background:var(--petrol-dark);}
-  .card-disc{background:var(--paper); color:var(--petrol); border:1px solid var(--petrol-line);}
-  .card-disc:hover{background:var(--petrol-soft);}
+  .card-disc{background:var(--petrol-soft); color:var(--petrol); border:1px solid var(--petrol-line);}
+  .card-disc:hover{background:var(--paper); border-color:var(--petrol);}
+  .name-link{font:inherit; background:none; border:0; padding:0; text-align:left; cursor:pointer; color:inherit;}
+  .name-link:hover{color:var(--petrol); text-decoration:underline; text-underline-offset:3px;}
   .drive-block .card:hover{transform:none;}
   @media (max-width:600px){
     .card-actions{flex-direction:column; gap:6px;}
     .card-drive, .card-disc{font-size:12px; padding:8px 6px;}
   }
+
+  /* atualizações recolhidas */
+  .feed-details > summary{list-style:none; cursor:pointer; margin-bottom:0;}
+  .feed-details > summary::-webkit-details-marker{display:none;}
+  .feed-details[open] > summary{margin-bottom:24px;}
+  .feed-details > summary{align-items:center;}
+  .feed-toggle{flex:none; font-size:14px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); border:1px solid var(--petrol-line); padding:8px 14px; border-radius:10px; white-space:nowrap;}
+  .feed-details > summary:hover .feed-toggle{border-color:var(--petrol);}
+  .feed-details .ft-fechar, .feed-details[open] .ft-abrir{display:none;}
+  .feed-details[open] .ft-fechar{display:inline;}
+  .feed-details[open] .ft-seta{display:inline-block; transform:rotate(180deg);}
 
   /* atualizações clicáveis */
   .entry.has-link{cursor:pointer; transition:background .15s ease;}
@@ -1152,6 +1165,9 @@
   @media (max-width:600px){ .study-actions{flex-direction:row; width:100%;} .study-actions > *{flex:1;} }
 
   /* exercícios: selo de acertos */
+  .tool-tipo{display:inline-block; margin-left:8px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:2px 7px; border-radius:6px; vertical-align:1px; border:1px solid var(--rule); color:var(--ink-soft); background:var(--paper-alt);}
+  .tool-tipo.interativo{color:var(--ochre); border-color:transparent; background:var(--ochre-soft);}
+  .dp-tile .tool-tipo{margin:0 0 6px; align-self:flex-start;}
   .tool-prog{display:inline-block; margin-left:8px; font-size:12px; font-weight:700; color:var(--petrol); background:var(--petrol-soft); padding:2px 8px; border-radius:999px; vertical-align:1px;}
 
   /* vídeos leves */
@@ -1665,7 +1681,7 @@
     <div class="quick-grid">
       <button class="quick-card qc-feature" data-page="viewPrazos" data-target="calendario"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></span><span class="qc-body"><strong>Calendário</strong><span class="qc-desc">Todas as provas e entregas do semestre, mês a mês.</span></span><span class="qc-go">Abrir calendário →</span></button>
       <button class="quick-card" data-page="viewFerramentas"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="qc-body"><strong>Na prática</strong><span class="qc-desc">Exercícios práticos organizados por disciplina.</span></span><span class="qc-go">Acessar →</span></button>
-      <button class="quick-card" data-page="viewPrazos"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="qc-body"><strong>Prazos e tarefas</strong><span class="qc-desc">Provas, trabalhos e entregas com contagem regressiva.</span></span><span class="qc-go">Acessar →</span></button>
+      <button class="quick-card" data-page="viewPrazos" data-target="listaPrazos"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="qc-body"><strong>Prazos e tarefas</strong><span class="qc-desc">Provas, trabalhos e entregas com contagem regressiva.</span></span><span class="qc-go">Acessar →</span></button>
       <button class="quick-card" data-page="viewApoio"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span><span class="qc-body"><strong>Extras</strong><span class="qc-desc">Glossário, normas ABNT e guias práticos para os trabalhos.</span></span><span class="qc-go">Acessar →</span></button>
       <button class="quick-card" data-page="viewVideos"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg></span><span class="qc-body"><strong>Vídeos de apoio</strong><span class="qc-desc">Vídeo-aulas recomendadas para cada disciplina.</span></span><span class="qc-go">Acessar →</span></button>
       <button class="quick-card" data-page="viewCursos"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span class="qc-body"><strong>Cursos extras</strong><span class="qc-desc">Cursos complementares gratuitos e com certificado.</span></span><span class="qc-go">Acessar →</span></button>
@@ -1675,17 +1691,20 @@
 
 
   <section class="home-section">
-    <div class="section-title" id="atualizacoes">
+   <details class="feed-details" id="atualizacoes">
+    <summary class="section-title">
       <div class="st-text">
         <span class="num">Novidades</span>
         <h2>Atualizações<span class="count" id="cntFeed"></span></h2>
         <p class="st-desc">O que foi adicionado ao site e ao Drive recentemente.</p>
       </div>
-    </div>
+      <span class="feed-toggle"><span class="ft-abrir">Ver atualizações</span><span class="ft-fechar">Esconder</span> <span class="ft-seta" aria-hidden="true">▾</span></span>
+    </summary>
     <div class="feed" id="feed"></div>
     <div class="notice" style="margin-top:16px">
       <strong>Atualizações aqui são esporádicas.</strong> Pra material sempre em dia, o ideal é acompanhar os grupos oficiais do WhatsApp da turma. Este painel serve pra concentrar tudo em um único lugar, não substitui os avisos de lá.
     </div>
+   </details>
   </section>
 
   <section class="home-section">
@@ -1698,26 +1717,6 @@
     </div>
   </section>
 
-  <section class="home-section stats-block">
-    <div class="section-title">
-      <div class="st-text">
-        <span class="num">Em números</span>
-        <h2>O Arquivo Vivo até aqui</h2>
-      </div>
-    </div>
-    <div class="stats-strip">
-      <div class="stat-chip"><div class="stat-num" id="statViews">···</div><div class="stat-label">Visualizações</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statDisciplinas">–</div><div class="stat-label">Disciplinas</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statFerramentas">–</div><div class="stat-label">Ferramentas</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statQuestoes">–</div><div class="stat-label">Questões de prática</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statVideos">–</div><div class="stat-label">Vídeos de apoio</div></div>
-      <div class="stat-chip" style="display:none"><div class="stat-num" id="statSimulados">–</div><div class="stat-label">Simulados</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statCursos">–</div><div class="stat-label">Cursos extras</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statDias">–</div><div class="stat-label">Dias no ar</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statHoras">–</div><div class="stat-label">Horas de conteúdo*</div></div>
-    </div>
-    <div class="stats-nota">*Estimativa (não é medição real): ~2,2 min por questão de prática + ~11 min por vídeo + ~30 min por material de Resumos interativos, com base em médias observadas. Visualizações são contadas pelo GoatCounter.</div>
-  </section>
 
 </main>
 
@@ -1766,7 +1765,7 @@
     </div>
   </section>
 
-  <h2 class="extras-sub" style="margin-bottom:14px">Lista de prazos</h2>
+  <h2 class="extras-sub" id="listaPrazos" style="margin-bottom:14px; scroll-margin-top:84px">Lista de prazos</h2>
   <div class="tasks" id="tasks"></div>
 
   <details class="graveyard">
@@ -1804,6 +1803,27 @@
   <p>Este painel organiza, num único lugar, o material que a turma de Psicologia compartilha ao longo do curso. É uma iniciativa de aluno para aluno, sem vínculo com a coordenação ou com a Afya, sem fins remunerados e sem gerar qualquer benefício acadêmico.</p>
   <p>Mantenho o Drive e este painel de forma voluntária, junto das minhas outras responsabilidades, por isso as atualizações acontecem quando dá, não em um cronograma fixo. Mesmo assim, sigo revisando e adicionando material com regularidade. Se notar algo faltando ou desatualizado, me avisa que eu avalio incluir.</p>
   <p>O Drive é a fonte mais completa; este painel é só um atalho visual pra ela. Como o Drive está numa conta pessoal com espaço limitado, se encontrar algo importante, baixe e guarde no seu dispositivo.</p>
+
+  <section class="stats-block" style="margin:8px 0 28px;">
+    <div class="section-title">
+      <div class="st-text">
+        <span class="num">Em números</span>
+        <h2>O Arquivo Vivo até aqui</h2>
+      </div>
+    </div>
+    <div class="stats-strip">
+      <div class="stat-chip"><div class="stat-num" id="statViews">···</div><div class="stat-label">Visualizações</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statDisciplinas">–</div><div class="stat-label">Disciplinas</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statFerramentas">–</div><div class="stat-label">Ferramentas</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statQuestoes">–</div><div class="stat-label">Questões de prática</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statVideos">–</div><div class="stat-label">Vídeos de apoio</div></div>
+      <div class="stat-chip" style="display:none"><div class="stat-num" id="statSimulados">–</div><div class="stat-label">Simulados</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statCursos">–</div><div class="stat-label">Cursos extras</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statDias">–</div><div class="stat-label">Dias no ar</div></div>
+      <div class="stat-chip"><div class="stat-num" id="statHoras">–</div><div class="stat-label">Horas de conteúdo*</div></div>
+    </div>
+    <div class="stats-nota">*Estimativa (não é medição real): ~2,2 min por questão de prática + ~11 min por vídeo + ~30 min por material de Resumos interativos, com base em médias observadas. Visualizações são contadas pelo GoatCounter.</div>
+  </section>
 
   <div class="thin-rule"></div>
 
@@ -1906,7 +1926,7 @@
   <header>
     <div class="eyebrow">Na prática · Arquivo Vivo</div>
     <h1>Na prática</h1>
-    <p>Pequenos exercícios pra praticar habilidades do dia a dia acadêmico.</p>
+    <p>Exercícios das matérias, organizados por disciplina. <strong>Quiz</strong>: perguntas rápidas de múltipla escolha. <strong>Interativo</strong>: desenhos, linhas do tempo e montagens para explorar.</p>
     <div class="notice">
       <strong>Todas as ferramentas abaixo são didáticas.</strong> Servem pra praticar raciocínio e reconhecer conceitos, não pra diagnóstico, avaliação clínica ou qualquer decisão sobre pessoas reais. As respostas refletem simplificações e associações mais destacadas na literatura; sempre valide com seu professor.
     </div>
@@ -2441,7 +2461,7 @@
       </div>
       </div>
     </details>
-    <details class="graveyard">
+    <details data-tipo="quiz" class="graveyard">
       <summary>Qual é a Variável?</summary>
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Leia a situação de pesquisa e associe cada elemento ao conceito certo. Clique em "Corrigir" pra conferir.</div>
@@ -3595,10 +3615,10 @@ function renderGrid(sem){
           <span>Google Drive</span>
         </span>
       </div>
-      <span class="name">${d.name}</span><span class="drive-folders">Livros · Slides · Extras</span>
+      ${String(sem) === '2' ? `<button class="name name-link" data-open-disc="${d.n}">${d.name}</button>` : `<span class="name">${d.name}</span>`}<span class="drive-folders">Livros · Slides · Extras</span>
       <div class="card-actions">
         <a class="card-drive" href="${d.url}" target="_blank" rel="noopener">Abrir pasta ↗</a>
-        ${String(sem) === '2' ? `<button class="card-disc" data-open-disc="${d.n}">Tudo da disciplina →</button>` : ''}
+        ${String(sem) === '2' ? `<button class="card-disc" data-open-disc="${d.n}">Ver disciplina →</button>` : ''}
       </div>
     </div>`).join('');
 }
@@ -3716,7 +3736,7 @@ function renderTasks(items){
     else nextTxt = `vence em ${next.diffDays} dias`;
     if(!next.prazo){ topEl.innerHTML = '<div class="empty" style="padding:14px">Nenhum prazo com data no momento.</div>'; } else topEl.innerHTML = `<div class="top-deadline${nextUrgent ? ' alert' : ''}">
       ${nextUrgent ? '<span class="alert-badge">Atenção: prazo se encerrando</span>' : '<span class="alert-badge">Em breve</span>'}
-      <span class="txt"><strong>${next.materia}</strong> · ${next.tarefa} (<strong class="vence-destaque">${nextTxt}</strong>)<br><a href="#viewPrazos" class="deadline-more-link" onclick="switchPage('viewPrazos'); return false;">Ver todos os prazos →</a></span>
+      <span class="txt"><strong>${next.materia}</strong> · ${next.tarefa.replace(/\s*\([^)]*\)\s*$/, '')} (<strong class="vence-destaque">${nextTxt}</strong>)<br><a href="#viewPrazos" class="deadline-more-link" onclick="switchPage('viewPrazos'); return false;">Ver todos os prazos →</a></span>
     </div>`;
   }
 
@@ -3864,6 +3884,7 @@ function switchPage(id, opts){
 }
 
 function scrollToSection(sectionId){
+  const alvo = document.getElementById(sectionId); if(alvo && alvo.tagName === 'DETAILS') alvo.open = true;
   if(currentPage !== 'top') switchPage('top');
   else closeMenus();
   if(sectionId === 'top'){ window.scrollTo({top:0, behavior:'smooth'}); return; }
@@ -6287,8 +6308,10 @@ document.querySelectorAll('#viewFerramentas .tool-group').forEach(g=>{
     const sum = det.querySelector('summary');
     const titulo = sum.textContent.trim();
     det.id = 'tool-' + slugify(titulo);
+    const tipo = det.dataset.tipo || (det.querySelector('[id$="SituacaoTexto"]') && !det.querySelector('.viz-svg') ? 'quiz' : 'interativo');
+    sum.insertAdjacentHTML('beforeend', `<span class="tool-tipo ${tipo}">${tipo === 'quiz' ? 'Quiz' : 'Interativo'}</span>`);
     const visivel = det.style.display !== 'none';
-    if(visivel) TOOL_LIST.push({id: det.id, titulo, disc: d ? d.n : null, discNome: nome});
+    if(visivel) TOOL_LIST.push({id: det.id, titulo, tipo, disc: d ? d.n : null, discNome: nome});
   });
 });
 function toolBadge(id){
@@ -6519,6 +6542,7 @@ function renderDiscPage(d){
   const secEx = c.exercicios.length ? sec('dpPratica', 'Na prática', `${exFeitos}/${c.exercicios.length} praticados`,
     `<div class="dp-tiles">${c.exercicios.map(t=>{ const p = progTool(t.id); return `
       <button class="dp-tile dp-ex${p.t ? ' done' : ''}" data-tool-go="${t.id}">
+        <span class="tool-tipo ${t.tipo}">${t.tipo === 'quiz' ? 'Quiz' : 'Interativo'}</span>
         <div class="dp-tile-title">${escHTML(t.titulo)}</div>
         <div class="dp-tile-sub">${p.t ? `✓ ${p.a} ${p.a===1?'acerto':'acertos'} em ${p.t}` : 'Praticar →'}</div>
       </button>`; }).join('')}</div>`) : '';
