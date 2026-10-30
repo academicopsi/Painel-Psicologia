@@ -1764,28 +1764,7 @@
         </div>
       </div>
     </details>
-    <details class="graveyard" style="display:none;">
-      <summary>Simpático ou Parassimpático?</summary>
-      <div class="tool-card" style="margin-top:12px;">
-        <div class="sub">Leia a resposta fisiológica descrita e identifique qual ramo do sistema nervoso autônomo está predominantemente ativo.</div>
-
-        <div class="prompt-box">
-          <div class="plabel">Resposta fisiológica</div>
-          <div class="pfrase" id="snSituacaoTexto"></div>
-        </div>
-        <button class="shuffle-btn" id="snShuffleBtn">🔀 Sortear outra situação</button>
-
-        <div id="snOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-        <button class="correct-btn" id="snCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-        <div class="pfeedback" id="snFeedbackBox"></div>
-
-        <div class="tool-disclaimer">
-          Os dois ramos costumam atuar em conjunto e com intensidades variáveis, não como um interruptor de "liga/desliga", e a resposta de cada pessoa pode variar por condições de saúde, uso de medicamentos e outros fatores individuais. Essas situações representam o padrão mais típico esperado, não uma regra absoluta.
-        </div>
-      </div>
-    </details>
-    <details class="graveyard">
+        <details class="graveyard">
       <summary>Mitose ou Meiose?</summary>
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Leia a descrição do processo celular e identifique se é mitose ou meiose.</div>
@@ -1855,7 +1834,7 @@
   </section>
 
   <section class="tool-group">
-    <h2 class="tool-group-title"><span class="tg-idx">02</span>Neuroanatomia<span class="tg-count">3 exercícios</span></h2>
+    <h2 class="tool-group-title"><span class="tg-idx">02</span>Neuroanatomia<span class="tg-count">6 exercícios</span></h2>
     <details class="graveyard">
       <summary>Mapa do Cérebro</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -1965,6 +1944,57 @@
         <div class="tool-disclaimer">
           Atribuir "uma função" a "uma estrutura" isolada é uma simplificação didática. Praticamente toda função cerebral complexa depende de redes distribuídas entre várias estruturas trabalhando juntas, não de um único "centro" responsável sozinho. Aqui apresentamos a associação mais conhecida/estudada de cada estrutura, não a função exclusiva dela.
         </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Simpático ou Parassimpático?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a resposta fisiológica descrita e identifique qual ramo do sistema nervoso autônomo está predominantemente ativo.</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Resposta fisiológica</div>
+          <div class="pfrase" id="snSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="snShuffleBtn">🔀 Sortear outra situação</button>
+
+        <div id="snOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="snCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="snFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          Os dois ramos costumam atuar em conjunto e com intensidades variáveis, não como um interruptor de "liga/desliga", e a resposta de cada pessoa pode variar por condições de saúde, uso de medicamentos e outros fatores individuais. Essas situações representam o padrão mais típico esperado, não uma regra absoluta.
+        </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Medula: Qual é a Estrutura?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a descrição e identifique a estrutura da medula espinhal ou dos seus envoltórios.</div>
+        <div class="prompt-box">
+          <div class="plabel">Descrição</div>
+          <div class="pfrase" id="meSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="meShuffleBtn">🔀 Sortear outra</button>
+        <div id="meOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="meCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="meFeedbackBox"></div>
+        <div class="tool-disclaimer">Descrições simplificadas, com base na aula "Medula espinhal e envoltórios". Para fins didáticos.</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Somático ou Autônomo?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e classifique: ela depende principalmente do sistema nervoso somático ou do sistema nervoso autônomo?</div>
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="saSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="saShuffleBtn">🔀 Sortear outra</button>
+        <div id="saOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="saCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="saFeedbackBox"></div>
+        <div class="tool-disclaimer">Os dois sistemas interagem o tempo todo; cada situação foi escrita para destacar o sistema predominante.</div>
       </div>
     </details>
   </section>
@@ -2462,11 +2492,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-10-30', disc: 'Neuroanatomia', desc: 'Medula espinhal e sistema nervoso autônomo: resumo interativo, exercícios novos em Na prática e 21 termos no glossário.', link: {disc:'02'}},
   {date: '2026-10-30', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 4 a 6 (Vygotsky, Paulo Freire e dislexia): resumo interativo, quatro exercícios novos em Na prática e 24 termos no glossário.', link: {disc:'03'}},
   {date: '2026-10-30', disc: 'Bases Biológicas', desc: 'Embriologia: linha do tempo interativa da fertilização à 2ª semana, dois exercícios novos em Na prática e 22 termos no glossário.', link: {disc:'01'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Páginas por disciplina, busca no site, modo prova, progresso salvo no aparelho e prazos direto na agenda do celular.', link: {scroll:'disciplinas'}},
-  {date: '2026-10-30', disc: 'Geral', desc: 'Calendário de prazos na página Prazos e Tarefas. E a antiga "Conteúdo de apoio" virou "Extras", com glossário das disciplinas e guia ABNT com gerador de referências.', link: {page:'viewPrazos', target:'calendario'}},
-  {date: '2026-10-28', disc: 'Geral', desc: 'Nova página "Conteúdo de apoio" (hoje Extras): passo a passo pra montar gráficos no Excel e no Google Planilhas.', link: {page:'viewApoio', target:'graficos'}}
+  {date: '2026-10-30', disc: 'Geral', desc: 'Calendário de prazos na página Prazos e Tarefas. E a antiga "Conteúdo de apoio" virou "Extras", com glossário das disciplinas e guia ABNT com gerador de referências.', link: {page:'viewPrazos', target:'calendario'}}
 ];
 
 
@@ -2503,6 +2533,13 @@ const DISC = {
      {materia: 'Neuroanatomia', titulo: 'Título', subtitulo: 'opcional', desc: 'Descrição curta.', link: 'https://...'},
    --------------------------------------------------------------------- */
 const STUDY = [
+  {
+    materia: 'Neuroanatomia',
+    titulo: 'Medula espinhal e sistema nervoso autônomo',
+    subtitulo: 'Duas aulas num só resumo',
+    desc: 'Medula (organização, nervos espinhais, vias e meninges) e SNA (simpático × parassimpático), com "Teste-se" em cada parte e quiz no fim de cada aba.',
+    link: '#resumo-medula-sna'
+  },
   {
     materia: 'Psicologia da Aprendizagem',
     titulo: 'Vygotsky, Freire e dislexia',
@@ -2621,6 +2658,29 @@ const GLOSSARIO = [
   {t:'Redução do impulso (drive)', disc:'Psicologia da Aprendizagem', d:'Ideia central de Hull: o comportamento é motivado por necessidades biológicas, e respostas que reduzem esse impulso são reforçadas.'},
   {t:'Behaviorismo metodológico', disc:'Psicologia da Aprendizagem', d:'Posição de Watson (1913): a psicologia deve estudar apenas o comportamento observável, deixando de lado a introspecção.'},
   {t:'Aprendizagem observacional', disc:'Psicologia da Aprendizagem', d:'Aprender observando o comportamento de outras pessoas e suas consequências (modelação). Estudada por Bandura, como no experimento do boneco João Bobo.'},
+
+  // Neuroanatomia · Medula espinhal e sistema nervoso autônomo
+  {t:'Medula espinhal', disc:'Neuroanatomia', d:'Massa cilindroide de tecido nervoso dentro do canal vertebral, com cerca de 45 cm. Vai do bulbo (forame magno) até cerca da 2ª vértebra lombar no adulto.'},
+  {t:'Substância cinzenta', disc:'Neuroanatomia', d:'Parte do sistema nervoso formada pelos corpos dos neurônios. Na medula fica por dentro, em forma de H.'},
+  {t:'Substância branca', disc:'Neuroanatomia', d:'Parte do sistema nervoso formada pelos tractos (axônios). Na medula fica por fora da cinzenta, dividida em funículos.'},
+  {t:'Cornos anterior e posterior', disc:'Neuroanatomia', d:'Os braços do H da substância cinzenta medular: anteriores (ventrais), ligados às fibras motoras, e posteriores (dorsais), às sensitivas.'},
+  {t:'Canal central da medula', disc:'Neuroanatomia', d:'Canal no centro da medula, também chamado canal do epêndima. É o resquício da luz do tubo neural do embrião.'},
+  {t:'Nervos espinhais', disc:'Neuroanatomia', d:'31 pares que saem da medula: 8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo. Cada um une uma raiz ventral e uma dorsal.'},
+  {t:'Tracto', disc:'Neuroanatomia', d:'Feixe de fibras nervosas com aproximadamente a mesma origem, terminação e trajeto.'},
+  {t:'Fascículo', disc:'Neuroanatomia', d:'Tracto mais compacto, sem diferença funcional. Ex.: fascículos grácil e cuneiforme, no funículo posterior da medula.'},
+  {t:'Lemnisco', disc:'Neuroanatomia', d:'Feixe de fibras sensitivas que leva impulsos até o tálamo.'},
+  {t:'Funículo', disc:'Neuroanatomia', d:'"Cordão" da substância branca da medula (anterior, lateral ou posterior) que reúne vários tractos ou fascículos.'},
+  {t:'Via piramidal', disc:'Neuroanatomia', d:'Via descendente da motricidade voluntária, formada pelos tractos córtico-espinhais anterior e lateral.'},
+  {t:'Decussação das pirâmides', disc:'Neuroanatomia', d:'Cruzamento das fibras córtico-espinhais no bulbo. Por isso, lesão acima dela causa paralisia do lado oposto do corpo.'},
+  {t:'Via extrapiramidal', disc:'Neuroanatomia', d:'Conjunto de vias motoras descendentes fora da via piramidal: tractos tecto-, vestíbulo-, rubro- e retículo-espinhal.'},
+  {t:'Meninges', disc:'Neuroanatomia', d:'Envoltórios do sistema nervoso central. De fora para dentro: dura-máter, aracnoide e pia-máter.'},
+  {t:'Espaço subaracnóideo', disc:'Neuroanatomia', d:'Espaço entre a aracnoide e a pia-máter, por onde circula o líquor.'},
+  {t:'Sistema nervoso somático', disc:'Neuroanatomia', d:'Parte do sistema nervoso ligada à musculatura esquelética, à locomoção e à sensibilidade da superfície do corpo (somestesia).'},
+  {t:'Sistema nervoso autônomo (SNA)', disc:'Neuroanatomia', d:'Controla vasos, vísceras e glândulas, tendo como efetores o músculo liso, o cardíaco e as glândulas. Sua função principal é a homeostase.'},
+  {t:'Neurônios pré e pós-ganglionares', disc:'Neuroanatomia', d:'A via autonômica tem dois neurônios: o pré-ganglionar, com corpo no SNC, e o pós-ganglionar, com corpo num gânglio autonômico.'},
+  {t:'Divisões toracolombar e craniossacral', disc:'Neuroanatomia', d:'Nomes do simpático (pré-ganglionares na medula torácica e lombar alta) e do parassimpático (tronco encefálico e medula sacral).'},
+  {t:'Sistema nervoso entérico', disc:'Neuroanatomia', d:'Rede de neurônios com organização própria, localizada na parede do trato gastrintestinal.'},
+  {t:'Resposta de luta ou fuga', disc:'Neuroanatomia', d:'Ativação intensa do simpático diante de uma ameaça: coração e pressão aumentam, pupilas e brônquios dilatam, digestão é inibida.'},
 
   // Psicologia da Aprendizagem · Vygotsky, Freire e dislexia (aulas 4 a 6)
   {t:'Mediação', disc:'Psicologia da Aprendizagem', d:'Ideia central de Vygotsky: as funções mentais superiores se formam pela intermediação de instrumentos e signos criados pela cultura.'},
@@ -3082,6 +3142,116 @@ const RESUMOS = {
         {p:'A proporção entre meninos e meninas com dislexia é de cerca de…', o:['1:1','1,7:1','5:1','1:2'], c:1, w:'Há leve predominância no sexo masculino: cerca de 1,7 para 1.'},
       ]
     }
+    ]
+  },
+  'medula-sna': {
+    disc: '02',
+    eyebrow: 'Neuroanatomia · Prof. Alexandre Sancho',
+    titulo: 'Medula espinhal e sistema nervoso autônomo',
+    lead: 'Duas aulas num só lugar. Escolha a aula, leia cada parte e responda o "Teste-se" de cabeça antes de abrir a resposta.',
+    fonte: 'Resumo feito a partir dos slides de Neuroanatomia: "Medula espinhal e envoltórios" e "Sistema nervoso autônomo".',
+    caps: [
+      {
+        id:'medula', aba:'Medula espinhal', titulo:'Medula espinhal e envoltórios',
+        intro:'Onde fica, como se organiza por dentro, que nervos saem dela, quais vias descem por ela e o que a envolve.',
+        etapas:[
+          {when:'Visão geral', titulo:'Onde fica a medula', pontos:[
+            'A parte central do sistema nervoso (SNC) é formada pelo <strong>encéfalo</strong> e pela <strong>medula espinhal</strong>; junto com o SNP, garante a comunicação do corpo.',
+            'A medula é uma <strong>massa cilindroide</strong> de tecido nervoso dentro do <strong>canal vertebral</strong>, sem ocupá-lo totalmente. Mede cerca de <strong>45 cm</strong>.',
+            'Limite de cima: o <strong>bulbo</strong>, na altura do forame magno. Limite de baixo, no adulto: em geral a <strong>2ª vértebra lombar (L2)</strong>.'],
+            q:'Até qual vértebra a medula costuma ir no adulto?', a:'Até a 2ª vértebra lombar (L2).'},
+          {when:'Organização', titulo:'Substância cinzenta e branca', pontos:[
+            '<strong>Substância cinzenta:</strong> corpos dos neurônios. Na medula, fica <strong>por dentro</strong>.',
+            '<strong>Substância branca:</strong> tractos, ou seja, axônios. Na medula, fica <strong>por fora</strong>.',
+            'Conjuntos de corpos celulares no SNC são chamados de <strong>núcleos</strong>; os feixes que ligam núcleos distantes são os <strong>tractos</strong>.'],
+            q:'Na medula, a substância cinzenta fica por dentro ou por fora?', a:'Por dentro, em forma de H, envolvida pela substância branca.'},
+          {when:'Corte transversal', titulo:'O H medular', pontos:[
+            'Em corte, a substância cinzenta tem forma de <strong>H</strong>. Os braços do H são os <strong>cornos</strong>: anteriores (ventrais) e posteriores (dorsais), dos dois lados.',
+            'Fala-se também em <strong>colunas</strong>: anterior, posterior e lateral (esta, principalmente na região torácica).',
+            'No meio fica o <strong>canal central</strong> (canal do epêndima), resquício da luz do tubo neural do embrião.'],
+            q:'O que é o canal central da medula?', a:'O canal do epêndima, resquício da luz do tubo neural do embrião.'},
+          {when:'Nervos', titulo:'31 pares de nervos espinhais', pontos:[
+            '<strong>8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo.</strong>',
+            'São 8 nervos cervicais para só 7 vértebras: <strong>C1</strong> sai acima da 1ª vértebra (entre ela e o occipital) e <strong>C8</strong> sai abaixo da 7ª.',
+            'Pequenos <strong>filamentos radiculares</strong> saem dos sulcos laterais da medula e formam as <strong>raízes ventral e dorsal</strong>, que se unem no nervo espinhal.'],
+            q:'Por que há 8 nervos cervicais se só existem 7 vértebras cervicais?', a:'Porque C1 sai acima da 1ª vértebra (entre ela e o occipital) e C8 sai abaixo da 7ª.'},
+          {when:'Nomenclatura', titulo:'Tracto, fascículo, lemnisco e funículo', pontos:[
+            '<strong>Tracto:</strong> feixe de fibras com aproximadamente a mesma origem, terminação e trajeto.',
+            '<strong>Fascículo:</strong> tracto mais compacto, sem diferença funcional.',
+            '<strong>Lemnisco:</strong> feixe de fibras sensitivas que leva impulsos ao tálamo.',
+            '<strong>Funículo:</strong> "cordão" da substância branca medular, com vários tractos ou fascículos.'],
+            q:'Qual a diferença entre tracto e fascículo?', a:'O fascículo é só um tracto mais compacto; não há diferença funcional.'},
+          {when:'Substância branca', titulo:'Os três funículos', pontos:[
+            'A substância branca da medula se divide em funículos <strong>anterior</strong>, <strong>lateral</strong> e <strong>posterior</strong>.',
+            'No funículo posterior ficam os <strong>fascículos grácil e cuneiforme</strong>.',
+            'Resumindo: substância branca → <strong>funículos</strong>; substância cinzenta → <strong>colunas</strong>.'],
+            q:'Em qual funículo ficam os fascículos grácil e cuneiforme?', a:'No funículo posterior.'},
+          {when:'Vias descendentes', titulo:'Piramidal e extrapiramidal', pontos:[
+            'Vias descendentes têm origem no <strong>córtex</strong> ou no <strong>tronco encefálico</strong> e terminam na medula, nos neurônios motores.',
+            '<strong>Via piramidal:</strong> tractos <strong>córtico-espinhal anterior e lateral</strong>. Até o bulbo formam um só feixe; na <strong>decussação das pirâmides</strong> cruzam e formam o córtico-espinhal lateral.',
+            'A motricidade voluntária é <strong>cruzada</strong>: lesão acima da decussação causa paralisia do <strong>lado oposto</strong>.',
+            '<strong>Via extrapiramidal:</strong> tractos tecto-, vestíbulo-, rubro- e retículo-espinhal.'],
+            q:'Uma lesão acima da decussação das pirâmides causa paralisia de qual lado?', a:'Do lado oposto ao da lesão.'},
+          {when:'Envoltórios', titulo:'Meninges e espaços', pontos:[
+            'De fora para dentro: <strong>dura-máter</strong>, <strong>aracnoide</strong> e <strong>pia-máter</strong>.',
+            'Espaços: <strong>epidural</strong> (por fora da dura), <strong>subdural</strong> e <strong>subaracnóideo</strong>.',
+            'O <strong>líquor</strong> circula no espaço subaracnóideo.'],
+            q:'Em qual espaço circula o líquor?', a:'No espaço subaracnóideo, entre a aracnoide e a pia-máter.'},
+        ],
+        quiz:[
+          {p:'Quantos pares de nervos espinhais existem?', o:['12','31','33','45'], c:1, w:'São 31 pares: 8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo.'},
+          {p:'A substância branca da medula é formada por…', o:['Corpos de neurônios','Tractos (axônios)','Líquor','Meninges'], c:1, w:'Corpos celulares formam a substância cinzenta; os tractos formam a branca.'},
+          {p:'Qual é a meninge mais interna?', o:['Dura-máter','Aracnoide','Pia-máter','Epidural'], c:2, w:'De fora para dentro: dura-máter, aracnoide e pia-máter.'},
+          {p:'Lesão acima da decussação das pirâmides causa paralisia…', o:['Do mesmo lado','Do lado oposto','Dos dois lados','Só nas pernas'], c:1, w:'As fibras córtico-espinhais cruzam no bulbo; por isso a motricidade voluntária é cruzada.'},
+          {p:'Os fascículos grácil e cuneiforme ficam no funículo…', o:['Anterior','Lateral','Posterior','Central'], c:2, w:'Eles ficam no funículo posterior da medula.'},
+        ]
+      },
+      {
+        id:'sna', aba:'Sistema nervoso autônomo', titulo:'Sistema nervoso autônomo (SNA)',
+        intro:'O sistema que cuida do ambiente interno: vasos, vísceras e glândulas, pelas divisões simpática e parassimpática.',
+        etapas:[
+          {when:'Dois sistemas', titulo:'Somático × autônomo', pontos:[
+            '<strong>Somático:</strong> musculatura esquelética, locomoção e sensibilidade da superfície do corpo (<strong>somestesia</strong>): a relação com o <strong>meio externo</strong>.',
+            '<strong>Autônomo:</strong> controle de <strong>vasos sanguíneos, vísceras e glândulas</strong>: a comunicação <strong>interna</strong> do organismo.',
+            'Os dois interagem amplamente.'],
+            q:'Qual sistema cuida da locomoção e da sensibilidade da pele?', a:'O sistema nervoso somático.'},
+          {when:'Função', titulo:'Efetores e homeostase', pontos:[
+            'O SNA é como uma parte do sistema motor, mas os efetores são o <strong>músculo liso</strong>, o <strong>músculo cardíaco</strong> e as <strong>glândulas</strong>.',
+            'Sua principal função é manter o ambiente interno: a <strong>homeostase</strong>.',
+            'Responde a estímulos externos (luz → pupila) e internos (pressão arterial).'],
+            q:'Quais são os efetores do sistema nervoso autônomo?', a:'Músculo liso, músculo cardíaco e glândulas.'},
+          {when:'Situação-limite', titulo:'Luta ou fuga', pontos:[
+            'Uma ameaça ativa intensamente o <strong>simpático</strong>.',
+            'Hormônios da <strong>suprarrenal</strong> são liberados; pressão e frequência cardíaca <strong>aumentam</strong>; <strong>brônquios e pupilas dilatam</strong>.',
+            'Motilidade e secreções intestinais são <strong>inibidas</strong>; o metabolismo da glicose aumenta; os pelos ficam eretos.',
+            'Os vasos das vísceras se <strong>contraem</strong> e os dos músculos esqueléticos se <strong>dilatam</strong>.'],
+            q:'Na resposta de luta ou fuga, o que acontece com a digestão?', a:'É inibida: a motilidade e as secreções intestinais diminuem.'},
+          {when:'Anatomia', titulo:'Uma via de dois neurônios', pontos:[
+            'A unidade do simpático e do parassimpático é uma via de <strong>dois neurônios</strong>.',
+            '<strong>Pré-ganglionar:</strong> corpo celular no SNC. <strong>Pós-ganglionar:</strong> corpo celular num <strong>gânglio autonômico</strong>.',
+            'O <strong>sistema nervoso entérico</strong> tem organização própria, na parede do trato gastrintestinal.'],
+            q:'Onde fica o corpo celular do neurônio pré-ganglionar?', a:'No sistema nervoso central.'},
+          {when:'Onde nascem', titulo:'Toracolombar × craniossacral', pontos:[
+            '<strong>Simpático:</strong> pré-ganglionares nos segmentos <strong>torácicos e lombares altos</strong> da medula: divisão <strong>toracolombar</strong>.',
+            '<strong>Parassimpático:</strong> pré-ganglionares no <strong>tronco encefálico</strong> e na <strong>medula sacral</strong>: divisão <strong>craniossacral</strong>.'],
+            q:'Qual divisão é chamada de craniossacral?', a:'A parassimpática.'},
+          {when:'Gânglios', titulo:'Longe ou perto do órgão', pontos:[
+            '<strong>Simpático:</strong> pós-ganglionares nos gânglios <strong>paravertebrais</strong> ou <strong>pré-vertebrais</strong>, a certa distância dos órgãos.',
+            '<strong>Parassimpático:</strong> pós-ganglionares em gânglios <strong>próximos</strong> dos órgãos ou <strong>na parede</strong> deles.'],
+            q:'Em qual divisão os gânglios ficam na parede dos órgãos ou perto deles?', a:'Na parassimpática.'},
+          {when:'Juntos', titulo:'Sinergia e reciprocidade', pontos:[
+            'Simpático e parassimpático trabalham de forma <strong>coordenada</strong>.',
+            'Em algumas situações agem de forma <strong>sinérgica</strong>; em outras, de forma <strong>recíproca</strong> (um aumenta, o outro diminui).'],
+            q:'Simpático e parassimpático sempre agem em oposição?', a:'Não: às vezes agem de forma sinérgica, às vezes de forma recíproca.'},
+        ],
+        quiz:[
+          {p:'Os efetores do SNA são…', o:['Músculos esqueléticos','Músculo liso, cardíaco e glândulas','Só as glândulas','Ossos e articulações'], c:1, w:'O SNA não comanda músculos esqueléticos: seus efetores são músculo liso, cardíaco e glândulas.'},
+          {p:'A divisão toracolombar é a…', o:['Simpática','Parassimpática','Entérica','Somática'], c:0, w:'Os pré-ganglionares simpáticos ficam na medula torácica e lombar alta.'},
+          {p:'Gânglios próximos ou na parede dos órgãos-alvo são típicos do…', o:['Simpático','Parassimpático','Somático','Córtex'], c:1, w:'No parassimpático, os pós-ganglionares ficam perto dos órgãos ou dentro da parede deles.'},
+          {p:'Na resposta de luta ou fuga, as pupilas…', o:['Contraem','Dilatam','Não mudam','Fecham'], c:1, w:'A ativação simpática dilata as pupilas e os brônquios.'},
+          {p:'Após um susto: palidez, coração acelerado e olhos arregalados. Qual alternativa explica corretamente? (exercício da aula)', o:['Via parassimpática: acetilcolina aumenta a pressão e contrai a pupila','Via simpática: noradrenalina aumenta frequência e força cardíacas, contrai vasos periféricos (palidez) e dilata a pupila','Via simpática: adrenalina dilata os vasos periféricos, o que causa a palidez','Via parassimpática: noradrenalina contrai a pupila e os vasos da pele'], c:1, w:'É a alternativa "d" do exercício: na via simpática, a noradrenalina aumenta a frequência e a força cardíacas e a pressão; os vasos periféricos se contraem (palidez) e a pupila se dilata.'},
+        ]
+      }
     ]
   },
 };
@@ -4246,7 +4416,7 @@ document.getElementById('ntCorrigirBtn').addEventListener('click', ()=>{
 });
 ntSortear();
 
-// --- Ferramenta: Simpático ou Parassimpático? (Bases Biológicas) ---
+// --- Ferramenta: Simpático ou Parassimpático? (Neuroanatomia · SNA) ---
 const SN_OPCOES = ['Sistema Nervoso Simpático', 'Sistema Nervoso Parassimpático'];
 const SN_CENARIOS = [
   {situacao:"Aumento da frequência cardíaca e dilatação das pupilas diante de um perigo repentino.", correta:SN_OPCOES[0], explicacao:"Resposta de alerta/emergência ('luta ou fuga'), típica da ativação simpática."},
@@ -4256,7 +4426,12 @@ const SN_CENARIOS = [
   {situacao:"Redirecionamento do fluxo sanguíneo dos órgãos digestivos para os músculos esqueléticos durante uma corrida de emergência.", correta:SN_OPCOES[0], explicacao:"Priorizar músculos em detrimento da digestão numa situação de esforço/emergência é uma resposta simpática típica."},
   {situacao:"Contração da pupila (miose) e aumento da salivação enquanto a pessoa relaxa depois do trabalho.", correta:SN_OPCOES[1], explicacao:"Miose e salivação aumentada em contexto de relaxamento são efeitos associados à ativação parassimpática."},
   {situacao:"Liberação de adrenalina pelas glândulas suprarrenais diante de uma ameaça súbita.", correta:SN_OPCOES[0], explicacao:"A liberação de adrenalina é uma resposta clássica de ativação do sistema simpático diante de ameaça."},
-  {situacao:"Redução da pressão arterial e da frequência cardíaca durante uma sessão de meditação.", correta:SN_OPCOES[1], explicacao:"Práticas que induzem relaxamento profundo tendem a favorecer a atividade parassimpática, reduzindo indicadores de ativação como pressão e frequência cardíaca."}
+  {situacao:"Redução da pressão arterial e da frequência cardíaca durante uma sessão de meditação.", correta:SN_OPCOES[1], explicacao:"Práticas que induzem relaxamento profundo tendem a favorecer a atividade parassimpática, reduzindo indicadores de ativação como pressão e frequência cardíaca."},
+  {situacao:"Os neurônios pré-ganglionares ficam nos segmentos torácicos e lombares altos da medula espinhal.", correta:SN_OPCOES[0], explicacao:"Por isso o simpático é chamado de divisão toracolombar do sistema nervoso autônomo."},
+  {situacao:"Os neurônios pré-ganglionares ficam no tronco encefálico e na medula espinhal sacral.", correta:SN_OPCOES[1], explicacao:"Por isso o parassimpático é chamado de divisão craniossacral do sistema nervoso autônomo."},
+  {situacao:"Os gânglios ficam ao lado da coluna (paravertebrais) ou à frente dela (pré-vertebrais), a certa distância dos órgãos-alvo.", correta:SN_OPCOES[0], explicacao:"No simpático, os neurônios pós-ganglionares ficam em gânglios distantes dos órgãos."},
+  {situacao:"Os gânglios ficam próximos dos órgãos-alvo ou até dentro da parede deles.", correta:SN_OPCOES[1], explicacao:"No parassimpático, os neurônios pós-ganglionares ficam perto ou na parede dos órgãos."},
+  {situacao:"Os brônquios se dilatam, os pelos ficam eretos e o metabolismo da glicose aumenta diante de uma ameaça.", correta:SN_OPCOES[0], explicacao:"São respostas de “luta ou fuga”, típicas da ativação intensa do simpático."},
 ];
 let snAtual = null;
 function snRender(){
@@ -4567,6 +4742,45 @@ const DX_MARCOS = [
   {marca:'1970', t:'Critchley divulga a definição da Federação Mundial de Neurologia', d:'Uma das primeiras definições amplamente aceitas.'},
 ];
 criarOrdenador({pre:'dx', itens:DX_MARCOS});
+
+
+// --- Ferramenta: Medula, Qual é a Estrutura? (Neuroanatomia) ---
+const ME_POOL = ['Substância cinzenta','Substância branca','Corno anterior (ventral)','Corno posterior (dorsal)','Canal central (do epêndima)','Funículo','Tracto','Fascículo','Lemnisco','Dura-máter','Aracnoide','Pia-máter','Espaço subaracnóideo','Espaço epidural','Raiz ventral','Raiz dorsal','Decussação das pirâmides'];
+const ME_CENARIOS = [
+  {situacao:'Na medula, fica por dentro, tem formato de H e é formada pelos corpos dos neurônios.', correta:'Substância cinzenta', explicacao:'Na medula, a substância cinzenta (corpos celulares) fica no centro, em forma de H, envolvida pela branca.'},
+  {situacao:'Envolve o H medular e é formada pelos tractos, ou seja, pelos axônios.', correta:'Substância branca', explicacao:'A substância branca é formada pelos tractos e, na medula, fica por fora da cinzenta.'},
+  {situacao:'Braço anterior do H da substância cinzenta, ligado às fibras motoras.', correta:'Corno anterior (ventral)', explicacao:'Os cornos anteriores (ventrais) são a parte da frente do H, ligada à saída das fibras motoras.'},
+  {situacao:'Braço posterior do H da substância cinzenta, que recebe as fibras sensitivas.', correta:'Corno posterior (dorsal)', explicacao:'Os cornos posteriores (dorsais) são a parte de trás do H, ligada à chegada das fibras sensitivas.'},
+  {situacao:'Pequeno canal no centro da medula, resquício da luz do tubo neural do embrião.', correta:'Canal central (do epêndima)', explicacao:'O canal central, ou canal do epêndima, é o que sobra da cavidade do tubo neural embrionário.'},
+  {situacao:'Cordão da substância branca da medula que reúne vários tractos ou fascículos: há o anterior, o lateral e o posterior.', correta:'Funículo', explicacao:'Funículo significa "cordão". A substância branca medular se divide em funículos anterior, lateral e posterior.'},
+  {situacao:'Feixe de fibras nervosas com aproximadamente a mesma origem, terminação e trajeto.', correta:'Tracto', explicacao:'O tracto é o feixe de fibras de mesma origem e destino; recebe o nome a partir da origem e da terminação.'},
+  {situacao:'Tracto mais compacto, sem diferença funcional em relação a ele; os grácil e cuneiforme são exemplos.', correta:'Fascículo', explicacao:'Fascículo é só um tracto mais compacto. Os fascículos grácil e cuneiforme ficam no funículo posterior.'},
+  {situacao:'Feixe de fibras sensitivas que leva impulsos até o tálamo.', correta:'Lemnisco', explicacao:'Lemnisco é o nome dado aos feixes sensitivos que terminam no tálamo.'},
+  {situacao:'Meninge mais externa e mais resistente.', correta:'Dura-máter', explicacao:'De fora para dentro, as meninges são: dura-máter, aracnoide e pia-máter.'},
+  {situacao:'Meninge intermediária, entre a dura-máter e a pia-máter.', correta:'Aracnoide', explicacao:'A aracnoide fica no meio; abaixo dela está o espaço subaracnóideo.'},
+  {situacao:'Meninge mais interna, aderida diretamente à superfície da medula.', correta:'Pia-máter', explicacao:'A pia-máter é a meninge mais delicada e interna, colada ao tecido nervoso.'},
+  {situacao:'Espaço entre a aracnoide e a pia-máter, por onde circula o líquor.', correta:'Espaço subaracnóideo', explicacao:'O líquor (líquido cefalorraquidiano) circula no espaço subaracnóideo.'},
+  {situacao:'Espaço entre a dura-máter e as paredes ósseas do canal vertebral.', correta:'Espaço epidural', explicacao:'O espaço epidural fica por fora da dura-máter.'},
+  {situacao:'Ponto no bulbo onde a maior parte das fibras do tracto córtico-espinhal cruza para o lado oposto.', correta:'Decussação das pirâmides', explicacao:'Por causa desse cruzamento, uma lesão acima da decussação causa paralisia do lado oposto do corpo.'},
+  {situacao:'Raiz do nervo espinhal que sai pela face anterior da medula, com fibras motoras.', correta:'Raiz ventral', explicacao:'Cada nervo espinhal se forma pela união de uma raiz ventral (motora) e uma dorsal (sensitiva).'},
+  {situacao:'Raiz do nervo espinhal que chega pela face posterior da medula, com fibras sensitivas.', correta:'Raiz dorsal', explicacao:'A raiz dorsal traz a informação sensitiva para a medula.'},
+];
+criarClassificador({pre:'me', cenarios:ME_CENARIOS, pool:ME_POOL});
+
+// --- Ferramenta: Somático ou Autônomo? (Neuroanatomia · SNA) ---
+const SA_CENARIOS = [
+  {situacao:'Levantar o braço para responder a uma pergunta.', correta:'Sistema nervoso somático', explicacao:'Movimento voluntário da musculatura esquelética: função do sistema somático.'},
+  {situacao:'O coração acelera durante um susto.', correta:'Sistema nervoso autônomo', explicacao:'O músculo cardíaco é efetor do sistema autônomo; aqui, pela ativação simpática.'},
+  {situacao:'Sentir a textura de um tecido com a ponta dos dedos.', correta:'Sistema nervoso somático', explicacao:'Somestesia: a sensibilidade da superfície do corpo é função do sistema somático.'},
+  {situacao:'As glândulas salivares produzem saliva ao sentir cheiro de comida.', correta:'Sistema nervoso autônomo', explicacao:'Glândulas são efetores do sistema autônomo.'},
+  {situacao:'A pupila se contrai sob luz forte.', correta:'Sistema nervoso autônomo', explicacao:'É um estímulo externo regulado pelo sistema autônomo, exemplo citado na aula.'},
+  {situacao:'Caminhar até a porta da sala.', correta:'Sistema nervoso somático', explicacao:'Locomoção é uma das principais funções do sistema somático.'},
+  {situacao:'Os vasos sanguíneos da pele se contraem no frio.', correta:'Sistema nervoso autônomo', explicacao:'O controle dos vasos sanguíneos (músculo liso) é feito pelo sistema autônomo.'},
+  {situacao:'Os movimentos do intestino durante a digestão.', correta:'Sistema nervoso autônomo', explicacao:'Vísceras e músculo liso são controlados pelo autônomo, com participação do sistema nervoso entérico.'},
+  {situacao:'Perceber que encostou numa superfície quente.', correta:'Sistema nervoso somático', explicacao:'Perceber o meio externo pela pele é somestesia, função do sistema somático.'},
+  {situacao:'A pressão arterial se ajusta quando a pessoa se levanta.', correta:'Sistema nervoso autônomo', explicacao:'Manter o ambiente interno (homeostase) diante de estímulos internos é a principal função do autônomo.'},
+];
+criarClassificador({pre:'sa', cenarios:SA_CENARIOS, opcoes:['Sistema nervoso somático','Sistema nervoso autônomo']});
 
 // --- Ferramenta: Classifique a Gametogênese (Bases Biológicas) ---
 const GM_OPCOES = ['Espermatogênese', 'Ovogênese', 'Ambos'];
@@ -4969,7 +5183,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
   const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
-  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
   const totalCursos = COURSES.length;
@@ -5525,7 +5739,7 @@ function renderDiscPage(d){
     `<div class="dp-tiles">${c.exercicios.map(t=>{ const p = progTool(t.id); return `
       <button class="dp-tile dp-ex${p.t ? ' done' : ''}" data-tool-go="${t.id}">
         <div class="dp-tile-title">${escHTML(t.titulo)}</div>
-        <div class="dp-tile-sub">${p.t ? `✓ ${p.a} de ${p.t} acertos` : 'Praticar →'}</div>
+        <div class="dp-tile-sub">${p.t ? `✓ ${p.a} ${p.a===1?'acerto':'acertos'} em ${p.t}` : 'Praticar →'}</div>
       </button>`; }).join('')}</div>`) : '';
 
   const secVid = c.videos.length ? sec('dpVideos', 'Vídeos', c.videos.length,
@@ -5812,7 +6026,7 @@ function rsRenderQuiz(){
   rsPontos = 0; rsRespondidas = 0;
   el.querySelector('.rs-quiz').innerHTML = Q.map((q, i)=>`<div class="rs-quiz-q" data-q="${i}">
     <p>${i+1}. ${q.p}</p>
-    ${q.o.map((o, j)=>`<button class="rs-opt" data-j="${j}">${o}</button>`).join('')}
+    ${embaralhar(q.o.map((o, j)=>({o, j}))).map(x=>`<button class="rs-opt" data-j="${x.j}">${x.o}</button>`).join('')}
     <div class="rs-why">${q.w}</div>
   </div>`).join('');
   el.querySelector('.rs-score').className = 'rs-score';
@@ -5840,7 +6054,7 @@ document.getElementById('resumoPage').addEventListener('click', ev=>{
   const opt = ev.target.closest('.rs-opt');
   if(opt && !opt.disabled){
     const box = opt.closest('.rs-quiz-q'); const q = c.quiz[+box.dataset.q]; const j = +opt.dataset.j;
-    box.querySelectorAll('.rs-opt').forEach((x, k)=>{ x.disabled = true; if(k === q.c) x.classList.add('ok'); });
+    box.querySelectorAll('.rs-opt').forEach(x=>{ x.disabled = true; if(+x.dataset.j === q.c) x.classList.add('ok'); });
     if(j === q.c) rsPontos++; else opt.classList.add('no');
     box.querySelector('.rs-why').classList.add('show');
     rsRespondidas++;
