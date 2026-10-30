@@ -4115,6 +4115,27 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 })();;
 
 
+/* Organização dos exercícios por disciplina */
+(function(){
+ const root=document.getElementById('viewFerramentas');
+ if(!root)return;
+ const entries=[...root.querySelectorAll(':scope > details.graveyard')];
+ let subject='',group=null;
+ entries.forEach(entry=>{
+  const label=entry.querySelector('summary strong')?.textContent.trim()||'Outros';
+  if(label!==subject){
+   subject=label;
+   group=document.createElement('section');
+   group.className='tool-discipline-group';
+   const heading=document.createElement('h2');
+   heading.textContent=label;
+   group.appendChild(heading);
+   root.insertBefore(group,entry);
+  }
+  group.appendChild(entry);
+ });
+})();
+
 (function(){
  const routes={'tarefas.html':'viewPrazos','ferramentas-academicas.html':'viewAcademicas','cursos.html':'viewCursos','ferramentas.html':'viewFerramentas','videos.html':'viewVideos','simulados.html':'viewSimulados','apoio.html':'viewApoio','estudar.html':'viewEstudar','sobre.html':'viewSobre','instalar.html':'viewInstalar'};
  const file=location.pathname.split('/').pop()||'index.html';
