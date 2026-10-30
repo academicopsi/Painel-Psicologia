@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vygotsky, Freire e dislexia · Arquivo Vivo</title>
+<meta name="theme-color" content="#1F5C56">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F7F6; --paper:#FFFFFF; --paper-alt:#F0F4F3; --ink:#14211F; --ink-soft:#5B6A67; --ink-faint:#8A9794;
+    --petrol:#1F5C56; --petrol-dark:#153F3B; --petrol-soft:#E3EFEC; --petrol-line:#C4DCD7;
+    --ochre:#B7791F; --ochre-soft:#FBF1E1; --danger:#B5432E; --rule:#DFE6E4; --shadow:rgba(20,33,31,.07);
+  }
+  body.dark{
+    --bg:#0F1615; --paper:#16201F; --paper-alt:#1C2826; --ink:#E8EFED; --ink-soft:#A3B2AF; --ink-faint:#7A8A87;
+    --petrol:#5CC2B5; --petrol-dark:#3E9C90; --petrol-soft:#1B3330; --petrol-line:#2A4A46;
+    --ochre:#E0A94A; --ochre-soft:#2E2617; --danger:#E07A63; --rule:#26332F; --shadow:rgba(0,0,0,.3);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:780px; margin:0 auto; padding:28px 20px 72px;}
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:28px;}
+  .back{font-size:14px; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .back:hover{color:var(--petrol);}
+  .theme{display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); cursor:pointer; font-size:16px;}
+  .eyebrow{display:inline-block; font-size:12.5px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); padding:5px 11px; border-radius:999px; margin-bottom:14px;}
+  h1{font-size:clamp(30px, 6vw, 44px); font-weight:800; letter-spacing:-0.035em; line-height:1.08; margin:0 0 12px;}
+  .lead{font-size:17px; color:var(--ink-soft); margin:0 0 22px;}
+  .how{background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:14px 16px; font-size:14.5px; color:var(--ink-soft);}
+  .how strong{color:var(--ink);}
+  .progress{position:sticky; top:0; z-index:5; background:var(--bg); padding:12px 0 10px; margin:22px 0 4px;}
+  .progress-label{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:6px;}
+  .bar{height:6px; background:var(--paper-alt); border-radius:999px; overflow:hidden;}
+  .bar i{display:block; height:100%; width:0; background:var(--petrol); border-radius:999px; transition:width .25s ease;}
+
+  .phase{font-size:12px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); margin:34px 0 12px;}
+  .timeline{position:relative; padding-left:28px;}
+  .timeline::before{content:""; position:absolute; left:8px; top:8px; bottom:8px; width:2px; background:var(--petrol-line);}
+  .step{position:relative; background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px 18px 16px; margin-bottom:14px; box-shadow:0 6px 18px var(--shadow);}
+  .step::before{content:""; position:absolute; left:-26px; top:22px; width:14px; height:14px; border-radius:50%; background:var(--paper); border:3px solid var(--petrol);}
+  .step.done::before{background:var(--petrol);}
+  .when{display:inline-block; font-size:12.5px; font-weight:700; color:var(--ochre); background:var(--ochre-soft); padding:3px 10px; border-radius:999px; margin-bottom:8px;}
+  .step h2{font-size:19px; font-weight:800; letter-spacing:-0.015em; margin:0 0 8px; line-height:1.3;}
+  .step ul{margin:0 0 4px; padding-left:20px;}
+  .step li{margin:4px 0; font-size:15.5px;}
+  .step li strong{color:var(--petrol);}
+  .test{margin-top:14px; border-top:1px dashed var(--rule); padding-top:12px;}
+  .test-q{font-size:14.5px; font-weight:700; margin-bottom:8px;}
+  .test-q span{font-size:11.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#fff; background:var(--petrol); padding:2px 8px; border-radius:6px; margin-right:6px; vertical-align:1px;}
+  body.dark .test-q span{color:#0F1615;}
+  .reveal{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); border:1px solid var(--petrol-line); border-radius:9px; padding:7px 12px; cursor:pointer;}
+  .answer{display:none; margin-top:10px; background:var(--paper-alt); border-left:3px solid var(--petrol); border-radius:8px; padding:10px 12px; font-size:15px;}
+  .answer.show{display:block;}
+  .self{display:none; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center; font-size:13px; color:var(--ink-soft);}
+  .self.show{display:flex;}
+  .self button{font:inherit; font-size:13px; font-weight:600; border-radius:8px; padding:6px 11px; cursor:pointer; border:1px solid var(--rule); background:var(--paper); color:var(--ink);}
+  .self button.on-ok{background:var(--petrol-soft); border-color:var(--petrol); color:var(--petrol);}
+  .self button.on-no{background:var(--ochre-soft); border-color:var(--ochre); color:var(--ochre);}
+
+  .table{width:100%; border-collapse:collapse; background:var(--paper); border:1px solid var(--rule); border-radius:14px; overflow:hidden; font-size:15px;}
+  .table th, .table td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .table th{background:var(--paper-alt); font-size:12.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft);}
+  .table tr:last-child td{border-bottom:none;}
+  .table td:first-child{font-weight:700;}
+
+  .box{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px; margin-bottom:14px;}
+  .box h3{margin:0 0 8px; font-size:17px;}
+  .box p, .box li{font-size:15px; color:var(--ink-soft);}
+  .box ul{padding-left:20px; margin:6px 0 0;}
+
+  .quiz-q{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:16px 18px; margin-bottom:12px;}
+  .quiz-q p{margin:0 0 10px; font-weight:700;}
+  .opt{display:block; width:100%; text-align:left; font:inherit; font-size:15px; background:var(--paper-alt); border:1px solid transparent; border-radius:10px; padding:10px 12px; margin-top:6px; cursor:pointer; color:var(--ink);}
+  .opt:hover{border-color:var(--petrol-line);}
+  .opt.ok{background:var(--petrol-soft); border-color:var(--petrol); font-weight:600;}
+  .opt.no{background:rgba(181,67,46,.09); border-color:var(--danger);}
+  .opt:disabled{cursor:default;}
+  .why{display:none; font-size:14px; color:var(--ink-soft); margin-top:10px;}
+  .why.show{display:block;}
+  .score{display:none; background:var(--petrol); color:#fff; border-radius:16px; padding:18px; font-size:17px; font-weight:700; text-align:center;}
+  body.dark .score{color:#0F1615;}
+  .score.show{display:block;}
+  .again{font:inherit; font-size:14px; font-weight:600; margin-top:12px; padding:9px 16px; border-radius:10px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); cursor:pointer;}
+  .foot{margin-top:44px; padding-top:16px; border-top:1px solid var(--rule); font-size:13px; color:var(--ink-faint);}
+  @media (max-width:520px){ .wrap{padding:20px 14px 60px;} .timeline{padding-left:22px;} .step::before{left:-21px;} .step{padding:16px 14px 14px;} .table{font-size:14px;} .table th,.table td{padding:9px 10px;} }
+
+  .tabs{display:flex; gap:8px; flex-wrap:wrap; margin:22px 0 0;}
+  .tab{font:inherit; font-size:14px; font-weight:700; padding:10px 14px; border-radius:12px; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); cursor:pointer; display:flex; flex-direction:column; align-items:flex-start; gap:2px; text-align:left;}
+  .tab small{font-size:11.5px; font-weight:600; color:var(--ink-faint);}
+  .tab:hover{border-color:var(--petrol-line); color:var(--petrol);}
+  .tab.on{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  .tab.on small{color:rgba(255,255,255,.8);}
+  body.dark .tab.on{color:#0F1615;} body.dark .tab.on small{color:rgba(15,22,21,.75);}
+  .cap-title{font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:18px 0 6px;}
+  .cap-intro{font-size:15.5px; color:var(--ink-soft); margin:0 0 16px;}
+  .next{text-align:center; margin-top:28px;}
+  .next-btn{font:inherit; font-size:15px; font-weight:700; padding:12px 18px; border-radius:12px; border:none; background:var(--petrol); color:#fff; cursor:pointer;}
+  body.dark .next-btn{color:#0F1615;}
+  @media (max-width:520px){ .tab{flex:1 1 30%; font-size:13px; padding:9px 10px;} }
+</style>
+
+</head>
+<body>
+<script>try{if(localStorage.getItem("av-theme")==="dark")document.body.classList.add("dark")}catch(e){}</script>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="./#disc-03">← Voltar ao Arquivo Vivo</a>
+    <button class="theme" id="theme" aria-label="Alternar modo escuro"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></button>
+  </div>
+
+  <span class="eyebrow">Psicologia da Aprendizagem · Aulas 4, 5 e 6</span>
+  <h1>Vygotsky, Freire e dislexia</h1>
+  <p class="lead">As três aulas num só lugar. Escolha a aula, leia cada parte e responda o "Teste-se" de cabeça antes de abrir a resposta.</p>
+
+  <div class="tabs" role="tablist" id="tabs"></div>
+
+  <div class="progress" aria-live="polite">
+    <div class="progress-label"><span id="progNome"></span><span id="progTxt"></span></div>
+    <div class="bar"><i id="progBar"></i></div>
+  </div>
+
+  <div id="capIntro"></div>
+  <div id="timeline"></div>
+
+  <div class="phase">Quiz rápido</div>
+  <div id="quiz"></div>
+  <div class="score" id="score"></div>
+  <div style="text-align:center"><button class="again" id="again" hidden>Refazer o quiz</button></div>
+  <div class="next" id="next"></div>
+
+  <div class="foot">Arquivo Vivo · Psicologia · Resumo feito a partir dos slides das aulas 4, 5 e 6 de Psicologia da Aprendizagem (baseadas em Moreira, <em>Teorias de Aprendizagem</em>, e Rotta et al., <em>Transtornos da aprendizagem</em>). O conteúdo das aulas sempre prevalece como referência final.</div>
+</div>
+
+<script>
+const CAPS = [
+{
+  id:'vygotsky', aba:'Aula 4 · Vygotsky', titulo:'A teoria da mediação de Vygotsky',
+  intro:'Lev Vygotsky (1896–1934): o desenvolvimento cognitivo nasce das relações sociais, mediadas por instrumentos e signos.',
+  etapas:[
+    {when:'Quem foi', titulo:'Lev Vygotsky', pontos:[
+      'Psicólogo soviético, formado em <strong>Direito</strong> (1917), com estudos em Literatura, Psicologia e Medicina.',
+      'Morreu de tuberculose em <strong>1934, aos 38 anos</strong>, com a obra incompleta.',
+      'O trabalho foi continuado por colaboradores como <strong>Leontiev</strong> e <strong>Luria</strong>.'],
+      q:'Quais colaboradores continuaram a obra de Vygotsky?', a:'A. N. Leontiev e A. R. Luria.'},
+    {when:'Base da teoria', titulo:'Os três pilares', pontos:[
+      '<strong>Origem social:</strong> os processos mentais superiores têm origem em processos sociais.',
+      '<strong>Mediação:</strong> esses processos só são entendidos pelos instrumentos e signos que os mediam.',
+      '<strong>Método genético-experimental:</strong> estuda o desenvolvimento com ênfase em <strong>processos</strong>, não em produtos ou estágios.'],
+      q:'O método de Vygotsky dá ênfase a processos ou a produtos?', a:'A processos (e não a produtos ou estágios).'},
+    {when:'Ideia central', titulo:'Primeiro o social, depois o mental', pontos:[
+      'O desenvolvimento cognitivo é a <strong>conversão de relações sociais em funções mentais</strong>.',
+      'Não é pelo desenvolvimento cognitivo que a pessoa passa a socializar: é <strong>pela socialização</strong> que se desenvolvem os processos mentais superiores.',
+      'A unidade de análise é a <strong>interação social</strong> (Piaget e Ausubel focam o indivíduo).'],
+      q:'Para Vygotsky, o que vem primeiro: o desenvolvimento cognitivo ou a socialização?', a:'A socialização. É ela que desenvolve os processos mentais superiores.'},
+    {when:'Mediação', titulo:'Instrumentos e signos', pontos:[
+      '<strong>Instrumento:</strong> algo usado para fazer alguma coisa.',
+      '<strong>Signo:</strong> algo que significa outra coisa. Há três tipos:',
+      '<strong>Indicadores:</strong> relação de causa e efeito (fumaça indica fogo). <strong>Icônicos:</strong> imagens ou desenhos do que significam. <strong>Simbólicos:</strong> relação abstrata, como palavras e números.',
+      'A combinação de instrumentos e signos é exclusiva do ser humano.'],
+      q:'A palavra escrita "fogo" é um signo de que tipo?', a:'Simbólico: tem uma relação abstrata com o que significa.'},
+    {when:'Internalização', titulo:'Lei da dupla formação', pontos:[
+      'Toda função aparece <strong>duas vezes</strong>: primeiro no nível <strong>social (interpessoal)</strong>, depois no <strong>individual (intrapessoal)</strong>.',
+      'O desenvolvimento acontece pela <strong>internalização</strong> de instrumentos e signos criados pela cultura.',
+      'Exemplo: o bebê tenta pegar um objeto; alguém responde ao gesto; o bebê capta o significado social e passa a <strong>apontar</strong>.'],
+      q:'Em que ordem aparecem as funções na lei da dupla formação?', a:'Primeiro no nível social (interpessoal), depois no individual (intrapessoal).'},
+    {when:'Linguagem', titulo:'Da fala social à fala interna', pontos:[
+      'A <strong>linguagem</strong> é o sistema de signos mais importante: libera o pensamento do contexto imediato.',
+      'A fala passa por três fases: <strong>social → egocêntrica → interna</strong>.',
+      'Para Vygotsky, a <strong>fala egocêntrica</strong> não é pensamento egocêntrico: é a criança usando a linguagem para <strong>regular a própria ação</strong>.'],
+      q:'Qual é a função da fala egocêntrica para Vygotsky?', a:'Controlar e regular o comportamento da criança: a linguagem mediando a ação.'},
+    {when:'Conceito-chave', titulo:'Zona de Desenvolvimento Proximal (ZDP)', pontos:[
+      'É a distância entre o <strong>nível real</strong> (o que a pessoa faz sozinha) e o <strong>nível potencial</strong> (o que faz com ajuda de um adulto ou colega mais capaz).',
+      'Abrange funções que ainda estão <strong>em maturação</strong>; é dinâmica e muda o tempo todo.',
+      'A <strong>aprendizagem é condição para o desenvolvimento</strong>, e não o contrário. O bom ensino está <strong>à frente</strong> do desenvolvimento.'],
+      q:'O que define o nível real e o nível potencial?', a:'Real: o que a pessoa resolve sozinha. Potencial: o que resolve com ajuda de alguém mais capaz.'},
+    {when:'Pesquisa', titulo:'O método genético-experimental', pontos:[
+      '<strong>Introdução de obstáculos:</strong> atrapalhar a solução de um problema (ex.: trabalho em grupo entre crianças de línguas diferentes).',
+      '<strong>Recursos externos flexíveis:</strong> materiais que podem ser usados de várias formas.',
+      '<strong>Problemas além do nível:</strong> tarefas acima do conhecimento atual da criança.'],
+      q:'Cite as três técnicas usadas por Vygotsky nas pesquisas com crianças.', a:'Introdução de obstáculos, recursos externos flexíveis e problemas além do nível da criança.'},
+    {when:'Conceitos', titulo:'Formação de conceitos', pontos:[
+      '<strong>Agregação desorganizada:</strong> objetos agrupados ao acaso, sem lógica.',
+      '<strong>Pensamento por complexos:</strong> agrupamento por relações reais; o <strong>pseudoconceito</strong> é a ponte para o pensamento adulto.',
+      '<strong>Conceitos potenciais:</strong> abstração primitiva. O verdadeiro conceito só amadurece na <strong>puberdade</strong>.'],
+      q:'Qual é a "ponte" entre o pensamento por complexos e o pensamento adulto?', a:'O pseudoconceito.'},
+    {when:'Sala de aula', titulo:'Ensino como troca de significados', pontos:[
+      'O professor já internalizou os significados aceitos e os <strong>apresenta</strong> ao aluno.',
+      'O aluno <strong>devolve</strong> o significado que captou, para checar se é o compartilhado.',
+      'O ensino se consuma quando os dois <strong>compartilham significados</strong>. Sem interação dentro da ZDP, não há aprendizagem nem desenvolvimento.'],
+      q:'Quando o ensino se consuma, para Vygotsky?', a:'Quando professor e aluno passam a compartilhar os mesmos significados.'},
+  ],
+  quiz:[
+    {p:'Para Vygotsky, a aprendizagem…', o:['Só acontece depois do desenvolvimento','É condição para o desenvolvimento','Não interfere no desenvolvimento','Depende só da maturação biológica'], c:1, w:'A aprendizagem dentro da ZDP é o que provoca o desenvolvimento, e não o contrário.'},
+    {p:'Fumaça indicando fogo é um signo…', o:['Simbólico','Icônico','Indicador','Instrumental'], c:2, w:'Signos indicadores têm relação de causa e efeito com o que significam.'},
+    {p:'A ordem das fases da fala é…', o:['Interna → egocêntrica → social','Social → egocêntrica → interna','Egocêntrica → social → interna','Social → interna → egocêntrica'], c:1, w:'A fala nasce social, passa pela egocêntrica (que regula a ação) e se internaliza.'},
+    {p:'O que a criança faz sozinha corresponde ao…', o:['Nível potencial','Nível real','Limite superior da ZDP','Pseudoconceito'], c:1, w:'O nível real é medido pela resolução independente de problemas.'},
+    {p:'A unidade de análise de Vygotsky é…', o:['O indivíduo','O estágio de desenvolvimento','A interação social','O reflexo condicionado'], c:2, w:'Diferente de Piaget e Ausubel, Vygotsky analisa a interação entre indivíduo e contexto.'},
+  ]
+},
+{
+  id:'freire', aba:'Aula 5 · Paulo Freire', titulo:'As pedagogias de Paulo Freire',
+  intro:'Pedagogia do Oprimido, educação bancária × dialógica e Pedagogia da Autonomia: ensinar com o educando, e não sobre ele.',
+  etapas:[
+    {when:'Pedagogia do Oprimido', titulo:'Uma pedagogia da libertação', pontos:[
+      'É a pedagogia de quem luta pela <strong>própria libertação</strong>. Não pode ser feita pelos opressores.',
+      '<strong>1º momento:</strong> os oprimidos desvelam a opressão e se comprometem a transformá-la. <strong>2º momento:</strong> transformada a realidade, a pedagogia passa a ser de todos, em libertação permanente.',
+      'É humanista, democrática, antiautoritária e uma <strong>pedagogia da pergunta</strong>.'],
+      q:'Por que a Pedagogia do Oprimido não pode ser elaborada pelos opressores?', a:'Porque faria dos oprimidos objetos de humanitarismo, mantendo a opressão.'},
+    {when:'O polo a superar', titulo:'Educação bancária', pontos:[
+      'Educar vira <strong>depositar</strong> conhecimentos: o saber é "doado" por quem se julga sábio.',
+      'O <strong>educador</strong> é o sujeito: sabe, fala, escolhe. O <strong>educando</strong> é objeto: escuta, segue e se acomoda.',
+      'Resultado: anula o poder criador, estimula a <strong>ingenuidade</strong> e não a criticidade. Estudar vira memorizar.'],
+      q:'Na educação bancária, quem é sujeito e quem é objeto?', a:'O educador é o sujeito; o educando é mero objeto.'},
+    {when:'O caminho', titulo:'Educação dialógica e problematizadora', pontos:[
+      'O <strong>diálogo</strong> é a essência da educação como prática da liberdade.',
+      'Não se educa <strong>para</strong> nem <strong>sobre</strong> o educando, mas <strong>com</strong> ele.',
+      'O conteúdo é a <strong>devolução organizada</strong> ao povo do que ele entregou de forma desestruturada.'],
+      q:'Na educação dialógica, se educa para, sobre ou com o educando?', a:'Com o educando.'},
+    {when:'Método', titulo:'Temas e palavras geradoras', pontos:[
+      'Etapas: <strong>investigação → tematização → problematização</strong>.',
+      'O <strong>tema gerador</strong> vem das relações pessoa–mundo (ex.: <em>salário</em> → trabalho, classes sociais).',
+      '<strong>Palavras geradoras</strong> são escolhidas pela riqueza fonética, pelas dificuldades fonéticas e pelo aspecto pragmático.',
+      'Na alfabetização buscam-se palavras geradoras; na pós-alfabetização, temas geradores.'],
+      q:'Por quais critérios se escolhem as palavras geradoras?', a:'Riqueza fonética, dificuldades fonéticas e aspecto pragmático.'},
+    {when:'Papel do educador', titulo:'Diretivo, mas não autoritário', pontos:[
+      'O educador sai da posição de <strong>dono do saber</strong>: o educando também tem saberes.',
+      'A educação é sempre <strong>diretiva</strong>, mas isso não é comando nem domesticação.',
+      '"Não há seres educados e não educados. Estamos todos nos educando": somos <strong>inacabados</strong>.'],
+      q:'O educador freireano pode ser diretivo?', a:'Sim, diretivo, mas não autoritário nem manipulador.'},
+    {when:'Consciência', titulo:'Ingênua × crítica', pontos:[
+      '<strong>Ingênua:</strong> simplifica os problemas, aceita a realidade como imutável, aceita explicações mágicas.',
+      '<strong>Crítica:</strong> não se satisfaz com aparências, vê a realidade como mutável, investiga, ama o diálogo e aceita revisões.',
+      'Na escola real ainda predomina a educação bancária, que reforça a consciência ingênua.'],
+      q:'Quem vê a realidade como mutável: a consciência ingênua ou a crítica?', a:'A consciência crítica.'},
+    {when:'Pedagogia da Autonomia', titulo:'Os três princípios', pontos:[
+      '<strong>Não há docência sem discência:</strong> quem ensina aprende ao ensinar, e quem aprende ensina ao aprender.',
+      '<strong>Ensinar não é transferir conhecimento</strong>, mas criar possibilidades para a sua construção.',
+      '<strong>Ensinar é uma especificidade humana:</strong> exige segurança, competência, saber escutar, entender que educar é intervir no mundo e querer bem aos educandos.',
+      'Saberes: rigorosidade metódica, criticidade (curiosidade ingênua → <strong>epistemológica</strong>) e reflexão sobre a prática.'],
+      q:'O que acontece com a curiosidade ingênua quando se torna crítica e metódica?', a:'Torna-se curiosidade epistemológica.'},
+    {when:'Hoje', titulo:'Freire e o discurso pedagógico atual', pontos:[
+      'Ideias atuais já estavam em Freire: <strong>aprender a aprender</strong> (Rogers), <strong>interação social</strong> (Vygotsky), <strong>conhecimento prévio</strong> (Ausubel) e <strong>situações-problema</strong> (Vergnaud).',
+      'A <strong>aprendizagem significativa crítica</strong> (Moreira, 2005) também defende perguntas em vez de respostas.'],
+      q:'Qual autor converge com Freire na ideia de interação social e mediação?', a:'Vygotsky.'},
+  ],
+  quiz:[
+    {p:'Na educação bancária, estudar é…', o:['Problematizar a realidade','Memorizar mecanicamente','Investigar temas geradores','Dialogar com o educador'], c:1, w:'A compreensão não é exigida, só a memorização dos "depósitos".'},
+    {p:'A ordem do método dos temas geradores é…', o:['Problematização → tematização → investigação','Investigação → tematização → problematização','Tematização → investigação → problematização','Alfabetização → investigação → tematização'], c:1, w:'Primeiro se investiga o universo temático, depois se tematiza e se problematiza.'},
+    {p:'"Não há docência sem discência" significa que…', o:['Só o professor ensina','Quem ensina também aprende, e vice-versa','O aluno deve ficar em silêncio','O conteúdo é transferido'], c:1, w:'É o primeiro princípio da Pedagogia da Autonomia.'},
+    {p:'Aceitar explicações mágicas é traço da consciência…', o:['Crítica','Epistemológica','Ingênua','Dialógica'], c:2, w:'A consciência ingênua simplifica e aceita explicações mágicas.'},
+    {p:'Para Freire, o educador deve ser…', o:['Autoritário e diretivo','Neutro e não diretivo','Diretivo, mas não autoritário','Apenas um facilitador passivo'], c:2, w:'A educação libertadora é diretiva, mas não é comando nem domesticação.'},
+  ]
+},
+{
+  id:'dislexia', aba:'Aula 6 · Dislexia', titulo:'Transtorno da linguagem escrita: dislexia',
+  intro:'Da "cegueira verbal" do século XIX à genética do século XXI: o que é a dislexia, como aparece e o que a causa.',
+  etapas:[
+    {when:'1872 · 1896 · 1907', titulo:'Os primeiros registros', pontos:[
+      '<strong>1872:</strong> Berlin usa pela primeira vez o termo <strong>dislexia</strong>.',
+      '<strong>1896:</strong> Morgan descreve um adolescente que não conseguia ler, apesar da inteligência normal: <strong>"cegueira verbal"</strong>.',
+      '<strong>1907:</strong> Stevenson relata seis casos numa mesma família, sugerindo origem <strong>genética</strong>.'],
+      q:'Como Morgan chamou a condição em 1896?', a:'"Cegueira verbal".'},
+    {when:'1917 · 1928', titulo:'Do olho para o cérebro', pontos:[
+      '<strong>1917:</strong> Hinshelwood aponta um <strong>defeito congênito cerebral</strong> na memória visual de palavras e letras. Oftalmologistas confirmam: o problema não está nos olhos.',
+      '<strong>1928:</strong> Orton descreve a <strong>estrefossimbolia</strong> ("símbolos invertidos"): inversões e letras espelhadas. Destaca a dificuldade de reconstruir sequências e a relação com a dominância lateral.'],
+      q:'O que é estrefossimbolia?', a:'"Símbolos invertidos": inversões e imagens espelhadas de letras e palavras, descritas por Orton em 1928.'},
+    {when:'1950 · 1970', titulo:'Genética e definição', pontos:[
+      '<strong>1950:</strong> Hallgren publica o primeiro estudo clínico-genético.',
+      '<strong>1970:</strong> Critchley divulga a definição da Federação Mundial de Neurologia (WFN).'],
+      q:'Quem publicou o primeiro estudo clínico-genético da dislexia?', a:'Hallgren, em 1950.'},
+    {when:'Base', titulo:'O que é ler', pontos:[
+      'Ler é <strong>dar sentido</strong> ao que está escrito, não só decodificar sons (Smith).',
+      'Envolve linguagem escrita, atenção, habilidade motora, vários tipos de memória e imagem mental.',
+      'Varia com idade, maturação, hereditariedade, tipo de língua, instrução, prática e motivação.'],
+      q:'Para Smith (1989), ler é só decodificar sons?', a:'Não: é dar sentido ao que está escrito.'},
+    {when:'Definição', titulo:'Do DSM-IV ao DSM-5', pontos:[
+      '<strong>Associação Internacional de Dislexia (2003):</strong> transtorno específico de aprendizagem, de origem <strong>neurobiológica</strong>, com dificuldades em reconhecer palavras, fluência, soletração e decodificação, por <strong>déficit fonológico</strong>.',
+      '<strong>DSM-5:</strong> transtorno do <strong>neurodesenvolvimento</strong>, pela interação de fatores genéticos, epigenéticos e ambientais.'],
+      q:'Como o DSM-5 classifica a dislexia?', a:'Como transtorno do neurodesenvolvimento, de origem biológica (genética, epigenética e ambiente).'},
+    {when:'Clínica', titulo:'Como aparece', pontos:[
+      'Leitura oral com <strong>omissões, distorções e substituições</strong>; leitura lenta e vacilante.',
+      'Dificuldade em transformar <strong>grafemas em sons</strong>, soletrar e calcular; vocabulário pobre para a idade.',
+      'Fica mais evidente entre <strong>6 e 7 anos</strong>, em crianças com inteligência média ou acima da média.'],
+      q:'Em que idade a dislexia costuma ficar mais evidente?', a:'Entre 6 e 7 anos.'},
+    {when:'Números', titulo:'Quantos são', pontos:[
+      'Europa e EUA: de <strong>3% a 18%</strong>, conforme o estudo. <strong>DSM-5:</strong> 5% a 15% das crianças em idade escolar.',
+      'Brasil (2004): <strong>12,1%</strong> em alunos do 3º ano do fundamental.',
+      'Mais comum em meninos: cerca de <strong>1,7 para 1</strong>.'],
+      q:'Qual a prevalência estimada pelo DSM-5?', a:'De 5% a 15% das crianças em idade escolar.'},
+    {when:'Causas', titulo:'Genética, epigenética e ambiente', pontos:[
+      'A dislexia é herdada em cerca de <strong>50%</strong> dos casos; <strong>35–40%</strong> dos parentes de primeiro grau são afetados.',
+      'Alta herdabilidade: decodificação fonológica, consciência de fonemas, reconhecimento de palavras. Baixa: codificação ortográfica e compreensão.',
+      'Vários cromossomos já foram associados (ex.: 6, 15, 3, 1, 7, 18), com transmissão <strong>poligênica</strong>.'],
+      q:'Em cerca de quantos casos a dislexia é herdada?', a:'Em cerca de 50% dos casos.'},
+    {when:'Teorias', titulo:'Por que acontece', pontos:[
+      '<strong>Déficit fonológico:</strong> falha no processamento dos fonemas e na decodificação.',
+      '<strong>Déficit na nomeação rápida:</strong> demora para recuperar nomes de letras, números e objetos.',
+      '<strong>Duplo déficit:</strong> os dois juntos, nas formas mais graves.',
+      '<strong>Déficit perceptivo visual:</strong> escrita em espelho e lateralidade mal estabelecida.'],
+      q:'O que é a teoria do duplo déficit?', a:'Déficit fonológico + déficit na nomeação rápida juntos: as formas mais graves de dislexia.'},
+    {when:'Tipos e sinais precoces', titulo:'Auditiva, visual ou mista', pontos:[
+      '<strong>Auditiva:</strong> dificuldade em discriminar sons e seguir instruções orais. <strong>Visual:</strong> dificuldade com sequências visuais e inversões de letras. <strong>Mista:</strong> a mais frequente.',
+      'Sinais de risco já no jardim de infância: <strong>atraso na fala</strong>, dificuldade com <strong>rimas</strong>, vocabulário pobre.',
+      'A identificação precoce e o apoio adequado reduzem o impacto escolar e social.'],
+      q:'Qual forma de dislexia é a mais frequente na prática clínica?', a:'A forma mista (auditiva + visual).'},
+  ],
+  quiz:[
+    {p:'Quem usou pela primeira vez o termo "dislexia"?', o:['Orton','Berlin','Morgan','Hinshelwood'], c:1, w:'Berlin, em 1872.'},
+    {p:'A dislexia ocorre em crianças com inteligência…', o:['Sempre abaixo da média','Média ou acima da média','Que não pode ser medida','Somente superior'], c:1, w:'A dificuldade de leitura é atípica justamente porque a inteligência está preservada.'},
+    {p:'Para a Associação Internacional de Dislexia (2003), as dificuldades resultam de…', o:['Problemas de visão','Falta de estímulo','Déficit fonológico','Baixa inteligência'], c:2, w:'A definição destaca origem neurobiológica e déficit fonológico.'},
+    {p:'Dificuldade em reconhecer rimas no jardim de infância pode ser…', o:['Sinal de risco para dislexia','Sem importância','Sinal de deficiência visual','Típico de todas as crianças'], c:0, w:'Déficits fonológicos, como a dificuldade com rimas, são indicadores precoces.'},
+    {p:'A proporção entre meninos e meninas com dislexia é de cerca de…', o:['1:1','1,7:1','5:1','1:2'], c:1, w:'Há leve predominância no sexo masculino: cerca de 1,7 para 1.'},
+  ]
+}
+];
+
+/* ---------- Estado salvo ---------- */
+const KEY = 'av-resumo-aprend2';
+let estado = {};
+try{ estado = JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){}
+function salvar(){ try{ localStorage.setItem(KEY, JSON.stringify(estado)); }catch(e){} }
+let capAtual = CAPS.find(c => '#' + c.id === location.hash) ? CAPS.findIndex(c => '#' + c.id === location.hash) : 0;
+
+function renderTabs(){
+  document.getElementById('tabs').innerHTML = CAPS.map((c, i)=>{
+    const feitas = Object.keys(estado[c.id] || {}).length;
+    return `<button role="tab" class="tab${i===capAtual?' on':''}" data-cap="${i}" aria-selected="${i===capAtual}">${c.aba}<small>${feitas}/${c.etapas.length}</small></button>`;
+  }).join('');
+}
+function render(){
+  const c = CAPS[capAtual];
+  const st = estado[c.id] || {};
+  renderTabs();
+  document.getElementById('capIntro').innerHTML = `<h2 class="cap-title">${c.titulo}</h2><p class="cap-intro">${c.intro}</p>`;
+  document.getElementById('timeline').innerHTML = '<div class="timeline">' + c.etapas.map((e, i)=>{
+    const s = st[i];
+    return `<article class="step${s ? ' done' : ''}" id="e${i}">
+      <span class="when">${e.when}</span>
+      <h2>${e.titulo}</h2>
+      <ul>${e.pontos.map(p=>`<li>${p}</li>`).join('')}</ul>
+      <div class="test">
+        <div class="test-q"><span>Teste-se</span>${e.q}</div>
+        <button class="reveal">${s ? 'Ver a resposta de novo' : 'Pensei. Ver a resposta'}</button>
+        <div class="answer${s ? ' show' : ''}">${e.a}</div>
+        <div class="self${s ? ' show' : ''}">Você acertou?
+          <button data-ok="${i}" class="${s==='ok' ? 'on-ok' : ''}">Acertei</button>
+          <button data-no="${i}" class="${s==='no' ? 'on-no' : ''}">Errei, vou revisar</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('') + '</div>';
+  progresso();
+  renderQuiz();
+  const prox = CAPS[capAtual + 1];
+  document.getElementById('next').innerHTML = prox ? `<button class="next-btn" data-cap="${capAtual+1}">Próxima aula: ${prox.aba} →</button>` : '';
+}
+function progresso(){
+  const c = CAPS[capAtual], st = estado[c.id] || {};
+  const feitas = Object.keys(st).length, total = c.etapas.length, ok = Object.values(st).filter(v=>v==='ok').length;
+  document.getElementById('progNome').textContent = c.aba;
+  document.getElementById('progTxt').textContent = `${feitas} de ${total} partes${feitas ? ` · ${ok} acerto${ok===1?'':'s'}` : ''}`;
+  document.getElementById('progBar').style.width = (100*feitas/total) + '%';
+}
+function irPara(i){
+  capAtual = i; history.replaceState(null, '', '#' + CAPS[i].id);
+  render(); window.scrollTo({top: document.getElementById('tabs').offsetTop - 12, behavior:'smooth'});
+}
+document.addEventListener('click', ev=>{
+  const t = ev.target.closest('[data-cap]');
+  if(t){ irPara(+t.dataset.cap); return; }
+  const r = ev.target.closest('.reveal');
+  if(r){ const art = r.closest('.step'); art.querySelector('.answer').classList.add('show'); art.querySelector('.self').classList.add('show'); return; }
+  const ok = ev.target.closest('[data-ok]'), no = ev.target.closest('[data-no]');
+  if(ok || no){
+    const c = CAPS[capAtual]; const i = (ok || no).dataset.ok ?? (ok || no).dataset.no;
+    estado[c.id] = estado[c.id] || {}; estado[c.id][i] = ok ? 'ok' : 'no'; salvar();
+    const art = document.getElementById('e' + i);
+    art.classList.add('done');
+    art.querySelector('[data-ok]').className = ok ? 'on-ok' : '';
+    art.querySelector('[data-no]').className = no ? 'on-no' : '';
+    progresso(); renderTabs();
+  }
+});
+
+/* ---------- Quiz ---------- */
+let pontos = 0, respondidas = 0;
+function renderQuiz(){
+  const Q = CAPS[capAtual].quiz;
+  pontos = 0; respondidas = 0;
+  document.getElementById('quiz').innerHTML = Q.map((q, i)=>`<div class="quiz-q" data-q="${i}">
+    <p>${i+1}. ${q.p}</p>
+    ${q.o.map((o, j)=>`<button class="opt" data-j="${j}">${o}</button>`).join('')}
+    <div class="why">${q.w}</div>
+  </div>`).join('');
+  document.getElementById('score').className = 'score';
+  document.getElementById('again').hidden = true;
+}
+document.getElementById('quiz').addEventListener('click', ev=>{
+  const b = ev.target.closest('.opt'); if(!b || b.disabled) return;
+  const Q = CAPS[capAtual].quiz;
+  const box = b.closest('.quiz-q'); const q = Q[+box.dataset.q]; const j = +b.dataset.j;
+  box.querySelectorAll('.opt').forEach((x, k)=>{ x.disabled = true; if(k === q.c) x.classList.add('ok'); });
+  if(j === q.c) pontos++; else b.classList.add('no');
+  box.querySelector('.why').classList.add('show');
+  respondidas++;
+  if(respondidas === Q.length){
+    const s = document.getElementById('score');
+    s.textContent = `Você acertou ${pontos} de ${Q.length}. ${pontos === Q.length ? 'Excelente!' : pontos >= 4 ? 'Muito bom: revise as que errou.' : 'Vale reler as partes e tentar de novo.'}`;
+    s.className = 'score show';
+    document.getElementById('again').hidden = false;
+  }
+});
+document.getElementById('again').addEventListener('click', ()=>{ renderQuiz(); document.getElementById('quiz').scrollIntoView({behavior:'smooth'}); });
+
+render();
+
+document.getElementById('theme').addEventListener('click', ()=>{
+  const d = document.body.classList.toggle('dark');
+  try{ localStorage.setItem('av-theme', d ? 'dark' : 'light'); }catch(e){}
+});
+</script>
+</body>
+</html>

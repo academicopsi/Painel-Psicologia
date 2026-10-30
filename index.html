@@ -1239,6 +1239,7 @@
   .ord-mv{width:36px; height:34px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); cursor:pointer; font-size:12px;}
   .ord-mv:hover:not(:disabled){border-color:var(--petrol-line); color:var(--petrol);}
   .ord-mv:disabled{opacity:.35; cursor:default;}
+  .ord-marca{font-style:normal; font-weight:700; color:var(--petrol); margin-left:4px;}
 </style>
 </head>
 <body>
@@ -1843,7 +1844,7 @@
   </section>
 
   <section class="tool-group">
-    <h2 class="tool-group-title"><span class="tg-idx">03</span>Psicologia da Aprendizagem<span class="tg-count">2 exercícios</span></h2>
+    <h2 class="tool-group-title"><span class="tg-idx">03</span>Psicologia da Aprendizagem<span class="tg-count">6 exercícios</span></h2>
     <details class="graveyard">
       <summary>Reforço ou Punição?</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -1884,6 +1885,62 @@
         <div class="tool-disclaimer">
           Correção automática por classificação exata. Cada situação foi escrita pra ilustrar um paradigma predominante. Na prática, alguns comportamentos podem envolver mais de um mecanismo ao mesmo tempo.
         </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Bancária ou Dialógica? (Freire)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação de sala de aula e classifique: ela se aproxima da educação bancária ou da educação dialógica, nos termos de Paulo Freire?</div>
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="bdSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="bdShuffleBtn">🔀 Sortear outra situação</button>
+        <div id="bdOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="bdCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="bdFeedbackBox"></div>
+        <div class="tool-disclaimer">Situações simplificadas para treinar os conceitos. Na prática, uma mesma aula pode misturar traços das duas concepções.</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Conceitos de Vygotsky</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e identifique o conceito de Vygotsky que ela ilustra melhor: níveis de desenvolvimento, ZDP, tipos de signo, lei da dupla formação, fala egocêntrica e outros.</div>
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="vgSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="vgShuffleBtn">🔀 Sortear outra situação</button>
+        <div id="vgOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="vgCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="vgFeedbackBox"></div>
+        <div class="tool-disclaimer">Cada situação foi escrita para ilustrar um conceito principal, com base na aula 4 (Moreira, cap. 7). Algumas podem envolver mais de um conceito ao mesmo tempo.</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Consciência Ingênua ou Crítica? (Freire)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a fala ou atitude e classifique: ela revela consciência ingênua ou consciência crítica, segundo Paulo Freire?</div>
+        <div class="prompt-box">
+          <div class="plabel">Fala ou atitude</div>
+          <div class="pfrase" id="ciSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="ciShuffleBtn">🔀 Sortear outra situação</button>
+        <div id="ciOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="ciCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="ciFeedbackBox"></div>
+        <div class="tool-disclaimer">Exercício de reconhecimento de conceitos. Não serve para julgar pessoas reais: todos nós temos momentos de consciência ingênua e crítica.</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Linha do Tempo da Dislexia</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Os marcos históricos da dislexia estão embaralhados. Use as setas para colocar do mais antigo ao mais recente e clique em "Corrigir": os anos aparecem depois.</div>
+        <div class="ord-list" id="dxLista"></div>
+        <button class="correct-btn" id="dxCorrigirBtn" style="margin-top:14px;">Corrigir</button>
+        <div class="pfeedback" id="dxFeedbackBox"></div>
+        <button class="shuffle-btn" id="dxShuffleBtn">🔀 Embaralhar de novo</button>
+        <div class="tool-disclaimer">Marcos conforme a aula 6 (Rotta et al., <em>Transtornos da aprendizagem</em>, cap. 11).</div>
       </div>
     </details>
   </section>
@@ -2279,11 +2336,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-10-30', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 4 a 6 (Vygotsky, Paulo Freire e dislexia): resumo interativo, quatro exercícios novos em Na prática e 24 termos no glossário.', link: {disc:'03'}},
   {date: '2026-10-30', disc: 'Bases Biológicas', desc: 'Embriologia: linha do tempo interativa da fertilização à 2ª semana, dois exercícios novos em Na prática e 22 termos no glossário.', link: {disc:'01'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Páginas por disciplina, busca no site, modo prova, progresso salvo no aparelho e prazos direto na agenda do celular.', link: {scroll:'disciplinas'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Calendário de prazos na página Prazos e Tarefas. E a antiga "Conteúdo de apoio" virou "Extras", com glossário das disciplinas e guia ABNT com gerador de referências.', link: {page:'viewPrazos', target:'calendario'}},
-  {date: '2026-10-28', disc: 'Geral', desc: 'Nova página "Conteúdo de apoio" (hoje Extras): passo a passo pra montar gráficos no Excel e no Google Planilhas.', link: {page:'viewApoio', target:'graficos'}},
-  {date: '2026-10-27', disc: 'Bases Biológicas', desc: 'Novos slides das últimas aulas.', link: {drive:'01'}}
+  {date: '2026-10-28', disc: 'Geral', desc: 'Nova página "Conteúdo de apoio" (hoje Extras): passo a passo pra montar gráficos no Excel e no Google Planilhas.', link: {page:'viewApoio', target:'graficos'}}
 ];
 
 
@@ -2320,6 +2377,13 @@ const DISC = {
      {materia: 'Neuroanatomia', titulo: 'Título', subtitulo: 'opcional', desc: 'Descrição curta.', link: 'https://...'},
    --------------------------------------------------------------------- */
 const STUDY = [
+  {
+    materia: 'Psicologia da Aprendizagem',
+    titulo: 'Vygotsky, Freire e dislexia',
+    subtitulo: 'Aulas 4, 5 e 6 num só resumo',
+    desc: 'Uma aba para cada aula: mediação e ZDP, educação bancária × dialógica e dislexia. Responda o "Teste-se" de cabeça e feche cada aula com um quiz rápido.',
+    link: 'resumo-aprendizagem.html'
+  },
   {
     materia: 'Bases Biológicas',
     titulo: 'Da fertilização à 2ª semana',
@@ -2431,6 +2495,32 @@ const GLOSSARIO = [
   {t:'Redução do impulso (drive)', disc:'Psicologia da Aprendizagem', d:'Ideia central de Hull: o comportamento é motivado por necessidades biológicas, e respostas que reduzem esse impulso são reforçadas.'},
   {t:'Behaviorismo metodológico', disc:'Psicologia da Aprendizagem', d:'Posição de Watson (1913): a psicologia deve estudar apenas o comportamento observável, deixando de lado a introspecção.'},
   {t:'Aprendizagem observacional', disc:'Psicologia da Aprendizagem', d:'Aprender observando o comportamento de outras pessoas e suas consequências (modelação). Estudada por Bandura, como no experimento do boneco João Bobo.'},
+
+  // Psicologia da Aprendizagem · Vygotsky, Freire e dislexia (aulas 4 a 6)
+  {t:'Mediação', disc:'Psicologia da Aprendizagem', d:'Ideia central de Vygotsky: as funções mentais superiores se formam pela intermediação de instrumentos e signos criados pela cultura.'},
+  {t:'Funções mentais superiores', disc:'Psicologia da Aprendizagem', d:'Processos como atenção voluntária, memória lógica e pensamento conceitual. Para Vygotsky, têm origem nas relações sociais.'},
+  {t:'Instrumento (Vygotsky)', disc:'Psicologia da Aprendizagem', d:'Algo usado para fazer alguma coisa, como uma ferramenta. Diferente do signo, que significa outra coisa.'},
+  {t:'Signo', disc:'Psicologia da Aprendizagem', d:'Algo que significa outra coisa. Pode ser indicador (fumaça → fogo), icônico (imagem) ou simbólico (palavras, números).'},
+  {t:'Internalização', disc:'Psicologia da Aprendizagem', d:'Processo pelo qual a pessoa reconstrói internamente signos e significados que antes existiam só nas relações sociais.'},
+  {t:'Lei da dupla formação', disc:'Psicologia da Aprendizagem', d:'Para Vygotsky, toda função aparece duas vezes: primeiro no nível social (interpessoal), depois no individual (intrapessoal).'},
+  {t:'Zona de Desenvolvimento Proximal (ZDP)', disc:'Psicologia da Aprendizagem', d:'Distância entre o nível real (o que se faz sozinho) e o potencial (o que se faz com ajuda). É onde o ensino deve atuar.'},
+  {t:'Nível de desenvolvimento real', disc:'Psicologia da Aprendizagem', d:'O que a pessoa já consegue fazer sozinha, medido pela resolução independente de problemas.'},
+  {t:'Nível de desenvolvimento potencial', disc:'Psicologia da Aprendizagem', d:'O que a pessoa consegue fazer com ajuda de um adulto ou de colegas mais capazes.'},
+  {t:'Fala egocêntrica', disc:'Psicologia da Aprendizagem', d:'Fala da criança consigo mesma. Para Vygotsky, serve para regular a própria ação e é a passagem entre a fala social e a interna.'},
+  {t:'Pseudoconceito', disc:'Psicologia da Aprendizagem', d:'Agrupamento que parece um conceito adulto, mas ainda se baseia em semelhanças concretas. É a ponte do pensamento por complexos para o conceito.'},
+  {t:'Pedagogia do Oprimido', disc:'Psicologia da Aprendizagem', d:'Pedagogia da libertação de Paulo Freire, feita com os oprimidos (e não pelos opressores), para desvelar e transformar a realidade.'},
+  {t:'Educação bancária', disc:'Psicologia da Aprendizagem', d:'Para Freire, a educação como "depósito" de conhecimentos: o educador é sujeito e o educando, objeto passivo que memoriza.'},
+  {t:'Educação dialógica', disc:'Psicologia da Aprendizagem', d:'Para Freire, educação feita com o educando, pelo diálogo e pela problematização da realidade. Também chamada problematizadora.'},
+  {t:'Tema gerador', disc:'Psicologia da Aprendizagem', d:'Tema tirado das relações dos educandos com o mundo, que serve de ponto de partida para o diálogo e a problematização.'},
+  {t:'Palavra geradora', disc:'Psicologia da Aprendizagem', d:'Palavra do universo dos alfabetizandos, escolhida por riqueza fonética, dificuldades fonéticas e aspecto pragmático.'},
+  {t:'Consciência ingênua', disc:'Psicologia da Aprendizagem', d:'Para Freire: simplifica os problemas, aceita a realidade como imutável e aceita explicações mágicas.'},
+  {t:'Consciência crítica', disc:'Psicologia da Aprendizagem', d:'Para Freire: não se satisfaz com aparências, vê a realidade como mutável, investiga, dialoga e aceita revisões.'},
+  {t:'Pedagogia da Autonomia', disc:'Psicologia da Aprendizagem', d:'Obra de Freire com saberes para a docência: não há docência sem discência, ensinar não é transferir conhecimento e ensinar exige querer bem.'},
+  {t:'Curiosidade epistemológica', disc:'Psicologia da Aprendizagem', d:'Para Freire, a curiosidade ingênua que se torna crítica e metódica ao se aproximar do objeto de conhecimento.'},
+  {t:'Dislexia', disc:'Psicologia da Aprendizagem', d:'Transtorno do neurodesenvolvimento que afeta reconhecimento de palavras, fluência, soletração e decodificação, com inteligência preservada.'},
+  {t:'Estrefossimbolia', disc:'Psicologia da Aprendizagem', d:'"Símbolos invertidos": inversões e letras espelhadas na leitura e na escrita, descritas por Orton em 1928.'},
+  {t:'Déficit fonológico', disc:'Psicologia da Aprendizagem', d:'Dificuldade em processar os sons da fala (fonemas), que prejudica a decodificação de palavras. Principal teoria sobre a dislexia.'},
+  {t:'Teoria do duplo déficit', disc:'Psicologia da Aprendizagem', d:'Explicação da dislexia que combina déficit fonológico e déficit na nomeação rápida, associada às formas mais graves.'},
 
   // Psicologia Experimental
   {t:'Variável independente (VI)', disc:'Psicologia Experimental', d:'Variável que o pesquisador manipula para ver o efeito. Ex.: tipo de técnica de estudo.'},
@@ -3908,6 +3998,131 @@ document.getElementById('esCorrigirBtn').addEventListener('click', ()=>{
 });
 esSortear();
 
+
+// ===== Fábricas reutilizáveis de exercício (classificar e ordenar) =====
+function embaralhar(arr){ const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+// cfg: {pre, cenarios:[{situacao, correta, explicacao}], opcoes (fixas) ou pool (sorteia 3 + a correta)}
+function criarClassificador(cfg){
+  let atual = null;
+  const $ = id => document.getElementById(cfg.pre + id);
+  function sortear(){
+    let novo;
+    do{ novo = cfg.cenarios[Math.floor(Math.random()*cfg.cenarios.length)]; } while(novo === atual && cfg.cenarios.length > 1);
+    atual = novo;
+    $('SituacaoTexto').textContent = atual.situacao;
+    const ops = cfg.opcoes ? cfg.opcoes : embaralhar([atual.correta, ...embaralhar(cfg.pool.filter(x=>x!==atual.correta)).slice(0,3)]);
+    $('Opcoes').innerHTML = ops.map(op=>`
+      <label class="opcao-radio">
+        <input type="radio" name="${cfg.pre}-opcao" value="${op}">
+        <span>${op}</span>
+      </label>`).join('');
+    $('FeedbackBox').className = 'pfeedback'; $('FeedbackBox').innerHTML = '';
+  }
+  $('ShuffleBtn').addEventListener('click', sortear);
+  $('CorrigirBtn').addEventListener('click', ()=>{
+    const marcado = document.querySelector(`input[name="${cfg.pre}-opcao"]:checked`);
+    const box = $('FeedbackBox');
+    if(!marcado){ box.className = 'pfeedback show bad'; box.innerHTML = '<strong>Escolha uma opção antes de corrigir.</strong>'; return; }
+    const acertou = marcado.value === atual.correta;
+    box.className = `pfeedback show ${acertou ? 'good' : 'bad'}`;
+    box.innerHTML = `<strong>${acertou ? 'Correto!' : `Não foi dessa vez: a resposta certa é ${atual.correta}.`}</strong><p>${atual.explicacao}</p>`;
+  });
+  sortear();
+}
+// cfg: {pre, itens:[{t, d, marca}]} na ordem certa
+function criarOrdenador(cfg){
+  let ordem = [];
+  const $ = id => document.getElementById(cfg.pre + id);
+  function render(marcar){
+    $('Lista').innerHTML = ordem.map((f, pos)=>`<div class="ord-item${marcar ? (f===pos ? ' ok' : ' err') : ''}">
+      <span class="ord-num">${pos+1}</span>
+      <span class="ord-txt">${cfg.itens[f].t}${marcar ? ` <em class="ord-marca">${cfg.itens[f].marca}</em>` : ''}</span>
+      <span class="ord-btns">
+        <button class="ord-mv" data-mv="-1" data-pos="${pos}" aria-label="Subir" ${pos===0?'disabled':''}>▲</button>
+        <button class="ord-mv" data-mv="1" data-pos="${pos}" aria-label="Descer" ${pos===ordem.length-1?'disabled':''}>▼</button>
+      </span></div>`).join('');
+  }
+  function novo(){
+    do{ ordem = embaralhar(cfg.itens.map((_, i)=>i)); } while(ordem.every((v, i)=>v===i));
+    render(); $('FeedbackBox').className = 'pfeedback'; $('FeedbackBox').innerHTML = '';
+  }
+  $('Lista').addEventListener('click', e=>{
+    const b = e.target.closest('.ord-mv'); if(!b) return;
+    const p = +b.dataset.pos, q = p + (+b.dataset.mv);
+    [ordem[p], ordem[q]] = [ordem[q], ordem[p]];
+    render(); $('FeedbackBox').className = 'pfeedback';
+  });
+  $('ShuffleBtn').addEventListener('click', novo);
+  $('CorrigirBtn').addEventListener('click', ()=>{
+    const certos = ordem.filter((f, pos)=>f===pos).length, n = cfg.itens.length;
+    const box = $('FeedbackBox');
+    render(true);
+    if(certos === n){ box.className = 'pfeedback show good'; box.innerHTML = '<strong>Ordem perfeita!</strong><p>Todos os itens estão na sequência certa.</p>'; }
+    else {
+      box.className = `pfeedback show ${certos >= n/2 ? 'partial' : 'bad'}`;
+      box.innerHTML = `<strong>${certos} de ${n} no lugar certo.</strong><p>A ordem correta é:</p><ol style="margin:6px 0 0; padding-left:20px; line-height:1.55;">${cfg.itens.map(f=>`<li><strong>${f.marca}:</strong> ${f.t}. ${f.d}</li>`).join('')}</ol>`;
+    }
+  });
+  novo();
+}
+
+// --- Ferramenta: Bancária ou Dialógica? (Psicologia da Aprendizagem · Freire) ---
+const BD_CENARIOS = [
+  {situacao:'O professor dita o conteúdo e, na prova, cobra exatamente as frases que ditou.', correta:'Educação bancária', explicacao:'O conhecimento é "depositado" e devolvido por memorização, sem exigir compreensão: é a lógica bancária.'},
+  {situacao:'Antes de começar o tema, a professora pergunta o que os alunos já viveram sobre o assunto e organiza a aula a partir disso.', correta:'Educação dialógica', explicacao:'Partir da experiência dos educandos e reconhecê-los como portadores de saberes é central na educação dialógica.'},
+  {situacao:'Os alunos são avaliados pela capacidade de repetir definições, sem precisar explicar o que entenderam.', correta:'Educação bancária', explicacao:'Na concepção bancária, a compreensão e a significação não são requisitos: a memorização é.'},
+  {situacao:'Numa turma de alfabetização de adultos, a palavra "tijolo" é escolhida porque faz parte do trabalho dos alunos e vira ponto de partida para discutir moradia.', correta:'Educação dialógica', explicacao:'É uma palavra geradora: tirada do universo dos educandos, com riqueza fonética e valor pragmático, que abre temas para problematizar.'},
+  {situacao:'O professor parte do princípio de que os alunos não sabem nada e que seu papel é preencher esse vazio.', correta:'Educação bancária', explicacao:'O saber como "doação dos que se julgam sábios aos que julgam nada saber" define a educação bancária.'},
+  {situacao:'O professor conduz a aula e define os objetivos, mas abre espaço para que os alunos questionem e cheguem às próprias conclusões.', correta:'Educação dialógica', explicacao:'Para Freire, a educação libertadora é diretiva, mas não autoritária: o educador dirige sem domesticar.'},
+  {situacao:'O conteúdo é escolhido só pelo professor, sem relação com a realidade dos alunos, e apresentado como verdade pronta.', correta:'Educação bancária', explicacao:'Na educação bancária o educador escolhe o conteúdo e o educando se acomoda, como mero objeto.'},
+  {situacao:'A turma investiga um problema do bairro e usa os conteúdos da disciplina para propor soluções.', correta:'Educação dialógica', explicacao:'A educação problematizadora parte das relações pessoa–mundo e devolve a realidade como problema a ser pensado.'},
+  {situacao:'Quanto mais quietos e obedientes os alunos ficam, melhor a aula é considerada.', correta:'Educação bancária', explicacao:'Apassivar os sujeitos e adaptá-los ao mundo é a meta da concepção bancária.'},
+  {situacao:'Professor e alunos discutem um texto, e o professor também revê sua opinião a partir do que ouviu da turma.', correta:'Educação dialógica', explicacao:'"Não há docência sem discência": quem ensina também aprende ao ensinar.'},
+];
+criarClassificador({pre:'bd', cenarios:BD_CENARIOS, opcoes:['Educação bancária','Educação dialógica']});
+
+// --- Ferramenta: Conceitos de Vygotsky (Psicologia da Aprendizagem) ---
+const VG_POOL = ['Nível de desenvolvimento real','Nível de desenvolvimento potencial','Zona de desenvolvimento proximal','Signo indicador','Signo icônico','Signo simbólico','Lei da dupla formação','Fala egocêntrica','Pseudoconceito','Instrumento'];
+const VG_CENARIOS = [
+  {situacao:'Lucas resolve sozinho contas de somar com dois algarismos.', correta:'Nível de desenvolvimento real', explicacao:'O nível real é o que a pessoa já faz sozinha, medido pela resolução independente de problemas.'},
+  {situacao:'Com a ajuda da professora, Lucas consegue resolver contas de somar com três algarismos.', correta:'Nível de desenvolvimento potencial', explicacao:'O nível potencial é o que a pessoa consegue fazer com ajuda de um adulto ou de um colega mais capaz.'},
+  {situacao:'As tarefas que Lucas ainda não faz sozinho, mas já consegue com ajuda, são justamente onde o ensino deve atuar.', correta:'Zona de desenvolvimento proximal', explicacao:'A ZDP é a distância entre o nível real e o potencial: é ali que a aprendizagem provoca desenvolvimento.'},
+  {situacao:'Uma criança vê nuvens escuras e entende que vai chover.', correta:'Signo indicador', explicacao:'Signos indicadores têm relação de causa e efeito com o que significam, como fumaça e fogo.'},
+  {situacao:'Fumaça saindo pela janela faz alguém concluir que algo está queimando.', correta:'Signo indicador', explicacao:'É o exemplo clássico da aula: fumaça indica fogo, numa relação de causa e efeito.'},
+  {situacao:'A placa da porta do banheiro tem o desenho de uma pessoa.', correta:'Signo icônico', explicacao:'Signos icônicos são imagens ou desenhos daquilo que significam.'},
+  {situacao:'Um mapa desenhado do caminho de casa até a escola.', correta:'Signo icônico', explicacao:'O desenho representa o caminho por semelhança: é um signo icônico.'},
+  {situacao:'O número 7 escrito no quadro.', correta:'Signo simbólico', explicacao:'Números e palavras têm relação abstrata com o que significam: são signos simbólicos.'},
+  {situacao:'A criança primeiro conta objetos em voz alta junto com a mãe; meses depois, consegue contar mentalmente, sozinha.', correta:'Lei da dupla formação', explicacao:'A função aparece primeiro no plano social (interpessoal) e depois no individual (intrapessoal).'},
+  {situacao:'Montando um quebra-cabeça, a criança fala sozinha em voz alta: "essa peça vai aqui, agora a azul…".', correta:'Fala egocêntrica', explicacao:'Para Vygotsky, a fala egocêntrica é a linguagem usada para regular a própria ação, não um sinal de pensamento egocêntrico.'},
+  {situacao:'A criança agrupa objetos de um jeito que parece um conceito de adulto, mas, ao explicar, mostra que juntou tudo por semelhanças concretas.', correta:'Pseudoconceito', explicacao:'O pseudoconceito é a fase final do pensamento por complexos: parece um conceito, mas ainda não é. É a ponte para o pensamento adulto.'},
+  {situacao:'Uma tesoura usada para cortar papel.', correta:'Instrumento', explicacao:'Instrumento é algo usado para fazer alguma coisa; signo é algo que significa outra coisa.'},
+];
+criarClassificador({pre:'vg', cenarios:VG_CENARIOS, pool:VG_POOL});
+
+// --- Ferramenta: Consciência Ingênua ou Crítica? (Psicologia da Aprendizagem · Freire) ---
+const CI_CENARIOS = [
+  {situacao:'"Sempre foi assim e sempre vai ser; não adianta tentar mudar."', correta:'Consciência ingênua', explicacao:'Aceitar a realidade como imutável é traço da consciência ingênua.'},
+  {situacao:'"Antes de compartilhar essa notícia, vou checar a fonte e procurar outras versões."', correta:'Consciência crítica', explicacao:'A consciência crítica não se satisfaz com aparências: é indagadora e investigadora.'},
+  {situacao:'"Se deu errado, foi porque era o destino."', correta:'Consciência ingênua', explicacao:'Recorrer a explicações mágicas é característica da consciência ingênua.'},
+  {situacao:'"Mudei de opinião depois de ouvir os argumentos do grupo."', correta:'Consciência crítica', explicacao:'A consciência crítica ama o diálogo e está sempre disposta a revisões.'},
+  {situacao:'"O trânsito é ruim só porque as pessoas dirigem mal; não tem mais nada envolvido."', correta:'Consciência ingênua', explicacao:'Reduzir um problema complexo a uma única causa é o simplismo da consciência ingênua.'},
+  {situacao:'"Por que o bairro alaga todo ano? Vamos investigar o que mudou na região."', correta:'Consciência crítica', explicacao:'Investigar as causas e ver a realidade como algo que pode mudar é próprio da consciência crítica.'},
+  {situacao:'"Todo mundo está fazendo, então deve estar certo."', correta:'Consciência ingênua', explicacao:'Aceitar formas massificadoras de comportamento é traço da consciência ingênua.'},
+  {situacao:'"Pode até parecer simples, mas quero entender o que está por trás disso."', correta:'Consciência crítica', explicacao:'Não se satisfazer com aparências e buscar as causas é o que caracteriza a consciência crítica.'},
+];
+criarClassificador({pre:'ci', cenarios:CI_CENARIOS, opcoes:['Consciência ingênua','Consciência crítica']});
+
+// --- Ferramenta: Linha do Tempo da Dislexia (Psicologia da Aprendizagem) ---
+const DX_MARCOS = [
+  {marca:'1872', t:'Berlin usa pela primeira vez o termo "dislexia"', d:'É o nascimento do conceito.'},
+  {marca:'1896', t:'Morgan descreve a "cegueira verbal" num adolescente', d:'Publicado no British Medical Journal: um jovem que não lia, apesar da inteligência normal.'},
+  {marca:'1917', t:'Hinshelwood aponta um defeito cerebral congênito', d:'Afetaria a memória visual de palavras e letras; o problema não estava nos olhos.'},
+  {marca:'1928', t:'Orton descreve a estrefossimbolia', d:'"Símbolos invertidos": inversões e letras espelhadas, ainda aceitas como sinal diagnóstico.'},
+  {marca:'1950', t:'Hallgren publica o primeiro estudo clínico-genético', d:'Reforça a base hereditária do transtorno.'},
+  {marca:'1970', t:'Critchley divulga a definição da Federação Mundial de Neurologia', d:'Uma das primeiras definições amplamente aceitas.'},
+];
+criarOrdenador({pre:'dx', itens:DX_MARCOS});
+
 // --- Ferramenta: Classifique a Gametogênese (Bases Biológicas) ---
 const GM_OPCOES = ['Espermatogênese', 'Ovogênese', 'Ambos'];
 const GM_CARACTERISTICAS = [
@@ -4309,7 +4524,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
   const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
-  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
   const totalCursos = COURSES.length;
