@@ -1626,7 +1626,7 @@ body.dark{--paper:#1b2224;--paper-alt:#252f30;--ink:#e9eeeb;--ink-soft:#aab7b4;-
   <span class="filter-heading">Explore por</span>
   <label for="avSemesterFilter">Semestre</label><select id="avSemesterFilter"><option value="2">Segundo semestre</option><option value="1">Primeiro semestre</option><option value="all">Todos</option></select>
   <label for="avDisciplineFilter">Disciplina</label><select id="avDisciplineFilter"><option value="">Todas as disciplinas</option></select>
-  <label for="avTypeFilter">Conteúdo</label><select id="avTypeFilter"><option value="all">Todos os conteúdos</option><option value="disc">Disciplinas</option><option value="updates">Atualizações</option><option value="tools">Ferramentas</option><option value="courses">Cursos extras</option><option value="videos">Vídeos</option><option value="quizzes">Simulados</option><option value="support">Conteúdo de apoio</option></select>
+  <label for="avTypeFilter">Conteúdo</label><select id="avTypeFilter"><option value="all">Todos os conteúdos</option><option value="disc">Disciplinas</option><option value="updates">Atualizações</option><option value="academic">Ferramentas acadêmicas</option><option value="tools">Ferramentas interativas</option><option value="courses">Cursos extras</option><option value="videos">Vídeos</option><option value="quizzes">Simulados</option><option value="support">Conteúdo de apoio</option></select>
   <span class="av-filter-note" id="avFilterCount" aria-live="polite"></span>
 </div>
 
@@ -2347,7 +2347,8 @@ const UPDATES = [
 function renderGrid(sem){
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
-  DISC[sem].forEach(d=>{
+  const entries = sem === 'all' ? [...DISC[1], ...DISC[2]] : DISC[sem];
+  entries.forEach(d=>{
     const a = document.createElement('a');
     a.className='card'; a.href=d.url; a.target='_blank'; a.rel='noopener';
     a.setAttribute('data-search', d.name.toLowerCase());
@@ -4055,10 +4056,10 @@ const input=document.getElementById('avGlobalSearch'),results=document.getElemen
 const norm=v=>(v||'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
 const allDisc=[...DISC[1].map(d=>({...d,sem:'1'})),...DISC[2].map(d=>({...d,sem:'2'}))];allDisc.forEach(d=>{const o=document.createElement('option');o.value=d.name;o.textContent=d.name;discipline.appendChild(o)});
 const tabs=[...document.querySelectorAll('.tabs .tab')];
-function apply(){const sem=semester.value,chosen=discipline.value;if(sem!=='all'){const active=tabs.find(x=>x.classList.contains('active'));if(active&&active.dataset.sem!==sem){tabs.forEach(x=>x.classList.toggle('active',x.dataset.sem===sem));renderGrid(sem)}}else renderGrid('2');
+function apply(){const sem=semester.value,chosen=discipline.value;if(sem!=='all'){const active=tabs.find(x=>x.classList.contains('active'));if(active&&active.dataset.sem!==sem){tabs.forEach(x=>x.classList.toggle('active',x.dataset.sem===sem));renderGrid(sem)}}else renderGrid('all');
 const cards=[...document.querySelectorAll('#grid .card')];cards.forEach(c=>{c.hidden=!!chosen&&!norm(c.textContent).includes(norm(chosen))});
 const selected=type.value;document.getElementById('disciplinas').hidden=selected!=='all'&&selected!=='disc';document.querySelector('.tabs').hidden=selected!=='all'&&selected!=='disc';document.getElementById('grid').hidden=selected!=='all'&&selected!=='disc';document.getElementById('atualizacoes').hidden=selected!=='all'&&selected!=='updates';document.getElementById('feed').hidden=selected!=='all'&&selected!=='updates';count.textContent=(chosen?'Disciplina: '+chosen:'')+(selected!=='all'?' · '+type.options[type.selectedIndex].text:'');
-const pages={tools:'viewFerramentas',courses:'viewCursos',videos:'viewVideos',quizzes:'viewSimulados',support:'viewApoio'};switchPage(pages[selected]||'top')}
+const pages={academic:'viewAcademicas',tools:'viewFerramentas',courses:'viewCursos',videos:'viewVideos',quizzes:'viewSimulados',support:'viewApoio'};switchPage(pages[selected]||'top')}
 semester.addEventListener('change',()=>{discipline.value='';apply()});discipline.addEventListener('change',apply);type.addEventListener('change',apply);tabs.forEach(btn=>btn.addEventListener('click',()=>{semester.value=btn.dataset.sem;discipline.value='';setTimeout(apply,0)}));
 function searchable(){const found=[];const add=(selector,category)=>document.querySelectorAll(selector).forEach(el=>{const title=(el.querySelector('.name,.entry-body p,h3,h4,strong')||el).textContent.trim().replace(/\s+/g,' '),text=el.textContent.trim().replace(/\s+/g,' ');if(text.length>4)found.push({el,title:title.slice(0,100),text:text.slice(0,260),category})});add('#grid .card','disc');add('#feed .entry','updates');add('#viewFerramentas .tool-card','tools');add('#viewCursos .course-card','courses');add('#viewVideos details','videos');add('#viewSimulados a','quizzes');add('#viewEstudar a,#viewApoio a','support');add('#glossaryGrid .glossary-card','tools');return found}
 function go(item){const page=item.el.closest('.wrap[id^="view"]');if(page&&page.id!=='top')switchPage(page.id);else switchPage('top');const details=item.el.closest('details');if(details)details.open=true;if(item.el.classList.contains('card')&&item.el.href){window.open(item.el.href,'_blank','noopener');return}setTimeout(()=>{item.el.scrollIntoView({behavior:'smooth',block:'center'});item.el.style.outline='2px solid var(--petrol)';setTimeout(()=>item.el.style.outline='',1500)},80);results.classList.remove('show')}
