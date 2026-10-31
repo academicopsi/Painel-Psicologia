@@ -4365,7 +4365,7 @@ function renderTasks(items){
     else nextTxt = `vence em ${next.diffDays} dias`;
     if(!next.prazo){ topEl.innerHTML = '<div class="empty" style="padding:14px">Nenhum prazo com data no momento.</div>'; } else topEl.innerHTML = `<div class="top-deadline${nextUrgent ? ' alert' : ''}">
       ${nextUrgent ? '<span class="alert-badge">Atenção: prazo se encerrando</span>' : '<span class="alert-badge">Em breve</span>'}
-      <span class="txt"><strong>${next.materia}</strong> · ${next.tarefa.replace(/\s*\([^)]*\)\s*$/, '')} (<strong class="vence-destaque">${nextTxt}</strong>)<br><a href="#viewPrazos" class="deadline-more-link" onclick="switchPage('viewPrazos'); return false;">Ver todos os prazos →</a></span>
+      <span class="txt"><strong>${next.materia}</strong> · ${next.tarefa.replace(/\s*\([^)]*\)\s*$/, '')} (<strong class="vence-destaque">${nextTxt}</strong>)<br><a href="#prazos" class="deadline-more-link" onclick="switchPage('viewPrazos'); return false;">Ver todos os prazos →</a></span>
     </div>`;
   }
 
@@ -4434,8 +4434,15 @@ document.getElementById('footDate').textContent = new Date().toLocaleDateString(
 
 const PUBLIC_URL = 'https://academicopsi.github.io/Painel-Psicologia/';
 
+// compartilha a página aberta (exercício, resumo, disciplina…), não só a inicial
 document.getElementById('shareBtn').addEventListener('click', ()=>{
-  const msg = `Confira o Arquivo Vivo, painel do Drive de Psicologia: ${PUBLIC_URL}`;
+  const url = PUBLIC_URL + (location.hash || '');
+  const pg = document.getElementById(currentPage);
+  const nome = currentPage === 'top' ? '' : (document.querySelector('#discPage h1, #resumoPage h1') && (currentPage === 'viewDisc' || currentPage === 'viewResumo') ? document.querySelector(currentPage === 'viewDisc' ? '#discPage h1' : '#resumoPage h1').textContent : (pg && pg.querySelector('h1') ? pg.querySelector('h1').textContent : ''));
+  const aberto = currentPage === 'viewFerramentas' && /^#exercicio-/.test(location.hash) ? document.querySelector('#viewFerramentas details[open] > summary') : null;
+  const titulo = aberto ? [...aberto.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim() : nome;
+  const msg = titulo ? `${titulo} · Arquivo Vivo: ${url}` : `Confira o Arquivo Vivo, painel do Drive de Psicologia: ${url}`;
+  if(navigator.share){ navigator.share({title: titulo ? `${titulo} · Arquivo Vivo` : 'Arquivo Vivo', text: titulo ? `${titulo} · Arquivo Vivo` : 'Confira o Arquivo Vivo, painel do Drive de Psicologia', url}).catch(()=>{}); return; }
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 });
 
@@ -4468,6 +4475,9 @@ if(document.body.classList.contains('dark')){
 }
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
+// endereços amigáveis para compartilhar (os antigos #viewX continuam funcionando)
+const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'simulados', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar'};
+const SLUG_PAGE = Object.fromEntries(Object.entries(PAGE_SLUG).map(([k, v])=>[v, k]));
 const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar'];
 let currentPage = 'top';
 
@@ -4505,9 +4515,10 @@ function switchPage(id, opts){
   closeMenus();
   if(!opts.keepScroll) window.scrollTo({top:0, behavior:'instant'});
   if(!opts.fromHistory){
-    const target = id === 'top' ? location.pathname + location.search : '#' + id;
+    const slug = PAGE_SLUG[id] || id;
+    const target = id === 'top' ? location.pathname + location.search : '#' + slug;
     const now = location.hash ? location.hash : '';
-    const want = id === 'top' ? '' : '#' + id;
+    const want = id === 'top' ? '' : '#' + slug;
     if(now !== want) history.pushState({page:id}, '', target);
   }
 }
@@ -4565,6 +4576,9 @@ function routeFromHash(){
   if(md){ setTimeout(()=> openDisc(md[1], {fromHistory:true}), 0); return; }
   const mr = h.match(/^resumo-([\w-]+)$/);
   if(mr){ setTimeout(()=> openResumo(mr[1], {fromHistory:true}), 0); return; }
+  const mx = h.match(/^exercicio-([\w-]+)$/);
+  if(mx && document.getElementById('tool-' + mx[1])){ switchPage('viewFerramentas', {fromHistory:true}); setTimeout(()=> revealTarget('tool-' + mx[1]), 60); return; }
+  if(SLUG_PAGE[h]){ switchPage(SLUG_PAGE[h], {fromHistory:true}); return; }
   if(ALL_PAGES.includes(h)) switchPage(h, {fromHistory:true});
   else if(h && document.getElementById(h)){ switchPage('top', {fromHistory:true}); setTimeout(()=>document.getElementById(h)?.scrollIntoView(), 30); }
   else switchPage('top', {fromHistory:true, keepScroll: !h});
@@ -6996,6 +7010,10 @@ function paintToolBadges(){
 }
 paintToolBadges();
 document.querySelectorAll('#viewFerramentas details[id^="tool-"]').forEach(det=> det.addEventListener('toggle', ()=>{
+  if(currentPage === 'viewFerramentas'){
+    if(det.open) history.replaceState(history.state, '', '#exercicio-' + det.id.slice(5));
+    else if(location.hash === '#exercicio-' + det.id.slice(5)) history.replaceState(history.state, '', '#exercicios');
+  }
   if(!det.open) return; const t = TOOL_LIST.find(x=>x.id===det.id); if(t && t.disc) ultimoSalvar(t.disc, {tipo:'tool', id:t.id});
 }));
 // registra cada correção: acerto quando a caixa de resposta fica verde (classe "good")
