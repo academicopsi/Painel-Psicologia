@@ -1844,7 +1844,7 @@
   <section class="hero">
     <div class="hero-text">
       <h1>Todo o material da turma, <span class="hl">em um só lugar.</span></h1>
-      <p class="lead"><span class="so-desk">Acesse os materiais oficiais das aulas, vídeos complementares e cursos extras, acompanhe prazos e tarefas, e use ferramentas que podem te ajudar na sua jornada acadêmica.</span><span class="so-mob">Material das aulas, prazos, resumos e exercícios da turma.</span></p>
+      <p class="lead"><span class="so-desk">Acesse os materiais oficiais das aulas, vídeos complementares e cursos extras, acompanhe prazos e tarefas, e use ferramentas que podem te ajudar na sua jornada acadêmica.</span><span class="so-mob">Aulas, prazos, resumos e exercícios de cada disciplina.</span></p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Abrir o Drive das disciplinas</a>
         <button class="btn btn-accent" data-page="viewPrazos" data-target="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> Calendário de prazos</button>
@@ -7339,6 +7339,132 @@ function resumaoHTML(d){
   h += `<footer class="pr-foot">O conteúdo das aulas sempre prevalece como referência final. Material didático de aluno para aluno, sem fins lucrativos.</footer>`;
   return h;
 }
+const PDF_MET = {H:[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584,761,556,278,222,556,333,1000,556,556,333,1000,667,333,1000,278,611,278,278,222,222,333,333,350,556,1000,333,1000,500,333,944,278,500,667,278,333,556,556,556,556,260,556,333,737,370,556,584,333,737,333,400,584,333,333,333,556,537,278,333,333,365,556,834,834,834,611,667,667,667,667,667,667,1000,722,667,667,667,667,278,278,278,278,722,722,778,778,778,778,778,584,778,722,722,722,722,667,667,611,556,556,556,556,556,556,889,500,556,556,556,556,278,278,278,278,556,556,556,556,556,556,556,584,611,556,556,556,556,500,556,500], HB:[278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,975,722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,333,278,333,584,556,333,556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,389,280,389,584,761,556,278,278,556,500,1000,556,556,333,1000,667,333,1000,278,611,278,278,278,278,500,500,350,556,1000,333,1000,556,333,944,278,500,667,278,333,556,556,556,556,280,556,333,737,370,556,584,333,737,333,400,584,333,333,333,611,556,278,333,333,365,556,834,834,834,611,722,722,722,722,722,722,1000,722,667,667,667,667,278,278,278,278,722,722,778,778,778,778,778,584,778,722,722,722,722,667,667,611,556,556,556,556,556,556,889,556,556,556,556,556,278,278,278,278,611,611,611,611,611,611,611,584,611,611,611,611,611,556,611,556], HI:[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584,761,556,278,222,556,333,1000,556,556,333,1000,667,333,1000,278,611,278,278,222,222,333,333,350,556,1000,333,1000,500,333,944,278,500,667,278,333,556,556,556,556,260,556,333,737,370,556,584,333,737,333,400,584,333,333,333,556,537,278,333,333,365,556,834,834,834,611,667,667,667,667,667,667,1000,722,667,667,667,667,278,278,278,278,722,722,778,778,778,778,778,584,778,722,722,722,722,667,667,611,556,556,556,556,556,556,889,500,556,556,556,556,278,278,278,278,556,556,556,556,556,556,556,584,611,556,556,556,556,500,556,500], TB:[250,333,555,500,500,1000,833,278,333,333,500,570,250,333,250,278,500,500,500,500,500,500,500,500,500,500,333,333,570,570,570,500,930,722,667,722,722,667,611,778,778,389,500,778,667,944,722,778,611,778,722,556,667,722,722,1000,722,722,667,333,278,333,581,500,333,500,556,444,556,444,333,500,556,278,333,556,278,833,556,500,556,556,444,389,333,556,500,722,500,500,444,394,220,394,520,761,500,250,333,500,500,1000,500,500,333,1000,556,333,1000,250,667,250,250,333,333,500,500,350,500,1000,333,1000,389,333,722,250,444,722,250,333,500,500,500,500,220,500,333,747,300,500,570,333,747,333,400,570,300,300,333,556,540,250,333,300,330,500,750,750,750,500,722,722,722,722,722,722,1000,722,667,667,667,667,389,389,389,389,722,722,778,778,778,778,778,570,778,722,722,722,722,722,611,556,500,500,500,500,500,500,722,444,444,444,444,444,278,278,278,278,500,556,500,500,500,500,500,570,500,556,556,556,556,500,556,500]};
+
+// Gera o PDF do resumão direto no aparelho, sem precisar da tela de impressão
+// (usado no app instalado no iPhone, onde a impressão não funciona).
+const PDF_CP = {0x20AC:0x80,0x201A:0x82,0x0192:0x83,0x201E:0x84,0x2026:0x85,0x2020:0x86,0x2021:0x87,0x02C6:0x88,0x2030:0x89,0x0160:0x8A,0x2039:0x8B,0x0152:0x8C,0x017D:0x8E,0x2018:0x91,0x2019:0x92,0x201C:0x93,0x201D:0x94,0x2022:0x95,0x2013:0x96,0x2014:0x97,0x02DC:0x98,0x2122:0x99,0x0161:0x9A,0x203A:0x9B,0x0153:0x9C,0x017E:0x9E,0x0178:0x9F};
+const PDF_TROCA = {'→':'->','←':'<-','↔':'<->','≥':'>=','≤':'<=','✓':'v','×':'x','−':'-','‑':'-','⁰':'o',' ':' '};
+function pdfByte(ch){
+  if(PDF_TROCA[ch] !== undefined) return PDF_TROCA[ch];
+  const c = ch.codePointAt(0);
+  if(c < 128) return ch;
+  if(c >= 0xA0 && c <= 0xFF) return String.fromCharCode(c);
+  if(PDF_CP[c]) return String.fromCharCode(PDF_CP[c]);
+  const base = ch.normalize('NFD').replace(/[̀-ͯ]/g,'');
+  return base && base.codePointAt(0) < 256 && base !== ch ? base : '?';
+}
+function pdfTexto(t){ let o = ''; for(const ch of t) o += pdfByte(ch); return o; }
+function pdfLargura(t, f, size){ const w = PDF_MET[f]; let s = 0; for(let i=0;i<t.length;i++){ const c = t.charCodeAt(i); s += (c >= 32 && c < 256) ? w[c-32] : 500; } return s * size / 1000; }
+function pdfQuebra(t, f, size, max){
+  const out = [];
+  t.split('\n').forEach(par=>{
+    let linha = '';
+    par.split(/\s+/).filter(Boolean).forEach(p=>{
+      const tenta = linha ? linha + ' ' + p : p;
+      if(pdfLargura(tenta, f, size) <= max || !linha) linha = tenta; else { out.push(linha); linha = p; }
+    });
+    out.push(linha);
+  });
+  return out;
+}
+function pdfEsc(t){ let o = ''; for(let i=0;i<t.length;i++){ const c = t.charCodeAt(i); if(c === 40 || c === 41 || c === 92) o += '\\' + t[i]; else if(c > 126) o += '\\' + c.toString(8).padStart(3,'0'); else o += t[i]; } return o; }
+function pdfDoResumao(d){
+  const box = document.createElement('div'); box.innerHTML = resumaoHTML(d);
+  const txt = el => { const c = el.cloneNode(true); c.querySelectorAll('br').forEach(b=>b.replaceWith('\n')); return pdfTexto(c.textContent.replace(/[ \t\r]+/g,' ').replace(/ *\n */g,'\n').trim()); };
+  const blocos = [];
+  (function andar(el, num){
+    [...el.children].forEach(c=>{
+      const tag = c.tagName;
+      if(c.classList.contains('pr-barra')) return;
+      if(/^H[1-4]$/.test(tag)) blocos.push({k:tag.toLowerCase(), t:txt(c)});
+      else if(c.classList.contains('pr-marca')) blocos.push({k:'marca', t:txt(c)});
+      else if(tag === 'P') blocos.push({k: (c.classList.contains('pr-nota') || c.closest('.pr-head')) ? 'small' : 'p', t:txt(c)});
+      else if(tag === 'LI') blocos.push({k:'li', t:txt(c), n: num ? (num.i = (num.i||0) + 1) : 0});
+      else if(tag === 'DT') blocos.push({k:'dt', t:txt(c)});
+      else if(tag === 'DD') blocos.push({k:'p', t:txt(c)});
+      else if(tag === 'TABLE') blocos.push({k:'table', rows:[...c.querySelectorAll('tr')].map(tr=>[...tr.children].map(txt))});
+      else if(tag === 'FOOTER') blocos.push({k:'small', t:txt(c)});
+      else andar(c, tag === 'OL' ? {} : (tag === 'UL' ? null : num));
+    });
+  })(box, null);
+
+  const W = 595, H = 842, M = 48, LW = W - 2*M;
+  const pags = []; let s = '', y = H - M;
+  const novaPag = ()=>{ if(s) pags.push(s); s = ''; y = H - M; };
+  const precisa = h => { if(y - h < M + 14) novaPag(); };
+  const cor = (r,g,b)=>`${r} ${g} ${b} rg\n`;
+  const escreve = (t, f, size, x, yy, c)=>{ s += (c || cor(0.07,0.07,0.07)) + `BT /${f} ${size} Tf ${x.toFixed(1)} ${yy.toFixed(1)} Td (${pdfEsc(t)}) Tj ET\n`; };
+  const ESTILO = {h1:['TB',22,27,10,[0.09,0.25,0.23]], h2:['TB',15,19,16,[0.09,0.25,0.23]], h3:['HB',12,16,10], h4:['HB',10.5,14,8], dt:['HB',10,13,6], p:['H',10,14,3], small:['H',8.5,11,2,[0.4,0.4,0.4]], marca:['HB',8.5,11,0,[0.12,0.36,0.34]]};
+  blocos.forEach(b=>{
+    if(b.k === 'table'){
+      const nc = Math.max(...b.rows.map(r=>r.length)); const first = LW * 0.28, rest = (LW - first) / Math.max(1, nc - 1);
+      const larg = i => i === 0 ? first : rest;
+      y -= 4;
+      b.rows.forEach((r, ri)=>{
+        const f = ri === 0 ? 'HB' : 'H', sz = 8.8;
+        const linhas = r.map((c,i)=>pdfQuebra(c, (i === 0 || ri === 0) ? 'HB' : 'H', sz, larg(i) - 8));
+        const h = Math.max(...linhas.map(l=>l.length)) * 11 + 6;
+        precisa(h);
+        if(ri === 0) s += `0.93 0.95 0.92 rg ${M} ${(y-h).toFixed(1)} ${LW} ${h.toFixed(1)} re f\n`;
+        let x = M;
+        linhas.forEach((ls,i)=>{ ls.forEach((l,k)=> escreve(l, (i === 0 || ri === 0) ? 'HB' : 'H', sz, x + 4, y - 12 - k*11, ri === 0 ? cor(0.09,0.25,0.23) : null)); x += larg(i); });
+        y -= h;
+        s += `0.85 0.85 0.85 RG 0.5 w ${M} ${y.toFixed(1)} m ${M+LW} ${y.toFixed(1)} l S\n`;
+      });
+      y -= 8; return;
+    }
+    if(b.k === 'li'){
+      const pre = b.n ? b.n + '. ' : '•  ';
+      const ls = pdfQuebra(b.t, 'H', 10, LW - 16);
+      ls.forEach((l,i)=>{ precisa(14); if(i === 0) escreve(pdfTexto(pre), 'H', 10, M + 2, y - 10); escreve(l, 'H', 10, M + 16, y - 10); y -= 14; });
+      y -= 2; return;
+    }
+    const [f, sz, lh, antes, c] = ESTILO[b.k] || ESTILO.p;
+    const ls = pdfQuebra(b.t, f, sz, LW);
+    precisa(antes + lh * Math.min(ls.length, 2));
+    y -= antes;
+    ls.forEach(l=>{ precisa(lh); escreve(l, f, sz, M, y - sz, c ? cor(...c) : null); y -= lh; });
+    if(b.k === 'h2'){ s += `0.76 0.82 0.75 RG 1 w ${M} ${(y+2).toFixed(1)} m ${M+LW} ${(y+2).toFixed(1)} l S\n`; y -= 6; }
+  });
+  novaPag();
+
+  const objs = [];
+  const add = o => { objs.push(o); return objs.length; };
+  const cat = add(''), pages = add('');
+  const fontes = {H:'Helvetica', HB:'Helvetica-Bold', HI:'Helvetica-Oblique', TB:'Times-Bold'};
+  const fid = {}; Object.entries(fontes).forEach(([k,v])=> fid[k] = add(`<< /Type /Font /Subtype /Type1 /BaseFont /${v} /Encoding /WinAnsiEncoding >>`));
+  const res = `<< /Font << ${Object.keys(fid).map(k=>`/${k} ${fid[k]} 0 R`).join(' ')} >> >>`;
+  const kids = [];
+  pags.forEach((conteudo, i)=>{
+    const rod = `0.5 0.5 0.5 rg\nBT /H 8 Tf ${M} 26 Td (${pdfEsc(pdfTexto(`Arquivo Vivo · Resumão · ${d.name} · criado e mantido por Thiago Monteiro`))}) Tj ET\nBT /H 8 Tf ${W-M-40} 26 Td (${i+1} / ${pags.length}) Tj ET\n`;
+    const st = conteudo + rod;
+    const cid = add(`<< /Length ${st.length} >>\nstream\n${st}endstream`);
+    kids.push(add(`<< /Type /Page /Parent ${pages} 0 R /MediaBox [0 0 ${W} ${H}] /Resources ${res} /Contents ${cid} 0 R >>`));
+  });
+  objs[cat-1] = `<< /Type /Catalog /Pages ${pages} 0 R >>`;
+  objs[pages-1] = `<< /Type /Pages /Kids [${kids.map(k=>k+' 0 R').join(' ')}] /Count ${kids.length} >>`;
+  let out = '%PDF-1.4\n%\xe2\xe3\xcf\xd3\n'; const offs = [];
+  objs.forEach((o,i)=>{ offs.push(out.length); out += `${i+1} 0 obj\n${o}\nendobj\n`; });
+  const xref = out.length;
+  out += `xref\n0 ${objs.length+1}\n0000000000 65535 f \n` + offs.map(o=>String(o).padStart(10,'0') + ' 00000 n \n').join('');
+  out += `trailer\n<< /Size ${objs.length+1} /Root ${cat} 0 R >>\nstartxref\n${xref}\n%%EOF`;
+  const bytes = new Uint8Array(out.length); for(let i=0;i<out.length;i++) bytes[i] = out.charCodeAt(i) & 255;
+  return bytes;
+}
+function pdfEntregar(d){
+  const nome = `Resumao - ${d.name}.pdf`.normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const blob = new Blob([pdfDoResumao(d)], {type:'application/pdf'});
+  let file = null; try{ file = new File([blob], nome, {type:'application/pdf'}); }catch(e){}
+  if(file && navigator.canShare && navigator.canShare({files:[file]})){
+    navigator.share({files:[file], title:`Resumão · ${d.name}`}).catch(()=>{});
+    return;
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = nome; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=> URL.revokeObjectURL(url), 30000);
+}
+
 const appInstalado = ()=> window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
 // No app instalado do iPhone a impressão não funciona: o resumão abre como página no Safari, onde dá para salvar em PDF.
 (function(){
@@ -7359,11 +7485,7 @@ const appInstalado = ()=> window.navigator.standalone === true || (window.matchM
 document.addEventListener('click', e=>{
   const b = e.target.closest('[data-pdf]'); if(!b) return;
   const d = DISC[2].find(x=>x.n===b.dataset.pdf); if(!d) return;
-  if(appInstalado()){
-    const r = {}; Object.entries(RESUMOS).forEach(([id, x])=>{ if(x.disc === d.n) r[id] = rsEstado(id); });
-    const dados = btoa(unescape(encodeURIComponent(JSON.stringify({p: progLoad(), r}))));
-    window.open(`${location.pathname}?resumao=${d.n}&dados=${encodeURIComponent(dados)}`, '_blank'); return;
-  }
+  if(appInstalado()){ pdfEntregar(d); return; }
   let area = document.getElementById('printArea');
   if(!area){ area = document.createElement('div'); area.id = 'printArea'; document.body.appendChild(area); }
   area.innerHTML = resumaoHTML(d);
