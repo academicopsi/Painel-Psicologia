@@ -2443,7 +2443,7 @@
   </section>
 
   <section class="tool-group">
-    <h2 class="tool-group-title"><span class="tg-idx">04</span>Psicologia Experimental<span class="tg-count">3 exercícios</span></h2>
+    <h2 class="tool-group-title"><span class="tg-idx">04</span>Psicologia Experimental<span class="tg-count">6 exercícios</span></h2>
     <details class="graveyard">
       <summary>Conversor para Linguagem Científica</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -2509,6 +2509,47 @@
         <div class="tool-disclaimer">
           Cada campo tem uma opção correta e uma opção com um erro metodológico comum, sempre explicado ao errar. Ainda não é IA lendo justificativas livres; é um exercício guiado de reconhecimento de erros típicos.
         </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Ordene o Método Científico</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">As 7 etapas do método científico estão embaralhadas. Use as setas para colocar na ordem e clique em "Corrigir".</div>
+        <div class="ord-list" id="mcLista"></div>
+        <button class="correct-btn" id="mcCorrigirBtn" style="margin-top:14px;">Corrigir</button>
+        <div class="pfeedback" id="mcFeedbackBox"></div>
+        <button class="shuffle-btn" id="mcShuffleBtn">🔀 Embaralhar de novo</button>
+        <div class="tool-disclaimer">Etapas conforme a Aula 2 (Conceitos básicos em pesquisa). A experimentação acontece "quando aplicável".</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Básica ou Aplicada?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a descrição da pesquisa e classifique quanto à natureza: básica (conhecimento pelo conhecimento) ou aplicada (resolver um problema específico)?</div>
+        <div class="prompt-box">
+          <div class="plabel">Pesquisa</div>
+          <div class="pfrase" id="baSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="baShuffleBtn">🔀 Sortear outra</button>
+        <div id="baOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="baCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="baFeedbackBox"></div>
+        <div class="tool-disclaimer">Classificação conforme a Aula 2 (Gerhardt e Silveira, 2009; Gil, 2017). Pesquisas fictícias, escritas para treinar.</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Qual Nível de Seleção?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">É a questão do estudo dirigido da Aula 4: o comportamento descrito foi selecionado no nível filogenético, ontogenético ou cultural?</div>
+        <div class="prompt-box">
+          <div class="plabel">Comportamento</div>
+          <div class="pfrase" id="nsSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="nsShuffleBtn">🔀 Sortear outro</button>
+        <div id="nsOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="nsCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="nsFeedbackBox"></div>
+        <div class="tool-disclaimer">Os três níveis atuam juntos no comportamento humano; cada exemplo destaca o nível predominante (Skinner, 1981; Aula 4).</div>
       </div>
     </details>
   </section>
@@ -2833,11 +2874,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-10-30', disc: 'Psicologia Experimental', desc: 'Aulas 1, 2 e 4 (ciência e intuição, conceitos em pesquisa e seleção pelas consequências): resumo interativo, três exercícios novos em Na prática e 19 termos no glossário.', link: {url:'#resumo-experimental'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Cinco ferramentas interativas novas em Na prática: Corte da Medula, Camadas das Meninges, Painel do SNA, linha do tempo do embrião (do zigoto ao disco bilaminar) e Monte a ZDP.', link: {page:'viewFerramentas'}},
   {date: '2026-10-30', disc: 'Neuroanatomia', desc: 'Medula espinhal e sistema nervoso autônomo: resumo interativo, exercícios novos em Na prática e 21 termos no glossário.', link: {disc:'02'}},
   {date: '2026-10-30', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 4 a 6 (Vygotsky, Paulo Freire e dislexia): resumo interativo, quatro exercícios novos em Na prática e 24 termos no glossário.', link: {disc:'03'}},
   {date: '2026-10-30', disc: 'Bases Biológicas', desc: 'Embriologia: linha do tempo interativa da fertilização à 2ª semana, dois exercícios novos em Na prática e 22 termos no glossário.', link: {disc:'01'}},
-  {date: '2026-10-30', disc: 'Geral', desc: 'Páginas por disciplina, busca no site, modo prova, progresso salvo no aparelho e prazos direto na agenda do celular.', link: {scroll:'disciplinas'}}
 ];
 
 
@@ -2874,6 +2915,13 @@ const DISC = {
      {materia: 'Neuroanatomia', titulo: 'Título', subtitulo: 'opcional', desc: 'Descrição curta.', link: 'https://...'},
    --------------------------------------------------------------------- */
 const STUDY = [
+  {
+    materia: 'Psicologia Experimental',
+    titulo: 'Ciência, pesquisa e seleção pelas consequências',
+    subtitulo: 'Aulas 1, 2 e 4 num só resumo',
+    desc: 'Intuição × método científico, conceitos em pesquisa (básica × aplicada, VI e VD, hipótese) e os três níveis de seleção de Skinner, com "Teste-se" em cada parte e quiz no fim de cada aba.',
+    link: '#resumo-experimental'
+  },
   {
     materia: 'Neuroanatomia',
     titulo: 'Medula espinhal e sistema nervoso autônomo',
@@ -3065,6 +3113,25 @@ const GLOSSARIO = [
   {t:'Validade externa', disc:'Psicologia Experimental', d:'Grau em que os resultados podem ser generalizados para outras pessoas, contextos e situações.'},
   {t:'Correlação', disc:'Psicologia Experimental', d:'Medida de quanto duas variáveis variam juntas. Correlação não prova causalidade: só o experimento controlado permite afirmar causa e efeito.'},
   {t:'Análise do Comportamento', disc:'Psicologia Experimental', d:'Abordagem baseada no behaviorismo radical de Skinner, que estuda as relações entre o comportamento e o ambiente (antecedentes e consequências).'},
+  {t:'Intuição', disc:'Psicologia Experimental', d:'Conhecimento por conexões percebidas de forma imediata, sem questionamento nem comprovação. Formada por vieses, leva a erros sobre causa e efeito (Cozby, 2003).'},
+  {t:'Abordagem empírica (empirismo)', disc:'Psicologia Experimental', d:'Ideia de que o conhecimento deve vir da experiência: observação direta, coleta de dados e experimentação, longe da intuição.'},
+  {t:'Atitude cética', disc:'Psicologia Experimental', d:'Não aceitar informações sem questionar: exigir provas, examinar por diferentes perspectivas e não aceitar crenças só porque estão estabelecidas.'},
+  {t:'Método científico', disc:'Psicologia Experimental', d:'Conjunto objetivo de regras para coletar, avaliar e relatar informações, permitindo que ideias sejam refutadas ou replicadas. Etapas: observação, pergunta, hipótese, experimentação, análise, conclusão e teoria.'},
+  {t:'Teoria científica', disc:'Psicologia Experimental', d:'Explicação consolidada por várias evidências. Diferente da hipótese, que ainda será testada.'},
+  {t:'Replicação', disc:'Psicologia Experimental', d:'Repetir a observação ou o experimento, inclusive por outras pessoas, para ver se o resultado se mantém.'},
+  {t:'Pesquisa básica', disc:'Psicologia Experimental', d:'Pesquisa pura ou fundamental: amplia o conhecimento sem aplicação prevista ou imediata. O conhecimento pelo conhecimento.'},
+  {t:'Pesquisa aplicada', disc:'Psicologia Experimental', d:'Pesquisa que busca respostas ou soluções para problemas específicos, com um interesse determinado.'},
+  {t:'Pesquisa qualitativa', disc:'Psicologia Experimental', d:'Busca compreender um fenômeno num grupo social, com foco no significado que as pessoas dão a ele. Depende da interpretação do pesquisador.'},
+  {t:'Pesquisa quantitativa', disc:'Psicologia Experimental', d:'Analisa o fenômeno por resultados numéricos, usando linguagem matemática para descrever causas e relações entre variáveis.'},
+  {t:'Pesquisa mista', disc:'Psicologia Experimental', d:'Usa as abordagens qualitativa e quantitativa ao mesmo tempo, reunindo mais informações do que cada uma sozinha.'},
+  {t:'Variável', disc:'Psicologia Experimental', d:'Qualquer evento, situação ou comportamento com pelo menos dois valores (quantitativa) ou níveis/categorias (qualitativa).'},
+  {t:'Objetivo geral e objetivos específicos', disc:'Psicologia Experimental', d:'O geral mostra aonde a pesquisa quer chegar; os específicos são aspectos pontuais e concretos que saem dele e ajudam a alcançá-lo.'},
+  {t:'Seleção pelas consequências', disc:'Psicologia Experimental', d:'Modelo de Skinner (1981), inspirado na seleção natural: o comportamento é selecionado em três níveis, filogenético, ontogenético e cultural.'},
+  {t:'Filogenia (1º nível de seleção)', disc:'Psicologia Experimental', d:'Seleção no nível da espécie, por seleção natural. Produz comportamentos respondentes, comuns a todos da espécie e controlados pelo estímulo antecedente.'},
+  {t:'Ontogenia (2º nível de seleção)', disc:'Psicologia Experimental', d:'Seleção durante a vida do indivíduo pelas consequências do comportamento (condicionamento operante). Explica boa parte do que se chama de personalidade.'},
+  {t:'Seleção cultural (3º nível)', disc:'Psicologia Experimental', d:'Seleção de práticas culturais mantidas por gerações, possibilitada pela linguagem (comportamento verbal). Explica a origem e as diferenças entre culturas.'},
+  {t:'Variação e seleção (Darwin)', disc:'Psicologia Experimental', d:'Os dois processos da evolução: indivíduos variam entre si, e o ambiente torna mais frequentes as variações vantajosas. Evolução não é sinônimo de progresso.'},
+  {t:'Prática cultural', disc:'Psicologia Experimental', d:'Comportamento selecionado e mantido ao longo de muitas gerações num grupo.'},
 
   // Neuroanatomia
   {t:'Telencéfalo', disc:'Neuroanatomia', d:'Maior parte do encéfalo: os dois hemisférios cerebrais, com o córtex, os núcleos da base e estruturas como o hipocampo e a amígdala.'},
@@ -3483,6 +3550,164 @@ const RESUMOS = {
         {p:'A proporção entre meninos e meninas com dislexia é de cerca de…', o:['1:1','1,7:1','5:1','1:2'], c:1, w:'Há leve predominância no sexo masculino: cerca de 1,7 para 1.'},
       ]
     }
+    ]
+  },
+  'experimental': {
+    disc: '04',
+    eyebrow: 'Psicologia Experimental · Profa. Ana Carolina Miranda',
+    titulo: 'Ciência, pesquisa e seleção pelas consequências',
+    lead: 'Três aulas num só lugar. Escolha a aula, leia cada parte e responda o "Teste-se" de cabeça antes de abrir a resposta.',
+    fonte: 'Resumo feito a partir dos slides de Psicologia Experimental: Aula 1 (introdução), Aula 2 (conceitos em pesquisa) e Aula 4 (introdução à seleção pelas consequências).',
+    caps: [
+      {
+        id:'ciencia', aba:'Aula 1: Por que ciência', titulo:'Ciência, intuição e Psicologia Experimental',
+        intro:'"Experiência não substitui evidência." Por que a intuição engana, o que o método científico tem de diferente e o que estuda a Psicologia Experimental.',
+        etapas:[
+          {when:'Abertura', titulo:'A ciência pode ajudar?', pontos:[
+            '<strong>Marcos e Helena</strong> tentaram engravidar por anos, adotaram uma criança e, meses depois, Helena engravidou. Conhecendo outros casos parecidos, surge a hipótese: <strong>adoção aumenta as chances de gravidez?</strong>',
+            '<strong>Isabela</strong> tinha sintomas depressivos, seguiu o conselho de uma senhora de se mudar para uma cidade com praia e melhorou. Passou a aconselhar no Instagram que outras pessoas fizessem o mesmo.',
+            'Com base na intuição e em experiências que se repetem, as duas ideias parecem verdadeiras. A pergunta da aula é: <strong>que problemas surgem se aceitarmos isso sem testar?</strong>'],
+            q:'Qual o problema de concluir que a adoção aumenta as chances de gravidez a partir dos casos que conhecemos?', a:'São relatos que chamam atenção e por isso são lembrados. Sem comparar com quem não adotou e sem controlar outras variáveis, não dá para afirmar causa e efeito.'},
+          {when:'Intuição', titulo:'Por que a intuição engana', pontos:[
+            'Para Cozby (2003), quem se baseia na intuição <strong>aceita sem questionar</strong> o próprio julgamento ou <strong>um único relato</strong> da experiência de alguém.',
+            'A intuição percebe conexões <strong>de forma imediata</strong>, sem comprovação dedutiva ou empírica.',
+            'Ela é formada por muitos <strong>vieses</strong> da percepção, que levam a conclusões erradas sobre <strong>causa e efeito</strong>.'],
+            q:'Por que a intuição leva a erros de causa e efeito?', a:'Porque percebe conexões de forma imediata, sem questionar nem comprovar, e é moldada por vieses da nossa percepção.'},
+          {when:'Método científico', titulo:'O que a ciência tem de diferente', pontos:[
+            'A vantagem do método científico é ter um <strong>conjunto objetivo de regras</strong> para coletar, avaliar e relatar informações.',
+            'Assim, as ideias podem ser <strong>refutadas ou replicadas</strong> por outras pessoas.',
+            'Duas características importantes: usar a <strong>abordagem empírica</strong> e manter a <strong>atitude cética</strong>.'],
+            q:'Quais são as duas características importantes do método científico?', a:'Usar a abordagem empírica e manter uma atitude cética.'},
+          {when:'Empirismo e ceticismo', titulo:'Observar e questionar', pontos:[
+            '<strong>Empirismo:</strong> todo conhecimento deve vir da experiência, longe da intuição: observação direta, experiência, coleta de dados e experimentação.',
+            '<strong>Atitude cética:</strong> não aceitar informações sem questionar, exigir provas, examinar por diferentes perspectivas, não aceitar crenças só porque estão estabelecidas, buscar a verdade.'],
+            q:'O que é ter atitude cética?', a:'Não aceitar informações sem questionamento: exigir provas e examiná-las por diferentes perspectivas.'},
+          {when:'História', titulo:'Ciência e Psicologia', pontos:[
+            '<strong>1879:</strong> surge o primeiro laboratório de psicologia, e muda a forma de estudar aprendizagem, percepção, sensação, memória e emoções.',
+            'Desde o fim do século XIX, as ações humanas são estudadas pelo método científico, o que delimita a atuação do psicólogo (Código de Ética e resoluções do CFP).',
+            'Cozby (2003): quem trabalha com saúde mental decide tratamentos com base em pesquisas, então precisa saber <strong>ler uma pesquisa e julgar se ela serve</strong> para o seu caso.'],
+            q:'Em que ano surgiu o primeiro laboratório de psicologia?', a:'Em 1879.'},
+          {when:'Definição', titulo:'O que é Psicologia Experimental', pontos:[
+            'Ramo da psicologia que investiga o comportamento e os processos mentais com uma <strong>abordagem empírica</strong>, baseada na metodologia científica.',
+            'Usa <strong>observação sistemática</strong>, <strong>experimentação controlada</strong> e <strong>mensuração de variáveis</strong> para testar hipóteses e estabelecer <strong>relações causais</strong>.',
+            'Três frentes: <strong>pesquisa básica</strong> (como, por que e quando alguém se comporta), eficácia de <strong>tratamentos medicamentosos</strong> e eficácia de <strong>intervenções psicoterapêuticas</strong>.'],
+            q:'Para que a Psicologia Experimental controla a experimentação e mede variáveis?', a:'Para testar hipóteses e estabelecer relações causais entre os fenômenos psicológicos.'},
+        ],
+        quiz:[
+          {p:'Segundo Cozby (2003), quem se baseia na intuição:', o:['Testa suas ideias antes de aceitar','Aceita sem questionar o próprio julgamento ou um único relato','Sempre chega a conclusões erradas','Usa a abordagem empírica'], c:1, w:'A intuição aceita sem questionar; isso não quer dizer que sempre erra, mas que não testa.'},
+          {p:'A vantagem do método científico é:', o:['Dar respostas rápidas','Depender da experiência de quem pesquisa','Ter regras objetivas que permitem refutar ou replicar as ideias','Confirmar o que o senso comum já sabe'], c:2, w:'Regras objetivas para coletar, avaliar e relatar permitem que outras pessoas refutem ou repliquem.'},
+          {p:'"Exigir provas e não aceitar crenças só porque estão estabelecidas" descreve:', o:['O empirismo','A atitude cética','A intuição','A pesquisa aplicada'], c:1, w:'É a atitude cética. O empirismo é a parte de basear o conhecimento na experiência e na observação.'},
+          {p:'Qual destas NÃO é uma das frentes da Psicologia Experimental citadas na aula?', o:['Pesquisa básica','Eficácia de medicamentos','Eficácia de psicoterapias','Aconselhamento baseado em experiência pessoal'], c:3, w:'Aconselhar a partir da própria experiência é justamente o que a aula critica (caso Isabela).'},
+        ]
+      },
+      {
+        id:'pesquisa', aba:'Aula 2: Conceitos em pesquisa', titulo:'Conceitos básicos em pesquisa',
+        intro:'Método científico, pesquisa básica × aplicada, abordagens qualitativa, quantitativa e mista, variáveis, hipótese e objetivos.',
+        etapas:[
+          {when:'Psicologia como ciência', titulo:'Como a Psicologia busca respostas', pontos:[
+            'Formula <strong>perguntas investigáveis</strong>, busca respostas em <strong>evidências</strong>, usa observação e coleta de dados e emprega métodos que permitem <strong>testar e revisar</strong> explicações.',
+            'O que diferencia uma explicação científica de uma opinião é <strong>a forma como construímos e testamos</strong> as explicações.'],
+            q:'O que diferencia uma explicação científica de uma opinião sobre o comportamento?', a:'A forma como a explicação é construída e testada.'},
+          {when:'Observação', titulo:'Observar basta?', pontos:[
+            '"Percebi que meus alunos que tomam café tiram notas melhores." Posso concluir que café melhora o desempenho? <strong>Depende.</strong>',
+            'Quantos alunos observei? Como medi o desempenho? Os grupos eram parecidos? Dormiam o mesmo tanto? Dá para repetir? Outra pessoa encontraria o mesmo?',
+            'A ciência não só observa: ela <strong>organiza como a observação será feita</strong>. Daí surge o método científico. Já o <strong>método filosófico</strong> usa reflexão e argumentação lógica, sem necessariamente testar.'],
+            q:'Por que a frase do café não prova que café melhora as notas?', a:'Falta controle: depende de quantos alunos, de como a nota foi medida, de os grupos serem parecidos, do sono etc., e a observação precisa ser repetida, inclusive por outras pessoas.'},
+          {when:'Passo a passo', titulo:'As etapas do método científico', pontos:[
+            '<strong>1. Observação:</strong> perceber o fenômeno com os sentidos e instrumentos.',
+            '<strong>2. Pergunta/problema:</strong> uma questão clara que possa ser investigada.',
+            '<strong>3. Hipótese:</strong> uma possível explicação, que será testada.',
+            '<strong>4. Experimentação/testagem:</strong> experimentos controlados (quando aplicável).',
+            '<strong>5. Análise dos resultados:</strong> organizar os dados em tabelas e gráficos e interpretar.',
+            '<strong>6. Conclusão:</strong> a hipótese foi confirmada ou refutada?',
+            '<strong>7. Teoria científica:</strong> explicação consolidada por várias evidências.'],
+            q:'Qual a diferença entre hipótese e teoria científica?', a:'Hipótese é uma possível explicação que ainda será testada; teoria é uma explicação consolidada por várias evidências.'},
+          {when:'Atitude', titulo:'Pensando como pesquisador', pontos:[
+            '"Ver para crer": ver, ver de novo e ver mais vezes, de preferência em condições controladas.',
+            'Conclusões baseadas em <strong>evidências empíricas</strong>, não no juízo subjetivo.',
+            'Ceticismo diante de novas descobertas, tratamentos e afirmações extraordinárias, <strong>mesmo as que já foram publicadas</strong>.'],
+            q:'Um estudo publicado diz que um tratamento novo cura a ansiedade em uma semana. Como um pesquisador reage?', a:'Com ceticismo: quer ver as evidências e, de preferência, a replicação antes de aceitar uma afirmação extraordinária, mesmo publicada.'},
+          {when:'Natureza da pesquisa', titulo:'Básica ou aplicada', pontos:[
+            '<strong>Pesquisa básica</strong> (pura ou fundamental): descobrir, melhorar ou ampliar o conhecimento, <strong>sem aplicação prevista ou imediata</strong>. O conhecimento pelo conhecimento.',
+            '<strong>Pesquisa aplicada:</strong> buscar respostas ou soluções para <strong>problemas específicos</strong> observados, com um interesse determinado.',
+            'Fontes da aula: Gerhardt e Silveira (2009); Gil (2017).'],
+            q:'Um estudo testa se um programa de leitura reduz a evasão escolar numa rede municipal. É básica ou aplicada?', a:'Aplicada: busca a solução de um problema específico.'},
+          {when:'Abordagem', titulo:'Qualitativa, quantitativa ou mista', pontos:[
+            '<strong>Qualitativa:</strong> compreender o fenômeno num grupo social; foco no <strong>significado</strong> que as pessoas dão a ele. Tem certo grau de subjetividade, pois depende da interpretação do pesquisador.',
+            '<strong>Quantitativa:</strong> analisa o fenômeno pelos <strong>resultados numéricos</strong>, usando a linguagem matemática para descrever causas e relações entre variáveis.',
+            '<strong>Mista:</strong> usa as duas ao mesmo tempo e recolhe mais informações do que cada uma sozinha.'],
+            q:'Entrevistas abertas para entender o que estudantes sentem antes das provas: qual abordagem?', a:'Qualitativa: o foco é o significado que as pessoas dão à experiência.'},
+          {when:'Variáveis', titulo:'VI e VD', pontos:[
+            '<strong>Variável:</strong> qualquer evento, situação ou comportamento com pelo menos <strong>dois valores</strong> (quantitativa) ou <strong>níveis/categorias</strong> (qualitativa).',
+            '<strong>Variável independente (VI):</strong> o que o pesquisador <strong>controla ou manipula</strong>.',
+            '<strong>Variável dependente (VD):</strong> a <strong>medida do comportamento</strong> usada para avaliar o efeito da VI.',
+            'Moreira e Medeiros (2019): o teste experimental são observações repetidas (<strong>replicações</strong>) da relação funcional entre o comportamento (VD) e o ambiente (VI).'],
+            q:'Um estudo compara 4 h e 8 h de sono e mede o número de palavras lembradas. Qual é a VI e qual é a VD?', a:'VI: horas de sono (manipuladas). VD: número de palavras lembradas (medido).'},
+          {when:'Planejamento', titulo:'Hipótese e objetivos', pontos:[
+            '<strong>Hipótese:</strong> suposição do que se espera encontrar, uma resposta provisória à pergunta de pesquisa.',
+            '<strong>Objetivo geral:</strong> delimita e dirige o raciocínio, mostra aonde se quer chegar.',
+            '<strong>Objetivos específicos:</strong> aspectos pontuais e concretos, que saem do objetivo geral e ajudam a alcançá-lo.',
+            'Atividade da aula: num artigo, identificar a hipótese ou o objetivo, se a pesquisa é básica ou aplicada, e a VI e a VD.'],
+            q:'Qual a diferença entre objetivo geral e objetivos específicos?', a:'O geral mostra aonde a pesquisa quer chegar; os específicos são passos pontuais e concretos, derivados dele, para alcançá-lo.'},
+        ],
+        quiz:[
+          {p:'Qual é a ordem correta do início do método científico?', o:['Hipótese → observação → pergunta','Observação → pergunta → hipótese','Pergunta → conclusão → hipótese','Experimentação → observação → hipótese'], c:1, w:'Primeiro se observa, depois se formula a pergunta e então a hipótese a ser testada.'},
+          {p:'Uma pesquisa que busca ampliar o conhecimento, sem aplicação imediata prevista, é:', o:['Aplicada','Básica','Mista','Qualitativa'], c:1, w:'Básica (pura ou fundamental): o conhecimento pelo conhecimento.'},
+          {p:'Num experimento, a variável que o pesquisador manipula é a:', o:['Variável dependente','Variável independente','Variável qualitativa','Hipótese'], c:1, w:'A VI é manipulada; a VD é medida.'},
+          {p:'Uma pesquisa que usa questionário com escala numérica e também entrevistas abertas é:', o:['Qualitativa','Quantitativa','Mista','Básica'], c:2, w:'Juntar as duas abordagens ao mesmo tempo caracteriza a pesquisa mista.'},
+          {p:'"Explicação consolidada por várias evidências" é a definição de:', o:['Hipótese','Objetivo geral','Teoria científica','Observação'], c:2, w:'A hipótese ainda será testada; a teoria já reúne várias evidências.'},
+        ]
+      },
+      {
+        id:'selecao', aba:'Aula 4: Seleção pelas consequências', titulo:'Introdução à seleção pelas consequências',
+        intro:'Como Skinner usou a ideia de seleção natural para explicar o comportamento em três níveis: espécie, indivíduo e cultura.',
+        etapas:[
+          {when:'Contexto', titulo:'A virada no pensamento de Skinner', pontos:[
+            'O pensamento skinneriano passou de um modelo influenciado pela <strong>física (mecanicista)</strong> para um modelo influenciado pela <strong>biologia</strong> (evolução por seleção natural).',
+            'Skinner "jovem", até 1938: busca explicações mecânicas do comportamento. Skinner "velho", a partir de 1938: <strong>ruptura com o modelo mecanicista</strong>.'],
+            q:'De que modelo para que modelo o pensamento de Skinner mudou?', a:'Do modelo mecanicista, inspirado na física, para um modelo inspirado na biologia, na seleção natural.'},
+          {when:'Darwin (1859)', titulo:'Variação e seleção', pontos:[
+            '<strong>Variação:</strong> indivíduos da mesma espécie diferem entre si em características anatômicas, fisiológicas e comportamentais.',
+            '<strong>Seleção:</strong> as variações favoráveis ao ambiente aumentam as chances de sobreviver e deixar descendentes. Se o ambiente muda, outras características passam a ser vantajosas.',
+            'Evolução <strong>não é sinônimo de melhora ou progresso</strong>: é a seleção de características que dão vantagem num ambiente específico.',
+            'Dizer que "o ambiente selecionou a característica" é dizer que ela <strong>se tornou mais frequente</strong>.'],
+            q:'O que significa dizer que "o ambiente selecionou uma característica"?', a:'Que essa característica se tornou mais frequente naquela população.'},
+          {when:'Skinner (1981)', titulo:'Três níveis de seleção', pontos:[
+            'Para Skinner (1981), a seleção natural de Darwin é só o <strong>primeiro nível</strong> de seleção pelas consequências.',
+            'A seleção natural selecionou duas características centrais para a psicologia: <strong>adaptar-se a ambientes diferentes</strong> (condicionamento respondente) e <strong>lidar com mudanças no próprio ambiente</strong> (condicionamento operante).'],
+            q:'Para Skinner, onde entra a seleção natural de Darwin?', a:'É o primeiro nível da seleção pelas consequências, o da espécie.'},
+          {when:'1º nível', titulo:'Filogenia: a espécie', pontos:[
+            'Seleciona <strong>comportamentos característicos da espécie</strong>, produto direto da seleção natural e comuns a todos os indivíduos dela.',
+            'São <strong>comportamentos respondentes</strong>, controlados pelo que acontece <strong>antes</strong> (estímulos antecedentes).',
+            'Diante do estímulo, a chance de o comportamento ocorrer é <strong>perto de 100%</strong>; sem ele, perto de 0%.',
+            'Muito estudado por <strong>Watson</strong> e por Skinner no começo de seus estudos.'],
+            q:'Por que os comportamentos do 1º nível são previsíveis?', a:'Porque são respondentes: diante do estímulo antecedente, ocorrem com probabilidade perto de 100%; sem ele, perto de 0%.'},
+          {when:'2º nível', titulo:'Ontogenia: o indivíduo', pontos:[
+            'O comportamento passa a ser sensível ao que acontece <strong>depois</strong> dele: certas consequências o <strong>fortalecem ou enfraquecem</strong>. É o <strong>condicionamento operante</strong>.',
+            'Analogia direta: a seleção natural seleciona variações ao longo de milhares de anos; a seleção operante seleciona variações <strong>durante a vida de um indivíduo</strong>.',
+            'A interação com o ambiente (incluindo outras pessoas) monta o <strong>repertório comportamental</strong>. É o nível mais estudado e explica boa parte do que o senso comum chama de <strong>personalidade</strong> e de sintomas.'],
+            q:'Qual a analogia entre seleção natural e seleção operante?', a:'A seleção natural seleciona variações entre gerações de uma espécie; a operante seleciona variações de comportamento ao longo da vida de um indivíduo, pelas consequências.'},
+          {when:'3º nível', titulo:'Cultura', pontos:[
+            'A musculatura vocal também ficou sob controle operante. Nos humanos, isso tornou possível a <strong>linguagem</strong> (comportamento verbal).',
+            'A linguagem permitiu ambientes sociais cada vez mais complexos e o <strong>rápido desenvolvimento da cultura</strong>.',
+            'Explica a origem e as diferenças entre culturas. <strong>Prática cultural:</strong> comportamento selecionado e mantido ao longo de muitas gerações.'],
+            q:'O que tornou possível o terceiro nível de seleção?', a:'O controle operante da musculatura vocal, que permitiu a linguagem (comportamento verbal) e, com ela, a cultura.'},
+        ],
+        extras:[
+          {tipo:'tabela', titulo:'Os três níveis lado a lado', cab:['Nível','Seleciona','Tipo de comportamento','Exemplo'], linhas:[
+            ['1º · Filogenético','Características da espécie (seleção natural)','Respondente, controlado pelo antecedente','Piscar quando algo vem em direção ao olho'],
+            ['2º · Ontogenético','Comportamentos durante a vida do indivíduo','Operante, controlado pela consequência','Estudar mais depois de ser elogiado pela nota'],
+            ['3º · Cultural','Práticas mantidas por gerações','Comportamento verbal e práticas culturais','Uma receita de família ensinada aos netos'],
+          ]},
+        ],
+        quiz:[
+          {p:'Para Skinner, a seleção natural de Darwin corresponde a qual nível?', o:['1º nível (filogenético)','2º nível (ontogenético)','3º nível (cultural)','Nenhum: Skinner a rejeitou'], c:0, w:'A seleção natural é o primeiro nível, o da espécie.'},
+          {p:'Comportamentos controlados pelo que acontece antes deles, com probabilidade perto de 100% diante do estímulo, são:', o:['Operantes','Respondentes','Verbais','Culturais'], c:1, w:'São os respondentes, do nível filogenético.'},
+          {p:'"Evolução" no sentido de Darwin quer dizer:', o:['Melhora contínua da espécie','Progresso em direção à perfeição','Seleção de características vantajosas num ambiente','Aprendizagem individual'], c:2, w:'Evolução não é sinônimo de melhora: é seleção de características vantajosas em determinado ambiente.'},
+          {p:'O nível mais estudado, que explica boa parte do que o senso comum chama de personalidade, é o:', o:['Filogenético','Ontogenético','Cultural','Mecanicista'], c:1, w:'O 2º nível, o ontogenético, do condicionamento operante.'},
+          {p:'O que permitiu o surgimento do nível cultural?', o:['Os reflexos inatos','A linguagem (comportamento verbal)','O condicionamento respondente','A seleção natural sozinha'], c:1, w:'O controle operante da musculatura vocal permitiu a linguagem, e com ela a cultura.'},
+        ]
+      }
     ]
   },
   'medula-sna': {
@@ -5092,6 +5317,45 @@ const DX_MARCOS = [
   {marca:'1970', t:'Critchley divulga a definição da Federação Mundial de Neurologia', d:'Uma das primeiras definições amplamente aceitas.'},
 ];
 criarOrdenador({pre:'dx', itens:DX_MARCOS});
+// --- Psicologia Experimental: método científico, básica × aplicada, níveis de seleção ---
+criarOrdenador({pre:'mc', itens:[
+  {marca:'1º', t:'Observação', d:'Perceber o fenômeno usando os sentidos e instrumentos.'},
+  {marca:'2º', t:'Pergunta / problema', d:'Formular uma questão clara que possa ser investigada.'},
+  {marca:'3º', t:'Hipótese', d:'Criar uma possível explicação que será testada.'},
+  {marca:'4º', t:'Experimentação / testagem', d:'Executar experimentos controlados para testar a hipótese (quando aplicável).'},
+  {marca:'5º', t:'Análise dos resultados', d:'Organizar os dados (tabelas, gráficos) e interpretar o que indicam.'},
+  {marca:'6º', t:'Conclusão', d:'Decidir se a hipótese foi confirmada ou refutada.'},
+  {marca:'7º', t:'Teoria científica', d:'Explicação consolidada por várias evidências.'},
+]});
+const BA_CENARIOS = [
+  {situacao:'Pesquisadores investigam como a memória de trabalho armazena sequências de números, sem pensar em nenhuma aplicação.', correta:'Pesquisa básica', explicacao:'O objetivo é ampliar o conhecimento sobre a memória, sem aplicação prevista.'},
+  {situacao:'Uma equipe testa se um programa de reforço positivo reduz as faltas dos alunos numa escola municipal.', correta:'Pesquisa aplicada', explicacao:'Busca a solução de um problema específico observado (faltas numa escola).'},
+  {situacao:'Um laboratório estuda como ratos aprendem a pressionar uma barra em diferentes esquemas de reforço.', correta:'Pesquisa básica', explicacao:'Estuda o processo de aprendizagem em si, o conhecimento pelo conhecimento.'},
+  {situacao:'Um hospital avalia se uma intervenção psicoterapêutica breve diminui a ansiedade de pacientes antes da cirurgia.', correta:'Pesquisa aplicada', explicacao:'Procura resposta para um problema concreto: a ansiedade pré-cirúrgica naqueles pacientes.'},
+  {situacao:'Pesquisadores querem entender por que prestamos mais atenção a rostos do que a objetos.', correta:'Pesquisa básica', explicacao:'Quer explicar como e por que um processo psicológico funciona, sem aplicação imediata.'},
+  {situacao:'Uma empresa contrata psicólogos para descobrir qual tipo de pausa reduz erros dos funcionários no fim do turno.', correta:'Pesquisa aplicada', explicacao:'Tem um interesse determinado e busca resolver um problema específico da empresa.'},
+  {situacao:'Um estudo compara a eficácia de dois medicamentos para insônia em adultos.', correta:'Pesquisa aplicada', explicacao:'Avaliar a eficácia de tratamentos é uma das frentes aplicadas da Psicologia Experimental.'},
+  {situacao:'Pesquisadores investigam como bebês de poucos meses distinguem sons da fala.', correta:'Pesquisa básica', explicacao:'Busca compreender um processo do desenvolvimento, sem problema prático a resolver.'},
+  {situacao:'Uma secretaria de saúde testa se mensagens por SMS aumentam a adesão de pacientes ao tratamento.', correta:'Pesquisa aplicada', explicacao:'Procura solução para um problema específico: a baixa adesão ao tratamento.'},
+  {situacao:'Um grupo estuda se a punição e a extinção produzem padrões diferentes de resposta em pombos.', correta:'Pesquisa básica', explicacao:'Investiga princípios do comportamento, ampliando o conhecimento teórico.'},
+];
+criarClassificador({pre:'ba', cenarios:BA_CENARIOS, opcoes:['Pesquisa básica','Pesquisa aplicada']});
+const NS_CENARIOS = [
+  {situacao:'Um bebê suga quando algo toca seus lábios.', correta:'1º nível: filogenético', explicacao:'Reflexo comum a toda a espécie, produto da seleção natural e disparado por um estímulo antecedente.'},
+  {situacao:'A pupila se contrai quando entra muita luz no olho.', correta:'1º nível: filogenético', explicacao:'Comportamento respondente: diante do estímulo, ocorre com probabilidade perto de 100%.'},
+  {situacao:'Uma pessoa saliva ao colocar comida na boca.', correta:'1º nível: filogenético', explicacao:'Resposta característica da espécie, controlada pelo estímulo que vem antes.'},
+  {situacao:'Pular de susto com um barulho alto e repentino.', correta:'1º nível: filogenético', explicacao:'Reação de sobressalto é inata e comum a todos da espécie.'},
+  {situacao:'Uma aluna passa a fazer mais perguntas na aula depois que a professora elogia suas participações.', correta:'2º nível: ontogenético', explicacao:'A consequência (elogio) fortaleceu o comportamento durante a vida dela: condicionamento operante.'},
+  {situacao:'Um motorista para de usar um atalho depois de levar duas multas nele.', correta:'2º nível: ontogenético', explicacao:'A consequência enfraqueceu o comportamento: seleção operante na história do indivíduo.'},
+  {situacao:'Uma criança aprende a abrir a geladeira porque lá encontra o lanche.', correta:'2º nível: ontogenético', explicacao:'O comportamento foi selecionado pela consequência ao longo da vida dela.'},
+  {situacao:'Um estudante passa a revisar a matéria toda semana depois de tirar notas melhores fazendo isso.', correta:'2º nível: ontogenético', explicacao:'Consequências da própria história fortaleceram esse comportamento.'},
+  {situacao:'Uma família mantém, há gerações, a tradição de preparar um prato específico no Natal.', correta:'3º nível: cultural', explicacao:'Prática cultural: comportamento selecionado e mantido ao longo de muitas gerações.'},
+  {situacao:'Em um país, as pessoas se cumprimentam com dois beijos no rosto; em outro, com um aperto de mão.', correta:'3º nível: cultural', explicacao:'As diferenças entre culturas são explicadas pelo terceiro nível de seleção.'},
+  {situacao:'Uma comunidade ensina às crianças, de geração em geração, a separar o lixo para reciclagem.', correta:'3º nível: cultural', explicacao:'Prática transmitida pela linguagem e mantida pelo grupo ao longo do tempo.'},
+  {situacao:'Falar português, e não japonês, porque foi a língua da comunidade em que cresceu.', correta:'3º nível: cultural', explicacao:'A linguagem (comportamento verbal) é o que torna possível a seleção cultural, e a língua falada é uma prática do grupo.'},
+];
+criarClassificador({pre:'ns', cenarios:NS_CENARIOS, opcoes:['1º nível: filogenético','2º nível: ontogenético','3º nível: cultural']});
+
 
 
 // --- Ferramenta: Medula, Qual é a Estrutura? (Neuroanatomia) ---
