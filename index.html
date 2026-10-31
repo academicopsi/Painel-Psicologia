@@ -3068,6 +3068,8 @@
      das disciplinas no texto da tarefa (o site reconhece).
    --------------------------------------------------------------------- */
 const TASKS = [
+  {materia: 'Bases Biológicas', tarefa: 'Para casa: estrutura do DNA (composição, nucleotídeos, base nitrogenada, açúcar, fosfato e dupla fita antiparalela)', prazo: '', added: '2026-10-31'},
+  {materia: 'Bases Biológicas', tarefa: 'T.E.A: gene', prazo: '', added: '2026-10-31'},
   {materia: 'Bases Biológicas', tarefa: 'Pesquisar Divisão Celular: Mitose e Meiose (fases e principais características)', prazo: '2026-08-24', added: '2026-08-20'},
   {materia: 'Bases Biológicas', tarefa: 'Estudar sobre Gametogênese (Masculina / Feminina)', prazo: '2026-08-31', added: '2026-08-20'},
   {materia: 'Bases Biológicas', tarefa: 'Prova N1', prazo: '2026-09-14', added: '2026-09-06'},
@@ -3251,6 +3253,19 @@ const COURSES = [
    Formato: {t: 'Termo', disc: 'Neuroanatomia', d: 'Definição curta.'},
    --------------------------------------------------------------------- */
 const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
+  {t:'Gene', disc:'Bases Biológicas', d:'Trecho do DNA com a instrução para produzir uma proteína (ou um RNA com função própria).', ex:'O gene que determina o tipo de hemoglobina das hemácias.'},
+  {t:'Cromossomo', disc:'Bases Biológicas', d:'Estrutura formada por DNA enrolado em proteínas. Nas células humanas são 46, em 23 pares.', ex:'O par 21 é o cromossomo envolvido na síndrome de Down.'},
+  {t:'Dogma central da biologia', disc:'Bases Biológicas', d:'Caminho da informação genética: DNA → RNA (transcrição) → proteína (tradução).', ex:'O gene da insulina é copiado em RNA, e o RNA é lido para montar a insulina.'},
+  {t:'Nucleotídeo', disc:'Bases Biológicas', d:'Unidade que forma o DNA: uma base nitrogenada, um açúcar (desoxirribose) e um fosfato.', ex:'Um nucleotídeo de adenina + desoxirribose + fosfato.'},
+  {t:'Base nitrogenada', disc:'Bases Biológicas', d:'Parte do nucleotídeo que carrega a informação: adenina (A), timina (T), citosina (C) e guanina (G). No RNA, a timina é trocada pela uracila (U).', ex:'A sequência AGCT numa fita guarda uma \'palavra\' do código genético.'},
+  {t:'Pareamento de bases', disc:'Bases Biológicas', d:'As bases das duas fitas se encaixam sempre do mesmo jeito: A com T (2 pontes de hidrogênio) e C com G (3 pontes). Por isso as fitas são complementares.', ex:'Se uma fita é AGCT, a outra é TCGA.'},
+  {t:'Desoxirribose', disc:'Bases Biológicas', d:'Açúcar de cinco carbonos do DNA. Tem um oxigênio a menos no carbono 2\' que a ribose, o açúcar do RNA.', ex:'É o \'desoxi\' do nome ácido desoxirribonucleico.'},
+  {t:'Ligação fosfodiéster', disc:'Bases Biológicas', d:'Ligação feita pelo fosfato entre o carbono 5\' de um nucleotídeo e o carbono 3\' do seguinte. Forma o esqueleto açúcar-fosfato da fita.', ex:'É como os elos de uma corrente, que prendem um nucleotídeo ao próximo.'},
+  {t:'Dupla fita antiparalela', disc:'Bases Biológicas', d:'O DNA tem duas fitas complementares enroladas em dupla-hélice, correndo em sentidos opostos: uma de 5\' para 3\' e a outra de 3\' para 5\'.', ex:'5\' AGCT 3\' pareada com 3\' TCGA 5\'.'},
+  {t:'Trissomia', disc:'Bases Biológicas', d:'Alteração em que a pessoa tem três cópias de um cromossomo em vez de duas.', ex:'Ter três cromossomos 21 (síndrome de Down).'},
+  {t:'Síndrome de Down (trissomia 21)', disc:'Bases Biológicas', d:'Trissomia do cromossomo 21. Causa deficiência intelectual de grau variável e traços físicos característicos.', ex:'A trissomia mais comum entre os nascidos vivos.'},
+  {t:'Síndrome de Edwards (trissomia 18)', disc:'Bases Biológicas', d:'Trissomia do cromossomo 18. Causa malformações graves e baixa sobrevida.', ex:'Mãos fechadas com dedos sobrepostos são um sinal típico.'},
+  {t:'Síndrome de Patau (trissomia 13)', disc:'Bases Biológicas', d:'Trissomia do cromossomo 13. Causa malformações graves do cérebro, do rosto e do coração.', ex:'Fenda labial e palatina e dedos extras são sinais frequentes.'},
   // Psicologia da Aprendizagem
   {t:'Condicionamento clássico (respondente)', disc:'Psicologia da Aprendizagem', d:'Aprendizagem em que um estímulo neutro, ao ser pareado repetidamente com um estímulo incondicionado, passa a eliciar uma resposta parecida com a resposta reflexa. Estudado por Pavlov.', ex:'O cão de Pavlov passa a salivar só com o som da sineta, que antes vinha sempre junto da comida.'},
   {t:'Estímulo incondicionado (EI)', disc:'Psicologia da Aprendizagem', d:'Estímulo que provoca uma resposta sem aprendizagem prévia.', ex:'A comida na boca do cão, que provoca salivação sem precisar de aprendizagem.'},
