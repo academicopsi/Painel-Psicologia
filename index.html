@@ -531,6 +531,15 @@
     .footer-brand{grid-column:1 / -1;}
     .qr-block{display:none;}
   }
+  @media (max-width:600px){
+    .wrap{padding-bottom:28px;}
+    .site-footer{margin-top:8px;}
+    .footer-inner{grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px 12px; padding:26px 18px 18px;}
+    .footer-brand p{font-size:13px; margin-top:10px; max-width:none;}
+    .footer-col h4{font-size:11px; margin:0 0 6px;}
+    .footer-col button{font-size:13px; padding:4px 0; line-height:1.35;}
+    .footer-bottom{padding:14px 18px 22px; font-size:12px;}
+  }
   /* rodapés antigos dentro de cada página: substituídos pelo global */
   .wrap > footer{display:none;}
 
@@ -1632,7 +1641,6 @@
 
   <section class="hero">
     <div class="hero-text">
-      <span class="eyebrow"><span class="dot"></span>Psicologia · Formandos 2030.2</span>
       <h1>Todo o material da turma, <span class="hl">em um só lugar.</span></h1>
       <p class="lead">Acesse os materiais oficiais das aulas, vídeos complementares e cursos extras, acompanhe prazos e tarefas, e use ferramentas que podem te ajudar na sua jornada acadêmica.</p>
       <div class="hero-ctas">
