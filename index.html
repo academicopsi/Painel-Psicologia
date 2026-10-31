@@ -1624,6 +1624,17 @@
     .card .idx{font-size:18px;}
     .drive-block .card .name{font-size:16px;}
   }
+
+  /* página da disciplina: cada seção como um bloco próprio, discreto */
+  #discPage .dp-section{background:var(--paper-alt); border:1px solid var(--rule); border-radius:18px; padding:22px 22px 24px; margin:0 0 18px;}
+  #discPage .dp-sec-head{margin-bottom:16px;}
+  #discPage .dp-sec-head h2{display:flex; align-items:center; gap:10px;}
+  #discPage .dp-sec-head h2::before{content:""; width:4px; height:1.05em; border-radius:2px; background:var(--acc, var(--petrol)); flex:none;}
+  #discPage .dp-tile, #discPage .dp-video{background:var(--paper);}
+  #discPage details.dp-gl, #discPage .dp-section details{background:var(--paper);}
+  body.dark #discPage .dp-section{background:var(--paper);}
+  body.dark #discPage .dp-tile{background:var(--paper-alt);}
+  @media (max-width:600px){ #discPage .dp-section{padding:16px 14px 18px; border-radius:14px; margin-bottom:14px;} }
 </style>
 </head>
 <body>
@@ -6862,6 +6873,7 @@ function continuarHTML(d){
 function renderDiscPage(d){
   const c = conteudoDisc(d);
   const el = document.getElementById('discPage');
+  el.dataset.d = d.n;
   const prova = provasProximas(7).find(p => p.discs.some(x=>x.n===d.n));
   const resumosFeitos = c.resumos.filter(r=>progStudyDone(r.link)).length;
   const exFeitos = c.exercicios.filter(t=>progTool(t.id).t > 0).length;
