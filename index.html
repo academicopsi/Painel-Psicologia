@@ -3068,8 +3068,8 @@
      das disciplinas no texto da tarefa (o site reconhece).
    --------------------------------------------------------------------- */
 const TASKS = [
-  {materia: 'Bases Biológicas', tarefa: 'Para casa: estrutura do DNA (composição, nucleotídeos, base nitrogenada, açúcar, fosfato e dupla fita antiparalela)', prazo: '', added: '2026-10-31'},
-  {materia: 'Bases Biológicas', tarefa: 'T.E.A: gene', prazo: '', added: '2026-10-31'},
+  {materia: 'Bases Biológicas', tarefa: 'Para casa: estrutura do DNA (composição, nucleotídeos, base nitrogenada, açúcar, fosfato e dupla fita antiparalela)', prazo: '2026-11-09', added: '2026-10-31'},
+  {materia: 'Bases Biológicas', tarefa: 'T.E.A: gene', prazo: '2026-11-09', added: '2026-10-31'},
   {materia: 'Bases Biológicas', tarefa: 'Pesquisar Divisão Celular: Mitose e Meiose (fases e principais características)', prazo: '2026-08-24', added: '2026-08-20'},
   {materia: 'Bases Biológicas', tarefa: 'Estudar sobre Gametogênese (Masculina / Feminina)', prazo: '2026-08-31', added: '2026-08-20'},
   {materia: 'Bases Biológicas', tarefa: 'Prova N1', prazo: '2026-09-14', added: '2026-09-06'},
@@ -3103,11 +3103,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-10-31', disc: 'Bases Biológicas', desc: 'Estrutura do DNA: aba nova no resumo interativo, 13 termos de genética no glossário e a tarefa do quadro (para casa até 09/11).', link: {url:'#resumo-embriologia'}},
   {date: '2026-10-30', disc: 'Psicologia Experimental', desc: 'Aulas 1, 2 e 4 (ciência e intuição, conceitos em pesquisa e seleção pelas consequências): resumo interativo, três exercícios novos em Na prática e 19 termos no glossário.', link: {url:'#resumo-experimental'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Cinco ferramentas interativas novas em Na prática: Corte da Medula, Camadas das Meninges, Painel do SNA, linha do tempo do embrião (do zigoto ao disco bilaminar) e Monte a ZDP.', link: {page:'viewFerramentas'}},
   {date: '2026-10-30', disc: 'Neuroanatomia', desc: 'Medula espinhal e sistema nervoso autônomo: resumo interativo, exercícios novos em Na prática e 21 termos no glossário.', link: {disc:'02'}},
   {date: '2026-10-30', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 4 a 6 (Vygotsky, Paulo Freire e dislexia): resumo interativo, quatro exercícios novos em Na prática e 24 termos no glossário.', link: {disc:'03'}},
-  {date: '2026-10-30', disc: 'Bases Biológicas', desc: 'Embriologia: linha do tempo interativa da fertilização à 2ª semana, dois exercícios novos em Na prática e 22 termos no glossário.', link: {disc:'01'}},
 ];
 
 
@@ -3167,9 +3167,9 @@ const STUDY = [
   },
   {
     materia: 'Bases Biológicas',
-    titulo: 'Da fertilização à 2ª semana',
-    subtitulo: 'Linha do tempo interativa',
-    desc: 'Percorra o desenvolvimento embrionário etapa por etapa, responda o "Teste-se" de cabeça antes de ver a resposta e feche com um quiz rápido.',
+    titulo: 'Embriologia e estrutura do DNA',
+    subtitulo: 'Dois temas num só resumo',
+    desc: 'Uma aba para o desenvolvimento embrionário (da fertilização à 2ª semana) e outra para a estrutura do DNA, com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-embriologia'
   },
   {
@@ -3592,12 +3592,12 @@ const DISC_ALIASES = {
 const RESUMOS = {
   'embriologia': {
     disc: '01',
-    eyebrow: 'Bases Biológicas · Embriologia',
-    titulo: 'Da fertilização à 2ª semana',
-    lead: 'O começo do desenvolvimento humano, etapa por etapa: o que acontece, quando e com que nome. Tente responder o "Teste-se" de cabeça antes de abrir a resposta.',
-    fonte: 'Resumo feito a partir dos slides de Bases Biológicas (Desenvolvimento embrionário: da fertilização à 2ª semana). Os dias são aproximados.',
+    eyebrow: 'Bases Biológicas',
+    titulo: 'Embriologia e estrutura do DNA',
+    lead: 'Dois temas num só lugar: o começo do desenvolvimento humano, da fertilização à 2ª semana, e a estrutura do DNA. Escolha a aba, leia as partes e, no fim, responda o "Teste-se" de cabeça antes de abrir a resposta.',
+    fonte: 'Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos tópicos do quadro da aula, com o conteúdo padrão de biologia molecular.',
     caps: [{
-      id: 'embrio', aba: null, titulo: null, intro: null,
+      id: 'embrio', aba: 'Embriologia', titulo: 'Da fertilização à 2ª semana', intro: null,
       etapas: [
         {fase:'1ª semana · da fertilização à implantação', when:'Dia 0', titulo:'Fertilização', pontos:[
           'Acontece habitualmente na <strong>ampola</strong>, uma dilatação da tuba uterina.',
@@ -3698,6 +3698,55 @@ const RESUMOS = {
         {p:'A zona pelúcida tem como função…', o:['Formar a placenta','Impedir a polispermia','Produzir hCG','Formar o âmnio'], c:1, w:'Após a reação cortical, a zona pelúcida impede a entrada de outros espermatozoides.'},
         {p:'O disco embrionário bilaminar é formado por…', o:['Citotrofoblasto e sinciciotrofoblasto','Âmnio e cório','Epiblasto e hipoblasto','Trofoblasto e embrioblasto'], c:2, w:'Na 2ª semana o embrioblasto forma epiblasto e hipoblasto, o disco bilaminar.'},
         {p:'A gravidez ectópica acontece mais na…', o:['Tuba uterina','Parede posterior do útero','Cavidade amniótica','Bexiga'], c:0, w:'Entre 95% e 98% das gestações ectópicas acontecem na tuba uterina, sobretudo na ampola e no istmo.'},
+      ]
+    }, {
+      id: 'dna', aba: 'Estrutura do DNA', titulo: 'Estrutura do DNA', intro: 'Do que o DNA é feito e como as partes se encaixam: nucleotídeos, bases, açúcar, fosfato e a dupla fita antiparalela.',
+      etapas: [
+        {when:'Visão geral', titulo:'O que é o DNA', pontos:[
+          'O DNA (ácido desoxirribonucleico) guarda a informação genética e a passa de célula para célula e de pais para filhos.',
+          'Fica no núcleo, organizado em <strong>cromossomos</strong>: 46 nas células humanas, em 23 pares.',
+          'Um <strong>gene</strong> é um trecho do DNA com a instrução para uma proteína. A informação segue o caminho <strong>DNA → RNA → proteína</strong> (transcrição e tradução).'],
+          q:'Qual é o caminho da informação genética, do DNA até a proteína?', a:'DNA → RNA (transcrição) → proteína (tradução).'},
+        {when:'Composição', titulo:'Nucleotídeos', pontos:[
+          'O DNA é um <strong>polímero</strong>: uma cadeia de unidades repetidas, os <strong>nucleotídeos</strong>.',
+          'Cada nucleotídeo tem três partes: uma <strong>base nitrogenada</strong>, um <strong>açúcar</strong> (desoxirribose) e um <strong>fosfato</strong>.',
+          'Açúcar e fosfato se repetem; o que muda é a base. A informação está na <strong>ordem das bases</strong>.'],
+          q:'Quais são as três partes de um nucleotídeo?', a:'Base nitrogenada, açúcar (desoxirribose) e fosfato.'},
+        {when:'Base nitrogenada', titulo:'A, T, C e G', pontos:[
+          'Quatro bases: <strong>adenina (A)</strong> e <strong>guanina (G)</strong>, as purinas (dois anéis); <strong>timina (T)</strong> e <strong>citosina (C)</strong>, as pirimidinas (um anel).',
+          'Pareamento: <strong>A com T</strong> (2 pontes de hidrogênio) e <strong>C com G</strong> (3 pontes). Sempre uma purina com uma pirimidina.',
+          'Por isso as fitas são <strong>complementares</strong>: se uma é AGCT, a outra é TCGA. No RNA, a timina vira <strong>uracila (U)</strong>.'],
+          q:'Se uma fita de DNA tem a sequência AGCT, qual é a sequência da fita complementar?', a:'TCGA (A pareia com T e C com G).'},
+        {when:'Açúcar', titulo:'Desoxirribose', pontos:[
+          'Açúcar de cinco carbonos (pentose), numerados de 1\' a 5\'.',
+          'No carbono 1\' liga-se a base; no 5\', o fosfato; no 3\' fica a hidroxila (OH) que se liga ao próximo nucleotídeo.',
+          '"Desoxi": falta um oxigênio no carbono 2\' em relação à <strong>ribose</strong>, o açúcar do RNA.'],
+          q:'Qual a diferença entre o açúcar do DNA e o do RNA?', a:'O DNA tem desoxirribose, com um oxigênio a menos no carbono 2\'; o RNA tem ribose.'},
+        {when:'Fosfato', titulo:'O esqueleto da fita', pontos:[
+          'O fosfato liga o carbono 5\' de um nucleotídeo ao carbono 3\' do seguinte: a <strong>ligação fosfodiéster</strong>.',
+          'A repetição açúcar–fosfato forma o <strong>esqueleto</strong> de cada fita, por fora; as bases ficam para dentro.',
+          'O fosfato tem carga negativa, então o DNA é uma molécula de <strong>carga negativa</strong>.'],
+          q:'Que ligação une um nucleotídeo ao seguinte na mesma fita?', a:'A ligação fosfodiéster, feita pelo fosfato entre o carbono 5\' de um e o carbono 3\' do outro.'},
+        {when:'Dupla fita', titulo:'Dupla fita antiparalela', pontos:[
+          'Duas fitas enroladas em <strong>dupla-hélice</strong>, unidas por <strong>pontes de hidrogênio</strong> entre as bases.',
+          '<strong>Antiparalela:</strong> as fitas correm em sentidos opostos, uma de 5\' para 3\' e a outra de 3\' para 5\'.',
+          'As pontes de hidrogênio são fracas, o que permite abrir a dupla fita para copiar o DNA (replicação) ou fazer RNA (transcrição).'],
+          q:'O que quer dizer que a dupla fita do DNA é antiparalela?', a:'Que as duas fitas correm em sentidos opostos: uma de 5\' para 3\' e a outra de 3\' para 5\'.'},
+      ],
+      extras: [
+        {tipo:'tabela', titulo:'As quatro bases', cab:['Base','Grupo','Pareia com','Pontes de hidrogênio'], linhas:[
+          ['Adenina (A)','Purina','Timina (T)','2'],
+          ['Guanina (G)','Purina','Citosina (C)','3'],
+          ['Timina (T)','Pirimidina','Adenina (A)','2'],
+          ['Citosina (C)','Pirimidina','Guanina (G)','3'],
+        ]},
+      ],
+      quiz: [
+        {p:'A unidade que forma o DNA é o…', o:['Aminoácido','Nucleotídeo','Cromossomo','Gene'], c:1, w:'O DNA é uma cadeia de nucleotídeos; aminoácidos formam proteínas.'},
+        {p:'Qual base pareia com a citosina?', o:['Adenina','Timina','Guanina','Uracila'], c:2, w:'C pareia com G, por três pontes de hidrogênio.'},
+        {p:'O açúcar do DNA é a…', o:['Ribose','Glicose','Desoxirribose','Frutose'], c:2, w:'Desoxirribose: o "desoxi" é o oxigênio a menos no carbono 2\'.'},
+        {p:'O esqueleto de cada fita é formado por…', o:['Bases nitrogenadas','Açúcar e fosfato','Pontes de hidrogênio','Proteínas'], c:1, w:'Açúcar e fosfato se alternam por fora; as bases ficam para dentro.'},
+        {p:'No RNA, a timina é substituída por…', o:['Uracila','Citosina','Guanina','Adenina'], c:0, w:'O RNA tem uracila (U) no lugar da timina.'},
       ]
     }]
   },
