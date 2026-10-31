@@ -3254,6 +3254,9 @@ const COURSES = [
    Formato: {t: 'Termo', disc: 'Neuroanatomia', d: 'Definição curta.'},
    --------------------------------------------------------------------- */
 const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
+  {t:'Regra de Chargaff', disc:'Bases Biológicas', d:'No DNA de fita dupla, %A = %T e %C = %G, porque as bases estão sempre pareadas.', ex:'Se um DNA tem 30% de adenina, tem 30% de timina e 20% de citosina e de guanina.'},
+  {t:'Histonas', disc:'Bases Biológicas', d:'Proteínas em que o DNA se enrola para se compactar dentro do núcleo.', ex:'O DNA dá quase duas voltas em torno de um conjunto de histonas, como fio num carretel.'},
+  {t:'Cromatina', disc:'Bases Biológicas', d:'Conjunto de DNA e proteínas (histonas) no núcleo. Condensa-se ao máximo e forma os cromossomos na divisão celular.', ex:'Na célula que não está se dividindo, o DNA está na forma de cromatina, mais solta.'},
   {t:'Gene', disc:'Bases Biológicas', d:'Trecho do DNA com a instrução para produzir uma proteína (ou um RNA com função própria).', ex:'O gene que determina o tipo de hemoglobina das hemácias.'},
   {t:'Cromossomo', disc:'Bases Biológicas', d:'Estrutura formada por DNA enrolado em proteínas. Nas células humanas são 46, em 23 pares.', ex:'O par 21 é o cromossomo envolvido na síndrome de Down.'},
   {t:'Dogma central da biologia', disc:'Bases Biológicas', d:'Caminho da informação genética: DNA → RNA (transcrição) → proteína (tradução).', ex:'O gene da insulina é copiado em RNA, e o RNA é lido para montar a insulina.'},
@@ -3462,6 +3465,13 @@ const COMPARACOES = [
     ['Células no fim','2, iguais à original','4, diferentes entre si'],
     ['Cromossomos','46 (diploide)','23 (haploide)'],
   ]},
+  {titulo:'DNA × RNA', disc:'Bases Biológicas', cols:['DNA','RNA'], linhas:[
+    ['Açúcar','Desoxirribose','Ribose'],
+    ['Bases','A, T, C, G','A, U, C, G (uracila no lugar da timina)'],
+    ['Fitas','Dupla, antiparalela','Em geral simples'],
+    ['Função','Guardar a informação genética','Levar a informação e ajudar a montar proteínas'],
+    ['Onde fica','Principalmente no núcleo','Núcleo e citoplasma'],
+  ]},
   {titulo:'Espermatogênese × ovogênese', disc:'Bases Biológicas', cols:['Espermatogênese','Ovogênese'], linhas:[
     ['Quando começa','Na puberdade','Ainda na vida fetal'],
     ['Produto de cada célula','4 espermatozoides','1 óvulo e corpúsculos polares'],
@@ -3596,7 +3606,7 @@ const RESUMOS = {
     eyebrow: 'Bases Biológicas',
     titulo: 'Embriologia e estrutura do DNA',
     lead: 'Dois temas num só lugar: o começo do desenvolvimento humano, da fertilização à 2ª semana, e a estrutura do DNA. Escolha a aba, leia as partes e, no fim, responda o "Teste-se" de cabeça antes de abrir a resposta.',
-    fonte: 'Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos tópicos do quadro da aula, com o conteúdo padrão de biologia molecular.',
+    fonte: 'Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos tópicos do quadro da aula, com o conteúdo padrão de biologia molecular; descoberta, regra de Chargaff, medidas da hélice e cromatina complementam o que estava no quadro.',
     caps: [{
       id: 'embrio', aba: 'Embriologia', titulo: 'Da fertilização à 2ª semana', intro: null,
       etapas: [
@@ -3701,8 +3711,14 @@ const RESUMOS = {
         {p:'A gravidez ectópica acontece mais na…', o:['Tuba uterina','Parede posterior do útero','Cavidade amniótica','Bexiga'], c:0, w:'Entre 95% e 98% das gestações ectópicas acontecem na tuba uterina, sobretudo na ampola e no istmo.'},
       ]
     }, {
-      id: 'dna', aba: 'Estrutura do DNA', titulo: 'Estrutura do DNA', intro: 'Do que o DNA é feito e como as partes se encaixam: nucleotídeos, bases, açúcar, fosfato e a dupla fita antiparalela.',
+      id: 'dna', aba: 'Estrutura do DNA', titulo: 'Estrutura do DNA', intro: 'Do que o DNA é feito e como as partes se encaixam: nucleotídeos, bases, açúcar, fosfato, a dupla fita antiparalela e como ele se compacta em cromossomo.',
       etapas: [
+        {fase:'Composição', when:'Descoberta', titulo:'Como se chegou ao modelo', pontos:[
+          '<strong>1869:</strong> Friedrich Miescher isola do núcleo das células uma substância ácida, que chama de nucleína: o primeiro registro do DNA.',
+          '<strong>1950:</strong> Erwin Chargaff mostra que, no DNA, a quantidade de A é igual à de T, e a de C é igual à de G.',
+          '<strong>1952:</strong> Rosalind Franklin e Maurice Wilkins obtêm imagens de difração de raios X que indicam uma hélice.',
+          '<strong>1953:</strong> James Watson e Francis Crick propõem o modelo da <strong>dupla-hélice</strong>, juntando essas evidências.'],
+          q:'Quem propôs o modelo da dupla-hélice e em que ano?', a:'James Watson e Francis Crick, em 1953, com base nos dados de Rosalind Franklin, Maurice Wilkins e Erwin Chargaff.'},
         {when:'Visão geral', titulo:'O que é o DNA', pontos:[
           'O DNA (ácido desoxirribonucleico) guarda a informação genética e a passa de célula para célula e de pais para filhos.',
           'Fica no núcleo, organizado em <strong>cromossomos</strong>: 46 nas células humanas, em 23 pares.',
@@ -3718,6 +3734,11 @@ const RESUMOS = {
           'Pareamento: <strong>A com T</strong> (2 pontes de hidrogênio) e <strong>C com G</strong> (3 pontes). Sempre uma purina com uma pirimidina.',
           'Por isso as fitas são <strong>complementares</strong>: se uma é AGCT, a outra é TCGA. No RNA, a timina vira <strong>uracila (U)</strong>.'],
           q:'Se uma fita de DNA tem a sequência AGCT, qual é a sequência da fita complementar?', a:'TCGA (A pareia com T e C com G).'},
+        {when:'Regra de Chargaff', titulo:'As proporções das bases', pontos:[
+          'Em qualquer DNA de fita dupla, <strong>%A = %T</strong> e <strong>%C = %G</strong>, porque cada A está pareada com uma T e cada C com uma G.',
+          'Logo, purinas = pirimidinas: <strong>A + G = T + C</strong>.',
+          'Exemplo: se um DNA tem <strong>30% de adenina</strong>, tem 30% de timina; sobram 40% para C e G, ou seja, <strong>20% de cada</strong>.'],
+          q:'Um DNA tem 20% de citosina. Qual a porcentagem de adenina?', a:'30%. C = G = 20% (40% no total); sobram 60% para A + T, então A = 30%.'},
         {when:'Açúcar', titulo:'Desoxirribose', pontos:[
           'Açúcar de cinco carbonos (pentose), numerados de 1\' a 5\'.',
           'No carbono 1\' liga-se a base; no 5\', o fosfato; no 3\' fica a hidroxila (OH) que se liga ao próximo nucleotídeo.',
@@ -3733,6 +3754,16 @@ const RESUMOS = {
           '<strong>Antiparalela:</strong> as fitas correm em sentidos opostos, uma de 5\' para 3\' e a outra de 3\' para 5\'.',
           'As pontes de hidrogênio são fracas, o que permite abrir a dupla fita para copiar o DNA (replicação) ou fazer RNA (transcrição).'],
           q:'O que quer dizer que a dupla fita do DNA é antiparalela?', a:'Que as duas fitas correm em sentidos opostos: uma de 5\' para 3\' e a outra de 3\' para 5\'.'},
+        {fase:'Forma e organização', when:'Dupla-hélice', titulo:'As medidas da hélice', pontos:[
+          'A hélice gira para a <strong>direita</strong> e tem cerca de <strong>2 nm de diâmetro</strong>.',
+          'Cada volta completa tem cerca de <strong>10 pares de bases</strong> e mede cerca de <strong>3,4 nm</strong>.',
+          'O enrolamento forma dois sulcos, o <strong>sulco maior</strong> e o <strong>sulco menor</strong>, por onde proteínas reconhecem a sequência das bases sem abrir a fita.'],
+          q:'Quantos pares de bases há, em média, em cada volta da dupla-hélice?', a:'Cerca de 10 pares de bases, numa volta de cerca de 3,4 nm.'},
+        {when:'Organização', titulo:'Do DNA ao cromossomo', pontos:[
+          'Cada célula humana tem cerca de <strong>2 metros de DNA</strong>, que precisam caber num núcleo microscópico.',
+          'O DNA se enrola em proteínas chamadas <strong>histonas</strong>, formando o <strong>nucleossomo</strong>, como um fio enrolado em carretéis.',
+          'Esse conjunto de DNA e proteínas é a <strong>cromatina</strong>. Na divisão celular, ela se condensa ao máximo e forma os <strong>cromossomos</strong> visíveis ao microscópio.'],
+          q:'O que é o nucleossomo?', a:'A unidade de compactação do DNA: um trecho de DNA enrolado em um conjunto de histonas.'},
       ],
       extras: [
         {tipo:'tabela', titulo:'As quatro bases', cab:['Base','Grupo','Pareia com','Pontes de hidrogênio'], linhas:[
@@ -3748,6 +3779,8 @@ const RESUMOS = {
         {p:'O açúcar do DNA é a…', o:['Ribose','Glicose','Desoxirribose','Frutose'], c:2, w:'Desoxirribose: o "desoxi" é o oxigênio a menos no carbono 2\'.'},
         {p:'O esqueleto de cada fita é formado por…', o:['Bases nitrogenadas','Açúcar e fosfato','Pontes de hidrogênio','Proteínas'], c:1, w:'Açúcar e fosfato se alternam por fora; as bases ficam para dentro.'},
         {p:'No RNA, a timina é substituída por…', o:['Uracila','Citosina','Guanina','Adenina'], c:0, w:'O RNA tem uracila (U) no lugar da timina.'},
+        {p:'Se um DNA tem 30% de adenina, quanto tem de guanina?', o:['30%','20%','40%','70%'], c:1, w:'A = T = 30% (60% no total). Sobram 40% para C + G, então G = 20%.'},
+        {p:'As proteínas em que o DNA se enrola para formar o nucleossomo são as…', o:['Histonas','Enzimas de restrição','Ribossomos','Polimerases'], c:0, w:'O DNA enrolado nas histonas forma o nucleossomo, a unidade da cromatina.'},
       ]
     }]
   },
