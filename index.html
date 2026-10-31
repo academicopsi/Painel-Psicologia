@@ -1694,6 +1694,15 @@
   }
   .drive-block .card-actions{display:grid; grid-template-columns:1fr; gap:8px;}
   .drive-block .card-drive, .drive-block .card-disc{width:100%;}
+
+  /* créditos */
+  .hero-meta .hero-credito{flex-basis:100%; font-size:13.5px; color:var(--ink-soft);}
+  .hero-meta .hero-credito strong{color:var(--ink); font-weight:600;}
+  @media (max-width:600px){ .hero-meta .hero-credito{color:rgba(255,255,255,.80);} .hero-meta .hero-credito strong{color:#fff;} }
+  .foot-autor{color:var(--ink-soft); font-weight:600;}
+  .sobre-autor{background:var(--paper-alt); border:1px solid var(--rule); border-left:3px solid var(--petrol); border-radius:14px; padding:20px 22px; margin:0 0 26px;}
+  .sobre-autor p{margin:0 0 10px;}
+  .sobre-assinatura{font-family:var(--serif); font-style:italic; font-size:17px; color:var(--petrol); margin:4px 0 0 !important;}
 </style>
 </head>
 <body>
@@ -1778,7 +1787,7 @@
       </div>
       <button class="hero-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar disciplina, prova, resumo, termo…</span><kbd>/</kbd></button>
       <div class="hero-meta">
-        <span>por Thiago Monteiro</span>
+        <span class="hero-credito">Criado e mantido por <strong>Thiago Monteiro</strong></span>
         <span class="live"><span id="syncText"></span></span>
       </div>
     </div>
@@ -1945,7 +1954,15 @@
     <h1>Sobre o Drive e este painel</h1>
   </header>
 
-  <p>Este painel organiza, num único lugar, o material que a turma de Psicologia compartilha ao longo do curso. É uma iniciativa de aluno para aluno, sem vínculo com a coordenação ou com a Afya, sem fins remunerados e sem gerar qualquer benefício acadêmico.</p>
+  <div class="sobre-autor">
+    <h4 style="font-family:var(--serif) !important; font-size:20px !important; font-weight:600; margin:0 0 10px;">Quem faz o Arquivo Vivo</h4>
+    <p>O Arquivo Vivo foi criado e é mantido por mim, Thiago Monteiro, aluno de Psicologia da turma 2030.2. Comecei organizando o Drive da turma e, com o tempo, o projeto virou este site: além dos materiais das aulas, ele reúne prazos, um calendário, resumos interativos, exercícios práticos, vídeos e um glossário de cada disciplina.</p>
+    <p>Os resumos, os exercícios e as ferramentas interativas são produzidos por mim a partir das aulas e dos slides dos professores, para ajudar a turma a revisar e praticar o conteúdo. É um trabalho voluntário, feito junto com a faculdade e minhas outras responsabilidades.</p>
+    <p>Se o site te ajudou, a melhor forma de retribuir é compartilhar com quem ainda não conhece e me avisar quando encontrar algum erro ou algo faltando.</p>
+    <p class="sobre-assinatura">— Thiago Monteiro</p>
+  </div>
+
+  <p>Este painel organiza, num único lugar, o material que a turma de Psicologia compartilha ao longo do curso. É uma iniciativa de aluno para aluno, sem vínculo com a coordenação ou com a instituição e sem fins remunerados.</p>
   <p>Mantenho o Drive e este painel de forma voluntária, junto das minhas outras responsabilidades, por isso as atualizações acontecem quando dá, não em um cronograma fixo. Mesmo assim, sigo revisando e adicionando material com regularidade. Se notar algo faltando ou desatualizado, me avisa que eu avalio incluir.</p>
   <p>O Drive é a fonte mais completa; este painel é só um atalho visual pra ela. Como o Drive está numa conta pessoal com espaço limitado, se encontrar algo importante, baixe e guarde no seu dispositivo.</p>
 
@@ -2939,7 +2956,7 @@
     <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button></div>
     <div class="qr-block"><div id="qrcode"></div><span>Aponte a câmera pra abrir no celular</span></div>
   </div>
-  <div class="footer-bottom"><span>Arquivo Vivo · Psicologia · por Thiago Monteiro</span><span id="footDate"></span></div>
+  <div class="footer-bottom"><span>Arquivo Vivo · criado e mantido por <strong class="foot-autor">Thiago Monteiro</strong></span><span id="footDate"></span></div>
 </footer>
 
 <script>
