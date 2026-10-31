@@ -1767,6 +1767,8 @@
   #dpGlossario .dp-gloss .cmp-item{border:none; border-top:1px solid var(--rule); border-radius:0; box-shadow:none; background:transparent; margin:0;}
   #dpGlossario .dp-gloss .cmp-item:first-of-type{margin-top:10px;}
   @media print{ .pr-teste{break-inside:auto;} }
+  .tag-fora{display:inline-block; font-family:'Inter', system-ui, sans-serif; font-size:11px; font-weight:600; letter-spacing:.02em; color:var(--ink-soft); background:var(--paper-alt); border:1px solid var(--rule); border-radius:6px; padding:1px 7px; vertical-align:2px; margin-left:6px;}
+  .dp-tile .tag-fora{margin:0 0 6px;}
 </style>
 </head>
 <body>
@@ -4416,7 +4418,7 @@ function studyCardHTML(s){
   const done = progStudyDone(s.link);
   return `<div class="study-card${done ? ' done' : ''}">
     <div class="study-info">
-      <div class="study-title">${s.titulo}</div>
+      <div class="study-title">${s.titulo}${s.link.startsWith('#') ? '' : ' <span class="tag-fora">abre fora do site</span>'}</div>
       <div class="study-subtitle">${s.subtitulo || "Material de estudo"}</div>
       <div class="study-desc">${s.desc}</div>
     </div>
@@ -7216,6 +7218,7 @@ function renderDiscPage(d){
     `<div class="dp-tiles">${c.resumos.map(r=>{ const done = progStudyDone(r.link); const interno = r.link.startsWith('#'); return `
       <div class="dp-tile dp-resumo${done ? ' done' : ''}">
         <a class="dp-tile-link" href="${r.link}"${interno ? '' : ' target="_blank" rel="noopener"'}>
+          ${interno ? '' : '<span class="tag-fora">abre fora do site</span>'}
           <div class="dp-tile-title">${escHTML(r.titulo)}</div>
           <div class="dp-tile-sub">${escHTML(r.subtitulo || 'Material de estudo')}${interno ? '' : ' ↗'}</div>
         </a>
