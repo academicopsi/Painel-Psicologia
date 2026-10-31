@@ -1645,6 +1645,55 @@
   .rs-rev.done{border-color:var(--petrol-line);}
   .rs-rev .rs-test-q span{background:var(--paper-alt); color:var(--ink-soft); min-width:24px; text-align:center;}
   .rs-rev.done .rs-test-q span{background:var(--petrol); color:#fff;}
+
+  /* celular: topo como banner + resumo do semestre compacto */
+  .lead .so-mob{display:none;}
+  @media (max-width:600px){
+    #top{padding-top:16px;}
+    .hero{gap:12px; padding-bottom:28px;}
+    .hero-text{background:var(--petrol-dark); color:#fff; border-radius:20px; padding:24px 20px 18px; position:relative; overflow:hidden;}
+    .hero-text::after{content:""; position:absolute; right:-70px; top:-70px; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.10), transparent 70%); pointer-events:none;}
+    body.dark .hero-text{background:#183634;}
+    .hero h1{color:#fff; font-size:30px; margin:0 0 10px;}
+    .hero h1 .hl{color:#CFE3C9;}
+    .lead{color:rgba(255,255,255,.82); font-size:15.5px; margin:0 0 18px;}
+    .lead .so-desk{display:none;} .lead .so-mob{display:inline;}
+    .hero-ctas{gap:8px;}
+    .hero-ctas .btn{padding:11px 14px;}
+    .hero-ctas .btn-primary{background:#fff; color:var(--petrol-dark);}
+    .hero-ctas .btn-accent{background:rgba(255,255,255,.10); color:#fff; border-color:rgba(255,255,255,.28);}
+    body.dark .hero-ctas .btn-primary{color:#183634;}
+    .hero-search{margin-top:10px; background:rgba(255,255,255,.96); border-color:transparent;}
+    .hero-meta{margin-top:14px; color:rgba(255,255,255,.62); font-size:12.5px; gap:4px 12px;}
+    .hero-meta .live::before{box-shadow:0 0 0 3px rgba(47,163,107,.3);}
+    .hero-panel{display:grid; grid-template-columns:1fr 1fr; gap:0; padding:0; border-radius:16px; box-shadow:0 8px 22px var(--shadow);}
+    .hero-panel > div:not(.panel-divider){padding:14px 14px 14px;}
+    .hero-panel .panel-divider{display:none;}
+    .hero-panel > div:last-child{border-left:1px solid var(--rule);}
+    .panel-label{font-size:10.5px; margin-bottom:6px;}
+    .progress-block .label{flex-direction:column; align-items:flex-start; gap:2px; font-size:12.5px; margin-bottom:8px;}
+    .progress-block .label strong{font-size:14.5px;}
+    .top-deadline{gap:4px;}
+    .top-deadline .alert-badge{display:none;}
+    .top-deadline .txt{font-size:13.5px; line-height:1.4;}
+    .deadline-more-link{margin-top:4px; font-size:12.5px;}
+  }
+  @media (max-width:600px){
+    .hero-search span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0;}
+    .panel-label{letter-spacing:.03em;}
+  }
+
+  /* página da disciplina: botões com tamanho padrão */
+  .dp-jump{display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:8px; max-width:720px;}
+  .dp-jump button{justify-content:space-between; width:100%; padding:9px 12px; border-radius:12px;}
+  .dp-actions .btn{min-width:200px;}
+  @media (max-width:600px){
+    .dp-jump{grid-template-columns:repeat(2, minmax(0,1fr));}
+    .dp-jump button:last-child:nth-child(odd){grid-column:1 / -1;}
+    .dp-actions .btn{width:100%; min-width:0;}
+  }
+  .drive-block .card-actions{display:grid; grid-template-columns:1fr; gap:8px;}
+  .drive-block .card-drive, .drive-block .card-disc{width:100%;}
 </style>
 </head>
 <body>
@@ -1722,7 +1771,7 @@
   <section class="hero">
     <div class="hero-text">
       <h1>Todo o material da turma, <span class="hl">em um só lugar.</span></h1>
-      <p class="lead">Acesse os materiais oficiais das aulas, vídeos complementares e cursos extras, acompanhe prazos e tarefas, e use ferramentas que podem te ajudar na sua jornada acadêmica.</p>
+      <p class="lead"><span class="so-desk">Acesse os materiais oficiais das aulas, vídeos complementares e cursos extras, acompanhe prazos e tarefas, e use ferramentas que podem te ajudar na sua jornada acadêmica.</span><span class="so-mob">Material das aulas, prazos, resumos e exercícios da turma.</span></p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Abrir o Drive das disciplinas</a>
         <button class="btn btn-accent" data-page="viewPrazos" data-target="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> Calendário de prazos</button>
