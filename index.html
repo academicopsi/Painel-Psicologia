@@ -1637,6 +1637,7 @@
   body.dark #discPage .dp-section{background:var(--paper);}
   body.dark #discPage .dp-tile{background:var(--paper-alt);}
   @media (max-width:600px){ #discPage .dp-section{padding:16px 14px 18px; border-radius:14px; margin-bottom:14px;} }
+  .brand-logo{display:block; object-fit:cover; background:#1E3A2F; padding:0;}
 </style>
 </head>
 <body>
@@ -1644,7 +1645,7 @@
 <header class="site-nav" id="siteNav">
   <div class="nav-inner">
     <button class="brand" data-scroll="top" aria-label="Arquivo Vivo, página inicial">
-      <span class="brand-mark">AV</span>
+      <img class="brand-mark brand-logo" src="icons/icon-192.png" alt="" width="36" height="36">
       <span class="brand-text"><strong>Arquivo Vivo</strong><small>Psicologia · de aluno para aluno</small></span>
     </button>
 
@@ -2874,7 +2875,7 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <button class="brand" data-scroll="top"><span class="brand-mark">AV</span><span class="brand-text"><strong>Arquivo Vivo</strong><small>Psicologia · de aluno para aluno</small></span></button>
+      <button class="brand" data-scroll="top"><img class="brand-mark brand-logo" src="icons/icon-192.png" alt="" width="36" height="36"><span class="brand-text"><strong>Arquivo Vivo</strong><small>Psicologia · de aluno para aluno</small></span></button>
       <p>Iniciativa voluntária, sem vínculo com a coordenação ou com a instituição. O conteúdo das aulas sempre prevalece como referência final.</p>
     </div>
     <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos interativos</button><button data-page="viewFerramentas">Na prática</button><button data-page="viewApoio">Extras</button><button data-page="viewVideos">Vídeos de apoio</button></div>
@@ -3930,7 +3931,7 @@ function renderGrid(sem){
       </div>
       ${String(sem) === '2' ? `<button class="name name-link" data-open-disc="${d.n}">${d.name}</button>` : `<span class="name">${d.name}</span>`}<span class="drive-folders">Livros · Slides · Extras</span>
       <div class="card-actions">
-        <a class="card-drive" href="${d.url}" target="_blank" rel="noopener">Abrir pasta ↗</a>
+        <a class="card-drive" href="${d.url}" target="_blank" rel="noopener">Abrir Drive ↗</a>
         ${String(sem) === '2' ? `<button class="card-disc" data-open-disc="${d.n}">Ver disciplina →</button>` : ''}
       </div>
     </div>`).join('');
@@ -6939,7 +6940,7 @@ function renderDiscPage(d){
       <div class="eyebrow">Disciplina ${d.n} · 2º semestre</div>
       <h1>${escHTML(d.name)}</h1>
       <div class="dp-actions">
-        <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">Abrir pasta no Drive ↗</a>
+        <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">Abrir Drive ↗</a>
       </div>
       ${atalhos.length ? `<nav class="dp-jump" aria-label="Nesta página">${atalhos.map(a=>`<button data-dp-jump="${a[0]}">${a[1]} <span>${a[2]}</span></button>`).join('')}</nav>` : ''}
     </header>
