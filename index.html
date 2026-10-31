@@ -1638,6 +1638,13 @@
   body.dark #discPage .dp-tile{background:var(--paper-alt);}
   @media (max-width:600px){ #discPage .dp-section{padding:16px 14px 18px; border-radius:14px; margin-bottom:14px;} }
   .brand-logo{display:block; object-fit:cover; background:#1E3A2F; padding:0;}
+
+  /* resumo: perguntas do Teste-se reunidas no fim */
+  .rs-rev-intro{font-size:14px; color:var(--ink-soft); margin:-4px 0 12px;}
+  .rs-rev{background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:14px 16px; margin-bottom:10px;}
+  .rs-rev.done{border-color:var(--petrol-line);}
+  .rs-rev .rs-test-q span{background:var(--paper-alt); color:var(--ink-soft); min-width:24px; text-align:center;}
+  .rs-rev.done .rs-test-q span{background:var(--petrol); color:#fff;}
 </style>
 </head>
 <body>
@@ -3000,14 +3007,14 @@ const STUDY = [
     materia: 'Psicologia Experimental',
     titulo: 'Ciência, pesquisa e seleção pelas consequências',
     subtitulo: 'Aulas 1, 2 e 4 num só resumo',
-    desc: 'Intuição × método científico, conceitos em pesquisa (básica × aplicada, VI e VD, hipótese) e os três níveis de seleção de Skinner, com "Teste-se" em cada parte e quiz no fim de cada aba.',
+    desc: 'Intuição × método científico, conceitos em pesquisa (básica × aplicada, VI e VD, hipótese) e os três níveis de seleção de Skinner, com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-experimental'
   },
   {
     materia: 'Neuroanatomia',
     titulo: 'Medula espinhal e sistema nervoso autônomo',
     subtitulo: 'Duas aulas num só resumo',
-    desc: 'Medula (organização, nervos espinhais, vias e meninges) e SNA (simpático × parassimpático), com "Teste-se" em cada parte e quiz no fim de cada aba.',
+    desc: 'Medula (organização, nervos espinhais, vias e meninges) e SNA (simpático × parassimpático), com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-medula-sna'
   },
   {
@@ -3449,7 +3456,7 @@ const RESUMOS = {
     disc: '03',
     eyebrow: 'Psicologia da Aprendizagem · Aulas 4, 5 e 6',
     titulo: 'Vygotsky, Freire e dislexia',
-    lead: 'As três aulas num só lugar. Escolha a aula, leia cada parte e responda o "Teste-se" de cabeça antes de abrir a resposta.',
+    lead: 'As três aulas num só lugar. Escolha a aula, leia as partes e, no fim, responda o "Teste-se" de cabeça antes de abrir a resposta.',
     fonte: 'Resumo feito a partir dos slides das aulas 4, 5 e 6 de Psicologia da Aprendizagem (baseadas em Moreira, Teorias de Aprendizagem, e Rotta et al., Transtornos da aprendizagem).',
     caps: [
     {
@@ -3637,7 +3644,7 @@ const RESUMOS = {
     disc: '04',
     eyebrow: 'Psicologia Experimental · Profa. Ana Carolina Miranda',
     titulo: 'Ciência, pesquisa e seleção pelas consequências',
-    lead: 'Três aulas num só lugar. Escolha a aula, leia cada parte e responda o "Teste-se" de cabeça antes de abrir a resposta.',
+    lead: 'Três aulas num só lugar. Escolha a aula, leia as partes e, no fim, responda o "Teste-se" de cabeça antes de abrir a resposta.',
     fonte: 'Resumo feito a partir dos slides de Psicologia Experimental: Aula 1 (introdução), Aula 2 (conceitos em pesquisa) e Aula 4 (introdução à seleção pelas consequências).',
     caps: [
       {
@@ -3795,7 +3802,7 @@ const RESUMOS = {
     disc: '02',
     eyebrow: 'Neuroanatomia · Prof. Alexandre Sancho',
     titulo: 'Medula espinhal e sistema nervoso autônomo',
-    lead: 'Duas aulas num só lugar. Escolha a aula, leia cada parte e responda o "Teste-se" de cabeça antes de abrir a resposta.',
+    lead: 'Duas aulas num só lugar. Escolha a aula, leia as partes e, no fim, responda o "Teste-se" de cabeça antes de abrir a resposta.',
     fonte: 'Resumo feito a partir dos slides de Neuroanatomia: "Medula espinhal e envoltórios" e "Sistema nervoso autônomo".',
     caps: [
       {
@@ -7151,18 +7158,22 @@ function renderResumo(){
       <span class="rs-when">${e.when}</span>
       <h3>${e.titulo}</h3>
       <ul>${e.pontos.map(p=>`<li>${p}</li>`).join('')}</ul>
-      <div class="rs-test">
-        <div class="rs-test-q"><span>Teste-se</span>${e.q}</div>
-        <button class="rs-reveal">${s ? 'Ver a resposta de novo' : 'Pensei. Ver a resposta'}</button>
-        <div class="rs-answer${s ? ' show' : ''}">${e.a}</div>
-        <div class="rs-self${s ? ' show' : ''}">Você acertou?
-          <button data-rs-ok="${i}" class="${s==='ok' ? 'on-ok' : ''}">Acertei</button>
-          <button data-rs-no="${i}" class="${s==='no' ? 'on-no' : ''}">Errei, vou revisar</button>
-        </div>
-      </div>
     </article>`;
   });
   if(aberto) etapasHTML += '</div>';
+
+  // perguntas "Teste-se" juntas no fim, longe do texto que as responde
+  const revisaoHTML = `<div class="rs-phase">Teste-se</div>
+    <p class="rs-rev-intro">Sem voltar no texto: responda de cabeça e depois confira.</p>
+    ${c.etapas.map((e, i)=>{ const s = st[i]; return `<article class="rs-rev${s ? ' done' : ''}" data-r="${i}">
+      <div class="rs-test-q"><span>${i+1}</span>${e.q}</div>
+      <button class="rs-reveal">${s ? 'Ver a resposta de novo' : 'Pensei. Ver a resposta'}</button>
+      <div class="rs-answer${s ? ' show' : ''}">${e.a}</div>
+      <div class="rs-self${s ? ' show' : ''}">Você acertou?
+        <button data-rs-ok="${i}" class="${s==='ok' ? 'on-ok' : ''}">Acertei</button>
+        <button data-rs-no="${i}" class="${s==='no' ? 'on-no' : ''}">Errei, vou revisar</button>
+      </div>
+    </article>`; }).join('')}`;
 
   const extras = (c.extras || []).map(x=>{
     if(x.tipo === 'tabela') return `<div class="rs-phase">${x.titulo}</div><div class="rs-table-wrap"><table class="rs-table"><thead><tr>${x.cab.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${x.linhas.map(l=>`<tr>${l.map(v=>`<td>${v}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
@@ -7187,6 +7198,7 @@ function renderResumo(){
     ${c.titulo ? `<h2 class="rs-cap-title">${c.titulo}</h2>` : ''}${c.intro ? `<p class="rs-cap-intro">${c.intro}</p>` : ''}
     ${etapasHTML}
     ${extras}
+    ${revisaoHTML}
     <div class="rs-phase">Quiz rápido</div>
     <div class="rs-quiz"></div>
     <div class="rs-score"></div>
@@ -7228,12 +7240,13 @@ document.getElementById('resumoPage').addEventListener('click', ev=>{
   const tab = ev.target.closest('[data-rs-cap]');
   if(tab){ capResumo = +tab.dataset.rsCap; renderResumo(); el.querySelector('.rs-tabs, .rs-header')?.scrollIntoView({behavior:'smooth', block:'start'}); return; }
   const rv = ev.target.closest('.rs-reveal');
-  if(rv){ const art = rv.closest('.rs-step'); art.querySelector('.rs-answer').classList.add('show'); art.querySelector('.rs-self').classList.add('show'); return; }
+  if(rv){ const art = rv.closest('.rs-rev'); art.querySelector('.rs-answer').classList.add('show'); art.querySelector('.rs-self').classList.add('show'); return; }
   const ok = ev.target.closest('[data-rs-ok]'), no = ev.target.closest('[data-rs-no]');
   if(ok || no){
     const i = (ok || no).dataset.rsOk ?? (ok || no).dataset.rsNo;
     const st = rsEstado(resumoAtual); st[c.id] = st[c.id] || {}; st[c.id][i] = ok ? 'ok' : 'no'; rsSalvar(resumoAtual, st);
-    const art = el.querySelector(`.rs-step[data-i="${i}"]`);
+    el.querySelector(`.rs-step[data-i="${i}"]`)?.classList.add('done');
+    const art = el.querySelector(`.rs-rev[data-r="${i}"]`);
     art.classList.add('done');
     art.querySelector('[data-rs-ok]').className = ok ? 'on-ok' : '';
     art.querySelector('[data-rs-no]').className = no ? 'on-no' : '';
