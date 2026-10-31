@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Arquivo Vivo">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script data-goatcounter="https://thiagomonteiro.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
@@ -1564,6 +1564,64 @@
     .viz-chip{font-size:13.5px; padding:8px 11px;}
     .eb-rot text{font-size:15px;}
     .viz-axis{font-size:13px;}
+  }
+
+  /* =========================================================
+     V3 · paleta areia/sálvia, títulos serifados, cards por matéria
+     ========================================================= */
+  :root{
+    --bg:#F6F2EA;
+    --paper:#FFFDF8;
+    --paper-alt:#F0EADF;
+    --ink:#1B2422;
+    --ink-soft:#5C6560;
+    --ink-faint:#8D938B;
+    --petrol:#1F5C56;
+    --petrol-dark:#163F3B;
+    --petrol-soft:#E2EAE0;
+    --petrol-line:#C3D1C0;
+    --sage:#A9BBA4;
+    --sand:#E8DCC6;
+    --rule:#E5DDCE;
+    --shadow: rgba(40,36,26,0.06);
+    --shadow-lg: rgba(40,36,26,0.10);
+    --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  }
+  body.dark{ --sage:#5E7A6E; --sand:#3A3428; }
+  .site-nav::before{background:rgba(250,246,238,0.88);}
+  body.dark .site-nav::before{background:rgba(15,22,21,0.88);}
+
+  /* títulos serifados */
+  h1, .hero h1, .section-title h2, .drive-block .section-title h2, .dp-header h1, .rs-header h1,
+  .wrap:not(#top) > header h1, .cine-title, .arena-title, .tool-group-title, .dp-sec-head h2,
+  .cta-band h3, .brand-text strong, .card .name, .rs-cap-title, .ex-title{
+    font-family:var(--serif); font-optical-sizing:auto; letter-spacing:-0.01em;
+  }
+  h1, .hero h1, .dp-header h1, .rs-header h1, .wrap:not(#top) > header h1{font-weight:600; letter-spacing:-0.02em;}
+  .section-title h2, .drive-block .section-title h2, .tool-group-title, .dp-sec-head h2, .cta-band h3{font-weight:600;}
+  .hero h1 .hl{font-style:italic; font-weight:500;}
+  .brand-text strong{font-weight:600; font-size:17px;}
+
+  /* cards das disciplinas: número e cor por matéria, sem ícones */
+  [data-d="01"]{--acc:#6F8F6B;}
+  [data-d="02"]{--acc:#2E6B64;}
+  [data-d="03"]{--acc:#B8734F;}
+  [data-d="04"]{--acc:#A8873A;}
+  [data-d="05"]{--acc:#86697F;}
+  [data-d="06"]{--acc:#5C7A8F;}
+  [data-d="07"]{--acc:#7E7A5A;}
+  .drive-block .card{background:var(--paper); border:1px solid var(--rule); border-top:3px solid var(--acc, var(--petrol)); border-radius:14px;}
+  .drive-block .card:hover{border-color:var(--rule); border-top-color:var(--acc, var(--petrol)); box-shadow:0 14px 30px var(--shadow-lg);}
+  .card .idx{font-family:var(--serif); font-size:22px; font-weight:500; line-height:1; color:var(--acc, var(--petrol)); background:none; padding:0; letter-spacing:0;}
+  .drive-block .card .name{font-weight:600; font-size:19px; line-height:1.2;}
+  .card .drive-tag{opacity:.75;}
+  .card-drive{background:var(--petrol); border-color:var(--petrol);}
+  .card-disc{background:transparent; border-color:var(--rule); color:var(--ink);}
+  .card-disc:hover{background:var(--paper-alt); border-color:var(--acc, var(--petrol-line)); color:var(--ink);}
+  .dp-header{border-left:3px solid var(--acc, var(--petrol)); padding-left:18px;}
+  @media (max-width:600px){
+    .card .idx{font-size:18px;}
+    .drive-block .card .name{font-size:16px;}
   }
 </style>
 </head>
@@ -3848,7 +3906,7 @@ function newBadge(dateStr){
 
 function renderGrid(sem){
   const grid = document.getElementById('grid');
-  grid.innerHTML = DISC[sem].map(d=>`<div class="card" data-search="${d.name.toLowerCase()}">
+  grid.innerHTML = DISC[sem].map(d=>`<div class="card" data-d="${d.n}" data-search="${d.name.toLowerCase()}">
       <div class="card-top">
         <span class="idx">${d.n}</span>
         <span class="drive-tag">
@@ -6862,7 +6920,7 @@ function renderDiscPage(d){
   </section>` : '';
 
   el.innerHTML = `
-    <header class="dp-header">
+    <header class="dp-header" data-d="${d.n}">
       <div class="eyebrow">Disciplina ${d.n} · 2º semestre</div>
       <h1>${escHTML(d.name)}</h1>
       <div class="dp-actions">
