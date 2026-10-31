@@ -1734,7 +1734,16 @@
     @page{margin:16mm 14mm;}
     body.imprimindo{padding:0 !important; background:#fff !important;}
     body.imprimindo > *:not(#printArea){display:none !important;}
-    body.imprimindo #printArea{display:block; color:#111; font-family:'Inter', system-ui, sans-serif; font-size:11pt; line-height:1.5;}
+    .pr-barra{display:none !important;}
+  }
+  /* resumão aberto como página (app instalado no iPhone) */
+  body.resumao-tela{padding:0 !important; background:#fff;}
+  body.resumao-tela > *:not(#printArea){display:none !important;}
+  body.resumao-tela #printArea{max-width:780px; margin:0 auto; padding:16px 18px 40px;}
+  .pr-barra{display:flex; gap:8px; flex-wrap:wrap; align-items:center; position:sticky; top:0; background:#fff; padding:10px 0 12px; border-bottom:1px solid #e5e5e5; margin-bottom:14px; z-index:2;}
+  .pr-barra p{flex-basis:100%; margin:0; font-size:13px; color:#666;}
+  body.imprimindo #printArea, body.resumao-tela #printArea{display:block; color:#111; background:#fff; font-family:'Inter', system-ui, sans-serif; font-size:11pt; line-height:1.5;}
+  @media all{
     #printArea h1{font-family:var(--serif); font-size:24pt; margin:4px 0 4px; color:#163F3B;}
     #printArea h2{font-family:var(--serif); font-size:15pt; margin:18px 0 8px; color:#163F3B; border-bottom:1.5px solid #C3D1C0; padding-bottom:3px; break-after:avoid;}
     #printArea h3{font-size:12pt; margin:12px 0 6px; break-after:avoid;}
@@ -1749,9 +1758,9 @@
     .pr-nota{font-size:9pt; color:#666;}
     .pr-gl dt{font-weight:700; margin-top:6px; break-after:avoid;}
     .pr-gl dd{margin:0 0 4px 0;}
-    .cmp-table{font-size:10pt; break-inside:avoid;}
-    .cmp-table th, .cmp-table td{border-bottom:1px solid #ddd; padding:4px 6px;}
-    .cmp-table thead th{background:#EEF3EC; color:#163F3B;}
+    #printArea .cmp-table{font-size:10pt; break-inside:avoid;}
+    #printArea .cmp-table th, #printArea .cmp-table td{border-bottom:1px solid #ddd; padding:4px 6px;}
+    #printArea .cmp-table thead th{background:#EEF3EC; color:#163F3B;}
     .pr-foot{margin-top:20px; font-size:8.5pt; color:#777; border-top:1px solid #ddd; padding-top:6px;}
     #printArea a{color:inherit; text-decoration:none;}
   }
@@ -7330,9 +7339,31 @@ function resumaoHTML(d){
   h += `<footer class="pr-foot">O conteúdo das aulas sempre prevalece como referência final. Material didático de aluno para aluno, sem fins lucrativos.</footer>`;
   return h;
 }
+const appInstalado = ()=> window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+// No app instalado do iPhone a impressão não funciona: o resumão abre como página no Safari, onde dá para salvar em PDF.
+(function(){
+  const qs = new URLSearchParams(location.search);
+  const n = qs.get('resumao'); if(!n) return;
+  const d = DISC[2].find(x=>x.n===n); if(!d) return;
+  // o app instalado guarda o progresso separado do Safari: ele vem junto no endereço
+  try{
+    const dados = JSON.parse(decodeURIComponent(escape(atob(qs.get('dados') || ''))));
+    if(dados && dados.p){ progLoad = ()=> dados.p; rsEstado = id => (dados.r && dados.r[id]) || {}; }
+  }catch(e){}
+  const area = document.createElement('div'); area.id = 'printArea'; document.body.appendChild(area);
+  area.innerHTML = `<div class="pr-barra"><button class="btn btn-primary btn-sm" onclick="window.print()">Salvar em PDF</button><a class="btn btn-ghost btn-sm" href="${location.pathname}#disc-${d.n}">Voltar ao site</a><p>No iPhone: toque em "Salvar em PDF" e depois em Compartilhar → Salvar em Arquivos.</p></div>` + resumaoHTML(d);
+  document.title = `Resumão · ${d.name} · Arquivo Vivo`;
+  document.body.classList.add('resumao-tela');
+  window.scrollTo(0, 0);
+})();
 document.addEventListener('click', e=>{
   const b = e.target.closest('[data-pdf]'); if(!b) return;
   const d = DISC[2].find(x=>x.n===b.dataset.pdf); if(!d) return;
+  if(appInstalado()){
+    const r = {}; Object.entries(RESUMOS).forEach(([id, x])=>{ if(x.disc === d.n) r[id] = rsEstado(id); });
+    const dados = btoa(unescape(encodeURIComponent(JSON.stringify({p: progLoad(), r}))));
+    window.open(`${location.pathname}?resumao=${d.n}&dados=${encodeURIComponent(dados)}`, '_blank'); return;
+  }
   let area = document.getElementById('printArea');
   if(!area){ area = document.createElement('div'); area.id = 'printArea'; document.body.appendChild(area); }
   area.innerHTML = resumaoHTML(d);
