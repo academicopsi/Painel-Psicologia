@@ -1221,6 +1221,7 @@
   .dp-bar{grid-column:1 / -1; height:6px; background:var(--paper-alt); border-radius:999px; overflow:hidden;}
   .dp-bar i{display:block; height:100%; background:var(--petrol); border-radius:999px;}
   .dp-section{margin:0 0 34px;}
+  .dp-sec-links{display:flex; flex-wrap:wrap; gap:6px 16px;}
   .dp-sec-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:6px 12px; margin-bottom:12px;}
   .dp-sec-head h2{font-size:21px; font-weight:800; letter-spacing:-0.02em; margin:0;}
   .dp-count{font-size:13px; font-weight:600; color:var(--ink-faint);}
@@ -6881,7 +6882,7 @@ function renderDiscPage(d){
     ${corpo}
   </section>`;
 
-  const secPrazos = c.prazos.length ? sec('dpPrazos', 'Próximos prazos', `<button class="link-btn" data-page-go="viewPrazos" data-target-go="calendario">Ver no calendário</button>`,
+  const secPrazos = c.prazos.length ? sec('dpPrazos', 'Próximos prazos', `<span class="dp-sec-links"><button class="link-btn" data-ics="${d.n}">Adicionar à agenda</button><button class="link-btn" data-page-go="viewPrazos" data-target-go="calendario">Ver no calendário</button></span>`,
     `<div class="dp-tiles dp-tiles-prazo">${c.prazos.map(t=>{ const dd = diasAte(t.prazo); return `
       <div class="dp-tile dp-prazo${dd<=3?' urgente':''}">
         <div class="dp-date"><b>${diaNum(t.prazo)}</b><span>${mesCurto(t.prazo)}</span></div>
@@ -6925,7 +6926,6 @@ function renderDiscPage(d){
       <h1>${escHTML(d.name)}</h1>
       <div class="dp-actions">
         <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">Abrir pasta no Drive ↗</a>
-        ${c.prazos.length ? `<button class="btn btn-ghost" data-ics="${d.n}">Prazos na agenda do celular</button>` : ''}
       </div>
       ${atalhos.length ? `<nav class="dp-jump" aria-label="Nesta página">${atalhos.map(a=>`<button data-dp-jump="${a[0]}">${a[1]} <span>${a[2]}</span></button>`).join('')}</nav>` : ''}
     </header>
