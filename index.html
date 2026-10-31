@@ -983,61 +983,6 @@
     .cal-item-tar{font-size:14px;}
   }
 
-
-  /* ===== Celular compacto: menos espaço, mesmas letras de leitura ===== */
-  .so-mob{display:none;}
-  @media (max-width:600px){
-    .so-desk{display:none;}
-    .so-mob{display:inline;}
-    .cta-band p.so-mob{display:block;}
-    .cta-band p:not(.so-mob){display:none;}
-    .wrap{padding:20px 14px 40px;}
-    #top{padding-top:18px;}
-    .hero{gap:16px; padding-bottom:22px;}
-    .eyebrow{margin-bottom:12px; font-size:12px; padding:5px 10px;}
-    .hero h1{font-size:28px; margin:0 0 10px;}
-    .lead{font-size:15px; margin:0 0 16px;}
-    .hero-ctas{gap:8px;}
-    .hero-ctas .btn{padding:10px 14px; font-size:14px;}
-    .hero-search{margin-top:10px;}
-    .hero-meta{margin-top:12px; font-size:12px; gap:4px 12px;}
-    .hero-panel{padding:14px 16px; gap:12px; border-radius:14px; box-shadow:0 10px 26px var(--shadow-lg);}
-    .panel-label{font-size:11px; margin-bottom:6px;}
-    .progress-block .label{margin-bottom:6px; font-size:13px;}
-    .panel-divider{margin:0 -16px;}
-    .top-deadline{gap:6px;}
-    .top-deadline .alert-badge{font-size:10.5px; padding:3px 8px;}
-    .top-deadline .txt{font-size:14px;}
-    .deadline-more-link{margin-top:4px; font-size:13px;}
-
-    .drive-block{padding:16px 12px 14px;}
-    .drive-head{gap:10px;}
-    .drive-badge{width:34px; height:34px; border-radius:9px;}
-    .drive-badge svg{width:18px; height:18px;}
-    .section-title h2, .drive-block h2{font-size:21px;}
-    .section-title .num{font-size:11px;}
-    .section-title .st-desc, .drive-block .section-title .st-desc{font-size:13px; margin-top:4px;}
-    .drive-block .section-title{margin-bottom:12px;}
-    .drive-block .card{padding:11px 10px; gap:6px;}
-    .card-actions{gap:5px;}
-    .card-drive, .card-disc{padding:7px 6px;}
-    .drive-block + div + .home-section{margin-top:22px;}
-
-    .quick-card{flex-direction:row; align-items:center; padding:11px 12px; gap:10px;}
-    .quick-card .qc-icon{width:30px; height:30px; flex:none;}
-    .quick-card .qc-icon svg{width:16px; height:16px;}
-    .quick-card span.qc-desc{display:none;}
-    .quick-card strong{font-size:14px; line-height:1.25;}
-
-    .home-section{margin-top:30px;}
-    .feed-details[open] > summary{margin-bottom:14px;}
-    .feed-toggle{font-size:13px; padding:7px 11px;}
-
-    .cta-band{padding:18px 18px; gap:12px; border-radius:14px;}
-    .cta-band h3{font-size:18px; margin:0 0 4px;}
-    .cta-band .whatsapp-join{padding:11px 18px; font-size:14px;}
-  }
-
   /* títulos dos acordeões quebram linha direito no celular */
   .graveyard summary{display:block; position:relative; padding-right:46px; line-height:1.6;}
   .graveyard summary::after{position:absolute; right:20px; top:50%; margin-top:-7px;}
@@ -1689,7 +1634,7 @@
     <div class="hero-text">
       <span class="eyebrow"><span class="dot"></span>Psicologia · Formandos 2030.2</span>
       <h1>Todo o material da turma, <span class="hl">em um só lugar.</span></h1>
-      <p class="lead"><span class="so-desk">Acesse os materiais oficiais das aulas, vídeos complementares e cursos extras, acompanhe prazos e tarefas, e use ferramentas que podem te ajudar na sua jornada acadêmica.</span><span class="so-mob">Material das aulas, prazos, resumos e exercícios da turma.</span></p>
+      <p class="lead">Acesse os materiais oficiais das aulas, vídeos complementares e cursos extras, acompanhe prazos e tarefas, e use ferramentas que podem te ajudar na sua jornada acadêmica.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Abrir o Drive das disciplinas</a>
         <button class="btn btn-accent" data-page="viewPrazos" data-target="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> Calendário de prazos</button>
@@ -1775,7 +1720,6 @@
       <div>
         <h3>Receba um aviso a cada novidade</h3>
         <p>Para evitar excesso de notificações no grupo principal da turma, criei um grupo no WhatsApp só para os avisos do site. Assim que atualizo um material aqui, uma mensagem é disparada automaticamente no grupo.</p>
-        <p class="so-mob cta-curta">Um grupo só com os avisos do site, sem conversa.</p>
       </div>
       <a class="whatsapp-join" href="https://chat.whatsapp.com/LGcAxtDgG3K2Lmj5RYxtxK?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.32 2 11.65c0 1.86.55 3.6 1.5 5.08L2 22l5.46-1.42a10.4 10.4 0 0 0 4.54 1.02c5.52 0 10-4.32 10-9.65C22 6.32 17.52 2 12 2Z" fill="currentColor"/><path d="M9.1 7.6c-.2-.45-.42-.46-.62-.47h-.53c-.18 0-.48.07-.73.34-.25.27-.96.93-.96 2.27 0 1.34.98 2.63 1.12 2.81.14.18 1.9 2.98 4.62 4.06 2.26.9 2.72.72 3.21.68.5-.05 1.6-.65 1.83-1.28.22-.63.22-1.17.16-1.28-.07-.11-.25-.18-.53-.32-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.18-1.34-.8-.72-1.35-1.6-1.5-1.87-.16-.27-.02-.42.12-.55.12-.12.27-.32.4-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.6-1.5-.85-2.03Z" style="fill:var(--wa-in,#fff)"/></svg> Entrar no grupo</a>
     </div>
