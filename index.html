@@ -2373,27 +2373,6 @@
 
   <section class="tool-group">
     <h2 class="tool-group-title"><span class="tg-idx">01</span>Bases Biológicas<span class="tg-count">5 exercícios</span></h2>
-    <details class="graveyard" style="display:none;">
-      <summary>Qual Neurotransmissor?</summary>
-      <div class="tool-card" style="margin-top:12px;">
-        <div class="sub">Leia a descrição e identifique qual neurotransmissor está mais associado a ela na literatura.</div>
-
-        <div class="prompt-box">
-          <div class="plabel">Descrição</div>
-          <div class="pfrase" id="ntSituacaoTexto"></div>
-        </div>
-        <button class="shuffle-btn" id="ntShuffleBtn">🔀 Sortear outra descrição</button>
-
-        <div id="ntOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
-
-        <button class="correct-btn" id="ntCorrigirBtn" style="margin-top:12px;">Corrigir</button>
-        <div class="pfeedback" id="ntFeedbackBox"></div>
-
-        <div class="tool-disclaimer">
-          <strong>Isto não é diagnóstico nem afirmação de causa única.</strong> Relacionar um sintoma ou processo a "um neurotransmissor responsável" é uma simplificação didática. Na prática, comportamento e humor resultam da interação de vários sistemas de neurotransmissores, além de fatores genéticos, psicológicos e sociais. Cada associação aqui reflete o que é mais destacado na literatura, não uma relação de causa e efeito isolada.
-        </div>
-      </div>
-    </details>
         <details class="graveyard">
       <summary>Mitose ou Meiose?</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -2489,6 +2468,27 @@
 
   <section class="tool-group">
     <h2 class="tool-group-title"><span class="tg-idx">02</span>Neuroanatomia<span class="tg-count">9 exercícios</span></h2>
+    <details class="graveyard">
+      <summary>Qual Neurotransmissor?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a descrição e identifique qual neurotransmissor está mais associado a ela na literatura.</div>
+
+        <div class="prompt-box">
+          <div class="plabel">Descrição</div>
+          <div class="pfrase" id="ntSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="ntShuffleBtn">🔀 Sortear outra descrição</button>
+
+        <div id="ntOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+
+        <button class="correct-btn" id="ntCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="ntFeedbackBox"></div>
+
+        <div class="tool-disclaimer">
+          <strong>Isto não é diagnóstico nem afirmação de causa única.</strong> Relacionar um sintoma ou processo a "um neurotransmissor responsável" é uma simplificação didática. Na prática, comportamento e humor resultam da interação de vários sistemas de neurotransmissores, além de fatores genéticos, psicológicos e sociais. Cada associação aqui reflete o que é mais destacado na literatura, não uma relação de causa e efeito isolada.
+        </div>
+      </div>
+    </details>
     <details class="graveyard">
       <summary>Mapa do Cérebro</summary>
       <div class="tool-card" style="margin-top:12px;">
@@ -3676,7 +3676,7 @@ const VIDEOS = {
    Formato: {nome: 'Nome do curso', link: 'https://...', nota: 'Gratuito e com certificado', added: '2026-11-01'},
    --------------------------------------------------------------------- */
 const COURSES = [
-  {nome: 'Introdução à Epistemologia Genética de Jean Piaget (Edição 2026)', link: 'https://lumina.ufrgs.br/course/view.php?id=605', nota: 'Com certificado', added: '2026-08-20'},
+  {nome: 'Introdução à Epistemologia Genética de Jean Piaget (Edição 2026)', link: 'https://lumina.ufrgs.br/course/view.php?id=605', nota: 'Gratuito e com certificado', added: '2026-08-20'},
   {nome: 'Saúde mental na escola', link: 'https://lumina.ufrgs.br/course/view.php?id=570', nota: 'Gratuito e com certificado', added: '2026-08-20'},
   {nome: 'Saúde mental, Direitos Humanos e Sistema Penal', link: 'https://lumina.ufrgs.br/course/view.php?id=571', nota: 'Gratuito e com certificado', added: '2026-08-20'},
 ];
@@ -5500,7 +5500,7 @@ function routeFromHash(){
   const mr = h.match(/^resumo-([\w-]+)$/);
   if(mr){ setTimeout(()=> openResumo(mr[1], {fromHistory:true}), 0); return; }
   const mx = h.match(/^exercicio-([\w-]+)$/);
-  if(mx && document.getElementById('tool-' + mx[1])){ switchPage('viewFerramentas', {fromHistory:true}); setTimeout(()=> revealTarget('tool-' + mx[1]), 60); return; }
+  if(mx){ switchPage('viewFerramentas', {fromHistory:true}); setTimeout(()=> revealTarget('tool-' + mx[1]), 60); return; } // os ids dos exercícios são criados mais abaixo; o setTimeout espera por eles
   if(SLUG_PAGE[h]){ switchPage(SLUG_PAGE[h], {fromHistory:true}); return; }
   if(ALL_PAGES.includes(h)) switchPage(h, {fromHistory:true});
   else if(h && document.getElementById(h)){ switchPage('top', {fromHistory:true}); setTimeout(()=>document.getElementById(h)?.scrollIntoView(), 30); }
