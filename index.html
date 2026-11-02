@@ -1941,6 +1941,31 @@
   body.dark .quick-card.qc-feature{background:var(--petrol-dark);}
   body.dark #discPage .dp-section{background:var(--paper);}
   body.dark .wrap:not(#top) > header, body.dark .dp-header{border-bottom-color:var(--ink-soft);}
+
+  /* Revisão dos erros */
+  .er-filtros{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  .er-chip{font:inherit; font-size:13.5px; font-weight:600; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:999px; padding:7px 13px; cursor:pointer;}
+  .er-chip span{font-family:var(--mono, monospace); font-size:12px; color:var(--ink-faint); margin-left:4px;}
+  .er-chip.on{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  .er-chip.on span{color:rgba(255,255,255,.8);}
+  .er-topo{display:flex; align-items:center; flex-wrap:wrap; gap:10px 18px; margin-bottom:18px;}
+  .er-lista{display:flex; flex-direction:column; gap:8px;}
+  .er-item, .er-card, .er-vazio, .er-fim{background:var(--paper); border:1px solid var(--rule); border-left:3px solid var(--acc, var(--petrol)); border-radius:6px; padding:14px 16px;}
+  .er-vazio, .er-fim{border-left-color:var(--petrol);}
+  .er-vazio p, .er-fim p{color:var(--ink-soft); margin:6px 0 14px;}
+  .er-acoes{display:flex; flex-wrap:wrap; gap:8px;}
+  .er-meta{font-family:var(--mono, monospace); font-size:11.5px; color:var(--ink-faint); letter-spacing:.02em; margin-bottom:6px;}
+  .er-q{font-size:15px; line-height:1.5; font-weight:600;}
+  .er-n{font-size:12.5px; color:var(--danger); margin-top:6px;}
+  .er-card{padding:18px;}
+  .er-card .er-q{font-size:16px; margin-bottom:6px;}
+  .er-prog{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono, monospace); font-size:12px; color:var(--ink-soft); margin-bottom:12px;}
+  .er-why{margin-top:14px; padding:12px 14px; border-radius:6px; font-size:14px; line-height:1.5;}
+  .er-why p{margin:6px 0 0; color:var(--ink-soft);}
+  .er-why.good{background:var(--petrol-soft);}
+  .er-why.bad{background:rgba(181,67,46,.08);}
+  .er-prox{margin-top:14px;}
+  .er-aviso{border-left-color:var(--danger) !important;}
 </style>
 </head>
 <body>
@@ -1968,6 +1993,7 @@
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewEstudar"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><span class="ni-text"><strong>Resumos</strong><small>Resumos interativos por disciplina</small></span></button>
           <button class="nav-item" data-page="viewFerramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="ni-text"><strong>Exercícios</strong><small>Quizzes e atividades por disciplina</small></span></button>
+          <button class="nav-item" data-page="viewErros"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></span><span class="ni-text"><strong>Revisão dos erros</strong><small>Questões erradas para treinar de novo</small></span></button>
           <button class="nav-item" data-page="viewApoio"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span><span class="ni-text"><strong>Glossário e guias</strong><small>Glossário, comparações e normas ABNT</small></span></button>
           <button class="nav-item" data-page="viewVideos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg></span><span class="ni-text"><strong>Vídeos</strong><small>Vídeo-aulas recomendadas</small></span></button>
           <button class="nav-item" data-page="viewSimulados" style="display:none"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg></span><span class="ni-text"><strong>Simulados</strong><small>Quizzes para treinar</small></span></button>
@@ -2184,6 +2210,16 @@
 </div>
 
 <!-- ============ PÁGINA: SOBRE O SITE ============ -->
+<div class="wrap" id="viewErros" style="display:none;">
+  <button class="back-link" id="backFromErros">← Voltar ao Arquivo Vivo</button>
+  <header>
+    <div class="eyebrow">Estudo · Arquivo Vivo</div>
+    <h1>Revisão dos erros</h1>
+    <p>Questões erradas nos exercícios e nos quizzes dos resumos. Cada questão sai da lista quando é respondida corretamente, aqui ou no exercício de origem.</p>
+  </header>
+  <div id="errosBox"></div>
+  <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
+</div>
 <div class="wrap" id="viewSobre" style="display:none;">
   <button class="back-link" id="backFromSobre">← Voltar ao Arquivo Vivo</button>
 
@@ -2332,7 +2368,7 @@
     <div class="notice">
       <strong>Uso didático.</strong> Os exercícios servem para praticar conceitos e não se aplicam a diagnóstico, avaliação clínica ou decisões sobre pessoas reais. As respostas seguem as associações mais citadas na literatura; em caso de dúvida, vale a orientação do professor.
     </div>
-      <div class="prog-note">Seus acertos ficam salvos só neste aparelho e aparecem ao lado de cada exercício. <button class="link-btn" data-prog-reset="tools">Zerar meu progresso</button></div>
+      <div class="prog-note">Seus acertos ficam salvos só neste aparelho e aparecem ao lado de cada exercício. <button class="link-btn" data-prog-reset="tools">Zerar meu progresso</button> <button class="link-btn" data-page="viewErros">Revisão dos erros</button></div>
   </header>
 
   <section class="tool-group">
@@ -2750,6 +2786,36 @@
         <div class="tool-disclaimer">
           Correção automática por classificação exata. Cada situação foi escrita para ilustrar um paradigma predominante. Na prática, alguns comportamentos podem envolver mais de um mecanismo ao mesmo tempo.
         </div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Qual Período? (Piaget)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e identifique o período do desenvolvimento cognitivo que ela ilustra, segundo Piaget.</div>
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="ppSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="ppShuffleBtn">🔀 Sortear outra situação</button>
+        <div id="ppOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="ppCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="ppFeedbackBox"></div>
+        <div class="tool-disclaimer">Situações fictícias, com base na aula 3 (Moreira, cap. 6). As idades são aproximadas: o que é invariável é a ordem dos períodos.</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Assimilação, Acomodação ou Equilibração? (Piaget)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e identifique qual processo ela ilustra melhor.</div>
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="aaSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="aaShuffleBtn">🔀 Sortear outra situação</button>
+        <div id="aaOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="aaCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="aaFeedbackBox"></div>
+        <div class="tool-disclaimer">Situações fictícias, com base na aula 3 (Moreira, cap. 6). Os três processos ocorrem juntos; cada situação destaca o predominante.</div>
       </div>
     </details>
     <details class="graveyard">
@@ -3200,7 +3266,7 @@
       <button class="brand" data-scroll="top"><img class="brand-mark brand-logo" src="icons/icon-192.png" alt="" width="36" height="36"><span class="brand-text"><strong>Arquivo Vivo</strong><small>Psicologia · de aluno para aluno</small></span></button>
       <p>Iniciativa voluntária, sem vínculo com a coordenação ou com a instituição. O conteúdo das aulas sempre prevalece como referência final.</p>
     </div>
-    <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button></div>
+    <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button></div>
     <div class="footer-col"><h4>Turma</h4><button data-scroll="disciplinas">Drive das Disciplinas</button><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewPrazos" data-target="calendario">Calendário</button><button data-scroll="atualizacoes">Atualizações</button><button data-page="viewCursos">Cursos extras</button></div>
     <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button></div>
     <div class="qr-block"><div id="qrcode"></div><span>Aponte a câmera para abrir no celular</span></div>
@@ -3279,11 +3345,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Piaget (aula 3): resumo interativo, dois exercícios novos, 14 termos no glossário e as comparações assimilação × acomodação e Piaget × Vygotsky. Nova página Revisão dos erros, com as questões erradas nos exercícios e quizzes.', link: {url:'#resumo-piaget'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Estudo dirigido da Atividade 1 (N2): roteiro de pesquisa por questão, com perguntas norteadoras, termos de busca, bibliografia e lista de conferência.', link: {url:'#roteiro-atividade1-n2'}},
   {date: '2026-11-02', disc: 'Neuroanatomia', desc: 'Resumo de medula ampliado: de 8 para 16 partes (níveis, cauda equina, raízes, neurônios alfa e gama, vias ascendentes, líquor e anestesias), 3 comparações e 10 termos novos no glossário.', link: {url:'#resumo-medula-sna'}},
   {date: '2026-10-31', disc: 'Bases Biológicas', desc: 'Estrutura do DNA: aba nova no resumo interativo, 13 termos de genética no glossário e a tarefa para casa (até 09/11).', link: {url:'#resumo-embriologia'}},
   {date: '2026-10-30', disc: 'Psicologia Experimental', desc: 'Aulas 1, 2 e 4 (ciência e intuição, conceitos em pesquisa e seleção pelas consequências): resumo interativo, três exercícios novos em Exercícios e 19 termos no glossário.', link: {url:'#resumo-experimental'}},
-  {date: '2026-10-30', disc: 'Geral', desc: 'Cinco ferramentas interativas novas em Exercícios: Corte da Medula, Camadas das Meninges, Painel do SNA, linha do tempo do embrião (do zigoto ao disco bilaminar) e Monte a ZDP.', link: {page:'viewFerramentas'}},
 ];
 
 
@@ -3333,6 +3399,13 @@ const STUDY = [
     subtitulo: 'Duas aulas num só resumo',
     desc: 'Medula (organização, nervos espinhais, vias e meninges) e SNA (simpático × parassimpático), com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-medula-sna'
+  },
+  {
+    materia: 'Psicologia da Aprendizagem',
+    titulo: 'Piaget: desenvolvimento cognitivo',
+    subtitulo: 'Aula 3',
+    desc: 'Os quatro períodos, assimilação, acomodação e equilibração, e as implicações para o ensino, com "Teste-se" e quiz.',
+    link: '#resumo-piaget'
   },
   {
     materia: 'Psicologia da Aprendizagem',
@@ -3432,11 +3505,10 @@ const ROTEIROS = [
         busque: ['assimilação acomodação Piaget', 'equilibração Piaget', 'esquemas cognitivos Piaget', 'desequilíbrio cognitivo aprendizagem'],
         fontes: [
           {tipo:'Livro', ref:'PIAGET, Jean. Seis estudos de psicologia. Rio de Janeiro: Forense Universitária.', onde:'Primeiro estudo, "O desenvolvimento mental da criança". Trecho em que o autor define adaptação, assimilação e acomodação.'},
-          {tipo:'Livro', ref:'MOREIRA, Marco Antonio. Teorias de aprendizagem. São Paulo: EPU.', onde:'Capítulo sobre Piaget. Livro-base das aulas.'},
+          {tipo:'Livro', ref:'MOREIRA, Marco Antonio. Teorias de aprendizagem. São Paulo: EPU.', onde:'Capítulo 6, "A teoria do desenvolvimento cognitivo de Piaget". Base da aula 3.'},
           {tipo:'Artigo', ref:'CAETANO, Luciana Maria. A epistemologia genética de Jean Piaget. ComCiência, n. 120, 2010.', onde:'Texto curto, de caráter introdutório.', url:'https://comciencia.scielo.br/pdf/cci/n120/a11n120.pdf'}
         ],
-        noSite: [],
-        semSite: 'Ainda não há resumo de Piaget no site.',
+        noSite: [{t:'Resumo · Piaget (aula 3)', resumo:'piaget', cap:0}, {t:'Exercício · Assimilação, Acomodação ou Equilibração?', tool:'tool-assimilacao-acomodacao-ou-equilibracao-piaget'}],
         confira: [
           'Usei o exemplo do gato para mostrar cada um dos três processos, e não só defini os conceitos',
           'Deixei claro em que momento da situação cada processo acontece',
@@ -3462,8 +3534,7 @@ const ROTEIROS = [
           {tipo:'Vídeo', ref:'Gravações da prova de conservação de líquidos com crianças.', onde:'Observar a justificativa que cada criança dá para a resposta.', url:'https://www.youtube.com/results?search_query=prova+de+conserva%C3%A7%C3%A3o+de+l%C3%ADquidos+Piaget'},
           {tipo:'Para ir além', ref:'LOURENÇO, Orlando. A compreensão da ideia de necessidade lógica em crianças: o efeito das contra-sugestões. Análise Psicológica.', onde:'Pesquisa com crianças pré-operatórias e operatórias justamente na prova de conservação de líquidos. O resumo mostra como as justificativas das crianças são classificadas.', url:'https://doi.org/10.14417/ap.1576'}
         ],
-        noSite: [],
-        semSite: 'Ainda não há resumo de Piaget no site.',
+        noSite: [{t:'Resumo · Piaget (aula 3)', resumo:'piaget', cap:0}, {t:'Exercício · Qual Período?', tool:'tool-qual-periodo-piaget'}],
         confira: [
           'Nomeei o período de cada criança e justifiquei com o que ela disse',
           'Expliquei a diferença no raciocínio, e não só a diferença de idade',
@@ -3579,6 +3650,20 @@ const COURSES = [
    Formato: {t: 'Termo', disc: 'Neuroanatomia', d: 'Definição curta.'},
    --------------------------------------------------------------------- */
 const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
+  {t:'Construtivismo', disc:'Psicologia da Aprendizagem', d:'Visão de que o conhecimento é construído pelo próprio sujeito na interação com o meio, e não recebido pronto. Piaget foi o pioneiro dessa abordagem na cognição.'},
+  {t:'Esquema de assimilação', disc:'Psicologia da Aprendizagem', d:'Forma de a mente agir diante da realidade, para Piaget. Os esquemas se combinam em estruturas cada vez mais amplas.', ex:'O esquema de "sacudir" que o bebê aplica a vários objetos.'},
+  {t:'Assimilação', disc:'Psicologia da Aprendizagem', d:'Incorporação da realidade aos esquemas que a pessoa já tem, sem modificá-los. O organismo se impõe ao meio.', ex:'A criança chama de "avião" o primeiro helicóptero que vê.'},
+  {t:'Acomodação', disc:'Psicologia da Aprendizagem', d:'Reestruturação dos esquemas quando eles não conseguem assimilar uma situação. Para Piaget, é por ela que ocorre o desenvolvimento cognitivo e a aprendizagem.'},
+  {t:'Adaptação (Piaget)', disc:'Psicologia da Aprendizagem', d:'Equilíbrio entre assimilação e acomodação.'},
+  {t:'Equilibração majorante', disc:'Psicologia da Aprendizagem', d:'Processo em que um desequilíbrio leva a uma acomodação e a um novo equilíbrio, mais amplo que o anterior. É o fator preponderante do desenvolvimento mental para Piaget.'},
+  {t:'Período sensório-motor', disc:'Psicologia da Aprendizagem', d:'Primeiro período de Piaget (0–2 anos aprox.): percepção e ação. A criança passa dos reflexos à noção de que os objetos existem independentes dela.'},
+  {t:'Período pré-operacional', disc:'Psicologia da Aprendizagem', d:'Segundo período de Piaget (2–7 anos aprox.): linguagem, símbolos e imagens mentais, com pensamento ainda não reversível e sem conservação.'},
+  {t:'Período operacional-concreto', disc:'Psicologia da Aprendizagem', d:'Terceiro período de Piaget (7–12 anos aprox.): lógica reversível e descentração, mas aplicada a objetos reais.'},
+  {t:'Período operacional-formal', disc:'Psicologia da Aprendizagem', d:'Quarto período de Piaget (a partir dos 12 anos aprox.): raciocínio com hipóteses verbais, hipotético-dedutivo.'},
+  {t:'Reversibilidade', disc:'Psicologia da Aprendizagem', d:'Capacidade de percorrer mentalmente uma transformação e voltar ao ponto de partida, por inversão ou reciprocidade. Surge no operacional-concreto.', ex:'Saber que a massa achatada pode voltar a ser bola.'},
+  {t:'Conservação', disc:'Psicologia da Aprendizagem', d:'Noção de que uma quantidade continua a mesma quando muda apenas a forma ou a disposição. Ausente no pré-operacional, adquirida no operacional-concreto.'},
+  {t:'Descentração', disc:'Psicologia da Aprendizagem', d:'Abandono progressivo da perspectiva egocêntrica, passando a considerar vários aspectos e pontos de vista ao mesmo tempo.'},
+  {t:'Ensino reversível', disc:'Psicologia da Aprendizagem', d:'Proposta de Kubli (1979): o professor liga os esquemas espontâneos do aluno aos que quer ensinar, com o mínimo de desequilíbrio, usando passos intermediários quando necessário.'},
   {t:'Cone medular', disc:'Neuroanatomia', d:'Extremidade final e afilada da medula espinhal, no adulto por volta de L2.', ex:'É abaixo dele que se faz a punção lombar, sem risco de atingir a medula.'},
   {t:'Cauda equina', disc:'Neuroanatomia', d:'Conjunto de raízes lombares e sacrais que descem soltas no canal vertebral abaixo do fim da medula.', ex:'O nome vem da semelhança com a cauda de um cavalo.'},
   {t:'Filamento terminal', disc:'Neuroanatomia', d:'Prolongamento de pia-máter que vai do cone medular até o cóccix e ajuda a fixar a medula.', ex:'Um fio fino que \'ancora\' a ponta da medula na coluna.'},
@@ -3862,6 +3947,16 @@ const COMPARACOES = [
     ['Tipo de resposta','Reflexa, involuntária','Emitida, voluntária'],
     ['Exemplo','Salivar com a sineta','Pedir "por favor" para ganhar algo'],
   ]},
+  {titulo:'Assimilação × acomodação', disc:'Psicologia da Aprendizagem', cols:['Assimilação','Acomodação'], linhas:[
+    ['O que acontece','A realidade é incorporada aos esquemas que já existem','Os esquemas se reestruturam para dar conta do novo'],
+    ['A mente muda?','Não','Sim'],
+    ['Quem se impõe','O organismo se impõe ao meio','O organismo se modifica diante do meio'],
+    ['Papel no desenvolvimento','Mantém e amplia o uso dos esquemas','É por ela que ocorre o desenvolvimento e a aprendizagem']]},
+  {titulo:'Piaget × Vygotsky', disc:'Psicologia da Aprendizagem', cols:['Piaget','Vygotsky'], linhas:[
+    ['Motor do desenvolvimento','Equilibração (assimilação e acomodação)','Interação social e mediação por instrumentos e signos'],
+    ['Aprendizagem e desenvolvimento','O desenvolvimento é a base; ensino compatível com o período','A aprendizagem puxa o desenvolvimento (ZDP)'],
+    ['Papel do professor','Provocar desequilíbrio adequado ao período','Mediar dentro da zona de desenvolvimento proximal'],
+    ['Ênfase','Construção individual, em interação com o meio','Origem social das funções psicológicas superiores']]},
   {titulo:'Educação bancária × dialógica', disc:'Psicologia da Aprendizagem', cols:['Bancária','Dialógica'], linhas:[
     ['Professor','Deposita conteúdo','Aprende junto com o aluno'],
     ['Aluno','Recebe e memoriza','Participa e questiona'],
@@ -4137,6 +4232,125 @@ const RESUMOS = {
     }]
   },
 
+  'piaget': {
+    disc: '03',
+    eyebrow: 'Psicologia da Aprendizagem · Aula 3',
+    titulo: 'Piaget: desenvolvimento cognitivo',
+    lead: 'Os quatro períodos, assimilação, acomodação e equilibração, e o que a teoria diz sobre ensinar. Termina com perguntas de revisão ("Teste-se") e quiz.',
+    fonte: 'Resumo feito a partir dos slides da aula 3 de Psicologia da Aprendizagem (baseada em Moreira, Teorias de Aprendizagem, cap. 6).',
+    caps: [
+    {
+      id:'piaget', aba:'Aula 3 · Piaget', titulo:'A teoria do desenvolvimento cognitivo de Piaget',
+      intro:'Jean Piaget e o construtivismo: o conhecimento é construído pelo próprio sujeito, na interação com o meio.',
+      etapas:[
+        {fase:'Construtivismo', when:'Contexto', titulo:'Piaget e o construtivismo', pontos:[
+          'A ideia de que o conhecimento é uma <strong>construção do próprio ser humano</strong> é antiga, mas Piaget foi o grande <strong>pioneiro do enfoque construtivista</strong> à cognição.',
+          'Os trabalhos são da <strong>década de 1920</strong>, mas Piaget foi "redescoberto" nos <strong>anos 1970</strong>, com a ascensão do cognitivismo e o declínio do behaviorismo.',
+          'Existem outras visões construtivistas, mas a de Piaget é a mais conhecida: muita gente confunde construtivismo com Piaget.'],
+          q:'Em que década Piaget foi "redescoberto", e o que isso marcou?', a:'Na década de 1970, marcando a ascensão do cognitivismo e o declínio do behaviorismo.'},
+        {when:'Núcleo da teoria', titulo:'O mais famoso × o mais importante', pontos:[
+          'O <strong>mais famoso</strong> são os quatro períodos de desenvolvimento.',
+          'O <strong>mais importante</strong> (o "núcleo duro") são os conceitos de <strong>assimilação, acomodação e equilibração</strong>: é ali que está o construtivismo piagetiano.'],
+          q:'Qual é o "núcleo duro" da teoria de Piaget?', a:'Os conceitos de assimilação, acomodação e equilibração.'},
+        {fase:'Os quatro períodos', when:'Visão geral', titulo:'Os períodos de desenvolvimento mental', pontos:[
+          '<strong>Sensório-motor</strong> (0–2 anos): percepção e ação.',
+          '<strong>Pré-operacional</strong> (2–7 anos): linguagem e símbolo.',
+          '<strong>Operacional-concreto</strong> (7–12 anos): lógica concreta.',
+          '<strong>Operacional-formal</strong> (12 anos em diante): pensamento abstrato.',
+          'A <strong>ordem é invariável</strong>; as idades podem variar de criança para criança. O que importa é a sucessão, não a cronologia exata, e a passagem de um período a outro não é abrupta.'],
+          q:'O que é invariável na sequência dos períodos: a ordem ou as idades?', a:'A ordem. As idades em que cada criança chega a cada período podem variar.'},
+        {when:'0 a 2 anos', titulo:'Período sensório-motor', pontos:[
+          'Ao nascer, a criança tem só <strong>reflexos</strong> (sucção, preensão, choro) e não diferencia o eu do meio: tudo é extensão do próprio corpo, um <strong>egocentrismo praticamente total</strong>.',
+          'Aos poucos, começa a <strong>descentralizar as ações</strong>, a perceber os objetos como <strong>independentes do eu</strong> e a representá-los mentalmente, reagindo a objetos que não está vendo.',
+          'No fim do período, já se percebe como <strong>fonte dos próprios movimentos</strong>.'],
+          q:'Por que se fala em egocentrismo quase total no início do sensório-motor?', a:'Porque a criança não diferencia o eu do meio: tudo é percebido como extensão do próprio corpo.'},
+        {when:'2 a 7 anos', titulo:'Período pré-operacional', pontos:[
+          'Começa com a <strong>linguagem</strong>, os <strong>símbolos</strong> e as <strong>imagens mentais</strong>.',
+          'O pensamento se organiza, mas <strong>não é reversível</strong>: a criança não consegue percorrer um caminho mental e voltar ao ponto de partida.',
+          'Ela se fixa nos <strong>aspectos mais chamativos</strong> de uma situação e pode cair em contradição (dizer que um recipiente tem mais água por ser mais alto, ou menos por ser mais fino).',
+          'Ainda não compreende <strong>transitividade</strong> nem <strong>conservação</strong>.'],
+          q:'Qual característica do pensamento falta à criança pré-operacional e explica a falta de conservação?', a:'A reversibilidade: ela não consegue fazer o caminho mental de volta ao ponto de partida, e por isso se fixa no aspecto mais chamativo da situação.'},
+        {when:'7 a 12 anos', titulo:'Período operacional-concreto', pontos:[
+          '<strong>Descentração progressiva:</strong> a criança deixa aos poucos a perspectiva egocêntrica e passa a considerar múltiplas perspectivas.',
+          '<strong>Lógica reversível:</strong> combina e diferencia classes (A + A\' = B), com reversibilidade por <strong>inversão</strong> e por <strong>reciprocidade</strong>.',
+          '<strong>Limitação concreta:</strong> as operações incidem sobre <strong>objetos reais</strong>. Ainda não opera com hipóteses abstratas: o possível fica subordinado ao real.'],
+          q:'Qual é o limite do pensamento operacional-concreto?', a:'As operações incidem sobre objetos reais: a criança ainda não raciocina com hipóteses abstratas (o possível é subordinado ao real).'},
+        {when:'12 anos em diante', titulo:'Período das operações formais', pontos:[
+          'Capacidade de raciocinar com <strong>hipóteses verbais</strong>, e não só com objetos concretos.',
+          'Raciocínio <strong>hipotético-dedutivo</strong>: o real passa a ser um caso particular do possível.',
+          'Surge um <strong>último egocentrismo</strong>: o adolescente atribui grande poder ao próprio pensamento e muitas vezes julga que só ele está certo.',
+          'O período se prolonga até a idade adulta.'],
+          q:'Que tipo de egocentrismo aparece nas operações formais?', a:'O adolescente atribui grande poder ao próprio pensamento e tende a julgar que só ele está certo.'},
+        {fase:'Núcleo da teoria', when:'Conceito-chave', titulo:'Assimilação', pontos:[
+          'O organismo <strong>incorpora a realidade aos esquemas que já tem</strong>, impondo-se ao meio.',
+          'Na assimilação, <strong>a mente não se modifica</strong>.',
+          'Os esquemas de assimilação podem até <strong>deformar a realidade</strong>, como a criança que brinca com um pau dizendo que é um cavalo.'],
+          q:'Na assimilação, a mente se modifica?', a:'Não. A realidade é incorporada aos esquemas que já existem; a mente se impõe ao meio sem se reestruturar.'},
+        {when:'Conceito-chave', titulo:'Acomodação', pontos:[
+          'Quando os esquemas <strong>não conseguem assimilar</strong> uma situação, a mente <strong>se reestrutura</strong> e constrói novos esquemas.',
+          'É pela acomodação que ocorre o <strong>desenvolvimento cognitivo</strong>.',
+          'Por isso, para Piaget, <strong>só há aprendizagem quando o esquema de assimilação sofre acomodação</strong>.'],
+          q:'Segundo Piaget, quando há aprendizagem?', a:'Só quando o esquema de assimilação sofre acomodação, ou seja, quando a mente se reestrutura.'},
+        {when:'Conceito-chave', titulo:'Equilibração majorante', pontos:[
+          'O equilíbrio entre assimilação e acomodação é a <strong>adaptação</strong>.',
+          'Ciclo: <strong>equilíbrio inicial → experiência nova → desequilíbrio → acomodação → novo equilíbrio</strong>, mais amplo que o anterior (por isso "majorante").',
+          'Esse processo reequilibrador é o <strong>fator preponderante</strong> do desenvolvimento mental e continua até a idade adulta.',
+          'Para Piaget, o comportamento é construído em interação com o meio físico e sociocultural, sem padrões hereditários prévios.'],
+          q:'Por que a equilibração é chamada de "majorante"?', a:'Porque cada reequilíbrio leva a um estado mais amplo e estável que o anterior, depois do desequilíbrio e da acomodação.'},
+        {when:'Esquemas', titulo:'Esquemas e estrutura cognitiva', pontos:[
+          'Esquemas são a <strong>forma de a mente agir</strong> diante da realidade. Em nível alto, um esquema pode ser até uma teoria científica.',
+          'Os esquemas tendem a <strong>assimilar-se mutuamente</strong>, formando estruturas cada vez mais amplas, móveis e estáveis.',
+          'A <strong>estrutura cognitiva</strong> é um complexo de esquemas organizado segundo modelos matemáticos de grupo e rede ("grupamentos").'],
+          q:'O que é a estrutura cognitiva para Piaget?', a:'Um complexo de esquemas que se organizam em estruturas cada vez mais amplas, segundo modelos de grupo e rede ("grupamentos").'},
+        {when:'Ação', titulo:'O papel das ações', pontos:[
+          'A base do comportamento são as <strong>ações</strong>, e não as sensações. Até a percepção é uma atividade.',
+          'Tipos de ação: <strong>sensório-motora</strong> (física), <strong>verbal</strong> (linguagem como ação) e <strong>mental</strong>.',
+          'O pensamento é a <strong>interiorização da ação</strong>; a imagem mental é uma imitação interior do objeto.'],
+          q:'O que é o pensamento, para Piaget?', a:'A interiorização da ação (geralmente acompanhada de atividade motora residual, como gestos e movimentos dos olhos).'},
+        {fase:'Aprendizagem e ensino', when:'Aprendizagem', titulo:'Desenvolvimento, não "aprendizagem"', pontos:[
+          'A teoria de Piaget é de <strong>desenvolvimento mental</strong>, não propriamente de aprendizagem. Ele prefere falar em <strong>"aumento do conhecimento"</strong>.',
+          'Rejeita a definição de aprendizagem como "modificação do comportamento resultante da experiência", porque ela supõe <strong>dependência passiva do meio</strong>.'],
+          q:'Por que Piaget rejeita a definição comum de aprendizagem?', a:'Porque ela supõe que o organismo depende passivamente do meio, o que contraria a ideia de que ele se impõe ao meio (assimilação) e se reestrutura (acomodação).'},
+        {when:'Ensino', titulo:'Ensinar é provocar desequilíbrio', pontos:[
+          'Ensinar é <strong>provocar desequilíbrio</strong> para que o aluno, buscando reequilibrar-se, se reestruture e aprenda.',
+          'O ensino deve ser <strong>compatível com o período</strong> de desenvolvimento do aluno.',
+          '<strong>Erro comum:</strong> ensinar conteúdos que exigem conservação e reversibilidade a crianças que ainda não têm essas noções.'],
+          q:'Qual é o erro de ensino mais comum, segundo a aula?', a:'Ensinar conteúdos que pressupõem conservação e reversibilidade a crianças que ainda não têm essas noções.'},
+        {when:'Ensino', titulo:'Ensino reversível (Kubli, 1979)', pontos:[
+          'O professor relaciona, pela argumentação, os <strong>esquemas espontâneos do aluno</strong> com os que quer ensinar, com o <strong>mínimo de desequilíbrio</strong>.',
+          'Quanto mais a argumentação se relaciona com os esquemas do aluno, mais reversível o diálogo e mais eficiente o ensino.',
+          'Não elimina o desequilíbrio: passa de um equilíbrio a outro por estados próximos. Se o tema exige um desequilíbrio grande, entram <strong>passos intermediários</strong>.'],
+          q:'O ensino reversível elimina o desequilíbrio?', a:'Não. Ele leva de um equilíbrio a outro por uma sucessão de estados próximos, com passos intermediários quando o desequilíbrio seria grande.'},
+        {when:'Professor', titulo:'Nem diretivo, nem não diretivo', pontos:[
+          '<strong>Diretivismo puro:</strong> leva ao conformismo; o aluno recebe soluções prontas.',
+          '<strong>Não diretivismo puro:</strong> leva à desorganização, à insegurança ou à repetição do que já se sabe ("reação circular").',
+          '<strong>Equilíbrio:</strong> o professor cria situações desequilibradoras, organiza contraexemplos e estimula a pesquisa, tão ativo quanto o aluno.',
+          'Piaget defende os <strong>métodos ativos</strong>, com ações e demonstrações integradas à argumentação do professor.',
+          'Sobre os "maus alunos": muitas vezes são as <strong>lições oferecidas</strong> que escapam à compreensão, e não a matéria.'],
+          q:'O que acontece com o não diretivismo puro, segundo Piaget?', a:'Leva à desorganização, à insegurança ou à mera repetição do que o aluno já sabe ("reação circular").'}
+      ],
+      extras:[
+        {tipo:'tabela', titulo:'Os quatro períodos', cab:['Período','Idade aproximada','Marca principal'], linhas:[
+          ['Sensório-motor','0–2 anos','Percepção e ação; o objeto passa a existir independente do eu'],
+          ['Pré-operacional','2–7 anos','Linguagem e símbolo; pensamento ainda não reversível'],
+          ['Operacional-concreto','7–12 anos','Lógica reversível sobre objetos reais'],
+          ['Operacional-formal','12 anos em diante','Hipóteses verbais e raciocínio hipotético-dedutivo']]}
+      ],
+      quiz:[
+        {p:'Qual é o "núcleo duro" da teoria de Piaget, segundo Moreira?', o:['Os quatro períodos de desenvolvimento','Assimilação, acomodação e equilibração','O condicionamento operante','A zona de desenvolvimento proximal'], c:1, w:'Os períodos são o mais famoso; o núcleo do construtivismo piagetiano está na assimilação, acomodação e equilibração.'},
+        {p:'Sobre os períodos de desenvolvimento, é correto afirmar que…', o:['As idades são fixas para todas as crianças','A ordem é invariável, mas as idades podem variar','A criança pode pular um período','A passagem entre períodos é abrupta'], c:1, w:'O que importa é a sucessão: a ordem não muda, mas a idade em que cada criança chega a cada período pode variar.'},
+        {p:'Na assimilação…', o:['a mente se reestrutura e cria novos esquemas','a realidade é incorporada aos esquemas que já existem','o professor transmite conteúdos prontos','o comportamento é modelado por reforço'], c:1, w:'Na assimilação o organismo se impõe ao meio e a mente não se modifica; a reestruturação é a acomodação.'},
+        {p:'Para Piaget, só há aprendizagem quando…', o:['há reforço imediato','o esquema de assimilação sofre acomodação','o aluno memoriza o conteúdo','o comportamento muda pela experiência'], c:1, w:'"Aumento do conhecimento" só ocorre quando o esquema se reestrutura, isto é, quando há acomodação.'},
+        {p:'Qual período tem como limite o fato de as operações incidirem só sobre objetos reais?', o:['Sensório-motor','Pré-operacional','Operacional-concreto','Operacional-formal'], c:2, w:'No operacional-concreto a lógica já é reversível, mas o possível ainda está subordinado ao real.'},
+        {p:'O raciocínio hipotético-dedutivo caracteriza o período…', o:['sensório-motor','pré-operacional','operacional-concreto','operacional-formal'], c:3, w:'Nas operações formais o adolescente raciocina com hipóteses verbais; o real vira um caso particular do possível.'},
+        {p:'Segundo a aula, ensinar é…', o:['transmitir respostas prontas','evitar qualquer desequilíbrio','provocar desequilíbrio compatível com o período do aluno','deixar o aluno descobrir tudo sozinho'], c:2, w:'O ensino provoca desequilíbrio para que a equilibração majorante leve à reestruturação, respeitando o período do aluno.'},
+        {p:'O "ensino reversível" de Kubli propõe que o professor…', o:['repita o conteúdo até a memorização','relacione os esquemas espontâneos do aluno aos que quer ensinar, com o mínimo de desequilíbrio','evite argumentar com o aluno','use só demonstrações práticas'], c:1, w:'Quanto mais a argumentação se liga aos esquemas do aluno, mais reversível o diálogo e mais eficiente o ensino.'},
+        {p:'Para Piaget, o pensamento é…', o:['um reflexo inato','a interiorização da ação','uma cópia das sensações','um produto do reforço'], c:1, w:'As ações (e não as sensações) são a base do comportamento; o pensamento é a ação interiorizada.'},
+        {p:'Qual postura do professor Piaget considera adequada?', o:['Diretivismo puro','Não diretivismo puro','Criar situações desequilibradoras e contraexemplos, sendo tão ativo quanto o aluno','Apenas observar o aluno'], c:2, w:'Nem diretivo (conformismo) nem não diretivo (desorganização): o professor organiza situações e argumenta, com métodos ativos.'}
+      ]
+    }
+    ]
+  },
   'aprendizagem-4-6': {
     disc: '03',
     eyebrow: 'Psicologia da Aprendizagem · Aulas 4, 5 e 6',
@@ -4908,9 +5122,9 @@ if(document.body.classList.contains('dark')){
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
 // endereços amigáveis para compartilhar (os antigos #viewX continuam funcionando)
-const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'simulados', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar'};
+const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'simulados', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros'};
 const SLUG_PAGE = Object.fromEntries(Object.entries(PAGE_SLUG).map(([k, v])=>[v, k]));
-const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar'];
+const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros'];
 let currentPage = 'top';
 
 function closeMenus(){
@@ -4943,6 +5157,7 @@ function switchPage(id, opts){
     if(el) el.style.display = (pid === id) ? 'block' : 'none';
   });
   currentPage = id;
+  if(id === 'viewErros' && typeof renderErros === 'function'){ if(!opts.manterErros) errEstado = {modo:'lista', disc:opts.errDisc || (errEstado && errEstado.disc) || 'todas'}; renderErros(); }
   setActiveNav(id);
   closeMenus();
   if(!opts.keepScroll) window.scrollTo({top:0, behavior:'instant'});
@@ -4976,7 +5191,7 @@ document.querySelectorAll('[data-page]').forEach(btn=>{
 document.querySelectorAll('[data-scroll]').forEach(btn=>{
   btn.addEventListener('click', ()=> scrollToSection(btn.dataset.scroll));
 });
-['backFromCursos','backFromPrazos','backFromFerramentas','backFromVideos','backFromSimulados','backFromEstudar','backFromSobre','backFromInstalar','backFromApoio','backFromDisc'].forEach(bid=>{
+['backFromCursos','backFromPrazos','backFromFerramentas','backFromVideos','backFromSimulados','backFromEstudar','backFromSobre','backFromInstalar','backFromApoio','backFromDisc','backFromErros'].forEach(bid=>{
   const el = document.getElementById(bid);
   if(el){ el.textContent = '← Voltar ao início'; el.addEventListener('click', ()=> switchPage('top')); }
 });
@@ -6096,6 +6311,38 @@ function criarOrdenador(cfg){
   });
   novo();
 }
+
+
+// --- Ferramentas: Piaget (Psicologia da Aprendizagem · aula 3) ---
+const PP_OPCOES = ['Sensório-motor','Pré-operacional','Operacional-concreto','Operacional-formal'];
+const PP_CENARIOS = [
+  {situacao:'Um bebê de 4 meses suga tudo o que encosta na boca e agarra o dedo de quem toca sua mão.', correta:PP_OPCOES[0], explicacao:'Reflexos como sucção e preensão marcam o início do sensório-motor (0–2 anos).'},
+  {situacao:'Um bebê de 1 ano e meio procura o brinquedo que a mãe escondeu debaixo da almofada, mesmo sem vê-lo.', correta:PP_OPCOES[0], explicacao:'Perceber o objeto como independente do eu e representá-lo sem vê-lo é uma conquista do fim do sensório-motor.'},
+  {situacao:'Uma criança de 4 anos pega uma vassoura, monta nela e diz que está cavalgando.', correta:PP_OPCOES[1], explicacao:'O uso de símbolos e do faz de conta, com a linguagem, caracteriza o pré-operacional (2–7 anos).'},
+  {situacao:'Duas fileiras têm 6 fichas cada. O adulto espaça uma delas e a criança de 5 anos diz que agora essa fileira tem mais fichas.', correta:PP_OPCOES[1], explicacao:'A criança se fixa no aspecto mais chamativo (o comprimento) e ainda não tem conservação nem reversibilidade: pré-operacional.'},
+  {situacao:'Uma criança de 6 anos, ao telefone, aponta para um desenho e pergunta à avó: "Gostou deste aqui?"', correta:PP_OPCOES[1], explicacao:'Ela ainda não considera o ponto de vista do outro: pensamento centrado na própria perspectiva, típico do pré-operacional.'},
+  {situacao:'Uma criança de 8 anos explica que uma bola de massa achatada continua com a mesma quantidade, porque dá para voltar à forma de bola.', correta:PP_OPCOES[2], explicacao:'Justificar pela possibilidade de desfazer a transformação é reversibilidade, marca do operacional-concreto.'},
+  {situacao:'Uma criança de 9 anos separa seus cards por cor e, depois, reagrupa os mesmos cards por tipo, sem se confundir.', correta:PP_OPCOES[2], explicacao:'Combinar e diferenciar classes com objetos reais é típico do operacional-concreto (7–12 anos).'},
+  {situacao:'Uma criança de 10 anos resolve bem uma conta com balas na mão, mas trava quando o problema é só hipotético, sem nada concreto.', correta:PP_OPCOES[2], explicacao:'A lógica já é reversível, mas ainda presa ao real: o possível é subordinado ao concreto.'},
+  {situacao:'Um adolescente de 15 anos discute "e se não existisse a gravidade?" e deduz consequências que nunca viu.', correta:PP_OPCOES[3], explicacao:'Raciocinar com hipóteses verbais, de forma hipotético-dedutiva, caracteriza as operações formais.'},
+  {situacao:'Uma estudante de 16 anos testa uma variável de cada vez para descobrir o que faz um pêndulo balançar mais rápido.', correta:PP_OPCOES[3], explicacao:'Formular hipóteses e controlar variáveis de forma sistemática é pensamento formal.'},
+  {situacao:'Um adolescente tem certeza de que sua teoria sobre como consertar o mundo é a única correta e que os adultos não entendem nada.', correta:PP_OPCOES[3], explicacao:'É o "último egocentrismo" das operações formais: grande poder atribuído ao próprio pensamento.'}
+];
+criarClassificador({pre:'pp', cenarios:PP_CENARIOS, opcoes:PP_OPCOES});
+
+const AA_OPCOES = ['Assimilação','Acomodação','Equilibração'];
+const AA_CENARIOS = [
+  {situacao:'Uma criança que conhece a palavra "avião" vê um helicóptero pela primeira vez e o chama de avião.', correta:AA_OPCOES[0], explicacao:'Ela encaixou o objeto novo num esquema que já tinha, sem modificar o esquema: assimilação.'},
+  {situacao:'Um bebê que sabe sacudir o chocalho passa a sacudir também a colher, o copo e a chave.', correta:AA_OPCOES[0], explicacao:'Novos objetos são incorporados ao mesmo esquema de ação ("sacudir"): assimilação.'},
+  {situacao:'Uma criança brinca com um pedaço de pau dizendo que é uma espada.', correta:AA_OPCOES[0], explicacao:'O esquema se impõe à realidade, até deformando-a: é o exemplo clássico de assimilação.'},
+  {situacao:'O mesmo bebê tenta sacudir uma bola grande, não consegue segurá-la com uma mão e passa a usar as duas.', correta:AA_OPCOES[1], explicacao:'O esquema não deu conta da situação e precisou se modificar: acomodação.'},
+  {situacao:'Depois de ouvir a explicação, o aluno cria uma nova categoria: "baleia é mamífero, mesmo vivendo na água".', correta:AA_OPCOES[1], explicacao:'A estrutura mental se reestruturou para incluir o que não cabia no esquema antigo: acomodação.'},
+  {situacao:'Um estudante percebe que a regra "multiplicar sempre aumenta" não funciona com 0,5 e reformula o que entende por multiplicação.', correta:AA_OPCOES[1], explicacao:'Quando o esquema falha, a mente constrói um esquema novo: acomodação, por onde ocorre o desenvolvimento.'},
+  {situacao:'Um aluno fica incomodado ao ver que sua explicação não funciona, investiga, reformula e chega a um entendimento mais amplo e estável do que antes.', correta:AA_OPCOES[2], explicacao:'Desequilíbrio seguido de reestruturação e de um equilíbrio superior ao anterior: equilibração majorante.'},
+  {situacao:'O professor apresenta um contraexemplo para gerar conflito, e a turma, ao resolvê-lo, chega a uma compreensão mais completa do conceito.', correta:AA_OPCOES[2], explicacao:'Provocar desequilíbrio para que o aluno busque um novo equilíbrio é usar a equilibração no ensino.'},
+  {situacao:'Ao longo da infância, a criança passa por sucessivos conflitos e reorganizações que a levam a estruturas mentais cada vez mais estáveis.', correta:AA_OPCOES[2], explicacao:'O processo contínuo de reequilíbrios, fator preponderante do desenvolvimento, é a equilibração.'}
+];
+criarClassificador({pre:'aa', cenarios:AA_CENARIOS, opcoes:AA_OPCOES});
 
 // --- Ferramenta: Bancária ou Dialógica? (Psicologia da Aprendizagem · Freire) ---
 const BD_CENARIOS = [
@@ -7461,6 +7708,7 @@ document.querySelectorAll('#viewFerramentas details[id^="tool-"] .correct-btn').
       const t = p.tools[det.id] || {t:0, a:0};
       t.t += 1; if(fb.classList.contains('good')) t.a += 1;
       p.tools[det.id] = t; progSave(p);
+      errDoExercicio(det, fb.classList.contains('good'));
       paintToolBadges();
     }, 80);
   });
@@ -7718,6 +7966,7 @@ function renderDiscPage(d){
       ${atalhos.length ? `<nav class="dp-jump" aria-label="Nesta página">${atalhos.map(a=>`<button data-dp-jump="${a[0]}">${a[1]} <span>${a[2]}</span></button>`).join('')}</nav>` : ''}
     </header>
     ${continuarHTML(d)}
+    ${errAvisoDisc(d)}
     ${prova ? `<div class="modo-prova dp-mp">${modoProvaCard(prova)}</div>` : ''}
     ${secPrazos}${secRoteiro}${secResumos}${secEx}${secVid}${secGl}
     ${!c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
@@ -7845,6 +8094,125 @@ function abrirRoteiro(id, opts){
   if(opts && opts.push && location.hash !== '#roteiro-' + id) history.pushState({disc:r.disc}, '', '#roteiro-' + id);
   setTimeout(()=>{ const el = document.getElementById('rt-' + id); if(el){ el.open = true; el.scrollIntoView({block:'start'}); } }, 60);
 }
+
+
+// ===== Revisão dos erros =====
+// Guarda no aparelho as questões erradas (exercícios com situação e quizzes dos resumos).
+// Uma questão sai da lista quando é respondida corretamente.
+function errLoad(){ try{ return JSON.parse(localStorage.getItem('av-erros')) || {}; }catch(e){ return {}; } }
+function errSave(o){ try{ localStorage.setItem('av-erros', JSON.stringify(o)); }catch(e){} }
+function errHash(t){ let h = 0; for(const ch of t) h = (h * 31 + ch.charCodeAt(0)) | 0; return (h >>> 0).toString(36); }
+let ERR_MAPA = null;
+function errMapa(){
+  if(ERR_MAPA) return ERR_MAPA;
+  ERR_MAPA = new Map();
+  [RP_CENARIOS, PD_CENARIOS, PE_CENARIOS, TD_CENARIOS, NT_CENARIOS, SN_CENARIOS, MM_CENARIOS, ES_CENARIOS, BD_CENARIOS, VG_CENARIOS,
+   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS]
+    .forEach(arr => (arr || []).forEach(c => { if(c && c.situacao && c.correta) ERR_MAPA.set(String(c.situacao).trim(), c); }));
+  return ERR_MAPA;
+}
+function errRegistrar(item, acertou){
+  const e = errLoad();
+  if(acertou){ if(e[item.k]){ delete e[item.k]; errSave(e); } return; }
+  item.n = (e[item.k] ? e[item.k].n : 0) + 1; item.t = Date.now();
+  e[item.k] = item; errSave(e);
+}
+function errDoExercicio(det, acertou){
+  const sitEl = det.querySelector('[id$="SituacaoTexto"]'); if(!sitEl) return;
+  const sit = sitEl.textContent.trim(); const c = errMapa().get(sit); if(!c) return;
+  const ops = [...det.querySelectorAll('input[type="radio"]')].map(x=>x.value);
+  if(!ops.includes(c.correta)) return;
+  const t = TOOL_LIST.find(x=>x.id === det.id);
+  errRegistrar({k:'t:' + det.id + ':' + errHash(sit), tipo:'tool', ref:det.id, disc:t ? t.disc : null, origem:'Exercício · ' + (t ? t.titulo : ''), q:sit, ops, c:c.correta, w:c.explicacao || ''}, acertou);
+}
+function errLista(disc){
+  return Object.values(errLoad()).filter(x => disc === 'todas' || !disc || x.disc === disc).sort((a, b)=> b.n - a.n || b.t - a.t);
+}
+function errAvisoDisc(d){
+  const n = errLista(d.n).length; if(!n) return '';
+  return `<button class="dp-continue er-aviso" data-erros-disc="${d.n}"><span class="dp-cont-lbl">Revisão dos erros</span><span class="dp-cont-t">${n} ${n === 1 ? 'questão errada' : 'questões erradas'} nesta disciplina</span><span class="dp-cont-go">Revisar →</span></button>`;
+}
+var errEstado = errEstado || {modo:'lista', disc:'todas'};
+function renderErros(){
+  const box = document.getElementById('errosBox'); if(!box) return;
+  const todos = errLista('todas');
+  if(errEstado.modo === 'treino') return renderErrosTreino(box);
+  if(!todos.length){
+    box.innerHTML = `<div class="er-vazio"><strong>Nenhuma questão para revisar.</strong><p>As questões erradas nos exercícios e nos quizzes dos resumos aparecem aqui automaticamente.</p>
+      <div class="er-acoes"><button class="btn btn-primary" data-page="viewFerramentas">Ir para os exercícios</button><button class="btn" data-page="viewEstudar">Ir para os resumos</button></div></div>`;
+    return;
+  }
+  const discs = DISC[2].map(d=>({d, n: todos.filter(x=>x.disc === d.n).length})).filter(x=>x.n);
+  if(errEstado.disc !== 'todas' && !discs.some(x=>x.d.n === errEstado.disc)) errEstado.disc = 'todas';
+  const lista = errLista(errEstado.disc);
+  box.innerHTML = `
+    <div class="er-filtros">
+      <button class="er-chip${errEstado.disc === 'todas' ? ' on' : ''}" data-er-disc="todas">Todas <span>${todos.length}</span></button>
+      ${discs.map(x=>`<button class="er-chip${errEstado.disc === x.d.n ? ' on' : ''}" data-er-disc="${x.d.n}" data-d="${x.d.n}">${escHTML(x.d.name)} <span>${x.n}</span></button>`).join('')}
+    </div>
+    <div class="er-topo">
+      <button class="btn btn-primary" data-er-treinar>Revisar ${lista.length} ${lista.length === 1 ? 'questão' : 'questões'}</button>
+      <button class="link-btn" data-er-limpar>Limpar a lista</button>
+    </div>
+    <div class="er-lista">${lista.map(x=>{ const d = DISC[2].find(z=>z.n === x.disc); return `
+      <div class="er-item" data-d="${x.disc || ''}">
+        <div class="er-meta">${d ? escHTML(d.name) + ' · ' : ''}${escHTML(x.origem)}</div>
+        <div class="er-q">${x.q}</div>
+        <div class="er-n">${x.n === 1 ? 'Errada 1 vez' : `Errada ${x.n} vezes`}</div>
+      </div>`; }).join('')}</div>`;
+}
+function renderErrosTreino(box){
+  const f = errEstado;
+  if(f.i >= f.fila.length){
+    const restam = errLista(f.disc).length;
+    box.innerHTML = `<div class="er-fim"><strong>${f.acertos} de ${f.fila.length} ${f.acertos === 1 ? 'acerto' : 'acertos'}.</strong>
+      <p>${restam ? `${restam} ${restam === 1 ? 'questão continua' : 'questões continuam'} na lista.` : 'A lista está vazia.'}</p>
+      <div class="er-acoes">${restam ? '<button class="btn btn-primary" data-er-treinar>Revisar de novo</button>' : ''}<button class="btn" data-er-voltar>Voltar à lista</button></div></div>`;
+    return;
+  }
+  const x = f.fila[f.i];
+  box.innerHTML = `<div class="er-card" data-d="${x.disc || ''}">
+    <div class="er-prog">Questão ${f.i + 1} de ${f.fila.length}<button class="link-btn" data-er-voltar>Sair</button></div>
+    <div class="er-meta">${escHTML(x.origem)}</div>
+    <div class="er-q">${x.q}</div>
+    <div class="er-ops">${embaralhar(x.ops.slice()).map(o=>`<button class="rs-opt" data-er-op="${escHTML(o)}">${o}</button>`).join('')}</div>
+    <div class="er-why" hidden></div>
+    <button class="btn btn-primary er-prox" data-er-prox hidden>${f.i + 1 < f.fila.length ? 'Próxima →' : 'Ver resultado'}</button>
+  </div>`;
+}
+document.getElementById('errosBox')?.addEventListener('click', e=>{
+  const ch = e.target.closest('[data-er-disc]');
+  if(ch){ errEstado.disc = ch.dataset.erDisc; renderErros(); return; }
+  if(e.target.closest('[data-er-treinar]')){
+    const fila = errLista(errEstado.disc);
+    errEstado = {modo:'treino', disc:errEstado.disc, fila, i:0, acertos:0};
+    renderErros(); window.scrollTo({top:0, behavior:'instant'}); return;
+  }
+  if(e.target.closest('[data-er-voltar]')){ errEstado = {modo:'lista', disc:errEstado.disc}; renderErros(); return; }
+  if(e.target.closest('[data-er-limpar]')){
+    if(!confirm('Apagar a lista de questões erradas deste aparelho?')) return;
+    errSave({}); renderErros(); return;
+  }
+  const op = e.target.closest('[data-er-op]');
+  if(op && !op.disabled){
+    const x = errEstado.fila[errEstado.i]; const card = op.closest('.er-card');
+    const certo = op.dataset.erOp === x.c;
+    card.querySelectorAll('[data-er-op]').forEach(b=>{ b.disabled = true; if(b.dataset.erOp === x.c) b.classList.add('ok'); });
+    if(!certo) op.classList.add('no'); else errEstado.acertos++;
+    errRegistrar(Object.assign({}, x), certo);
+    const why = card.querySelector('.er-why');
+    why.innerHTML = `<strong>${certo ? 'Correto! A questão saiu da lista.' : 'Ainda não: a resposta certa é ' + x.c + '.'}</strong>${x.w ? `<p>${x.w}</p>` : ''}`;
+    why.className = 'er-why ' + (certo ? 'good' : 'bad'); why.hidden = false;
+    card.querySelector('[data-er-prox]').hidden = false;
+    return;
+  }
+  if(e.target.closest('[data-er-prox]')){ errEstado.i++; renderErros(); window.scrollTo({top:0, behavior:'instant'}); }
+});
+document.addEventListener('click', e=>{
+  const a = e.target.closest('[data-erros-disc]'); if(!a) return;
+  errEstado = {modo:'lista', disc:a.dataset.errosDisc};
+  switchPage('viewErros', {manterErros:true});
+});
 
 // ===== Comparações (Extras) =====
 function cmpTabela(c){
@@ -8148,6 +8516,7 @@ const PAGINAS_BUSCA = [
   {t:'Calendário de prazos', s:'Todas as datas do semestre', l:{page:'viewPrazos', target:'calendario'}},
   {t:'Resumos', s:'Resumos interativos por disciplina', l:{page:'viewEstudar'}},
   {t:'Exercícios', s:'Quizzes e atividades por disciplina', l:{page:'viewFerramentas'}},
+  {t:'Revisão dos erros', s:'Questões erradas para treinar de novo', l:{page:'viewErros'}},
   {t:'Glossário e guias', s:'Glossário, comparações, normas ABNT e gráficos', l:{page:'viewApoio'}},
   {t:'Glossário', s:'Termos das disciplinas', l:{page:'viewApoio', target:'glossario'}},
   {t:'Normas ABNT', s:'Citações e gerador de referências', l:{page:'viewApoio', target:'abnt'}},
@@ -8392,6 +8761,7 @@ document.getElementById('resumoPage').addEventListener('click', ev=>{
     const box = opt.closest('.rs-quiz-q'); const q = c.quiz[+box.dataset.q]; const j = +opt.dataset.j;
     box.querySelectorAll('.rs-opt').forEach(x=>{ x.disabled = true; if(+x.dataset.j === q.c) x.classList.add('ok'); });
     if(j === q.c) rsPontos++; else opt.classList.add('no');
+    errRegistrar({k:'r:' + resumoAtual + ':' + c.id + ':' + box.dataset.q, tipo:'resumo', ref:resumoAtual, cap:capResumo, disc:r.disc, origem:'Resumo · ' + (c.aba || c.titulo), q:q.p, ops:q.o, c:q.o[q.c], w:q.w}, j === q.c);
     box.querySelector('.rs-why').classList.add('show');
     rsRespondidas++;
     if(rsRespondidas === c.quiz.length){
