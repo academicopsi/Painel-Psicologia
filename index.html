@@ -1221,6 +1221,44 @@
   .dp-bar{grid-column:1 / -1; height:6px; background:var(--paper-alt); border-radius:999px; overflow:hidden;}
   .dp-bar i{display:block; height:100%; background:var(--petrol); border-radius:999px;}
   .dp-section{margin:0 0 34px;}
+
+  .rt{display:flex; flex-direction:column; gap:10px;}
+  .rt-head{background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:16px 18px;}
+  .rt-titulo{font-size:17px; font-weight:800; letter-spacing:-0.01em;}
+  .rt-sub{font-size:13px; color:var(--ink-soft); margin-top:2px;}
+  .rt-intro{font-size:14.5px; line-height:1.55; margin:10px 0 8px;}
+  .rt-dicas{margin:0 0 10px; padding-left:20px; font-size:14px; line-height:1.5; color:var(--ink-soft);}
+  .rt-dicas li{margin-bottom:4px;}
+  .rt-q summary{display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 10px;}
+  .rt-qn{font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--acc, var(--petrol));}
+  .rt-qt{font-weight:700;}
+  .rt-ok{font-size:12.5px; font-weight:700; color:var(--petrol);}
+  .rt-ok:empty{display:none;}
+  .rt-q.feita{border-color:var(--petrol-line);}
+  .rt-body{padding:14px 18px 18px;}
+  .rt-caso{font-size:14px; line-height:1.55; color:var(--ink-soft); background:var(--paper-alt); border-left:3px solid var(--acc, var(--petrol)); border-radius:0 8px 8px 0; padding:10px 12px; margin:0 0 6px;}
+  #discPage h4.rt-h{font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin:18px 0 8px;}
+  .rt-pede, .rt-pense{margin:0; padding-left:22px; font-size:14.5px; line-height:1.55;}
+  .rt-pede li, .rt-pense li{margin-bottom:5px;}
+  .rt-nota{font-size:13px; color:var(--ink-faint); margin:0 0 8px; line-height:1.45;}
+  .rt-termos{display:flex; flex-wrap:wrap; gap:8px;}
+  .rt-termo{display:inline-flex; align-items:stretch; border:1px solid var(--rule); border-radius:999px; overflow:hidden; background:var(--paper); font-size:13.5px;}
+  .rt-termo a{padding:6px 12px; color:var(--ink); text-decoration:none;}
+  .rt-termo a:hover{background:var(--paper-alt);}
+  .rt-termo a.rt-scielo{border-left:1px solid var(--rule); color:var(--petrol); font-weight:700; font-size:12px; display:flex; align-items:center;}
+  .rt-fontes{display:flex; flex-direction:column; gap:8px;}
+  .rt-fonte{border:1px solid var(--rule); border-radius:10px; padding:10px 12px; background:var(--paper);}
+  .rt-tipo{display:inline-block; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:3px;}
+  .rt-ref{font-size:14px; font-weight:600; line-height:1.4;}
+  .rt-ref a{color:var(--petrol);}
+  .rt-onde{font-size:13.5px; color:var(--ink-soft); line-height:1.5; margin-top:3px;}
+  .rt-site{display:flex; flex-direction:column; gap:6px;}
+  .rt-site-btn{text-align:left; font:inherit; font-size:14px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); border:none; border-radius:10px; padding:10px 12px; cursor:pointer;}
+  .rt-confira{display:flex; flex-direction:column; gap:6px;}
+  .rt-check{display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.45; cursor:pointer; padding:8px 10px; border-radius:8px; background:var(--paper-alt);}
+  .rt-check input{flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--petrol);}
+  .rt-check input:checked + span{color:var(--ink-soft);}
+  @media (max-width:600px){ .rt-body{padding:12px 13px 16px;} .rt-head{padding:14px;} }
   .dp-sec-links{display:flex; flex-wrap:wrap; gap:6px 16px;}
   .dp-sec-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:6px 12px; margin-bottom:12px;}
   .dp-sec-head h2{font-size:21px; font-weight:800; letter-spacing:-0.02em; margin:0;}
@@ -3105,6 +3143,7 @@
      das disciplinas no texto da tarefa (o site reconhece).
    --------------------------------------------------------------------- */
 const TASKS = [
+  {materia: 'Psicologia da Aprendizagem', tarefa: 'Atividade 1 (N2): estudo dirigido (Piaget, Vygotsky e Freire)', prazo: '2026-11-03', added: '2026-11-02'},
   {materia: 'Bases Biológicas', tarefa: 'Para casa: estrutura do DNA (composição, nucleotídeos, base nitrogenada, açúcar, fosfato e dupla fita antiparalela)', prazo: '2026-11-09', added: '2026-10-31'},
   {materia: 'Bases Biológicas', tarefa: 'Pesquisar Divisão Celular: Mitose e Meiose (fases e principais características)', prazo: '2026-08-24', added: '2026-08-20'},
   {materia: 'Bases Biológicas', tarefa: 'Estudar sobre Gametogênese (Masculina / Feminina)', prazo: '2026-08-31', added: '2026-08-20'},
@@ -3139,11 +3178,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Estudo dirigido da Atividade 1 (N2): um roteiro de busca para cada questão, com perguntas para pensar, termos de pesquisa, onde ler e uma lista para conferir antes de entregar. Sem gabarito, de propósito.', link: {url:'#roteiro-atividade1-n2'}},
   {date: '2026-11-02', disc: 'Neuroanatomia', desc: 'Resumo de medula ampliado: de 8 para 16 partes (níveis, cauda equina, raízes, neurônios alfa e gama, vias ascendentes, líquor e anestesias), 3 comparações e 10 termos novos no glossário.', link: {url:'#resumo-medula-sna'}},
   {date: '2026-10-31', disc: 'Bases Biológicas', desc: 'Estrutura do DNA: aba nova no resumo interativo, 13 termos de genética no glossário e a tarefa para casa (até 09/11).', link: {url:'#resumo-embriologia'}},
   {date: '2026-10-30', disc: 'Psicologia Experimental', desc: 'Aulas 1, 2 e 4 (ciência e intuição, conceitos em pesquisa e seleção pelas consequências): resumo interativo, três exercícios novos em Exercícios e 19 termos no glossário.', link: {url:'#resumo-experimental'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Cinco ferramentas interativas novas em Exercícios: Corte da Medula, Camadas das Meninges, Painel do SNA, linha do tempo do embrião (do zigoto ao disco bilaminar) e Monte a ZDP.', link: {page:'viewFerramentas'}},
-  {date: '2026-10-30', disc: 'Neuroanatomia', desc: 'Medula espinhal e sistema nervoso autônomo: resumo interativo, exercícios novos em Exercícios e 21 termos no glossário.', link: {disc:'02'}},
 ];
 
 
@@ -3263,6 +3302,156 @@ const STUDY = [
    O código é o que vem depois de "v=" no link do YouTube
    (youtube.com/watch?v=ESTE_CODIGO) ou depois de "youtu.be/".
    --------------------------------------------------------------------- */
+// Roteiros de estudo dirigido: caminhos para responder, sem gabarito.
+// questoes: {tema, caso, pede:[], pense:[], busque:[termos], fontes:[{tipo, ref, onde, url?}], noSite:[{t, resumo?, cap?, tool?}], confira:[]}
+const ROTEIROS = [
+  {
+    id: 'atividade1-n2',
+    disc: '03',
+    titulo: 'Atividade 1 (N2): estudo dirigido',
+    sub: 'Roteiro de busca: os caminhos para responder, sem gabarito',
+    intro: 'Aqui não tem resposta pronta, e é de propósito. Para cada questão você encontra o que ela pede, perguntas para pensar, o que pesquisar e onde ler. A resposta sai da sua busca, com as suas palavras.',
+    dicas: [
+      'Antes de pesquisar, separe as partes do que a questão pede. Cada parte precisa aparecer na resposta.',
+      'Comece pelo livro do autor ou pelo livro-texto da disciplina. Use os artigos para conferir e aprofundar.',
+      'Anote a referência de tudo o que ler. As citações seguem a ABNT (o guia está em Glossário e guias).'
+    ],
+    questoes: [
+      {
+        tema: 'Piaget · assimilação, acomodação e equilibração',
+        caso: 'A criança que só conhecia cachorros chama um gato de cachorro. Depois da explicação da professora, passa a separar as duas categorias.',
+        pede: ['Explicar como a assimilação aparece na situação', 'Explicar como a acomodação aparece', 'Explicar como a equilibração aparece', 'Analisar a importância desses processos para a construção do conhecimento da criança'],
+        pense: [
+          'O que Piaget chama de esquema? Que esquema a criança já tinha antes de ver o gato?',
+          'Quando chama o gato de cachorro, ela usou um esquema que já existia ou criou um novo? Qual dos processos é esse?',
+          'A explicação da professora confirmou o que a criança pensava ou criou um conflito?',
+          'O que muda dentro da criança quando ela passa a separar gatos de cachorros?',
+          'Por que, para Piaget, o conhecimento é construído pela criança e não simplesmente recebido?'
+        ],
+        busque: ['assimilação acomodação Piaget', 'equilibração Piaget', 'esquemas cognitivos Piaget', 'desequilíbrio cognitivo aprendizagem'],
+        fontes: [
+          {tipo:'Livro', ref:'PIAGET, Jean. Seis estudos de psicologia. Rio de Janeiro: Forense Universitária.', onde:'Primeiro estudo, "O desenvolvimento mental da criança". Procure onde ele define adaptação, assimilação e acomodação.'},
+          {tipo:'Livro', ref:'MOREIRA, Marco Antonio. Teorias de aprendizagem. São Paulo: EPU.', onde:'Capítulo sobre Piaget. É a base das aulas, então o vocabulário bate com o da disciplina.'},
+          {tipo:'Artigo', ref:'CAETANO, Luciana Maria. A epistemologia genética de Jean Piaget. ComCiência, n. 120, 2010.', onde:'Texto curto e acessível para começar.', url:'https://comciencia.scielo.br/pdf/cci/n120/a11n120.pdf'}
+        ],
+        noSite: [],
+        semSite: 'Piaget ainda não tem resumo no site. Aqui a busca é toda sua.',
+        confira: [
+          'Usei o exemplo do gato para mostrar cada um dos três processos, e não só defini os conceitos',
+          'Deixei claro em que momento da situação cada processo acontece',
+          'Respondi a última parte: por que esses processos importam para a construção do conhecimento',
+          'Escrevi com as minhas palavras e citei pelo menos uma fonte'
+        ]
+      },
+      {
+        tema: 'Piaget · conservação e períodos do desenvolvimento',
+        caso: 'A água passa de um recipiente baixo e largo para um alto e estreito. A criança de 5 anos diz que agora tem mais água; a de 9 anos diz que a quantidade é a mesma.',
+        pede: ['Identificar o período do desenvolvimento predominante em cada criança', 'Explicar a diferença entre os dois modos de raciocínio', 'Discutir como o professor pode levar essas características em conta ao planejar atividades'],
+        pense: [
+          'Quais são os períodos do desenvolvimento cognitivo para Piaget, e em que idades costumam aparecer?',
+          'A criança de 5 anos presta atenção em quê quando olha o recipiente alto? Ela considera mais de um aspecto ao mesmo tempo?',
+          'O que a criança de 9 anos consegue fazer mentalmente com a ação de despejar a água que a de 5 anos ainda não faz?',
+          'O que significa "conservação" nessa prova, e por que ela serve de marco entre dois períodos?',
+          'Se você fosse professor de cada criança, que tipo de atividade proporia? Com material para manipular, só explicação oral, problemas abstratos?'
+        ],
+        busque: ['prova de conservação de líquidos Piaget', 'período pré-operatório', 'período operatório concreto', 'centração e reversibilidade Piaget', 'provas piagetianas educação'],
+        fontes: [
+          {tipo:'Livro', ref:'PIAGET, Jean; INHELDER, Bärbel. A psicologia da criança. Rio de Janeiro: Difel.', onde:'Capítulo sobre as operações concretas do pensamento, onde aparecem as provas de conservação.'},
+          {tipo:'Livro', ref:'PIAGET, Jean. Seis estudos de psicologia. Rio de Janeiro: Forense Universitária.', onde:'No primeiro estudo, compare a parte sobre a primeira infância (2 a 7 anos) com a parte sobre a infância de 7 a 12 anos.'},
+          {tipo:'Vídeo', ref:'Gravações da prova de conservação de líquidos com crianças.', onde:'Assista e repare em como cada criança justifica a resposta. O "porquê" importa mais que a resposta.', url:'https://www.youtube.com/results?search_query=prova+de+conserva%C3%A7%C3%A3o+de+l%C3%ADquidos+Piaget'},
+          {tipo:'Para ir além', ref:'LOURENÇO, Orlando. A compreensão da ideia de necessidade lógica em crianças: o efeito das contra-sugestões. Análise Psicológica.', onde:'Pesquisa com crianças pré-operatórias e operatórias justamente na prova de conservação de líquidos. Leia o resumo e veja como os autores classificam as justificativas.', url:'https://doi.org/10.14417/ap.1576'}
+        ],
+        noSite: [],
+        semSite: 'Piaget ainda não tem resumo no site. Aqui a busca é toda sua.',
+        confira: [
+          'Nomeei o período de cada criança e justifiquei com o que ela disse',
+          'Expliquei a diferença no raciocínio, e não só a diferença de idade',
+          'Tratei a idade como referência, não como regra fixa',
+          'Dei pelo menos uma ideia concreta de atividade para cada período'
+        ]
+      },
+      {
+        tema: 'Vygotsky · interação social, instrumentos e signos',
+        caso: 'Para Vygotsky, o desenvolvimento depende das interações sociais e culturais, e a mediação permite internalizar o que foi construído socialmente.',
+        pede: ['Explicar como a interação social contribui para as funções psicológicas superiores', 'Explicar o papel da mediação por instrumentos e por signos', 'Dar um exemplo desse processo na escola'],
+        pense: [
+          'O que são funções psicológicas superiores? Em que se diferenciam das funções elementares?',
+          'Qual a diferença entre instrumento e signo? Um age sobre o quê, e o outro?',
+          'O que Vygotsky chama de internalização? O que acontece primeiro "entre pessoas" e depois "dentro da pessoa"?',
+          'Que lugar a linguagem ocupa entre os signos?',
+          'Na sua vida escolar, o que você aprendeu primeiro com alguém e depois passou a fazer sozinho?'
+        ],
+        busque: ['mediação simbólica Vygotsky', 'instrumento e signo Vygotsky', 'funções psicológicas superiores', 'internalização Vygotsky', 'teoria histórico-cultural educação'],
+        fontes: [
+          {tipo:'Livro', ref:'VIGOTSKI, Lev S. A formação social da mente. São Paulo: Martins Fontes.', onde:'Primeira parte do livro: os capítulos sobre instrumento e signo e sobre a internalização das funções psicológicas superiores.'},
+          {tipo:'Livro', ref:'OLIVEIRA, Marta Kohl de. Vygotsky: aprendizado e desenvolvimento, um processo sócio-histórico. São Paulo: Scipione.', onde:'Capítulo sobre mediação simbólica. Linguagem clara, bom para entender antes de ler o original.'},
+          {tipo:'Livro', ref:'REGO, Teresa Cristina. Vygotsky: uma perspectiva histórico-cultural da educação. Petrópolis: Vozes.', onde:'Ajuda a pensar o exemplo escolar que a questão pede.'}
+        ],
+        noSite: [{t:'Resumo · aba "Aula 4 · Vygotsky"', resumo:'aprendizagem-4-6', cap:0}, {t:'Exercício · Conceitos de Vygotsky', tool:'tool-conceitos-de-vygotsky'}],
+        confira: [
+          'Diferenciei instrumento de signo, com um exemplo de cada',
+          'Expliquei o caminho do social para o individual',
+          'O exemplo escolar mostra o processo acontecendo, e não só cita "trabalho em grupo"',
+          'Liguei tudo às funções psicológicas superiores, que é o centro da pergunta'
+        ]
+      },
+      {
+        tema: 'Vygotsky · Zona de Desenvolvimento Proximal',
+        caso: 'O estudante não resolve os problemas de matemática sozinho, mas consegue quando a professora orienta ou quando trabalha com colegas mais experientes.',
+        pede: ['Identificar e explicar a ZDP, relacionando com a situação', 'Diferenciar nível de desenvolvimento real e nível potencial', 'Explicar a importância da atuação do professor'],
+        pense: [
+          'Na situação, o que o estudante consegue fazer sozinho? E o que só consegue com ajuda?',
+          'Qual desses corresponde ao nível real e qual ao potencial? Como cada um pode ser observado?',
+          'Onde fica a ZDP em relação a esses dois níveis?',
+          'Para Vygotsky, o ensino deve mirar o que o aluno já domina ou o que ainda está amadurecendo? Por quê?',
+          'Depois que o estudante aprende, a ZDP some, fica igual ou se desloca?',
+          'A ajuda do professor é resolver pelo aluno ou é outra coisa?'
+        ],
+        busque: ['zona de desenvolvimento proximal', 'desenvolvimento real e potencial Vygotsky', 'aprendizado e desenvolvimento Vygotsky', 'mediação pedagógica ZDP'],
+        fontes: [
+          {tipo:'Livro', ref:'VIGOTSKI, Lev S. A formação social da mente. São Paulo: Martins Fontes.', onde:'Capítulo "Interação entre aprendizado e desenvolvimento". É ali que ele apresenta a ZDP. Leia com calma.'},
+          {tipo:'Livro', ref:'OLIVEIRA, Marta Kohl de. Vygotsky: aprendizado e desenvolvimento, um processo sócio-histórico. São Paulo: Scipione.', onde:'Capítulo sobre desenvolvimento e aprendizado.'},
+          {tipo:'Para ir além', ref:'WOOD, David; BRUNER, Jerome; ROSS, Gail. The role of tutoring in problem solving. Journal of Child Psychology and Psychiatry, 1976.', onde:'Origem da ideia de "andaime" (scaffolding), muito usada para falar do professor na ZDP. Não é de Vygotsky: se usar, diga de quem é.'}
+        ],
+        noSite: [{t:'Resumo · aba "Aula 4 · Vygotsky"', resumo:'aprendizagem-4-6', cap:0}, {t:'Exercício · Monte a ZDP', tool:'tool-monte-a-zdp-vygotsky'}],
+        confira: [
+          'Defini a ZDP com as minhas palavras, a partir dos dois níveis',
+          'Apontei na situação o que é nível real e o que é nível potencial',
+          'Expliquei o papel do professor sem dizer que ele "faz pelo aluno"',
+          'Citei a obra de onde tirei a definição'
+        ]
+      },
+      {
+        tema: 'Paulo Freire · educação bancária × problematizadora',
+        caso: 'Para Freire, educar não é transmitir conteúdos de forma mecânica, mas construir conhecimento com diálogo, consciência crítica e autonomia.',
+        pede: ['Explicar as diferenças entre educação bancária e educação dialógica (problematizadora)', 'Destacar o papel do professor e do estudante em cada uma', 'Explicar a importância dessas concepções para a autonomia e a consciência crítica'],
+        pense: [
+          'Por que Freire escolheu a palavra "bancária"? O que é depositado, por quem e em quem?',
+          'Na educação problematizadora, quem ensina e quem aprende? Essa divisão continua rígida?',
+          'Que papel tem o diálogo? É só conversar em sala ou é outra coisa?',
+          'O que Freire chama de consciência ingênua e de consciência crítica?',
+          'Como uma prática que só transmite conteúdo afeta a autonomia de quem aprende? E o contrário?',
+          'Você já viveu as duas situações como aluno? Uma lembrança concreta pode virar exemplo.'
+        ],
+        busque: ['educação bancária Paulo Freire', 'educação problematizadora dialogicidade', 'consciência ingênua e crítica Freire', 'autonomia Paulo Freire'],
+        fontes: [
+          {tipo:'Livro', ref:'FREIRE, Paulo. Pedagogia do oprimido. Rio de Janeiro: Paz e Terra.', onde:'Capítulo 2: é onde ele descreve a concepção bancária e a problematizadora. O capítulo 3 trata da dialogicidade.'},
+          {tipo:'Livro', ref:'FREIRE, Paulo. Pedagogia da autonomia: saberes necessários à prática educativa. São Paulo: Paz e Terra.', onde:'Capítulo "Ensinar não é transferir conhecimento". Livro curto, dá para ler numa tarde.'},
+          {tipo:'Livro', ref:'FREIRE, Paulo. Educação como prática da liberdade. Rio de Janeiro: Paz e Terra.', onde:'Para a parte de consciência ingênua e crítica.'},
+          {tipo:'Artigo', ref:'FREITAS, André Luis Castro de; FREITAS, Luciane Albernaz de Araujo. Da educação bancária à educação problematizadora: espaços educativos diferenciados e sua contribuição para o ensinar e o aprender.', onde:'Discute os dois extremos e o lugar do diálogo.', url:'https://ri.ufs.br/bitstream/riufs/10332/12/11.pdf'}
+        ],
+        noSite: [{t:'Resumo · aba "Aula 5 · Paulo Freire"', resumo:'aprendizagem-4-6', cap:1}, {t:'Exercício · Bancária ou Dialógica?', tool:'tool-bancaria-ou-dialogica-freire'}, {t:'Exercício · Consciência Ingênua ou Crítica?', tool:'tool-consciencia-ingenua-ou-critica-freire'}],
+        confira: [
+          'Comparei as duas concepções pelos mesmos critérios: professor, estudante e conhecimento',
+          'Respondi a última parte: a ligação com autonomia e consciência crítica',
+          'Usei conceitos de Freire, e não só a minha opinião',
+          'Citei a obra e, se possível, a página'
+        ]
+      }
+    ]
+  }
+];
+
 const VIDEOS = {
   '01': [{titulo:'O que é genética comportamental?', youtubeId:'5OaRKEhwnsc'}, {titulo:'Gametogênese', youtubeId:'04l1AdA_Sb4'}, {titulo:'Desenvolvimento embrionário em 30 minutos', youtubeId:'aDe5y1kxcEs'}, {titulo:'Fecundação (fertilização)', youtubeId:'bDIuFznjZWE'}, {titulo:'Primeira à terceira semana de desenvolvimento embrionário', youtubeId:'4Kii3jDqc3s'}],
   '02': [{titulo:'Resumão Sistema Nervoso Central', youtubeId:'KBaRemG4_s0'}, {titulo:'Sistema nervoso voluntário e autônomo: simpático e parassimpático', youtubeId:'djaIvMUq59o'}],
@@ -4403,7 +4592,7 @@ function fmtStamp(iso){
 
 function rotuloLink(l){
   if(l.drive) return 'Abrir no Drive ↗';
-  if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
+  if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#roteiro-')) return 'Abrir roteiro →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
   if(l.disc) return 'Ver disciplina →';
   if(l.scroll === 'disciplinas') return 'Ver disciplinas →';
   const pg = {viewFerramentas:'Ver exercícios →', viewPrazos:'Ver prazos →', viewEstudar:'Ver resumos →', viewVideos:'Ver vídeos →', viewCursos:'Ver cursos →', viewApoio:'Ver extras →', viewSimulados:'Ver simulados →'};
@@ -4716,6 +4905,8 @@ function routeFromHash(){
   const h = decodeURIComponent(location.hash.slice(1));
   const md = h.match(/^disc-(\d\d)$/);
   if(md){ setTimeout(()=> openDisc(md[1], {fromHistory:true}), 0); return; }
+  const mt = h.match(/^roteiro-([\w-]+)$/);
+  if(mt){ setTimeout(()=> abrirRoteiro(mt[1]), 0); return; }
   const mr = h.match(/^resumo-([\w-]+)$/);
   if(mr){ setTimeout(()=> openResumo(mr[1], {fromHistory:true}), 0); return; }
   const mx = h.match(/^exercicio-([\w-]+)$/);
@@ -7351,8 +7542,10 @@ function renderDiscPage(d){
   const diaNum = iso => new Date(iso+'T00:00:00').getDate();
 
   // atalhos do topo: só o que existe nesta disciplina
+  const roteiros = ROTEIROS.filter(r=>r.disc === d.n);
   const atalhos = [
     ['dpPrazos', 'Prazos', c.prazos.length],
+    ['dpRoteiro', 'Estudo dirigido', roteiros.reduce((n, r)=>n + r.questoes.length, 0)],
     ['dpResumos', 'Resumos', c.resumos.length],
     ['dpPratica', 'Exercícios', c.exercicios.length],
     ['dpVideos', 'Vídeos', c.videos.length],
@@ -7373,6 +7566,9 @@ function renderDiscPage(d){
           <div class="dp-tile-sub">${quandoTxt(dd)}${discOf(t.materia) ? '' : ' · várias disciplinas'}</div>
         </div>
       </div>`; }).join('')}</div>`) : '';
+
+  const secRoteiro = roteiros.length ? sec('dpRoteiro', 'Estudo dirigido', `${rtFeitas(roteiros[0])}/${roteiros[0].questoes.length} questões conferidas`,
+    roteiros.map(roteiroHTML).join('')) : '';
 
   const secResumos = c.resumos.length ? sec('dpResumos', 'Resumos', `${resumosFeitos}/${c.resumos.length} estudados`,
     `<div class="dp-tiles">${c.resumos.map(r=>{ const done = progStudyDone(r.link); const interno = r.link.startsWith('#'); return `
@@ -7422,7 +7618,7 @@ function renderDiscPage(d){
     </header>
     ${continuarHTML(d)}
     ${prova ? `<div class="modo-prova dp-mp">${modoProvaCard(prova)}</div>` : ''}
-    ${secPrazos}${secResumos}${secEx}${secVid}${secGl}
+    ${secPrazos}${secRoteiro}${secResumos}${secEx}${secVid}${secGl}
     ${!c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
   `;
 }
@@ -7479,6 +7675,74 @@ document.querySelectorAll('#viewFerramentas details[id^="tool-"] .correct-btn').
   btn.addEventListener('click', ()=> setTimeout(()=>{ if(currentPage === 'viewDisc') refreshProgressViews(); }, 120));
 });
 
+
+
+// ===== Estudo dirigido: roteiros de busca (página da disciplina) =====
+function rtLoad(id){ try{ return JSON.parse(localStorage.getItem('av-roteiro-' + id)) || {}; }catch(e){ return {}; } }
+function rtSave(id, o){ try{ localStorage.setItem('av-roteiro-' + id, JSON.stringify(o)); }catch(e){} }
+function rtQFeita(r, st, i){ const a = st[i] || []; return r.questoes[i].confira.every((_, k)=>a[k]); }
+function rtFeitas(r){ const st = rtLoad(r.id); return r.questoes.filter((_, i)=>rtQFeita(r, st, i)).length; }
+function roteiroHTML(r){
+  const st = rtLoad(r.id);
+  const acad = t => 'https://scholar.google.com.br/scholar?hl=pt-BR&q=' + encodeURIComponent(t);
+  const scielo = t => 'https://search.scielo.org/?lang=pt&q=' + encodeURIComponent(t);
+  return `<div class="rt" id="rt-${r.id}" data-rt-id="${r.id}">
+    <div class="rt-head">
+      <div class="rt-titulo">${escHTML(r.titulo)}</div>
+      <div class="rt-sub">${escHTML(r.sub)}</div>
+      <p class="rt-intro">${escHTML(r.intro)}</p>
+      <ul class="rt-dicas">${r.dicas.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
+      <button class="link-btn" data-page-go="viewApoio" data-target-go="abnt">Abrir o guia de normas ABNT</button>
+    </div>
+    ${r.questoes.map((q, i)=>{ const feita = rtQFeita(r, st, i); const a = st[i] || []; return `
+    <details class="graveyard rt-q${feita ? ' feita' : ''}" data-rt-q="${i}">
+      <summary><span class="rt-qn">Questão ${i+1}</span><span class="rt-qt">${escHTML(q.tema)}</span><span class="rt-ok">${feita ? '✓ Conferida' : ''}</span></summary>
+      <div class="rt-body">
+        <p class="rt-caso">${escHTML(q.caso)}</p>
+        <h4 class="rt-h">O que a questão pede</h4>
+        <ol class="rt-pede">${q.pede.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ol>
+        <h4 class="rt-h">Perguntas para pensar antes de escrever</h4>
+        <ul class="rt-pense">${q.pense.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
+        <h4 class="rt-h">O que pesquisar</h4>
+        <p class="rt-nota">Toque num termo para buscar no Google Acadêmico, ou em "SciELO" para buscar lá. Leia os resumos e escolha o que serve. Vão aparecer artigos de outras áreas, como enfermagem ou ensino de ciências: servem para entender o conceito, mas prefira os de psicologia e educação e, na resposta, cite o autor original (Piaget, Vygotsky, Freire).</p>
+        <div class="rt-termos">${q.busque.map(t=>`<span class="rt-termo"><a href="${acad(t)}" target="_blank" rel="noopener">${escHTML(t)}</a><a class="rt-scielo" href="${scielo(t)}" target="_blank" rel="noopener">SciELO</a></span>`).join('')}</div>
+        <h4 class="rt-h">Onde ler</h4>
+        <div class="rt-fontes">${q.fontes.map(f=>`<div class="rt-fonte">
+          <span class="rt-tipo">${escHTML(f.tipo)}</span>
+          <div class="rt-ref">${f.url ? `<a href="${f.url}" target="_blank" rel="noopener">${escHTML(f.ref)} ↗</a>` : escHTML(f.ref)}</div>
+          <div class="rt-onde">${escHTML(f.onde)}</div>
+        </div>`).join('')}</div>
+        <h4 class="rt-h">No Arquivo Vivo</h4>
+        ${q.noSite.length ? `<p class="rt-nota">Use para conferir o que você já sabe. Na resposta, cite os livros e artigos, não o site.</p>
+        <div class="rt-site">${q.noSite.map(s=> s.resumo
+          ? `<button class="rt-site-btn" data-continue-resumo="${s.resumo}" data-cap="${s.cap || 0}">${escHTML(s.t)} →</button>`
+          : `<button class="rt-site-btn" data-tool-go="${s.tool}">${escHTML(s.t)} →</button>`).join('')}</div>`
+          : `<p class="rt-nota">${escHTML(q.semSite || '')}</p>`}
+        <h4 class="rt-h">Antes de entregar, confira</h4>
+        <div class="rt-confira">${q.confira.map((x, k)=>`<label class="rt-check"><input type="checkbox" data-rt-k="${k}"${a[k] ? ' checked' : ''}><span>${escHTML(x)}</span></label>`).join('')}</div>
+      </div>
+    </details>`; }).join('')}
+  </div>`;
+}
+document.getElementById('discPage').addEventListener('change', e=>{
+  const cb = e.target.closest('[data-rt-k]'); if(!cb) return;
+  const box = cb.closest('[data-rt-id]'), qd = cb.closest('[data-rt-q]');
+  const r = ROTEIROS.find(x=>x.id === box.dataset.rtId); if(!r) return;
+  const i = +qd.dataset.rtQ, st = rtLoad(r.id);
+  st[i] = st[i] || []; st[i][+cb.dataset.rtK] = cb.checked; rtSave(r.id, st);
+  const feita = rtQFeita(r, st, i);
+  qd.classList.toggle('feita', feita);
+  qd.querySelector('.rt-ok').textContent = feita ? '✓ Conferida' : '';
+  const cont = document.querySelector('#dpRoteiro .dp-count');
+  if(cont) cont.textContent = `${rtFeitas(r)}/${r.questoes.length} questões conferidas`;
+});
+function abrirRoteiro(id, opts){
+  const r = ROTEIROS.find(x=>x.id === id);
+  if(!r){ switchPage('top', {fromHistory:true}); return; }
+  openDisc(r.disc, {fromHistory:true});
+  if(opts && opts.push && location.hash !== '#roteiro-' + id) history.pushState({disc:r.disc}, '', '#roteiro-' + id);
+  setTimeout(()=> document.getElementById('rt-' + id)?.scrollIntoView({block:'start'}), 60);
+}
 
 // ===== Comparações (Extras) =====
 function cmpTabela(c){
@@ -7877,6 +8141,8 @@ function irParaHash(h){
   if(mr){ openResumo(mr[1]); return; }
   const md = id.match(/^disc-(\d\d)$/);
   if(md){ openDisc(md[1]); return; }
+  const mt = id.match(/^roteiro-([\w-]+)$/);
+  if(mt){ abrirRoteiro(mt[1], {push:true}); return; }
   if(ALL_PAGES.includes(id)){ switchPage(id); return; }
 }
 // último item estudado/praticado por disciplina (salvo no aparelho)
