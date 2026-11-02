@@ -627,13 +627,13 @@
     border-right:2px solid var(--ink-faint); border-bottom:2px solid var(--ink-faint);
     transform:rotate(45deg) translateY(-3px); transition:transform .15s ease;
   }
-  .graveyard[open] summary::after{transform:rotate(-135deg) translateY(-2px);}
+  .graveyard[open] > summary::after{transform:rotate(-135deg) translateY(-2px);}
   .graveyard summary:hover{background:var(--paper-alt);}
   .graveyard summary strong{
     flex:none; font-size:12px; font-weight:600; color:var(--petrol);
     background:var(--petrol-soft); padding:3px 9px; border-radius:6px;
   }
-  .graveyard[open] summary{border-bottom:1px solid var(--rule);}
+  .graveyard[open] > summary{border-bottom:1px solid var(--rule);}
   .graveyard > .tool-card, .graveyard > .grave-list{margin:0 !important; border:none; border-radius:0;}
   .graveyard > .grave-list{padding:14px;}
   .grave-list{display:flex; flex-direction:column; gap:8px; margin-top:10px;}
@@ -1814,8 +1814,16 @@
     .pr-foot{margin-top:20px; font-size:8.5pt; color:#777; border-top:1px solid #ddd; padding-top:6px;}
     #printArea a{color:inherit; text-decoration:none;}
   }
-  #dpGlossario .dp-gloss .cmp-item{border:none; border-top:1px solid var(--rule); border-radius:0; box-shadow:none; background:transparent; margin:0;}
-  #dpGlossario .dp-gloss .cmp-item:first-of-type{margin-top:10px;}
+  .dp-gl-sub{font-size:14px; color:var(--ink-soft); line-height:1.35;}
+  #dpGlossario .dp-gloss > summary{display:flex; align-items:center; gap:10px;}
+  #dpGlossario .dp-gloss > summary .dp-gl-sub{flex:1; min-width:0;}
+  .dp-gl-busca{display:block; width:calc(100% - 28px) !important; margin:14px 14px 4px !important; background:var(--paper) !important;}
+  .dp-cmp-list{display:flex; flex-direction:column; gap:8px; padding:14px;}
+  #dpGlossario .dp-cmp-list .cmp-item{margin:0; border:1px solid var(--rule); border-radius:6px; background:var(--paper); box-shadow:none;}
+  #dpGlossario .dp-cmp-list .cmp-item > summary{font-size:15px; font-weight:600; padding:13px 14px;}
+  #dpGlossario .dp-cmp-list .cmp-item[open] > summary{background:var(--paper-alt);}
+  #dpGlossario .dp-cmp-list .cmp-wrap{padding:10px;}
+  @media (max-width:600px){ .dp-gl-busca{width:calc(100% - 20px) !important; margin:10px 10px 2px !important;} .dp-cmp-list{padding:10px;} }
   @media print{ .pr-teste{break-inside:auto;} }
   .nota-fora{font-size:12px; font-weight:500; color:var(--ink-faint); margin-top:2px;}
   .study-subtitle .nota-fora{display:inline;}
@@ -7688,14 +7696,14 @@ function renderDiscPage(d){
   const comps = COMPARACOES.filter(x=>{ const k = discOf(x.disc); return k && k.n === d.n; });
   const secGl = (c.termos.length || comps.length) ? `<section class="dp-section" id="dpGlossario">
     ${c.termos.length ? `<details class="graveyard dp-gloss">
-      <summary><strong>Glossário</strong> ${c.termos.length} termos desta disciplina</summary>
+      <summary><strong>Glossário</strong><span class="dp-gl-sub">${c.termos.length} termos desta disciplina</span></summary>
       <input type="search" class="dp-gl-busca" placeholder="Buscar termo…" autocomplete="off">
       <div class="dp-gl-vazio" hidden>Nenhum termo encontrado.</div>
       <div class="dp-gl-list">${c.termos.map(g=>`<div class="gl-item"><div class="gl-top"><strong>${escHTML(g.t)}</strong></div><p>${escHTML(g.d)}</p>${g.ex ? `<p class="gl-ex"><b>Ex.:</b> ${escHTML(g.ex)}</p>` : ''}</div>`).join('')}</div>
     </details>` : ''}
     ${comps.length ? `<details class="graveyard dp-gloss">
-      <summary><strong>Comparações</strong> ${comps.length} ${comps.length===1?'par':'pares'} para não confundir</summary>
-      ${comps.map(cmpItem).join('')}
+      <summary><strong>Comparações</strong><span class="dp-gl-sub">${comps.length} ${comps.length===1?'par':'pares'} de conceitos</span></summary>
+      <div class="dp-cmp-list">${comps.map(cmpItem).join('')}</div>
     </details>` : ''}
   </section>` : '';
 
