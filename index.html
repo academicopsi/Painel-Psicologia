@@ -1222,11 +1222,23 @@
   .dp-bar i{display:block; height:100%; background:var(--petrol); border-radius:999px;}
   .dp-section{margin:0 0 34px;}
 
-  .rt{display:flex; flex-direction:column; gap:10px;}
+  .rt-box{background:var(--paper); border:1px solid var(--rule); border-radius:var(--radius); overflow:hidden; scroll-margin-top:calc(var(--nav-h) + 16px);}
+  .rt-sum{display:grid; grid-template-columns:1fr auto; align-items:center; gap:2px 12px; list-style:none; cursor:pointer; padding:16px 18px;}
+  .rt-sum::-webkit-details-marker{display:none;}
+  .rt-sum:hover{background:var(--paper-alt);}
+  .rt-sum-t{font-size:16px; font-weight:800; letter-spacing:-0.01em; grid-column:1;}
+  .rt-sum-s{font-size:13px; color:var(--ink-soft); grid-column:1;}
+  .rt-sum-go{grid-column:2; grid-row:1 / span 2; font-size:13.5px; font-weight:700; color:var(--petrol); white-space:nowrap;}
+  .rt-sum-go::after{content:" ↓";}
+  .rt-box[open] > .rt-sum{border-bottom:1px solid var(--rule);}
+  .rt-box[open] > .rt-sum .rt-sum-go{font-size:0;}
+  .rt-box[open] > .rt-sum .rt-sum-go::after{content:"Fechar ↑"; font-size:13.5px;}
+  .rt{display:flex; flex-direction:column; gap:10px; padding:12px; background:var(--paper-alt);}
+  .rt .rt-q{margin-top:0;}
   .rt-head{background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:16px 18px;}
   .rt-titulo{font-size:17px; font-weight:800; letter-spacing:-0.01em;}
   .rt-sub{font-size:13px; color:var(--ink-soft); margin-top:2px;}
-  .rt-intro{font-size:14.5px; line-height:1.55; margin:10px 0 8px;}
+  .rt-intro{font-size:14.5px; line-height:1.55; margin:0 0 8px;}
   .rt-dicas{margin:0 0 10px; padding-left:20px; font-size:14px; line-height:1.5; color:var(--ink-soft);}
   .rt-dicas li{margin-bottom:4px;}
   .rt-q summary{display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 10px;}
@@ -7686,10 +7698,10 @@ function roteiroHTML(r){
   const st = rtLoad(r.id);
   const acad = t => 'https://scholar.google.com.br/scholar?hl=pt-BR&q=' + encodeURIComponent(t);
   const scielo = t => 'https://search.scielo.org/?lang=pt&q=' + encodeURIComponent(t);
-  return `<div class="rt" id="rt-${r.id}" data-rt-id="${r.id}">
+  return `<details class="rt-box" id="rt-${r.id}" data-rt-id="${r.id}">
+    <summary class="rt-sum"><span class="rt-sum-t">${escHTML(r.titulo)}</span><span class="rt-sum-s">${r.questoes.length} questões · ${escHTML(r.sub.replace(/^Roteiro de busca: /, ''))}</span><span class="rt-sum-go">Abrir roteiro</span></summary>
+    <div class="rt">
     <div class="rt-head">
-      <div class="rt-titulo">${escHTML(r.titulo)}</div>
-      <div class="rt-sub">${escHTML(r.sub)}</div>
       <p class="rt-intro">${escHTML(r.intro)}</p>
       <ul class="rt-dicas">${r.dicas.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
       <button class="link-btn" data-page-go="viewApoio" data-target-go="abnt">Abrir o guia de normas ABNT</button>
@@ -7722,7 +7734,8 @@ function roteiroHTML(r){
         <div class="rt-confira">${q.confira.map((x, k)=>`<label class="rt-check"><input type="checkbox" data-rt-k="${k}"${a[k] ? ' checked' : ''}><span>${escHTML(x)}</span></label>`).join('')}</div>
       </div>
     </details>`; }).join('')}
-  </div>`;
+    </div>
+  </details>`;
 }
 document.getElementById('discPage').addEventListener('change', e=>{
   const cb = e.target.closest('[data-rt-k]'); if(!cb) return;
@@ -7741,7 +7754,7 @@ function abrirRoteiro(id, opts){
   if(!r){ switchPage('top', {fromHistory:true}); return; }
   openDisc(r.disc, {fromHistory:true});
   if(opts && opts.push && location.hash !== '#roteiro-' + id) history.pushState({disc:r.disc}, '', '#roteiro-' + id);
-  setTimeout(()=> document.getElementById('rt-' + id)?.scrollIntoView({block:'start'}), 60);
+  setTimeout(()=>{ const el = document.getElementById('rt-' + id); if(el){ el.open = true; el.scrollIntoView({block:'start'}); } }, 60);
 }
 
 // ===== Comparações (Extras) =====
