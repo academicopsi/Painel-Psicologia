@@ -3104,11 +3104,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-02', disc: 'Neuroanatomia', desc: 'Resumo de medula ampliado: de 8 para 16 partes (níveis, cauda equina, raízes, neurônios alfa e gama, vias ascendentes, líquor e anestesias), 3 comparações e 10 termos novos no glossário.', link: {url:'#resumo-medula-sna'}},
   {date: '2026-10-31', disc: 'Bases Biológicas', desc: 'Estrutura do DNA: aba nova no resumo interativo, 13 termos de genética no glossário e a tarefa para casa (até 09/11).', link: {url:'#resumo-embriologia'}},
   {date: '2026-10-30', disc: 'Psicologia Experimental', desc: 'Aulas 1, 2 e 4 (ciência e intuição, conceitos em pesquisa e seleção pelas consequências): resumo interativo, três exercícios novos em Exercícios e 19 termos no glossário.', link: {url:'#resumo-experimental'}},
   {date: '2026-10-30', disc: 'Geral', desc: 'Cinco ferramentas interativas novas em Exercícios: Corte da Medula, Camadas das Meninges, Painel do SNA, linha do tempo do embrião (do zigoto ao disco bilaminar) e Monte a ZDP.', link: {page:'viewFerramentas'}},
   {date: '2026-10-30', disc: 'Neuroanatomia', desc: 'Medula espinhal e sistema nervoso autônomo: resumo interativo, exercícios novos em Exercícios e 21 termos no glossário.', link: {disc:'02'}},
-  {date: '2026-10-30', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 4 a 6 (Vygotsky, Paulo Freire e dislexia): resumo interativo, quatro exercícios novos em Exercícios e 24 termos no glossário.', link: {disc:'03'}},
 ];
 
 
@@ -3207,7 +3207,7 @@ const STUDY = [
   },
   {
     materia: 'Psicologia Experimental',
-    titulo: 'Teoria organizada para a prova',
+    titulo: 'Teoria organizada para a prova N1',
     desc: 'Leia o tópico, responda o Teste-se de cabeça e, no fim, revise com os cartões.',
     link: 'https://resumoexperimental.netlify.app/'
   },
@@ -3254,6 +3254,16 @@ const COURSES = [
    Formato: {t: 'Termo', disc: 'Neuroanatomia', d: 'Definição curta.'},
    --------------------------------------------------------------------- */
 const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
+  {t:'Cone medular', disc:'Neuroanatomia', d:'Extremidade final e afilada da medula espinhal, no adulto por volta de L2.', ex:'É abaixo dele que se faz a punção lombar, sem risco de atingir a medula.'},
+  {t:'Cauda equina', disc:'Neuroanatomia', d:'Conjunto de raízes lombares e sacrais que descem soltas no canal vertebral abaixo do fim da medula.', ex:'O nome vem da semelhança com a cauda de um cavalo.'},
+  {t:'Filamento terminal', disc:'Neuroanatomia', d:'Prolongamento de pia-máter que vai do cone medular até o cóccix e ajuda a fixar a medula.', ex:'Um fio fino que \'ancora\' a ponta da medula na coluna.'},
+  {t:'Neurônio motor alfa', disc:'Neuroanatomia', d:'Neurônio da coluna anterior, de axônio grosso, que faz a contração do músculo esquelético.', ex:'Cada alfa e as fibras que ele comanda formam uma unidade motora.'},
+  {t:'Neurônio motor gama', disc:'Neuroanatomia', d:'Neurônio da coluna anterior que inerva os fusos neuromusculares e regula a sensibilidade deles ao estiramento.', ex:'Mantém o fuso \'informando\' o tamanho do músculo enquanto ele contrai.'},
+  {t:'Unidade motora', disc:'Neuroanatomia', d:'Um neurônio motor alfa e todas as fibras musculares que ele inerva.', ex:'Nos músculos dos olhos as unidades motoras são pequenas, o que permite movimentos finos.'},
+  {t:'Tracto espinotalâmico', disc:'Neuroanatomia', d:'Via ascendente da medula que leva dor, temperatura e tato grosseiro até o tálamo.', ex:'É por ele que chega ao encéfalo a dor de uma queimadura na mão.'},
+  {t:'Líquor', disc:'Neuroanatomia', d:'Líquido cefalorraquidiano: circula no espaço subaracnóideo e nos ventrículos, protegendo e nutrindo o sistema nervoso.', ex:'Colhido por punção lombar para investigar meningite.'},
+  {t:'Raquianestesia', disc:'Neuroanatomia', d:'Anestesia em que o anestésico é colocado no espaço subaracnóideo, junto ao líquor, na região lombar.', ex:'Usada em cesarianas e cirurgias das pernas.'},
+  {t:'Anestesia peridural', disc:'Neuroanatomia', d:'Anestesia em que o anestésico é colocado no espaço epidural, por fora da dura-máter.', ex:'Comum no trabalho de parto, porque permite ajustar a dose aos poucos.'},
   {t:'Regra de Chargaff', disc:'Bases Biológicas', d:'No DNA de fita dupla, %A = %T e %C = %G, porque as bases estão sempre pareadas.', ex:'Se um DNA tem 30% de adenina, tem 30% de timina e 20% de citosina e de guanina.'},
   {t:'Histonas', disc:'Bases Biológicas', d:'Proteínas em que o DNA se enrola para se compactar dentro do núcleo.', ex:'O DNA dá quase duas voltas em torno de um conjunto de histonas, como fio num carretel.'},
   {t:'Cromatina', disc:'Bases Biológicas', d:'Conjunto de DNA e proteínas (histonas) no núcleo. Condensa-se ao máximo e forma os cromossomos na divisão celular.', ex:'Na célula que não está se dividindo, o DNA está na forma de cromatina, mais solta.'},
@@ -3476,6 +3486,23 @@ const COMPARACOES = [
     ['Quando começa','Na puberdade','Ainda na vida fetal'],
     ['Produto de cada célula','4 espermatozoides','1 óvulo e corpúsculos polares'],
     ['Ritmo','Contínuo ao longo da vida','Pausado; termina na fertilização'],
+  ]},
+  {titulo:'Raiz dorsal × raiz ventral', disc:'Neuroanatomia', cols:['Raiz dorsal (posterior)','Raiz ventral (anterior)'], linhas:[
+    ['Função','Sensitiva','Motora'],
+    ['Sulco','Lateral posterior','Lateral anterior'],
+    ['Gânglio','Tem o gânglio sensitivo','Não tem gânglio'],
+    ['Liga-se a','Corno posterior','Corno anterior (e lateral, de T1 a L2)'],
+  ]},
+  {titulo:'Neurônio motor alfa × gama', disc:'Neuroanatomia', cols:['Alfa','Gama'], linhas:[
+    ['Axônio','Grosso','Mais fino'],
+    ['Inerva','Fibras musculares que contraem','Fibras dos fusos neuromusculares'],
+    ['Função','Contração (unidade motora)','Regular a sensibilidade do fuso'],
+  ]},
+  {titulo:'Raquianestesia × peridural', disc:'Neuroanatomia', cols:['Raquianestesia','Peridural'], linhas:[
+    ['Onde vai o anestésico','Espaço subaracnóideo (com o líquor)','Espaço epidural (fora da dura)'],
+    ['Atravessa a dura-máter?','Sim','Não'],
+    ['Início do efeito','Rápido','Mais lento'],
+    ['Altura','Lombar, abaixo de L2','Lombar, abaixo de L2'],
   ]},
   {titulo:'Simpático × parassimpático', disc:'Neuroanatomia', cols:['Simpático','Parassimpático'], linhas:[
     ['Função geral','Luta ou fuga','Repouso e digestão'],
@@ -4139,7 +4166,7 @@ const RESUMOS = {
     fonte: 'Resumo feito a partir dos slides de Neuroanatomia: "Medula espinhal e envoltórios" e "Sistema nervoso autônomo".',
     caps: [
       {
-        id:'medula', aba:'Medula espinhal', titulo:'Medula espinhal e envoltórios',
+        id:'medula2', aba:'Medula espinhal', titulo:'Medula espinhal e envoltórios',
         intro:'Onde fica, como se organiza por dentro, que nervos saem dela, quais vias descem por ela e o que a envolve.',
         etapas:[
           {when:'Visão geral', titulo:'Onde fica a medula', pontos:[
@@ -4157,12 +4184,39 @@ const RESUMOS = {
             'Fala-se também em <strong>colunas</strong>: anterior, posterior e lateral (esta, principalmente na região torácica).',
             'No meio fica o <strong>canal central</strong> (canal do epêndima), resquício da luz do tubo neural do embrião.'],
             q:'O que é o canal central da medula?', a:'O canal do epêndima, resquício da luz do tubo neural do embrião.'},
-          {when:'Nervos', titulo:'31 pares de nervos espinhais', pontos:[
+                    {when:'Níveis', titulo:'A medula muda ao longo do caminho', pontos:[
+            'A coluna <strong>lateral</strong> só aparece na região <strong>torácica</strong> (e lombar alta, de T1 a L2): é onde ficam os neurônios do simpático.',
+            'Nas <strong>intumescências cervical e lombar</strong>, os cornos anteriores ficam maiores, porque dali saem os nervos dos braços e das pernas.',
+            'O slide da aula diz: "quanto mais alto o nível medular, mais substância cinzenta". Nos livros de neuroanatomia, o que mais cresce nos níveis altos é a <strong>substância branca</strong>, porque ali passam as fibras de todo o corpo. Vale confirmar com o professor qual forma ele quer na prova.'],
+            q:'Em que região da medula aparece a coluna lateral?', a:'Na região torácica e lombar alta (T1 a L2), onde ficam os neurônios do simpático.'},
+          {when:'Limites', titulo:'Cone medular, cauda equina e filamento terminal', pontos:[
+            'No adulto, a medula termina por volta de <strong>L2</strong> numa ponta afilada, o <strong>cone medular</strong>.',
+            'Abaixo dele, as raízes dos nervos lombares e sacrais descem soltas dentro do canal: é a <strong>cauda equina</strong>, que lembra a cauda de um cavalo.',
+            'Um fio de pia-máter, o <strong>filamento terminal</strong>, continua do cone até o cóccix e ajuda a fixar a medula. O saco da dura-máter vai até mais ou menos a <strong>2ª vértebra sacral</strong>.',
+            'Como a coluna cresce mais que a medula, os <strong>segmentos medulares</strong> não ficam na altura da vértebra de mesmo número: quanto mais baixo, maior a diferença.'],
+            q:'O que é a cauda equina?', a:'O conjunto das raízes lombares e sacrais que descem soltas no canal vertebral abaixo do fim da medula (L2).'},
+{when:'Nervos', titulo:'31 pares de nervos espinhais', pontos:[
             '<strong>8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo.</strong>',
             'São 8 nervos cervicais para só 7 vértebras: <strong>C1</strong> sai acima da 1ª vértebra (entre ela e o occipital) e <strong>C8</strong> sai abaixo da 7ª.',
             'Pequenos <strong>filamentos radiculares</strong> saem dos sulcos laterais da medula e formam as <strong>raízes ventral e dorsal</strong>, que se unem no nervo espinhal.'],
             q:'Por que há 8 nervos cervicais se só existem 7 vértebras cervicais?', a:'Porque C1 sai acima da 1ª vértebra (entre ela e o occipital) e C8 sai abaixo da 7ª.'},
-          {when:'Nomenclatura', titulo:'Tracto, fascículo, lemnisco e funículo', pontos:[
+                    {when:'Raízes', titulo:'Sulcos, raízes e gânglio', pontos:[
+            'Na superfície da medula há sulcos: <strong>mediano posterior</strong>, <strong>lateral posterior</strong>, <strong>lateral anterior</strong> e a <strong>fissura mediana anterior</strong>.',
+            'Pelo sulco <strong>lateral posterior</strong> entram as radículas da <strong>raiz dorsal</strong>, que é <strong>sensitiva</strong>. Nela fica o <strong>gânglio sensitivo</strong>, com os corpos dos neurônios sensitivos.',
+            'Pelo sulco <strong>lateral anterior</strong> saem as radículas da <strong>raiz ventral</strong>, que é <strong>motora</strong>.',
+            'As duas raízes se juntam e formam o <strong>nervo espinhal</strong>, que por isso é <strong>misto</strong> (sensitivo e motor).'],
+            q:'Qual raiz do nervo espinhal é sensitiva e qual é motora?', a:'A dorsal (posterior) é sensitiva e tem o gânglio; a ventral (anterior) é motora.'},
+          {when:'Neurônios', titulo:'Neurônios radiculares', pontos:[
+            'Os neurônios cujo axônio sai da medula pela raiz ventral são os <strong>neurônios radiculares</strong>.',
+            '<strong>Radicular visceral:</strong> neurônio pré-ganglionar do sistema nervoso autônomo, na coluna lateral (T1 a L2) ou na região sacral (S2 a S4). Inerva <strong>músculo liso, coração e glândulas</strong>.',
+            '<strong>Radicular somático:</strong> neurônio da coluna anterior, voluntário. É o <strong>neurônio motor primário</strong>, a "via motora final comum" de Sherrington. Inerva <strong>músculo estriado esquelético</strong>.'],
+            q:'Onde ficam os neurônios radiculares viscerais e o que eles inervam?', a:'Na coluna lateral (T1–L2) ou na região sacral (S2–S4); inervam músculo liso, coração e glândulas.'},
+          {when:'Neurônios motores', titulo:'Alfa e gama', pontos:[
+            '<strong>Neurônio motor alfa:</strong> axônio grosso, faz a <strong>contração</strong> do músculo. Cada alfa com as fibras musculares que inerva forma uma <strong>unidade motora</strong>.',
+            '<strong>Neurônio motor gama:</strong> axônio menor, inerva as fibras dos <strong>fusos neuromusculares</strong> e regula a sensibilidade deles ao estiramento.',
+            'No movimento voluntário, alfa e gama são ativados juntos, para o fuso continuar informando o comprimento do músculo.'],
+            q:'Qual a diferença entre o neurônio motor alfa e o gama?', a:'O alfa faz a contração do músculo (unidade motora); o gama inerva os fusos neuromusculares e regula a sensibilidade deles.'},
+{when:'Nomenclatura', titulo:'Tracto, fascículo, lemnisco e funículo', pontos:[
             '<strong>Tracto:</strong> feixe de fibras com aproximadamente a mesma origem, terminação e trajeto.',
             '<strong>Fascículo:</strong> tracto mais compacto, sem diferença funcional.',
             '<strong>Lemnisco:</strong> feixe de fibras sensitivas que leva impulsos ao tálamo.',
@@ -4173,7 +4227,12 @@ const RESUMOS = {
             'No funículo posterior ficam os <strong>fascículos grácil e cuneiforme</strong>.',
             'Resumindo: substância branca → <strong>funículos</strong>; substância cinzenta → <strong>colunas</strong>.'],
             q:'Em qual funículo ficam os fascículos grácil e cuneiforme?', a:'No funículo posterior.'},
-          {when:'Vias descendentes', titulo:'Piramidal e extrapiramidal', pontos:[
+                    {when:'Vias ascendentes', titulo:'O que sobe pela medula', pontos:[
+            'As vias ascendentes levam informação <strong>sensitiva</strong> do corpo para o encéfalo.',
+            '<strong>Funículo posterior:</strong> fascículos <strong>grácil</strong> (metade inferior do corpo) e <strong>cuneiforme</strong> (metade superior). Levam <strong>tato fino, vibração e propriocepção consciente</strong>.',
+            '<strong>Funículo lateral e anterior:</strong> tractos <strong>espinotalâmicos</strong>, que levam <strong>dor, temperatura</strong> e tato grosseiro até o tálamo; e tractos <strong>espinocerebelares</strong>, que levam a propriocepção inconsciente ao cerebelo.'],
+            q:'Que tipo de informação sobe pelos fascículos grácil e cuneiforme?', a:'Tato fino, vibração e propriocepção consciente (grácil: metade inferior do corpo; cuneiforme: metade superior).'},
+{when:'Vias descendentes', titulo:'Piramidal e extrapiramidal', pontos:[
             'Vias descendentes têm origem no <strong>córtex</strong> ou no <strong>tronco encefálico</strong> e terminam na medula, nos neurônios motores.',
             '<strong>Via piramidal:</strong> tractos <strong>córtico-espinhal anterior e lateral</strong>. Até o bulbo formam um só feixe; na <strong>decussação das pirâmides</strong> cruzam e formam o córtico-espinhal lateral.',
             'A motricidade voluntária é <strong>cruzada</strong>: lesão acima da decussação causa paralisia do <strong>lado oposto</strong>.',
@@ -4184,6 +4243,16 @@ const RESUMOS = {
             'Espaços: <strong>epidural</strong> (por fora da dura), <strong>subdural</strong> e <strong>subaracnóideo</strong>.',
             'O <strong>líquor</strong> circula no espaço subaracnóideo.'],
             q:'Em qual espaço circula o líquor?', a:'No espaço subaracnóideo, entre a aracnoide e a pia-máter.'},
+          {when:'Líquor', titulo:'O líquido que protege', pontos:[
+            'O <strong>líquor</strong> (líquido cefalorraquidiano) é produzido nos ventrículos do encéfalo e circula no <strong>espaço subaracnóideo</strong>, em volta do encéfalo e da medula.',
+            'Funciona como um <strong>amortecedor</strong> contra impactos, ajuda a manter a pressão e participa da nutrição e da limpeza do tecido nervoso.',
+            'Pode ser colhido por <strong>punção lombar</strong> para exames, por exemplo na suspeita de meningite.'],
+            q:'Onde o líquor circula e qual é uma das suas funções?', a:'No espaço subaracnóideo; protege o sistema nervoso amortecendo impactos (também ajuda na pressão, nutrição e limpeza).'},
+          {when:'Na prática clínica', titulo:'Raquianestesia e peridural', pontos:[
+            '<strong>Raquianestesia:</strong> a agulha atravessa a dura-máter e a aracnoide e o anestésico vai no <strong>espaço subaracnóideo</strong>, misturado ao líquor. O efeito é rápido.',
+            '<strong>Peridural:</strong> o anestésico fica no <strong>espaço epidural</strong>, por fora da dura-máter, sem atingir o líquor. O efeito demora mais e permite ajustar a dose.',
+            'As duas são feitas na região lombar, <strong>abaixo de L2</strong>. Ali só há a cauda equina, então a agulha não atinge a medula.'],
+            q:'Por que a raquianestesia e a punção lombar são feitas abaixo de L2?', a:'Porque a medula termina por volta de L2; abaixo dela só há a cauda equina, e a agulha não atinge a medula.'},
         ],
         quiz:[
           {p:'Quantos pares de nervos espinhais existem?', o:['12','31','33','45'], c:1, w:'São 31 pares: 8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo.'},
@@ -4191,6 +4260,11 @@ const RESUMOS = {
           {p:'Qual é a meninge mais interna?', o:['Dura-máter','Aracnoide','Pia-máter','Epidural'], c:2, w:'De fora para dentro: dura-máter, aracnoide e pia-máter.'},
           {p:'Lesão acima da decussação das pirâmides causa paralisia…', o:['Do mesmo lado','Do lado oposto','Dos dois lados','Só nas pernas'], c:1, w:'As fibras córtico-espinhais cruzam no bulbo; por isso a motricidade voluntária é cruzada.'},
           {p:'Os fascículos grácil e cuneiforme ficam no funículo…', o:['Anterior','Lateral','Posterior','Central'], c:2, w:'Eles ficam no funículo posterior da medula.'},
+          {p:'No adulto, a medula termina no…', o:['Cone medular, perto de L2','Forame magno','Cóccix','Sacro, em S2'], c:0, w:'Ela termina no cone medular, por volta de L2; abaixo dele fica a cauda equina.'},
+          {p:'A raiz dorsal do nervo espinhal é…', o:['Motora','Sensitiva','Autônoma','Mista'], c:1, w:'A raiz dorsal é sensitiva e tem o gânglio; a ventral é motora; o nervo, depois que elas se juntam, é misto.'},
+          {p:'O neurônio motor que inerva os fusos neuromusculares é o…', o:['Alfa','Gama','Radicular visceral','Pré-ganglionar'], c:1, w:'O gama inerva os fusos e regula sua sensibilidade; o alfa faz a contração.'},
+          {p:'Dor e temperatura sobem pela medula principalmente pelos tractos…', o:['Espinotalâmicos','Grácil e cuneiforme','Córtico-espinhais','Espinocerebelares'], c:0, w:'Os espinotalâmicos levam dor e temperatura ao tálamo; grácil e cuneiforme levam tato fino e propriocepção.'},
+          {p:'Na peridural, o anestésico é colocado no espaço…', o:['Subaracnóideo','Subdural','Epidural','Do canal central'], c:2, w:'Peridural = espaço epidural, por fora da dura; na raquianestesia ele vai no subaracnóideo.'},
         ]
       },
       {
