@@ -1769,6 +1769,19 @@
   @media print{ .pr-teste{break-inside:auto;} }
   .nota-fora{font-size:12px; font-weight:500; color:var(--ink-faint); margin-top:2px;}
   .study-subtitle .nota-fora{display:inline;}
+
+  /* página Sobre */
+  #viewSobre h4.sobre-h{font-family:var(--serif) !important; font-size:20px !important; font-weight:600; margin:30px 0 12px;}
+  .sobre-mapa{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px;}
+  .sobre-item{display:flex; flex-direction:column; gap:4px; text-align:left; font:inherit; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:14px 16px; cursor:pointer;}
+  .sobre-item:hover{border-color:var(--petrol-line);}
+  .sobre-item strong{font-size:15px; color:var(--petrol);}
+  .sobre-item span{font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
+  .sobre-avisos ul{margin:8px 0 0; padding-left:18px;}
+  .sobre-avisos li{margin-bottom:4px;}
+  .sobre-numeros{margin-top:30px;}
+  .sobre-numeros .stats-strip{grid-template-columns:repeat(6, minmax(0,1fr));}
+  @media (max-width:600px){ .sobre-mapa{grid-template-columns:1fr;} .sobre-numeros .stats-strip{grid-template-columns:repeat(3, minmax(0,1fr));} }
 </style>
 </head>
 <body>
@@ -2017,56 +2030,58 @@
 
   <header>
     <div class="eyebrow">Sobre · Arquivo Vivo</div>
-    <h1>Sobre o Drive e este painel</h1>
+    <h1>Sobre o Arquivo Vivo</h1>
+    <p>Um site de aluno para aluno, que reúne o material das aulas de Psicologia e ferramentas para estudar.</p>
   </header>
 
   <div class="sobre-autor">
     <h4 style="font-family:var(--serif) !important; font-size:20px !important; font-weight:600; margin:0 0 10px;">Quem faz o Arquivo Vivo</h4>
-    <p>O Arquivo Vivo foi criado e é mantido por mim, Thiago Monteiro, aluno de Psicologia da turma 2030.2. Comecei organizando o Drive da turma e, com o tempo, o projeto virou este site: além dos materiais das aulas, ele reúne prazos, um calendário, resumos interativos, exercícios práticos, vídeos e um glossário de cada disciplina.</p>
-    <p>Os resumos, os exercícios e as ferramentas interativas são produzidos por mim a partir das aulas e dos slides dos professores, para ajudar a turma a revisar e praticar o conteúdo. É um trabalho voluntário, feito junto com a faculdade e minhas outras responsabilidades.</p>
+    <p>O Arquivo Vivo foi criado e é mantido por mim, Thiago Monteiro, aluno de Psicologia da turma 2030.2. Comecei organizando o Drive da turma e, com o tempo, o projeto virou este site.</p>
+    <p>Os resumos, os exercícios e as ferramentas interativas são produzidos por mim a partir das aulas e dos slides dos professores. É um trabalho voluntário, feito junto com a faculdade e minhas outras responsabilidades, então as atualizações acontecem quando dá, não num cronograma fixo.</p>
     <p>Se o site te ajudou, a melhor forma de retribuir é compartilhar com quem ainda não conhece e me avisar quando encontrar algum erro ou algo faltando.</p>
     <p class="sobre-assinatura">— Thiago Monteiro</p>
   </div>
 
-  <p>Este painel organiza, num único lugar, o material que a turma de Psicologia compartilha ao longo do curso. É uma iniciativa de aluno para aluno, sem vínculo com a coordenação ou com a instituição e sem fins remunerados.</p>
-  <p>Mantenho o Drive e este painel de forma voluntária, junto das minhas outras responsabilidades, por isso as atualizações acontecem quando dá, não em um cronograma fixo. Mesmo assim, sigo revisando e adicionando material com regularidade. Se notar algo faltando ou desatualizado, me avisa que eu avalio incluir.</p>
-  <p>O Drive é a fonte mais completa; este painel é só um atalho visual pra ela. Como o Drive está numa conta pessoal com espaço limitado, se encontrar algo importante, baixe e guarde no seu dispositivo.</p>
+  <h4 class="sobre-h">O que tem aqui</h4>
+  <div class="sobre-mapa">
+    <button class="sobre-item" data-scroll="disciplinas"><strong>Drive</strong><span>O material oficial das aulas: livros, slides e conteúdos de cada disciplina.</span></button>
+    <button class="sobre-item" data-open-disc="01"><strong>Página da disciplina</strong><span>Tudo de uma matéria num lugar só: Drive, prazos, resumos, exercícios, vídeos e glossário.</span></button>
+    <button class="sobre-item" data-page="viewEstudar"><strong>Resumos</strong><span>A matéria em partes, com Teste-se e quiz no fim. Dá para baixar em PDF.</span></button>
+    <button class="sobre-item" data-page="viewFerramentas"><strong>Exercícios</strong><span>Quizzes e atividades interativas, separados por disciplina.</span></button>
+    <button class="sobre-item" data-page="viewPrazos"><strong>Prazos e tarefas</strong><span>Provas e entregas com contagem regressiva, calendário e agenda do celular.</span></button>
+    <button class="sobre-item" data-page="viewApoio"><strong>Glossário e guias</strong><span>Termos com exemplos, comparações e normas ABNT.</span></button>
+  </div>
 
-  <section class="stats-block" style="margin:8px 0 28px;">
-    <div class="section-title">
-      <div class="st-text">
-        <span class="num">Em números</span>
-        <h2>O Arquivo Vivo até aqui</h2>
-      </div>
-    </div>
+  <h4 class="sobre-h">Como o Drive é organizado</h4>
+  <p>As disciplinas são numeradas: o <strong>1º semestre</strong> vai de 01 a 07 e o <strong>2º semestre</strong> tem numeração própria, de 01 a 06. Dentro de cada disciplina há três pastas, Livros, Slides e Conteúdos Extras, com o número da disciplina ao lado (ex.: "03 Slides" é da disciplina 03).</p>
+  <p>O Drive está numa conta pessoal com espaço limitado. Se encontrar algo importante, baixe e guarde no seu aparelho.</p>
+
+  <div class="notice sobre-avisos" style="max-width:none; margin-top:26px;">
+    <strong>Avisos</strong>
+    <ul>
+      <li>Iniciativa de aluno para aluno, sem vínculo com a coordenação ou com a instituição e sem fins remunerados.</li>
+      <li>Não substitui os grupos oficiais da turma, que continuam sendo o canal mais confiável para avisos.</li>
+      <li>O conteúdo das aulas sempre prevalece como referência final.</li>
+      <li>Livros, slides e artigos pertencem aos seus autores e editoras; o site só organiza o acesso para fins didáticos.</li>
+      <li>Seu progresso (resumos estudados, exercícios, respostas) fica salvo só no aparelho em que você usa o site.</li>
+    </ul>
+  </div>
+
+  <section class="stats-block sobre-numeros">
+    <h4 class="sobre-h">O Arquivo Vivo em números</h4>
     <div class="stats-strip">
       <div class="stat-chip"><div class="stat-num" id="statViews">···</div><div class="stat-label">Visualizações</div></div>
       <div class="stat-chip"><div class="stat-num" id="statDisciplinas">–</div><div class="stat-label">Disciplinas</div></div>
       <div class="stat-chip"><div class="stat-num" id="statFerramentas">–</div><div class="stat-label">Ferramentas</div></div>
       <div class="stat-chip"><div class="stat-num" id="statQuestoes">–</div><div class="stat-label">Questões de prática</div></div>
       <div class="stat-chip"><div class="stat-num" id="statVideos">–</div><div class="stat-label">Vídeos</div></div>
-      <div class="stat-chip" style="display:none"><div class="stat-num" id="statSimulados">–</div><div class="stat-label">Simulados</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statCursos">–</div><div class="stat-label">Cursos extras</div></div>
-      <div class="stat-chip"><div class="stat-num" id="statDias">–</div><div class="stat-label">Dias no ar</div></div>
       <div class="stat-chip"><div class="stat-num" id="statHoras">–</div><div class="stat-label">Horas de conteúdo*</div></div>
+      <div class="stat-chip" style="display:none"><div class="stat-num" id="statSimulados">–</div></div>
+      <div class="stat-chip" style="display:none"><div class="stat-num" id="statCursos">–</div></div>
+      <div class="stat-chip" style="display:none"><div class="stat-num" id="statDias">–</div></div>
     </div>
-    <div class="stats-nota">*Estimativa (não é medição real): ~2,2 min por questão de prática + ~11 min por vídeo + ~30 min por material de Resumos, com base em médias observadas. Visualizações são contadas pelo GoatCounter.</div>
+    <div class="stats-nota">*Estimativa, não é medição exata: cerca de 2 min por questão, 11 min por vídeo e 30 min por resumo. Visualizações contadas pelo GoatCounter.</div>
   </section>
-
-  <div class="thin-rule"></div>
-
-  <h4 style="font-family:inherit; font-size:16px; margin:0 0 10px;">Navegação do Drive</h4>
-  <p>As disciplinas são numeradas: o <strong>Primeiro Semestre</strong> vai de 01 a 07, e o <strong>Segundo Semestre</strong> tem numeração própria, de 01 a 06. Dentro de cada disciplina há três pastas: Livros, Slides e Conteúdos Extras, com a numeração da disciplina ao lado (ex: "03 Slides" pertence à disciplina 03).</p>
-
-  <div class="tool-disclaimer" style="margin-top:20px;">
-    O painel apenas organiza links de acesso a materiais disponibilizados para fins exclusivamente didáticos no âmbito acadêmico. A propriedade intelectual dos livros, slides e artigos pertence aos seus respectivos autores e editoras.
-  </div>
-
-  <div class="notice" style="max-width:none; margin-top:32px;">
-    <strong>Este painel não substitui os grupos oficiais.</strong> As informações aqui são atualizadas manualmente e de forma esporádica. Para novidades em tempo real, o canal mais confiável continua sendo os grupos oficiais do WhatsApp da turma.
-  </div>
-
-  <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
 
 <!-- ============ PÁGINA: COMO INSTALAR ============ -->
