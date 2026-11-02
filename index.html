@@ -3058,6 +3058,36 @@
         </div>
       </div>
     </details>
+    <details class="graveyard">
+      <summary>Qual Teoria do Envelhecimento?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e identifique qual modelo de envelhecimento ela ilustra melhor.</div>
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="teSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="teShuffleBtn">🔀 Sortear outra situação</button>
+        <div id="teOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="teCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="teFeedbackBox"></div>
+        <div class="tool-disclaimer">Situações fictícias, com base em Papalia e Martorell (vida adulta tardia). Uma mesma pessoa pode ter traços de mais de um modelo.</div>
+      </div>
+    </details>
+    <details class="graveyard">
+      <summary>Qual Reação ao Morrer? (Kübler-Ross)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a fala ou atitude e identifique a reação descrita por Kübler-Ross.</div>
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="krSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="krShuffleBtn">🔀 Sortear outra situação</button>
+        <div id="krOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="krCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="krFeedbackBox"></div>
+        <div class="tool-disclaimer">As reações não seguem uma ordem fixa: podem se misturar, voltar ou nem acontecer. Exercício de reconhecimento de conceitos, sem finalidade de avaliar pessoas reais.</div>
+      </div>
+    </details>
   </section>
 
 
@@ -3345,11 +3375,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Piaget (aula 3): resumo interativo, dois exercícios novos, 14 termos no glossário e as comparações assimilação × acomodação e Piaget × Vygotsky. Nova página Revisão dos erros, com as questões erradas nos exercícios e quizzes.', link: {url:'#resumo-piaget'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Estudo dirigido da Atividade 1 (N2): roteiro de pesquisa por questão, com perguntas norteadoras, termos de busca, bibliografia e lista de conferência.', link: {url:'#roteiro-atividade1-n2'}},
   {date: '2026-11-02', disc: 'Neuroanatomia', desc: 'Resumo de medula ampliado: de 8 para 16 partes (níveis, cauda equina, raízes, neurônios alfa e gama, vias ascendentes, líquor e anestesias), 3 comparações e 10 termos novos no glossário.', link: {url:'#resumo-medula-sna'}},
   {date: '2026-10-31', disc: 'Bases Biológicas', desc: 'Estrutura do DNA: aba nova no resumo interativo, 13 termos de genética no glossário e a tarefa para casa (até 09/11).', link: {url:'#resumo-embriologia'}},
-  {date: '2026-10-30', disc: 'Psicologia Experimental', desc: 'Aulas 1, 2 e 4 (ciência e intuição, conceitos em pesquisa e seleção pelas consequências): resumo interativo, três exercícios novos em Exercícios e 19 termos no glossário.', link: {url:'#resumo-experimental'}},
 ];
 
 
@@ -3386,6 +3416,13 @@ const DISC = {
      {materia: 'Neuroanatomia', titulo: 'Título', subtitulo: 'opcional', desc: 'Descrição curta.', link: 'https://...'},
    --------------------------------------------------------------------- */
 const STUDY = [
+  {
+    materia: 'Desenvolvimento Adulto e Idoso',
+    titulo: 'Velhice: aposentadoria, quadros clínicos e luto',
+    subtitulo: 'Conteúdo da N2',
+    desc: 'Uma aba por tema: aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, com "Teste-se" e quiz no fim de cada aba.',
+    link: '#resumo-idoso-n2'
+  },
   {
     materia: 'Psicologia Experimental',
     titulo: 'Ciência, pesquisa e seleção pelas consequências',
@@ -3650,6 +3687,22 @@ const COURSES = [
    Formato: {t: 'Termo', disc: 'Neuroanatomia', d: 'Definição curta.'},
    --------------------------------------------------------------------- */
 const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
+  {t:'Programa de Preparação para a Aposentadoria (PPA)', disc:'Desenvolvimento Adulto e Idoso', d:'Programa que prepara o trabalhador para a aposentadoria nos aspectos psicológico, de atividades futuras e financeiro. O Estatuto do Idoso prevê preparação com pelo menos 1 ano de antecedência.'},
+  {t:'Teoria do desengajamento', disc:'Desenvolvimento Adulto e Idoso', d:'Modelo segundo o qual o afastamento mútuo entre o idoso e a sociedade seria natural e esperado.'},
+  {t:'Teoria da atividade', disc:'Desenvolvimento Adulto e Idoso', d:'Modelo segundo o qual quanto mais ativo e envolvido o idoso se mantém, melhor ele envelhece.'},
+  {t:'Teoria da continuidade', disc:'Desenvolvimento Adulto e Idoso', d:'Modelo segundo o qual a pessoa busca manter, na velhice, os padrões, interesses e a identidade de antes, adaptando-os às mudanças.'},
+  {t:'Otimização seletiva com compensação', disc:'Desenvolvimento Adulto e Idoso', d:'Modelo de Baltes: selecionar as atividades prioritárias, otimizar os recursos para elas e compensar as perdas.', ex:'Usar lupa para continuar lendo o jornal.'},
+  {t:'Seletividade socioemocional', disc:'Desenvolvimento Adulto e Idoso', d:'Teoria de Carstensen: ao perceber o tempo como limitado, a pessoa prioriza poucas relações, próximas e emocionalmente significativas.'},
+  {t:'Pseudodemência', disc:'Desenvolvimento Adulto e Idoso', d:'Quadro com queixas e déficits cognitivos que lembram demência, mas causados por outro transtorno, como depressão ou ansiedade.'},
+  {t:'Memória secundária', disc:'Desenvolvimento Adulto e Idoso', d:'Memória recente: aprender e evocar informação nova depois de algum tempo. Declina no envelhecimento normal e nas fases iniciais da doença de Alzheimer.'},
+  {t:'Sobrecarga do cuidador', disc:'Desenvolvimento Adulto e Idoso', d:'Impacto físico, emocional, social e financeiro de cuidar de alguém dependente, medido por exemplo pelo Inventário de Zarit.'},
+  {t:'Transtorno mental comum (TMC)', disc:'Desenvolvimento Adulto e Idoso', d:'Conjunto de sintomas não psicóticos, como insônia, fadiga, irritabilidade, esquecimento, ansiedade e queixas físicas, avaliado pelo SRQ-20.'},
+  {t:'Escala de Depressão Geriátrica (GDS)', disc:'Desenvolvimento Adulto e Idoso', d:'Instrumento de rastreio de sintomas depressivos em idosos, com versões de 15 e 30 itens.'},
+  {t:'Luto antecipatório', disc:'Desenvolvimento Adulto e Idoso', d:'Luto que começa antes da morte, quando a perda já é esperada, como diante de uma doença grave.'},
+  {t:'Estágios de Kübler-Ross', disc:'Desenvolvimento Adulto e Idoso', d:'Reações descritas diante da morte: negação, raiva, barganha, depressão e aceitação. Não seguem uma ordem fixa.'},
+  {t:'Revisão de vida', disc:'Desenvolvimento Adulto e Idoso', d:'Processo de relembrar e reavaliar a própria história (Butler), associado à integridade de Erikson.'},
+  {t:'Cuidados paliativos', disc:'Desenvolvimento Adulto e Idoso', d:'Cuidado voltado a aliviar dor e sofrimento e manter a qualidade de vida até o fim, com apoio à família.'},
+  {t:'Ser-para-a-morte', disc:'Desenvolvimento Adulto e Idoso', d:'Conceito de Heidegger usado por Menezes e Lopes (2014): a pessoa oscila entre assumir a própria morte (autenticidade) e fugir dela no cotidiano (inautenticidade).'},
   {t:'Construtivismo', disc:'Psicologia da Aprendizagem', d:'Visão de que o conhecimento é construído pelo próprio sujeito na interação com o meio, e não recebido pronto. Piaget foi o pioneiro dessa abordagem na cognição.'},
   {t:'Esquema de assimilação', disc:'Psicologia da Aprendizagem', d:'Forma de a mente agir diante da realidade, para Piaget. Os esquemas se combinam em estruturas cada vez mais amplas.', ex:'O esquema de "sacudir" que o bebê aplica a vários objetos.'},
   {t:'Assimilação', disc:'Psicologia da Aprendizagem', d:'Incorporação da realidade aos esquemas que a pessoa já tem, sem modificá-los. O organismo se impõe ao meio.', ex:'A criança chama de "avião" o primeiro helicóptero que vê.'},
@@ -3879,6 +3932,14 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
    Formato: {titulo, disc, cols:['A','B'], linhas:[['Critério','valor A','valor B']]}
    --------------------------------------------------------------------- */
 const COMPARACOES = [
+  {titulo:'Envelhecimento normal × doença de Alzheimer inicial', disc:'Desenvolvimento Adulto e Idoso', cols:['Envelhecimento normal','Alzheimer inicial'], linhas:[
+    ['Memória','Declínio leve da operacional e da secundária','Mesmo padrão, porém progressivo e mais intenso'],
+    ['Vida diária','Mantém a autonomia','Perda progressiva de autonomia'],
+    ['Neuroimagem','Pode ser normal','Atrofia ou hipoperfusão entorrinal-hipocampal (pode faltar no início)'],
+    ['Por que confunde','Alterações parecidas e sem marcador biológico seguro','Testes podem dar falso-positivo ou falso-negativo']]},
+  {titulo:'Teoria do desengajamento × atividade × continuidade', disc:'Desenvolvimento Adulto e Idoso', cols:['Desengajamento','Atividade','Continuidade'], linhas:[
+    ['Ideia central','Afastar-se da sociedade é natural','Manter-se ativo é envelhecer bem','Manter a identidade e os padrões de antes'],
+    ['Exemplo','Deixar cargos e grupos para os mais novos','Encher a agenda de atividades novas','O professor aposentado que dá aulas de reforço']]},
   {titulo:'Mitose × meiose', disc:'Bases Biológicas', cols:['Mitose','Meiose'], linhas:[
     ['Para que serve','Crescimento e renovação de células','Formar gametas (óvulos e espermatozoides)'],
     ['Divisões','Uma','Duas seguidas (meiose I e II)'],
@@ -4347,6 +4408,219 @@ const RESUMOS = {
         {p:'O "ensino reversível" de Kubli propõe que o professor…', o:['repita o conteúdo até a memorização','relacione os esquemas espontâneos do aluno aos que quer ensinar, com o mínimo de desequilíbrio','evite argumentar com o aluno','use só demonstrações práticas'], c:1, w:'Quanto mais a argumentação se liga aos esquemas do aluno, mais reversível o diálogo e mais eficiente o ensino.'},
         {p:'Para Piaget, o pensamento é…', o:['um reflexo inato','a interiorização da ação','uma cópia das sensações','um produto do reforço'], c:1, w:'As ações (e não as sensações) são a base do comportamento; o pensamento é a ação interiorizada.'},
         {p:'Qual postura do professor Piaget considera adequada?', o:['Diretivismo puro','Não diretivismo puro','Criar situações desequilibradoras e contraexemplos, sendo tão ativo quanto o aluno','Apenas observar o aluno'], c:2, w:'Nem diretivo (conformismo) nem não diretivo (desorganização): o professor organiza situações e argumenta, com métodos ativos.'}
+      ]
+    }
+    ]
+  },
+  'idoso-n2': {
+    disc: '05',
+    eyebrow: 'Desenvolvimento Adulto e Idoso · Prova N2',
+    titulo: 'Velhice: aposentadoria, quadros clínicos e luto',
+    lead: 'Os quatro temas da N2, um por aba: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos e luto e morte. Cada aba termina com perguntas de revisão ("Teste-se") e quiz.',
+    fonte: 'Resumo feito a partir das leituras do plano da disciplina: Silva e Carvalho (2019), Damasceno (1999), Oliveira et al. (2018), Souza et al. (2023), Borim et al. (2013), Resende et al. (2011) e Menezes e Lopes (2014). As partes de Papalia e Martorell (2021) seguem os conceitos centrais dos capítulos indicados; confira os detalhes no livro.',
+    caps: [
+    {
+      id:'aposentadoria', aba:'Aposentadoria', titulo:'Aposentadoria e novos ciclos de vida',
+      intro:'O lugar do trabalho na identidade, o que muda ao se aposentar e como a vida adulta tardia se reorganiza.',
+      etapas:[
+        {fase:'Trabalho e identidade', when:'Silva e Carvalho, 2019', titulo:'Por que o trabalho pesa tanto', pontos:[
+          'O trabalho tem papel central na <strong>construção da identidade</strong>: gera renda e insere a pessoa no meio social.',
+          'Além do dinheiro, atende a <strong>necessidades psicológicas e sociais</strong>: autoconhecimento, reconhecimento, pertencimento.',
+          'Também pode gerar sofrimento e alienação: o significado do trabalho é <strong>sócio-histórico e cultural</strong>.'],
+          q:'Por que a aposentadoria pode ter implicações psicossociais, segundo Silva e Carvalho?', a:'Porque o trabalho é a principal fonte de identidade psíquica e social; ao deixá-lo, a pessoa perde também papéis, rotina e relações.'},
+        {when:'Silva e Carvalho, 2019', titulo:'O que a aposentadoria significa', pontos:[
+          'Afastamento do trabalho e, com ele, de parte das <strong>relações sociais</strong>.',
+          'Tem significados diversos: para uns é o momento esperado de "colher" os anos de dedicação; para outros, perda.',
+          '<strong>Lado positivo:</strong> descanso, mais tempo para família, lazer e saúde, nova vida social.',
+          '<strong>Lado negativo:</strong> perda de status e de vínculos, queda de renda, preconceito ("inútil"), ansiedade com o tempo vazio, dificuldade de largar a rotina.'],
+          q:'Cite dois ganhos e duas perdas possíveis da aposentadoria.', a:'Ganhos: descanso, tempo para família, lazer e saúde. Perdas: status, vínculos do trabalho, renda, rotina; risco de ansiedade e preconceito.'},
+        {when:'Silva e Carvalho, 2019', titulo:'Programas de Preparação para a Aposentadoria (PPA)', pontos:[
+          'Surgem no Brasil por volta de <strong>1980</strong>. O <strong>Estatuto do Idoso</strong> prevê preparar o trabalhador com pelo menos <strong>1 ano</strong> de antecedência.',
+          'Objetivo: uma aposentadoria mais saudável, olhando para o aspecto biopsicossocial.',
+          'Três pilares: <strong>psicológico</strong>, <strong>atividades futuras</strong> (perfil, habilidades, preferências) e <strong>financeiro</strong>.',
+          'Problema: sem punição para quem não cumpre, <strong>a maioria das empresas não oferece</strong> o programa.'],
+          q:'Quais são os três pilares de um PPA?', a:'Psicológico, atividades futuras e financeiro.'},
+        {when:'Silva e Carvalho, 2019', titulo:'O papel do psicólogo', pontos:[
+          'Ajudar a pessoa a refletir sobre a trajetória e a nova fase e a <strong>reconstruir a identidade social</strong>.',
+          'Orientar sobre o planejamento, apoiar a família e resgatar laços afetivos.',
+          'Atuar de forma <strong>preventiva</strong>, e não só tratando sintomas depois.'],
+          q:'Que tipo de atuação o artigo defende para o psicólogo na aposentadoria?', a:'Preventiva: preparar antes, ajudando a reconstruir a identidade, planejar e fortalecer vínculos.'},
+        {fase:'Vida adulta tardia (Papalia)', when:'Papalia e Martorell', titulo:'Integridade × desespero (Erikson)', pontos:[
+          'Último estágio psicossocial: avaliar a própria vida e <strong>aceitá-la como foi</strong>.',
+          'Quem alcança a <strong>integridade</strong> encara a morte com menos medo; o <strong>desespero</strong> vem de sentir que a vida foi desperdiçada e não há mais tempo.',
+          'A virtude associada é a <strong>sabedoria</strong>.'],
+          q:'Qual é o conflito da velhice para Erikson e a virtude que resulta dele?', a:'Integridade do ego × desespero; a virtude é a sabedoria.'},
+        {when:'Papalia e Martorell', titulo:'Modelos de envelhecimento bem-sucedido', pontos:[
+          '<strong>Desengajamento:</strong> o afastamento mútuo entre o idoso e a sociedade seria natural.',
+          '<strong>Atividade:</strong> quanto mais ativo o idoso se mantém, melhor envelhece.',
+          '<strong>Continuidade:</strong> a pessoa busca manter os padrões e a identidade de antes, adaptando-os.',
+          '<strong>Otimização seletiva com compensação</strong> (Baltes): selecionar o que importa, otimizar esses recursos e compensar as perdas.',
+          '<strong>Seletividade socioemocional</strong> (Carstensen): com menos tempo pela frente, prioriza-se relações próximas e emocionalmente significativas.'],
+          q:'O que diz a teoria da seletividade socioemocional?', a:'Que, ao perceber o tempo como limitado, o idoso escolhe investir em menos relações, mas mais próximas e emocionalmente significativas.'},
+        {when:'Papalia e Martorell', titulo:'Novos ciclos depois do trabalho', pontos:[
+          'A aposentadoria pode ser gradual: muitos continuam com trabalho parcial, voluntariado ou estudo.',
+          'Alguns estilos de vida descritos: centrado na <strong>família</strong>, de <strong>investimento equilibrado</strong> (família, lazer, trabalho e serviço) e de <strong>lazer sério</strong> (uma atividade que exige dedicação).',
+          'Adaptam-se melhor os que têm <strong>saúde, renda, rede social</strong> e planejamento.'],
+          q:'O que favorece uma boa adaptação à aposentadoria?', a:'Saúde, segurança financeira, rede de apoio e planejamento da nova fase.'}
+      ],
+      quiz:[
+        {p:'Para Silva e Carvalho (2019), o trabalho é…', o:['apenas fonte de renda','a principal forma de identidade psíquica e social','irrelevante na velhice','uma obrigação sem significado'], c:1, w:'Por isso a aposentadoria pode trazer implicações psicossociais.'},
+        {p:'Qual é a antecedência mínima de preparação prevista no Estatuto do Idoso?', o:['3 meses','6 meses','1 ano','5 anos'], c:2, w:'O Estatuto prevê preparar o trabalhador com pelo menos 1 ano de antecedência.'},
+        {p:'Um problema dos PPAs apontado no artigo é que…', o:['são obrigatórios e punidos','a maioria das empresas não os realiza','só tratam de finanças','são feitos só por psicólogos'], c:1, w:'Sem punição prevista, a maioria das empresas não cumpre.'},
+        {p:'"Manter, na aposentadoria, os interesses e a identidade de antes, adaptando-os" corresponde à teoria…', o:['do desengajamento','da atividade','da continuidade','da seletividade socioemocional'], c:2, w:'A continuidade enfatiza a preservação de padrões e identidade ao longo da vida.'},
+        {p:'Na otimização seletiva com compensação (Baltes), a pessoa…', o:['abandona todas as atividades','seleciona o que importa, otimiza recursos e compensa perdas','aumenta todas as atividades','depende totalmente da família'], c:1, w:'É um modelo de adaptação às perdas da velhice.'},
+        {p:'O estágio de Erikson da velhice é…', o:['Generatividade × estagnação','Intimidade × isolamento','Integridade × desespero','Identidade × confusão'], c:2, w:'Integridade do ego × desespero, com a sabedoria como virtude.'}
+      ]
+    },
+    {
+      id:'neuropatologicos', aba:'Quadros neuropatológicos', titulo:'Quadros neuropatológicos',
+      intro:'Onde termina o envelhecimento normal e começa a doença, e o que acontece com quem cuida.',
+      etapas:[
+        {fase:'Normal × patológico', when:'Damasceno, 1999', titulo:'Um limite difícil', pontos:[
+          'O envelhecimento cerebral traz alterações mentais e neuropatológicas <strong>parecidas com as da doença de Alzheimer (DA)</strong>.',
+          'Ainda <strong>não existe marcador biológico seguro</strong> da DA, e os testes podem dar <strong>falso-positivo ou falso-negativo</strong>.',
+          'Por isso, diferenciar velhice normal de demência inicial é um problema de diagnóstico.'],
+          q:'Por que é difícil separar envelhecimento normal de demência inicial?', a:'Porque as alterações são parecidas, não há marcador biológico seguro da DA e os testes podem errar para mais ou para menos.'},
+        {when:'Damasceno, 1999', titulo:'O que a idade faz com a memória', pontos:[
+          'No idoso normal, declinam mais a <strong>memória operacional</strong> e a <strong>memória secundária (recente)</strong>.',
+          'Ficam mais preservadas a <strong>memória primária (imediata)</strong> e a <strong>terciária (remota)</strong>.',
+          'O detalhe que complica: esse padrão é <strong>semelhante ao das fases iniciais da DA</strong>.'],
+          q:'Quais memórias mais declinam no envelhecimento normal?', a:'A memória operacional e a memória secundária (recente); a primária (imediata) e a terciária (remota) se preservam mais.'},
+        {when:'Damasceno, 1999', titulo:'Pseudodemência', pontos:[
+          'Quadro que <strong>parece demência</strong>, mas tem outra causa, como depressão ou ansiedade.',
+          'O artigo relata três casos: dois de <strong>pseudodemência depressiva</strong> e um de pseudodemência <strong>ansiosa e fóbica</strong>.',
+          'Importância: tratada a causa, o desempenho cognitivo pode melhorar. Por isso não se deve rotular demência cedo demais.'],
+          q:'O que é pseudodemência?', a:'Um quadro com queixas e déficits que parecem demência, mas são causados por outro transtorno, como depressão ou ansiedade.'},
+        {when:'Damasceno, 1999', titulo:'Como diferenciar', pontos:[
+          'Testes mais discriminativos: <strong>evocação tardia de lista de palavras</strong>, memória lógica, pensamento categórico, destreza visuoespacial e <strong>Teste de Nomeação de Boston</strong>.',
+          'Na neuroimagem, atrofia ou hipoperfusão nas regiões <strong>entorrinal-hipocampal</strong> ou temporoparietais sugerem DA, mas podem faltar no início.',
+          'Passos: avaliação neuropsicológica e comportamental ampla (com o <strong>nível prévio</strong> de funcionamento), exames e neuroimagem e, se preciso, <strong>reavaliar em 4 a 6 meses</strong>.'],
+          q:'O que fazer quando a avaliação inicial é inconclusiva?', a:'Reavaliar depois de 4 a 6 meses para ver se os achados se mantêm.'},
+        {fase:'Quem cuida', when:'Oliveira et al., 2018', titulo:'Idosos que cuidam de idosos', pontos:[
+          'Estudo com <strong>75 cuidadores com 60 anos ou mais</strong> de pessoas com <strong>demência ou AVC</strong>; 81% eram mulheres.',
+          'Instrumentos: escala de qualidade de vida <strong>CASP-19</strong> e Inventário de Sobrecarga de <strong>Zarit</strong>.',
+          'Resultado central: com sobrecarga alta (Zarit ≥ 29), a chance de pior qualidade de vida foi <strong>11,4 vezes maior</strong>.',
+          '<strong>Não influenciaram:</strong> idade e sexo do cuidador, tipo de doença, dependência e cognição de quem recebe o cuidado.'],
+          q:'O que mais pesou na qualidade de vida do idoso cuidador?', a:'A sobrecarga percebida, e não as características da doença ou da pessoa cuidada.'},
+        {when:'Oliveira et al., 2018', titulo:'Dupla vulnerabilidade', pontos:[
+          'O cuidador idoso soma o <strong>próprio envelhecimento</strong> à <strong>sobrecarga do cuidado</strong>.',
+          'Tende a negligenciar a própria saúde, perde relações sociais e sofre impacto financeiro.',
+          'Conclusão: os aspectos emocionais negativos do cuidador devem ser <strong>alvo de intervenção</strong> da equipe de saúde.'],
+          q:'Por que se fala em "dupla vulnerabilidade" do cuidador idoso?', a:'Porque ele enfrenta ao mesmo tempo as perdas do próprio envelhecimento e a sobrecarga de cuidar de outro idoso.'}
+      ],
+      extras:[
+        {tipo:'tabela', titulo:'Memória no envelhecimento normal (Damasceno, 1999)', cab:['Tipo de memória','O que é','Com a idade'], linhas:[
+          ['Primária (imediata)','Manter a informação por segundos','Relativamente preservada'],
+          ['Operacional','Manter e manipular informação durante uma tarefa','Declina'],
+          ['Secundária (recente)','Aprender e evocar informação nova depois de um tempo','Declina'],
+          ['Terciária (remota)','Lembranças antigas e bem consolidadas','Relativamente preservada']]}
+      ],
+      quiz:[
+        {p:'Segundo Damasceno, existe hoje marcador biológico seguro da doença de Alzheimer?', o:['Sim, o alelo ApoE','Sim, a tomografia','Não','Sim, qualquer teste de memória'], c:2, w:'Ainda não há marcador seguro, e os testes podem dar falso-positivo ou falso-negativo.'},
+        {p:'No envelhecimento normal, a memória mais preservada é a…', o:['operacional','secundária (recente)','terciária (remota)','de trabalho'], c:2, w:'Primária e terciária se preservam mais; operacional e secundária declinam mais.'},
+        {p:'Pseudodemência é…', o:['uma demência leve','um quadro que parece demência, mas tem outra causa','sinônimo de Alzheimer','um tipo de AVC'], c:1, w:'Nos casos do artigo, as causas eram depressão e ansiedade.'},
+        {p:'Qual destes testes é citado como dos mais discriminativos entre demência inicial e normalidade?', o:['Evocação tardia de lista de palavras','Teste de QI','Eletroencefalograma','Teste de personalidade'], c:0, w:'Também: memória lógica, pensamento categórico, destreza visuoespacial e Nomeação de Boston.'},
+        {p:'No estudo de Oliveira et al. (2018), o que se associou à pior qualidade de vida do cuidador?', o:['Ser mulher','Cuidar de pessoa com AVC','Sobrecarga alta','A idade do cuidador'], c:2, w:'Sobrecarga ≥ 29 no Zarit: 11,4 vezes mais chance de pior qualidade de vida.'},
+        {p:'Quais instrumentos esse estudo usou?', o:['MEEM e GDS','CASP-19 e Zarit','SRQ-20 e QSG-12','Katz e Boston'], c:1, w:'CASP-19 para qualidade de vida e Zarit para sobrecarga.'}
+      ]
+    },
+    {
+      id:'psicopatologicos', aba:'Quadros psicopatológicos', titulo:'Quadros psicopatológicos',
+      intro:'Os transtornos mais frequentes na velhice, quem está mais exposto e por que eles passam despercebidos.',
+      etapas:[
+        {fase:'Panorama', when:'Souza et al., 2023', titulo:'Transtornos psiquiátricos em idosos', pontos:[
+          'Cerca de <strong>20%</strong> das pessoas com 60 anos ou mais têm algum transtorno mental ou neurológico (OMS).',
+          'A <strong>depressão</strong> é o principal: "não faz parte do envelhecimento normal", mas é comum na velhice.',
+          'Também aparecem demência, ansiedade, transtorno bipolar, transtorno mental comum e <strong>comportamento suicida</strong>.'],
+          q:'A depressão faz parte do envelhecimento normal?', a:'Não. É comum na velhice, mas não é parte natural do envelhecer e precisa ser reconhecida e tratada.'},
+        {when:'Souza et al., 2023', titulo:'Fatores de risco e de proteção', pontos:[
+          '<strong>Risco:</strong> isolamento e perda de vínculos, doenças e dor, incapacidade funcional, idade avançada, perdas (viuvez, amigos), aposentadoria com queda de renda, conflitos familiares.',
+          '<strong>Proteção:</strong> atividade física, religiosidade, otimismo, autonomia, boas relações e objetivos de vida.'],
+          q:'Cite três fatores de proteção para a saúde mental do idoso.', a:'Atividade física, religiosidade/otimismo, autonomia, boas relações sociais, objetivos de vida (quaisquer três).'},
+        {when:'Souza et al., 2023', titulo:'Por que passa despercebido', pontos:[
+          'É difícil separar depressão clínica de tristeza leve e adaptativa.',
+          'Os sintomas se confundem com <strong>perda funcional e doenças físicas</strong>.',
+          'Sinais de suicídio (falas pessimistas, desesperança, sentir-se inútil) muitas vezes <strong>não foram reconhecidos a tempo</strong>.',
+          'Escalas de rastreio como a <strong>GDS</strong> (Escala de Depressão Geriátrica) ajudam na atenção primária.'],
+          q:'Que instrumento de rastreio de depressão em idosos é citado?', a:'A Escala de Depressão Geriátrica (GDS, nas versões de 15 ou 30 itens).'},
+        {fase:'Transtorno mental comum', when:'Borim et al., 2013', titulo:'O que é TMC', pontos:[
+          '<strong>Transtorno mental comum:</strong> sintomas não psicóticos como insônia, fadiga, irritabilidade, esquecimento, dificuldade de concentração, ansiedade e queixas físicas.',
+          'Avaliado pelo <strong>SRQ-20</strong>, questionário da OMS com 20 perguntas de sim ou não (ponto de corte ≥ 5).',
+          'Estudo com <strong>1.432 idosos</strong> de Campinas: prevalência de <strong>29,7%</strong>.'],
+          q:'Qual foi a prevalência de TMC entre os idosos de Campinas?', a:'29,7%.'},
+        {when:'Borim et al., 2013', titulo:'Quem tem mais TMC', pontos:[
+          'Mais frequente em <strong>mulheres</strong>, em quem tem <strong>80 anos ou mais</strong> (47,6%), menor escolaridade e renda.',
+          'Também em <strong>aposentados e donas de casa</strong>, comparados a quem trabalha.',
+          'Cresce com o <strong>número de doenças crônicas</strong> e com a autoavaliação de saúde ruim.',
+          'Menor em quem pratica <strong>atividade física</strong> no lazer.',
+          'Os itens que mais separaram os grupos foram de <strong>pensamento depressivo</strong>, como sentir-se inútil.'],
+          q:'Que hábito se associou a menos TMC no estudo de Campinas?', a:'A atividade física no lazer.'},
+        {when:'Resende et al., 2011', titulo:'Saúde mental e envelhecimento', pontos:[
+          '<strong>406 pessoas</strong> (média de 66 anos) de um centro de convivência, avaliadas com QSG-12, escala de sintomas físicos e Escala Geriátrica de Depressão.',
+          'Sintomas físicos mais relatados: dor nos braços e nas costas, pressão alta e visão fraca.',
+          'De modo geral, o grupo apresentou <strong>saúde mental positiva</strong>.',
+          '<strong>Mulheres</strong> relataram mais sintomas físicos, dor e ansiedade; o grupo de <strong>50 a 59 anos</strong> teve mais sintomas físicos e mais depressão.'],
+          q:'Que faixa etária relatou mais sintomas físicos e depressão no estudo de Resende et al.?', a:'A de 50 a 59 anos.'}
+      ],
+      quiz:[
+        {p:'Segundo Souza et al. (2023), o principal transtorno psiquiátrico citado na velhice é…', o:['Esquizofrenia','Depressão','Transtorno bipolar','Fobia social'], c:1, w:'A depressão é comum na velhice, mas não é parte do envelhecimento normal.'},
+        {p:'O instrumento usado por Borim et al. para avaliar TMC foi…', o:['GDS-15','SRQ-20','CASP-19','Zarit'], c:1, w:'Self-Reporting Questionnaire, da OMS, com 20 perguntas de sim ou não.'},
+        {p:'No estudo de Campinas, o TMC foi mais frequente…', o:['em homens jovens','em quem trabalhava','em mulheres e idosos com 80 anos ou mais','em quem praticava atividade física'], c:2, w:'Também em aposentados, donas de casa e em quem tinha mais doenças crônicas.'},
+        {p:'Por que a depressão no idoso costuma passar despercebida?', o:['Porque nunca causa sintomas','Porque se confunde com doenças físicas e perda funcional','Porque só aparece em jovens','Porque não existe rastreio'], c:1, w:'Além disso, é difícil separar depressão clínica de tristeza leve e adaptativa.'},
+        {p:'No estudo de Resende et al. (2011), quem relatou mais ansiedade?', o:['Os homens','As mulheres','Os maiores de 80 anos','Ninguém relatou'], c:1, w:'Mulheres relataram mais sintomas físicos, mais dor e mais ansiedade.'},
+        {p:'Qual destes é fator de proteção da saúde mental do idoso?', o:['Isolamento social','Atividade física','Queda de renda','Incapacidade funcional'], c:1, w:'Atividade física, religiosidade, otimismo, autonomia e boas relações protegem.'}
+      ]
+    },
+    {
+      id:'luto', aba:'Luto e morte', titulo:'Enfrentamento do luto e da morte',
+      intro:'Como a morte e as perdas são vividas, principalmente por quem chega aos 80 anos ou mais.',
+      etapas:[
+        {fase:'Morte e luto (Papalia)', when:'Papalia e Martorell', titulo:'Três dimensões da morte', pontos:[
+          '<strong>Biológica:</strong> a cessação das funções vitais.',
+          '<strong>Social:</strong> rituais, costumes e o lugar do morto na comunidade (velórios, luto, herança).',
+          '<strong>Psicológica:</strong> como a pessoa encara a própria morte e como os próximos vivem a perda.'],
+          q:'Quais são as três dimensões da morte?', a:'Biológica, social e psicológica.'},
+        {when:'Papalia e Martorell', titulo:'Os estágios de Kübler-Ross', pontos:[
+          'A partir de pacientes terminais, Kübler-Ross descreveu: <strong>negação, raiva, barganha, depressão e aceitação</strong>.',
+          'Críticas: as reações <strong>não seguem uma ordem fixa</strong>, podem ir e voltar, e nem todos passam por todas.',
+          'Serve para entender reações possíveis, e não como roteiro obrigatório.'],
+          q:'Qual é a principal crítica ao modelo de Kübler-Ross?', a:'As reações não seguem uma sequência fixa e universal; podem se misturar, voltar ou nem acontecer.'},
+        {when:'Papalia e Martorell', titulo:'Formas de viver o luto', pontos:[
+          '<strong>Luto</strong> é a resposta emocional à perda; <strong>pesar</strong> e os rituais são a forma de expressá-la.',
+          'Modelo clássico ("trabalho de luto"): choque e descrença, preocupação com a lembrança de quem morreu, e resolução.',
+          'Pesquisas mostram padrões diferentes: muitos são <strong>resilientes</strong>, outros se recuperam aos poucos, e alguns têm <strong>luto prolongado</strong>.',
+          '<strong>Luto antecipatório:</strong> começa antes da morte, diante de uma doença grave.'],
+          q:'O que é luto antecipatório?', a:'O luto que começa antes da morte, quando a perda já é esperada, como numa doença grave.'},
+        {when:'Papalia e Martorell', titulo:'Revisão de vida e cuidado no fim da vida', pontos:[
+          '<strong>Revisão de vida</strong> (Butler): relembrar e reavaliar a própria história, ligada à integridade de Erikson.',
+          '<strong>Cuidados paliativos</strong> e <strong>hospice</strong>: aliviar dor e sofrimento e dar qualidade de vida até o fim, com apoio à família.',
+          'Debates éticos sobre o fim da vida: diretivas antecipadas, eutanásia e suicídio assistido.'],
+          q:'Qual é o objetivo dos cuidados paliativos?', a:'Aliviar dor e sofrimento e garantir qualidade de vida até o fim, apoiando também a família.'},
+        {fase:'Idosos longevos (80+)', when:'Menezes e Lopes, 2014', titulo:'O estudo', pontos:[
+          'Pesquisa <strong>qualitativa e fenomenológica</strong>, com base em <strong>Heidegger</strong>.',
+          '<strong>16 pessoas de 80 a 90 anos</strong> de um centro de convivência em Salvador.',
+          'Pergunta: como têm vivido o envelhecimento, e que sentidos dão à morte, ao morrer e ao luto.'],
+          q:'Qual referencial teórico-metodológico Menezes e Lopes usaram?', a:'A fenomenologia de Martin Heidegger.'},
+        {when:'Menezes e Lopes, 2014', titulo:'O que os longevos vivem', pontos:[
+          '<strong>Luto pelos próximos:</strong> a morte de amigos e familiares faz perceber a própria finitude.',
+          '<strong>Discurso ambíguo:</strong> dizem não temer a morte, mas admitem medo (de doenças, do que vem depois).',
+          '<strong>Aceitação:</strong> a morte como certa e natural; há quem organize o próprio funeral.',
+          '<strong>Angústia e solidão</strong>, muitas vezes aliviadas pela fé.',
+          '<strong>Luto não elaborado:</strong> uma perda antiga (um filho, há 25 anos) contada sempre do mesmo jeito.'],
+          q:'Como a morte de amigos afeta o idoso longevo?', a:'Aproxima a ideia da própria morte: desperta medo e tristeza, mas também pode levar a refletir e dar sentido à vida.'},
+        {when:'Menezes e Lopes, 2014', titulo:'Autenticidade e inautenticidade do ser-para-a-morte', pontos:[
+          '<strong>Autenticidade:</strong> assumir a morte como possibilidade própria, o que costuma vir em momentos de sofrimento ou doença.',
+          '<strong>Inautenticidade (impessoalidade):</strong> fugir da morte, vendo-a como algo "dos outros" e se ocupando do cotidiano ("vou viver até os 110").',
+          'Conclusão: o idoso <strong>oscila</strong> entre os dois modos, conforme o momento e a sua história. Os autores defendem ações educativas contra o estereótipo de que envelhecer é "caminhar ao lado da morte".'],
+          q:'O que é o modo inautêntico diante da morte?', a:'Fugir da própria morte, tratando-a como algo que acontece com os outros e se refugiando nas ocupações do dia a dia.'}
+      ],
+      quiz:[
+        {p:'A ordem dos estágios de Kübler-Ross é…', o:['Raiva, negação, aceitação, barganha, depressão','Negação, raiva, barganha, depressão e aceitação','Choque, raiva, resolução','Aceitação, negação, depressão'], c:1, w:'Mas a sequência não é fixa: as reações podem se misturar ou nem ocorrer.'},
+        {p:'O luto que começa antes da morte, diante de uma doença grave, é chamado…', o:['luto prolongado','luto antecipatório','luto resiliente','luto inautêntico'], c:1, w:'É comum em familiares de pessoas com doenças graves e progressivas.'},
+        {p:'A "revisão de vida" (Butler) se relaciona com qual conceito de Erikson?', o:['Generatividade','Intimidade','Integridade','Autonomia'], c:2, w:'Relembrar e reavaliar a história favorece a integridade do ego.'},
+        {p:'Menezes e Lopes (2014) estudaram idosos de que faixa etária?', o:['60 a 70 anos','70 a 79 anos','80 a 90 anos','Acima de 100 anos'], c:2, w:'16 idosos longevos, de 80 a 90 anos, em Salvador.'},
+        {p:'No estudo, o discurso dos idosos sobre o medo da morte foi…', o:['sempre de pânico','ambíguo','inexistente','sempre de indiferença'], c:1, w:'Diziam não temer, mas admitiam medo, sobretudo de doenças e do que vem depois.'},
+        {p:'Para os autores, o idoso longevo diante da morte…', o:['é sempre autêntico','é sempre inautêntico','oscila entre autenticidade e inautenticidade','não pensa no assunto'], c:2, w:'O modo de existir muda conforme o momento e a historicidade de cada um.'}
       ]
     }
     ]
@@ -6313,6 +6587,33 @@ function criarOrdenador(cfg){
 }
 
 
+
+// --- Ferramentas: Desenvolvimento Adulto e Idoso (N2) ---
+const TE_OPCOES = ['Desengajamento','Atividade','Continuidade','Otimização seletiva com compensação','Seletividade socioemocional'];
+const TE_CENARIOS = [
+  {situacao:'Depois de se aposentar, Seu Ivo foi se afastando dos grupos e compromissos, e diz que agora é a vez dos mais novos ocuparem esses lugares.', correta:TE_OPCOES[0], explicacao:'O afastamento mútuo entre idoso e sociedade, visto como natural, é a ideia central do desengajamento.'},
+  {situacao:'Dona Lúcia acredita que envelhece bem porque enche a agenda: hidroginástica, coral, curso de informática e voluntariado.', correta:TE_OPCOES[1], explicacao:'Para a teoria da atividade, quanto mais ativo e envolvido, melhor o envelhecimento.'},
+  {situacao:'Professor a vida toda, Seu Alberto se aposentou e passou a dar aulas de reforço para os netos dos vizinhos.', correta:TE_OPCOES[2], explicacao:'Ele mantém a identidade e os interesses de antes, adaptados à nova fase: continuidade.'},
+  {situacao:'Dona Rosa sempre cuidou de plantas; com a artrite, trocou o jardim por vasos na varanda, mas não deixou de plantar.', correta:TE_OPCOES[2], explicacao:'Preservar o mesmo padrão de vida, ajustando a forma, é continuidade.'},
+  {situacao:'Um pianista de 80 anos passou a tocar menos peças, ensaia mais as escolhidas e desacelera antes dos trechos rápidos para que pareçam mais velozes.', correta:TE_OPCOES[3], explicacao:'Selecionar, otimizar e compensar perdas é o modelo de Baltes (o exemplo clássico do pianista Rubinstein).'},
+  {situacao:'Com a visão fraca, Seu Mário escolheu manter só a leitura do jornal, usa lupa e aumentou a fonte do celular.', correta:TE_OPCOES[3], explicacao:'Escolhe o que é prioritário e usa recursos para compensar a perda: otimização seletiva com compensação.'},
+  {situacao:'Aos 75 anos, Dona Neide diz que prefere passar o tempo com poucas amigas próximas e a família do que conhecer gente nova.', correta:TE_OPCOES[4], explicacao:'Ao perceber o tempo como limitado, prioriza relações emocionalmente significativas: seletividade socioemocional.'},
+  {situacao:'Seu Jorge recusou convites para festas grandes e disse que, nessa idade, quer gastar o tempo só com quem ele ama.', correta:TE_OPCOES[4], explicacao:'Menos relações, mais profundas: é a seletividade socioemocional de Carstensen.'}
+];
+criarClassificador({pre:'te', cenarios:TE_CENARIOS, opcoes:TE_OPCOES});
+
+const KR_OPCOES = ['Negação','Raiva','Barganha','Depressão','Aceitação'];
+const KR_CENARIOS = [
+  {situacao:'"Esses exames devem estar trocados. Eu me sinto bem, vou procurar outro médico."', correta:KR_OPCOES[0], explicacao:'Recusar a realidade do diagnóstico é a negação.'},
+  {situacao:'O paciente se recusa a falar da doença e continua planejando uma viagem longa para o ano que vem como se nada tivesse acontecido.', correta:KR_OPCOES[0], explicacao:'Agir como se a doença não existisse é uma forma de negação.'},
+  {situacao:'"Por que eu? Trabalhei a vida inteira, nunca fumei!", grita com a família e com a equipe.', correta:KR_OPCOES[1], explicacao:'Revolta e irritação dirigidas aos outros caracterizam a raiva.'},
+  {situacao:'"Se eu melhorar, prometo ir à missa todo domingo. Só quero chegar ao casamento da minha neta."', correta:KR_OPCOES[2], explicacao:'Negociar mais tempo em troca de promessas é a barganha.'},
+  {situacao:'Ela pede aos médicos para tentar qualquer tratamento, desde que consiga ver o neto nascer.', correta:KR_OPCOES[2], explicacao:'Pedir um prazo condicionado a um objetivo é barganha.'},
+  {situacao:'Ele passa os dias calado, chora ao ver fotos antigas e diz que não tem mais vontade de nada.', correta:KR_OPCOES[3], explicacao:'Tristeza profunda pelas perdas, presentes e futuras, corresponde à depressão.'},
+  {situacao:'Com calma, ela organiza os documentos, se despede dos amigos e diz estar em paz.', correta:KR_OPCOES[4], explicacao:'Serenidade e preparação para o fim caracterizam a aceitação.'}
+];
+criarClassificador({pre:'kr', cenarios:KR_CENARIOS, opcoes:KR_OPCOES});
+
 // --- Ferramentas: Piaget (Psicologia da Aprendizagem · aula 3) ---
 const PP_OPCOES = ['Sensório-motor','Pré-operacional','Operacional-concreto','Operacional-formal'];
 const PP_CENARIOS = [
@@ -8107,7 +8408,7 @@ function errMapa(){
   if(ERR_MAPA) return ERR_MAPA;
   ERR_MAPA = new Map();
   [RP_CENARIOS, PD_CENARIOS, PE_CENARIOS, TD_CENARIOS, NT_CENARIOS, SN_CENARIOS, MM_CENARIOS, ES_CENARIOS, BD_CENARIOS, VG_CENARIOS,
-   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS]
+   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS]
     .forEach(arr => (arr || []).forEach(c => { if(c && c.situacao && c.correta) ERR_MAPA.set(String(c.situacao).trim(), c); }));
   return ERR_MAPA;
 }
