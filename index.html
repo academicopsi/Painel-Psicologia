@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light" />
 <title>Arquivo Vivo - De aluno para aluno</title>
@@ -800,6 +801,8 @@
   .video-item .vi-nota{font-size:13px; color:var(--ink-soft); margin-bottom:8px;}
   .video-frame{position:relative; width:100%; padding-top:56.25%; background:#000; border-radius:var(--radius-sm); overflow:hidden;}
   .video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:none;}
+  .yt-fora{display:inline-block; margin-top:4px; font-family:var(--mono, monospace); font-size:12px; color:var(--petrol); text-decoration:none;}
+  .yt-fora:hover{text-decoration:underline;}
 
   /* ---------- Simulados (oculta, mas no mesmo padrão) ---------- */
   .arena{background:none; color:var(--ink);}
@@ -5522,6 +5525,7 @@ function renderVideos(){
             <div class="vi-title">${v.titulo}</div>
             ${v.nota ? `<div class="vi-nota">${v.nota}</div>` : ''}
             <div class="video-frame">${videoLiteHTML(v)}</div>
+            <a class="yt-fora" href="https://www.youtube.com/watch?v=${v.youtubeId}" target="_blank" rel="noopener">Abrir no YouTube ↗</a>
           </div>
         `).join('');
     return `<details class="video-disc">
@@ -8031,7 +8035,8 @@ document.addEventListener('click', e=>{
   const b = e.target.closest('.video-lite');
   if(!b) return;
   const f = document.createElement('iframe');
-  f.src = `https://www.youtube.com/embed/${b.dataset.yt}?autoplay=1&rel=0`;
+  f.src = `https://www.youtube.com/embed/${b.dataset.yt}?autoplay=1&rel=0&playsinline=1`;
+  f.referrerPolicy = 'strict-origin-when-cross-origin'; // o YouTube recusa o player quando não recebe a origem do site
   f.title = b.getAttribute('aria-label') || 'Vídeo';
   f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
   f.allowFullscreen = true;
@@ -8245,7 +8250,7 @@ function renderDiscPage(d){
       </button>`; }).join('')}</div>`) : '';
 
   const secVid = c.videos.length ? sec('dpVideos', 'Vídeos', c.videos.length,
-    `<div class="dp-videos">${c.videos.map(v=>`<div class="dp-video"><div class="video-frame">${videoLiteHTML(v)}</div><div class="dp-row-title">${escHTML(v.titulo)}</div></div>`).join('')}</div>`) : '';
+    `<div class="dp-videos">${c.videos.map(v=>`<div class="dp-video"><div class="video-frame">${videoLiteHTML(v)}</div><div class="dp-row-title">${escHTML(v.titulo)}</div><a class="yt-fora" href="https://www.youtube.com/watch?v=${v.youtubeId}" target="_blank" rel="noopener">Abrir no YouTube ↗</a></div>`).join('')}</div>`) : '';
 
   const comps = COMPARACOES.filter(x=>{ const k = discOf(x.disc); return k && k.n === d.n; });
   const secGl = (c.termos.length || comps.length) ? `<section class="dp-section" id="dpGlossario">
