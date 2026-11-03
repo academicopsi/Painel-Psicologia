@@ -2764,6 +2764,21 @@
       </div>
     </details>
     <details class="graveyard">
+      <summary>Qual Nervo Craniano?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a descrição, a função ou o sinal de lesão e identifique o nervo craniano.</div>
+        <div class="prompt-box">
+          <div class="plabel">Descrição</div>
+          <div class="pfrase" id="ncSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="ncShuffleBtn">🔀 Sortear outra</button>
+        <div id="ncOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="ncCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="ncFeedbackBox"></div>
+        <div class="tool-disclaimer">Com base na aula "Nervos cranianos". Descrições simplificadas, para fins didáticos.</div>
+      </div>
+    </details>
+    <details class="graveyard">
       <summary>Medula: Qual é a Estrutura?</summary>
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Leia a descrição e identifique a estrutura da medula espinhal ou dos seus envoltórios.</div>
@@ -3517,11 +3532,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam na página de cada disciplina.', link: {url:'#simulado-bases-n2'}},
   {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
   {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Piaget (aula 3): resumo interativo, dois exercícios novos, 14 termos no glossário e as comparações assimilação × acomodação e Piaget × Vygotsky. Nova página Revisão dos erros, com as questões erradas nos exercícios e quizzes.', link: {url:'#resumo-piaget'}},
-  {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Estudo dirigido da Atividade 1 (N2): roteiro de pesquisa por questão, com perguntas norteadoras, termos de busca, bibliografia e lista de conferência.', link: {url:'#roteiro-atividade1-n2'}},
 ];
 
 
@@ -3574,9 +3589,9 @@ const STUDY = [
   },
   {
     materia: 'Neuroanatomia',
-    titulo: 'Medula espinhal e sistema nervoso autônomo',
-    subtitulo: 'Duas aulas num só resumo',
-    desc: 'Medula (organização, nervos espinhais, vias e meninges) e SNA (simpático × parassimpático), com "Teste-se" e quiz no fim de cada aba.',
+    titulo: 'Medula espinhal, SNA e nervos cranianos',
+    subtitulo: 'Três aulas num só resumo',
+    desc: 'Medula (organização, nervos espinhais, vias e meninges), SNA (simpático × parassimpático) e os 12 pares de nervos cranianos, com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-medula-sna'
   },
   {
@@ -4930,6 +4945,447 @@ SIM_JOGO.push({
 });
 
 
+SIM_JOGO.push({
+  id: 'neuro-n2',
+  disc: '02',
+  titulo: 'Simulado N2: medula, SNA e nervos cranianos',
+  desc: '60 questões no estilo vestibular: medula espinhal e meninges, SNA (somático × autônomo, simpático e parassimpático) e nervos cranianos.',
+  partes: [{k:'medula', t:'Medula e meninges', n:20}, {k:'sna', t:'SNA', n:20}, {k:'nervos', t:'Nervos cranianos', n:20}],
+  questoes: [
+  // ---------- MEDULA E MENINGES ----------
+  {tema:'Medula', p:'Sobre a localização da medula espinhal no adulto, é correto afirmar que ela',
+   o:['ocupa todo o canal vertebral, do crânio ao cóccix.',
+      'começa no bulbo, na altura do forame magno, e termina em geral na altura da 2ª vértebra lombar (L2).',
+      'começa na 1ª vértebra torácica e termina no sacro.',
+      'termina na 2ª vértebra sacral, junto com o saco da dura-máter.',
+      'fica fora do canal vertebral, à frente da coluna.'],
+   c:1, w:'A medula fica dentro do canal vertebral, sem ocupá-lo totalmente: vai do bulbo (forame magno) até cerca de L2. O saco da dura-máter é que vai até mais ou menos S2.'},
+
+  {tema:'Medula', p:'Em um corte transversal da medula espinhal, observa-se',
+   o:['substância branca por dentro, em forma de H, e substância cinzenta por fora.',
+      'substância cinzenta por dentro, em forma de H, formada por corpos de neurônios, envolvida pela substância branca, formada por tractos (axônios).',
+      'apenas substância cinzenta.',
+      'substância cinzenta formada por axônios mielinizados.',
+      'substância branca formada por corpos celulares.'],
+   c:1, w:'Na medula, a cinzenta (corpos dos neurônios) fica por dentro, em forma de H; a branca (tractos, ou seja, axônios) fica por fora.'},
+
+  {tema:'Medula', p:'A coluna lateral da substância cinzenta aparece apenas em alguns níveis da medula. Ela está presente',
+   o:['em toda a medula, do bulbo ao cone medular.',
+      'apenas na região cervical, por causa dos braços.',
+      'na região torácica e lombar alta (T1 a L2), onde ficam os neurônios do simpático.',
+      'apenas na região sacral, onde ficam os neurônios do parassimpático.',
+      'apenas na cauda equina.'],
+   c:2, w:'A coluna lateral aparece de T1 a L2 e abriga os neurônios pré-ganglionares do simpático.'},
+
+  {tema:'Medula', p:'Nas intumescências cervical e lombar, os cornos anteriores da medula são maiores do que em outros níveis. Isso acontece porque',
+   o:['ali ficam os neurônios do parassimpático.',
+      'dali saem os nervos que inervam os braços e as pernas.',
+      'é onde o líquor é produzido.',
+      'ali se cruzam as fibras da via piramidal.',
+      'ali termina a medula.'],
+   c:1, w:'Os cornos anteriores têm neurônios motores. Nas intumescências eles são maiores porque dali saem os nervos dos membros superiores (cervical) e inferiores (lombar).'},
+
+  {tema:'Medula', p:'O canal central da medula espinhal, também chamado canal do epêndima, é',
+   o:['o espaço por onde circula o sangue da medula.',
+      'um resquício da luz do tubo neural do embrião.',
+      'o espaço entre a dura-máter e a aracnoide.',
+      'o local onde a medula termina.',
+      'o feixe de fibras que leva dor e temperatura.'],
+   c:1, w:'O canal central (do epêndima) fica no meio do H medular e é um resquício da luz do tubo neural embrionário.'},
+
+  {tema:'Medula', p:'Assinale a associação correta sobre a parte final da medula e as estruturas abaixo dela.',
+   o:['Cone medular: raízes nervosas soltas no canal; cauda equina: ponta afilada da medula.',
+      'Cone medular: ponta afilada onde a medula termina (perto de L2); cauda equina: raízes lombares e sacrais que descem soltas; filamento terminal: fio de pia-máter que vai até o cóccix.',
+      'Filamento terminal: fio de dura-máter que termina em L2.',
+      'Cauda equina: o fim do saco da aracnoide.',
+      'Cone medular: gânglio sensitivo da raiz dorsal.'],
+   c:1, w:'A medula termina no cone medular (perto de L2). Abaixo, as raízes lombares e sacrais descem soltas: a cauda equina. O filamento terminal, de pia-máter, vai do cone até o cóccix e ajuda a fixar a medula.'},
+
+  {tema:'Medula', p:'Os 31 pares de nervos espinhais se distribuem em',
+   o:['7 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 2 coccígeos.',
+      '8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo.',
+      '8 cervicais, 11 torácicos, 6 lombares, 5 sacrais e 1 coccígeo.',
+      '7 cervicais, 12 torácicos, 6 lombares, 5 sacrais e 1 coccígeo.',
+      '8 cervicais, 12 torácicos, 4 lombares, 6 sacrais e 1 coccígeo.'],
+   c:1, fixa:true, w:'São 8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo: 31 pares.'},
+
+  {tema:'Medula', p:'Existem 8 pares de nervos espinhais cervicais, embora só existam 7 vértebras cervicais. Isso se explica porque',
+   o:['um dos nervos cervicais sai pelo crânio.',
+      'o nervo C1 sai acima da 1ª vértebra (entre ela e o occipital), e o C8 sai abaixo da 7ª.',
+      'a 7ª vértebra cervical tem dois forames.',
+      'um nervo torácico é contado como cervical.',
+      'os nervos cervicais saem todos abaixo das vértebras.'],
+   c:1, w:'C1 sai entre o occipital e a 1ª vértebra; os seguintes saem acima da vértebra de mesmo número, e o C8 sai abaixo da 7ª. Por isso sobra um nervo.'},
+
+  {tema:'Medula', p:'Um paciente sofreu uma lesão que atingiu apenas as raízes dorsais (posteriores) de alguns nervos espinhais de um lado do corpo. O efeito esperado na região correspondente é',
+   o:['paralisia, com sensibilidade preservada.',
+      'perda de sensibilidade, com movimento preservado.',
+      'perda de sensibilidade e paralisia.',
+      'nenhuma alteração, pois a raiz dorsal não tem função.',
+      'aumento da força muscular.'],
+   c:1, w:'A raiz dorsal é sensitiva (tem o gânglio sensitivo); a ventral é motora. Lesando só a dorsal, perde-se a sensibilidade, mas o movimento continua.'},
+
+  {tema:'Medula', p:'Sobre os neurônios radiculares, cujo axônio sai da medula pela raiz ventral, assinale a alternativa correta.',
+   o:['O radicular somático fica na coluna lateral e inerva glândulas.',
+      'O radicular visceral é o neurônio pré-ganglionar do SNA, fica na coluna lateral (T1 a L2) ou na região sacral (S2 a S4) e inerva músculo liso, coração e glândulas.',
+      'O radicular visceral inerva músculo estriado esquelético.',
+      'O radicular somático é o neurônio pós-ganglionar do simpático.',
+      'Os dois tipos ficam no gânglio da raiz dorsal.'],
+   c:1, w:'Radicular visceral: pré-ganglionar do SNA (T1–L2 ou S2–S4), para músculo liso, coração e glândulas. Radicular somático: coluna anterior, voluntário, inerva músculo esquelético; é a "via motora final comum".'},
+
+  {tema:'Medula', p:'Sobre os neurônios motores alfa e gama, é correto afirmar que',
+   o:['o gama faz a contração do músculo, e o alfa regula os fusos.',
+      'o alfa faz a contração do músculo, formando a unidade motora, e o gama inerva os fusos neuromusculares, regulando a sensibilidade deles ao estiramento.',
+      'os dois são neurônios sensitivos.',
+      'no movimento voluntário, só o alfa é ativado.',
+      'o gama tem o axônio mais grosso que o alfa.'],
+   c:1, w:'Alfa: axônio grosso, contrai o músculo (com suas fibras forma a unidade motora). Gama: axônio menor, inerva os fusos. No movimento voluntário os dois são ativados juntos.'},
+
+  {tema:'Medula', p:'Associe corretamente os termos da substância branca: tracto, fascículo, lemnisco e funículo.',
+   o:['Funículo: feixe que leva impulsos ao tálamo; lemnisco: cordão da substância branca.',
+      'Tracto: feixe com origem, terminação e trajeto parecidos; fascículo: tracto mais compacto; lemnisco: feixe sensitivo que leva impulsos ao tálamo; funículo: cordão da substância branca com vários tractos.',
+      'Fascículo e tracto têm funções opostas.',
+      'Tracto: conjunto de corpos celulares no SNC.',
+      'Lemnisco: feixe motor que vai do córtex à medula.'],
+   c:1, w:'Tracto: mesmo trajeto. Fascículo: tracto mais compacto, sem diferença funcional. Lemnisco: fibras sensitivas para o tálamo. Funículo: cordão da substância branca. Conjuntos de corpos celulares no SNC são núcleos.'},
+
+  {tema:'Medula', p:'Os fascículos grácil e cuneiforme ficam no funículo posterior da medula. Eles levam',
+   o:['dor e temperatura, até o tálamo.',
+      'comandos motores voluntários, do córtex à medula.',
+      'tato fino, vibração e propriocepção consciente; o grácil, da metade inferior do corpo, e o cuneiforme, da metade superior.',
+      'propriocepção inconsciente ao cerebelo.',
+      'informação autonômica para as vísceras.'],
+   c:2, w:'Grácil (metade inferior) e cuneiforme (metade superior) levam tato fino, vibração e propriocepção consciente. Dor e temperatura sobem pelos espinotalâmicos; propriocepção inconsciente, pelos espinocerebelares.'},
+
+  {tema:'Medula', p:'Uma pessoa sofreu uma lesão na medula e passou a não sentir dor nem temperatura em parte do corpo, embora ainda perceba o tato fino e a vibração nessa região. A via mais provavelmente lesada é',
+   o:['o fascículo grácil.','o fascículo cuneiforme.','o tracto espinotalâmico.','o tracto córtico-espinhal lateral.','o tracto espinocerebelar.'],
+   c:2, w:'Dor, temperatura e tato grosseiro sobem pelos tractos espinotalâmicos. Tato fino e vibração usam os fascículos do funículo posterior, que estão preservados no caso.'},
+
+  {tema:'Medula', p:'Após um AVC que lesou a área motora do hemisfério cerebral esquerdo, um paciente perdeu o movimento voluntário do lado direito do corpo. Isso se explica porque',
+   o:['a via piramidal não cruza a linha média.',
+      'as fibras da via piramidal cruzam na decussação das pirâmides, no bulbo; por isso a motricidade voluntária é cruzada.',
+      'as fibras cruzam no cone medular.',
+      'a via extrapiramidal controla o lado oposto e a piramidal o mesmo lado.',
+      'as raízes dorsais do lado direito foram lesadas.'],
+   c:1, w:'Os tractos córtico-espinhais cruzam na decussação das pirâmides. Uma lesão acima desse ponto causa paralisia do lado oposto ao da lesão.'},
+
+  {tema:'Meninges', p:'A ordem correta das meninges, de fora para dentro, e o espaço onde circula o líquor são:',
+   o:['pia-máter, aracnoide e dura-máter; espaço epidural.',
+      'dura-máter, aracnoide e pia-máter; espaço subaracnóideo.',
+      'aracnoide, dura-máter e pia-máter; espaço subdural.',
+      'dura-máter, pia-máter e aracnoide; espaço subaracnóideo.',
+      'dura-máter, aracnoide e pia-máter; espaço epidural.'],
+   c:1, fixa:true, w:'De fora para dentro: dura-máter, aracnoide e pia-máter. O líquor circula no espaço subaracnóideo, entre a aracnoide e a pia-máter.'},
+
+  {tema:'Meninges', p:'Sobre o líquor (líquido cefalorraquidiano), analise:<br>I. É produzido nos ventrículos do encéfalo.<br>II. Funciona como amortecedor contra impactos e participa da nutrição e da limpeza do tecido nervoso.<br>III. Pode ser colhido por punção lombar para exames, por exemplo na suspeita de meningite.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:4, fixa:true, w:'As três estão corretas. O líquor circula no espaço subaracnóideo, em volta do encéfalo e da medula.'},
+
+  {tema:'Meninges', p:'Na raquianestesia e na peridural, o anestésico é colocado em espaços diferentes. Assinale a alternativa correta.',
+   o:['Na raquianestesia, o anestésico fica no espaço epidural; na peridural, no subaracnóideo.',
+      'Na raquianestesia, a agulha atravessa a dura-máter e a aracnoide e o anestésico se mistura ao líquor no espaço subaracnóideo; na peridural, fica no espaço epidural, sem atingir o líquor.',
+      'As duas técnicas colocam o anestésico dentro da medula.',
+      'Na peridural, o efeito é mais rápido porque o anestésico se mistura ao líquor.',
+      'Nas duas, o anestésico fica no espaço subdural.'],
+   c:1, w:'Raquianestesia: espaço subaracnóideo, misturado ao líquor, efeito rápido. Peridural: espaço epidural, por fora da dura-máter, efeito mais lento e dose ajustável.'},
+
+  {tema:'Meninges', p:'A punção lombar, usada por exemplo para colher líquor na suspeita de meningite, é feita abaixo de L2. Essa escolha se deve ao fato de que',
+   o:['acima de L2 não existe líquor.',
+      'a medula termina por volta de L2; abaixo dela só há a cauda equina, e a agulha não atinge a medula.',
+      'abaixo de L2 não existem meninges.',
+      'a dura-máter termina em L2.',
+      'o filamento terminal impede a agulha de passar acima de L2.'],
+   c:1, w:'Como a medula termina perto de L2, abaixo dali só há raízes nervosas (cauda equina), e o risco de lesar a medula é evitado. O líquor e as meninges continuam abaixo de L2.'},
+
+  {tema:'Medula', p:'Os segmentos da medula espinhal não ficam na altura das vértebras de mesmo número, e a diferença aumenta nos níveis mais baixos. A explicação é que',
+   o:['a medula cresce mais que a coluna vertebral.',
+      'a coluna vertebral cresce mais que a medula durante o desenvolvimento.',
+      'os nervos espinhais encurtam com a idade.',
+      'a medula se desloca para cima durante a vida adulta.',
+      'cada vértebra contém dois segmentos medulares.'],
+   c:1, w:'Durante o desenvolvimento, a coluna cresce mais que a medula. Por isso a medula termina em L2, e quanto mais baixo, maior a distância entre o segmento medular e a vértebra de mesmo número.'},
+
+  // ---------- SISTEMA NERVOSO AUTÔNOMO ----------
+  {tema:'SNA', p:'Assinale a alternativa que resume corretamente as duas divisões do SNA.',
+   o:['Simpático: craniossacral, gânglios perto dos órgãos, repouso e digestão; parassimpático: toracolombar, gânglios perto da coluna, luta ou fuga.',
+      'Simpático: toracolombar, gânglios perto da coluna, luta ou fuga; parassimpático: craniossacral, gânglios perto ou na parede dos órgãos, repouso e digestão.',
+      'Simpático: toracolombar, gânglios na parede dos órgãos, repouso e digestão; parassimpático: craniossacral, gânglios perto da coluna, luta ou fuga.',
+      'As duas divisões são toracolombares e têm gânglios na parede dos órgãos.',
+      'Simpático: controla músculo esquelético; parassimpático: controla vísceras.'],
+   c:1, w:'Simpático: toracolombar, gânglios paravertebrais ou pré-vertebrais, luta ou fuga. Parassimpático: craniossacral, gânglios perto ou na parede dos órgãos, repouso e digestão. Músculo esquelético é do sistema somático.'},
+
+  {tema:'Somático × autônomo', p:'Enquanto pedala uma bicicleta e sente o vento no rosto, a digestão do almoço de Ana continua acontecendo. Pedalar e sentir o vento, de um lado, e a digestão, de outro, são controlados, respectivamente, pelos sistemas',
+   o:['autônomo e somático.','somático e autônomo.','somático e somático.','autônomo e autônomo.','parassimpático e simpático.'],
+   c:1, w:'O somático cuida da musculatura esquelética, da locomoção e da sensibilidade da superfície do corpo: a relação com o meio externo. O autônomo controla vasos, vísceras e glândulas: o ambiente interno.'},
+
+  {tema:'Somático × autônomo', p:'Assinale a alternativa que traz apenas funções do sistema nervoso autônomo.',
+   o:['Correr, escrever e sentir uma picada na pele.',
+      'Controle da frequência cardíaca, da secreção das glândulas e da contração do músculo liso das vísceras.',
+      'Chutar uma bola e controlar a pressão arterial.',
+      'Sentir o frio na pele e mexer os dedos.',
+      'Falar, piscar voluntariamente e caminhar.'],
+   c:1, w:'Coração, glândulas e músculo liso são os efetores do SNA. Movimentos voluntários e sensibilidade da pele são do sistema somático.'},
+
+  {tema:'SNA', p:'Os efetores do sistema nervoso autônomo e a sua principal função são, respectivamente,',
+   o:['músculo esquelético; locomoção.',
+      'músculo liso, músculo cardíaco e glândulas; manter a homeostase.',
+      'pele e órgãos dos sentidos; percepção do meio externo.',
+      'apenas o coração; bombear o sangue.',
+      'neurônios do córtex; pensamento.'],
+   c:1, w:'O SNA age sobre músculo liso, músculo cardíaco e glândulas, e sua principal função é manter o ambiente interno: a homeostase.'},
+
+  {tema:'SNA', p:'O SNA responde tanto a estímulos externos quanto internos. Assinale o par de exemplos que ilustra corretamente essas duas situações.',
+   o:['Externo: uma luz forte que contrai a pupila; interno: uma variação da pressão arterial.',
+      'Externo: a pressão arterial; interno: a luz que entra no olho.',
+      'Externo: decidir correr; interno: decidir parar.',
+      'Externo e interno: apenas estímulos dolorosos na pele.',
+      'O SNA não responde a estímulos externos.'],
+   c:0, w:'A luz (estímulo externo) muda o tamanho da pupila; a pressão arterial (estímulo interno) também é regulada pelo SNA.'},
+
+  {tema:'Simpático', p:'Diante de uma ameaça, ocorre a resposta de luta ou fuga, com intensa ativação do simpático. Assinale o efeito que NÃO faz parte dessa resposta.',
+   o:['Aumento da frequência cardíaca e da pressão.',
+      'Dilatação dos brônquios e das pupilas.',
+      'Aumento da motilidade e das secreções intestinais.',
+      'Aumento do metabolismo da glicose.',
+      'Pelos eretos.'],
+   c:2, w:'Na luta ou fuga, a motilidade e as secreções intestinais são inibidas. A digestão fica para depois.'},
+
+  {tema:'Simpático', p:'Na resposta de luta ou fuga, o sangue é redistribuído no corpo. O que acontece com os vasos?',
+   o:['Os vasos das vísceras se dilatam, e os dos músculos esqueléticos se contraem.',
+      'Os vasos das vísceras se contraem, e os dos músculos esqueléticos se dilatam.',
+      'Todos os vasos se contraem.',
+      'Todos os vasos se dilatam.',
+      'Os vasos não mudam.'],
+   c:1, w:'Os vasos das vísceras se contraem e os dos músculos esqueléticos se dilatam: o sangue vai para onde ele é necessário para lutar ou fugir.'},
+
+  {tema:'Anatomia do SNA', p:'A unidade do simpático e do parassimpático é uma via de dois neurônios. Sobre ela, é correto afirmar que',
+   o:['o neurônio pré-ganglionar tem o corpo celular num gânglio autonômico.',
+      'o neurônio pré-ganglionar tem o corpo celular no SNC, e o pós-ganglionar, num gânglio autonômico.',
+      'os dois neurônios ficam dentro da medula.',
+      'os dois neurônios ficam dentro do órgão-alvo.',
+      'o pós-ganglionar tem o corpo celular no córtex cerebral.'],
+   c:1, w:'Pré-ganglionar: corpo no SNC (encéfalo ou medula). Pós-ganglionar: corpo num gânglio autonômico, fora do SNC.'},
+
+  {tema:'Anatomia do SNA', p:'O simpático é chamado de divisão toracolombar, e o parassimpático, de divisão craniossacral. Esses nomes se referem',
+   o:['aos órgãos que cada divisão inerva.',
+      'ao local onde ficam os neurônios pré-ganglionares de cada divisão.',
+      'ao local onde ficam os gânglios de cada divisão.',
+      'às regiões do corpo que cada divisão controla.',
+      'às vértebras onde ficam as meninges.'],
+   c:1, w:'Simpático: pré-ganglionares nos segmentos torácicos e lombares altos da medula. Parassimpático: pré-ganglionares no tronco encefálico (crânio) e na medula sacral.'},
+
+  {tema:'Anatomia do SNA', p:'Em relação à posição dos gânglios autonômicos, assinale a alternativa correta.',
+   o:['Simpático: gânglios próximos ou na parede dos órgãos; parassimpático: gânglios paravertebrais.',
+      'Simpático: gânglios paravertebrais ou pré-vertebrais, a certa distância dos órgãos; parassimpático: gânglios próximos dos órgãos ou na parede deles.',
+      'As duas divisões têm gânglios dentro da medula.',
+      'Nenhuma das divisões tem gânglios.',
+      'Os dois têm gânglios só no crânio.'],
+   c:1, w:'Os gânglios do simpático ficam ao lado ou à frente da coluna, longe dos órgãos. Os do parassimpático ficam perto ou na parede dos órgãos.'},
+
+  {tema:'Anatomia do SNA', p:'Considerando a posição dos gânglios em cada divisão do SNA, é possível concluir que, no parassimpático, em geral,',
+   o:['a fibra pré-ganglionar é curta e a pós-ganglionar é longa.',
+      'a fibra pré-ganglionar é longa e a pós-ganglionar é curta, pois o gânglio fica perto ou dentro do órgão.',
+      'não existe fibra pós-ganglionar.',
+      'as duas fibras têm sempre o mesmo comprimento.',
+      'a fibra pré-ganglionar fica fora do SNC.'],
+   c:1, w:'Se o gânglio está perto do órgão, a fibra que sai do SNC (pré-ganglionar) percorre quase todo o caminho e é longa; a pós-ganglionar é curta. No simpático é o contrário, porque o gânglio fica perto da coluna.'},
+
+  {tema:'SNA', p:'Sobre a relação entre simpático e parassimpático, é correto afirmar que',
+   o:['eles sempre agem em oposição.',
+      'trabalham de forma coordenada: em algumas situações agem de forma sinérgica e, em outras, de forma recíproca.',
+      'nunca atuam sobre o mesmo órgão.',
+      'o parassimpático só funciona durante o sono.',
+      'o simpático só funciona em situações de perigo.'],
+   c:1, w:'Os dois trabalham de forma coordenada. Às vezes agem juntos (sinergia), às vezes um aumenta enquanto o outro diminui (reciprocidade).'},
+
+  {tema:'Simpático', p:'Logo depois de um susto, uma pessoa fica pálida, com o coração acelerado e os olhos arregalados. A explicação correta é',
+   o:['via parassimpática: a acetilcolina acelera o coração e contrai a pupila.',
+      'via simpática: a noradrenalina aumenta a frequência e a força do coração, contrai os vasos periféricos (palidez) e dilata a pupila.',
+      'via somática: os músculos da face se contraem e deixam a pele pálida.',
+      'via parassimpática: os vasos da pele se dilatam.',
+      'via simpática: os vasos da pele se dilatam, causando a palidez.'],
+   c:1, w:'É o exercício da aula: ativação simpática, com noradrenalina. Coração mais rápido e forte, vasos periféricos contraídos (palidez) e pupila dilatada.'},
+
+  {tema:'Parassimpático', p:'Depois de uma refeição tranquila, observam-se redução da frequência cardíaca, aumento da salivação e dos movimentos intestinais. Essas respostas são típicas',
+   o:['do simpático, na resposta de luta ou fuga.',
+      'do parassimpático, que favorece o repouso e a digestão.',
+      'do sistema somático.',
+      'da via piramidal.',
+      'dos fascículos grácil e cuneiforme.'],
+   c:1, w:'Repouso e digestão: coração mais lento, mais salivação e mais motilidade intestinal são efeitos parassimpáticos.'},
+
+  {tema:'Simpático', p:'Minutos antes de apresentar um seminário, um estudante sente as mãos suadas, a boca seca e o coração disparado. Esses sinais se devem principalmente à ativação',
+   o:['do parassimpático.','do simpático.','do sistema somático.','do sistema nervoso entérico.','dos neurônios motores gama.'],
+   c:1, w:'Sudorese, boca seca (menos salivação) e taquicardia diante de uma situação percebida como ameaçadora são sinais de ativação simpática.'},
+
+  {tema:'Parassimpático', p:'Durante o sono profundo e em sessões de meditação, a frequência cardíaca e a respiratória diminuem. Esses estados são regulados predominantemente',
+   o:['pelo simpático.','pelo parassimpático.','pelo sistema somático.','pela via piramidal.','pela cauda equina.'],
+   c:1, w:'Estados de repouso profundo favorecem a atividade parassimpática, que reduz frequência cardíaca, respiratória e pressão.'},
+
+  {tema:'SNA', p:'Sobre o diâmetro da pupila, assinale a alternativa correta.',
+   o:['A dilatação da pupila (midríase) é efeito parassimpático.',
+      'A contração da pupila (miose) é associada ao parassimpático, e a dilatação (midríase), ao simpático.',
+      'A pupila é controlada pelo sistema somático.',
+      'Simpático e parassimpático causam o mesmo efeito na pupila.',
+      'A pupila só muda com estímulos internos.'],
+   c:1, w:'Miose (contração) é parassimpática, como no relaxamento. Midríase (dilatação) é simpática, como na luta ou fuga.'},
+
+  {tema:'Simpático', p:'Diante de uma ameaça súbita, as glândulas suprarrenais liberam hormônios na corrente sanguínea. Essa liberação faz parte da resposta',
+   o:['parassimpática de repouso e digestão.',
+      'simpática de luta ou fuga.',
+      'somática voluntária.',
+      'do sistema nervoso entérico.',
+      'reflexa da raiz dorsal.'],
+   c:1, w:'A liberação de hormônios da suprarrenal (como a adrenalina) é uma resposta clássica de ativação simpática diante de ameaça.'},
+
+  {tema:'Anatomia do SNA', p:'Sobre o sistema nervoso entérico, é correto afirmar que',
+   o:['é a parte do simpático que fica na medula sacral.',
+      'tem organização própria e fica na parede do trato gastrintestinal.',
+      'é formado pelos fascículos grácil e cuneiforme.',
+      'faz parte do sistema nervoso somático.',
+      'fica no espaço subaracnóideo.'],
+   c:1, w:'Segundo a aula, o sistema nervoso entérico tem organização própria, localizada na parede do trato gastrintestinal.'},
+
+  {tema:'Anatomia do SNA', p:'Relacionando medula espinhal e SNA, os neurônios pré-ganglionares do simpático e os do parassimpático sacral ficam, respectivamente,',
+   o:['na coluna anterior de toda a medula; no gânglio da raiz dorsal.',
+      'na coluna lateral de T1 a L2; na região sacral, de S2 a S4.',
+      'no cone medular; na cauda equina.',
+      'nos gânglios paravertebrais; na parede dos órgãos.',
+      'na região cervical; na região lombar.'],
+   c:1, w:'São os neurônios radiculares viscerais: na coluna lateral (T1–L2) para o simpático, e na região sacral (S2–S4) para o parassimpático sacral.'},
+
+  // ---------- NERVOS CRANIANOS ----------
+  {tema:'Nervos cranianos', p:'Sobre os nervos cranianos, é correto afirmar que',
+   o:['são 31 pares, numerados de cima para baixo.',
+      'são 12 pares, numerados de I a XII pela ordem da origem aparente no encéfalo, no sentido rostrocaudal.',
+      'todos se ligam à medula espinhal.',
+      'todos se ligam ao tronco encefálico, sem exceção.',
+      'são numerados pela ordem de importância.'],
+   c:1, w:'São 12 pares, numerados de cima para baixo pela origem aparente. São os nervos espinhais que somam 31 pares.'},
+
+  {tema:'Nervos cranianos', p:'Assinale a alternativa que relaciona corretamente os nervos cranianos e a parte do encéfalo a que se ligam.',
+   o:['Olfatório: tronco encefálico; óptico: telencéfalo; os outros dez: diencéfalo.',
+      'Olfatório: telencéfalo; óptico: diencéfalo; os outros dez: tronco encefálico.',
+      'Todos ligam-se ao cerebelo.',
+      'Olfatório e óptico: medula; os outros: tronco encefálico.',
+      'Óptico: telencéfalo; vago: diencéfalo.'],
+   c:1, w:'O I liga-se ao telencéfalo, o II ao diencéfalo e os outros dez ao tronco encefálico. Por isso I e II são considerados prolongamentos do SNC.'},
+
+  {tema:'Nervos cranianos', p:'Assinale a alternativa que traz apenas nervos cranianos exclusivamente sensitivos.',
+   o:['Olfatório, óptico e vestibulococlear.','Trigêmeo, facial e vago.','Oculomotor, troclear e abducente.','Acessório e hipoglosso.','Glossofaríngeo, vago e facial.'],
+   c:0, w:'I, II e VIII são só sensitivos. III, IV, VI, XI e XII são motores; V, VII, IX e X são mistos.'},
+
+  {tema:'Nervos cranianos', p:'Relacionando nervos cranianos e SNA: a parte "crânio" da divisão craniossacral do parassimpático é formada por fibras que seguem pelos nervos',
+   o:['I, II e VIII.','III, VII, IX e X.','IV, VI e XII.','V e XI.','todos os 12 pares.'],
+   c:1, w:'Levam fibras parassimpáticas o oculomotor (pupila e lente), o facial (lágrima e saliva), o glossofaríngeo (parótida) e o vago (coração e vísceras).'},
+
+  {tema:'Nervos cranianos', p:'Um paciente, depois de um trauma, perdeu o olfato. As fibras do nervo envolvido',
+   o:['saem do bulbo e passam pelo forame jugular.',
+      'nascem na mucosa olfatória das fossas nasais, atravessam a lâmina crivosa do etmoide e terminam no bulbo olfatório.',
+      'passam pelo canal óptico até o quiasma.',
+      'entram no meato acústico interno.',
+      'saem pelo canal do hipoglosso.'],
+   c:1, w:'O olfatório (I) é só sensitivo: da mucosa olfatória, pela lâmina crivosa do etmoide, até o bulbo olfatório.'},
+
+  {tema:'Nervos cranianos', p:'No quiasma óptico, há cruzamento parcial das fibras dos nervos ópticos. Uma consequência dessa organização é que',
+   o:['cada olho só envia informação para o lado oposto do encéfalo.',
+      'cada lado do encéfalo recebe informação dos dois olhos.',
+      'o nervo óptico passa a ser motor.',
+      'a pupila deixa de reagir à luz.',
+      'a visão depende do nervo oculomotor.'],
+   c:1, w:'Metade das fibras de cada lado cruza no quiasma. Assim, o encéfalo recebe informações dos campos visuais pelos dois nervos ópticos.'},
+
+  {tema:'Nervos cranianos', p:'O glaucoma é uma doença que pode lesar o nervo óptico. Ela acontece quando',
+   o:['a pressão do líquido dentro do olho (humor aquoso) fica alta demais, por produção maior ou saída obstruída.',
+      'o nervo facial é paralisado.',
+      'a lente perde a transparência por falta de parassimpático.',
+      'o nervo abducente é estirado.',
+      'o quiasma óptico deixa de cruzar as fibras.'],
+   c:0, w:'No glaucoma, o acúmulo do humor aquoso aumenta a pressão no globo ocular além do que o olho tolera.'},
+
+  {tema:'Nervos cranianos', p:'Os músculos extrínsecos do olho são inervados por três nervos. Assinale a associação correta.',
+   o:['Abducente: oblíquo superior; troclear: reto lateral.',
+      'Abducente: reto lateral; troclear: oblíquo superior; oculomotor: os demais músculos, incluindo o elevador da pálpebra.',
+      'Oculomotor: só o reto lateral.',
+      'Óptico: todos os músculos do olho.',
+      'Troclear: elevador da pálpebra; abducente: reto medial.'],
+   c:1, w:'Abducente → reto lateral. Troclear → oblíquo superior. Oculomotor → elevador da pálpebra, retos superior, inferior e medial e oblíquo inferior.'},
+
+  {tema:'Nervos cranianos', p:'Um paciente chega ao pronto-socorro com a pálpebra direita caída, o olho direito desviado para fora e a pupila direita dilatada. O nervo mais provavelmente lesado é o',
+   o:['abducente direito.','oculomotor direito.','troclear direito.','óptico direito.','facial direito.'],
+   c:1, w:'Ptose (elevador da pálpebra), estrabismo divergente (reto lateral sem oposição) e midríase (perda do parassimpático da pupila): lesão do oculomotor.'},
+
+  {tema:'Nervos cranianos', p:'Na lesão do nervo oculomotor, a pupila fica dilatada (midríase). Isso acontece porque',
+   o:['o oculomotor leva fibras simpáticas que fecham a pupila.',
+      'perde-se a inervação parassimpática do esfíncter da pupila, e o músculo dilatador, inervado pelo simpático, age sem oposição.',
+      'o nervo óptico deixa de funcionar.',
+      'o abducente passa a controlar a pupila.',
+      'o glaucoma é causado pela lesão.'],
+   c:1, w:'O oculomotor leva fibras parassimpáticas ao esfíncter da pupila. Sem elas, predomina o dilatador, que é simpático.'},
+
+  {tema:'Nervos cranianos', p:'Uma pessoa passou a ver tudo duplicado e, ao olhar para o lado, um dos olhos não se move para fora. O nervo afetado e o sintoma são, respectivamente,',
+   o:['troclear; ptose.','abducente; diplopia.','oculomotor; midríase.','facial; paralisia de Bell.','óptico; glaucoma.'],
+   c:1, w:'O abducente inerva só o reto lateral, que leva o olho para fora. Sem ele, os olhos não se alinham e surge a diplopia (visão dupla).'},
+
+  {tema:'Nervos cranianos', p:'Sobre o nervo troclear, analise:<br>I. Inerva o músculo oblíquo superior.<br>II. É o único nervo craniano que emerge da face posterior do tronco encefálico.<br>III. Sua lesão pode causar dificuldade de olhar para baixo com o olho voltado para dentro.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:4, fixa:true, w:'As três estão corretas. O troclear nasce logo abaixo do colículo inferior e tem o trajeto intracraniano mais longo, o que o deixa vulnerável a estiramento.'},
+
+  {tema:'Nervos cranianos', p:'Sobre o nervo trigêmeo, é correto afirmar que',
+   o:['é exclusivamente motor e comanda a mímica facial.',
+      'é misto, com raiz sensitiva maior; seus três ramos (oftálmico, maxilar e mandibular) levam a sensibilidade da face, e a raiz motora vai aos músculos da mastigação.',
+      'é responsável pela gustação dos 2/3 anteriores da língua.',
+      'tem apenas dois ramos: oftálmico e lingual.',
+      'inerva o trapézio e o esternocleidomastóideo.'],
+   c:1, w:'Trigêmeo: misto, sensibilidade da face pelos ramos V1, V2 e V3, e mastigação pela raiz motora. Mímica e gustação são do facial.'},
+
+  {tema:'Nervos cranianos', p:'Uma mulher relata crises de dor muito forte, em choque, na região da bochecha e do lábio superior, que surgem ao mastigar ou tocar o rosto. O quadro sugere',
+   o:['paralisia de Bell.','nevralgia do trigêmeo, no território do ramo maxilar.','lesão do hipoglosso.','glaucoma.','lesão do vestibulococlear.'],
+   c:1, w:'A nevralgia do trigêmeo é o problema mais comum desse nervo. O ramo maxilar (V2) cobre a região entre a pálpebra inferior, o nariz e o lábio superior.'},
+
+  {tema:'Nervos cranianos', p:'Ao acordar, um homem percebe que não consegue fechar o olho esquerdo, que a boca está "torta" e que não consegue sorrir do lado esquerdo. O nervo acometido é o',
+   o:['trigêmeo esquerdo.','facial esquerdo.','oculomotor esquerdo.','hipoglosso esquerdo.','acessório esquerdo.'],
+   c:1, w:'É uma paralisia facial periférica, como a paralisia de Bell: o facial (VII) comanda os músculos da mímica facial de um lado.'},
+
+  {tema:'Nervos cranianos', p:'Sobre a inervação da língua, assinale a alternativa correta.',
+   o:['O hipoglosso leva a gustação de toda a língua.',
+      'Nos 2/3 anteriores, a sensibilidade geral é do trigêmeo e a gustação é do facial; no 1/3 posterior, sensibilidade geral e gustação são do glossofaríngeo; o movimento é do hipoglosso.',
+      'O facial leva a sensibilidade geral, e o trigêmeo, a gustação dos 2/3 anteriores.',
+      'O vago é o nervo motor da língua.',
+      'O glossofaríngeo inerva os 2/3 anteriores.'],
+   c:1, w:'É a tabela da aula: V (sensibilidade geral 2/3 anteriores), VII (gustação 2/3 anteriores), IX (geral e gustação 1/3 posterior), XII (motricidade).'},
+
+  {tema:'Nervos cranianos', p:'Além da mímica facial, o nervo facial é responsável',
+   o:['pela audição e pelo equilíbrio.',
+      'pela inervação das glândulas lacrimal, submandibular e sublingual e pela gustação dos 2/3 anteriores da língua.',
+      'pela inervação da parótida e do coração.',
+      'pelos músculos da mastigação.',
+      'pelo músculo reto lateral.'],
+   c:1, w:'O facial tem fibras parassimpáticas (pelo nervo intermédio) para as glândulas lacrimal, submandibular e sublingual, e gustação dos 2/3 anteriores pela corda do tímpano. A parótida é do glossofaríngeo.'},
+
+  {tema:'Nervos cranianos', p:'Depois de uma infecção no ouvido interno, uma pessoa passou a ter tontura (vertigem), perda de equilíbrio e enjoo, mas continua ouvindo bem. A parte mais provavelmente afetada é',
+   o:['a parte coclear do nervo vestibulococlear.','a parte vestibular do nervo vestibulococlear.','o nervo facial.','o nervo óptico.','o nervo glossofaríngeo.'],
+   c:1, w:'A parte vestibular do VIII cuida do equilíbrio; a coclear, da audição. Como a audição está preservada, a lesão é vestibular.'},
+
+  {tema:'Nervos cranianos', p:'Sobre o nervo vago (X), é correto afirmar que',
+   o:['é o menor nervo craniano e é exclusivamente motor.',
+      'é o maior nervo craniano, misto, mas principalmente visceral, e faz a inervação parassimpática das vísceras torácicas e abdominais.',
+      'sai do crânio pelo canal óptico.',
+      'é responsável pela mímica facial.',
+      'termina no pescoço, sem chegar ao tórax.'],
+   c:1, w:'O vago sai pelo forame jugular, atravessa pescoço e tórax e termina no abdome, inervando faringe, laringe, coração, pulmões e sistema digestivo.'},
+
+  {tema:'Nervos cranianos', p:'Ao pedir que o paciente ponha a língua para fora, o médico observa que ela desvia para a direita. Além disso, o paciente tem dificuldade de elevar o ombro direito e de girar a cabeça. Os nervos mais provavelmente lesados são',
+   o:['facial e trigêmeo esquerdos.',
+      'hipoglosso direito e acessório direito.',
+      'hipoglosso esquerdo e vago esquerdo.',
+      'glossofaríngeo e abducente direitos.',
+      'oculomotor e troclear direitos.'],
+   c:1, w:'Na lesão do hipoglosso, a língua desvia para o lado lesado (direito). O acessório inerva o trapézio (elevar o ombro) e o esternocleidomastóideo (girar a cabeça).'},
+  ]
+});
+
+
 const ROTEIROS = [
   {
     id: 'atividade1-n2',
@@ -5142,6 +5598,18 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
   {t:'Líquor', disc:'Neuroanatomia', d:'Líquido cefalorraquidiano: circula no espaço subaracnóideo e nos ventrículos, protegendo e nutrindo o sistema nervoso.', ex:'Colhido por punção lombar para investigar meningite.'},
   {t:'Raquianestesia', disc:'Neuroanatomia', d:'Anestesia em que o anestésico é colocado no espaço subaracnóideo, junto ao líquor, na região lombar.', ex:'Usada em cesarianas e cirurgias das pernas.'},
   {t:'Anestesia peridural', disc:'Neuroanatomia', d:'Anestesia em que o anestésico é colocado no espaço epidural, por fora da dura-máter.', ex:'Comum no trabalho de parto, porque permite ajustar a dose aos poucos.'},
+  {t:'Nervos cranianos', disc:'Neuroanatomia', d:'Os 12 pares de nervos ligados ao encéfalo, numerados de I a XII de cima para baixo. O I liga-se ao telencéfalo, o II ao diencéfalo e os outros dez ao tronco encefálico.', ex:'O nervo facial (VII) e o vago (X) são nervos cranianos.'},
+  {t:'Quiasma óptico', disc:'Neuroanatomia', d:'Ponto onde os dois nervos ópticos se unem e parte das fibras cruza para o lado oposto, seguindo pelo trato óptico até o corpo geniculado lateral.', ex:'Por causa do quiasma, cada lado do encéfalo recebe informação dos dois olhos.'},
+  {t:'Glaucoma', disc:'Neuroanatomia', d:'Aumento anormal da pressão do líquido dentro do olho (humor aquoso), por produção maior ou saída obstruída, que pode lesar o nervo óptico.', ex:'Doença do nervo óptico citada na aula de nervos cranianos.'},
+  {t:'Fissura orbital superior', disc:'Neuroanatomia', d:'Abertura por onde os nervos oculomotor (III), troclear (IV) e abducente (VI) entram na órbita.', ex:'Os três nervos dos músculos do olho passam juntos por ela.'},
+  {t:'Ptose palpebral', disc:'Neuroanatomia', d:'Queda da pálpebra superior, por paralisia do músculo elevador da pálpebra.', ex:'Sinal típico da lesão do nervo oculomotor (III).'},
+  {t:'Diplopia', disc:'Neuroanatomia', d:'Visão dupla, quando os dois olhos deixam de se mover juntos.', ex:'Aparece na lesão do abducente (VI), que paralisa o reto lateral.'},
+  {t:'Nevralgia do trigêmeo', disc:'Neuroanatomia', d:'Crises de dor muito intensa no território de um dos ramos do trigêmeo. É o problema mais comum desse nervo.', ex:'Dor em choque na bochecha ao mastigar ou tocar o rosto.'},
+  {t:'Nervo intermédio', disc:'Neuroanatomia', d:'Raiz sensitiva e visceral do nervo facial (VII), com fibras da gustação e fibras parassimpáticas para glândulas.', ex:'Junto com a raiz motora, entra no meato acústico interno.'},
+  {t:'Corda do tímpano', disc:'Neuroanatomia', d:'Ramo do nervo facial que leva a gustação dos 2/3 anteriores da língua (seguindo o nervo lingual) e fibras para as glândulas submandibular e sublingual.', ex:'Por ela o facial "pega carona" no nervo lingual do trigêmeo.'},
+  {t:'Paralisia de Bell', disc:'Neuroanatomia', d:'Paralisia facial periférica, do nervo facial (VII), que paralisa os músculos de um lado do rosto.', ex:'A pessoa não consegue fechar um olho nem sorrir daquele lado.'},
+  {t:'Forame jugular', disc:'Neuroanatomia', d:'Abertura do crânio por onde saem os nervos glossofaríngeo (IX) e vago (X).', ex:'O vago sai por ele e desce pelo pescoço até o tórax e o abdome.'},
+  {t:'Nervo vago', disc:'Neuroanatomia', d:'X par craniano, o maior deles. Misto, mas principalmente visceral: faz a inervação parassimpática das vísceras do tórax e do abdome.', ex:'É o principal nervo parassimpático do coração e do sistema digestivo.'},
   {t:'Regra de Chargaff', disc:'Bases Biológicas', d:'No DNA de fita dupla, %A = %T e %C = %G, porque as bases estão sempre pareadas.', ex:'Se um DNA tem 30% de adenina, tem 30% de timina e 20% de citosina e de guanina.'},
   {t:'Histonas', disc:'Bases Biológicas', d:'Proteínas em que o DNA se enrola para se compactar dentro do núcleo.', ex:'O DNA dá quase duas voltas em torno de um conjunto de histonas, como fio num carretel.'},
   {t:'Cromatina', disc:'Bases Biológicas', d:'Conjunto de DNA e proteínas (histonas) no núcleo. Condensa-se ao máximo e forma os cromossomos na divisão celular.', ex:'Na célula que não está se dividindo, o DNA está na forma de cromatina, mais solta.'},
@@ -5389,6 +5857,19 @@ const COMPARACOES = [
     ['Atravessa a dura-máter?','Sim','Não'],
     ['Início do efeito','Rápido','Mais lento'],
     ['Onde se aplica','Lombar, abaixo de L2 (fim da medula)','Em geral lombar, mas pode ser em outros níveis da coluna'],
+  ]},
+  {titulo:'Oculomotor × troclear × abducente', disc:'Neuroanatomia', cols:['Oculomotor (III)','Troclear (IV)','Abducente (VI)'], linhas:[
+    ['Músculos','Elevador da pálpebra, reto superior, reto inferior, reto medial, oblíquo inferior','Oblíquo superior','Reto lateral'],
+    ['Fibras parassimpáticas','Sim: esfíncter da pupila e músculo ciliar','Não','Não'],
+    ['Origem aparente','Sulco medial do pedúnculo cerebral','Abaixo do colículo inferior (face posterior)','Sulco bulbo-pontino'],
+    ['Lesão','Ptose, olho para fora, pupila dilatada','Dificuldade de olhar para baixo com o olho para dentro','Olho não vai para fora; diplopia'],
+  ]},
+  {titulo:'Trigêmeo × facial', disc:'Neuroanatomia', cols:['Trigêmeo (V)','Facial (VII)'], linhas:[
+    ['Tipo','Misto (sensitivo bem maior)','Misto'],
+    ['Movimento','Músculos da mastigação','Músculos da mímica facial'],
+    ['Língua (2/3 anteriores)','Sensibilidade geral','Gustação'],
+    ['Glândulas','Não','Lacrimal, submandibular e sublingual'],
+    ['Lesão típica','Nevralgia (dor intensa)','Paralisia de um lado do rosto (Bell)'],
   ]},
   {titulo:'Simpático × parassimpático', disc:'Neuroanatomia', cols:['Simpático','Parassimpático'], linhas:[
     ['Função geral','Luta ou fuga','Repouso e digestão'],
@@ -6389,9 +6870,9 @@ const RESUMOS = {
   'medula-sna': {
     disc: '02',
     eyebrow: 'Neuroanatomia · Prof. Alexandre Sancho',
-    titulo: 'Medula espinhal e sistema nervoso autônomo',
-    lead: 'Medula espinhal e sistema nervoso autônomo, uma aula por aba. Cada aba termina com perguntas de revisão ("Teste-se") e quiz.',
-    fonte: 'Resumo feito a partir dos slides de Neuroanatomia: "Medula espinhal e envoltórios" e "Sistema nervoso autônomo".',
+    titulo: 'Medula espinhal, SNA e nervos cranianos',
+    lead: 'Medula espinhal, sistema nervoso autônomo e nervos cranianos, uma aula por aba. Cada aba termina com perguntas de revisão ("Teste-se") e quiz.',
+    fonte: 'Resumo feito a partir dos slides de Neuroanatomia: "Medula espinhal e envoltórios", "Sistema nervoso autônomo" e "Nervos cranianos". Na aba de nervos cranianos, a origem do oculomotor segue o pedúnculo cerebral (no slide aparece "pedúnculo cerebelar", um erro de digitação), e a raiz espinhal do acessório segue Machado (primeiros segmentos cervicais).',
     caps: [
       {
         id:'medula2', aba:'Medula espinhal', titulo:'Medula espinhal e envoltórios',
@@ -6539,6 +7020,124 @@ const RESUMOS = {
           {p:'Gânglios próximos ou na parede dos órgãos-alvo são típicos do…', o:['Simpático','Parassimpático','Somático','Córtex'], c:1, w:'No parassimpático, os pós-ganglionares ficam perto dos órgãos ou dentro da parede deles.'},
           {p:'Na resposta de luta ou fuga, as pupilas…', o:['Contraem','Dilatam','Não mudam','Fecham'], c:1, w:'A ativação simpática dilata as pupilas e os brônquios.'},
           {p:'Após um susto: palidez, coração acelerado e olhos arregalados. Qual alternativa explica corretamente? (exercício da aula)', o:['Via parassimpática: acetilcolina aumenta a pressão e contrai a pupila','Via simpática: noradrenalina aumenta frequência e força cardíacas, contrai vasos periféricos (palidez) e dilata a pupila','Via simpática: adrenalina dilata os vasos periféricos, o que causa a palidez','Via parassimpática: noradrenalina contrai a pupila e os vasos da pele'], c:1, w:'É a resposta correta do exercício da aula: na via simpática, a noradrenalina aumenta a frequência e a força cardíacas e a pressão; os vasos periféricos se contraem (palidez) e a pupila se dilata.'},
+        ]
+      },
+      {
+        id:'nervos', aba:'Nervos cranianos', titulo:'Nervos cranianos',
+        intro:'Os 12 pares de nervos ligados ao encéfalo: onde nascem, o que fazem e o que acontece quando são lesados.',
+        etapas:[
+          {fase:'Visão geral', when:'Conceito', titulo:'O que são os nervos cranianos', pontos:[
+            'São os nervos que fazem conexão com o <strong>encéfalo</strong>. Na espécie humana, são <strong>12 pares</strong>.',
+            'São numerados em algarismos romanos, de <strong>I a XII</strong>, pela ordem da origem aparente no encéfalo, no sentido <strong>rostrocaudal</strong> (de cima para baixo).',
+            'O <strong>I (olfatório)</strong> se liga ao telencéfalo, o <strong>II (óptico)</strong> ao diencéfalo, e os <strong>outros dez</strong> ao tronco encefálico.',
+            'Os pares I e II, embora chamados de nervos, são tecnicamente <strong>prolongamentos do sistema nervoso central</strong>.'],
+            q:'Por que os nervos cranianos são numerados de I a XII?', a:'Pela ordem da origem aparente no encéfalo, de cima para baixo (sentido rostrocaudal).'},
+          {when:'Os 12 pares', titulo:'Nomes e tipos', pontos:[
+            'I olfatório · II óptico · III oculomotor · IV troclear · V trigêmeo · VI abducente · VII facial · VIII vestibulococlear · IX glossofaríngeo · X vago · XI acessório · XII hipoglosso.',
+            'As fibras podem ser <strong>aferentes</strong> (levam informação ao encéfalo) ou <strong>eferentes</strong> (levam comandos).',
+            '<strong>Só sensitivos:</strong> I, II e VIII. <strong>Motores:</strong> III, IV, VI, XI e XII. <strong>Mistos (sensitivos e motores):</strong> V, VII, IX e X.',
+            'Levam fibras <strong>parassimpáticas</strong>: <strong>III</strong> (pupila e lente), <strong>VII</strong> (glândulas lacrimal e salivares), <strong>IX</strong> (parótida) e <strong>X</strong> (coração e vísceras). É a parte "crânio" da divisão craniossacral.'],
+            q:'Quais nervos cranianos levam fibras parassimpáticas?', a:'III (oculomotor), VII (facial), IX (glossofaríngeo) e X (vago).'},
+          {fase:'Sentidos especiais', when:'I par', titulo:'Nervo olfatório', pontos:[
+            'Exclusivamente <strong>sensitivo</strong>: conduz os impulsos do olfato.',
+            'Nasce na parte olfatória da mucosa das fossas nasais, atravessa a <strong>lâmina crivosa do osso etmoide</strong> e termina no <strong>bulbo olfatório</strong>.'],
+            q:'Por qual estrutura óssea passam as fibras do nervo olfatório?', a:'Pela lâmina crivosa do osso etmoide, até o bulbo olfatório.'},
+          {when:'II par', titulo:'Nervo óptico', pontos:[
+            'Totalmente <strong>sensitivo</strong>: conduz os impulsos visuais da <strong>retina</strong> ao encéfalo. Entra no crânio pelo <strong>canal óptico</strong>.',
+            'Os dois nervos se unem no <strong>quiasma óptico</strong>, onde há <strong>cruzamento parcial</strong> das fibras. Elas seguem no trato óptico até o <strong>corpo geniculado lateral</strong>.',
+            'Por esse cruzamento, cada lado do encéfalo recebe informação dos dois olhos.',
+            '<strong>Glaucoma:</strong> a pressão do líquido dentro do olho (humor aquoso) fica alta demais, por produção maior ou saída obstruída, e pode lesar o nervo óptico.'],
+            q:'O que acontece no quiasma óptico?', a:'Os dois nervos ópticos se unem e parte das fibras cruza para o lado oposto.'},
+          {fase:'Movimentos dos olhos', when:'III, IV e VI', titulo:'Os nervos dos músculos do olho', pontos:[
+            'São <strong>motores</strong> e inervam os músculos extrínsecos do olho. Entram na órbita pela <strong>fissura orbital superior</strong>.',
+            '<strong>Abducente (VI):</strong> só o <strong>reto lateral</strong>. <strong>Troclear (IV):</strong> só o <strong>oblíquo superior</strong>. <strong>Oculomotor (III):</strong> todos os outros (elevador da pálpebra, reto superior, reto inferior, reto medial e oblíquo inferior).',
+            'Origem aparente: oculomotor no sulco medial do <strong>pedúnculo cerebral</strong>; troclear logo abaixo do <strong>colículo inferior</strong> (é o único que sai pela face posterior do tronco); abducente no <strong>sulco bulbo-pontino</strong>, perto da linha média.'],
+            q:'Que músculo do olho é inervado pelo abducente, e qual pelo troclear?', a:'Abducente: reto lateral. Troclear: oblíquo superior.'},
+          {when:'III par', titulo:'Oculomotor e a pupila', pontos:[
+            'Além dos músculos extrínsecos, leva fibras <strong>parassimpáticas</strong> para a musculatura intrínseca: o <strong>esfíncter da pupila</strong> (fecha a pupila) e o <strong>músculo ciliar</strong> (muda a forma da lente).',
+            '<strong>Lesão:</strong> <strong>ptose</strong> (pálpebra caída), olho desviado para fora (<strong>estrabismo divergente</strong>) e <strong>pupila dilatada</strong> (midríase), porque o dilatador, que é simpático, fica sem oposição.'],
+            q:'Por que a pupila fica dilatada na lesão do oculomotor?', a:'Porque se perde a inervação parassimpática do esfíncter da pupila, e o músculo dilatador (simpático) age sem oposição.'},
+          {when:'IV e VI', titulo:'Lesões do troclear e do abducente', pontos:[
+            'O <strong>troclear</strong> tem o trajeto intracraniano mais longo, contornando o tronco encefálico. Estiramento ou fratura da órbita podem causar dificuldade de <strong>olhar para baixo</strong> com o olho voltado para dentro.',
+            'A lesão do <strong>abducente</strong> paralisa o reto lateral: o olho não vai para fora e a pessoa tem <strong>visão dupla (diplopia)</strong>.'],
+            q:'Qual o sintoma principal da lesão do abducente?', a:'Diplopia (visão dupla), porque o reto lateral fica paralisado e o olho não se move para fora.'},
+          {fase:'Face e boca', when:'V par', titulo:'Nervo trigêmeo', pontos:[
+            '<strong>Misto</strong>, com uma raiz sensitiva bem maior e uma raiz motora.',
+            'A raiz sensitiva vem do <strong>gânglio trigeminal</strong> e forma <strong>três ramos</strong>: <strong>oftálmico (V1)</strong>, para a órbita; <strong>maxilar (V2)</strong>, entre pálpebra inferior, nariz e lábio superior; <strong>mandibular (V3)</strong>, que inclui o nervo lingual (sensibilidade geral dos 2/3 anteriores da língua) e o alveolar inferior.',
+            'Leva tato, dor, temperatura e pressão da face (e propriocepção dos músculos da mastigação e da ATM). A raiz <strong>motora</strong> segue o nervo mandibular e vai aos <strong>músculos da mastigação</strong>.',
+            'Problema mais comum: a <strong>nevralgia do trigêmeo</strong>, com crises de dor muito intensa no território de um dos ramos.'],
+            q:'Quais são os três ramos do trigêmeo?', a:'Oftálmico (V1), maxilar (V2) e mandibular (V3).'},
+          {when:'VII par', titulo:'Nervo facial', pontos:[
+            '<strong>Misto</strong>: tem a raiz motora (o facial propriamente dito) e uma raiz sensitiva e visceral, o <strong>nervo intermédio</strong>. Sai do sulco bulbo-pontino e entra no <strong>meato acústico interno</strong> junto com o VIII.',
+            'Percorre o <strong>canal facial</strong> no osso temporal, sai do crânio pelo <strong>forame estilomastóideo</strong> e atravessa a <strong>parótida</strong> até os músculos da face.',
+            'Funções: <strong>mímica facial</strong>; glândulas <strong>lacrimal, submandibular e sublingual</strong> (parassimpático); <strong>gustação dos 2/3 anteriores da língua</strong>, pela corda do tímpano.',
+            '<strong>Lesão:</strong> paralisia facial periférica, como a <strong>paralisia de Bell</strong>, que paralisa um lado do rosto.'],
+            q:'Que parte da gustação depende do nervo facial?', a:'Os 2/3 anteriores da língua (pela corda do tímpano).'},
+          {fase:'Ouvido, garganta e vísceras', when:'VIII par', titulo:'Nervo vestibulococlear', pontos:[
+            'Exclusivamente <strong>sensitivo</strong>, também chamado de nervo auditivo ou acústico. Entra no meato acústico interno junto com o facial.',
+            'Parte <strong>coclear</strong>: audição. Parte <strong>vestibular</strong>: equilíbrio e orientação do corpo.',
+            '<strong>Lesão:</strong> na parte coclear, perda de audição ou surdez do lado afetado; na vestibular, vertigem, perda de equilíbrio e enjoo.'],
+            q:'Quais são as duas partes do VIII par e suas funções?', a:'Coclear: audição. Vestibular: equilíbrio.'},
+          {when:'IX par', titulo:'Nervo glossofaríngeo', pontos:[
+            '<strong>Misto</strong>. Sai do bulbo e deixa o crânio pelo <strong>forame jugular</strong>.',
+            'Sensibilidade geral e <strong>gustação do terço posterior da língua</strong>, faringe, úvula, tonsilas, tuba auditiva, seio e corpo carotídeos.',
+            'Fibras <strong>parassimpáticas</strong> que, pelo gânglio ótico, inervam a <strong>glândula parótida</strong>.'],
+            q:'Qual glândula recebe fibras parassimpáticas do glossofaríngeo?', a:'A parótida.'},
+          {when:'X par', titulo:'Nervo vago', pontos:[
+            'O <strong>maior</strong> nervo craniano: misto, mas principalmente <strong>visceral</strong>. Sai pelo forame jugular, atravessa pescoço e tórax e termina no abdome.',
+            'Inerva faringe e laringe (deglutição e fala) e faz a <strong>inervação parassimpática</strong> das vísceras torácicas e abdominais: coração, pulmões e sistema digestivo.',
+            'Sensitivo: gustação na epiglote e ponto de partida do <strong>reflexo da tosse</strong>.'],
+            q:'Por que o vago é chamado de principalmente visceral?', a:'Porque, no seu longo trajeto, faz a inervação parassimpática das vísceras do tórax e do abdome (coração, pulmões, digestão).'},
+          {fase:'Pescoço e língua', when:'XI par', titulo:'Nervo acessório', pontos:[
+            '<strong>Motor</strong>, com uma raiz <strong>craniana</strong> (do bulbo) e uma raiz <strong>espinhal</strong> (dos primeiros segmentos cervicais), que sobe e entra no crânio pelo forame magno.',
+            'O ramo interno se une ao vago (músculos da laringe); o ramo externo inerva os músculos <strong>trapézio</strong> e <strong>esternocleidomastóideo</strong>.'],
+            q:'Que músculos o ramo externo do acessório inerva?', a:'O trapézio e o esternocleidomastóideo.'},
+          {when:'XII par', titulo:'Nervo hipoglosso', pontos:[
+            'Essencialmente <strong>motor</strong>: é o nervo motor da língua. Sai do bulbo e deixa o crânio pelo <strong>canal do hipoglosso</strong>.',
+            'Inerva os músculos intrínsecos e extrínsecos da língua (como genioglosso, hioglosso e estiloglosso).',
+            '<strong>Lesão:</strong> paralisia do mesmo lado; ao pôr a língua para fora, ela <strong>desvia para o lado lesado</strong>.'],
+            q:'Para que lado a língua desvia na lesão do hipoglosso?', a:'Para o lado lesado, quando a pessoa põe a língua para fora.'},
+        ],
+        extras:[
+          {tipo:'tabela', titulo:'Os 12 pares', cab:['Par','Tipo','Função principal'], linhas:[
+            ['I · Olfatório','Sensitivo','Olfato'],
+            ['II · Óptico','Sensitivo','Visão'],
+            ['III · Oculomotor','Motor (+ parassimpático)','Maioria dos músculos do olho, pálpebra; pupila e lente'],
+            ['IV · Troclear','Motor','Músculo oblíquo superior'],
+            ['V · Trigêmeo','Misto','Sensibilidade da face; mastigação'],
+            ['VI · Abducente','Motor','Músculo reto lateral'],
+            ['VII · Facial','Misto (+ parassimpático)','Mímica facial; lágrima e saliva; gustação 2/3 anteriores'],
+            ['VIII · Vestibulococlear','Sensitivo','Audição e equilíbrio'],
+            ['IX · Glossofaríngeo','Misto (+ parassimpático)','Gustação e sensibilidade 1/3 posterior; faringe; parótida'],
+            ['X · Vago','Misto (+ parassimpático)','Faringe e laringe; coração, pulmões e digestão'],
+            ['XI · Acessório','Motor','Trapézio e esternocleidomastóideo'],
+            ['XII · Hipoglosso','Motor','Músculos da língua'],
+          ]},
+          {tipo:'tabela', titulo:'Quem inerva a língua', cab:['Nervo','O que faz'], linhas:[
+            ['V · Trigêmeo','Sensibilidade geral (tato, dor, temperatura) dos 2/3 anteriores'],
+            ['VII · Facial','Gustação dos 2/3 anteriores'],
+            ['IX · Glossofaríngeo','Sensibilidade geral e gustação do 1/3 posterior'],
+            ['XII · Hipoglosso','Movimento (motricidade)'],
+          ]},
+          {tipo:'caixas', titulo:'Lesões que caem em prova', itens:[
+            {t:'Oculomotor (III)', d:'Ptose, olho desviado para fora (estrabismo divergente) e pupila dilatada.'},
+            {t:'Troclear (IV)', d:'Dificuldade de olhar para baixo com o olho voltado para dentro.'},
+            {t:'Abducente (VI)', d:'O olho não vai para fora; visão dupla (diplopia).'},
+            {t:'Trigêmeo (V)', d:'Nevralgia: crises de dor intensa no território de um dos ramos.'},
+            {t:'Facial (VII)', d:'Paralisia de um lado do rosto, como na paralisia de Bell.'},
+            {t:'Vestibulococlear (VIII)', d:'Perda de audição (coclear); vertigem, desequilíbrio e enjoo (vestibular).'},
+            {t:'Hipoglosso (XII)', d:'A língua desvia para o lado lesado ao ser posta para fora.'},
+          ]},
+        ],
+        quiz:[
+          {p:'Quantos pares de nervos cranianos existem?', o:['10','12','31','8'], c:1, w:'São 12 pares, numerados de I a XII. Os 31 pares são os nervos espinhais.'},
+          {p:'Qual destes nervos é exclusivamente sensitivo?', o:['Facial','Vestibulococlear','Hipoglosso','Trigêmeo'], c:1, w:'I, II e VIII são só sensitivos. Facial e trigêmeo são mistos; hipoglosso é motor.'},
+          {p:'O músculo reto lateral do olho é inervado pelo…', o:['Oculomotor','Troclear','Abducente','Óptico'], c:2, w:'Abducente: reto lateral. Troclear: oblíquo superior. Oculomotor: os demais.'},
+          {p:'Ptose, olho desviado para fora e pupila dilatada indicam lesão do…', o:['Abducente','Oculomotor','Facial','Troclear'], c:1, w:'O oculomotor inerva o elevador da pálpebra, a maioria dos músculos do olho e o esfíncter da pupila.'},
+          {p:'A gustação dos 2/3 anteriores da língua depende do…', o:['Trigêmeo','Glossofaríngeo','Facial','Hipoglosso'], c:2, w:'O facial (pela corda do tímpano) leva o paladar dos 2/3 anteriores; o trigêmeo, a sensibilidade geral dessa região.'},
+          {p:'A paralisia de Bell afeta o nervo…', o:['Trigêmeo','Facial','Vago','Acessório'], c:1, w:'É uma paralisia facial periférica, do VII par, que paralisa um lado do rosto.'},
+          {p:'O maior nervo craniano, responsável pela inervação parassimpática das vísceras do tórax e do abdome, é o…', o:['Vago','Glossofaríngeo','Acessório','Trigêmeo'], c:0, w:'O vago (X) é misto, mas principalmente visceral.'},
+          {p:'Na lesão do hipoglosso, ao pôr a língua para fora, ela…', o:['Desvia para o lado são','Desvia para o lado lesado','Não sai da boca','Treme'], c:1, w:'A paralisia é do mesmo lado, e a língua desvia para o lado lesado.'},
         ]
       }
     ]
@@ -8199,6 +8798,36 @@ const SA_CENARIOS = [
 ];
 criarClassificador({pre:'sa', cenarios:SA_CENARIOS, opcoes:['Sistema nervoso somático','Sistema nervoso autônomo']});
 
+// --- Ferramenta: Qual Nervo Craniano? (Neuroanatomia) ---
+const NC_POOL = ['I · Olfatório','II · Óptico','III · Oculomotor','IV · Troclear','V · Trigêmeo','VI · Abducente','VII · Facial','VIII · Vestibulococlear','IX · Glossofaríngeo','X · Vago','XI · Acessório','XII · Hipoglosso'];
+const NC_CENARIOS = [
+  {situacao:'Suas fibras atravessam a lâmina crivosa do etmoide e terminam no bulbo olfatório.', correta:'I · Olfatório', explicacao:'O olfatório é só sensitivo e liga-se ao telencéfalo.'},
+  {situacao:'Une-se ao do outro lado no quiasma, onde parte das fibras cruza; segue até o corpo geniculado lateral.', correta:'II · Óptico', explicacao:'O óptico leva os impulsos visuais da retina e entra no crânio pelo canal óptico.'},
+  {situacao:'Pode ser lesado no glaucoma, quando a pressão dentro do olho fica alta demais.', correta:'II · Óptico', explicacao:'O glaucoma é a doença do nervo óptico citada na aula.'},
+  {situacao:'Paciente com pálpebra caída, olho desviado para fora e pupila dilatada.', correta:'III · Oculomotor', explicacao:'O oculomotor inerva o elevador da pálpebra, a maioria dos músculos do olho e, pelo parassimpático, o esfíncter da pupila.'},
+  {situacao:'Leva fibras parassimpáticas para o esfíncter da pupila e o músculo ciliar.', correta:'III · Oculomotor', explicacao:'É o único dos nervos do olho com fibras parassimpáticas, para a musculatura intrínseca.'},
+  {situacao:'Inerva só o músculo oblíquo superior e é o único que sai pela face posterior do tronco encefálico.', correta:'IV · Troclear', explicacao:'O troclear nasce logo abaixo do colículo inferior e tem o trajeto intracraniano mais longo.'},
+  {situacao:'Inerva só o músculo reto lateral; a lesão causa visão dupla.', correta:'VI · Abducente', explicacao:'Sem o reto lateral, o olho não vai para fora e surge a diplopia.'},
+  {situacao:'Nervo misto, com três ramos: oftálmico, maxilar e mandibular.', correta:'V · Trigêmeo', explicacao:'A raiz sensitiva do trigêmeo é bem maior que a motora.'},
+  {situacao:'Leva tato, dor e temperatura da face e comanda os músculos da mastigação.', correta:'V · Trigêmeo', explicacao:'Ramos sensitivos para a face; raiz motora pelo nervo mandibular para a mastigação.'},
+  {situacao:'Crises de dor muito intensa no território de um dos ramos do nervo.', correta:'V · Trigêmeo', explicacao:'É a nevralgia do trigêmeo, o problema mais comum desse nervo.'},
+  {situacao:'Comanda a mímica facial e atravessa a glândula parótida.', correta:'VII · Facial', explicacao:'O facial sai pelo forame estilomastóideo e se distribui aos músculos da face.'},
+  {situacao:'Paralisia de um lado do rosto: a pessoa não fecha um olho nem sorri daquele lado.', correta:'VII · Facial', explicacao:'É a paralisia facial periférica, como a paralisia de Bell.'},
+  {situacao:'Leva a gustação dos 2/3 anteriores da língua, pela corda do tímpano.', correta:'VII · Facial', explicacao:'O trigêmeo cuida da sensibilidade geral dessa região; o facial, do paladar.'},
+  {situacao:'Estimula as glândulas lacrimal, submandibular e sublingual.', correta:'VII · Facial', explicacao:'São fibras parassimpáticas que passam pelo nervo intermédio.'},
+  {situacao:'Nervo só sensitivo, com uma parte para a audição e outra para o equilíbrio.', correta:'VIII · Vestibulococlear', explicacao:'Parte coclear: audição. Parte vestibular: equilíbrio.'},
+  {situacao:'Lesão causa vertigem, perda de equilíbrio e enjoo.', correta:'VIII · Vestibulococlear', explicacao:'São sintomas da lesão da parte vestibular.'},
+  {situacao:'Leva gustação e sensibilidade geral do terço posterior da língua e inerva a parótida.', correta:'IX · Glossofaríngeo', explicacao:'As fibras parassimpáticas do IX passam pelo gânglio ótico até a parótida.'},
+  {situacao:'O maior nervo craniano: principalmente visceral, desce até o abdome.', correta:'X · Vago', explicacao:'O vago faz a inervação parassimpática das vísceras do tórax e do abdome.'},
+  {situacao:'Diminui a frequência cardíaca e estimula a digestão (parassimpático), além de participar da fala e da deglutição.', correta:'X · Vago', explicacao:'O vago inerva coração, pulmões e sistema digestivo, além de faringe e laringe.'},
+  {situacao:'Ponto de partida do reflexo da tosse.', correta:'X · Vago', explicacao:'É uma das funções sensitivas do vago citadas na aula.'},
+  {situacao:'Tem raiz craniana e raiz espinhal; inerva o trapézio e o esternocleidomastóideo.', correta:'XI · Acessório', explicacao:'O ramo externo vai a esses dois músculos; o interno se une ao vago.'},
+  {situacao:'Nervo motor da língua.', correta:'XII · Hipoglosso', explicacao:'Inerva os músculos intrínsecos e extrínsecos da língua e sai pelo canal do hipoglosso.'},
+  {situacao:'Ao pôr a língua para fora, ela desvia para o lado lesado.', correta:'XII · Hipoglosso', explicacao:'A lesão do hipoglosso causa paralisia do mesmo lado da língua.'},
+];
+criarClassificador({pre:'nc', cenarios:NC_CENARIOS, pool:NC_POOL});
+
+
 
 // =====================================================================
 // FERRAMENTAS VISUAIS (desenhos interativos)
@@ -9068,7 +9697,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
   const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
-  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
   const totalCursos = COURSES.length;
@@ -10365,7 +10994,7 @@ function errMapa(){
   if(ERR_MAPA) return ERR_MAPA;
   ERR_MAPA = new Map();
   [RP_CENARIOS, PD_CENARIOS, PE_CENARIOS, TD_CENARIOS, NT_CENARIOS, SN_CENARIOS, MM_CENARIOS, ES_CENARIOS, BD_CENARIOS, VG_CENARIOS,
-   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS]
+   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS]
     .forEach(arr => (arr || []).forEach(c => { if(c && c.situacao && c.correta) ERR_MAPA.set(String(c.situacao).trim(), c); }));
   return ERR_MAPA;
 }
