@@ -2108,6 +2108,13 @@
     .sim-topo{padding:10px 12px;}
     .sim-cont, .sim-pontos, .sim-seq{font-size:12px; padding:6px 9px;}
   }
+
+  /* página Modo prova */
+  #simuladosLista{display:flex; flex-direction:column; gap:28px; margin-top:8px;}
+  .mpg-disc-t{display:flex; align-items:baseline; gap:10px; font-family:var(--serif); font-size:21px; font-weight:600; margin:0 0 10px; color:var(--ink);}
+  .mpg-cards .sim-card{max-width:none;}
+  .mpg-disc-t span{font-family:var(--mono); font-size:14px; color:var(--acc, var(--petrol)); font-weight:500;}
+  .mpg-cards{display:grid; gap:14px;}
 </style>
 </head>
 <body>
@@ -2135,10 +2142,10 @@
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewEstudar"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><span class="ni-text"><strong>Resumos</strong><small>Resumos interativos por disciplina</small></span></button>
           <button class="nav-item" data-page="viewFerramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="ni-text"><strong>Exercícios</strong><small>Quizzes e atividades por disciplina</small></span></button>
+          <button class="nav-item" data-page="viewSimulados"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><span class="ni-text"><strong>Modo prova</strong><small>Simulados no estilo vestibular</small></span></button>
           <button class="nav-item" data-page="viewErros"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></span><span class="ni-text"><strong>Revisão dos erros</strong><small>Questões erradas para treinar de novo</small></span></button>
           <button class="nav-item" data-page="viewApoio"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span><span class="ni-text"><strong>Glossário e guias</strong><small>Glossário, comparações e normas ABNT</small></span></button>
           <button class="nav-item" data-page="viewVideos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg></span><span class="ni-text"><strong>Vídeos</strong><small>Vídeo-aulas recomendadas</small></span></button>
-          <button class="nav-item" data-page="viewSimulados" style="display:none"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg></span><span class="ni-text"><strong>Simulados</strong><small>Quizzes para treinar</small></span></button>
         </div>
       </div>
       <div class="nav-group">
@@ -3273,18 +3280,15 @@
 </div>
 
 <!-- ============ PÁGINA: SIMULADOS ============ -->
-<div class="wrap arena" id="viewSimulados" style="display:none;">
-  <button class="back-link arena-back" id="backFromSimulados">← Voltar ao Arquivo Vivo</button>
-
-  <header class="arena-header">
-    <div class="arena-eyebrow">SEGUNDO SEMESTRE</div>
-    <h1 class="arena-title">Simulados</h1>
-    <p class="arena-sub">Quizzes no Wayground para treinar antes da prova, organizados por disciplina. Cada um abre numa aba nova.</p>
+<div class="wrap" id="viewSimulados" style="display:none;">
+  <button class="back-link" id="backFromSimulados">← Voltar ao Arquivo Vivo</button>
+  <header>
+    <div class="eyebrow">Estudo · Arquivo Vivo</div>
+    <h1>Modo prova</h1>
+    <p>Simulados no estilo vestibular, um por disciplina: uma questão por tela, tempo opcional, pontos e resultado por assunto no fim. As questões erradas vão para a Revisão dos erros.</p>
   </header>
-
   <div id="simuladosLista"></div>
-
-  <footer class="arena-footer">Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
+  <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
 
 <!-- ============ PÁGINA: EXTRAS (antiga Conteúdo de apoio) ============ -->
@@ -3453,7 +3457,7 @@
       <button class="brand" data-scroll="top"><img class="brand-mark brand-logo" src="icons/icon-192.png" alt="" width="36" height="36"><span class="brand-text"><strong>Arquivo Vivo</strong><small>Psicologia · de aluno para aluno</small></span></button>
       <p>Iniciativa voluntária, sem vínculo com a coordenação ou com a instituição. O conteúdo das aulas sempre prevalece como referência final.</p>
     </div>
-    <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button></div>
+    <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewSimulados">Modo prova</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button></div>
     <div class="footer-col"><h4>Turma</h4><button data-scroll="disciplinas">Drive das Disciplinas</button><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewPrazos" data-target="calendario">Calendário</button><button data-scroll="atualizacoes">Atualizações</button><button data-page="viewCursos">Cursos extras</button></div>
     <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button></div>
     <div class="qr-block"><div id="qrcode"></div><span>Aponte a câmera para abrir no celular</span></div>
@@ -3533,7 +3537,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
-  {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam na página de cada disciplina.', link: {url:'#simulado-bases-n2'}},
+  {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam no menu Estudo, em Modo prova, e na página de cada disciplina.', link: {url:'#modo-prova'}},
   {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
   {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Piaget (aula 3): resumo interativo, dois exercícios novos, 14 termos no glossário e as comparações assimilação × acomodação e Piaget × Vygotsky. Nova página Revisão dos erros, com as questões erradas nos exercícios e quizzes.', link: {url:'#resumo-piaget'}},
@@ -7390,10 +7394,10 @@ function fmtStamp(iso){
 
 function rotuloLink(l){
   if(l.drive) return 'Abrir no Drive ↗';
-  if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#roteiro-')) return 'Abrir roteiro →'; if(l.url.startsWith('#simulado-')) return 'Abrir simulado →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
+  if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#roteiro-')) return 'Abrir roteiro →'; if(l.url.startsWith('#simulado-')) return 'Abrir simulado →'; if(l.url === '#modo-prova') return 'Abrir o modo prova →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
   if(l.disc) return 'Ver disciplina →';
   if(l.scroll === 'disciplinas') return 'Ver disciplinas →';
-  const pg = {viewFerramentas:'Ver exercícios →', viewPrazos:'Ver prazos →', viewEstudar:'Ver resumos →', viewVideos:'Ver vídeos →', viewCursos:'Ver cursos →', viewApoio:'Ver extras →', viewSimulados:'Ver simulados →'};
+  const pg = {viewFerramentas:'Ver exercícios →', viewPrazos:'Ver prazos →', viewEstudar:'Ver resumos →', viewVideos:'Ver vídeos →', viewCursos:'Ver cursos →', viewApoio:'Ver extras →', viewSimulados:'Abrir o modo prova →'};
   return pg[l.page] || 'Ver →';
 }
 function renderFeed(items){
@@ -7605,8 +7609,9 @@ if(document.body.classList.contains('dark')){
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
 // endereços amigáveis para compartilhar (os antigos #viewX continuam funcionando)
-const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'simulados', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros'};
+const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros'};
 const SLUG_PAGE = Object.fromEntries(Object.entries(PAGE_SLUG).map(([k, v])=>[v, k]));
+SLUG_PAGE['simulados'] = 'viewSimulados';
 const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros'];
 let currentPage = 'top';
 
@@ -7640,6 +7645,7 @@ function switchPage(id, opts){
     if(el) el.style.display = (pid === id) ? 'block' : 'none';
   });
   currentPage = id;
+  if(id === 'viewSimulados') renderSimulados();
   if(id === 'viewErros' && typeof renderErros === 'function'){ if(!opts.manterErros) errEstado = {modo:'lista', disc:opts.errDisc || (errEstado && errEstado.disc) || 'todas'}; renderErros(); }
   setActiveNav(id);
   closeMenus();
@@ -9560,37 +9566,18 @@ document.getElementById('gmCorrigirBtn').addEventListener('click', ()=>{
   document.getElementById('gmReiniciarBtn').style.display = 'inline-block';
 });
 
-// --- Página Simulados (links do Wayground) ---
-
+// --- Página Modo prova (simulados do site) ---
 function renderSimulados(){
-  const el = document.getElementById('simuladosLista');
-  const RARITY_CORES = ['#9AA0A6', '#3DDC97', '#4C8DFF', '#A855F7', '#FF9F1C', '#FF3D9A'];
-  el.innerHTML = DISC[2].map((d, idx)=>{
-    const items = SIMULADOS[d.n] || [];
-    const cor = RARITY_CORES[idx % RARITY_CORES.length];
-    const listHtml = items.length === 0
-      ? '<div class="arena-empty">Nenhum simulado adicionado ainda nesta disciplina.</div>'
-      : items.map(q => `
-          <div class="arena-quiz">
-            <div class="arena-quiz-info">
-              <div class="aq-title">${q.titulo}</div>
-              ${q.nota ? `<div class="aq-nota">${q.nota}</div>` : ''}
-            </div>
-            <a class="arena-play-btn" href="${q.url}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Jogar</span></a>
-          </div>
-        `).join('');
-    return `<details class="arena-disc" style="--rarity:${cor};">
-      <summary>
-        <span class="ad-num" style="background:${cor};">${d.n}</span>
-        <span class="ad-name">${d.name}</span>
-        <span class="ad-count">${items.length} quiz${items.length === 1 ? '' : 'zes'}</span>
-        <span class="ad-caret">▶</span>
-      </summary>
-      <div class="arena-quiz-list">${listHtml}</div>
-    </details>`;
+  const el = document.getElementById('simuladosLista'); if(!el) return;
+  el.innerHTML = DISC[2].map(d=>{
+    const sims = SIM_JOGO.filter(x=>x.disc === d.n);
+    if(!sims.length) return '';
+    return `<div class="mpg-disc">
+      <div class="mpg-disc-t"><span>${d.n}</span>${escHTML(d.name)}</div>
+      <div class="mpg-cards">${sims.map(simHTMLCard).join('')}</div>
+    </div>`;
   }).join('');
 }
-renderSimulados();
 
 // --- Ferramenta: Mapa do Cérebro (Neuroanatomia) ---
 // Os 5 pontos marcados correspondem às sub-regiões destacadas no desenho (elipses/formas com contorno tracejado).
@@ -10973,6 +10960,7 @@ function simFechar(){
   const id = simEst && simEst.sim.id; const disc = simEst && simEst.sim.disc;
   simEst = null;
   if(currentPage === 'viewDisc' && discAtual === disc) renderDiscPage(DISC[2].find(x=>x.n === disc));
+  if(currentPage === 'viewSimulados') renderSimulados();
   return id;
 }
 function simSair(){
@@ -11598,6 +11586,7 @@ const PAGINAS_BUSCA = [
   {t:'Calendário de prazos', s:'Todas as datas do semestre', l:{page:'viewPrazos', target:'calendario'}},
   {t:'Resumos', s:'Resumos interativos por disciplina', l:{page:'viewEstudar'}},
   {t:'Exercícios', s:'Quizzes e atividades por disciplina', l:{page:'viewFerramentas'}},
+  {t:'Modo prova', s:'Simulados no estilo vestibular, por disciplina', l:{page:'viewSimulados'}},
   {t:'Revisão dos erros', s:'Questões erradas para treinar de novo', l:{page:'viewErros'}},
   {t:'Glossário e guias', s:'Glossário, comparações, normas ABNT e gráficos', l:{page:'viewApoio'}},
   {t:'Glossário', s:'Termos das disciplinas', l:{page:'viewApoio', target:'glossario'}},
