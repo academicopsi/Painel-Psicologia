@@ -1998,11 +1998,17 @@
   #dpGuia .rt-box + .rt-box{margin-top:10px;}
   @media (max-width:600px){ .mt-c-linha, .mt-c-linha:nth-of-type(3){grid-template-columns:1fr;} }
 
-  /* topo mais limpo: no celular, só Drive e busca; o calendário fica no painel de prazos logo abaixo */
-  .hero-meta{font-size:12px !important;}
+  /* topo mais limpo */
+  .hero-meta{font-size:12px !important; align-items:center;}
+  .hero-meta .hero-credito{flex-basis:auto !important; font-size:12px !important;}
+  .hero-ctas .so-mob{display:none;}
   @media (max-width:600px){
-    .hero-ctas .btn-accent{display:none;}
-    .hero-meta{margin-top:12px !important; opacity:.85;}
+    .hero-ctas .so-desk{display:none;} .hero-ctas .so-mob{display:inline;}
+    .hero-ctas{flex-wrap:nowrap;}
+    .hero-ctas .btn{flex:1 1 0 !important; justify-content:center;}
+    .hero-meta{margin-top:12px !important; gap:0 10px !important;}
+    .hero-meta .hero-credito{color:rgba(255,255,255,.72) !important;}
+    .hero-meta .hero-credito strong{color:rgba(255,255,255,.92) !important; font-weight:500;}
     .hero .lead{margin-bottom:18px;}
   }
 </style>
@@ -2085,11 +2091,12 @@
       <h1>Todo o material da turma, <span class="hl">em um só lugar.</span></h1>
       <p class="lead"><span class="so-desk">Slides e livros das aulas, prazos, resumos, exercícios, vídeos e cursos complementares.</span><span class="so-mob">Aulas, prazos, resumos e exercícios de cada disciplina.</span></p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Abrir o Drive das disciplinas</a>
-        <button class="btn btn-accent" data-page="viewPrazos" data-target="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> Calendário de prazos</button>
+        <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> <span class="so-desk">Abrir o Drive das disciplinas</span><span class="so-mob">Drive</span></a>
+        <button class="btn btn-accent" data-page="viewPrazos" data-target="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> <span class="so-desk">Calendário de prazos</span><span class="so-mob">Calendário</span></button>
       </div>
       <button class="hero-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar disciplina, prova, resumo, termo…</span><kbd>/</kbd></button>
       <div class="hero-meta">
+        <span class="hero-credito">por <strong>Thiago Monteiro</strong></span>
         <span class="live"><span id="syncText"></span></span>
       </div>
     </div>
