@@ -1969,6 +1969,33 @@
   .er-why.bad{background:rgba(181,67,46,.08);}
   .er-prox{margin-top:14px;}
   .er-aviso{border-left-color:var(--danger) !important;}
+
+  /* Projeto de Extensão: montador do relatório */
+  .mt-txt{display:block; width:100%; margin-top:14px; font:inherit; font-size:15px; line-height:1.55; padding:12px; border:1px solid var(--rule); border-radius:6px; background:var(--paper); color:var(--ink); resize:vertical;}
+  .mt-txt:focus, .mt-capa input:focus, .mt-capa textarea:focus, .mt-construtor input:focus{outline:2px solid var(--petrol-line); border-color:var(--petrol);}
+  .mt-checks{list-style:none; margin:10px 0 0; padding:0; display:flex; flex-direction:column; gap:4px; font-size:13.5px; line-height:1.45;}
+  .mt-checks li{padding:6px 10px; border-radius:6px;}
+  .mt-ok{background:var(--petrol-soft); color:var(--petrol-dark);}
+  .mt-aviso{background:var(--ochre-soft, #FBF1E1); color:#7a4f12;}
+  body.dark .mt-aviso{color:#E0A94A;}
+  .mt-capa{display:flex; flex-direction:column; gap:10px;}
+  .mt-capa label{display:flex; flex-direction:column; gap:4px; font-size:13px; font-weight:600; color:var(--ink-soft);}
+  .mt-capa input, .mt-capa textarea, .mt-construtor input, .mt-construtor select{font:inherit; font-size:15px; font-weight:400; padding:9px 11px; border:1px solid var(--rule); border-radius:6px; background:var(--paper); color:var(--ink); width:100%;}
+  .mt-construtor{margin-top:14px; padding:12px; border:1px dashed var(--petrol-line); border-radius:6px; background:var(--paper);}
+  .mt-c-tit{font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--petrol); margin-bottom:8px;}
+  .mt-c-linha{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); gap:8px; margin-bottom:8px;}
+  .mt-c-linha:nth-of-type(3){grid-template-columns:1fr 1fr;}
+  .mt-c-prev{font-size:14.5px; font-weight:600; margin:4px 0 10px; color:var(--ink);}
+  .mt-acoes{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-top:6px;}
+  .mt-galeria{display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:10px;}
+  .mt-ex{background:var(--paper); border:1px solid var(--rule); border-radius:6px; padding:14px;}
+  .mt-ex-t{font-size:15.5px; font-weight:700; line-height:1.35; margin-top:2px;}
+  .mt-ex-o{font-size:12.5px; color:var(--ink-faint); margin:3px 0 8px;}
+  .mt-ex dl{margin:0 0 8px; font-size:13.5px; line-height:1.45;}
+  .mt-ex dt{font-weight:700; margin-top:6px;}
+  .mt-ex dd{margin:1px 0 0; color:var(--ink-soft);}
+  #dpGuia .rt-box + .rt-box{margin-top:10px;}
+  @media (max-width:600px){ .mt-c-linha, .mt-c-linha:nth-of-type(3){grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -3378,11 +3405,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
   {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Piaget (aula 3): resumo interativo, dois exercícios novos, 14 termos no glossário e as comparações assimilação × acomodação e Piaget × Vygotsky. Nova página Revisão dos erros, com as questões erradas nos exercícios e quizzes.', link: {url:'#resumo-piaget'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Estudo dirigido da Atividade 1 (N2): roteiro de pesquisa por questão, com perguntas norteadoras, termos de busca, bibliografia e lista de conferência.', link: {url:'#roteiro-atividade1-n2'}},
   {date: '2026-11-02', disc: 'Neuroanatomia', desc: 'Resumo de medula ampliado: de 8 para 16 partes (níveis, cauda equina, raízes, neurônios alfa e gama, vias ascendentes, líquor e anestesias), 3 comparações e 10 termos novos no glossário.', link: {url:'#resumo-medula-sna'}},
-  {date: '2026-10-31', disc: 'Bases Biológicas', desc: 'Estrutura do DNA: aba nova no resumo interativo, 13 termos de genética no glossário e a tarefa para casa (até 09/11).', link: {url:'#resumo-embriologia'}},
 ];
 
 
@@ -3518,6 +3545,105 @@ const STUDY = [
    --------------------------------------------------------------------- */
 // Roteiros de estudo dirigido: caminhos para responder, sem gabarito.
 // questoes: {tema, caso, pede:[], pense:[], busque:[termos], fontes:[{tipo, ref, onde, url?}], noSite:[{t, resumo?, cap?, tool?}], confira:[]}
+// ===== Projeto de Extensão: montador do relatório =====
+// secoes: cada parte do relatório, com o que vai nela, perguntas que guiam o texto e verificações automáticas (tipo)
+const MONTADOR = {
+  id: 'extensao',
+  disc: '06',
+  secoes: [
+    {k:'intro', t:'1. Introdução', tipo:'intro',
+      o:['Apresentação breve do tema, com revisão da literatura.','Para cada etapa do trabalho, cite pesquisas encontradas sobre o assunto.','Escrita impessoal, com verbos na 3ª pessoa.','Tamanho: de uma página e meia a quatro páginas.'],
+      perg:['Qual é o tema e qual problema da comunidade ele toca?','O que os estudos dizem sobre esse problema? Cite 2 ou 3.','Que conceito da Psicologia ajuda a entender a ação (aprendizagem, desenvolvimento, vínculo, promoção de saúde)?','Por que fazer isso com esse público, nesse lugar?'],
+      ph:'Ex.: A alimentação na infância está associada a… (Autor, ano). Estudos com crianças em idade escolar mostram que…'},
+    {k:'just', t:'2. Justificativa', tipo:'just',
+      o:['Relevância e atualidade do tema, e por que foi escolhido.','Argumentos científicos, e não pessoais.','Se houver, problemas práticos que mostrem a importância do tema.'],
+      perg:['Que dado (pesquisa, estatística, documento oficial) mostra que o problema existe?','Quem se beneficia com o projeto e de que forma?','O que falta hoje para esse público que o projeto oferece?'],
+      ph:'Ex.: Dados do Ministério da Saúde indicam que… Por isso, ações educativas com crianças…'},
+    {k:'geral', t:'3.1 Objetivo geral', tipo:'geral',
+      o:['A finalidade do projeto (o quê?), coerente com o problema.','Um só objetivo, numa frase, começando com verbo no infinitivo.'],
+      perg:['Ao fim do projeto, o que terá sido feito ou alcançado?','Com quem e onde?'],
+      ph:'Ex.: Promover reflexões sobre hábitos alimentares com crianças do ensino fundamental de uma escola municipal.'},
+    {k:'espec', t:'3.2 Objetivos específicos', tipo:'espec',
+      o:['Sempre mais de um, um por linha, todos com verbo no infinitivo.','São as etapas que levam ao objetivo geral.'],
+      perg:['Quais passos levam ao objetivo geral? (preparar, aplicar, avaliar, comparar)','Cada passo dá para verificar no fim?'],
+      ph:'Um objetivo por linha. Ex.:\nIdentificar o que as crianças já sabem sobre…\nAplicar uma dinâmica sobre…\nComparar as respostas antes e depois da atividade.'},
+    {k:'metodo', t:'4. Metodologia (como?)', tipo:'metodo',
+      o:['Como o projeto foi feito: questionário, entrevista, atividades lúdicas, filmes e outros recursos.','Quem participou, onde, com quais materiais e em que ordem.','Como os dados foram registrados e analisados.'],
+      perg:['Quantos participantes, de que idade, e como foram convidados?','Onde e quando aconteceu? Quantos encontros, de quanto tempo?','Que materiais e que atividades, passo a passo?','Que instrumento registrou os dados (ficha, questionário, diário de campo, fotos)?','Como as respostas foram contadas ou analisadas?','Houve autorização dos responsáveis e da instituição?'],
+      ph:'Ex.: Participaram 20 crianças de 8 a 10 anos de uma escola municipal em… A atividade durou 30 minutos e teve três momentos…'},
+    {k:'result', t:'5. Resultados', tipo:'result',
+      o:['O que foi obtido, a partir da interpretação dos dados coletados.'],
+      perg:['Quantos participaram de fato?','O que os dados mostram em números ou porcentagens?','O que mudou entre antes e depois, se houve essa comparação?','O que foi observado que os números não mostram?'],
+      ph:'Ex.: Das 20 crianças, 18 responderam às duas fichas. Antes da atividade, 9 (50%) acertaram…; depois, 15 (83%)…'},
+    {k:'disc', t:'6. Discussão', tipo:'disc',
+      o:['As principais conclusões e o que significam.','Relação com outros trabalhos da literatura.','Limitações, resultados inesperados e sugestões para novos estudos.'],
+      perg:['Os resultados respondem ao objetivo geral?','Que estudos encontraram algo parecido ou diferente?','O que pode ter influenciado os resultados (faltas, tempo curto, perguntas confusas)?','O que vocês fariam diferente numa próxima vez?'],
+      ph:'Ex.: O aumento de acertos após a dinâmica é semelhante ao encontrado por (Autor, ano)… Como limitação…'},
+    {k:'refs', t:'Referências', tipo:'refs',
+      o:['Toda a bibliografia citada, com no mínimo 10 referências.','Livros, revistas científicas, teses e sites de instituições de pesquisa.','Em ordem alfabética pelo sobrenome, no formato da ABNT.'],
+      perg:['Todo autor citado no texto está aqui?','Cada referência tem autor, título, local/editora ou revista e ano?','Material on-line tem "Disponível em:" e "Acesso em:"?'],
+      ph:'Uma referência por linha. Use o gerador de referências em Glossário e guias.'}
+  ],
+  verbos: [
+    {quando:'Conhecer algo pouco conhecido', v:['conhecer','apontar','identificar','descrever','classificar','reconhecer','relatar']},
+    {quando:'Entender melhor um processo ou resultado', v:['compreender','demonstrar','determinar','diferenciar','discutir']},
+    {quando:'Aplicar uma ação com um público', v:['aplicar','desenvolver','organizar','promover','realizar','estruturar']},
+    {quando:'Analisar dados', v:['analisar','comparar','investigar','verificar']},
+    {quando:'Reunir informações', v:['sintetizar','construir','elaborar','propor','reunir']},
+    {quando:'Avaliar', v:['avaliar','estimar','medir','mensurar']}
+  ],
+  exemplos: [
+    {tema:'Alimentação · crianças', titulo:'"Alimentação Saudável: Vamos praticar?"', onde:'Escola municipal, Pelotas (RS) · Frasson et al., 2024',
+      publico:'Cerca de 50 alunos do 5º ano', formato:'3 encontros: hábitos alimentares, nutrientes com leitura de um livro infantil projetado, higiene e brincadeira de identificar cheiros de frutas.',
+      avaliacao:'Questionário de 8 perguntas respondido levantando a mão para cartazes com carinhas (feliz, mais ou menos, triste).',
+      aprender:'Mostra resultados em porcentagem por pergunta e admite limitações: num dia chuvoso só 27 dos 50 responderam.',
+      url:'https://anais-siiepe.ufpel.edu.br/2024/XE_04458.pdf'},
+    {tema:'Alimentação · educação infantil', titulo:'Educação alimentar na creche', onde:'Creche municipal, Cuité (PB) · Ferreira et al., 2025',
+      publico:'31 crianças de 3 a 6 anos e as professoras', formato:'Oficinas semanais com histórias, teatrinho com frutas e hortaliças, "caixa misteriosa" e montagem de salada de frutas.',
+      avaliacao:'Observação do comportamento das crianças e reuniões semanais da equipe, sem instrumento formal.',
+      aprender:'Bom repertório de atividades lúdicas; os próprios autores chamam os achados de preliminares por não terem dados quantitativos.',
+      url:'https://revistas.editora.ufcg.edu.br/index.php/cite/article/download/6982/4878/14632'},
+    {tema:'Escola · adolescentes', titulo:'Debatendo preconceito e exclusão', onde:'Instituto Federal, região de Goiânia · Campos et al., 2020',
+      publico:'Estudantes do ensino médio, participação voluntária', formato:'7 oficinas semanais de 1 hora, com filmes curtos, músicas e documentários como ponto de partida para debates (racismo, gênero, diversidade, luta antimanicomial).',
+      avaliacao:'Diário de campo, avaliação conversada com os participantes, autoavaliação da equipe após cada encontro e produção artística final.',
+      aprender:'Exemplo claro de objetivo geral com três específicos e de registro qualitativo bem descrito.',
+      url:'https://ojs.unesp.br/index.php/revista_proex/article/download/1679-4605.2020v16p270-282/2438'},
+    {tema:'Adolescentes · saúde', titulo:'Rodas de conversa com adolescentes', onde:'Três escolas públicas, Cruzeiro do Sul (AC) · Silva et al.',
+      publico:'Turmas de 9º ano, grupos de cerca de 10', formato:'12 rodas de conversa; os temas (sexualidade, drogas, família, futuro profissional) foram escolhidos pelos próprios adolescentes.',
+      avaliacao:'Dúvidas escritas de forma anônima em papéis e dinâmica de avaliação ao fim de cada tema (regular, bom, ótimo).',
+      aprender:'Mostra como envolver o público na escolha dos temas e como colher dúvidas sem expor ninguém.',
+      url:'https://periodicos.ufes.br/guara/article/download/15147/10729/41965'},
+    {tema:'Idosos · convivência', titulo:'Imagens, vínculo e saúde: oficinas com idosos', onde:'Serviço de convivência ligado ao CRAS, interior do Paraná · Silva et al., 2021',
+      publico:'16 idosos inscritos (3 a 11 por encontro)', formato:'12 encontros quinzenais de 1h30, com fotografias, colagem, desenho e música, sempre fechando com roda de conversa.',
+      avaliacao:'Diário de campo com observações descritivas e reflexivas, e supervisão semanal.',
+      aprender:'Descreve com honestidade as dificuldades: frequência que caiu, música mal recebida, propostas abstratas demais.',
+      url:'https://ojs.unesp.br/index.php/revista_proex/article/download/3412/pdf'},
+    {tema:'Idosos · convivência', titulo:'"Chá das Cinco": conversando e convivendo com idosos', onde:'Faculdade de Ciências da Saúde do Trairi (UFRN) · Interfaces, 2019',
+      publico:'Idosos da comunidade', formato:'Encontros quinzenais de convivência entre idosos e estudantes.',
+      avaliacao:'Relato de experiência das próprias autoras, com narrativas dos encontros.',
+      aprender:'Explica por que um relato de experiência dispensa comitê de ética, um ponto que costuma gerar dúvida.',
+      url:'https://periodicos.ufmg.br/index.php/revistainterfaces/article/download/19078/16161/50630'},
+    {tema:'Universitários · saúde mental', titulo:'Rodas de conversa com universitários', onde:'Revista do NUFEN, 2019',
+      publico:'6 graduandos de vários cursos', formato:'7 encontros de cerca de 1h30, conduzidos por estudantes de Psicologia em estágio básico.',
+      avaliacao:'Análise qualitativa das falas ao longo dos encontros.',
+      aprender:'Bom modelo de projeto pequeno, feito por estudantes de Psicologia no início do curso.',
+      url:'https://submission-pepsic.scielo.br/index.php/nufen/issue/download/358/179'}
+  ],
+  revistas: [
+    {n:'Revista Ciência em Extensão (Unesp)', url:'https://ojs.unesp.br/index.php/revista_proex'},
+    {n:'Em Extensão (UFU)', url:'https://seer.ufu.br/index.php/revextensao'},
+    {n:'Interfaces: Revista de Extensão (UFMG)', url:'https://periodicos.ufmg.br/index.php/revistainterfaces'},
+    {n:'Revista Guará (UFES)', url:'https://periodicos.ufes.br/guara'}
+  ],
+  confira: [
+    'Toda citação no texto aparece nas referências, e vice-versa',
+    'O resumo do projeto responde: o quê, com quem, onde, como e com que resultado',
+    'As autorizações dos responsáveis e da instituição estão nos anexos, se houve participantes menores de idade',
+    'Os nomes dos participantes não aparecem em lugar nenhum',
+    'O sumário está atualizado com as páginas certas'
+  ]
+};
+
 const ROTEIROS = [
   {
     id: 'atividade1-n2',
@@ -8203,8 +8329,10 @@ function renderDiscPage(d){
 
   // atalhos do topo: só o que existe nesta disciplina
   const roteiros = ROTEIROS.filter(r=>r.disc === d.n);
+  const temGuia = MONTADOR.disc === d.n;
   const atalhos = [
     ['dpPrazos', 'Prazos', c.prazos.length],
+    ['dpGuia', 'Relatório', temGuia ? MONTADOR.secoes.length : 0],
     ['dpRoteiro', 'Estudo dirigido', roteiros.reduce((n, r)=>n + r.questoes.length, 0)],
     ['dpResumos', 'Resumos', c.resumos.length],
     ['dpPratica', 'Exercícios', c.exercicios.length],
@@ -8229,6 +8357,8 @@ function renderDiscPage(d){
 
   const secRoteiro = roteiros.length ? sec('dpRoteiro', 'Estudo dirigido', `${rtFeitas(roteiros[0])}/${roteiros[0].questoes.length} questões conferidas`,
     roteiros.map(roteiroHTML).join('')) : '';
+
+  const secGuia = temGuia ? sec('dpGuia', 'Relatório do projeto', '', montadorHTML() + exemplosHTML()) : '';
 
   const secResumos = c.resumos.length ? sec('dpResumos', 'Resumos', `${resumosFeitos}/${c.resumos.length} estudados`,
     `<div class="dp-tiles">${c.resumos.map(r=>{ const done = progStudyDone(r.link); const interno = r.link.startsWith('#'); return `
@@ -8279,8 +8409,8 @@ function renderDiscPage(d){
     ${continuarHTML(d)}
     ${errAvisoDisc(d)}
     ${prova ? `<div class="modo-prova dp-mp">${modoProvaCard(prova)}</div>` : ''}
-    ${secPrazos}${secRoteiro}${secResumos}${secEx}${secVid}${secGl}
-    ${!c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
+    ${secPrazos}${secGuia}${secRoteiro}${secResumos}${secEx}${secVid}${secGl}
+    ${!temGuia && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
   `;
 }
 document.getElementById('discPage').addEventListener('click', e=>{
@@ -8398,6 +8528,261 @@ document.getElementById('discPage').addEventListener('change', e=>{
   const cont = document.querySelector('#dpRoteiro .dp-count');
   if(cont) cont.textContent = `${rtFeitas(r)}/${r.questoes.length} questões conferidas`;
 });
+
+// ===== Projeto de Extensão: montador, verificações, exemplos =====
+const MT_KEY = 'av-montador-' + MONTADOR.id;
+function mtLoad(){ try{ return JSON.parse(localStorage.getItem(MT_KEY)) || {}; }catch(e){ return {}; } }
+function mtSave(o){ try{ localStorage.setItem(MT_KEY, JSON.stringify(o)); }catch(e){} }
+const MT_VERBOS = new Set(MONTADOR.verbos.flatMap(g=>g.v));
+function mtPalavras(t){ return (t.trim().match(/\S+/g) || []).length; }
+function mtCitacoes(t){ return (t.match(/\([A-ZÀ-Ú][^()]*?,\s*\d{4}[a-z]?\)|[A-ZÀ-Ú][a-zà-ú]+(?: et al\.)? \(\d{4}\)/g) || []).length; }
+function mtInfinitivo(frase){
+  const p = (frase.trim().split(/\s+/)[0] || '').toLowerCase().replace(/[^a-zà-ú]/g, '');
+  return {p, ok: /(ar|er|ir|or)$/.test(p) && p.length > 3, sugerido: MT_VERBOS.has(p)};
+}
+// cada verificação: [tipo 'ok'|'aviso', texto]
+function mtVerificar(sec, txt){
+  const t = (txt || '').trim(); const r = [];
+  if(!t) return [['aviso', 'Ainda vazio.']];
+  const pal = mtPalavras(t), cit = mtCitacoes(t);
+  const pessoal = /\b(eu|me|meu|minha|nós|nosso|nossa|fiz|fizemos|acho|achamos|gostei|gostamos)\b/i.test(t);
+  if(sec.tipo === 'intro'){
+    const pag = pal / 350;
+    r.push([pal >= 500 && pal <= 1400 ? 'ok' : 'aviso', `${pal} palavras (cerca de ${pag.toFixed(1).replace('.', ',')} página${pag >= 1.95 ? 's' : ''}). O modelo pede de 1,5 a 4 páginas, algo entre 500 e 1.400 palavras.`]);
+    r.push([cit >= 3 ? 'ok' : 'aviso', cit ? `${cit} citação(ões) no formato (Autor, ano).` : 'Nenhuma citação encontrada. A introdução precisa de revisão da literatura: (Autor, ano).']);
+    r.push([pessoal ? 'aviso' : 'ok', pessoal ? 'Há palavras na 1ª pessoa (eu, nós, fizemos…). O modelo pede escrita impessoal.' : 'Escrita impessoal.']);
+  } else if(sec.tipo === 'just'){
+    r.push([pessoal || /\b(sempre quis|me identifico|tenho interesse)\b/i.test(t) ? 'aviso' : 'ok', pessoal ? 'Parece haver argumento pessoal. Prefira dados e estudos.' : 'Sem argumentos pessoais aparentes.']);
+    r.push([cit >= 1 || /\d+[,.]?\d*\s?%/.test(t) ? 'ok' : 'aviso', cit || /%/.test(t) ? 'Há dado ou citação sustentando a relevância.' : 'Inclua pelo menos um dado ou estudo que mostre a relevância do tema.']);
+  } else if(sec.tipo === 'geral'){
+    const frases = t.split(/[.!?]\s+/).filter(x=>x.trim()).length;
+    const v = mtInfinitivo(t);
+    r.push([v.ok ? 'ok' : 'aviso', v.ok ? `Começa com verbo no infinitivo: "${v.p}".` : 'Deve começar com verbo no infinitivo (promover, identificar, avaliar…).']);
+    r.push([frases === 1 ? 'ok' : 'aviso', frases === 1 ? 'Um objetivo, numa frase.' : 'O objetivo geral deve ser uma frase só.']);
+  } else if(sec.tipo === 'espec'){
+    const linhas = t.split('\n').map(x=>x.replace(/^[-•*\d.)\s]+/, '').trim()).filter(Boolean);
+    r.push([linhas.length >= 2 ? 'ok' : 'aviso', `${linhas.length} objetivo(s) específico(s). O modelo pede mais de um.`]);
+    const ruins = linhas.filter(l=>!mtInfinitivo(l).ok);
+    r.push([ruins.length ? 'aviso' : 'ok', ruins.length ? `${ruins.length} não começa(m) com verbo no infinitivo: "${ruins[0].slice(0, 40)}…"` : 'Todos começam com verbo no infinitivo.']);
+  } else if(sec.tipo === 'metodo'){
+    const itens = [
+      ['participantes', /\b(participa|crianças|alunos|idosos|adolescentes|pessoas|estudantes|\d+\s+(crianças|alunos|participantes))/i],
+      ['idade ou perfil', /\b(\d+\s*(a|e)\s*\d+\s*anos|anos de idade|faixa etária|ano do ensino|série)\b/i],
+      ['local', /\b(escola|ong|instituição|centro|creche|cras|ubs|comunidade|bairro|sala)\b/i],
+      ['duração ou encontros', /\b(minutos|hora|encontro|sessão|semana|dias?)\b/i],
+      ['materiais ou atividades', /\b(material|materiais|dinâmica|atividade|oficina|cartaz|ilustra|jogo|vídeo|roda)\b/i],
+      ['instrumento de registro', /\b(questionário|ficha|entrevista|diário|observação|registro|formulário|escala)\b/i],
+      ['análise dos dados', /\b(análise|analisad|tabula|contagem|contad|porcentag|comparad|compara)\b/i],
+      ['autorização', /\b(autoriza|consentimento|termo|assentimento)\b/i]
+    ];
+    const falta = itens.filter(x=>!x[1].test(t)).map(x=>x[0]);
+    r.push([falta.length ? 'aviso' : 'ok', falta.length ? `Parece faltar: ${falta.join(', ')}.` : 'Cobre participantes, local, duração, atividades, registro, análise e autorização.']);
+  } else if(sec.tipo === 'result'){
+    r.push([/\d/.test(t) ? 'ok' : 'aviso', /\d/.test(t) ? 'Há números nos resultados.' : 'Inclua números: quantos participaram, quantos responderam, porcentagens.']);
+    r.push([/\(([A-ZÀ-Ú][^()]*?),\s*\d{4}\)/.test(t) ? 'aviso' : 'ok', /\(([A-ZÀ-Ú][^()]*?),\s*\d{4}\)/.test(t) ? 'Há citações aqui. A comparação com outros estudos costuma ficar na Discussão.' : 'Resultados sem misturar discussão com a literatura.']);
+  } else if(sec.tipo === 'disc'){
+    r.push([cit >= 2 ? 'ok' : 'aviso', cit >= 2 ? `${cit} citações comparando com outros trabalhos.` : 'Compare os resultados com pelo menos dois estudos (Autor, ano).']);
+    r.push([/limita/i.test(t) ? 'ok' : 'aviso', /limita/i.test(t) ? 'Menciona limitações.' : 'Não encontrei limitações. O modelo pede que sejam discutidas.']);
+  } else if(sec.tipo === 'refs'){
+    const refs = t.split('\n').map(x=>x.trim()).filter(Boolean);
+    r.push([refs.length >= 10 ? 'ok' : 'aviso', `${refs.length} referência(s). O mínimo é 10.`]);
+    const semAno = refs.filter(x=>!/\b(19|20)\d{2}\b/.test(x)).length;
+    if(semAno) r.push(['aviso', `${semAno} sem ano.`]);
+    const semAcesso = refs.filter(x=>/https?:\/\//.test(x) && !/Acesso em/i.test(x)).length;
+    if(semAcesso) r.push(['aviso', `${semAcesso} com link, mas sem "Acesso em:".`]);
+    const chave = x=>x.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    const ordenada = refs.every((x, i)=> i === 0 || chave(refs[i-1]) <= chave(x));
+    r.push([ordenada ? 'ok' : 'aviso', ordenada ? 'Em ordem alfabética.' : 'Fora de ordem alfabética.']);
+  }
+  return r;
+}
+function mtProgresso(st){
+  const feitas = MONTADOR.secoes.filter(sec=> mtVerificar(sec, st[sec.k]).every(x=>x[0] === 'ok')).length;
+  return {feitas, total: MONTADOR.secoes.length};
+}
+function mtChecksHTML(sec, txt){
+  return mtVerificar(sec, txt).map(([tp, tx])=>`<li class="mt-${tp}">${tp === 'ok' ? '✓' : '!'} ${escHTML(tx)}</li>`).join('');
+}
+function montadorHTML(){
+  const st = mtLoad(); const pr = mtProgresso(st); const capa = st.capa || {};
+  const secs = MONTADOR.secoes.map(sec=>{
+    const ok = mtVerificar(sec, st[sec.k]).every(x=>x[0] === 'ok');
+    return `<details class="graveyard rt-q mt-sec${ok ? ' feita' : ''}" data-mt-sec="${sec.k}">
+      <summary><span class="rt-qt">${escHTML(sec.t)}</span><span class="rt-ok">${ok ? '✓ Pronta' : ''}</span></summary>
+      <div class="rt-body">
+        <h4 class="rt-h">O que vai aqui</h4>
+        <ul class="rt-pede">${sec.o.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
+        <h4 class="rt-h">Perguntas para escrever</h4>
+        <ul class="rt-pense">${sec.perg.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
+        ${sec.tipo === 'geral' || sec.tipo === 'espec' ? `<div class="mt-construtor">
+          <div class="mt-c-tit">Construtor de objetivo</div>
+          <div class="mt-c-linha">
+            <select class="mt-c-verbo" aria-label="Verbo">${MONTADOR.verbos.map(g=>`<optgroup label="${escHTML(g.quando)}">${g.v.map(v=>`<option>${v}</option>`).join('')}</optgroup>`).join('')}</select>
+            <input class="mt-c-oque" placeholder="o quê (ex.: reflexões sobre hábitos alimentares)">
+          </div>
+          <div class="mt-c-linha"><input class="mt-c-quem" placeholder="com quem (ex.: com crianças de 8 a 10 anos)"><input class="mt-c-onde" placeholder="onde (ex.: de uma escola municipal)"></div>
+          <div class="mt-c-prev"></div>
+          <button class="btn mt-c-usar" data-mt-usar="${sec.k}">${sec.tipo === 'geral' ? 'Usar como objetivo geral' : 'Adicionar aos específicos'}</button>
+        </div>` : ''}
+        ${sec.tipo === 'refs' ? `<button class="link-btn" data-page-go="viewApoio" data-target-go="abnt">Abrir o gerador de referências (ABNT)</button>` : ''}
+        <textarea class="mt-txt" data-mt-k="${sec.k}" rows="${sec.tipo === 'geral' ? 3 : 9}" placeholder="${escHTML(sec.ph)}">${escHTML(st[sec.k] || '')}</textarea>
+        <ul class="mt-checks">${mtChecksHTML(sec, st[sec.k])}</ul>
+      </div>
+    </details>`;
+  }).join('');
+  return `<details class="rt-box" id="mt-${MONTADOR.id}" data-mt>
+    <summary class="rt-sum"><span class="rt-sum-t">Montador do relatório</span><span class="rt-sum-s" data-mt-prog>${pr.feitas} de ${pr.total} seções prontas · escreva por partes, com verificação automática</span><span class="rt-sum-go">Abrir</span></summary>
+    <div class="rt">
+      <div class="rt-head">
+        <p class="rt-intro">Escreva cada seção aqui. O texto fica salvo neste aparelho, e cada parte é conferida enquanto você escreve: tamanho, verbo no infinitivo, citações, ordem das referências e o que costuma faltar na metodologia. No fim, baixe tudo como documento do Word.</p>
+        <p class="rt-nota">As verificações são automáticas e servem de lembrete: não substituem a leitura da orientadora.</p>
+      </div>
+      <details class="graveyard rt-q" data-mt-capa>
+        <summary><span class="rt-qt">Capa</span></summary>
+        <div class="rt-body mt-capa">
+          <label>Título do projeto<input data-mt-capa-k="titulo" value="${escHTML(capa.titulo || '')}"></label>
+          <label>Autores (um por linha)<textarea data-mt-capa-k="autores" rows="3">${escHTML(capa.autores || '')}</textarea></label>
+          <label>Orientador(a)<input data-mt-capa-k="orientador" value="${escHTML(capa.orientador || '')}"></label>
+          <label>Curso<input data-mt-capa-k="curso" value="${escHTML(capa.curso || 'Psicologia')}"></label>
+          <label>Cidade<input data-mt-capa-k="cidade" value="${escHTML(capa.cidade || '')}"></label>
+          <label>Ano<input data-mt-capa-k="ano" value="${escHTML(capa.ano || String(new Date().getFullYear()))}" inputmode="numeric"></label>
+          <p class="rt-nota">A frase de apresentação e o nome da instituição entram como no modelo da disciplina: confira no arquivo do Drive e ajuste no Word.</p>
+        </div>
+      </details>
+      ${secs}
+      <details class="graveyard rt-q">
+        <summary><span class="rt-qt">Antes de entregar, confira</span></summary>
+        <div class="rt-body"><div class="rt-confira">${MONTADOR.confira.map((x, k)=>`<label class="rt-check"><input type="checkbox" data-mt-conf="${k}"${(st.conf || [])[k] ? ' checked' : ''}><span>${escHTML(x)}</span></label>`).join('')}</div></div>
+      </details>
+      <div class="mt-acoes">
+        <button class="btn btn-primary" data-mt-baixar>Baixar como Word (.doc)</button>
+        <button class="btn" data-mt-copiar>Copiar todo o texto</button>
+        <button class="link-btn" data-mt-limpar>Apagar o rascunho</button>
+      </div>
+    </div>
+  </details>`;
+}
+function exemplosHTML(){
+  return `<details class="rt-box" id="mt-exemplos">
+    <summary class="rt-sum"><span class="rt-sum-t">Projetos publicados para se inspirar</span><span class="rt-sum-s">${MONTADOR.exemplos.length} relatos reais · público, atividades e como avaliaram</span><span class="rt-sum-go">Abrir</span></summary>
+    <div class="rt">
+      <div class="rt-head"><p class="rt-intro">Relatos de extensão publicados por outras universidades, resumidos pelo que mais ajuda a escrever o seu: público, formato, como registraram e avaliaram, e o que vale observar no texto. Abra o original para ver como cada seção foi escrita.</p></div>
+      <div class="mt-galeria">${MONTADOR.exemplos.map(x=>`<article class="mt-ex">
+        <div class="rt-tipo">${escHTML(x.tema)}</div>
+        <div class="mt-ex-t">${escHTML(x.titulo)}</div>
+        <div class="mt-ex-o">${escHTML(x.onde)}</div>
+        <dl>
+          <dt>Público</dt><dd>${escHTML(x.publico)}</dd>
+          <dt>Como foi</dt><dd>${escHTML(x.formato)}</dd>
+          <dt>Como avaliaram</dt><dd>${escHTML(x.avaliacao)}</dd>
+          <dt>Vale observar</dt><dd>${escHTML(x.aprender)}</dd>
+        </dl>
+        <a class="yt-fora" href="${x.url}" target="_blank" rel="noopener">Ler o relato completo ↗</a>
+      </article>`).join('')}</div>
+      <h4 class="rt-h">Onde achar mais</h4>
+      <p class="rt-nota">Revistas de extensão com relatos de acesso livre. Busque pelo tema e pelo público do seu projeto.</p>
+      <div class="rt-site">${MONTADOR.revistas.map(r=>`<a class="rt-site-btn" href="${r.url}" target="_blank" rel="noopener">${escHTML(r.n)} ↗</a>`).join('')}</div>
+    </div>
+  </details>`;
+}
+function mtTextoCompleto(){
+  const st = mtLoad(); const c = st.capa || {};
+  const partes = [c.titulo ? c.titulo.toUpperCase() : 'TÍTULO DO PROJETO', '', (c.autores || '').trim(), c.orientador ? 'Orientador(a): ' + c.orientador : '', '', ''];
+  MONTADOR.secoes.forEach(sec=>{ partes.push(sec.t.toUpperCase(), '', (st[sec.k] || '').trim(), ''); });
+  return partes.join('\n');
+}
+function mtDocHTML(){
+  const st = mtLoad(); const c = st.capa || {};
+  const P = `style="${""}font-family:'Times New Roman',serif; font-size:12pt; line-height:150%; text-align:justify; text-indent:1.25cm; margin:0 0 6pt"`;
+  const H = `style="${""}font-family:'Times New Roman',serif; font-size:12pt; font-weight:bold; margin:18pt 0 12pt 0; text-indent:0"`;
+  const C = `align="center" style="${""}font-family:'Times New Roman',serif; font-size:12pt; text-align:center; text-indent:0; margin:0"`;
+  const p = t => escHTML(t).split(/\n{2,}/).map(par=>`<p ${P}>${par.replace(/\n/g, '<br>')}</p>`).join('');
+  const lista = t => (t || '').split('\n').map(x=>x.replace(/^[-•*\d.)\s]+/, '').trim()).filter(Boolean);
+  let corpo = '';
+  MONTADOR.secoes.forEach(sec=>{
+    const v = st[sec.k] || '';
+    if(sec.tipo === 'espec') corpo += `<h2 ${H}>${escHTML(sec.t)}</h2><ul>${lista(v).map(x=>`<li style="${""}font-family:'Times New Roman',serif; font-size:12pt; line-height:150%; margin-bottom:6pt">${escHTML(x)}</li>`).join('')}</ul>`;
+    else if(sec.tipo === 'refs') corpo += `<h1 align="center" style="${""}font-family:'Times New Roman',serif; font-size:12pt; font-weight:bold; text-align:center; margin:18pt 0 12pt">REFERÊNCIAS</h1>${lista(v).map(x=>`<p style="${""}font-family:'Times New Roman',serif; font-size:12pt; text-align:left; text-indent:0; line-height:100%; margin:0 0 12pt">${escHTML(x)}</p>`).join('')}`;
+    else if(sec.tipo === 'geral') corpo += `<h1 ${H}>3. OBJETIVOS</h1><h2 ${H}>${escHTML(sec.t)}</h2>${p(v)}`;
+    else corpo += `<h1 ${H}>${escHTML(sec.t.toUpperCase())}</h1>${p(v)}`;
+  });
+  return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><title>${escHTML(c.titulo || 'Projeto de Extensão')}</title>
+  <style>@page{size:21cm 29.7cm; margin:3cm 2cm 2cm 3cm;} body{font-family:'Times New Roman',serif; font-size:12pt; line-height:1.5;} p{text-align:justify; text-indent:1.25cm; margin:0 0 6pt;} h1{font-size:12pt; font-weight:bold; margin:18pt 0 12pt;} h2{font-size:12pt; font-weight:bold; margin:12pt 0 6pt;} .capa{text-align:center; text-indent:0;} .sb{text-align:center;} p.ref{text-indent:0; text-align:left; line-height:1; margin-bottom:12pt;} li{margin-bottom:6pt;}</style></head><body>
+  <p ${C}><b>${escHTML((c.autores || 'NOME DOS AUTORES').toUpperCase()).replace(/\n/g, '<br>')}</b></p>
+  <p ${C}>Orientador(a): ${escHTML(c.orientador || '')}</p><br><br><br><br><br>
+  <p ${C}><b>${escHTML((c.titulo || 'Título do projeto').toUpperCase())}</b></p><br><br><br>
+  <p style="${''}font-family:'Times New Roman',serif; font-size:12pt; margin:0 0 0 8cm; text-align:justify; text-indent:0; line-height:100%">Projeto apresentado como requisito para aprovação na disciplina de Projeto de Extensão I do Curso de ${escHTML(c.curso || 'Psicologia')}.</p><br><br><br><br><br><br>
+  <p ${C}>${escHTML(c.cidade || 'Cidade')}<br>${escHTML(c.ano || String(new Date().getFullYear()))}</p>
+  <br clear="all" style="page-break-before:always">
+  ${corpo}</body></html>`;
+}
+async function mtBaixar(){
+  const st = mtLoad(); const nome = ((st.capa || {}).titulo || 'projeto-de-extensao').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w]+/g, '-').toLowerCase().slice(0, 60) + '.doc';
+  const blob = new Blob(['﻿' + mtDocHTML()], {type:'application/msword'});
+  const arq = new File([blob], nome, {type:'application/msword'});
+  if(navigator.canShare && navigator.canShare({files:[arq]}) && appInstalado()){ try{ await navigator.share({files:[arq], title: nome}); return; }catch(e){ if(e.name === 'AbortError') return; } }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+function mtAtualizarResumo(){
+  const pr = mtProgresso(mtLoad()); const el = document.querySelector('[data-mt-prog]');
+  if(el) el.textContent = `${pr.feitas} de ${pr.total} seções prontas · escreva por partes, com verificação automática`;
+}
+function mtPrevObjetivo(box){
+  const v = box.querySelector('.mt-c-verbo').value; const o = box.querySelector('.mt-c-oque').value.trim();
+  const q = box.querySelector('.mt-c-quem').value.trim(); const w = box.querySelector('.mt-c-onde').value.trim();
+  const f = [v.charAt(0).toUpperCase() + v.slice(1), o, q, w].filter(Boolean).join(' ');
+  box.querySelector('.mt-c-prev').textContent = o ? f + '.' : 'Escolha o verbo e escreva o quê, com quem e onde.';
+  return o ? f + '.' : '';
+}
+const mtTimers = {};
+document.getElementById('discPage').addEventListener('input', e=>{
+  const ta = e.target.closest('[data-mt-k]');
+  if(ta){
+    const st = mtLoad(); st[ta.dataset.mtK] = ta.value; mtSave(st);
+    clearTimeout(mtTimers[ta.dataset.mtK]);
+    mtTimers[ta.dataset.mtK] = setTimeout(()=>{
+      const sec = MONTADOR.secoes.find(x=>x.k === ta.dataset.mtK); const det = ta.closest('[data-mt-sec]');
+      det.querySelector('.mt-checks').innerHTML = mtChecksHTML(sec, ta.value);
+      const ok = mtVerificar(sec, ta.value).every(x=>x[0] === 'ok');
+      det.classList.toggle('feita', ok); det.querySelector('.rt-ok').textContent = ok ? '✓ Pronta' : '';
+      mtAtualizarResumo();
+    }, 350);
+    return;
+  }
+  const cp = e.target.closest('[data-mt-capa-k]');
+  if(cp){ const st = mtLoad(); st.capa = st.capa || {}; st.capa[cp.dataset.mtCapaK] = cp.value; mtSave(st); return; }
+  const cb = e.target.closest('.mt-construtor'); if(cb) mtPrevObjetivo(cb);
+});
+document.getElementById('discPage').addEventListener('change', e=>{
+  const cf = e.target.closest('[data-mt-conf]'); if(cf){ const st = mtLoad(); st.conf = st.conf || []; st.conf[+cf.dataset.mtConf] = cf.checked; mtSave(st); return; }
+  const cb = e.target.closest('.mt-construtor'); if(cb) mtPrevObjetivo(cb);
+});
+document.getElementById('discPage').addEventListener('click', e=>{
+  const u = e.target.closest('[data-mt-usar]');
+  if(u){
+    const box = u.closest('.mt-construtor'); const f = mtPrevObjetivo(box); if(!f) return;
+    const ta = u.closest('.rt-body').querySelector('.mt-txt');
+    ta.value = u.dataset.mtUsar === 'geral' ? f : (ta.value.trim() ? ta.value.trim() + '\n' : '') + f;
+    ta.dispatchEvent(new Event('input', {bubbles:true}));
+    box.querySelector('.mt-c-oque').value = ''; box.querySelector('.mt-c-quem').value = ''; box.querySelector('.mt-c-onde').value = ''; mtPrevObjetivo(box);
+    return;
+  }
+  if(e.target.closest('[data-mt-baixar]')){ mtBaixar(); return; }
+  if(e.target.closest('[data-mt-copiar]')){
+    const t = mtTextoCompleto(); const b = e.target.closest('[data-mt-copiar]');
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(()=>{ b.textContent = 'Copiado ✓'; setTimeout(()=> b.textContent = 'Copiar todo o texto', 1800); }).catch(()=> prompt('Copie o texto:', t));
+    return;
+  }
+  if(e.target.closest('[data-mt-limpar]')){
+    if(!confirm('Apagar todo o rascunho do relatório deste aparelho?')) return;
+    mtSave({}); renderDiscPage(DISC[2].find(x=>x.n === discAtual)); document.getElementById('mt-' + MONTADOR.id)?.setAttribute('open', '');
+  }
+});
+document.getElementById('discPage').addEventListener('toggle', e=>{
+  const box = e.target.closest && e.target.querySelector && e.target.querySelector('.mt-construtor'); if(box && e.target.open) mtPrevObjetivo(box);
+}, true);
+
 function abrirRoteiro(id, opts){
   const r = ROTEIROS.find(x=>x.id === id);
   if(!r){ switchPage('top', {fromHistory:true}); return; }
