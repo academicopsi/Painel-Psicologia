@@ -1210,6 +1210,11 @@
   .mp-disc-bits{grid-column:1; font-size:12.5px; color:var(--ink-soft);}
   .mp-disc-go{grid-column:2; grid-row:1 / span 2; font-size:13.5px; font-weight:600; color:var(--petrol); white-space:nowrap;}
   .dp-mp{margin-top:-8px;}
+  .mp-sim{display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; text-align:left; margin-top:-2px; padding:10px 13px; border:0; border-radius:6px; cursor:pointer; color:#fff; background:linear-gradient(135deg, #2A1B3D 0%, #3B2357 100%);}
+  .mp-sim:hover{filter:brightness(1.12);}
+  .mp-sim-t{font-size:14px; font-weight:700;}
+  .mp-sim-t small{display:block; font-size:12px; font-weight:500; opacity:.75; margin-top:1px;}
+  .mp-sim-go{font-size:13.5px; font-weight:700; color:#FFD166; white-space:nowrap;}
 
   /* página da disciplina */
   .dp-header{padding:0 0 26px; margin:0 0 28px; border-bottom:1px solid var(--rule);}
@@ -2221,7 +2226,7 @@
     </aside>
   </section>
 
-  <section class="modo-prova" id="modoProva" hidden aria-label="Modo prova"></section>
+  <section class="modo-prova" id="modoProva" hidden aria-label="Rumo à prova"></section>
 
   <section class="drive-block" aria-labelledby="disciplinasTitulo">
     <div class="section-title" id="disciplinas">
@@ -3495,7 +3500,7 @@
      {materia: 'Neuroanatomia', tarefa: 'Prova N2', prazo: '2026-11-24', added: '2026-10-27'},
    • prazo: data de entrega/prova. Vencidos vão sozinhos para o "cemitério".
    • added: dia em que você cadastrou (mostra o selo "New!" por 4 dias).
-   • O Modo prova aparece 7 dias antes quando a tarefa tem a palavra
+   • O bloco "Rumo à prova" aparece 7 dias antes quando a tarefa tem a palavra
      "Prova" no nome (simulados e trabalhos não ativam).
    • Tarefa de várias matérias: use materia: 'Geral' e cite os nomes
      das disciplinas no texto da tarefa (o site reconhece).
@@ -10388,11 +10393,11 @@ function modoProvaCard(p){
       <span class="mp-disc-name">${d.name}</span>
       <span class="mp-disc-bits">${bits.join(' · ') || 'Pasta do Drive'}</span>
       <span class="mp-disc-go">Estudar →</span>
-    </button>`;
+    </button>${SIM_JOGO.filter(x=>x.disc === d.n).map(x=>{ const r = simRec(x.id); return `<button class="mp-sim" data-sim-abrir="${x.id}"><span class="mp-sim-t">Fazer o simulado <small>${x.questoes.length} questões${r ? ` · seu melhor: ${r.pct}%` : ''}</small></span><span class="mp-sim-go">Começar →</span></button>`; }).join('')}`;
   }).join('');
   return `<div class="mp-card${p.dias <= 2 ? ' urgente' : ''}">
     <div class="mp-head">
-      <span class="mp-badge">Modo prova</span>
+      <span class="mp-badge">Rumo à prova</span>
       <span class="mp-when">${quandoTxt(p.dias)} · ${fmtDia(p.prazo)}</span>
     </div>
     <h3 class="mp-title">${escHTML(titulo)}</h3>
