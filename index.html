@@ -7804,8 +7804,13 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
   // Visualizações reais via GoatCounter (requer "Allow adding visitor counts" ativado no site do GoatCounter)
   fetch('https://thiagomonteiro.goatcounter.com/counter/TOTAL.json')
     .then(r => { if(!r.ok) throw new Error('not enabled'); return r.json(); })
-    .then(data => { document.getElementById('statViews').textContent = data.count; })
-    .catch(()=> { document.getElementById('statViews').textContent = '412'; });
+    .then(data => { document.getElementById('statViews').textContent = data.count; try{ localStorage.setItem('av-views', data.count); }catch(e){} })
+    .catch(()=> {
+      // bloqueadores de rastreamento (comuns no iPhone) impedem a consulta: usa o último número visto neste aparelho ou esconde o card
+      let ult = null; try{ ult = localStorage.getItem('av-views'); }catch(e){}
+      const el = document.getElementById('statViews');
+      if(ult) el.textContent = ult; else el.closest('.stat-chip').style.display = 'none';
+    });
 })();
 
 // ===== Calendário de prazos (página Extras): usa a mesma lista TASKS da página Prazos e Tarefas =====
