@@ -2120,6 +2120,25 @@
   .mpg-cards .sim-card{max-width:none;}
   .mpg-disc-t span{font-family:var(--mono); font-size:14px; color:var(--acc, var(--petrol)); font-weight:500;}
   .mpg-cards{display:grid; gap:14px;}
+
+  /* Do zigoto ao disco bilaminar: esquemas novos */
+  #ebSvg{max-width:640px;}
+  .eb-luz{fill:#FBF7F2;}
+  body.dark .eb-luz{fill:#22302E;}
+  .eb-epit rect{fill:#E9B98F; stroke:#A0522D; stroke-width:1;}
+  .eb-tampao{fill:#EAD9C2; stroke:#B69468; stroke-width:1; stroke-dasharray:3 2;}
+  .eb-vaso-l{stroke:#E05A5A; stroke-width:8; stroke-linecap:round; fill:none;}
+  .eb-celoma{fill:#FFFFFF; stroke:#D98F98; stroke-width:1;}
+  .eb-meso-som{fill:none; stroke:#C77DD6; stroke-width:7; opacity:.75;}
+  .eb-amnio-cav{fill:#DDEFF7; stroke:none;}
+  .eb-mk circle{fill:#1B2422; stroke:#fff; stroke-width:2;}
+  .eb-mk text{fill:#fff; font-size:13px; font-weight:800; text-anchor:middle; pointer-events:none;}
+  .eb-leg{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;}
+  @media (max-width:600px){ .eb-leg button{font-size:12.5px; padding:4px 8px 4px 4px;} }
+  .eb-leg[hidden]{display:none;}
+  .eb-leg button{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; padding:5px 9px 5px 5px; border:1px solid var(--rule); border-radius:999px; background:var(--paper); color:var(--ink); cursor:pointer;}
+  .eb-leg button b{display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:#1B2422; color:#fff; font-size:11px;}
+  .eb-leg button.on{border-color:#F08A24; box-shadow:0 0 0 2px rgba(240,138,36,.25);}
 </style>
 </head>
 <body>
@@ -2597,7 +2616,7 @@
     <details class="graveyard">
       <summary>Do Zigoto ao Disco Bilaminar (linha do tempo)</summary>
       <div class="tool-card" style="margin-top:12px;">
-        <div class="sub">Arraste o controle do dia 0 ao dia 14 e veja o embrião se desenvolver. Toque numa estrutura do desenho para ver o nome e a função. No fim, faça o desafio.</div>
+        <div class="sub">Arraste o controle do dia 0 ao dia 14 e veja o embrião se desenvolver. Os números do desenho correspondem à legenda; toque numa estrutura ou num nome da legenda para ver a função. No fim, faça o desafio.</div>
         <div class="prompt-box viz-box">
           <div class="eb-top"><strong id="ebDia"></strong><span id="ebFase"></span></div>
           <svg class="viz-svg" id="ebSvg" viewBox="-100 0 560 260" role="img" aria-label="Desenho do embrião no dia escolhido"></svg>
@@ -2615,7 +2634,7 @@
           </div>
           <div class="pfeedback" id="ebFeedbackBox"></div>
         </div>
-        <div class="tool-disclaimer">Desenhos fora de escala. Da implantação em diante, seguem as cores e a posição das figuras do slide de Bases Biológicas: sinciciotrofoblasto verde, lacunas com sangue materno, disco vertical à direita. Os dias são aproximados.</div>
+        <div class="tool-disclaimer">Esquemas simplificados e fora de escala, desenhados a partir das figuras do slide de Bases Biológicas: luz do útero à esquerda, endométrio à direita, sinciciotrofoblasto verde e disco embrionário voltado para dentro do endométrio. Os dias são aproximados; confira sempre as figuras do slide e do livro.</div>
       </div>
     </details>
   </section>
@@ -9266,150 +9285,228 @@ SNA_ORGAOS.forEach(o=>{
 criarClassificador({pre:'pa', cenarios:PA_CENARIOS, opcoes:['Parassimpático','Simpático']});
 
 // --- Do Zigoto ao Disco Bilaminar (Bases Biológicas) ---
+// Desenhos esquemáticos redesenhados a partir das figuras do slide da aula:
+// luz do útero à esquerda, endométrio à direita, polo embrionário (disco) voltado para dentro do endométrio.
 const EB_INFO = {
   'Zona pelúcida':'Camada de glicoproteínas em volta do ovócito e do embrião inicial. Impede a polispermia e desaparece quando o blastocisto está no útero.',
   'Zigoto':'Célula totipotente formada na fertilização, com cromossomos da mãe e do pai.',
-  'Pronúcleos':'Pronúcleo feminino e masculino. Replicam o DNA e se unem para a primeira mitose do zigoto.',
+  'Pronúcleos':'Pronúcleo feminino e masculino. Replicam o DNA antes da primeira mitose do zigoto.',
   'Corpúsculos polares':'Pequenas células que sobram das divisões meióticas do ovócito.',
-  'Blastômeros':'Células formadas pela clivagem. A cada divisão ficam menores.',
+  'Blastômeros':'Células formadas pela clivagem. A cada divisão ficam menores; o tamanho total não aumenta.',
   'Mórula':'Conjunto de 12 a 32 blastômeros compactados, ainda dentro da zona pelúcida.',
   'Trofoblasto':'Camada externa do blastocisto. Dará origem à placenta.',
-  'Embrioblasto':'Massa celular interna: o primórdio do embrião.',
+  'Embrioblasto':'Massa celular interna: o primórdio do embrião. Fica num dos polos (o polo embrionário).',
   'Cavidade blastocística':'Cavidade cheia de líquido que separa o trofoblasto do embrioblasto.',
-  'Endométrio':'Revestimento interno do útero, onde o blastocisto se implanta.',
-  'Citotrofoblasto':'Camada interna do trofoblasto, de células individualizadas.',
-  'Sinciciotrofoblasto':'Camada externa e multinucleada do trofoblasto. Invade o endométrio e produz hCG.',
-  'Epiblasto':'Camada superior do disco embrionário bilaminar, voltada para a cavidade amniótica.',
-  'Hipoblasto':'Camada inferior do disco embrionário bilaminar, voltada para a cavidade blastocística.',
+  'Luz do útero':'A cavidade do útero, onde o blastocisto fica livre por cerca de 2 dias antes de se fixar.',
+  'Epitélio do endométrio':'Camada de células que reveste o endométrio. O blastocisto se prende a ela pelo polo embrionário e depois a atravessa.',
+  'Ponto de entrada':'Local por onde o blastocisto entrou no endométrio. O epitélio se regenera e fecha a abertura; pode haver um pequeno sangramento nessa época.',
+  'Endométrio':'Revestimento interno do útero (tecido conjuntivo, glândulas e vasos), onde o blastocisto se implanta.',
+  'Glândulas do endométrio':'Glândulas do tecido do endométrio. O sinciciotrofoblasto erode o tecido em volta e o embrião se nutre dele.',
+  'Vasos maternos':'Capilares do endométrio. O sinciciotrofoblasto os erode e o sangue materno passa para as lacunas.',
+  'Citotrofoblasto':'Camada interna do trofoblasto, de células individualizadas, em volta de todo o embrião.',
+  'Sinciciotrofoblasto':'Camada externa e multinucleada do trofoblasto. Invade o endométrio, produz enzimas para a implantação e produz hCG.',
+  'Epiblasto':'Camada do disco embrionário bilaminar voltada para a cavidade amniótica.',
+  'Hipoblasto':'Camada do disco embrionário bilaminar voltada para a cavidade blastocística (depois, para o saco vitelino).',
   'Cavidade amniótica':'Surge entre o epiblasto e o citotrofoblasto e se enche de líquido: o futuro líquido amniótico.',
   'Âmnio':'Membrana formada pelos amnioblastos (células do epiblasto) que envolve a cavidade amniótica.',
-  'Lacunas':'Espaços no sinciciotrofoblasto por onde passa a circular sangue materno.',
-  'Membrana exocelômica (de Heuser)':'Reveste a cavidade blastocística, que passa a se chamar saco vitelino primário.',
-  'Saco vitelino primário':'A cavidade exocelômica, revestida pela membrana de Heuser.',
-  'Mesoderme extraembrionária':'Tecido conjuntivo frouxo que passa a envolver o disco, o âmnio e o saco vitelino.',
-  'Celoma extraembrionário':'Grande cavidade formada pela união de lacunas dentro da mesoderme extraembrionária.',
-  'Saco vitelino secundário':'Saco vitelino definitivo, menor. Em mamíferos não armazena vitelo (vesícula umbilical).',
-  'Cisto exocelômico':'Resto do saco vitelino primário, que degenera.',
-  'Pedículo de conexão':'Única região onde o celoma não avança. Liga o embrião ao trofoblasto e será o cordão umbilical.',
+  'Lacunas':'Espaços que se abrem dentro do sinciciotrofoblasto. Primeiro vazios; depois recebem sangue materno dos vasos erodidos.',
+  'Membrana exocelômica (de Heuser)':'Camada de células vindas do hipoblasto que reveste por dentro a cavidade blastocística, que passa a se chamar saco vitelino primário.',
+  'Saco vitelino primário':'A antiga cavidade blastocística, agora revestida pela membrana de Heuser (cavidade exocelômica).',
+  'Mesoderme extraembrionária':'Tecido conjuntivo frouxo que surge entre o citotrofoblasto e a membrana de Heuser e passa a envolver o âmnio e o saco vitelino.',
+  'Celoma extraembrionário':'Cavidade formada pela união de espaços dentro da mesoderme extraembrionária. Depois é chamado de cavidade coriônica.',
+  'Mesoderme somática':'Lâmina da mesoderme extraembrionária que reveste o citotrofoblasto e o âmnio.',
+  'Mesoderme esplâncnica':'Lâmina da mesoderme extraembrionária que reveste o saco vitelino.',
+  'Saco vitelino secundário':'Saco vitelino definitivo, menor, junto ao hipoblasto. Em mamíferos não armazena vitelo (vesícula umbilical).',
+  'Cisto exocelômico':'Pedaço do saco vitelino primário que se separa quando o celoma o "estrangula". Degenera.',
+  'Pedículo de conexão':'Única região onde o celoma não avança. Liga o disco e o âmnio ao trofoblasto e será o cordão umbilical.',
 };
-const EB_FASES = ['Fertilização: o zigoto','Clivagem: 2 blastômeros','Clivagem: 4 blastômeros','Mórula','Blastocisto chega ao útero','Blastocisto livre no útero','O blastocisto se fixa no endométrio','Implantação superficial (fim da 1ª semana)','Disco bilaminar e cavidade amniótica','Âmnio formado','Saco vitelino primário e lacunas','Saco vitelino primário e lacunas','Mesoderme extraembrionária','Celoma e saco vitelino secundário','Pedículo de conexão (fim da 2ª semana)'];
+const EB_FASES = ['Fertilização: o zigoto','Clivagem: 2 blastômeros','Clivagem: 4 blastômeros','Mórula (dentro da zona pelúcida)','Blastocisto chega ao útero','Blastocisto livre na luz do útero','O blastocisto se prende ao epitélio do endométrio','Implantação superficial (fim da 1ª semana)','Disco bilaminar e cavidade amniótica','Embrião todo dentro do endométrio; lacunas e âmnio','Membrana de Heuser: saco vitelino primário','Sangue materno nas lacunas','Mesoderme extraembrionária','Celoma e saco vitelino secundário se formando','Pedículo de conexão (fim da 2ª semana)'];
 const EB_DESAFIOS = [
   {txt:'acontece a fertilização, na ampola da tuba uterina.', min:0, max:0},
   {txt:'o zigoto já se dividiu em 2 blastômeros.', min:1, max:1},
   {txt:'aparece a mórula, com 12 a 32 blastômeros.', min:3, max:3},
   {txt:'a mórula chega ao útero e se transforma em blastocisto.', min:4, max:5},
-  {txt:'o blastocisto começa a se fixar no endométrio.', min:6, max:7},
+  {txt:'o blastocisto se prende ao epitélio do endométrio.', min:6, max:7},
   {txt:'surge o disco embrionário bilaminar (epiblasto e hipoblasto).', min:8, max:9},
-  {txt:'aparecem as lacunas com sangue materno no sinciciotrofoblasto.', min:10, max:14},
+  {txt:'o embrião já está todo dentro do endométrio.', min:9, max:14},
+  {txt:'as lacunas do sinciciotrofoblasto já têm sangue materno.', min:11, max:14},
+  {txt:'surge a mesoderme extraembrionária.', min:12, max:12},
   {txt:'o pedículo de conexão (futuro cordão umbilical) já está formado.', min:14, max:14},
 ];
 (function(){
   const svg = document.getElementById('ebSvg'); if(!svg) return;
   const range = document.getElementById('ebRange');
+  const leg = document.createElement('div'); leg.className = 'eb-leg'; leg.id = 'ebLegenda';
+  document.getElementById('ebNomes').closest('label').insertAdjacentElement('afterend', leg);
   const E = (nome, el)=> el.replace(/^<(\w+)/, `<$1 data-est="${nome}"`);
-  const rotulo = (x, y, tx, ty, txt, anc)=> `<g class="eb-rot"><path d="M${x},${y} L${tx},${ty}"/><text x="${tx + (anc==='end' ? -3 : 3)}" y="${ty + 4}" text-anchor="${anc||'start'}">${txt}</text></g>`;
+  const f = n => n.toFixed(1);
+  // contorno irregular (sinciciotrofoblasto)
+  function blob(cx, cy, rx, ry, seed){
+    let p = '';
+    for(let i=0;i<=60;i++){ const a = i/60*2*Math.PI; const w = 1 + 0.07*Math.sin(a*6+seed) + 0.04*Math.cos(a*11+seed*2);
+      p += (i ? ' L' : 'M') + f(cx + rx*w*Math.cos(a)) + ',' + f(cy + ry*w*Math.sin(a)); }
+    return p + ' Z';
+  }
+  function anelCito(cx, cy, r, n){
+    let c = ''; for(let i=0;i<n;i++){ const a = i/n*2*Math.PI; c += `<circle cx="${f(cx+r*Math.cos(a))}" cy="${f(cy+r*Math.sin(a))}" r="2.6"/>`; }
+    return E('Citotrofoblasto', `<circle class="eb-citoring" cx="${cx}" cy="${cy}" r="${r}"/>`) + E('Citotrofoblasto', `<g class="eb-cito-cel">${c}</g>`);
+  }
+  // disco bilaminar vertical: hipoblasto à esquerda (cavidade), epiblasto à direita (cavidade amniótica)
+  function disco(x, cy, h){
+    let linhas = ''; for(let y = cy-h/2+6; y <= cy+h/2-6; y += 7) linhas += `M${x+9},${y} L${x+25},${y} `;
+    let hip = ''; for(let y = cy-h/2+8; y <= cy+h/2-8; y += 9) hip += `M${x},${y} L${x+9},${y} `;
+    return E('Hipoblasto', `<g><rect class="eb-hipo" x="${x}" y="${cy-h/2+3}" width="9" height="${h-6}" rx="4"/><path class="eb-epi-cel" d="${hip}"/></g>`)
+         + E('Epiblasto', `<g><rect class="eb-epi" x="${x+9}" y="${cy-h/2}" width="16" height="${h}" rx="6"/><path class="eb-epi-cel" d="${linhas}"/></g>`);
+  }
+  // fundo: luz do útero (esquerda), epitélio e endométrio
+  function fundo(d){
+    let s = '';
+    s += E('Luz do útero', `<rect class="eb-luz" x="0" y="0" width="150" height="300"/>`);
+    s += E('Endométrio', `<rect class="eb-endo" x="172" y="0" width="468" height="300"/>`);
+    [[560,40],[600,150],[548,250],[470,24],[612,72],[214,22],[208,280],[480,284],[606,226]].forEach(([x,y])=> s += E('Glândulas do endométrio', `<g class="eb-glandula"><circle cx="${x}" cy="${y}" r="14"/><circle cx="${x}" cy="${y}" r="5.5"/></g>`));
+    if(d < 9) [[520,110],[440,40],[590,200],[250,270]].forEach(([x,y])=> s += E('Vasos maternos', `<ellipse class="eb-vaso" cx="${x}" cy="${y}" rx="16" ry="7" transform="rotate(${(x*3)%50-25} ${x} ${y})"/>`));
+    // epitélio: coluna de células, com abertura no ponto de entrada (dias 8 a 11)
+    const gap = d >= 8 && d <= 11 ? [96, 204] : null;
+    let cel = '';
+    for(let y=0; y<300; y+=12){ if(gap && y+12 > gap[0] && y < gap[1]) continue; cel += `<rect x="150" y="${y}" width="22" height="12"/>`; }
+    s += E('Epitélio do endométrio', `<g class="eb-epit">${cel}</g>`);
+    if(d >= 9 && d <= 11) s += E('Ponto de entrada', `<path class="eb-tampao" d="M150,${gap[0]} C${d===9?140:146},${gap[0]+40} ${d===9?140:146},${gap[1]-40} 150,${gap[1]} L172,${gap[1]} L172,${gap[0]} Z"/>`);
+    return s;
+  }
   function cena(d){
-    let s = '', L = '';
-    if(d <= 3){
-      s += E('Zona pelúcida', `<circle class="eb-zona" cx="180" cy="135" r="80"/>`);
+    let s = ''; const M = [];
+    const marca = (x, y, nome)=> M.push([x, y, nome]);
+    if(d <= 5){
+      const cx = 320, cy = 150;
+      if(d <= 3 || d === 4) s += E('Zona pelúcida', `<circle class="eb-zona" cx="${cx}" cy="${cy}" r="92"/>`);
+      if(d === 5) s += E('Zona pelúcida', `<circle class="eb-zona some" cx="${cx}" cy="${cy}" r="96"/>`);
       if(d === 0){
-        s += E('Zigoto', `<circle class="eb-cito" cx="180" cy="135" r="66"/>`);
-        s += E('Pronúcleos', `<circle class="eb-nucleo" cx="160" cy="138" r="14"/>`) + E('Pronúcleos', `<circle class="eb-nucleo" cx="200" cy="132" r="14"/>`);
-        s += E('Corpúsculos polares', `<circle class="eb-polar" cx="172" cy="64" r="6"/>`) + E('Corpúsculos polares', `<circle class="eb-polar" cx="188" cy="65" r="5"/>`);
-        L += rotulo(250, 110, 300, 70, 'Zona pelúcida') + rotulo(130, 170, 60, 210, 'Zigoto', 'end') + rotulo(200, 132, 290, 170, 'Pronúcleos') + rotulo(176, 62, 110, 34, 'Corpúsculos polares', 'end');
+        s += E('Zigoto', `<circle class="eb-cito" cx="${cx}" cy="${cy}" r="76"/>`);
+        s += E('Pronúcleos', `<circle class="eb-nucleo" cx="${cx-22}" cy="${cy+4}" r="15"/>`) + E('Pronúcleos', `<circle class="eb-nucleo" cx="${cx+22}" cy="${cy-4}" r="15"/>`);
+        s += E('Corpúsculos polares', `<circle class="eb-polar" cx="${cx-10}" cy="${cy-82}" r="7"/>`) + E('Corpúsculos polares', `<circle class="eb-polar" cx="${cx+9}" cy="${cy-81}" r="6"/>`);
+        marca(cx-92, cy-40, 'Zona pelúcida'); marca(cx-40, cy+40, 'Zigoto'); marca(cx+22, cy-4, 'Pronúcleos'); marca(cx+30, cy-86, 'Corpúsculos polares');
       } else if(d <= 2){
-        const pts = d === 1 ? [[152,135,30],[208,135,30]] : [[156,111,26],[204,111,26],[156,159,26],[204,159,26]];
+        const pts = d === 1 ? [[cx-33,cy,34],[cx+33,cy,34]] : [[cx-28,cy-28,29],[cx+28,cy-28,29],[cx-28,cy+28,29],[cx+28,cy+28,29]];
         pts.forEach(([x,y,r])=> s += E('Blastômeros', `<circle class="eb-cel" cx="${x}" cy="${y}" r="${r}"/>`));
-        L += rotulo(250, 110, 300, 70, 'Zona pelúcida') + rotulo(d===1?130:140, d===1?135:159, 60, 200, 'Blastômeros', 'end');
+        marca(cx-92, cy-40, 'Zona pelúcida'); marca(pts[0][0], pts[0][1], 'Blastômeros');
+      } else if(d === 3){
+        const pts = [[cx,cy]]; for(let i=0;i<6;i++){ const a=i*Math.PI/3; pts.push([cx+34*Math.cos(a),cy+34*Math.sin(a)]); } for(let i=0;i<6;i++){ const a=i*Math.PI/3+Math.PI/6; pts.push([cx+62*Math.cos(a),cy+62*Math.sin(a)]); }
+        pts.forEach(([x,y])=> s += E('Mórula', `<circle class="eb-cel" cx="${f(x)}" cy="${f(y)}" r="19"/>`));
+        marca(cx-92, cy-40, 'Zona pelúcida'); marca(cx, cy, 'Mórula');
       } else {
-        const pts = [[180,135]]; for(let i=0;i<6;i++){ const a=i*Math.PI/3; pts.push([180+30*Math.cos(a),135+30*Math.sin(a)]); } for(let i=0;i<6;i++){ const a=i*Math.PI/3+Math.PI/6; pts.push([180+54*Math.cos(a),135+54*Math.sin(a)]); }
-        pts.forEach(([x,y])=> s += E('Mórula', `<circle class="eb-cel" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17"/>`));
-        L += rotulo(250, 110, 300, 70, 'Zona pelúcida') + rotulo(134, 162, 60, 205, 'Mórula (12–32 células)', 'end');
+        s += E('Cavidade blastocística', `<circle class="eb-cavidade" cx="${cx}" cy="${cy}" r="74"/>`);
+        s += E('Trofoblasto', `<circle class="eb-trofo" cx="${cx}" cy="${cy}" r="78"/>`);
+        [[cx+52,cy-26],[cx+58,cy],[cx+52,cy+26],[cx+38,cy-12],[cx+38,cy+12],[cx+62,cy-14],[cx+62,cy+14]].forEach(([x,y])=> s += E('Embrioblasto', `<circle class="eb-embrio" cx="${x}" cy="${y}" r="13"/>`));
+        marca(cx-96, cy-40, 'Zona pelúcida'); marca(cx-78, cy+28, 'Trofoblasto'); marca(cx+50, cy, 'Embrioblasto'); marca(cx-20, cy+10, 'Cavidade blastocística');
       }
-    } else if(d <= 5){
-      s += E('Zona pelúcida', `<circle class="eb-zona${d===5?' some':''}" cx="180" cy="135" r="82"/>`);
-      s += E('Cavidade blastocística', `<circle class="eb-cavidade" cx="180" cy="135" r="62"/>`);
-      s += E('Trofoblasto', `<circle class="eb-trofo" cx="180" cy="135" r="66"/>`);
-      [[160,96],[180,90],[200,96],[170,110],[190,110],[180,102]].forEach(([x,y])=> s += E('Embrioblasto', `<circle class="eb-embrio" cx="${x}" cy="${y}" r="12"/>`));
-      L += rotulo(252, 112, 305, 72, d===5 ? 'Zona pelúcida (sumindo)' : 'Zona pelúcida') + rotulo(118, 150, 58, 190, 'Trofoblasto', 'end') + rotulo(200, 96, 290, 40, 'Embrioblasto') + rotulo(190, 160, 280, 215, 'Cavidade blastocística');
     } else if(d <= 7){
-      const fundo = d === 6 ? 70 : 92, cy = d === 6 ? 150 : 140;
-      s += E('Endométrio', `<path class="eb-endo" d="M-100,0 L460,0 L460,${fundo} C300,${fundo+8} 240,${fundo-4} 180,${fundo+4} C120,${fundo-4} 60,${fundo+8} -100,${fundo} Z"/>`);
-      s += E('Cavidade blastocística', `<circle class="eb-cavidade" cx="180" cy="${cy}" r="58"/>`);
-      s += E('Citotrofoblasto', `<circle class="eb-citoring" cx="180" cy="${cy}" r="62"/>`);
-      const prof = d === 6 ? 16 : 34;
-      s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="M136,${cy-44} C140,${cy-62-prof} 160,${cy-70-prof} 180,${cy-74-prof} C200,${cy-70-prof} 222,${cy-62-prof} 224,${cy-44} C210,${cy-58} 150,${cy-58} 136,${cy-44} Z"/>`);
-      [[164,cy-42],[180,cy-48],[196,cy-42],[172,cy-30],[188,cy-30]].forEach(([x,y])=> s += E('Embrioblasto', `<circle class="eb-embrio" cx="${x}" cy="${y}" r="11"/>`));
-      L += rotulo(60, 30, 18, 18, 'Endométrio') + rotulo(212, cy-70, 300, cy-90, 'Sinciciotrofoblasto') + rotulo(120, cy+10, 50, cy+50, 'Citotrofoblasto', 'end') + rotulo(196, cy-40, 290, cy-20, 'Embrioblasto') + rotulo(190, cy+30, 270, cy+90, 'Cavidade blastocística');
+      s += fundo(d);
+      // blastocisto na luz, polo embrionário encostado no epitélio
+      const cx = d === 6 ? 92 : 104, cy = 150, r = 54;
+      if(d === 7) s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="M${cx+30},${cy-46} C${cx+70},${cy-70} 222,${cy-50} 232,${cy} C222,${cy+50} ${cx+70},${cy+70} ${cx+30},${cy+46} C${cx+52},${cy+20} ${cx+52},${cy-20} ${cx+30},${cy-46} Z"/>`);
+      else s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="M${cx+40},${cy-30} C${cx+58},${cy-36} 166,${cy-24} 168,${cy} C166,${cy+24} ${cx+58},${cy+36} ${cx+40},${cy+30} C${cx+52},${cy+12} ${cx+52},${cy-12} ${cx+40},${cy-30} Z"/>`);
+      s += E('Cavidade blastocística', `<circle class="eb-cavidade" cx="${cx}" cy="${cy}" r="${r-4}"/>`);
+      s += anelCito(cx, cy, r, 30);
+      [[cx+36,cy-18],[cx+40,cy],[cx+36,cy+18],[cx+24,cy-8],[cx+24,cy+8]].forEach(([x,y])=> s += E('Embrioblasto', `<circle class="eb-embrio" cx="${x}" cy="${y}" r="10"/>`));
+      marca(60, 30, 'Luz do útero'); marca(161, 30, 'Epitélio do endométrio'); marca(320, 60, 'Endométrio');
+      marca(cx-r, cy+20, 'Citotrofoblasto'); marca(d===7 ? 200 : 160, cy, 'Sinciciotrofoblasto'); marca(cx+32, cy, 'Embrioblasto'); marca(cx-14, cy-6, 'Cavidade blastocística');
     } else {
-      // dias 8 a 14: mesmas convenções do slide (sinciciotrofoblasto verde, lacunas, disco vertical à direita)
-      const cx = 180, cy = 130;
-      let blob = '';
-      for(let i=0;i<=48;i++){ const a = i/48*2*Math.PI; const w = 1 + 0.06*Math.sin(a*7) + 0.04*Math.cos(a*11); blob += (i ? ' L' : 'M') + (cx + 118*w*Math.cos(a)).toFixed(1) + ',' + (cy + 112*w*Math.sin(a)).toFixed(1); }
-      s += E('Endométrio', `<rect class="eb-endo" x="-100" y="0" width="560" height="260"/>`);
-      [[-70,36],[-62,206],[4,22],[352,30],[368,214],[430,118],[-84,122],[-10,140],[340,130]].forEach(([x,y])=> s += E('Endométrio', `<g class="eb-glandula"><circle cx="${x}" cy="${y}" r="13"/><circle cx="${x}" cy="${y}" r="5"/></g>`));
-      [[-36,86],[392,78],[40,8]].forEach(([x,y])=> s += E('Endométrio', `<ellipse class="eb-vaso" cx="${x}" cy="${y}" rx="18" ry="8" transform="rotate(${(x*7)%60-30} ${x} ${y})"/>`));
-      s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="${blob} Z"/>`);
-      [[120,40],[250,48],[86,110],[278,120],[96,188],[262,200],[180,232],[180,28],[140,226],[226,24]].forEach(([x,y])=> s += E('Sinciciotrofoblasto', `<circle class="eb-sinc-nuc" cx="${x}" cy="${y}" r="2.2"/>`));
-      if(d >= 10){
-        [[132,46,-35],[232,44,35],[90,140,80],[272,96,100],[118,206,30],[244,212,-30],[180,236,0]].forEach(([x,y,r])=> s += E('Lacunas', `<ellipse class="eb-lacuna${d >= 11 ? ' sangue' : ''}" cx="${x}" cy="${y}" rx="15" ry="5.5" transform="rotate(${r} ${x} ${y})"/>`));
-      }
-      // citotrofoblasto: anel de células
-      s += E('Citotrofoblasto', `<circle class="eb-citoring" cx="${cx}" cy="${cy}" r="80"/>`);
-      let cel = ''; for(let i=0;i<36;i++){ const a = i/36*2*Math.PI; cel += `<circle cx="${(cx+80*Math.cos(a)).toFixed(1)}" cy="${(cy+80*Math.sin(a)).toFixed(1)}" r="2.4"/>`; }
-      s += E('Citotrofoblasto', `<g class="eb-cito-cel">${cel}</g>`);
-      // posição do disco (vertical, à direita); a partir do dia 13 ele se afasta do citotrofoblasto (pedículo)
-      const ex = d >= 13 ? cx + 4 : cx + 30;
-      if(d <= 11){
-        s += E(d >= 10 ? 'Saco vitelino primário' : 'Cavidade blastocística', `<circle class="eb-cav" cx="${cx}" cy="${cy}" r="76"/>`);
-        if(d >= 10) s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M${ex-2},${cy-34} C${cx-30},${cy-80} ${cx-82},${cy-40} ${cx-74},${cy} C${cx-80},${cy+40} ${cx-30},${cy+80} ${ex-2},${cy+34}"/>`);
-      } else if(d === 12){
-        s += E('Mesoderme extraembrionária', `<circle class="eb-meso" cx="${cx}" cy="${cy}" r="76"/>`);
-        s += E('Saco vitelino primário', `<path class="eb-cav" d="M${ex-2},${cy-34} C${cx-24},${cy-62} ${cx-62},${cy-34} ${cx-58},${cy} C${cx-62},${cy+34} ${cx-24},${cy+62} ${ex-2},${cy+34} Z"/>`);
-        s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M${ex-2},${cy-34} C${cx-24},${cy-62} ${cx-62},${cy-34} ${cx-58},${cy} C${cx-62},${cy+34} ${cx-24},${cy+62} ${ex-2},${cy+34}"/>`);
+      s += fundo(d);
+      // dia 8: ainda atravessando o epitélio; dia 9 em diante: todo dentro do endométrio
+      const cx = d === 8 ? 220 : 300, cy = 150, R = d === 8 ? 66 : 82;
+      if(d === 8){
+        s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="M${cx-14},${cy-R-2} C${cx+60},${cy-R-34} ${cx+R+60},${cy-50} ${cx+R+58},${cy} C${cx+R+60},${cy+50} ${cx+60},${cy+R+34} ${cx-14},${cy+R+2} C${cx+40},${cy+40} ${cx+40},${cy-40} ${cx-14},${cy-R-2} Z"/>`);
+        [[cx+60,cy-60],[cx+96,cy-20],[cx+100,cy+26],[cx+62,cy+64],[cx+86,cy-48]].forEach(([x,y])=> s += E('Sinciciotrofoblasto', `<circle class="eb-sinc-nuc" cx="${x}" cy="${y}" r="2.4"/>`));
       } else {
-        s += E('Mesoderme extraembrionária', `<circle class="eb-meso" cx="${cx}" cy="${cy}" r="76"/>`);
-        s += E('Celoma extraembrionário', `<circle class="eb-cav" cx="${cx}" cy="${cy}" r="68"/>`);
-        // mesoderme cobrindo âmnio e saco vitelino + pedículo
-        s += E(d >= 14 ? 'Pedículo de conexão' : 'Mesoderme extraembrionária', `<path class="eb-meso${d >= 14 ? ' eb-pedic' : ''}" d="M${ex+38},${cy-22} L${cx+72},${cy-16} L${cx+72},${cy+16} L${ex+38},${cy+22} Z"/>`);
-        s += E('Mesoderme extraembrionária', `<ellipse class="eb-meso" cx="${ex+20}" cy="${cy}" rx="26" ry="44"/>`);
-        s += E('Saco vitelino secundário', `<circle class="eb-svs" cx="${ex-24}" cy="${cy}" r="22"/>`);
-        if(d === 13) s += E('Cisto exocelômico', `<circle class="eb-cisto" cx="${cx-46}" cy="${cy+18}" r="14"/>`);
+        s += E('Sinciciotrofoblasto', `<path class="eb-sincicio" d="${blob(cx, cy, R+40, R+40, 1)}"/>`);
+        [[cx-90,cy-60],[cx+70,cy-96],[cx+110,cy+30],[cx-60,cy+100],[cx+20,cy+112],[cx-108,cy+20],[cx+96,cy-62],[cx-20,cy-112]].forEach(([x,y])=> s += E('Sinciciotrofoblasto', `<circle class="eb-sinc-nuc" cx="${x}" cy="${y}" r="2.4"/>`));
+        // lacunas: vazias no dia 9 e 10; com sangue a partir do 11, ligadas a vasos maternos erodidos
+        const lac = [[cx-30,cy-104,-20],[cx+52,cy-96,30],[cx+104,cy-34,80],[cx+100,cy+50,110],[cx+40,cy+104,-30],[cx-50,cy+102,25],[cx-104,cy+38,80],[cx-100,cy-44,100]];
+        lac.forEach(([x,y,a])=> s += E('Lacunas', `<ellipse class="eb-lacuna${d >= 11 ? ' sangue' : ''}" cx="${x}" cy="${y}" rx="15" ry="6" transform="rotate(${a} ${x} ${y})"/>`));
+        if(d >= 10){
+          const vasos = d >= 11
+            ? [[cx+58,cy-132,cx+52,cy-104],[cx+142,cy+58,cx+104,cy+50],[cx+48,cy+136,cx+40,cy+108],[cx+142,cy-40,cx+106,cy-34]]
+            : [[cx+70,cy-140,cx+62,cy-126],[cx+150,cy+64,cx+132,cy+58]];
+          vasos.forEach(([x1,y1,x2,y2])=> s += E('Vasos maternos', `<path class="eb-vaso-l" d="M${x1},${y1} L${x2},${y2}"/>`));
+        }
       }
-      // âmnio e cavidade amniótica (à direita do epiblasto)
-      s += E('Cavidade amniótica', `<path class="eb-cav" d="M${ex+16},${cy-32} C${ex+44},${cy-30} ${ex+44},${cy+30} ${ex+16},${cy+32} Z"/>`);
-      if(d >= 9) s += E('Âmnio', `<path class="eb-amnio" d="M${ex+16},${cy-32} C${ex+44},${cy-30} ${ex+44},${cy+30} ${ex+16},${cy+32}"/>`);
-      // disco bilaminar vertical: epiblasto (colunar, cinza) e hipoblasto
-      let linhas = ''; for(let y = cy-30; y <= cy+30; y += 6) linhas += `M${ex+2},${y} L${ex+16},${y} `;
-      s += E('Epiblasto', `<g><rect class="eb-epi" x="${ex+2}" y="${cy-34}" width="14" height="68" rx="5"/><path class="eb-epi-cel" d="${linhas}"/></g>`);
-      s += E('Hipoblasto', `<rect class="eb-hipo" x="${ex-6}" y="${cy-32}" width="8" height="64" rx="4"/>`);
-      // rótulos
-      L += rotulo(-70, 36, -94, 14, 'Endométrio (glândulas e vasos)') + rotulo(268, 40, 310, 14, 'Sinciciotrofoblasto') + rotulo(cx-80, cy+10, 30, cy+86, 'Citotrofoblasto', 'end');
-      L += rotulo(ex+28, cy-12, 320, cy-64, d >= 9 ? 'Âmnio / cav. amniótica' : 'Cavidade amniótica') + rotulo(ex+10, cy-34, 320, cy-90, 'Epiblasto') + rotulo(ex-2, cy+30, 320, cy+96, 'Hipoblasto');
-      if(d >= 10) L += rotulo(90, 140, 40, 150, d >= 11 ? 'Lacunas (sangue)' : 'Lacunas', 'end');
-      if(d <= 9) L += rotulo(cx-40, cy+30, 30, cy+60, 'Cavidade blastocística', 'end');
-      if(d >= 10 && d <= 11) L += rotulo(cx-40, cy+30, 30, cy+60, 'Saco vitelino primário', 'end') + rotulo(cx-56, cy-40, 30, cy-60, 'Membrana de Heuser', 'end');
-      if(d === 12) L += rotulo(cx-40, cy+20, 30, cy+60, 'Saco vitelino 1º', 'end') + rotulo(cx-60, cy-50, 30, cy-60, 'Mesoderme extraemb.', 'end');
-      if(d >= 13) L += rotulo(cx-30, cy-50, 40, cy-60, 'Celoma extraemb.', 'end') + rotulo(ex-30, cy+16, 320, cy+120, 'Saco vitelino 2º');
-      if(d === 13) L += rotulo(cx-56, cy+28, 30, cy+60, 'Cisto exocelômico', 'end');
-      if(d >= 14) L += rotulo(cx+66, cy+12, 320, cy+36, 'Pedículo de conexão');
-      if(d >= 10) L += `<text class="eb-hcg" x="-94" y="252">sinciciotrofoblasto produz hCG</text>`;
+      // interior: cavidade, mesoderme, celoma e sacos
+      const hx = cx + (d === 8 ? 22 : d === 14 ? 6 : 30);   // posição do hipoblasto (no dia 14, mais ao centro, para caber o pedículo)
+      const H = d === 8 ? 76 : 96;                     // altura do disco
+      if(d <= 11){
+        s += E(d >= 10 ? 'Saco vitelino primário' : 'Cavidade blastocística', `<circle class="eb-cav" cx="${cx}" cy="${cy}" r="${R-4}"/>`);
+        if(d >= 10){
+          const a0 = Math.asin((H/2-6)/(R-10)), x0 = cx + (R-10)*Math.cos(a0);
+          s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M${f(Math.min(x0,hx))},${f(cy-(H/2-6))} A${R-10},${R-10} 0 1 0 ${f(Math.min(x0,hx))},${f(cy+(H/2-6))}"/>`);
+        }
+      } else {
+        s += E('Mesoderme extraembrionária', `<circle class="eb-meso" cx="${cx}" cy="${cy}" r="${R-4}"/>`);
+        if(d === 12){
+          s += E('Saco vitelino primário', `<path class="eb-cav" d="M${hx},${cy-36} C${cx-10},${cy-58} ${cx-56},${cy-48} ${cx-56},${cy} C${cx-56},${cy+48} ${cx-10},${cy+58} ${hx},${cy+36} Z"/>`);
+          s += E('Membrana exocelômica (de Heuser)', `<path class="eb-heuser" d="M${hx},${cy-36} C${cx-10},${cy-58} ${cx-56},${cy-48} ${cx-56},${cy} C${cx-56},${cy+48} ${cx-10},${cy+58} ${hx},${cy+36}"/>`);
+        } else if(d === 13){
+          // espaços do celoma se juntando + saco vitelino sendo "estrangulado"
+          [[cx-40,cy-58,30,12,-30],[cx-62,cy+40,26,11,60],[cx+10,cy+66,24,9,10],[cx+4,cy-68,22,9,-10]].forEach(([x,y,rx,ry,a])=> s += E('Celoma extraembrionário', `<ellipse class="eb-celoma" cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" transform="rotate(${a} ${x} ${y})"/>`));
+          s += E('Saco vitelino secundário', `<path class="eb-svs" d="M${hx},${cy-30} C${hx-26},${cy-34} ${hx-40},${cy-18} ${hx-42},${cy-6} L${hx-50},${cy-4} C${hx-62},${cy-26} ${cx-58},${cy-22} ${cx-58},${cy+2} C${cx-58},${cy+26} ${hx-62},${cy+30} ${hx-50},${cy+6} L${hx-42},${cy+6} C${hx-40},${cy+18} ${hx-26},${cy+34} ${hx},${cy+30} Z"/>`);
+        } else {
+          // dia 14: celoma grande (cavidade coriônica). Mesoderme somática forra o citotrofoblasto e cobre o âmnio;
+          // a esplâncnica envolve o saco vitelino. O pedículo liga o âmnio e o disco ao citotrofoblasto.
+          s += E('Celoma extraembrionário', `<circle class="eb-celoma" cx="${cx}" cy="${cy}" r="${R-13}"/>`);
+          s += E('Pedículo de conexão', `<path class="eb-meso eb-pedic" d="M${hx+30},${cy-30} L${cx+R-6},${cy-26} L${cx+R-6},${cy+26} L${hx+30},${cy+30} Z"/>`);
+          s += E('Mesoderme somática', `<ellipse class="eb-meso" cx="${hx+24}" cy="${cy}" rx="34" ry="${H/2+12}"/>`);
+          s += E('Mesoderme esplâncnica', `<circle class="eb-meso" cx="${hx-26}" cy="${cy}" r="31"/>`);
+          s += E('Saco vitelino secundário', `<circle class="eb-svs" cx="${hx-26}" cy="${cy}" r="23"/>`);
+          s += E('Mesoderme esplâncnica', `<circle class="eb-meso" cx="${cx-52}" cy="${cy+44}" r="15"/>`);
+          s += E('Cisto exocelômico', `<circle class="eb-cisto" cx="${cx-52}" cy="${cy+44}" r="10"/>`);
+        }
+      }
+      // cavidade amniótica e âmnio (entre epiblasto e citotrofoblasto)
+      const ex = hx + 9 + 16;   // borda direita do epiblasto
+      const ax = d === 8 ? ex + 14 : ex + 24;
+      s += E('Cavidade amniótica', `<path class="eb-amnio-cav" d="M${ex-2},${cy-H/2+4} C${ax},${cy-H/2+8} ${ax},${cy+H/2-8} ${ex-2},${cy+H/2-4} Z"/>`);
+      if(d >= 9) s += E('Âmnio', `<path class="eb-amnio" d="M${ex-2},${cy-H/2+4} C${ax},${cy-H/2+8} ${ax},${cy+H/2-8} ${ex-2},${cy+H/2-4}"/>`);
+      s += disco(hx, cy, H);
+      s += anelCito(cx, cy, R, d === 8 ? 34 : 44);
+      // marcas
+      marca(122, 30, 'Luz do útero'); marca(161, 30, 'Epitélio do endométrio'); marca(470, 24, 'Glândulas do endométrio');
+      marca(d === 8 ? cx+R+30 : cx+40, d === 8 ? cy-30 : cy-118, 'Sinciciotrofoblasto');
+      marca(cx-R, cy+(d===8?30:-10), 'Citotrofoblasto');
+      marca(hx+4, cy-H/2-8, 'Hipoblasto'); marca(hx+18, cy+H/2+8, 'Epiblasto'); marca(ex+6, cy+6, 'Cavidade amniótica');
+      if(d >= 9) marca(ax-3, cy-H/2+6, 'Âmnio');
+      if(d >= 9) marca(cx-30, cy-104, 'Lacunas');
+      if(d >= 9 && d <= 11) marca(161, 150, 'Ponto de entrada');
+      if(d >= 10) marca(d >= 11 ? cx+58 : cx+70, d >= 11 ? cy-132 : cy-140, 'Vasos maternos');
+      if(d <= 9) marca(cx-30, cy+6, 'Cavidade blastocística');
+      if(d === 10 || d === 11){ marca(cx-30, cy+6, 'Saco vitelino primário'); marca(cx-R+10, cy-30, 'Membrana exocelômica (de Heuser)'); }
+      if(d === 12){ marca(cx-60, cy+64, 'Mesoderme extraembrionária'); marca(cx-24, cy, 'Saco vitelino primário'); marca(cx-56, cy-26, 'Membrana exocelômica (de Heuser)'); }
+      if(d === 13){ marca(cx-40, cy-58, 'Celoma extraembrionário'); marca(hx-18, cy, 'Saco vitelino secundário'); marca(cx-46, cy+2, 'Cisto exocelômico'); marca(cx-70, cy+64, 'Mesoderme extraembrionária'); }
+      if(d === 14){ marca(cx-40, cy-50, 'Celoma extraembrionário'); marca(hx-26, cy, 'Saco vitelino secundário'); marca(hx-26, cy-31, 'Mesoderme esplâncnica'); marca(cx-52, cy+44, 'Cisto exocelômico'); marca(cx-R+8, cy+40, 'Mesoderme somática'); marca(cx+R-16, cy+20, 'Pedículo de conexão'); }
     }
-    return s + (document.getElementById('ebNomes').checked ? L : '');
+    // números sobre o desenho, na ordem em que aparecem na legenda
+    const nomes = []; M.forEach(m=>{ if(!nomes.includes(m[2])) nomes.push(m[2]); });
+    const mostrar = document.getElementById('ebNomes').checked;
+    let mk = '';
+    if(mostrar) M.forEach(([x,y,nome])=>{ const n = nomes.indexOf(nome)+1; mk += E(nome, `<g class="eb-mk"><circle cx="${x}" cy="${y}" r="12"/><text x="${x}" y="${y+4.5}">${n}</text></g>`); });
+    leg.innerHTML = mostrar ? nomes.map((nome, i)=>`<button type="button" data-est-leg="${nome}"><b>${i+1}</b>${nome}</button>`).join('') : '';
+    leg.hidden = !mostrar;
+    return s + mk;
   }
   function atualizar(){
     const d = +range.value;
+    svg.setAttribute('viewBox', d <= 5 ? '150 10 340 280' : d <= 7 ? '20 0 480 300' : '100 0 460 300');
     svg.innerHTML = cena(d);
     document.getElementById('ebDia').textContent = `Dia ${d}`;
     document.getElementById('ebFase').textContent = EB_FASES[d];
+    if(d >= 9) document.getElementById('ebFase').textContent += ' · o sinciciotrofoblasto produz hCG';
   }
-  svg.addEventListener('click', e=>{
-    const el = e.target.closest('[data-est]'); if(!el) return;
-    const nome = el.dataset.est;
+  function destacar(nome){
     svg.querySelectorAll('.eb-on').forEach(x=>x.classList.remove('eb-on'));
     svg.querySelectorAll(`[data-est="${nome}"]`).forEach(x=>x.classList.add('eb-on'));
+    leg.querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.estLeg === nome));
     document.getElementById('ebInfo').innerHTML = `<strong>${nome}:</strong> ${EB_INFO[nome] || ''}`;
-  });
+  }
+  svg.addEventListener('click', e=>{ const el = e.target.closest('[data-est]'); if(el) destacar(el.dataset.est); });
+  leg.addEventListener('click', e=>{ const b = e.target.closest('[data-est-leg]'); if(b) destacar(b.dataset.estLeg); });
   range.addEventListener('input', atualizar);
   document.getElementById('ebNomes').addEventListener('change', atualizar);
   let desafio = null;
