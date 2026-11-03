@@ -3537,7 +3537,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
-  {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam no menu Estudo, em Modo prova, e na página de cada disciplina.', link: {url:'#modo-prova'}},
+  {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam no menu Estudo, em Modo prova, e na página de cada disciplina.', link: {page:'viewSimulados'}},
   {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
   {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Piaget (aula 3): resumo interativo, dois exercícios novos, 14 termos no glossário e as comparações assimilação × acomodação e Piaget × Vygotsky. Nova página Revisão dos erros, com as questões erradas nos exercícios e quizzes.', link: {url:'#resumo-piaget'}},
@@ -7394,7 +7394,7 @@ function fmtStamp(iso){
 
 function rotuloLink(l){
   if(l.drive) return 'Abrir no Drive ↗';
-  if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#roteiro-')) return 'Abrir roteiro →'; if(l.url.startsWith('#simulado-')) return 'Abrir simulado →'; if(l.url === '#modo-prova') return 'Abrir o modo prova →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
+  if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#roteiro-')) return 'Abrir roteiro →'; if(l.url.startsWith('#simulado-')) return 'Abrir simulado →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
   if(l.disc) return 'Ver disciplina →';
   if(l.scroll === 'disciplinas') return 'Ver disciplinas →';
   const pg = {viewFerramentas:'Ver exercícios →', viewPrazos:'Ver prazos →', viewEstudar:'Ver resumos →', viewVideos:'Ver vídeos →', viewCursos:'Ver cursos →', viewApoio:'Ver extras →', viewSimulados:'Abrir o modo prova →'};
