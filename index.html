@@ -2000,6 +2000,114 @@
   /* crédito e atualização menores */
   .hero-meta, .hero-meta .hero-credito{font-size:11.5px !important;}
   .hero-meta{margin-top:12px !important; gap:2px 12px !important;}
+
+  /* ===== Simulado: modo jogo ===== */
+  .sim-card{border:1px solid var(--rule); border-radius:8px; padding:18px 20px; background:linear-gradient(135deg, #2A1B3D 0%, #3B2357 100%); color:#fff; display:flex; flex-direction:column; gap:8px; max-width:640px;}
+  .sim-card-top{display:flex; justify-content:space-between; align-items:center; gap:10px;}
+  .sim-tag{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; background:rgba(255,255,255,.14); padding:3px 8px; border-radius:4px;}
+  .sim-n{font-family:var(--mono); font-size:12px; opacity:.75;}
+  .sim-card-t{font-family:var(--serif); font-size:21px; font-weight:600; line-height:1.25;}
+  .sim-card-d{font-size:14.5px; opacity:.82; line-height:1.5;}
+  .sim-card-rec{font-size:13.5px; opacity:.9;} .sim-card-rec b{color:#FFD166;}
+  .sim-card .sim-go{align-self:flex-start; margin-top:6px; background:#fff !important; color:#3B2357 !important; border-color:#fff !important; font-weight:700;}
+
+  html.sim-aberto, html.sim-aberto body{overflow:hidden;}
+  .sim-ov{position:fixed; inset:0; z-index:9999; background:#1E1430; background-image:radial-gradient(circle at 20% 0%, #3A2458 0%, transparent 55%), radial-gradient(circle at 100% 100%, #2B1C47 0%, transparent 50%); color:#fff; overflow-y:auto; -webkit-overflow-scrolling:touch;}
+  .sim-ov[hidden]{display:none;}
+  .sim-ov button{font-family:inherit; cursor:pointer;}
+  .sim-topo{position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:8px; padding:12px 16px; background:rgba(30,20,48,.92); backdrop-filter:blur(6px);}
+  .sim-x{width:38px; height:38px; border-radius:8px; border:0; background:rgba(255,255,255,.12); color:#fff; font-size:16px; flex:none;}
+  .sim-x:hover{background:rgba(255,255,255,.2);}
+  .sim-cont, .sim-pontos, .sim-seq{font-family:var(--mono); font-size:13px; background:rgba(255,255,255,.12); padding:7px 11px; border-radius:8px; white-space:nowrap;}
+  .sim-pontos{margin-left:auto;} .sim-pontos b{font-size:14px;}
+  .sim-seq{background:#F2994A; color:#2A1B3D; font-weight:600;}
+  .sim-seq[hidden]{display:none;}
+  .sim-tempo{position:relative; height:8px; margin:0 16px; background:rgba(255,255,255,.12); border-radius:6px; overflow:visible;}
+  .sim-tempo.vazio{background:none;}
+  .sim-tempo i{display:block; height:100%; background:#7C5CFF; border-radius:6px; transition:width .2s linear, background .3s;}
+  .sim-tempo i.pouco{background:#E5484D;}
+  .sim-tempo-n{position:absolute; right:0; top:12px; font-family:var(--mono); font-size:12px; opacity:.7;}
+
+  .sim-jogo{max-width:820px; margin:0 auto; padding:26px 16px 140px; display:flex; flex-direction:column; gap:22px;}
+  .sim-q{background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:20px 22px;}
+  .sim-q-tema{display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:#C9B8FF; margin-bottom:10px;}
+  .sim-q-txt{font-size:18.5px; line-height:1.55; font-weight:500;}
+  .sim-ops{display:grid; grid-template-columns:1fr; gap:10px;}
+  .sim-op{display:flex; align-items:flex-start; gap:12px; text-align:left; border:0; border-radius:12px; padding:14px 16px; min-height:0; color:#fff; font-size:15.5px; line-height:1.45; box-shadow:0 5px 0 rgba(0,0,0,.28); transition:transform .08s, opacity .25s, box-shadow .08s, filter .2s;}
+  .sim-op:not(:disabled):hover{filter:brightness(1.08);}
+  .sim-op:not(:disabled):active{transform:translateY(4px); box-shadow:0 1px 0 rgba(0,0,0,.28);}
+  .sim-op.c0{background:#2F6DB5;} .sim-op.c1{background:#1F9C8F;} .sim-op.c2{background:#D99417;} .sim-op.c3{background:#D04A68;} .sim-op.c4{background:#8E44AD;}
+  .sim-op-l{flex:none; width:28px; height:28px; border-radius:6px; background:rgba(0,0,0,.2); display:grid; place-items:center; font-family:var(--mono); font-size:13px; font-weight:700;}
+  .sim-op-t{padding-top:3px;}
+  .sim-op:disabled{cursor:default;}
+  .sim-op.apagada{opacity:.28; filter:saturate(.4);}
+  .sim-op.certa{background:#22A45D !important; box-shadow:0 0 0 3px #fff, 0 5px 0 rgba(0,0,0,.28);}
+  .sim-op.errada{background:#C93545 !important; opacity:.95;}
+  .sim-op.certa .sim-op-l::after{content:"✓";} .sim-op.certa .sim-op-l{font-size:0;} .sim-op.certa .sim-op-l::after{font-size:15px;}
+  .sim-op.errada .sim-op-l{font-size:0;} .sim-op.errada .sim-op-l::after{content:"✕"; font-size:14px;}
+
+  .sim-fb{position:fixed; left:0; right:0; bottom:0; z-index:3; transform:translateY(100%); transition:transform .28s ease-out; max-height:62vh; overflow-y:auto; box-shadow:0 -10px 30px rgba(0,0,0,.35);}
+  .sim-fb.in{transform:none;}
+  .sim-fb[hidden]{display:none;}
+  .sim-fb.ok{background:#1D8A50;} .sim-fb.no{background:#B8323F;}
+  .sim-fb-in{max-width:820px; margin:0 auto; padding:16px 18px calc(16px + env(safe-area-inset-bottom));}
+  .sim-fb-top{display:flex; align-items:center; gap:10px;}
+  .sim-fb-top strong{font-size:20px; font-family:var(--serif);}
+  .sim-ganho{font-family:var(--mono); font-weight:700; background:rgba(255,255,255,.2); padding:3px 9px; border-radius:6px;}
+  .sim-fb-certa{margin-top:6px; font-weight:600; font-size:14.5px;}
+  .sim-fb p{margin:8px 0 12px; font-size:14.5px; line-height:1.5; opacity:.95;}
+  .sim-prox{width:100%; border:0; border-radius:10px; padding:13px; font-size:16px; font-weight:700; background:#fff; color:#1E1430; box-shadow:0 4px 0 rgba(0,0,0,.25);}
+  .sim-prox:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,.25);}
+
+  .sim-ini, .sim-fim{max-width:560px; margin:0 auto; padding:28px 18px 60px; display:flex; flex-direction:column; gap:14px;}
+  .sim-ini-eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#C9B8FF;}
+  .sim-ini h2, .sim-fim h2{font-family:var(--serif); font-size:28px; line-height:1.2; margin:0; color:#fff;}
+  .sim-ini p{margin:0; opacity:.82; line-height:1.5;}
+  .sim-ini-rec{font-size:14px;} .sim-ini-rec b{color:#FFD166;}
+  .sim-ini-g{display:flex; flex-direction:column; gap:8px; margin-top:6px;}
+  .sim-ini-l{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; opacity:.65;}
+  .sim-seg{display:flex; flex-wrap:wrap; gap:8px;}
+  .sim-seg button{flex:1 1 auto; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.06); color:#fff; border-radius:10px; padding:11px 12px; font-size:14.5px;}
+  .sim-seg button span{font-family:var(--mono); font-size:12px; opacity:.7; margin-left:4px;}
+  .sim-seg button.on{background:#fff; color:#2A1B3D; border-color:#fff; font-weight:600;}
+  .sim-ini-nota{font-size:13px; opacity:.65; line-height:1.45;}
+  .sim-start{margin-top:8px; border:0; border-radius:12px; padding:16px; font-size:18px; font-weight:800; background:#7C5CFF; color:#fff; box-shadow:0 5px 0 #4B32B8;}
+  .sim-start:active{transform:translateY(4px); box-shadow:0 1px 0 #4B32B8;}
+  .sim-sec{border:1px solid rgba(255,255,255,.25); border-radius:12px; padding:13px; font-size:15.5px; font-weight:600; background:rgba(255,255,255,.06); color:#fff;}
+
+  .sim-fim{align-items:stretch; text-align:center;}
+  .sim-anel{--p:0; width:150px; height:150px; margin:6px auto 0; border-radius:50%; background:conic-gradient(#22A45D calc(var(--p) * 1%), rgba(255,255,255,.12) 0); display:grid; place-items:center;}
+  .sim-anel > div{width:120px; height:120px; border-radius:50%; background:#24183A; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .sim-anel b{font-size:34px; font-family:var(--serif);} .sim-anel span{font-size:12px; opacity:.7;}
+  .sim-recorde{align-self:center; background:#FFD166; color:#2A1B3D; font-weight:700; padding:6px 12px; border-radius:8px; font-size:14px;}
+  .sim-stats{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .sim-stats div{background:rgba(255,255,255,.07); border-radius:10px; padding:12px; display:flex; flex-direction:column; gap:2px;}
+  .sim-stats b{font-size:20px;} .sim-stats span{font-size:12.5px; opacity:.7;}
+  .sim-temas{text-align:left; display:flex; flex-direction:column; gap:7px; background:rgba(255,255,255,.05); border-radius:10px; padding:14px;}
+  .sim-tema-l{display:grid; grid-template-columns:1fr 90px 42px; align-items:center; gap:10px; font-size:13.5px;}
+  .sim-tema-l b{font-family:var(--mono); font-size:12.5px; text-align:right;}
+  .sim-tema-bar{height:7px; background:rgba(255,255,255,.12); border-radius:4px; overflow:hidden;}
+  .sim-tema-bar i{display:block; height:100%; background:#22A45D;}
+  .sim-fim-acoes{display:flex; flex-direction:column; gap:10px; margin-top:4px;}
+  .sim-rev{text-align:left; display:flex; flex-direction:column; gap:12px; margin-top:8px;}
+  .sim-rev[hidden]{display:none;}
+  .sim-rev-i{background:rgba(255,255,255,.07); border-left:4px solid #22A45D; border-radius:8px; padding:14px;}
+  .sim-rev-i.no{border-left-color:#E5484D;}
+  .sim-rev-h{display:flex; justify-content:space-between; gap:10px; font-family:var(--mono); font-size:12px; opacity:.85; margin-bottom:6px;}
+  .sim-rev-i.ok .sim-rev-h b{color:#5BD08F;} .sim-rev-i.no .sim-rev-h b{color:#FF8A8F;}
+  .sim-rev-q{font-size:14.5px; line-height:1.5;}
+  .sim-rev-sua{margin-top:8px; font-size:14px; color:#FFB0B4;}
+  .sim-rev-certa{margin-top:6px; font-size:14px; color:#8BE3B0; font-weight:600;}
+  .sim-rev-i p{margin:8px 0 0; font-size:13.5px; opacity:.8; line-height:1.5;}
+
+  @media (max-width:700px){
+    .sim-ops{grid-template-columns:1fr; gap:10px;}
+    .sim-op{min-height:0; padding:13px 14px; font-size:15px;}
+    .sim-q{padding:16px;} .sim-q-txt{font-size:16.5px;}
+    .sim-jogo{padding:18px 12px 150px; gap:16px;}
+    .sim-topo{padding:10px 12px;}
+    .sim-cont, .sim-pontos, .sim-seq{font-size:12px; padding:6px 9px;}
+  }
 </style>
 </head>
 <body>
@@ -3409,11 +3517,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam na página de cada disciplina.', link: {url:'#simulado-bases-n2'}},
   {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
   {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Piaget (aula 3): resumo interativo, dois exercícios novos, 14 termos no glossário e as comparações assimilação × acomodação e Piaget × Vygotsky. Nova página Revisão dos erros, com as questões erradas nos exercícios e quizzes.', link: {url:'#resumo-piaget'}},
   {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Estudo dirigido da Atividade 1 (N2): roteiro de pesquisa por questão, com perguntas norteadoras, termos de busca, bibliografia e lista de conferência.', link: {url:'#roteiro-atividade1-n2'}},
-  {date: '2026-11-02', disc: 'Neuroanatomia', desc: 'Resumo de medula ampliado: de 8 para 16 partes (níveis, cauda equina, raízes, neurônios alfa e gama, vias ascendentes, líquor e anestesias), 3 comparações e 10 termos novos no glossário.', link: {url:'#resumo-medula-sna'}},
 ];
 
 
@@ -3647,6 +3755,1180 @@ const MONTADOR = {
     'O sumário está atualizado com as páginas certas'
   ]
 };
+
+/* =====================================================================
+   SIM_JOGO (modo jogo, uma questão por tela)
+   Cada questão: {tema, p:'enunciado (HTML)', o:[alternativas], c:índice da certa,
+   w:'explicação', fixa:true (opcional: não embaralhar as alternativas, p.ex. "I e II")}
+   --------------------------------------------------------------------- */
+const SIM_JOGO = [{
+  id: 'bases-n2',
+  disc: '01',
+  titulo: 'Simulado N2: embriologia e DNA',
+  desc: '40 questões no estilo vestibular: da fertilização à 2ª semana e estrutura do DNA.',
+  partes: [{k:'embrio', t:'Embriologia', n:22}, {k:'dna', t:'Estrutura do DNA', n:18}],
+  questoes: [
+  // ---------- EMBRIOLOGIA ----------
+  {tema:"Fertilização", p:"A laqueadura tubária (ligadura das tubas uterinas) é um método contraceptivo eficaz. Do ponto de vista da embriologia, ela impede a gravidez principalmente porque",
+   o:["bloqueia a ovulação, já que os ovários deixam de receber estímulo hormonal.",
+      "impede o encontro do espermatozoide com o ovócito, que normalmente acontece na ampola da tuba.",
+      "impede que o sinciciotrofoblasto produza hCG, hormônio necessário à implantação.",
+      "destrói a zona pelúcida do ovócito antes que ele chegue ao útero.",
+      "impede a compactação da mórula, que só ocorre dentro da cavidade uterina."],
+   c:1, w:"A ovulação continua normalmente. O corte ou a obstrução das tubas impede que os espermatozoides cheguem à ampola, onde a fertilização habitualmente acontece, e que o ovócito siga até lá."},
+
+  {tema:"Fertilização", p:"Considere os eventos da fertilização listados abaixo, fora de ordem:<br>1. término da 2ª divisão meiótica do ovócito<br>2. passagem pela coroa radiada<br>3. fusão das membranas dos gametas<br>4. penetração da zona pelúcida<br>5. formação do pronúcleo masculino<br>A sequência correta é",
+   o:["2 → 4 → 3 → 1 → 5",
+      "4 → 2 → 3 → 5 → 1",
+      "2 → 3 → 4 → 1 → 5",
+      "2 → 4 → 1 → 3 → 5",
+      "3 → 2 → 4 → 1 → 5"],
+   c:0, fixa:true, w:"O espermatozoide atravessa a coroa radiada, depois a zona pelúcida, e só então as membranas se fundem. A fusão estimula o ovócito a concluir a meiose II; em seguida forma-se o pronúcleo masculino."},
+
+  {tema:"Fertilização", p:"A coroa radiada é formada por células foliculares unidas por uma matriz rica em ácido hialurônico. Sobre a passagem do espermatozoide por essa camada, analise:<br>I. A hialuronidase liberada pelo acrossomo ajuda a dispersar as células da coroa.<br>II. O movimento do flagelo contribui para a passagem.<br>III. A acrosina é a principal enzima dessa etapa, pois digere o ácido hialurônico.<br>Está correto o que se afirma em",
+   o:["I, apenas.",
+      "I e II, apenas.",
+      "I e III, apenas.",
+      "II e III, apenas.",
+      "I, II e III."],
+   c:1, fixa:true, w:"I e II estão corretas. A acrosina age na etapa seguinte, ajudando a atravessar a zona pelúcida, e não digere ácido hialurônico."},
+
+  {tema:"Fertilização", p:"Em um experimento, ovócitos tiveram a liberação dos grânulos corticais bloqueada e depois foram expostos a muitos espermatozoides. O resultado mais provável é",
+   o:["a fertilização não ocorrer, pois os grânulos corticais são necessários à fusão das membranas.",
+      "a formação de zigotos haploides, por falta do pronúcleo feminino.",
+      "a entrada de mais de um espermatozoide, originando zigotos com número anormal de cromossomos.",
+      "a formação normal de zigotos diploides, já que a zona pelúcida bloqueia sozinha a polispermia.",
+      "a interrupção da clivagem logo na primeira mitose, por falta de hCG."],
+   c:2, w:"O conteúdo dos grânulos corticais altera as glicoproteínas ZP2 e ZP3 da zona pelúcida, que deixa de aceitar novos espermatozoides. Sem essa reação, ocorre polispermia e o zigoto fica com cromossomos a mais (por exemplo, triploide)."},
+
+  {tema:"Fertilização", p:"O ovócito liberado na ovulação está parado na metáfase da segunda divisão meiótica. A partir dessa informação, é correto concluir que o segundo corpúsculo polar",
+   o:["já está formado no momento da ovulação.",
+      "é formado durante a vida fetal da mulher.",
+      "só se forma se o ovócito for fertilizado.",
+      "origina o pronúcleo feminino.",
+      "é eliminado junto com o primeiro corpúsculo polar na menstruação."],
+   c:2, w:"A meiose II só é concluída depois da fusão com o espermatozoide. Nesse momento surgem o óvulo maduro, cujo núcleo vira o pronúcleo feminino, e o 2º corpúsculo polar."},
+
+  {tema:"Fertilização", p:"Na fusão das membranas do ovócito e do espermatozoide, nem todas as partes do espermatozoide entram no ovócito. Assinale a alternativa correta.",
+   o:["Entram a cabeça e a cauda; a membrana plasmática e as mitocôndrias do espermatozoide não entram.",
+      "Entra apenas o acrossomo, que forma o pronúcleo masculino.",
+      "Entram a membrana e as mitocôndrias; a cabeça fica presa na zona pelúcida.",
+      "O espermatozoide entra inteiro, com membrana, cauda e mitocôndrias.",
+      "Entra apenas a cauda, que leva o material genético."],
+   c:0, w:"Segundo os slides, cabeça e cauda entram no ovócito; a membrana plasmática e as mitocôndrias do espermatozoide ficam de fora. O núcleo da cabeça formará o pronúcleo masculino."},
+
+  {tema:"Fertilização", p:"Em uma conversa, alguém afirma que \"é a mãe que define se o bebê vai ser menino ou menina\". Do ponto de vista biológico, essa afirmação está",
+   o:["correta, porque o ovócito pode carregar X ou Y.",
+      "correta, porque o ambiente uterino determina o sexo na 2ª semana.",
+      "incorreta, porque o sexo cromossômico depende do espermatozoide, que pode carregar X ou Y, enquanto o ovócito sempre carrega X.",
+      "incorreta, porque o sexo é definido só na formação do disco bilaminar.",
+      "incorreta, porque o sexo depende da quantidade de hCG produzida."],
+   c:2, w:"Todo ovócito tem um cromossomo X. O espermatozoide carrega X (embrião feminino, XX) ou Y (embrião masculino, XY). O sexo cromossômico é definido na fertilização."},
+
+  {tema:"Clivagem e blastocisto", p:"Durante a clivagem do zigoto humano, observa-se",
+   o:["aumento do número de células e do volume total do embrião, como em qualquer crescimento.",
+      "divisões meióticas que reduzem o número de cromossomos dos blastômeros.",
+      "aumento do número de células sem aumento do volume total, com blastômeros cada vez menores.",
+      "perda da zona pelúcida logo na primeira divisão.",
+      "diferenciação imediata das células em epiblasto e hipoblasto."],
+   c:2, w:"A clivagem é uma série de mitoses rápidas, quase sem crescimento entre elas. O número de blastômeros aumenta, mas cada um fica menor, e o conjunto continua dentro da zona pelúcida."},
+
+  {tema:"Fertilização", p:"Depois de atravessar a coroa radiada, o espermatozoide precisa penetrar a zona pelúcida. Nessa etapa, atuam principalmente",
+   o:["a hCG e a progesterona, produzidas pelo sinciciotrofoblasto.",
+      "enzimas do acrossomo, como acrosina, esterases e neuraminidase.",
+      "as glicoproteínas ZP2 e ZP3, liberadas pelo espermatozoide.",
+      "os grânulos corticais do espermatozoide.",
+      "a hialuronidase do ovócito."],
+   c:1, w:"Na 2ª fase da fertilização, enzimas do acrossomo (acrosina, esterases e neuraminidase) abrem caminho pela zona pelúcida. ZP2 e ZP3 são glicoproteínas da própria zona pelúcida, e os grânulos corticais são do ovócito."},
+
+  {tema:"Clivagem e blastocisto", p:"Sobre a mórula, analise as afirmativas:<br>I. A partir de 8 células, os blastômeros se aproximam fortemente, num processo chamado compactação.<br>II. A mórula tem de 12 a 32 blastômeros, ainda totipotentes.<br>III. Na mórula, as células internas formam o embrioblasto, e a camada achatada em volta forma o trofoblasto.<br>Está correto o que se afirma em",
+   o:["I, apenas.",
+      "I e II, apenas.",
+      "I e III, apenas.",
+      "II e III, apenas.",
+      "I, II e III."],
+   c:4, fixa:true, w:"As três estão corretas. As células internas formam o embrioblasto (o futuro embrião), e a camada externa achatada forma o trofoblasto (a futura placenta)."},
+
+  {tema:"Clivagem e blastocisto", p:"Por volta do 4º dia, a mórula entra no útero e se transforma em blastocisto. Assinale a alternativa que associa corretamente cada parte do blastocisto ao que ela vai formar.",
+   o:["Trofoblasto: embrião; embrioblasto: placenta.",
+      "Trofoblasto: placenta; embrioblasto: embrião.",
+      "Cavidade blastocística: placenta; trofoblasto: cordão umbilical.",
+      "Embrioblasto: âmnio; trofoblasto: saco vitelino.",
+      "Trofoblasto e embrioblasto formam juntos o disco bilaminar."],
+   c:1, w:"O trofoblasto dará origem à placenta, e o embrioblasto é o primórdio do embrião. A cavidade blastocística se forma com o fluido uterino que entra na mórula."},
+
+  {tema:"Clivagem e blastocisto", p:"Assinale a alternativa em que o momento aproximado e o evento estão corretamente associados.",
+   o:["Dia 0: entrada da mórula no útero.",
+      "Cerca de 30 horas: primeira divisão do zigoto.",
+      "Cerca do 4º dia: formação do disco embrionário bilaminar.",
+      "Cerca do 6º dia: fertilização na ampola.",
+      "Fim da 1ª semana: hCG detectável nos testes de farmácia."],
+   c:1, w:"A primeira clivagem ocorre por volta de 30 horas após a fertilização. A mórula chega ao útero por volta do 4º dia, o blastocisto se fixa por volta do 6º, o disco bilaminar é da 2ª semana, e a hCG é detectável no fim da 2ª semana."},
+
+  {tema:"Implantação", p:"Ao se fixar no endométrio, o trofoblasto se divide em duas camadas. Sobre elas, é correto afirmar que",
+   o:["o citotrofoblasto é externo, multinucleado e invade o endométrio.",
+      "o sinciciotrofoblasto é interno e formado por células bem individualizadas.",
+      "o sinciciotrofoblasto é externo, multinucleado, formado pela fusão de células, e produz enzimas que permitem a implantação.",
+      "as duas camadas dão origem ao disco embrionário bilaminar.",
+      "o citotrofoblasto produz a hCG, e o sinciciotrofoblasto forma o âmnio."],
+   c:2, w:"O citotrofoblasto é a camada interna, de células individualizadas. O sinciciotrofoblasto é a externa: uma massa multinucleada, sem limites entre as células, que adere ao endométrio, o invade e produz a hCG."},
+
+  {tema:"Implantação", p:"Uma mulher fez um teste de gravidez de farmácia três dias após uma relação sexual desprotegida, e o resultado foi negativo. A explicação mais adequada para esse resultado, mesmo que ela esteja grávida, é que",
+   o:["a hCG é produzida pelo ovócito logo após a ovulação e já foi eliminada.",
+      "a hCG só é produzida pelo sinciciotrofoblasto depois do início da implantação, e só fica detectável por volta do fim da 2ª semana.",
+      "os testes de farmácia detectam a presença do espermatozoide, que some em 48 horas.",
+      "a hCG é produzida pelo epiblasto, que só se forma no 3º mês.",
+      "o teste só funciona depois que o saco vitelino secundário se forma."],
+   c:1, w:"Três dias depois da relação, se houve fertilização, o embrião ainda está na tuba ou chegando ao útero. A hCG depende do sinciciotrofoblasto, que só surge na implantação, e os testes a detectam por volta do fim da 2ª semana."},
+
+  {tema:"2ª semana", p:"Durante a 2ª semana, surgem espaços (lacunas) no sinciciotrofoblasto. Esses espaços são importantes porque",
+   o:["acumulam o líquido amniótico que vai envolver o embrião.",
+      "passam a receber sangue materno, num primeiro esboço da circulação entre mãe e embrião.",
+      "formam a cavidade do saco vitelino secundário.",
+      "são o local onde ocorre a fertilização.",
+      "armazenam o vitelo que nutre o embrião humano."],
+   c:1, w:"As lacunas do sinciciotrofoblasto se enchem de sangue materno vindo dos capilares do endométrio erodido, o início da troca de nutrientes que depois será feita pela placenta."},
+
+  {tema:"2ª semana", p:"Em relação ao disco embrionário bilaminar, é correto afirmar que",
+   o:["o epiblasto fica voltado para a cavidade amniótica, e o hipoblasto para a cavidade blastocística (futuro saco vitelino).",
+      "o hipoblasto fica voltado para a cavidade amniótica, e o epiblasto para o saco vitelino.",
+      "é formado pelo citotrofoblasto e pelo sinciciotrofoblasto.",
+      "dará origem apenas à placenta e ao cordão umbilical.",
+      "surge antes da implantação, ainda na tuba uterina."],
+   c:0, w:"O embrioblasto forma duas camadas: o epiblasto, que forma o assoalho da cavidade amniótica, e o hipoblasto, voltado para a cavidade blastocística. Esse disco dará origem a todos os tecidos e órgãos do embrião."},
+
+  {tema:"2ª semana", p:"A membrana amniótica, que envolve a cavidade amniótica, tem origem em",
+   o:["células do hipoblasto, que formam a membrana de Heuser.",
+      "amnioblastos derivados do epiblasto.",
+      "células do sinciciotrofoblasto que se desprendem.",
+      "mesoderme extraembrionária esplâncnica.",
+      "células do endométrio materno."],
+   c:1, w:"Células do epiblasto, chamadas amnioblastos, formam o âmnio. O hipoblasto forma a membrana exocelômica (de Heuser), que reveste o saco vitelino primário."},
+
+  {tema:"2ª semana", p:"A mesoderme extraembrionária se divide em duas lâminas, separadas pelo celoma extraembrionário. Assinale a associação correta.",
+   o:["Mesoderme somática: reveste o saco vitelino.",
+      "Mesoderme esplâncnica: reveste o citotrofoblasto e o âmnio.",
+      "Mesoderme somática: reveste o citotrofoblasto e o âmnio; mesoderme esplâncnica: reveste o saco vitelino.",
+      "As duas lâminas formam o disco embrionário bilaminar.",
+      "As duas lâminas dão origem ao sinciciotrofoblasto."],
+   c:2, w:"A lâmina somática fica do lado de fora, junto ao citotrofoblasto e ao âmnio. A esplâncnica fica junto ao saco vitelino. Entre elas fica o celoma extraembrionário."},
+
+  {tema:"2ª semana", p:"No fim da 2ª semana, o celoma extraembrionário cresce e \"estrangula\" o saco vitelino primário. Como resultado,",
+   o:["forma-se o saco vitelino secundário (definitivo), e uma parte isolada vira o cisto exocelômico, que degenera.",
+      "o saco vitelino desaparece, e o embrião passa a se nutrir só do líquido amniótico.",
+      "forma-se a cavidade amniótica.",
+      "o disco bilaminar se transforma em trilaminar.",
+      "surgem as lacunas do sinciciotrofoblasto."],
+   c:0, w:"O avanço do celoma reduz o saco vitelino primário: forma-se o saco vitelino secundário, menor, e sobra um pedaço isolado, o cisto exocelômico, que degenera."},
+
+  {tema:"2ª semana", p:"O pedículo de conexão é a única região onde o celoma extraembrionário não avança, mantendo o embrião ligado ao trofoblasto. No desenvolvimento posterior, essa estrutura dará origem",
+   o:["ao âmnio.",
+      "ao saco vitelino secundário.",
+      "ao cordão umbilical.",
+      "à membrana de Heuser.",
+      "ao sinciciotrofoblasto."],
+   c:2, w:"O pedículo de conexão liga o embrião ao trofoblasto e, mais tarde, formará o cordão umbilical."},
+
+  {tema:"Clínica", p:"Uma mulher com histórico de infecção pélvica, que deixou cicatrizes e estreitamento nas tubas uterinas, tem risco aumentado de gravidez ectópica. A relação entre o histórico e o risco é que",
+   o:["as cicatrizes impedem a ovulação, e o ovócito é fertilizado no ovário.",
+      "o estreitamento atrasa ou impede o transporte do embrião, que pode se implantar na própria tuba.",
+      "a infecção faz o sinciciotrofoblasto produzir menos hCG.",
+      "a infecção destrói o embrioblasto, deixando só o trofoblasto.",
+      "as cicatrizes aceleram a chegada da mórula ao útero."],
+   c:1, w:"Entre 95% e 98% das gestações ectópicas acontecem na tuba, quase sempre por algo que atrasa ou impede o transporte do embrião até o útero."},
+
+  {tema:"Clínica", p:"Uma mulher com as duas tubas uterinas bloqueadas consegue engravidar por fertilização in vitro (FIV). Isso é possível porque, na FIV,",
+   o:["a fertilização acontece em laboratório, e o embrião é transferido diretamente para o útero, sem passar pelas tubas.",
+      "os espermatozoides são injetados diretamente na tuba bloqueada.",
+      "o ovócito é fertilizado dentro do ovário.",
+      "o embrião é implantado já com o disco bilaminar formado.",
+      "a hCG é aplicada para desobstruir as tubas."],
+   c:0, w:"Na FIV, ovócitos e espermatozoides se encontram em laboratório. O embrião em clivagem ou o blastocisto é colocado no útero, sem depender das tubas."},
+
+  // ---------- ESTRUTURA DO DNA ----------
+  {tema:"Composição do DNA", p:"Assinale a alternativa que compara corretamente DNA e RNA.",
+   o:["Ambos têm ribose; só o DNA tem timina.",
+      "O DNA tem desoxirribose e timina; o RNA tem ribose e uracila.",
+      "O DNA tem uracila e o RNA tem timina.",
+      "Ambos são sempre formados por duas fitas antiparalelas.",
+      "O RNA tem desoxirribose e é encontrado só no núcleo."],
+   c:1, w:"DNA: desoxirribose, bases A, T, C e G, em geral fita dupla. RNA: ribose, uracila no lugar da timina, em geral fita simples."},
+
+  {tema:"Composição do DNA", p:"O DNA é um polímero, ou seja, uma cadeia de unidades repetidas. Cada uma dessas unidades é formada por",
+   o:["um aminoácido, uma ribose e um fosfato.",
+      "uma base nitrogenada, uma desoxirribose e um fosfato.",
+      "uma base nitrogenada, uma ribose e uma proteína.",
+      "duas bases nitrogenadas unidas por pontes de hidrogênio.",
+      "uma histona, um fosfato e uma desoxirribose."],
+   c:1, w:"A unidade do DNA é o nucleotídeo: base nitrogenada + desoxirribose (açúcar) + fosfato. Aminoácidos formam proteínas, e a ribose é o açúcar do RNA."},
+
+  {tema:"Composição do DNA", p:"Ao comparar os nucleotídeos de uma molécula de DNA, observa-se que o açúcar e o fosfato se repetem sempre iguais. Por isso, a informação genética está",
+   o:["na quantidade de fosfato de cada nucleotídeo.",
+      "no tipo de açúcar, que muda de um nucleotídeo para outro.",
+      "na ordem das bases nitrogenadas ao longo da fita.",
+      "no número de pontes de hidrogênio entre as fitas.",
+      "no comprimento total da molécula."],
+   c:2, w:"Como açúcar e fosfato não mudam, o que diferencia um nucleotídeo do outro é a base (A, T, C ou G). A informação está na sequência das bases."},
+
+  {tema:"Composição do DNA", p:"Uma amostra de ácido nucleico, ao ser analisada, apresentou as bases adenina, guanina, citosina e uracila. Essa amostra é de",
+   o:["DNA, porque tem adenina.",
+      "DNA, porque tem guanina e citosina.",
+      "RNA, porque tem uracila no lugar da timina.",
+      "DNA de fita dupla, porque tem quatro bases.",
+      "proteína, porque tem uracila."],
+   c:2, w:"A uracila (U) só aparece no RNA, onde ocupa o lugar da timina (T). Adenina, guanina e citosina aparecem nos dois."},
+
+  {tema:"Açúcar e fosfato", p:"Na desoxirribose de um nucleotídeo, os carbonos são numerados de 1′ a 5′. Assinale a alternativa correta sobre as ligações nesse açúcar.",
+   o:["A base nitrogenada se liga ao carbono 5′, e o fosfato ao carbono 1′.",
+      "A base nitrogenada se liga ao carbono 1′, o fosfato ao carbono 5′, e o carbono 3′ se liga ao fosfato do nucleotídeo seguinte.",
+      "O carbono 2′ tem uma hidroxila (OH), que diferencia o DNA do RNA.",
+      "A base e o fosfato se ligam ao mesmo carbono.",
+      "O carbono 3′ se liga à base da fita oposta."],
+   c:1, w:"Base no 1′, fosfato no 5′ e, no 3′, a hidroxila que se liga ao próximo nucleotídeo. No DNA, o carbono 2′ não tem a hidroxila que a ribose do RNA tem."},
+
+  {tema:"Açúcar e fosfato", p:"Na estrutura da dupla-hélice, os componentes do nucleotídeo ficam em posições definidas. É correto afirmar que",
+   o:["as bases nitrogenadas ficam por fora, e o açúcar e o fosfato por dentro.",
+      "o açúcar e o fosfato formam o esqueleto de cada fita, por fora, e as bases ficam voltadas para dentro.",
+      "o fosfato fica no centro da hélice, ligando as duas fitas.",
+      "o açúcar liga diretamente as bases das duas fitas.",
+      "as bases ficam soltas entre as fitas, sem ligação com o açúcar."],
+   c:1, w:"A repetição açúcar–fosfato forma o \"corrimão\" de cada fita, do lado de fora. As bases ficam para dentro, onde pareiam com as bases da outra fita (os \"degraus\")."},
+
+  {tema:"Açúcar e fosfato", p:"No DNA existem dois tipos de ligação importantes. Assinale a associação correta.",
+   o:["Ligação fosfodiéster: une as bases das duas fitas; ponte de hidrogênio: une os nucleotídeos da mesma fita.",
+      "Ligação fosfodiéster: une os nucleotídeos da mesma fita (do carbono 5′ de um ao 3′ do seguinte); ponte de hidrogênio: une as bases das duas fitas.",
+      "As duas ligações unem as bases das duas fitas.",
+      "As duas ligações unem os nucleotídeos da mesma fita.",
+      "Ligação fosfodiéster: une a base ao açúcar; ponte de hidrogênio: une o fosfato ao açúcar."],
+   c:1, w:"A ligação fosfodiéster, feita pelo fosfato, prende um nucleotídeo ao próximo na mesma fita. As pontes de hidrogênio ficam entre as bases e mantêm as duas fitas unidas."},
+
+  {tema:"Açúcar e fosfato", p:"O nome do DNA é ácido desoxirribonucleico. O termo \"desoxi\" se refere ao fato de que",
+   o:["o DNA não tem oxigênio em nenhum dos seus componentes.",
+      "a desoxirribose tem um oxigênio a menos no carbono 2′ em relação à ribose, o açúcar do RNA.",
+      "o fosfato do DNA não tem oxigênio.",
+      "as bases do DNA perderam o oxigênio ao se parear.",
+      "o DNA tem um oxigênio a mais que o RNA."],
+   c:1, w:"Desoxirribose = ribose sem um oxigênio no carbono 2′. É essa a diferença entre o açúcar do DNA e o do RNA."},
+
+  {tema:"Bases e pareamento", p:"A análise de uma molécula de DNA de fita dupla mostrou que 18% das bases são guanina. A porcentagem de adenina nessa molécula é",
+   o:["18%",
+      "32%",
+      "36%",
+      "64%",
+      "82%"],
+   c:1, fixa:true, w:"G = C = 18%, então G + C = 36%. Sobram 64% para A + T, e como A = T, a adenina é 32%."},
+
+  {tema:"Bases e pareamento", p:"Um trecho de DNA tem 10 pares de bases, dos quais 4 são A-T e 6 são C-G. O número total de pontes de hidrogênio entre as duas fitas nesse trecho é",
+   o:["20",
+      "24",
+      "26",
+      "30",
+      "50"],
+   c:2, fixa:true, w:"Cada par A-T tem 2 pontes e cada par C-G tem 3: 4 × 2 + 6 × 3 = 8 + 18 = 26."},
+
+  {tema:"Bases e pareamento", p:"Uma fita de DNA tem o trecho 5′-ATTGCA-3′. Quantas pontes de hidrogênio mantêm esse trecho unido à fita complementar?",
+   o:["6","12","14","15","18"],
+   c:2, fixa:true, w:"O trecho tem 4 bases A ou T (cada par A–T tem 2 pontes) e 2 bases G ou C (cada par C–G tem 3 pontes): 4 × 2 + 2 × 3 = 8 + 6 = 14."},
+
+  {tema:"Bases e pareamento", p:"Um trecho de DNA de fita dupla tem 40 bases no total (20 pares). Dessas bases, 8 são adenina. O número de guaninas nesse trecho é",
+   o:["8",
+      "12",
+      "16",
+      "20",
+      "24"],
+   c:1, fixa:true, w:"8 adeninas pareiam com 8 timinas: 16 bases A + T. Sobram 40 − 16 = 24 bases C + G. Como C = G, há 12 guaninas."},
+
+  {tema:"Bases e pareamento", p:"Sobre as bases nitrogenadas do DNA, analise:<br>I. A adenina pareia com a guanina, e a citosina com a timina.<br>II. A citosina pareia com a guanina por 3 pontes de hidrogênio.<br>III. A adenina pareia com a timina por 2 pontes de hidrogênio.<br>Está correto o que se afirma em",
+   o:["I, apenas.",
+      "II, apenas.",
+      "I e II, apenas.",
+      "II e III, apenas.",
+      "I, II e III."],
+   c:3, fixa:true, w:"II e III estão corretas. O pareamento é sempre A com T (2 pontes) e C com G (3 pontes); a I troca os pares."},
+
+  {tema:"Dupla fita", p:"Um trecho de uma fita de DNA tem a sequência 5′-ATGCCA-3′. A fita complementar, escrita no sentido 5′→3′, é",
+   o:["5′-TACGGT-3′",
+      "5′-TGGCAT-3′",
+      "5′-ATGCCA-3′",
+      "5′-UACGGU-3′",
+      "5′-ACCGTA-3′"],
+   c:1, fixa:true, w:"A complementar, pareada base a base, é 3′-TACGGT-5′, pois as fitas são antiparalelas. Lida de 5′ para 3′, fica 5′-TGGCAT-3′. A alternativa 5′-TACGGT-3′ esquece de inverter o sentido."},
+
+  {tema:"Dupla fita", p:"Quando o DNA é aquecido, as duas fitas se separam, mas cada fita continua inteira, com a mesma sequência. Isso acontece porque o calor rompe",
+   o:["as ligações fosfodiéster, que unem os nucleotídeos da mesma fita.",
+      "as pontes de hidrogênio entre as bases, que são mais fracas que as ligações da fita.",
+      "as ligações entre a base e o açúcar.",
+      "as ligações entre o DNA e o RNA.",
+      "as ligações peptídicas da dupla-hélice."],
+   c:1, w:"As fitas estão unidas por pontes de hidrogênio, que são fracas. O esqueleto de cada fita (açúcar-fosfato, com ligações fosfodiéster) é muito mais resistente e não se rompe."},
+
+  {tema:"Dupla fita", p:"Dizer que as duas fitas do DNA são antiparalelas significa que",
+   o:["as fitas têm sequências de bases idênticas.",
+      "as fitas correm em sentidos opostos: uma de 5′ para 3′ e a outra de 3′ para 5′.",
+      "as fitas ficam paralelas, sem se enrolar.",
+      "uma fita é de DNA e a outra é de RNA.",
+      "as fitas são unidas por ligações fosfodiéster."],
+   c:1, w:"Antiparalelas: lado a lado, mas em sentidos opostos. Onde uma fita termina em 3′, a outra termina em 5′. As sequências não são idênticas, e sim complementares."},
+
+  {tema:"Dupla fita", p:"Uma fita de DNA tem a sequência 5′-AAGTCG-3′. A fita complementar, pareada base a base com ela, é",
+   o:["3′-TTCAGC-5′",
+      "5′-TTCAGC-3′",
+      "3′-AAGTCG-5′",
+      "3′-UUCAGC-5′",
+      "3′-GGACTA-5′"],
+   c:0, fixa:true, w:"A pareia com T e C com G: AAGTCG → TTCAGC. Como as fitas são antiparalelas, a complementar corre de 3′ para 5′: 3′-TTCAGC-5′. A alternativa com U seria RNA."},
+
+  {tema:"Dupla fita", p:"Para ser copiado, o DNA precisa ter suas duas fitas separadas. Que característica da molécula torna isso possível sem destruir as fitas?",
+   o:["As fitas são unidas por pontes de hidrogênio, que são ligações fracas e podem ser desfeitas.",
+      "As fitas são unidas por ligações fosfodiéster, que se rompem facilmente.",
+      "O DNA tem uma só fita.",
+      "As bases nitrogenadas se soltam do açúcar durante a cópia.",
+      "O fosfato se desprende da fita e libera as bases."],
+   c:0, w:"As pontes de hidrogênio entre as bases são fracas, então as fitas se separam sem que cada fita se desmonte. O esqueleto açúcar–fosfato continua inteiro."},
+  ]
+}];
+
+SIM_JOGO.push({
+  id: 'aprendizagem-n2',
+  disc: '03',
+  titulo: 'Simulado N2: Piaget, Vygotsky, Freire e dislexia',
+  desc: '40 questões no estilo vestibular: Piaget, Vygotsky e a ZDP, Paulo Freire e dislexia.',
+  partes: [{k:'piaget', t:'Piaget', n:14}, {k:'vygotsky', t:'Vygotsky e ZDP', n:10}, {k:'freire', t:'Freire', n:9}, {k:'dislexia', t:'Dislexia', n:7}],
+  questoes: [
+  // ---------- PIAGET ----------
+  {tema:'Piaget', p:'Segundo Moreira, na teoria de Piaget há o que é mais famoso e o que é mais importante (o "núcleo duro"). Eles são, respectivamente,',
+   o:['a zona de desenvolvimento proximal e os signos.',
+      'os quatro períodos de desenvolvimento e os conceitos de assimilação, acomodação e equilibração.',
+      'a assimilação e os quatro períodos.',
+      'o reforço e a punição.',
+      'a educação bancária e a dialógica.'],
+   c:1, w:'O mais famoso são os quatro períodos; o núcleo duro, onde está o construtivismo piagetiano, são assimilação, acomodação e equilibração.'},
+
+  {tema:'Piaget', p:'Sobre os períodos de desenvolvimento propostos por Piaget, é correto afirmar que',
+   o:['as idades são fixas e iguais para todas as crianças.',
+      'a ordem dos períodos é invariável, mas as idades em que cada criança chega a eles podem variar, e a passagem não é abrupta.',
+      'uma criança pode pular o período pré-operacional.',
+      'a ordem varia de cultura para cultura.',
+      'a passagem de um período a outro acontece de um dia para o outro.'],
+   c:1, w:'O que importa é a sucessão, não a cronologia exata: a ordem é invariável, as idades variam, e a passagem é gradual.'},
+
+  {tema:'Piaget', p:'Uma criança de 5 anos vê a mesma quantidade de água ser passada de um copo largo e baixo para um copo fino e alto e afirma que agora "tem mais água", porque está mais alto. Segundo Piaget, isso ocorre porque, nesse período,',
+   o:['a criança já raciocina com hipóteses abstratas.',
+      'o pensamento ainda não é reversível, e a criança se fixa no aspecto mais chamativo da situação, sem compreender a conservação.',
+      'a criança ainda não diferencia o eu do meio.',
+      'a criança já domina a lógica reversível, mas se distraiu.',
+      'a criança está no período operacional-formal.'],
+   c:1, w:'No pré-operacional (2–7 anos), o pensamento não é reversível: a criança não faz o caminho mental de volta e se fixa no que chama atenção (a altura). Ainda não há conservação.'},
+
+  {tema:'Piaget', p:'Lucas, 9 anos, resolve bem problemas de matemática com palitos e objetos e entende que 3 + 2 = 5 e 5 − 2 = 3. Porém, tem dificuldade quando a professora pede: "imagine que tudo o que é leve afundasse; o que aconteceria?". Lucas está no período',
+   o:['sensório-motor.','pré-operacional.','operacional-concreto.','operacional-formal.','de equilibração majorante.'],
+   c:2, w:'No operacional-concreto, há lógica reversível, mas sobre objetos reais. O raciocínio com hipóteses abstratas ("imagine que…") ainda não está disponível: o possível fica subordinado ao real.'},
+
+  {tema:'Piaget', p:'"O real passa a ser um caso particular do possível." Essa frase descreve o raciocínio',
+   o:['sensório-motor, baseado em reflexos.',
+      'pré-operacional, baseado em símbolos.',
+      'operacional-concreto, baseado em objetos reais.',
+      'hipotético-dedutivo, do período operacional-formal.',
+      'egocêntrico do bebê.'],
+   c:3, w:'No operacional-formal (12 anos em diante), o adolescente raciocina com hipóteses verbais: o real vira apenas uma das possibilidades.'},
+
+  {tema:'Piaget', p:'No início do período sensório-motor, fala-se em um egocentrismo praticamente total. Isso significa que o bebê',
+   o:['acha que só ele está certo.',
+      'não diferencia o eu do meio: tudo é percebido como extensão do próprio corpo.',
+      'fala sozinho para regular as próprias ações.',
+      'não consegue conservar quantidades.',
+      'raciocina com hipóteses.'],
+   c:1, w:'Ao nascer, a criança tem só reflexos e não diferencia o eu do meio. Aos poucos, passa a perceber os objetos como independentes e a representá-los. O "só eu estou certo" é o egocentrismo do adolescente.'},
+
+  {tema:'Piaget', p:'Uma criança pega um cabo de vassoura e brinca de cavalinho, dizendo que aquilo "é um cavalo". Segundo Piaget, esse comportamento exemplifica',
+   o:['acomodação, pois a mente se reestruturou.',
+      'assimilação, pois a criança incorpora a realidade a um esquema que já tem, podendo até deformá-la.',
+      'equilibração majorante.',
+      'descentração.',
+      'pensamento hipotético-dedutivo.'],
+   c:1, w:'Na assimilação, a mente não se modifica: a realidade é encaixada nos esquemas existentes. Os esquemas de assimilação podem até deformar a realidade, como no exemplo do pau que vira cavalo, citado na aula.'},
+
+  {tema:'Piaget', p:'Para Piaget, só há aprendizagem quando',
+   o:['o aluno memoriza o conteúdo.',
+      'o esquema de assimilação sofre acomodação, ou seja, quando a mente se reestrutura.',
+      'o comportamento é reforçado.',
+      'o professor transmite o conteúdo pronto.',
+      'a realidade é incorporada sem mudanças nos esquemas.'],
+   c:1, w:'É pela acomodação que ocorre o desenvolvimento cognitivo. Por isso, só há aprendizagem quando o esquema de assimilação sofre acomodação.'},
+
+  {tema:'Piaget', p:'A sequência que descreve corretamente a equilibração majorante é:',
+   o:['desequilíbrio → equilíbrio inicial → assimilação → novo desequilíbrio.',
+      'equilíbrio inicial → experiência nova → desequilíbrio → acomodação → novo equilíbrio, mais amplo que o anterior.',
+      'acomodação → assimilação → reforço → equilíbrio.',
+      'equilíbrio → desequilíbrio → volta ao mesmo equilíbrio inicial.',
+      'experiência nova → assimilação → fim do desenvolvimento.'],
+   c:1, fixa:true, w:'O novo equilíbrio é "majorante" porque é mais amplo e estável que o anterior. Esse processo reequilibrador é o fator preponderante do desenvolvimento e continua até a idade adulta.'},
+
+  {tema:'Piaget', p:'Para Piaget, a base do comportamento e a natureza do pensamento são, respectivamente,',
+   o:['as sensações; a soma das percepções.',
+      'as ações; a interiorização da ação.',
+      'os reflexos; a fala interna.',
+      'os signos; a mediação social.',
+      'os reforços; uma cadeia de respostas.'],
+   c:1, w:'A base do comportamento são as ações (até a percepção é uma atividade). O pensamento é a interiorização da ação, e a imagem mental é uma imitação interior do objeto.'},
+
+  {tema:'Piaget', p:'Piaget rejeita a definição de aprendizagem como "modificação do comportamento resultante da experiência". O motivo é que essa definição',
+   o:['é muito recente.',
+      'supõe que o organismo depende passivamente do meio, o que contraria a ideia de que ele se impõe ao meio (assimilação) e se reestrutura (acomodação).',
+      'não fala de reforço.',
+      'ignora a importância da memória.',
+      'foi criada por Vygotsky.'],
+   c:1, w:'Para Piaget, o sujeito é ativo. Por isso ele prefere falar em "aumento do conhecimento" e trata sua teoria como de desenvolvimento, não propriamente de aprendizagem.'},
+
+  {tema:'Piaget', p:'Uma professora do 1º ano quer ensinar operações que exigem conservação e reversibilidade a crianças de 6 anos, que ainda estão no período pré-operacional. Segundo a aula sobre Piaget, essa escolha',
+   o:['é adequada, pois ensinar é sempre transmitir o conteúdo do ano.',
+      'é um erro comum: o ensino deve ser compatível com o período de desenvolvimento do aluno.',
+      'é adequada, pois todo desequilíbrio gera aprendizagem.',
+      'é adequada, pois a ordem dos períodos pode ser pulada.',
+      'não tem relação com a teoria de Piaget.'],
+   c:1, w:'Ensinar é provocar desequilíbrio, mas compatível com o período do aluno. Ensinar conteúdos que pressupõem conservação e reversibilidade a quem ainda não tem essas noções é o erro mais comum.'},
+
+  {tema:'Piaget', p:'No ensino reversível proposto por Kubli (1979), o professor',
+   o:['elimina totalmente o desequilíbrio.',
+      'relaciona, pela argumentação, os esquemas espontâneos do aluno com os que quer ensinar, passando de um equilíbrio a outro por estados próximos.',
+      'apresenta o conteúdo pronto, sem diálogo.',
+      'deixa o aluno descobrir tudo sozinho.',
+      'provoca o maior desequilíbrio possível de uma vez.'],
+   c:1, w:'O ensino reversível não elimina o desequilíbrio: avança por estados próximos, com passos intermediários quando o desequilíbrio seria grande.'},
+
+  {tema:'Piaget', p:'Sobre a postura do professor segundo Piaget, analise:<br>I. O diretivismo puro leva ao conformismo.<br>II. O não diretivismo puro pode levar à desorganização, à insegurança ou à repetição do que já se sabe ("reação circular").<br>III. O professor deve criar situações desequilibradoras e contraexemplos, sendo tão ativo quanto o aluno.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:4, fixa:true, w:'As três estão corretas. Piaget defende métodos ativos, com o professor organizando situações desequilibradoras e contraexemplos.'},
+
+  // ---------- VYGOTSKY E ZDP ----------
+  {tema:'Vygotsky', p:'Uma diferença central entre Vygotsky e Piaget é que, para Vygotsky,',
+   o:['o desenvolvimento cognitivo vem antes e permite a socialização.',
+      'é pela socialização que se desenvolvem os processos mentais superiores, e a unidade de análise é a interação social.',
+      'a unidade de análise é o indivíduo isolado.',
+      'o desenvolvimento acontece em estágios fixos e universais.',
+      'a linguagem não tem papel no pensamento.'],
+   c:1, w:'Para Vygotsky, o desenvolvimento cognitivo é a conversão de relações sociais em funções mentais. Piaget e Ausubel focam o indivíduo.'},
+
+  {tema:'Vygotsky', p:'Para Vygotsky, os signos podem ser indicadores, icônicos ou simbólicos. Uma placa com o desenho de um cigarro cortado por uma faixa, a fumaça que indica fogo e a palavra escrita "proibido" são, respectivamente, signos',
+   o:['simbólico, icônico e indicador.','icônico, indicador e simbólico.','indicador, simbólico e icônico.','icônico, simbólico e indicador.','simbólico, indicador e icônico.'],
+   c:1, fixa:true, w:'O desenho representa por imagem (icônico); a fumaça tem relação de causa e efeito com o fogo (indicador); a palavra tem relação abstrata com o que significa (simbólico).'},
+
+  {tema:'Vygotsky', p:'Um bebê estica o braço tentando pegar um brinquedo que está longe. A mãe entende o gesto como um pedido e entrega o brinquedo. Com o tempo, o bebê passa a esticar o braço para "apontar", sabendo que será compreendido. Esse exemplo ilustra',
+   o:['a assimilação de Piaget.',
+      'a lei da dupla formação: a função aparece primeiro no nível social (interpessoal) e depois no individual (intrapessoal).',
+      'o condicionamento respondente.',
+      'a educação bancária.',
+      'o pensamento hipotético-dedutivo.'],
+   c:1, w:'É o exemplo da aula: o gesto ganha significado na interação social e depois é internalizado pela criança.'},
+
+  {tema:'Vygotsky', p:'Ao montar um quebra-cabeça, uma criança de 4 anos fala sozinha: "essa peça vai aqui… não, aqui não… agora a azul". Para Vygotsky, essa fala egocêntrica',
+   o:['é sinal de pensamento egocêntrico, sem função.',
+      'tem a função de regular a própria ação, e faz parte do caminho fala social → egocêntrica → interna.',
+      'mostra que a criança ainda não diferencia o eu do meio.',
+      'deve ser corrigida pelo professor.',
+      'é a última fase da fala.'],
+   c:1, w:'Para Vygotsky, a fala egocêntrica não é pensamento egocêntrico: é a criança usando a linguagem para controlar o próprio comportamento, a caminho da fala interna.'},
+
+  {tema:'ZDP', p:'Sozinha, Bia consegue ler palavras simples. Com a ajuda da professora, que dá pistas e faz perguntas, ela consegue ler pequenas frases. A zona de desenvolvimento proximal (ZDP) de Bia é',
+   o:['o que ela faz sozinha, ler palavras simples.',
+      'o que ela ainda não consegue fazer nem com ajuda.',
+      'a distância entre o que ela faz sozinha (nível real) e o que faz com ajuda de alguém mais capaz (nível potencial).',
+      'a idade em que ela vai aprender a ler.',
+      'o conteúdo que ela já dominou.'],
+   c:2, w:'A ZDP é a distância entre o nível real (sozinha) e o potencial (com ajuda de um adulto ou colega mais capaz). Abrange funções em maturação e muda o tempo todo.'},
+
+  {tema:'ZDP', p:'Segundo Vygotsky, "o bom ensino está à frente do desenvolvimento". Na prática, isso significa que o professor deve',
+   o:['esperar o aluno amadurecer para só então ensinar.',
+      'propor apenas tarefas que o aluno já faz sozinho.',
+      'trabalhar dentro da ZDP, com tarefas que o aluno ainda não faz sozinho, mas consegue fazer com ajuda.',
+      'propor tarefas impossíveis mesmo com ajuda.',
+      'evitar a interação entre colegas.'],
+   c:2, w:'Para Vygotsky, a aprendizagem é condição para o desenvolvimento, e não o contrário. Por isso o ensino deve atuar na ZDP.'},
+
+  {tema:'Vygotsky', p:'Nas pesquisas com o método genético-experimental, Vygotsky usava técnicas como',
+   o:['reforço positivo e punição.',
+      'introdução de obstáculos, recursos externos flexíveis e problemas além do nível da criança.',
+      'testes padronizados de QI e questionários fechados.',
+      'observação apenas do produto final, sem olhar o processo.',
+      'entrevistas com os pais apenas.'],
+   c:1, w:'As três técnicas são introdução de obstáculos, recursos externos flexíveis e problemas além do nível. O método dá ênfase a processos, não a produtos.'},
+
+  {tema:'Vygotsky', p:'Na formação de conceitos descrita por Vygotsky, a "ponte" entre o pensamento por complexos e o pensamento adulto é',
+   o:['a agregação desorganizada.','o pseudoconceito.','o conceito potencial.','a fala social.','o signo indicador.'],
+   c:1, w:'O pseudoconceito se parece com o conceito adulto, mas ainda é pensamento por complexos. O verdadeiro conceito só amadurece na puberdade.'},
+
+  {tema:'Vygotsky', p:'Para Vygotsky, o ensino se consuma quando',
+   o:['o professor termina de expor o conteúdo.',
+      'o aluno decora a definição correta.',
+      'professor e aluno passam a compartilhar os mesmos significados, depois de o aluno devolver o significado que captou.',
+      'o aluno descobre tudo sozinho, sem interação.',
+      'o aluno é aprovado na prova.'],
+   c:2, w:'O professor apresenta os significados aceitos; o aluno devolve o que captou; o ensino se consuma quando os dois compartilham significados. Sem interação dentro da ZDP, não há aprendizagem.'},
+
+  {tema:'Vygotsky', p:'Sobre a teoria de Vygotsky, analise:<br>I. Os processos mentais superiores têm origem em processos sociais.<br>II. A linguagem é o sistema de signos mais importante, pois libera o pensamento do contexto imediato.<br>III. A combinação de instrumentos e signos é encontrada também nos outros animais.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:1, fixa:true, w:'I e II estão corretas. A combinação de instrumentos e signos é exclusiva do ser humano.'},
+
+  // ---------- FREIRE ----------
+  {tema:'Freire', p:'Em uma aula, o professor fala o tempo todo, dita definições e os alunos copiam em silêncio para decorar e repetir na prova. Para Paulo Freire, essa prática é um exemplo de',
+   o:['educação dialógica, em que o educando é sujeito.',
+      'educação bancária, em que o educador "deposita" o saber e o educando é tratado como objeto.',
+      'pedagogia da autonomia.',
+      'ensino reversível.',
+      'consciência crítica.'],
+   c:1, w:'Na educação bancária, educar vira depositar conhecimentos. O educador sabe, fala e escolhe; o educando escuta e se acomoda. Estudar vira memorizar.'},
+
+  {tema:'Freire', p:'Na educação dialógica e problematizadora de Freire, educa-se',
+   o:['para o educando.','sobre o educando.','com o educando.','apesar do educando.','sem o educando.'],
+   c:2, w:'O diálogo é a essência da educação como prática da liberdade: não se educa para nem sobre o educando, mas com ele.'},
+
+  {tema:'Freire', p:'No método de Paulo Freire com temas e palavras geradoras, assinale a alternativa correta.',
+   o:['As etapas são problematização → investigação → tematização.',
+      'As etapas são investigação → tematização → problematização, e as palavras geradoras são escolhidas pela riqueza fonética, pelas dificuldades fonéticas e pelo aspecto pragmático.',
+      'As palavras geradoras são escolhidas pelo professor, sem relação com a vida dos alunos.',
+      'Na alfabetização buscam-se temas geradores, e na pós-alfabetização, palavras geradoras.',
+      'O tema gerador vem apenas dos livros didáticos.'],
+   c:1, w:'Investigação, tematização e problematização. As palavras geradoras são escolhidas por riqueza fonética, dificuldades fonéticas e aspecto pragmático. Na alfabetização usam-se palavras geradoras; na pós-alfabetização, temas geradores.'},
+
+  {tema:'Freire', p:'Sobre o papel do educador para Paulo Freire, é correto afirmar que ele',
+   o:['deve ser autoritário, pois é o dono do saber.',
+      'não deve ter nenhuma direção, deixando os alunos totalmente livres.',
+      'é diretivo, mas não autoritário nem manipulador, e reconhece que o educando também tem saberes.',
+      'deve apenas transmitir conteúdos.',
+      'é o único que aprende na relação.'],
+   c:2, w:'A educação é sempre diretiva, mas isso não é comando nem domesticação. O educador sai da posição de dono do saber.'},
+
+  {tema:'Freire', p:'Diante de uma enchente que se repete todo ano no bairro, um morador diz: "sempre foi assim, é a vontade de Deus, não adianta fazer nada". Para Freire, essa fala revela uma consciência',
+   o:['crítica, porque aceita a realidade.',
+      'ingênua, porque simplifica o problema, vê a realidade como imutável e aceita explicações mágicas.',
+      'epistemológica.',
+      'dialógica.',
+      'problematizadora.'],
+   c:1, w:'A consciência ingênua simplifica os problemas, acha a realidade imutável e aceita explicações mágicas. A crítica investiga, vê a realidade como mutável e aceita revisões.'},
+
+  {tema:'Freire', p:'Segundo Paulo Freire, a Pedagogia do Oprimido não pode ser elaborada pelos opressores porque',
+   o:['os opressores não sabem ler.',
+      'faria dos oprimidos objetos de humanitarismo, mantendo a opressão.',
+      'ela é uma pedagogia autoritária.',
+      'ela dispensa o diálogo.',
+      'ela só serve para crianças.'],
+   c:1, w:'É a pedagogia de quem luta pela própria libertação: num primeiro momento, os oprimidos desvelam a opressão; depois, transformada a realidade, ela passa a ser de todos.'},
+
+  {tema:'Freire', p:'"Não há docência sem discência." Na Pedagogia da Autonomia, essa frase significa que',
+   o:['só os alunos aprendem na escola.',
+      'quem ensina aprende ao ensinar, e quem aprende ensina ao aprender.',
+      'não é possível ensinar sem disciplina.',
+      'o professor deve transferir todo o conhecimento.',
+      'o aluno não tem saberes próprios.'],
+   c:1, w:'Para Freire, ensinar não é transferir conhecimento, mas criar possibilidades para a sua construção, numa relação em que os dois aprendem.'},
+
+  {tema:'Freire', p:'Para Freire, quando a curiosidade ingênua se torna crítica e metódica, ela se transforma em curiosidade',
+   o:['bancária.','mágica.','epistemológica.','egocêntrica.','pragmática.'],
+   c:2, w:'Entre os saberes da Pedagogia da Autonomia estão a rigorosidade metódica, a criticidade (curiosidade ingênua → epistemológica) e a reflexão sobre a prática.'},
+
+  {tema:'Freire', p:'Ideias atuais já estavam presentes em Paulo Freire. Assinale a associação correta entre a ideia e o autor que converge com ela.',
+   o:['Interação social e mediação: Vygotsky; conhecimento prévio: Ausubel.',
+      'Interação social: Piaget; conhecimento prévio: Rogers.',
+      'Aprender a aprender: Vygotsky; situações-problema: Ausubel.',
+      'Conhecimento prévio: Vergnaud; interação social: Rogers.',
+      'Nenhuma ideia de Freire aparece em outros autores.'],
+   c:0, w:'Segundo a aula: aprender a aprender (Rogers), interação social (Vygotsky), conhecimento prévio (Ausubel) e situações-problema (Vergnaud).'},
+
+  // ---------- DISLEXIA ----------
+  {tema:'Dislexia', p:'Associe corretamente o autor à contribuição na história da dislexia.',
+   o:['Berlin (1872): primeiro estudo clínico-genético; Hallgren (1950): primeiro uso do termo.',
+      'Morgan (1896): "cegueira verbal"; Orton (1928): estrefossimbolia, as inversões e letras espelhadas.',
+      'Hinshelwood (1917): problema nos olhos; Morgan (1896): definição da WFN.',
+      'Stevenson (1907): estrefossimbolia; Critchley (1970): cegueira verbal.',
+      'Orton (1928): primeiro uso do termo dislexia.'],
+   c:1, w:'Berlin usou o termo em 1872; Morgan, "cegueira verbal" (1896); Stevenson, casos na mesma família (1907); Hinshelwood, defeito cerebral, não nos olhos (1917); Orton, estrefossimbolia (1928); Hallgren, estudo clínico-genético (1950).'},
+
+  {tema:'Dislexia', p:'Segundo a Associação Internacional de Dislexia (2003) e o DSM-5, a dislexia é',
+   o:['um problema de visão, corrigido com óculos.',
+      'um transtorno específico de aprendizagem, de origem neurobiológica, com dificuldades de reconhecer palavras, fluência, soletração e decodificação por déficit fonológico; no DSM-5, um transtorno do neurodesenvolvimento.',
+      'consequência de preguiça ou falta de estudo.',
+      'um tipo de deficiência intelectual.',
+      'causada apenas pelo ambiente escolar.'],
+   c:1, w:'A AID (2003) fala em origem neurobiológica e déficit fonológico. O DSM-5 classifica como transtorno do neurodesenvolvimento, por interação de fatores genéticos, epigenéticos e ambientais.'},
+
+  {tema:'Dislexia', p:'Pedro, 7 anos, tem inteligência acima da média, conversa muito bem, mas lê devagar, troca e omite letras e tem dificuldade de transformar letras em sons. Esse quadro',
+   o:['é incompatível com dislexia, pois a dislexia só ocorre com inteligência abaixo da média.',
+      'é compatível com dislexia, que fica mais evidente entre 6 e 7 anos, em crianças com inteligência média ou acima da média.',
+      'indica deficiência intelectual.',
+      'indica apenas falta de interesse.',
+      'é típico do período sensório-motor.'],
+   c:1, w:'A dislexia ocorre em crianças com inteligência média ou acima, e fica mais evidente entre 6 e 7 anos, com leitura lenta, omissões, substituições e dificuldade de converter grafemas em sons.'},
+
+  {tema:'Dislexia', p:'Sobre a prevalência da dislexia, é correto afirmar que',
+   o:['atinge menos de 1% das crianças.',
+      'o DSM-5 estima de 5% a 15% das crianças em idade escolar, e ela é mais comum em meninos, na proporção de cerca de 1,7 para 1.',
+      'é mais comum em meninas.',
+      'não existem estudos no Brasil.',
+      'atinge 50% das crianças em idade escolar.'],
+   c:1, w:'DSM-5: 5% a 15%. No Brasil (2004), 12,1% em alunos do 3º ano. Meninos: cerca de 1,7 para 1.'},
+
+  {tema:'Dislexia', p:'A teoria do duplo déficit explica as formas mais graves de dislexia pela combinação de',
+   o:['déficit visual e déficit auditivo.',
+      'déficit fonológico e déficit na nomeação rápida.',
+      'baixa inteligência e falta de estímulo.',
+      'problema nos olhos e lateralidade.',
+      'déficit de memória remota e de memória imediata.'],
+   c:1, w:'Déficit fonológico (processar fonemas e decodificar) mais déficit na nomeação rápida (recuperar nomes de letras, números e objetos) produzem as formas mais graves.'},
+
+  {tema:'Dislexia', p:'Sobre os tipos de dislexia e os sinais precoces, analise:<br>I. A forma visual é a mais frequente na prática clínica.<br>II. Atraso na fala e dificuldade com rimas no jardim de infância podem ser sinais de risco.<br>III. A identificação precoce e o apoio adequado reduzem o impacto escolar e social.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:3, fixa:true, w:'II e III estão corretas. A forma mais frequente é a mista (auditiva + visual).'},
+
+  {tema:'Dislexia', p:'Sobre as causas da dislexia, assinale a alternativa correta.',
+   o:['Não tem nenhum componente genético.',
+      'É herdada em cerca de 50% dos casos; a herdabilidade é alta para decodificação fonológica e reconhecimento de palavras, e baixa para codificação ortográfica e compreensão.',
+      'É causada por um único gene no cromossomo 21.',
+      'A compreensão de texto é a habilidade mais herdável.',
+      'Só os pais podem transmitir, nunca outros parentes.'],
+   c:1, w:'Cerca de 50% dos casos são herdados, e 35–40% dos parentes de primeiro grau são afetados. Vários cromossomos já foram associados, com transmissão poligênica.'},
+  ]
+});
+
+SIM_JOGO.push({
+  id: 'experimental-n2',
+  disc: '04',
+  titulo: 'Simulado N2: seleção pelas consequências e condicionamento respondente',
+  desc: '40 questões no estilo vestibular: seleção pelas consequências (Skinner), comportamento respondente e operante, NS, US, UR, CS e CR.',
+  partes: [{k:'selecao', t:'Seleção pelas consequências', n:18}, {k:'respondente', t:'NS, US, UR, CS e CR', n:22}],
+  questoes: [
+  // ---------- SELEÇÃO PELAS CONSEQUÊNCIAS ----------
+  {tema:'Skinner', p:'O pensamento de Skinner passou por uma mudança importante ao longo da obra. Essa mudança foi',
+   o:['de um modelo inspirado na biologia para um modelo inspirado na física.',
+      'de um modelo mecanicista, inspirado na física, para um modelo inspirado na biologia, na evolução por seleção natural.',
+      'de um modelo baseado na introspecção para um baseado na física.',
+      'de um modelo cognitivista para um modelo psicanalítico.',
+      'nenhuma: Skinner sempre usou o mesmo modelo.'],
+   c:1, w:'O Skinner "jovem" (até 1938) buscava explicações mecânicas. A partir de 1938 há uma ruptura, e o modelo passa a ser o da seleção natural.'},
+
+  {tema:'Darwin', p:'Na teoria de Darwin (1859), a variação se refere ao fato de que',
+   o:['todos os indivíduos de uma espécie são idênticos.',
+      'indivíduos da mesma espécie diferem entre si em características anatômicas, fisiológicas e comportamentais.',
+      'os indivíduos mudam de espécie ao longo da vida.',
+      'o ambiente nunca muda.',
+      'apenas os comportamentos aprendidos variam.'],
+   c:1, w:'Variação: indivíduos da mesma espécie são diferentes entre si. Sem variação, não haveria o que selecionar.'},
+
+  {tema:'Darwin', p:'Em uma população de mariposas, algumas são claras e outras escuras. Numa região em que os troncos das árvores escureceram, as mariposas escuras passaram a ser menos vistas pelos predadores e a deixar mais descendentes. Com o tempo, as escuras se tornaram mais frequentes. Esse exemplo ilustra',
+   o:['o condicionamento respondente.',
+      'a seleção: variações favoráveis num ambiente aumentam as chances de sobreviver e deixar descendentes.',
+      'a evolução como progresso para formas melhores.',
+      'o terceiro nível de seleção, o cultural.',
+      'a punição negativa.'],
+   c:1, w:'As variações favoráveis àquele ambiente foram selecionadas, ou seja, tornaram-se mais frequentes. Se o ambiente mudar, outras características podem passar a ser vantajosas.'},
+
+  {tema:'Darwin', p:'Sobre o conceito de evolução no sentido de Darwin, é correto afirmar que',
+   o:['evolução é sinônimo de melhora ou progresso.',
+      'evolução é a seleção de características que dão vantagem num ambiente específico, e não um caminho para formas "melhores".',
+      'as espécies evoluem porque desejam se adaptar.',
+      'evolução só acontece com seres humanos.',
+      'uma característica vantajosa continua vantajosa em qualquer ambiente.'],
+   c:1, w:'Evolução não é sinônimo de progresso. O que é vantajoso depende do ambiente; se ele muda, outras características passam a ser selecionadas.'},
+
+  {tema:'Darwin', p:'Dizer que "o ambiente selecionou uma característica" significa que',
+   o:['o ambiente escolheu conscientemente a característica.',
+      'a característica se tornou mais frequente naquela população.',
+      'a característica desapareceu.',
+      'cada indivíduo mudou durante a vida.',
+      'a característica se tornou obrigatória.'],
+   c:1, w:'Seleção não é uma escolha consciente: dizer que algo foi selecionado é dizer que se tornou mais frequente.'},
+
+  {tema:'Três níveis', p:'Para Skinner (1981), a seleção natural de Darwin corresponde a qual nível da seleção pelas consequências?',
+   o:['Ao 1º nível, filogenético, o da espécie.',
+      'Ao 2º nível, ontogenético, o do indivíduo.',
+      'Ao 3º nível, o da cultura.',
+      'A nenhum dos níveis.',
+      'Aos três níveis ao mesmo tempo.'],
+   c:0, w:'A seleção natural é só o primeiro nível: o filogenético. Depois vêm o ontogenético (indivíduo) e o cultural.'},
+
+  {tema:'Três níveis', p:'Segundo Skinner, a seleção natural selecionou duas características centrais para a psicologia. São elas:',
+   o:['a linguagem e a cultura.',
+      'a capacidade de se adaptar a ambientes diferentes (condicionamento respondente) e a de lidar com mudanças no próprio ambiente (condicionamento operante).',
+      'a memória e a atenção.',
+      'o reforço e a punição.',
+      'a assimilação e a acomodação.'],
+   c:1, w:'A própria seleção natural tornou os organismos capazes de aprender: pelo condicionamento respondente e pelo condicionamento operante.'},
+
+  {tema:'Três níveis', p:'Sobre os comportamentos do 1º nível (filogenético), é correto afirmar que',
+   o:['são controlados pelas consequências que produzem.',
+      'são respondentes, controlados por estímulos antecedentes: diante do estímulo, ocorrem com probabilidade perto de 100%; sem ele, perto de 0%.',
+      'variam muito de um indivíduo para outro da mesma espécie.',
+      'surgiram com a linguagem.',
+      'nunca foram estudados por Watson.'],
+   c:1, w:'São comportamentos característicos da espécie, respondentes e previsíveis. Foram muito estudados por Watson e por Skinner no começo de seus estudos.'},
+
+  {tema:'Três níveis', p:'Uma pessoa pisca imediatamente quando algo vem rápido em direção ao seu olho, mesmo sem nunca ter aprendido isso. Esse comportamento pertence ao nível',
+   o:['filogenético.','ontogenético.','cultural.','verbal.','operante.'],
+   c:0, w:'É um comportamento da espécie, produto da seleção natural, controlado pelo estímulo antecedente: 1º nível, filogenético.'},
+
+  {tema:'Três níveis', p:'Júlia passou a estudar mais depois que foi elogiada pela professora por uma boa nota. Esse comportamento pertence ao nível',
+   o:['filogenético, pois todos os humanos estudam.',
+      'ontogenético: o comportamento ficou mais frequente pelas consequências que produziu durante a vida de Júlia.',
+      'cultural, pois a escola é uma instituição.',
+      'respondente, pois foi eliciado pelo elogio.',
+      'nenhum, pois não houve seleção.'],
+   c:1, w:'No 2º nível, o comportamento é sensível ao que acontece depois dele. O elogio (consequência) fortaleceu o estudar: condicionamento operante.'},
+
+  {tema:'Três níveis', p:'A analogia entre a seleção natural e a seleção operante (2º nível) está corretamente descrita em:',
+   o:['As duas acontecem ao longo de milhares de anos.',
+      'A seleção natural seleciona variações entre gerações de uma espécie; a operante seleciona variações de comportamento durante a vida de um indivíduo, pelas consequências.',
+      'A seleção operante seleciona genes, e a natural, comportamentos.',
+      'As duas dependem apenas de estímulos antecedentes.',
+      'Não há nenhuma semelhança entre elas.'],
+   c:1, w:'O mecanismo é o mesmo (variação e seleção), mas a escala de tempo é diferente: milhares de anos na espécie, a vida de um indivíduo no operante.'},
+
+  {tema:'Três níveis', p:'O nível de seleção mais estudado, que explica boa parte do que o senso comum chama de personalidade e de sintomas, é o',
+   o:['filogenético.','ontogenético.','cultural.','respondente.','mecanicista.'],
+   c:1, w:'A interação com o ambiente, incluindo outras pessoas, monta o repertório comportamental ao longo da vida: nível ontogenético.'},
+
+  {tema:'Três níveis', p:'O terceiro nível de seleção, o cultural, só foi possível porque',
+   o:['os seres humanos têm reflexos inatos.',
+      'a musculatura vocal ficou sob controle operante, tornando possível a linguagem (comportamento verbal).',
+      'o ambiente físico deixou de mudar.',
+      'os humanos deixaram de ser afetados pela seleção natural.',
+      'o comportamento passou a ser controlado só por antecedentes.'],
+   c:1, w:'O controle operante da musculatura vocal permitiu a linguagem; a linguagem permitiu ambientes sociais complexos e o rápido desenvolvimento da cultura.'},
+
+  {tema:'Três níveis', p:'Numa família, uma receita de bolo é ensinada pela avó aos filhos e destes aos netos há quatro gerações. Esse comportamento é um exemplo de',
+   o:['comportamento filogenético.','prática cultural, do 3º nível de seleção.','comportamento respondente.','reflexo incondicionado.','variação genética.'],
+   c:1, w:'Prática cultural é um comportamento selecionado e mantido ao longo de muitas gerações: 3º nível.'},
+
+  {tema:'Três níveis', p:'Sobre os três níveis de seleção pelas consequências, analise:<br>I. No filogenético, são selecionadas características da espécie.<br>II. No ontogenético, são selecionados comportamentos durante a vida do indivíduo.<br>III. No cultural, são selecionadas práticas mantidas por gerações.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:4, fixa:true, w:'As três estão corretas: espécie (filogenético), indivíduo (ontogenético) e cultura.'},
+
+  {tema:'Respondente × operante', p:'A diferença fundamental entre o comportamento respondente e o operante é que',
+   o:['o respondente é controlado pela consequência, e o operante, pelo antecedente.',
+      'o respondente é controlado pelo estímulo antecedente, e o operante, pela consequência que produz.',
+      'os dois são controlados pela consequência.',
+      'o operante só existe em animais.',
+      'o respondente só existe em humanos.'],
+   c:1, w:'Respondente: eliciado pelo que vem antes (estímulo antecedente). Operante: muda de frequência conforme o que vem depois (consequência).'},
+
+  {tema:'Respondente × operante', p:'Em uma caixa experimental, um rato com fome pressiona uma barra e recebe uma pelota de comida. Com o tempo, passa a pressionar a barra com muito mais frequência. Esse é um exemplo de',
+   o:['comportamento respondente, pois a comida é um estímulo incondicionado.',
+      'comportamento operante, selecionado pela consequência (a comida).',
+      'comportamento filogenético.',
+      'prática cultural.',
+      'reflexo inato de pressionar barras.'],
+   c:1, w:'O pressionar a barra ficou mais frequente por causa do que veio depois dele: condicionamento operante, 2º nível.'},
+
+  {tema:'Respondente × operante', p:'Assinale a alternativa que traz um comportamento respondente.',
+   o:['Levantar a mão para pedir a palavra na aula.',
+      'Salivar ao sentir o cheiro do prato favorito.',
+      'Estudar mais depois de ganhar um elogio.',
+      'Pedir "por favor" para conseguir um doce.',
+      'Abrir a geladeira para pegar água.'],
+   c:1, w:'Salivar é eliciado pelo estímulo antecedente (o cheiro). As outras opções são operantes, mantidas pelas consequências que produzem.'},
+
+  // ---------- NS, US, UR, CS E CR ----------
+  {tema:'Conceitos', p:'Associe corretamente as siglas ao seu significado.',
+   o:['NS: estímulo neutro; US: estímulo incondicionado; UR: resposta incondicionada; CS: estímulo condicionado; CR: resposta condicionada.',
+      'NS: estímulo natural; US: estímulo único; UR: resposta única; CS: consequência; CR: comportamento reforçado.',
+      'US: estímulo condicionado; CS: estímulo incondicionado.',
+      'UR: resposta condicionada; CR: resposta incondicionada.',
+      'NS: resposta neutra; CS: resposta condicionada.'],
+   c:0, w:'As siglas vêm do inglês: neutral stimulus (NS), unconditioned stimulus (US), unconditioned response (UR), conditioned stimulus (CS) e conditioned response (CR).'},
+
+  {tema:'Conceitos', p:'Um estímulo neutro (NS) é aquele que',
+   o:['provoca uma resposta reflexa sem aprendizagem.',
+      'antes do condicionamento, não provoca a resposta que está sendo estudada.',
+      'provoca a resposta condicionada.',
+      'é uma consequência que fortalece o comportamento.',
+      'nunca pode se tornar estímulo condicionado.'],
+   c:1, w:'O NS não provoca a resposta estudada antes do pareamento. Por exemplo, a sineta antes do condicionamento: o cão ouve, mas não saliva.'},
+
+  {tema:'Conceitos', p:'No experimento de Pavlov, a comida na boca do cão provoca salivação sem nenhuma aprendizagem prévia. A comida e a salivação a ela são, respectivamente,',
+   o:['CS e CR.','US e UR.','NS e UR.','US e CR.','CS e UR.'],
+   c:1, fixa:true, w:'A comida é o estímulo incondicionado (US), e a salivação à comida é a resposta incondicionada (UR): uma relação reflexa, não aprendida.'},
+
+  {tema:'Conceitos', p:'Depois de muitos pareamentos da sineta com a comida, o cão de Pavlov passa a salivar apenas ao ouvir a sineta. Nesse momento, a sineta e a salivação ao som da sineta são, respectivamente,',
+   o:['NS e UR.','US e UR.','CS e CR.','US e CR.','NS e CR.'],
+   c:2, fixa:true, w:'A sineta, antes neutra, virou estímulo condicionado (CS), e a salivação a ela é a resposta condicionada (CR).'},
+
+  {tema:'Conceitos', p:'Assinale a sequência que descreve corretamente o experimento de Pavlov, antes, durante e depois do condicionamento.',
+   o:['Antes: sineta (US) → salivação; durante: comida sozinha; depois: comida (CS) → salivação (CR).',
+      'Antes: sineta (NS) → nenhuma salivação; durante: sineta (NS) + comida (US) → salivação (UR); depois: sineta (CS) → salivação (CR).',
+      'Antes: comida (NS) → nada; depois: comida (CS) → salivação.',
+      'Antes: sineta (CS) → salivação; depois: sineta (NS) → nada.',
+      'Durante: só a sineta é apresentada, sem comida.'],
+   c:1, fixa:true, w:'O NS (sineta) é pareado com o US (comida), que elicia a UR. Depois de vários pareamentos, o NS vira CS e passa a eliciar sozinho a CR.'},
+
+  {tema:'Conceitos', p:'Para que um estímulo neutro (NS) se torne um estímulo condicionado (CS), é necessário que',
+   o:['ele seja apresentado depois de uma resposta, como consequência.',
+      'ele seja pareado, repetidamente, com um estímulo incondicionado (US).',
+      'ele seja apresentado sozinho muitas vezes.',
+      'a resposta seja punida.',
+      'o organismo decida responder a ele.'],
+   c:1, w:'É o pareamento repetido do NS com o US que faz o NS passar a eliciar uma resposta parecida com a UR.'},
+
+  {tema:'Conceitos', p:'Tanto a UR quanto a CR do cão de Pavlov são salivação. O que diferencia uma da outra?',
+   o:['Nada: são a mesma resposta, com o mesmo nome.',
+      'A UR é eliciada pelo US, sem aprendizagem; a CR é eliciada pelo CS, depois do condicionamento (aprendida).',
+      'A UR é aprendida, e a CR é inata.',
+      'A UR é operante, e a CR é respondente.',
+      'A CR só acontece se o cão for reforçado.'],
+   c:1, w:'A forma da resposta pode ser parecida, mas a UR é reflexa (provocada pelo US) e a CR é aprendida (provocada pelo CS).'},
+
+  {tema:'Casos', p:'Uma paciente em quimioterapia sente enjoo forte depois de cada sessão. Com o tempo, passa a sentir enjoo só de sentir o cheiro do hospital, antes mesmo da medicação. Nesse caso, o cheiro do hospital e o enjoo ao cheiro são, respectivamente,',
+   o:['US e UR.','CS e CR.','NS e UR.','US e CR.','CS e UR.'],
+   c:1, fixa:true, w:'A quimioterapia é o US e o enjoo a ela, a UR. O cheiro, antes neutro, foi pareado com a quimioterapia e virou CS; o enjoo ao cheiro é a CR.'},
+
+  {tema:'Casos', p:'No experimento de Watson com o pequeno Albert, um bebê que antes brincava com um rato branco passou a chorar e ter medo ao vê-lo, depois que a apresentação do rato foi pareada várias vezes com um barulho forte e assustador. O estímulo incondicionado (US) nesse experimento é',
+   o:['o rato branco.','o barulho forte.','o medo do rato.','o choro ao barulho.','o próprio Albert.'],
+   c:1, w:'O barulho forte elicia medo sem aprendizagem: é o US (e o medo a ele, a UR). O rato era NS e virou CS; o medo do rato é a CR.'},
+
+  {tema:'Casos', p:'Ainda no caso do pequeno Albert, antes do condicionamento o rato branco era um',
+   o:['US, pois já provocava medo.','NS, pois não provocava medo.','CS, pois provocava choro.','CR, pois era uma resposta.','UR, pois era inato.'],
+   c:1, w:'Antes do pareamento, Albert brincava com o rato, sem medo: o rato era um estímulo neutro (NS) em relação à resposta de medo.'},
+
+  {tema:'Casos', p:'Um cão passa a salivar e a pular só de ouvir o barulho da embalagem de ração sendo aberta, mesmo antes de ver a comida. O barulho da embalagem, nesse caso, é',
+   o:['um estímulo incondicionado (US).','um estímulo condicionado (CS).','uma resposta incondicionada (UR).','uma resposta condicionada (CR).','uma consequência reforçadora.'],
+   c:1, w:'O barulho era neutro e, por vir sempre antes da comida, passou a eliciar salivação: virou CS. A salivação ao barulho é a CR.'},
+
+  {tema:'Casos', p:'Paulo sofreu um acidente de carro enquanto tocava uma certa música no rádio. Hoje, sempre que ouve essa música, sente o coração disparar e fica ansioso. A ansiedade ao ouvir a música é',
+   o:['uma resposta incondicionada (UR).','uma resposta condicionada (CR).','um estímulo condicionado (CS).','um estímulo incondicionado (US).','um estímulo neutro (NS).'],
+   c:1, w:'A música, antes neutra, foi pareada com o acidente (US) e virou CS. A ansiedade diante da música é aprendida: CR.'},
+
+  {tema:'Casos', p:'Bruno sentiu muita dor numa injeção aplicada por uma enfermeira de jaleco branco. Agora, fica com medo só de ver alguém de jaleco branco. Assinale a alternativa correta.',
+   o:['O jaleco branco é o US, e a dor da injeção é a CR.',
+      'A injeção é o US, a dor é a UR, o jaleco branco era NS e virou CS, e o medo do jaleco é a CR.',
+      'O jaleco branco sempre foi um US.',
+      'O medo do jaleco é uma UR, pois é inato.',
+      'Não houve condicionamento, porque Bruno não foi reforçado.'],
+   c:1, w:'A injeção dolorosa (US) elicia dor e medo (UR). O jaleco, pareado com ela, virou CS, e o medo diante do jaleco é a CR.'},
+
+  {tema:'Casos', p:'Mariana comeu camarão estragado e passou muito mal, com náusea e vômito. Desde então, sente náusea só de ver camarão. Nesse caso, o camarão (a visão dele) passou a ser',
+   o:['um US, porque a náusea é inata.','um CS, que elicia a náusea como CR.','uma UR.','uma consequência que pune o comportamento de comer.','um NS, porque ainda não provoca resposta.'],
+   c:1, w:'A intoxicação (US) provocou náusea (UR). A visão do camarão, pareada com ela, virou CS, e a náusea ao ver camarão é a CR.'},
+
+  {tema:'Casos', p:'Um sopro de ar no olho faz qualquer pessoa piscar, sem aprendizagem. Essa relação é um exemplo de',
+   o:['CS → CR, aprendida durante a vida.',
+      'US → UR, uma relação reflexa, produto do nível filogenético.',
+      'comportamento operante.',
+      'prática cultural.',
+      'NS → CR.'],
+   c:1, w:'O sopro (US) elicia o piscar (UR) em qualquer pessoa, sem aprendizagem: relação incondicionada, típica do nível filogenético.'},
+
+  {tema:'Conceitos', p:'No condicionamento respondente, o que controla a ocorrência da resposta condicionada (CR)?',
+   o:['A consequência que vem depois dela.',
+      'O estímulo condicionado (CS), que vem antes dela.',
+      'A vontade do organismo.',
+      'O reforço positivo.',
+      'A punição negativa.'],
+   c:1, w:'No respondente, a resposta é eliciada pelo estímulo antecedente. A CR ocorre diante do CS.'},
+
+  {tema:'Conceitos', p:'Depois do condicionamento, a sineta passou a ser apresentada muitas vezes sem a comida. Com o tempo, o cão deixou de salivar ao ouvir a sineta. Esse processo é chamado de',
+   o:['generalização.','extinção respondente.','reforço negativo.','pareamento.','punição positiva.'],
+   c:1, w:'Quando o CS deixa de ser seguido pelo US, a CR enfraquece até desaparecer: extinção respondente.'},
+
+  {tema:'Conceitos', p:'Sobre o condicionamento respondente, analise:<br>I. Um NS pareado repetidamente com um US pode se tornar um CS.<br>II. A UR é aprendida, e a CR é inata.<br>III. A CR é eliciada pelo CS, que vem antes dela.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:2, fixa:true, w:'I e III estão corretas. A II inverte: a UR é inata (reflexa) e a CR é aprendida.'},
+
+  {tema:'Casos', p:'Sempre que ouve o som do motor da broca no consultório, Carla sente o corpo tenso e as mãos suarem, mesmo antes de o dentista encostar nela. Ela já teve tratamentos doloridos com essa broca. O estímulo condicionado (CS) nesse caso é',
+   o:['a dor do tratamento.','o som da broca.','a tensão e o suor.','o dentista.','a anestesia.'],
+   c:1, w:'O som da broca, antes neutro, foi pareado com a dor (US) e virou CS. A tensão e o suor diante do som são a CR.'},
+  {tema:'Respondente × operante', p:'Em qual das situações abaixo NÃO há condicionamento respondente?',
+   o:['Uma pessoa sente o coração acelerar ao ouvir a sirene que tocava durante um assalto que sofreu.',
+      'Uma criança passa a arrumar o quarto com mais frequência porque, quando arruma, ganha mais tempo de videogame.',
+      'Um cão saliva ao ouvir o barulho do pote de ração.',
+      'Uma pessoa sente náusea ao ver uma comida que já lhe fez mal.',
+      'Um bebê chora ao ver o jaleco do médico que lhe deu vacina.'],
+   c:1, w:'Arrumar o quarto ficou mais frequente por causa da consequência (videogame): é operante. Nas outras, um estímulo antes neutro passou a eliciar uma resposta por ter sido pareado com um US.'},
+
+  {tema:'Conceitos', p:'Relacionando o condicionamento respondente aos níveis de seleção de Skinner, as relações US → UR e CS → CR são, respectivamente,',
+   o:['aprendidas durante a vida; inatas.',
+      'inatas, produto da história da espécie (filogenia); aprendidas durante a vida do indivíduo.',
+      'as duas inatas.',
+      'as duas culturais.',
+      'operantes; respondentes.'],
+   c:1, w:'A relação US → UR é reflexa, selecionada na história da espécie. A relação CS → CR é aprendida pelo pareamento, ao longo da vida do indivíduo; a capacidade de aprender assim é que foi selecionada pela espécie.'},
+
+  {tema:'Casos', p:'Um bebê recebeu várias vacinas, sempre numa mesma sala de paredes azuis. Antes, entrava na sala tranquilo; hoje, começa a chorar assim que entra nela. Antes e depois das vacinas, a sala azul foi, respectivamente,',
+   o:['US e CS.','NS e CS.','CS e NS.','NS e US.','UR e CR.'],
+   c:1, fixa:true, w:'Antes, a sala não provocava choro: era NS. Pareada com a dor da vacina (US), virou CS, e o choro na sala é a CR.'},
+  ]
+});
+
+
+SIM_JOGO.push({
+  id: 'idoso-n2',
+  disc: '05',
+  titulo: 'Simulado N2: velhice',
+  desc: '40 questões no estilo vestibular: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos, luto e morte.',
+  partes: [{k:'apos', t:'Aposentadoria', n:10}, {k:'neuro', t:'Neuropatológicos', n:10}, {k:'psico', t:'Psicopatológicos', n:10}, {k:'luto', t:'Luto e morte', n:10}],
+  questoes: [
+  // ---------- APOSENTADORIA ----------
+  {tema:'Aposentadoria', p:'Segundo Silva e Carvalho (2019), a aposentadoria pode ter implicações psicossociais importantes. A principal razão apontada pelos autores é que',
+   o:['a aposentadoria sempre causa depressão.',
+      'o trabalho tem papel central na identidade: além da renda, dá papéis, rotina, reconhecimento e pertencimento.',
+      'o idoso perde a capacidade cognitiva ao deixar de trabalhar.',
+      'o trabalho é apenas uma fonte de renda, e a queda de renda explica todo o sofrimento.',
+      'a lei obriga o idoso a parar de trabalhar antes de estar preparado.'],
+   c:1, w:'Para os autores, o trabalho é a principal fonte de identidade psíquica e social. Ao deixá-lo, a pessoa perde também papéis, rotina e relações, e não só a renda.'},
+
+  {tema:'Aposentadoria', p:'Seu Antônio se aposentou há seis meses. Diz que sente falta dos colegas, que "ninguém mais pede a opinião dele" e que não sabe o que fazer com as manhãs livres. Esse relato ilustra principalmente',
+   o:['os ganhos da aposentadoria, como descanso e tempo livre.',
+      'perdas ligadas ao trabalho: vínculos, status e rotina.',
+      'um quadro de pseudodemência.',
+      'o estágio de barganha de Kübler-Ross.',
+      'a teoria da atividade, pois ele está muito ocupado.'],
+   c:1, w:'Perda dos vínculos do trabalho, do reconhecimento (status) e da rotina, com ansiedade diante do tempo vazio, são os aspectos negativos descritos por Silva e Carvalho.'},
+
+  {tema:'Aposentadoria', p:'Sobre os Programas de Preparação para a Aposentadoria (PPA), analise:<br>I. Surgem no Brasil por volta de 1980.<br>II. O Estatuto do Idoso prevê preparar o trabalhador com pelo menos 1 ano de antecedência.<br>III. Como há punição para quem não cumpre, a maioria das empresas oferece o programa.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:1, fixa:true, w:'I e II estão corretas. O problema apontado no artigo é justamente o contrário da III: sem punição para quem não cumpre, a maioria das empresas não oferece o PPA.'},
+
+  {tema:'Aposentadoria', p:'Um PPA bem estruturado, segundo Silva e Carvalho (2019), se apoia em três pilares. São eles:',
+   o:['médico, jurídico e financeiro.',
+      'psicológico, atividades futuras e financeiro.',
+      'familiar, religioso e esportivo.',
+      'psicológico, previdenciário e médico.',
+      'financeiro, imobiliário e de lazer.'],
+   c:1, w:'Os três pilares são o psicológico, o das atividades futuras (perfil, habilidades, preferências) e o financeiro, sempre com um olhar biopsicossocial.'},
+
+  {tema:'Aposentadoria', p:'Em relação ao papel do psicólogo na aposentadoria, Silva e Carvalho (2019) defendem uma atuação',
+   o:['apenas depois que surgirem sintomas, para tratar a depressão.',
+      'preventiva, ajudando a pessoa a refletir sobre a trajetória, planejar a nova fase e reconstruir a identidade social.',
+      'restrita à orientação financeira.',
+      'voltada a convencer a pessoa a não se aposentar.',
+      'centrada apenas na empresa, sem envolver a família.'],
+   c:1, w:'O artigo defende uma atuação preventiva: refletir sobre a trajetória, orientar o planejamento, apoiar a família, resgatar laços e reconstruir a identidade social.'},
+
+  {tema:'Aposentadoria', p:'Dona Cecília, 78 anos, diz que olha para trás e sente que "jogou a vida fora", que errou em tudo e que agora não dá mais tempo de consertar nada. Pela teoria de Erikson, esse relato se aproxima',
+   o:['da integridade, cuja virtude é a sabedoria.',
+      'do desespero, polo negativo do conflito integridade × desespero.',
+      'da generatividade, típica da velhice.',
+      'da intimidade × isolamento.',
+      'da continuidade.'],
+   c:1, w:'Na velhice o conflito é integridade × desespero. O desespero vem da sensação de que a vida foi desperdiçada e de que não há mais tempo. A integridade leva à sabedoria.'},
+
+  {tema:'Aposentadoria', p:'Engenheiro durante 40 anos, Seu Paulo se aposentou e passou a ajudar, como voluntário, uma associação de bairro a planejar pequenas obras. Ele diz que "continua sendo engenheiro, só que de outro jeito". Esse caso ilustra a teoria',
+   o:['do desengajamento.','da atividade, porque ele enche a agenda.','da continuidade.','da seletividade socioemocional.','do luto antecipatório.'],
+   c:2, w:'Na continuidade, a pessoa mantém os interesses e a identidade de antes, adaptando-os à nova fase. O foco não é a quantidade de atividades (teoria da atividade), e sim a permanência do mesmo padrão.'},
+
+  {tema:'Aposentadoria', p:'Um pianista idoso, ao perceber que já não tinha a mesma agilidade, passou a tocar menos peças, a ensaiar mais cada uma delas e a tocar mais devagar os trechos anteriores aos rápidos, para que estes parecessem mais rápidos. A estratégia corresponde',
+   o:['à teoria do desengajamento.',
+      'à otimização seletiva com compensação (Baltes).',
+      'à seletividade socioemocional (Carstensen).',
+      'à pseudodemência.',
+      'ao modelo clássico do trabalho de luto.'],
+   c:1, w:'Selecionar (menos peças), otimizar (ensaiar mais) e compensar a perda (tocar mais devagar antes dos trechos rápidos): é a otimização seletiva com compensação, de Baltes.'},
+
+  {tema:'Aposentadoria', p:'Com o passar dos anos, Dona Lia passou a recusar convites para festas grandes e preferiu passar o tempo com a irmã e duas amigas de infância. Ela diz que "agora só quer quem importa". A teoria que melhor explica essa escolha é a',
+   o:['do desengajamento.','da atividade.','da seletividade socioemocional (Carstensen).','da continuidade.','da otimização seletiva com compensação.'],
+   c:2, w:'Ao perceber o tempo como limitado, o idoso prioriza menos relações, mas mais próximas e emocionalmente significativas: seletividade socioemocional.'},
+
+  {tema:'Aposentadoria', p:'Depois de se aposentar, Dona Marta se inscreveu em hidroginástica, coral, curso de informática e voluntariado. Ela acredita que envelhece bem justamente por estar sempre ocupada. Essa ideia corresponde à teoria',
+   o:['do desengajamento.','da atividade.','da continuidade.','da seletividade socioemocional.','da integridade × desespero.'],
+   c:1, w:'Para a teoria da atividade, quanto mais ativo e envolvido o idoso se mantém, melhor ele envelhece.'},
+
+  // ---------- QUADROS NEUROPATOLÓGICOS ----------
+  {tema:'Neuropatológicos', p:'Segundo Damasceno (1999), diferenciar o envelhecimento normal de uma demência inicial é um problema de diagnóstico. Isso acontece porque',
+   o:['a doença de Alzheimer nunca aparece antes dos 80 anos.',
+      'as alterações do envelhecimento cerebral se parecem com as da doença de Alzheimer, não há marcador biológico seguro e os testes podem dar falso-positivo ou falso-negativo.',
+      'existe um exame de sangue que confirma a doença, mas ele é caro.',
+      'o envelhecimento normal não causa nenhuma alteração cognitiva.',
+      'a neuroimagem sempre mostra a doença desde o início.'],
+   c:1, w:'As alterações são parecidas, ainda não existe marcador biológico seguro da DA e os testes podem errar para mais ou para menos.'},
+
+  {tema:'Neuropatológicos', p:'Seu Jorge, 74 anos, conta com detalhes como foi o próprio casamento e repete corretamente um número de telefone logo depois de ouvi-lo. Porém, tem dificuldade de lembrar a lista de compras que leu uma hora antes. Segundo Damasceno (1999), esse padrão',
+   o:['mostra declínio da memória terciária (remota), típico da velhice.',
+      'mostra memória primária (imediata) e terciária (remota) relativamente preservadas, com declínio da memória secundária (recente).',
+      'mostra que todas as memórias declinam igualmente com a idade.',
+      'é impossível no envelhecimento normal e confirma demência.',
+      'indica perda da memória primária.'],
+   c:1, w:'No idoso normal, declinam mais a memória operacional e a secundária (recente); a primária (imediata) e a terciária (remota) se preservam mais. O detalhe é que esse padrão também lembra o início da DA.'},
+
+  {tema:'Neuropatológicos', p:'Dona Irene, 70 anos, passou a reclamar de esquecimentos e a ir mal em testes de memória logo depois da morte do marido. Apresentava tristeza intensa e desânimo. Com o tratamento da depressão, seu desempenho cognitivo melhorou. Esse quadro é chamado de',
+   o:['doença de Alzheimer inicial.','pseudodemência depressiva.','transtorno mental comum.','luto antecipatório.','envelhecimento normal da memória remota.'],
+   c:1, w:'Pseudodemência é um quadro que parece demência, mas tem outra causa, como depressão ou ansiedade. Tratada a causa, a cognição pode melhorar.'},
+
+  {tema:'Neuropatológicos', p:'Damasceno (1999) alerta que não se deve rotular um idoso como "demente" cedo demais. O principal motivo é que',
+   o:['o diagnóstico de demência é sempre definitivo e tratável.',
+      'quadros como a pseudodemência têm causa tratável, e o desempenho pode melhorar quando a causa é tratada.',
+      'os idosos não aceitam o diagnóstico.',
+      'a demência não existe antes dos 85 anos.',
+      'a avaliação neuropsicológica não tem nenhum valor.'],
+   c:1, w:'Na pseudodemência, a causa (depressão, ansiedade) pode ser tratada. Um rótulo precipitado de demência pode atrasar esse tratamento.'},
+
+  {tema:'Neuropatológicos', p:'Entre os testes citados por Damasceno (1999) como mais discriminativos para diferenciar demência inicial de normalidade, estão',
+   o:['a evocação tardia de lista de palavras e o Teste de Nomeação de Boston.',
+      'o SRQ-20 e o CASP-19.',
+      'o Inventário de Zarit e a GDS.',
+      'o teste de gravidez e o hemograma.',
+      'a QSG-12 e a escala de sintomas físicos.'],
+   c:0, w:'O artigo cita evocação tardia de lista de palavras, memória lógica, pensamento categórico, destreza visuoespacial e o Teste de Nomeação de Boston. Os outros instrumentos aparecem em outros textos, com outras finalidades.'},
+
+  {tema:'Neuropatológicos', p:'Sobre a neuroimagem na investigação da doença de Alzheimer (DA), segundo Damasceno (1999), analise:<br>I. Atrofia ou hipoperfusão nas regiões entorrinal-hipocampal ou temporoparietais sugerem DA.<br>II. Esses achados podem não aparecer no início da doença.<br>III. Por isso, uma neuroimagem normal no início não descarta a DA.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:4, fixa:true, w:'As três estão corretas. Justamente porque os achados podem faltar no início, uma neuroimagem normal não descarta a DA.'},
+
+  {tema:'Neuropatológicos', p:'Após uma avaliação neuropsicológica, exames e neuroimagem, o resultado de um idoso foi inconclusivo: não dava para afirmar se era envelhecimento normal ou demência inicial. Segundo Damasceno (1999), a conduta indicada é',
+   o:['fechar o diagnóstico de demência para iniciar o tratamento.',
+      'reavaliar depois de 4 a 6 meses para ver se os achados se mantêm.',
+      'encerrar a investigação, pois o idoso é saudável.',
+      'pedir apenas um teste de memória remota.',
+      'aplicar o Inventário de Zarit.'],
+   c:1, w:'Quando a avaliação inicial é inconclusiva, recomenda-se reavaliar em 4 a 6 meses.'},
+
+  {tema:'Neuropatológicos', p:'Oliveira et al. (2018) estudaram 75 cuidadores com 60 anos ou mais de pessoas com demência ou AVC. O fator que mais se associou à pior qualidade de vida desses cuidadores foi',
+   o:['o tipo de doença da pessoa cuidada.',
+      'a idade do cuidador.',
+      'a sobrecarga percebida pelo cuidador.',
+      'o grau de dependência da pessoa cuidada.',
+      'o sexo do cuidador.'],
+   c:2, w:'Com sobrecarga alta (Zarit ≥ 29), a chance de pior qualidade de vida foi 11,4 vezes maior. Idade, sexo, tipo de doença, dependência e cognição de quem recebe o cuidado não influenciaram.'},
+
+  {tema:'Neuropatológicos', p:'No estudo de Oliveira et al. (2018), os instrumentos usados e o que cada um mede estão corretamente associados em:',
+   o:['CASP-19: sobrecarga; Zarit: qualidade de vida.',
+      'CASP-19: qualidade de vida; Zarit: sobrecarga do cuidador.',
+      'SRQ-20: qualidade de vida; GDS: sobrecarga.',
+      'Zarit: depressão; CASP-19: memória.',
+      'GDS: qualidade de vida; QSG-12: sobrecarga.'],
+   c:1, w:'A qualidade de vida foi medida pela escala CASP-19, e a sobrecarga pelo Inventário de Sobrecarga de Zarit.'},
+
+  {tema:'Neuropatológicos', p:'Fala-se em "dupla vulnerabilidade" do idoso que cuida de outro idoso porque ele',
+   o:['cuida de duas pessoas ao mesmo tempo.',
+      'soma as perdas do próprio envelhecimento à sobrecarga do cuidado, tendendo a negligenciar a própria saúde e a perder relações.',
+      'tem duas doenças crônicas.',
+      'depende financeiramente de dois filhos.',
+      'é sempre do sexo feminino.'],
+   c:1, w:'O cuidador idoso enfrenta ao mesmo tempo o próprio envelhecimento e a sobrecarga de cuidar. Por isso o artigo conclui que os aspectos emocionais do cuidador devem ser alvo de intervenção da equipe de saúde.'},
+
+  // ---------- QUADROS PSICOPATOLÓGICOS ----------
+  {tema:'Psicopatológicos', p:'Segundo Souza et al. (2023), com base em dados da OMS, cerca de quantas pessoas com 60 anos ou mais têm algum transtorno mental ou neurológico, e qual é o principal transtorno psiquiátrico citado?',
+   o:['5%; ansiedade.','20%; depressão.','50%; demência.','20%; transtorno bipolar.','80%; depressão.'],
+   c:1, fixa:true, w:'Cerca de 20% dos idosos têm algum transtorno mental ou neurológico, e a depressão é o principal transtorno psiquiátrico citado.'},
+
+  {tema:'Psicopatológicos', p:'A filha de Seu Lauro, 80 anos, comenta que ele anda muito triste, sem vontade de sair e dormindo mal, mas diz: "é normal, é coisa da idade". De acordo com Souza et al. (2023), essa interpretação é',
+   o:['correta, pois a depressão faz parte do envelhecimento normal.',
+      'incorreta, pois a depressão é comum na velhice, mas não faz parte do envelhecimento normal e precisa ser reconhecida e tratada.',
+      'correta, pois idosos não têm depressão, só tristeza.',
+      'incorreta, pois esses sinais indicam necessariamente demência.',
+      'correta, pois só jovens precisam de tratamento para depressão.'],
+   c:1, w:'"A depressão não faz parte do envelhecimento normal": é comum, mas é uma condição que precisa ser identificada e tratada.'},
+
+  {tema:'Psicopatológicos', p:'Assinale a alternativa que traz apenas fatores de proteção para a saúde mental do idoso, segundo Souza et al. (2023).',
+   o:['Isolamento, viuvez e dor crônica.',
+      'Atividade física, autonomia, boas relações e objetivos de vida.',
+      'Aposentadoria com queda de renda e conflitos familiares.',
+      'Incapacidade funcional e idade avançada.',
+      'Atividade física, isolamento e otimismo.'],
+   c:1, w:'Proteção: atividade física, religiosidade, otimismo, autonomia, boas relações e objetivos de vida. Isolamento, perdas, dor, incapacidade e conflitos são fatores de risco.'},
+
+  {tema:'Psicopatológicos', p:'A depressão no idoso muitas vezes passa despercebida. Segundo Souza et al. (2023), isso acontece principalmente porque',
+   o:['idosos não apresentam sintomas de depressão.',
+      'os sintomas se confundem com doenças físicas e com perda funcional, e é difícil separar a depressão de uma tristeza leve e adaptativa.',
+      'não existe nenhum instrumento de rastreio para idosos.',
+      'a depressão no idoso sempre vem acompanhada de delírios.',
+      'o idoso deprimido sempre procura ajuda sozinho.'],
+   c:1, w:'Os sintomas se misturam com queixas físicas e perda funcional. Por isso escalas de rastreio, como a GDS, ajudam na atenção primária.'},
+
+  {tema:'Psicopatológicos', p:'Na atenção primária, para rastrear depressão em idosos, o instrumento citado por Souza et al. (2023) é',
+   o:['o Inventário de Sobrecarga de Zarit.','a Escala de Depressão Geriátrica (GDS).','o CASP-19.','o Teste de Nomeação de Boston.','a escala de sintomas físicos.'],
+   c:1, w:'A GDS (Escala de Depressão Geriátrica) é a escala de rastreio citada, em versões de 15 ou 30 itens.'},
+
+  {tema:'Psicopatológicos', p:'Sobre o transtorno mental comum (TMC), estudado por Borim et al. (2013), é correto afirmar que',
+   o:['é um quadro psicótico, com delírios e alucinações.',
+      'reúne sintomas não psicóticos, como insônia, fadiga, irritabilidade, esquecimento, ansiedade e queixas físicas, e foi avaliado pelo SRQ-20.',
+      'é diagnosticado apenas por neuroimagem.',
+      'foi avaliado pela GDS, com ponto de corte 29.',
+      'é exclusivo de idosos com mais de 90 anos.'],
+   c:1, w:'O TMC reúne sintomas não psicóticos. O SRQ-20, da OMS, tem 20 perguntas de sim ou não, com ponto de corte ≥ 5.'},
+
+  {tema:'Psicopatológicos', p:'No estudo de Borim et al. (2013) com 1.432 idosos de Campinas, analise:<br>I. A prevalência de TMC foi de 47,6% no total da amostra.<br>II. O TMC foi mais frequente em mulheres e em quem tinha menor escolaridade e renda.<br>III. Aposentados e donas de casa tiveram mais TMC do que quem trabalhava.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:3, fixa:true, w:'II e III estão corretas. A prevalência total foi de 29,7%; os 47,6% se referem só a quem tinha 80 anos ou mais.'},
+
+  {tema:'Psicopatológicos', p:'Ainda no estudo de Borim et al. (2013), o hábito que se associou a menor prevalência de TMC foi',
+   o:['trabalhar até depois dos 80 anos.','a atividade física no lazer.','morar sozinho.','ser dona de casa.','ter mais doenças crônicas.'],
+   c:1, w:'A atividade física no lazer se associou a menos TMC. Aposentados e donas de casa tiveram mais TMC que quem trabalhava, e o TMC cresceu com o número de doenças crônicas.'},
+
+  {tema:'Psicopatológicos', p:'Resende et al. (2011) avaliaram 406 pessoas de um centro de convivência. Assinale a alternativa que corresponde aos resultados.',
+   o:['O grupo apresentou, de modo geral, saúde mental negativa.',
+      'Os homens relataram mais dor e ansiedade que as mulheres.',
+      'De modo geral o grupo teve saúde mental positiva; as mulheres relataram mais sintomas físicos, dor e ansiedade, e a faixa de 50 a 59 anos teve mais sintomas físicos e depressão.',
+      'Os mais velhos (80+) foram os que relataram mais depressão.',
+      'Não houve nenhuma queixa de sintoma físico.'],
+   c:2, w:'O grupo teve saúde mental positiva no geral. As mulheres relataram mais sintomas físicos, dor e ansiedade, e o grupo de 50 a 59 anos, mais sintomas físicos e mais depressão.'},
+
+  {tema:'Psicopatológicos', p:'Em uma consulta, Seu Nelson, 82 anos, diz: "sou só um peso para a família, não sirvo para mais nada, não tem mais por que continuar". Segundo Souza et al. (2023), falas como essa devem ser entendidas como',
+   o:['parte normal do envelhecimento, sem necessidade de atenção.',
+      'possíveis sinais de risco de suicídio, que muitas vezes não são reconhecidos a tempo e precisam ser levados a sério.',
+      'sinal típico de pseudodemência ansiosa.',
+      'exemplo de consciência crítica.',
+      'sintoma de transtorno mental comum, que não exige acompanhamento.'],
+   c:1, w:'Falas pessimistas, desesperança e sentir-se inútil são sinais de alerta para suicídio que, segundo o artigo, muitas vezes não foram reconhecidos a tempo.'},
+
+  // ---------- LUTO E MORTE ----------
+  {tema:'Luto e morte', p:'Velório, missa de sétimo dia, divisão da herança e o uso de roupas escuras em algumas culturas são exemplos de qual dimensão da morte?',
+   o:['Biológica.','Social.','Psicológica.','Filogenética.','Inautêntica.'],
+   c:1, w:'A dimensão social envolve rituais, costumes e o lugar do morto na comunidade. A biológica é a cessação das funções vitais; a psicológica, como se encara a própria morte e a perda.'},
+
+  {tema:'Luto e morte', p:'Sobre o modelo de Kübler-Ross, analise:<br>I. Descreve negação, raiva, barganha, depressão e aceitação, a partir de pacientes terminais.<br>II. As reações seguem sempre uma ordem fixa e universal.<br>III. Serve para entender reações possíveis, e não como roteiro obrigatório.<br>Está correto o que se afirma em',
+   o:['I, apenas.','I e II, apenas.','I e III, apenas.','II e III, apenas.','I, II e III.'],
+   c:2, fixa:true, w:'I e III estão corretas. A principal crítica ao modelo é justamente que as reações não seguem ordem fixa: podem ir e voltar, e nem todos passam por todas.'},
+
+  {tema:'Luto e morte', p:'Um paciente em fase terminal diz ao médico: "Se eu conseguir chegar ao casamento da minha neta, prometo que aceito qualquer tratamento depois". Segundo Kübler-Ross, essa fala é típica de',
+   o:['negação.','raiva.','barganha.','depressão.','aceitação.'],
+   c:2, w:'Na barganha, a pessoa tenta negociar mais tempo, muitas vezes com promessas ("se… então…").'},
+
+  {tema:'Luto e morte', p:'Há dois anos, Clara cuida da mãe, que tem demência avançada e já não a reconhece. Ela diz que "já sente a falta da mãe", embora a mãe esteja viva. Esse sentimento é descrito como',
+   o:['luto prolongado.','luto não elaborado.','luto antecipatório.','pseudodemência.','modo inautêntico do ser-para-a-morte.'],
+   c:2, w:'O luto antecipatório começa antes da morte, quando a perda já é esperada, como numa doença grave.'},
+
+  {tema:'Luto e morte', p:'Sobre as formas de viver o luto descritas em Papalia e Martorell, é correto afirmar que',
+   o:['todas as pessoas passam pelas mesmas etapas, no mesmo tempo.',
+      'o modelo clássico descreve choque e descrença, preocupação com a lembrança de quem morreu e resolução, mas as pesquisas mostram padrões diferentes, e muitos enlutados são resilientes.',
+      'o luto é apenas a cessação das funções vitais.',
+      'o luto só acontece depois de um ano da morte.',
+      'quem não chora no velório não está de luto.'],
+   c:1, w:'O "trabalho de luto" clássico tem três momentos, mas as pesquisas mostram trajetórias diferentes: muitos são resilientes, outros se recuperam aos poucos, e alguns têm luto prolongado.'},
+
+  {tema:'Luto e morte', p:'Na velhice, é comum que a pessoa relembre e reavalie a própria história, processo chamado por Butler de revisão de vida. Esse processo se relaciona diretamente com qual conceito de Erikson?',
+   o:['Confiança × desconfiança.','Generatividade × estagnação.','Integridade × desespero.','Identidade × confusão de papéis.','Autonomia × vergonha.'],
+   c:2, w:'A revisão de vida ajuda a pessoa a aceitar a própria história, o que se liga à integridade do último estágio de Erikson.'},
+
+  {tema:'Luto e morte', p:'O principal objetivo dos cuidados paliativos é',
+   o:['acelerar a morte para evitar sofrimento.',
+      'curar a doença a qualquer custo.',
+      'aliviar a dor e o sofrimento e garantir qualidade de vida até o fim, apoiando também a família.',
+      'substituir o acompanhamento da família.',
+      'decidir pela eutanásia.'],
+   c:2, w:'Cuidados paliativos e hospice buscam aliviar dor e sofrimento e dar qualidade de vida até o fim, com apoio à família. Eutanásia e suicídio assistido são debates éticos separados.'},
+
+  {tema:'Luto e morte', p:'Sobre a pesquisa de Menezes e Lopes (2014) com idosos longevos, assinale a alternativa correta.',
+   o:['Foi uma pesquisa quantitativa com 1.432 idosos de Campinas.',
+      'Foi uma pesquisa qualitativa e fenomenológica, baseada em Heidegger, com 16 pessoas de 80 a 90 anos de um centro de convivência em Salvador.',
+      'Usou o SRQ-20 para medir o medo da morte.',
+      'Estudou cuidadores de pessoas com demência.',
+      'Foi feita com adolescentes em luto.'],
+   c:1, w:'Menezes e Lopes fizeram uma pesquisa qualitativa e fenomenológica, com base em Heidegger, com 16 idosos de 80 a 90 anos em Salvador.'},
+
+  {tema:'Luto e morte', p:'Seu Osvaldo, 86 anos, diz: "morte é coisa que acontece com os outros. Eu vou viver até os 110", e evita o assunto se ocupando com as tarefas do dia. Para Menezes e Lopes (2014), com base em Heidegger, essa postura corresponde',
+   o:['ao modo autêntico do ser-para-a-morte.',
+      'ao modo inautêntico (impessoal) do ser-para-a-morte.',
+      'ao luto antecipatório.',
+      'ao estágio de aceitação.',
+      'à integridade de Erikson.'],
+   c:1, w:'No modo inautêntico, a pessoa foge da própria morte, tratando-a como algo "dos outros" e se refugiando no cotidiano. No autêntico, assume a morte como possibilidade própria.'},
+
+  {tema:'Luto e morte', p:'No estudo de Menezes e Lopes (2014), os idosos diziam não temer a morte, mas, ao longo da conversa, admitiam medo de doenças e do que viria depois. Os autores descrevem esse discurso como',
+   o:['coerente, pois todos aceitavam a morte.',
+      'ambíguo, e concluem que o idoso oscila entre autenticidade e inautenticidade, conforme o momento e a sua história.',
+      'sinal de demência.',
+      'típico apenas de quem tem depressão.',
+      'prova de que idosos longevos não pensam na morte.'],
+   c:1, w:'O discurso foi ambíguo. Os autores concluem que o idoso oscila entre os dois modos e defendem ações educativas contra o estereótipo de que envelhecer é "caminhar ao lado da morte".'},
+  ]
+});
+
 
 const ROTEIROS = [
   {
@@ -5314,7 +6596,7 @@ function fmtStamp(iso){
 
 function rotuloLink(l){
   if(l.drive) return 'Abrir no Drive ↗';
-  if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#roteiro-')) return 'Abrir roteiro →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
+  if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#roteiro-')) return 'Abrir roteiro →'; if(l.url.startsWith('#simulado-')) return 'Abrir simulado →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
   if(l.disc) return 'Ver disciplina →';
   if(l.scroll === 'disciplinas') return 'Ver disciplinas →';
   const pg = {viewFerramentas:'Ver exercícios →', viewPrazos:'Ver prazos →', viewEstudar:'Ver resumos →', viewVideos:'Ver vídeos →', viewCursos:'Ver cursos →', viewApoio:'Ver extras →', viewSimulados:'Ver simulados →'};
@@ -5626,6 +6908,9 @@ document.getElementById('navBurger').addEventListener('click', ()=>{
 // Abrir direto numa página pelo endereço (ex.: link antigo tarefas.html → index.html#viewPrazos)
 function routeFromHash(){
   const h = decodeURIComponent(location.hash.slice(1));
+  const ms = h.match(/^simulado-([\w-]+)$/);
+  if(ms){ const sx = SIM_JOGO.find(x=>x.id === ms[1]); if(sx){ setTimeout(()=>{ if(!(simEst && simEst.sim.id === sx.id)){ openDisc(sx.disc, {fromHistory:true}); simAbrir(sx.id); } }, 0); return; } }
+  if(simEst) simFechar();
   const md = h.match(/^disc-(\d\d)$/);
   if(md){ setTimeout(()=> openDisc(md[1], {fromHistory:true}), 0); return; }
   const mt = h.match(/^roteiro-([\w-]+)$/);
@@ -8338,11 +9623,13 @@ function renderDiscPage(d){
 
   // atalhos do topo: só o que existe nesta disciplina
   const roteiros = ROTEIROS.filter(r=>r.disc === d.n);
+  const simulados = SIM_JOGO.filter(x=>x.disc === d.n);
   const temGuia = MONTADOR.disc === d.n;
   const atalhos = [
     ['dpPrazos', 'Prazos', c.prazos.length],
     ['dpGuia', 'Relatório', temGuia ? MONTADOR.secoes.length : 0],
     ['dpRoteiro', 'Estudo dirigido', roteiros.reduce((n, r)=>n + r.questoes.length, 0)],
+    ['dpSimulado', 'Simulado', simulados.reduce((n, x)=>n + x.questoes.length, 0)],
     ['dpResumos', 'Resumos', c.resumos.length],
     ['dpPratica', 'Exercícios', c.exercicios.length],
     ['dpVideos', 'Vídeos', c.videos.length],
@@ -8366,6 +9653,8 @@ function renderDiscPage(d){
 
   const secRoteiro = roteiros.length ? sec('dpRoteiro', 'Estudo dirigido', `${rtFeitas(roteiros[0])}/${roteiros[0].questoes.length} questões conferidas`,
     roteiros.map(roteiroHTML).join('')) : '';
+
+  const secSim = simulados.length ? sec('dpSimulado', 'Simulado', '', simulados.map(simHTMLCard).join('')) : '';
 
   const secGuia = temGuia ? sec('dpGuia', 'Relatório do projeto', '', montadorHTML() + exemplosHTML()) : '';
 
@@ -8418,7 +9707,7 @@ function renderDiscPage(d){
     ${continuarHTML(d)}
     ${errAvisoDisc(d)}
     ${prova ? `<div class="modo-prova dp-mp">${modoProvaCard(prova)}</div>` : ''}
-    ${secPrazos}${secGuia}${secRoteiro}${secResumos}${secEx}${secVid}${secGl}
+    ${secPrazos}${secGuia}${secRoteiro}${secSim}${secResumos}${secEx}${secVid}${secGl}
     ${!temGuia && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
   `;
 }
@@ -8799,6 +10088,270 @@ function abrirRoteiro(id, opts){
   if(opts && opts.push && location.hash !== '#roteiro-' + id) history.pushState({disc:r.disc}, '', '#roteiro-' + id);
   setTimeout(()=>{ const el = document.getElementById('rt-' + id); if(el){ el.open = true; el.scrollIntoView({block:'start'}); } }, 60);
 }
+
+
+
+// ===== Simulados: modo jogo (uma questão por tela, alternativas coloridas) =====
+function simRec(id){ try{ return JSON.parse(localStorage.getItem('av-simulado-' + id)) || null; }catch(e){ return null; } }
+function simRecSalvar(id, o){ try{ localStorage.setItem('av-simulado-' + id, JSON.stringify(o)); }catch(e){} }
+const SIM_TEMPO = 60; // segundos por questão no modo com tempo
+var simEst = null;   // estado da partida aberta
+var simPushou = false;
+
+function simTemas(sim){
+  const out = [{k:'tudo', t:'Tudo', n:sim.questoes.length}];
+  (sim.partes || []).forEach(p=> out.push({k:p.k, t:p.t, n:p.n}));
+  return out;
+}
+function simIndices(sim, parte){
+  let ini = 0;
+  for(const p of (sim.partes || [])){
+    if(p.k === parte) return sim.questoes.map((_, i)=>i).slice(ini, ini + p.n);
+    ini += p.n;
+  }
+  return sim.questoes.map((_, i)=>i);
+}
+
+function simHTMLCard(sim){
+  const r = simRec(sim.id);
+  return `<div class="sim-card">
+    <div class="sim-card-top"><span class="sim-tag">Modo prova</span><span class="sim-n">${sim.questoes.length} questões</span></div>
+    <div class="sim-card-t">${escHTML(sim.titulo)}</div>
+    <div class="sim-card-d">${escHTML(sim.desc)}</div>
+    ${r ? `<div class="sim-card-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
+    <button class="btn btn-primary sim-go" data-sim-abrir="${sim.id}">Começar simulado</button>
+  </div>`;
+}
+
+function simOverlay(){
+  let ov = document.getElementById('simOverlay');
+  if(!ov){
+    ov = document.createElement('div'); ov.id = 'simOverlay'; ov.className = 'sim-ov'; ov.hidden = true;
+    ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true');
+    document.body.appendChild(ov);
+    ov.addEventListener('click', simClique);
+  }
+  return ov;
+}
+
+function simAbrir(id, opts){
+  const sim = SIM_JOGO.find(s=>s.id === id); if(!sim) return;
+  opts = opts || {};
+  if(opts.push && location.hash !== '#simulado-' + id){ history.pushState({sim:id}, '', '#simulado-' + id); simPushou = true; }
+  simEst = {sim, tela:'inicio', parte: (simEst && simEst.sim.id === id && simEst.parte) || 'tudo', comTempo: simEst && simEst.sim.id === id ? simEst.comTempo : true};
+  const ov = simOverlay(); ov.hidden = false; document.documentElement.classList.add('sim-aberto');
+  simRender();
+}
+function simFechar(){
+  simPararTempo();
+  const ov = document.getElementById('simOverlay'); if(ov){ ov.hidden = true; ov.innerHTML = ''; }
+  document.documentElement.classList.remove('sim-aberto');
+  const id = simEst && simEst.sim.id; const disc = simEst && simEst.sim.disc;
+  simEst = null;
+  if(currentPage === 'viewDisc' && discAtual === disc) renderDiscPage(DISC[2].find(x=>x.n === disc));
+  return id;
+}
+function simSair(){
+  if(simEst && simEst.tela === 'jogo' && simEst.i > 0 && !confirm('Sair do simulado? O progresso desta partida será perdido.')) return;
+  const disc = simEst && simEst.sim.disc;
+  if(simPushou){ simPushou = false; history.back(); return; } // o popstate fecha
+  simFechar();
+  if(disc && location.hash.startsWith('#simulado-')) history.replaceState({disc}, '', '#disc-' + disc);
+}
+
+function simComecar(indices){
+  const e = simEst;
+  const fila = embaralhar(indices).map(i=>{
+    const q = e.sim.questoes[i];
+    const ordem = q.fixa ? q.o.map((_, k)=>k) : embaralhar(q.o.map((_, k)=>k));
+    return {i, ordem};
+  });
+  Object.assign(e, {tela:'jogo', fila, pos:0, pontos:0, seq:0, maxSeq:0, acertos:0, resp:[], t0:Date.now(), respondida:false});
+  simRender();
+}
+
+function simPararTempo(){ if(simEst && simEst.timer){ clearInterval(simEst.timer); simEst.timer = null; } }
+function simIniciarTempo(){
+  const e = simEst; simPararTempo();
+  e.qInicio = Date.now();
+  if(!e.comTempo) return;
+  const barra = document.querySelector('#simOverlay .sim-tempo i');
+  const num = document.querySelector('#simOverlay .sim-tempo-n');
+  e.timer = setInterval(()=>{
+    const passou = (Date.now() - e.qInicio) / 1000;
+    const resta = Math.max(0, SIM_TEMPO - passou);
+    if(barra){ barra.style.width = (resta / SIM_TEMPO * 100) + '%'; barra.classList.toggle('pouco', resta <= 10); }
+    if(num) num.textContent = Math.ceil(resta);
+    if(resta <= 0){ simPararTempo(); simResponder(-1); }
+  }, 200);
+}
+
+function simResponder(k){
+  const e = simEst; if(!e || e.tela !== 'jogo' || e.respondida) return;
+  simPararTempo();
+  e.respondida = true;
+  const item = e.fila[e.pos]; const q = e.sim.questoes[item.i];
+  const certo = k === q.c;
+  const seg = (Date.now() - e.qInicio) / 1000;
+  let ganho = 0;
+  if(certo){
+    e.acertos++; e.seq++; e.maxSeq = Math.max(e.maxSeq, e.seq);
+    const rapidez = e.comTempo ? Math.max(0, 1 - seg / SIM_TEMPO) : 1;
+    ganho = Math.round(600 + 400 * rapidez + Math.min(e.seq - 1, 5) * 50);
+    e.pontos += ganho;
+  } else e.seq = 0;
+  e.resp.push({i:item.i, k, certo, seg});
+  errRegistrar({k:'s:' + e.sim.id + ':' + errHash(q.p), tipo:'simulado', ref:e.sim.id, disc:e.sim.disc, origem:'Simulado · ' + q.tema, q:q.p, ops:q.o, c:q.o[q.c], w:q.w}, certo);
+
+  const ov = document.getElementById('simOverlay');
+  ov.querySelectorAll('[data-sim-op]').forEach(b=>{
+    const kk = +b.dataset.simOp; b.disabled = true;
+    if(kk === q.c) b.classList.add('certa');
+    else if(kk === k) b.classList.add('errada');
+    else b.classList.add('apagada');
+  });
+  ov.querySelector('.sim-pontos b').textContent = e.pontos.toLocaleString('pt-BR');
+  const sq = ov.querySelector('.sim-seq'); sq.hidden = e.seq < 2; sq.querySelector('b').textContent = e.seq;
+  const ultima = e.pos + 1 >= e.fila.length;
+  const titulo = certo ? (e.seq >= 3 ? `Sequência de ${e.seq}!` : 'Correto!') : (k === -1 ? 'Tempo esgotado' : 'Incorreto');
+  const fb = ov.querySelector('.sim-fb');
+  fb.className = 'sim-fb ' + (certo ? 'ok' : 'no');
+  fb.innerHTML = `<div class="sim-fb-in">
+      <div class="sim-fb-top"><strong>${titulo}</strong>${certo ? `<span class="sim-ganho">+${ganho}</span>` : ''}</div>
+      ${certo ? '' : `<div class="sim-fb-certa">Resposta certa: ${escHTML(q.o[q.c])}</div>`}
+      <p>${q.w}</p>
+      <button class="sim-prox" data-sim-prox>${ultima ? 'Ver resultado' : 'Próxima →'}</button>
+    </div>`;
+  fb.hidden = false;
+  requestAnimationFrame(()=> fb.classList.add('in'));
+  setTimeout(()=> fb.querySelector('[data-sim-prox]')?.focus({preventScroll:true}), 50);
+}
+
+function simProxima(){
+  const e = simEst; if(!e || !e.respondida) return;
+  e.pos++; e.respondida = false;
+  if(e.pos >= e.fila.length){ e.tela = 'fim'; simFinalizar(); }
+  simRender();
+}
+
+function simFinalizar(){
+  const e = simEst;
+  e.seg = Math.round((Date.now() - e.t0) / 1000);
+  const pct = Math.round(e.acertos / e.fila.length * 100);
+  e.pct = pct;
+  const r = simRec(e.sim.id);
+  e.recorde = false;
+  if(e.fila.length >= 10 && (!r || e.pontos > r.pontos)){
+    e.recorde = !!r;
+    simRecSalvar(e.sim.id, {pontos:e.pontos, pct, acertos:e.acertos, total:e.fila.length, t:Date.now()});
+  }
+  e.recAnterior = r;
+}
+
+function simFmtTempo(s){ const m = Math.floor(s / 60), r = s % 60; return m ? `${m} min ${String(r).padStart(2, '0')} s` : `${r} s`; }
+
+function simRender(){
+  const e = simEst; const ov = simOverlay(); if(!e) return;
+  const topo = (meio)=> `<div class="sim-topo"><button class="sim-x" data-sim-sair aria-label="Sair do simulado">✕</button>${meio || ''}</div>`;
+
+  if(e.tela === 'inicio'){
+    const r = simRec(e.sim.id);
+    ov.innerHTML = `${topo('')}
+      <div class="sim-ini">
+        <div class="sim-ini-eyebrow">Simulado · ${escHTML((DISC[2].find(x=>x.n === e.sim.disc) || {}).name || '')}</div>
+        <h2>${escHTML(e.sim.titulo)}</h2>
+        <p>${escHTML(e.sim.desc)}</p>
+        ${r ? `<div class="sim-ini-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
+        <div class="sim-ini-g"><div class="sim-ini-l">Conteúdo</div>
+          <div class="sim-seg">${simTemas(e.sim).map(t=>`<button class="${e.parte === t.k ? 'on' : ''}" data-sim-parte="${t.k}">${t.t} <span>${t.n}</span></button>`).join('')}</div></div>
+        <div class="sim-ini-g"><div class="sim-ini-l">Tempo</div>
+          <div class="sim-seg"><button class="${e.comTempo ? 'on' : ''}" data-sim-tempo="1">${SIM_TEMPO} s por questão</button><button class="${!e.comTempo ? 'on' : ''}" data-sim-tempo="0">Sem tempo</button></div>
+          <div class="sim-ini-nota">${e.comTempo ? 'Acertar rápido vale mais pontos. Acertos seguidos dão bônus.' : 'Cada acerto vale 1.000 pontos. Acertos seguidos dão bônus.'}</div></div>
+        <button class="sim-start" data-sim-start>Começar</button>
+        <div class="sim-ini-nota">As alternativas mudam de ordem a cada partida. As questões erradas vão para a Revisão dos erros.</div>
+      </div>`;
+    return;
+  }
+
+  if(e.tela === 'jogo'){
+    const item = e.fila[e.pos]; const q = e.sim.questoes[item.i];
+    const letras = 'ABCDE';
+    ov.innerHTML = `${topo(`<span class="sim-cont">${e.pos + 1}/${e.fila.length}</span><span class="sim-seq" ${e.seq < 2 ? 'hidden' : ''}>Sequência <b>${e.seq}</b></span><span class="sim-pontos"><b>${e.pontos.toLocaleString('pt-BR')}</b> pts</span>`)}
+      ${e.comTempo ? `<div class="sim-tempo"><i style="width:100%"></i><span class="sim-tempo-n">${SIM_TEMPO}</span></div>` : '<div class="sim-tempo vazio"></div>'}
+      <div class="sim-jogo">
+        <div class="sim-q">
+          <span class="sim-q-tema">${escHTML(q.tema)}</span>
+          <div class="sim-q-txt">${q.p}</div>
+        </div>
+        <div class="sim-ops">${item.ordem.map((k, pos)=>`<button class="sim-op c${pos}" data-sim-op="${k}"><span class="sim-op-l">${letras[pos]}</span><span class="sim-op-t">${escHTML(q.o[k])}</span></button>`).join('')}</div>
+      </div>
+      <div class="sim-fb" hidden></div>`;
+    ov.scrollTop = 0;
+    simIniciarTempo();
+    return;
+  }
+
+  if(e.tela === 'fim'){
+    const porTema = {};
+    e.resp.forEach(x=>{ const t = e.sim.questoes[x.i].tema; porTema[t] = porTema[t] || {a:0, n:0}; porTema[t].n++; if(x.certo) porTema[t].a++; });
+    const erradas = e.resp.filter(x=>!x.certo).length;
+    const msg = e.pct >= 85 ? 'Excelente!' : e.pct >= 70 ? 'Muito bem!' : e.pct >= 50 ? 'Bom começo.' : 'Vale revisar o conteúdo.';
+    ov.innerHTML = `${topo('<span class="sim-cont">Resultado</span>')}
+      <div class="sim-fim">
+        <div class="sim-anel" style="--p:${e.pct}"><div><b>${e.pct}%</b><span>de acerto</span></div></div>
+        <h2>${msg}</h2>
+        ${e.recorde ? `<div class="sim-recorde">Novo recorde! Antes: ${e.recAnterior ? e.recAnterior.pontos.toLocaleString('pt-BR') : ''} pontos</div>` : ''}
+        <div class="sim-stats">
+          <div><b>${e.acertos}/${e.fila.length}</b><span>acertos</span></div>
+          <div><b>${e.pontos.toLocaleString('pt-BR')}</b><span>pontos</span></div>
+          <div><b>${e.maxSeq}</b><span>maior sequência</span></div>
+          <div><b>${simFmtTempo(e.seg)}</b><span>tempo total</span></div>
+        </div>
+        <div class="sim-temas"><div class="sim-ini-l">Por assunto</div>${Object.entries(porTema).map(([t, v])=>`<div class="sim-tema-l"><span>${escHTML(t)}</span><span class="sim-tema-bar"><i style="width:${Math.round(v.a / v.n * 100)}%"></i></span><b>${v.a}/${v.n}</b></div>`).join('')}</div>
+        <div class="sim-fim-acoes">
+          <button class="sim-start" data-sim-revisar>Revisar respostas</button>
+          ${erradas ? `<button class="sim-sec" data-sim-refazer>Refazer as ${erradas} que errei</button>` : ''}
+          <button class="sim-sec" data-sim-denovo>Jogar de novo</button>
+        </div>
+        <div class="sim-rev" hidden>${e.resp.map((x, n)=>{ const q = e.sim.questoes[x.i]; return `
+          <div class="sim-rev-i ${x.certo ? 'ok' : 'no'}">
+            <div class="sim-rev-h"><span>${n + 1}. ${escHTML(q.tema)}</span><b>${x.certo ? 'Acertou' : (x.k === -1 ? 'Tempo esgotado' : 'Errou')}</b></div>
+            <div class="sim-rev-q">${q.p}</div>
+            ${!x.certo && x.k >= 0 ? `<div class="sim-rev-sua">Sua resposta: ${escHTML(q.o[x.k])}</div>` : ''}
+            <div class="sim-rev-certa">Resposta certa: ${escHTML(q.o[q.c])}</div>
+            <p>${q.w}</p>
+          </div>`; }).join('')}</div>
+      </div>`;
+    ov.scrollTop = 0;
+  }
+}
+
+function simClique(ev){
+  const e = simEst; if(!e) return;
+  const t = ev.target;
+  if(t.closest('[data-sim-sair]')){ simSair(); return; }
+  const pa = t.closest('[data-sim-parte]'); if(pa){ e.parte = pa.dataset.simParte; simRender(); return; }
+  const tp = t.closest('[data-sim-tempo]'); if(tp){ e.comTempo = tp.dataset.simTempo === '1'; simRender(); return; }
+  if(t.closest('[data-sim-start]')){ simComecar(simIndices(e.sim, e.parte)); return; }
+  const op = t.closest('[data-sim-op]'); if(op && !op.disabled){ simResponder(+op.dataset.simOp); return; }
+  if(t.closest('[data-sim-prox]')){ simProxima(); return; }
+  if(t.closest('[data-sim-revisar]')){ const r = document.querySelector('#simOverlay .sim-rev'); r.hidden = !r.hidden; if(!r.hidden) r.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+  if(t.closest('[data-sim-refazer]')){ simComecar(e.resp.filter(x=>!x.certo).map(x=>x.i)); return; }
+  if(t.closest('[data-sim-denovo]')){ e.tela = 'inicio'; simRender(); return; }
+}
+document.addEventListener('click', ev=>{
+  const a = ev.target.closest('[data-sim-abrir]'); if(!a) return;
+  ev.preventDefault(); simAbrir(a.dataset.simAbrir, {push:true});
+});
+document.addEventListener('keydown', ev=>{
+  if(!simEst || document.getElementById('simOverlay')?.hidden) return;
+  if(ev.key === 'Escape'){ simSair(); return; }
+  if(simEst.tela !== 'jogo') return;
+  if(!simEst.respondida){
+    const n = 'abcde'.indexOf(ev.key.toLowerCase()); const m = '12345'.indexOf(ev.key); const p = n >= 0 ? n : m;
+    if(p >= 0){ const b = document.querySelectorAll('#simOverlay [data-sim-op]')[p]; if(b){ ev.preventDefault(); b.click(); } }
+  } else if(ev.key === 'Enter' || ev.key === ' ' || ev.key === 'ArrowRight'){ ev.preventDefault(); simProxima(); }
+});
 
 
 // ===== Revisão dos erros =====
