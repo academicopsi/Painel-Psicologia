@@ -7674,13 +7674,13 @@ function scrollToSection(sectionId){
   }, 30);
 }
 
-document.querySelectorAll('[data-page]').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    switchPage(btn.dataset.page);
-    if(btn.dataset.target){
-      setTimeout(()=> revealTarget(btn.dataset.target), 30);
-    }
-  });
+// delegado: também funciona em botões criados depois do carregamento (ex.: Revisão dos erros vazia)
+document.addEventListener('click', e=>{
+  const btn = e.target.closest('[data-page]'); if(!btn) return;
+  switchPage(btn.dataset.page);
+  if(btn.dataset.target){
+    setTimeout(()=> revealTarget(btn.dataset.target), 30);
+  }
 });
 document.querySelectorAll('[data-scroll]').forEach(btn=>{
   btn.addEventListener('click', ()=> scrollToSection(btn.dataset.scroll));
