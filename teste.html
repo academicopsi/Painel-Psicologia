@@ -11343,20 +11343,22 @@ const EXH = {
       'Sente-se ao lado do participante, controlando a passagem dos slides. Se for on-line, prefira o Google Meet, com a tela compartilhada.',
       'Tenha a folha de registro em mãos (de papel ou a digital, mais abaixo).']},
     {t:'Cuidados éticos', itens:[
-      'Conte ao participante que é um trabalho da disciplina, que serve para os alunos aprenderem conceitos básicos de análise experimental do comportamento, e diga o nome da professora e da faculdade.',
+      'Conte ao participante que é um trabalho da disciplina e que serve para os alunos aprenderem conceitos básicos de análise experimental do comportamento. Diga o nome da disciplina, da professora e da faculdade.',
       'Avise que ele pode interromper a qualquer momento, sem nenhum prejuízo.',
       'Só comece se ele concordar.']},
     {t:'Instrução padronizada (leia exatamente)', fala:true, itens:[
       '"O propósito deste experimento é verificar como as pessoas constroem frases e ele não envolve avaliação de inteligência ou de personalidade. Vou mostrar a você slides contendo, cada um, um verbo no infinitivo e uma lista de pronomes. Diga em voz alta uma frase que comece com um dos pronomes e contenha o verbo em questão. Você pode usar o verbo em qualquer tempo. Não importa que a frase seja longa ou curta, verdadeira ou falsa, simples ou complexa. Inicialmente você pode achar a tarefa difícil, mas logo ela parecerá mais fácil, portanto, não desanime. Você entendeu?"',
+      'Ao terminar a leitura, pergunte se ele entendeu. Só continue se a resposta for sim.',
       'Se ele pedir mais explicações, apenas leia a instrução de novo, sem comentar nada. Assim todos os participantes recebem a mesma instrução.',
       'Se ele fizer perguntas durante a tarefa, ou disser uma frase sem pronome ou sem o verbo, interrompa e diga: "Lembre-se de que você deve construir uma frase que comece com um dos pronomes deste slide e que utilize o verbo em questão. Você pode usar o verbo em qualquer tempo. Não importa que a frase seja longa ou curta, verdadeira ou falsa, simples ou complexa."']},
     {t:'Fase I: linha de base (verbos 1 a 10)', itens:[
-      'Do Representar ao Esperar, não reforce nada.',
+      'As duas fases são aplicadas uma seguida da outra, numa única sessão.',
+      'Do Representar ao Esperar, não reforce nada, qualquer que seja o pronome.',
       'Só registre o pronome usado e passe para o próximo slide quando ele terminar a frase.']},
     {t:'Fase II: reforço (verbos 11 a 40)', itens:[
       'A partir do Escrever (11º verbo), reforce só UM pronome: EU ou NÓS. Nunca os dois.',
       'O pronome escolhido precisa ter aparecido pelo menos 2 vezes na Fase I.',
-      'Reforce com "Certo", "Muito bem", "Ótimo" ou "Muito bom", variando, de forma natural e aprovadora.',
+      'Reforce sempre que ele terminar uma frase com o pronome escolhido, com "Certo", "Muito bem", "Ótimo" ou "Muito bom", variando ao acaso, de forma natural e aprovadora.',
       'Elogie só depois que a frase terminar. Elogiar no meio dá uma "dica" do que está sendo reforçado.',
       'Cuidado para não reforçar sem querer os outros pronomes com sorriso, olhar de aprovação ou aceno de cabeça.']},
     {t:'Como registrar', itens:[
@@ -11454,14 +11456,14 @@ function exhFolhaHTML(){
       <button type="button" class="exh-tipo-b${st.g === 'blocos' ? ' on' : ''}" data-exh-g="blocos">Pronome reforçado por bloco</button></div>
     <div class="exh-graf">${exhGrafico(st, st.g)}</div>
     <h4 class="rt-h">Dados para o cabeçalho do gráfico</h4>
-    <div class="exh-campos">${campo('nome','Nome completo')}${campo('mat','Matrícula')}${campo('disc','Disciplina','Psicologia Experimental')}${campo('uni','Unidade')}${campo('entrega','Data de entrega','dd/mm/aaaa')}</div>
+    <div class="exh-campos">${campo('nome','Nome completo')}${campo('mat','Matrícula')}${campo('disc','Disciplina','nome como aparece no seu portal')}${campo('uni','Unidade')}${campo('entrega','Data de entrega','dd/mm/aaaa')}</div>
     <div class="exh-acoes">
       <button type="button" class="btn btn-primary" data-exh-imprimir>Imprimir o gráfico</button>
       <button type="button" class="btn" data-exh-copiar>Copiar a tabela para o Excel</button>
       <button type="button" class="link-btn" data-page-go="viewApoio" data-target-go="graficos">Guia: como montar o gráfico no Excel</button>
       <button type="button" class="link-btn exh-limpar" data-exh-limpar>Limpar a folha</button>
     </div>
-    <p class="exh-nota">Tudo fica salvo só neste aparelho. A porcentagem é calculada sobre as respostas válidas de cada fase (as anuladas não entram).</p>`;
+    <p class="exh-nota">Tudo fica salvo só neste aparelho. A porcentagem é calculada sobre as respostas válidas de cada fase (as anuladas não entram). A instrução não diz como tratar as anuladas; se houver alguma, confirme com a professora.</p>`;
 }
 function exhHTML(){
   const st = exhLoad(); const k = exhCalc(st);
@@ -11510,7 +11512,7 @@ document.getElementById('discPage').addEventListener('click', e=>{
       .cab th{text-align:left; padding:3px 12px 3px 0; font-weight:bold;} .cab td{padding:3px 0;} svg{width:100%; max-width:680px; display:block;}
       table.d{border-collapse:collapse; font-size:12px; margin-top:16px;} .d th,.d td{border:1px solid #999; padding:4px 8px; text-align:center;} .alvo td{font-weight:bold;}
       p{font-size:12px;} @page{margin:14mm;}</style></head><body>
-      <table class="cab">${linha('Nome completo:', f.nome)}${linha('Matrícula:', f.mat)}${linha('Disciplina:', f.disc || 'Psicologia Experimental')}${linha('Unidade:', f.uni)}${linha('Data de entrega:', f.entrega)}${linha('Participante:', f.part)}</table>
+      <table class="cab">${linha('Nome completo:', f.nome)}${linha('Matrícula:', f.mat)}${linha('Disciplina:', f.disc)}${linha('Unidade:', f.uni)}${linha('Data de entrega:', f.entrega)}${linha('Participante:', f.part)}</table>
       ${exhGrafico(st, st.g)}
       ${exhTabelaHTML(st).replace('class="exh-tab"','class="d"')}
       <p>Frequência relativa = respostas com o pronome ÷ respostas válidas da fase × 100. Linha de base: verbos 1 a 10. Reforço: verbos 11 a 40.</p>
