@@ -2170,7 +2170,7 @@
   .exh-tab{border-collapse:collapse; font-size:13px; margin:4px 0 12px;}
   .exh-tab th, .exh-tab td{border:1px solid var(--rule); padding:5px 10px; text-align:center;}
   .exh-tab th{background:var(--paper-alt); font-size:12px;} .exh-tab th small{font-weight:400; color:var(--ink-faint);}
-  .exh-tab td:first-child{text-align:left; font-weight:600;} .exh-tab tr.alvo td{background:color-mix(in srgb, var(--petrol) 12%, transparent); font-weight:700;}
+  .exh-tab td:first-child{text-align:left; font-weight:600;} .exh-tab tfoot td{font-weight:700; background:var(--paper-alt);} .exh-tab tr.alvo td{background:color-mix(in srgb, var(--petrol) 12%, transparent); font-weight:700;}
   .exh-tipo{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:6px 0 8px; font-size:14px; font-weight:600;}
   .exh-graf{background:#fff; border:1px solid var(--rule); border-radius:6px; padding:8px;}
   .exh-svg{width:100%; height:auto; display:block;}
@@ -11356,7 +11356,7 @@ const EXH = {
       'As duas fases são aplicadas uma seguida da outra, numa única sessão.',
       'Do Representar ao Esperar, não reforce nada, qualquer que seja o pronome.',
       'Só registre o pronome usado e passe para o próximo slide quando ele terminar a frase.']},
-    {t:'Fase II: reforço (verbos 11 a 40)', itens:[
+    {t:'Fase II: intervenção, com reforço (verbos 11 a 40)', itens:[
       'A partir do Escrever (11º verbo), reforce só UM pronome: EU ou NÓS. Nunca os dois.',
       'O pronome escolhido precisa ter aparecido pelo menos 2 vezes na Fase I.',
       'Reforce sempre que ele terminar uma frase com o pronome escolhido, com "Certo", "Muito bem", "Ótimo" ou "Muito bom", variando ao acaso, de forma natural e aprovadora.',
@@ -11371,9 +11371,10 @@ const EXH = {
       'Agradeça e diga que o experimento terminou.',
       'Pergunte e anote as respostas no verso da folha: 1) O que você achou do experimento? 2) Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais? 3) O que levou você a escolher este ou aquele pronome?']},
     {t:'O que entregar', itens:[
-      'Um gráfico de frequência relativa (%) impresso.',
-      'No gráfico: nome completo, matrícula, nome da disciplina, unidade e data de entrega.',
-      'Confirme com a professora o modelo de gráfico pedido. A folha digital monta os dois modelos mais comuns e a tabela para você refazer no Excel.']},
+      'Um gráfico de frequência relativa (%) impresso, com nome completo, matrícula, nome da disciplina, unidade e data de entrega.',
+      'Nos vídeos da pasta, a planilha tem três abas: Frequência absoluta (quantas vezes cada pronome apareceu na linha de base e na intervenção), Frequência relativa (frequência absoluta × 100 ÷ 10 na LB e ÷ 30 na INT) e Comparativo LB-INT.',
+      'O gráfico dos vídeos é de colunas: os pronomes no eixo horizontal, a frequência relativa no vertical, uma coluna para LB e outra para INT, e o título com o participante e o pronome reforçado (por exemplo, "P1 - Nós").',
+      'A folha digital abaixo faz as mesmas contas e o mesmo gráfico, e copia as tabelas para você colar na planilha.']},
   ],
 };
 function exhLoad(){ try{ return JSON.parse(localStorage.getItem('av-experimento')) || {}; }catch(e){ return {}; } }
@@ -11382,7 +11383,7 @@ function exhCalc(st){
   const r = st.r || {}; const P = EXH.pronomes;
   const fase = (ini, fim)=>{ const c = P.map(()=>0); let validas = 0, anuladas = 0;
     for(let i=ini;i<fim;i++){ const v = r[i]; if(v === 'x') anuladas++; else if(v != null){ c[v]++; validas++; } }
-    return {c, validas, anuladas, pct: c.map(n=> validas ? n/validas*100 : 0)}; };
+    return {c, validas, anuladas, pct: c.map(n=> n*100/(fim-ini))}; };
   const lb = fase(0,10), rf = fase(10,40);
   const alvo = st.alvo === 'Nós' ? 3 : st.alvo === 'Eu' ? 0 : -1;
   const blocos = [[0,10],[10,20],[20,30],[30,40]].map(([a,b])=>{ const f = fase(a,b); return {validas:f.validas, pct: alvo >= 0 ? f.pct[alvo] : 0, n: alvo >= 0 ? f.c[alvo] : 0}; });
@@ -11390,47 +11391,32 @@ function exhCalc(st){
   return {lb, rf, alvo, blocos, registradas};
 }
 const exhFmt = n => (Math.round(n*10)/10).toLocaleString('pt-BR');
-function exhGrafico(st, k){
-  const W = 640, H = 350, L = 56, R = 16, T = 52, B = 58, ph = H-T-B, pw = W-L-R;
-  const k_ = exhCalc(st); const P = EXH.pronomes;
+function exhGrafico(st){
+  const W = 640, H = 350, L = 56, R = 110, T = 52, B = 58, ph = H-T-B, pw = W-L-R;
+  const k_ = exhCalc(st); const P = EXH.pronomes; const f = st.f || {};
   const y = v => T + ph - v/100*ph;
+  const LB = '#4285F4', INT = '#EA4335';
   let g = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" class="exh-svg" role="img" font-family="Arial, Helvetica, sans-serif">`;
-  for(let v=0; v<=100; v+=20) g += `<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#E2DED6"/><text x="${L-8}" y="${y(v)+4}" font-size="12" text-anchor="end" fill="#555">${v}</text>`;
-  g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${T+ph}" stroke="#333"/><line x1="${L}" x2="${W-R}" y1="${T+ph}" y2="${T+ph}" stroke="#333"/>`;
+  for(let v=0; v<=100; v+=20) g += `<line x1="${L}" x2="${L+pw}" y1="${y(v)}" y2="${y(v)}" stroke="#E2DED6"/><text x="${L-8}" y="${y(v)+4}" font-size="12" text-anchor="end" fill="#555">${v}</text>`;
+  g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${T+ph}" stroke="#333"/><line x1="${L}" x2="${L+pw}" y1="${T+ph}" y2="${T+ph}" stroke="#333"/>`;
   g += `<text transform="translate(16 ${T+ph/2}) rotate(-90)" font-size="13" text-anchor="middle" fill="#222">Frequência relativa (%)</text>`;
-  const alvoNome = k_.alvo >= 0 ? P[k_.alvo].toUpperCase() : '—';
-  if(k === 'blocos'){
-    const xs = [0,1,2,3].map(i=> L + pw*(i+0.5)/4);
-    g += `<text x="${W/2}" y="22" font-size="14" font-weight="bold" text-anchor="middle" fill="#222">Uso do pronome reforçado (${alvoNome}) a cada bloco de 10 verbos</text>`;
-    const xm = (xs[0]+xs[1])/2;
-    g += `<line x1="${xm}" x2="${xm}" y1="${T}" y2="${T+ph}" stroke="#333" stroke-dasharray="5 4"/><text x="${xm-6}" y="${T+14}" font-size="11.5" text-anchor="end" fill="#333">Linha de base</text><text x="${xm+6}" y="${T+14}" font-size="11.5" fill="#333">Reforço</text>`;
-    // só os blocos que já têm respostas registradas
-    const pts = k_.blocos.map((b,i)=> b.validas ? [xs[i], y(b.pct)] : null);
-    const linha = pts.slice(1).filter(Boolean);
-    if(linha.length > 1) g += `<polyline points="${linha.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#1F5C56" stroke-width="2.5"/>`;
-    k_.blocos.forEach((b,i)=>{
-      if(b.validas) g += `<circle cx="${xs[i]}" cy="${y(b.pct)}" r="5" fill="${i ? '#1F5C56' : '#7B8287'}"/><text x="${xs[i]}" y="${y(b.pct)-10}" font-size="12" text-anchor="middle" fill="#222">${exhFmt(b.pct)}%</text>`;
-      else g += `<text x="${xs[i]}" y="${T+ph-10}" font-size="11" text-anchor="middle" fill="#999">sem dados</text>`;
-      g += `<text x="${xs[i]}" y="${T+ph+20}" font-size="12.5" text-anchor="middle" fill="#222">Verbos ${[ '1–10','11–20','21–30','31–40'][i]}</text>`; });
-    g += `<text x="${L+pw/2}" y="${H-12}" font-size="13" text-anchor="middle" fill="#222">Blocos de verbos</text>`;
-  } else {
-    g += `<text x="${W/2}" y="22" font-size="14" font-weight="bold" text-anchor="middle" fill="#222">Frequência relativa de cada pronome na linha de base e no reforço (reforçado: ${alvoNome})</text>`;
-    const gw = pw/6, bw = gw*0.32;
-    P.forEach((p,i)=>{ const cx = L + gw*(i+0.5);
-      [[k_.lb.pct[i], '#9AA1A6', -bw-2],[k_.rf.pct[i], '#1F5C56', 2]].forEach(([v,cor,dx])=>{
-        g += `<rect x="${cx+dx}" y="${y(v)}" width="${bw}" height="${T+ph-y(v)}" fill="${cor}"/>`;
-        if(v > 0) g += `<text x="${cx+dx+bw/2}" y="${y(v)-5}" font-size="11" text-anchor="middle" fill="#222">${exhFmt(v)}</text>`; });
-      g += `<text x="${cx}" y="${T+ph+20}" font-size="12.5" text-anchor="middle" fill="#222"${i === k_.alvo ? ' font-weight="bold"' : ''}>${p}</text>`; });
-    g += `<text x="${L+pw/2}" y="${H-12}" font-size="13" text-anchor="middle" fill="#222">Pronome</text>`;
-    g += `<rect x="${W-R-208}" y="${T}" width="12" height="12" fill="#9AA1A6"/><text x="${W-R-191}" y="${T+10}" font-size="12" fill="#222">Linha de base (verbos 1–10)</text>`;
-    g += `<rect x="${W-R-208}" y="${T+18}" width="12" height="12" fill="#1F5C56"/><text x="${W-R-191}" y="${T+28}" font-size="12" fill="#222">Reforço (verbos 11–40)</text>`;
-  }
+  const titulo = `${(f.part || 'P1').trim()} - ${k_.alvo >= 0 ? P[k_.alvo] : 'pronome reforçado'}`;
+  g += `<text x="${L+pw/2}" y="26" font-size="16" font-weight="bold" text-anchor="middle" fill="#222">${escHTML(titulo)}</text>`;
+  const gw = pw/6, bw = gw*0.32;
+  P.forEach((p,i)=>{ const cx = L + gw*(i+0.5);
+    [[k_.lb.pct[i], LB, -bw-2],[k_.rf.pct[i], INT, 2]].forEach(([v,cor,dx])=>{
+      g += `<rect x="${cx+dx}" y="${y(v)}" width="${bw}" height="${T+ph-y(v)}" fill="${cor}"/>`;
+      if(v > 0) g += `<text x="${cx+dx+bw/2}" y="${y(v)-5}" font-size="10.5" text-anchor="middle" fill="#222">${exhFmt(v)}</text>`; });
+    g += `<text x="${cx}" y="${T+ph+20}" font-size="12.5" text-anchor="middle" fill="#222">${p}</text>`; });
+  g += `<text x="${L+pw/2}" y="${H-12}" font-size="13" text-anchor="middle" fill="#222">Pronomes</text>`;
+  g += `<rect x="${L+pw+16}" y="${T+4}" width="12" height="12" fill="${LB}"/><text x="${L+pw+33}" y="${T+14}" font-size="12.5" fill="#222">LB</text>`;
+  g += `<rect x="${L+pw+16}" y="${T+24}" width="12" height="12" fill="${INT}"/><text x="${L+pw+33}" y="${T+34}" font-size="12.5" fill="#222">INT</text>`;
   return g + '</svg>';
 }
 function exhTabelaHTML(st){
   const k = exhCalc(st); const P = EXH.pronomes;
-  return `<table class="exh-tab"><thead><tr><th>Pronome</th><th>Linha de base<br><small>${k.lb.validas} válidas</small></th><th>%</th><th>Reforço<br><small>${k.rf.validas} válidas</small></th><th>%</th></tr></thead>
-    <tbody>${P.map((p,i)=>`<tr${i === k.alvo ? ' class="alvo"' : ''}><td>${p}</td><td>${k.lb.c[i]}</td><td>${exhFmt(k.lb.pct[i])}</td><td>${k.rf.c[i]}</td><td>${exhFmt(k.rf.pct[i])}</td></tr>`).join('')}</tbody></table>`;
+  return `<table class="exh-tab"><thead><tr><th>Pronomes</th><th>LB<br><small>freq. abs.</small></th><th>LB<br><small>freq. rel. (%)</small></th><th>INT<br><small>freq. abs.</small></th><th>INT<br><small>freq. rel. (%)</small></th></tr></thead>
+    <tbody>${P.map((p,i)=>`<tr${i === k.alvo ? ' class="alvo"' : ''}><td>${p}</td><td>${k.lb.c[i]}</td><td>${exhFmt(k.lb.pct[i])}</td><td>${k.rf.c[i]}</td><td>${exhFmt(k.rf.pct[i])}</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td>${k.lb.c.reduce((a,b)=>a+b,0)}</td><td>${exhFmt(k.lb.pct.reduce((a,b)=>a+b,0))}</td><td>${k.rf.c.reduce((a,b)=>a+b,0)}</td><td>${exhFmt(k.rf.pct.reduce((a,b)=>a+b,0))}</td></tr></tfoot></table>`;
 }
 function exhFolhaHTML(){
   const st = exhLoad(); const r = st.r || {}; const P = EXH.pronomes; const k = exhCalc(st);
@@ -11449,17 +11435,15 @@ function exhFolhaHTML(){
     <div class="exh-folha-wrap"><table class="exh-folha">
       <thead>${cab}</thead>
       <tbody><tr class="exh-fase"><td colspan="9">Fase I · Linha de base: só registrar</td></tr>${[...Array(10)].map((_,i)=>linha(i)).join('')}
-      <tr class="exh-fase"><td colspan="9">Fase II · Reforçar ${k.alvo >= 0 ? `só o "${P[k.alvo].toUpperCase()}"` : 'o pronome escolhido'}, depois que a frase terminar</td></tr>${[...Array(30)].map((_,i)=>linha(i+10)).join('')}</tbody>
+      <tr class="exh-fase"><td colspan="9">Fase II · Intervenção: reforçar ${k.alvo >= 0 ? `só o "${P[k.alvo].toUpperCase()}"` : 'o pronome escolhido'}, depois que a frase terminar</td></tr>${[...Array(30)].map((_,i)=>linha(i+10)).join('')}</tbody>
     </table></div>
     <p class="exh-prog">${k.registradas} de 40 verbos registrados${k.lb.anuladas + k.rf.anuladas ? ` · ${k.lb.anuladas + k.rf.anuladas} anulado${k.lb.anuladas + k.rf.anuladas > 1 ? 's' : ''}` : ''}</p>
     <h4 class="rt-h">Perguntas depois do experimento</h4>
     ${['O que você achou do experimento?','Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais?','O que levou você a escolher este ou aquele pronome?'].map((q,i)=>`<label class="exh-perg"><span>${i+1}. ${q}</span><textarea rows="2" data-exh-q="${i}">${escHTML((st.q || [])[i] || '')}</textarea></label>`).join('')}
     <h4 class="rt-h">Resultado</h4>
     ${exhTabelaHTML(st)}
-    <div class="exh-tipo"><span>Gráfico:</span>
-      <button type="button" class="exh-tipo-b${st.g !== 'blocos' ? ' on' : ''}" data-exh-g="barras">Barras por pronome</button>
-      <button type="button" class="exh-tipo-b${st.g === 'blocos' ? ' on' : ''}" data-exh-g="blocos">Pronome reforçado por bloco</button></div>
-    <div class="exh-graf">${st.g === 'blocos' && !st.alvo ? '<p class="exh-vazio">Para ver este gráfico, escolha lá em cima o pronome reforçado (EU ou NÓS).</p>' : exhCalc(st).registradas ? exhGrafico(st, st.g) : '<p class="exh-vazio">O gráfico aparece aqui assim que você marcar as respostas na folha.</p>'}</div>
+    <div class="exh-graf">${exhCalc(st).registradas ? exhGrafico(st) : '<p class="exh-vazio">O gráfico aparece aqui assim que você marcar as respostas na folha.</p>'}</div>
+    ${(()=>{ const k = exhCalc(st); const an = k.lb.anuladas + k.rf.anuladas; return an ? `<p class="exh-aviso">Você tem ${an} ${an === 1 ? 'tentativa anulada' : 'tentativas anuladas'}. A conta segue o modelo dos vídeos (× 100 ÷ 10 na LB e ÷ 30 na INT), então os totais não chegam a 100%. Confirme com a professora como tratar as anuladas.</p>` : ''; })()}
     <h4 class="rt-h">Dados para o cabeçalho do gráfico</h4>
     <div class="exh-campos">${campo('nome','Nome completo')}${campo('mat','Matrícula')}${campo('disc','Disciplina','nome como aparece no seu portal')}${campo('uni','Unidade')}${campo('entrega','Data de entrega','dd/mm/aaaa')}</div>
     <div class="exh-acoes">
@@ -11468,12 +11452,12 @@ function exhFolhaHTML(){
       <button type="button" class="link-btn" data-page-go="viewApoio" data-target-go="graficos">Guia: como montar o gráfico no Excel</button>
       <button type="button" class="link-btn exh-limpar" data-exh-limpar>Limpar a folha</button>
     </div>
-    <p class="exh-nota">Tudo fica salvo só neste aparelho. A porcentagem é calculada sobre as respostas válidas de cada fase (as anuladas não entram). A instrução não diz como tratar as anuladas; se houver alguma, confirme com a professora.</p>`;
+    <p class="exh-nota">Tudo fica salvo só neste aparelho. As contas e o gráfico seguem o modelo dos vídeos da pasta: frequência relativa = frequência absoluta × 100 ÷ 10 na linha de base (LB) e ÷ 30 na intervenção (INT), e gráfico de colunas LB × INT por pronome.</p>`;
 }
 function exhHTML(){
   const st = exhLoad(); const k = exhCalc(st);
   return `<details class="rt-box" id="exh" data-exh>
-    <summary class="rt-sum"><span class="rt-sum-t">Trabalho com humanos: reforço do pronome EU ou NÓS</span><span class="rt-sum-s">Passo a passo, folha de registro digital e gráfico de frequência relativa (%) · ${k.registradas} de 40 verbos registrados</span><span class="rt-sum-go">Abrir</span></summary>
+    <summary class="rt-sum"><span class="rt-sum-t">Trabalho com humanos: reforço do pronome EU ou NÓS</span><span class="rt-sum-s">Passo a passo, folha de registro digital e gráfico LB × INT · ${k.registradas} de 40 verbos registrados</span><span class="rt-sum-go">Abrir</span></summary>
     <div class="rt">
       <div class="rt-head">
         <p class="rt-intro">Experimento individual baseado na Prática 16 de Matos e Tomanari (2002), <em>A análise do comportamento no laboratório</em>, adaptada pela disciplina. O objetivo é ver o efeito de reforçar diferencialmente um pronome (EU ou NÓS) na construção de frases: 10 verbos de linha de base e 30 com reforço.</p>
@@ -11488,21 +11472,20 @@ function exhHTML(){
   </details>`;
 }
 function exhRefazer(){ const el = document.getElementById('exhFolha'); if(el){ const sy = window.scrollY; el.innerHTML = exhFolhaHTML(); window.scrollTo(0, sy); }
-  const s = document.querySelector('#exh .rt-sum-s'); if(s){ const k = exhCalc(exhLoad()); s.textContent = `Passo a passo, folha de registro digital e gráfico de frequência relativa (%) · ${k.registradas} de 40 verbos registrados`; } }
+  const s = document.querySelector('#exh .rt-sum-s'); if(s){ const k = exhCalc(exhLoad()); s.textContent = `Passo a passo, folha de registro digital e gráfico LB × INT · ${k.registradas} de 40 verbos registrados`; } }
 document.getElementById('discPage').addEventListener('click', e=>{
   const b = e.target.closest('[data-exh-r]');
   if(b){ const st = exhLoad(); st.r = st.r || {}; const i = +b.dataset.exhR; const v = b.dataset.exhP === 'x' ? 'x' : +b.dataset.exhP;
     if(st.r[i] === v) delete st.r[i]; else st.r[i] = v; exhSave(st); exhRefazer(); return; }
   const a = e.target.closest('[data-exh-alvo]');
   if(a){ const st = exhLoad(); st.alvo = st.alvo === a.dataset.exhAlvo ? null : a.dataset.exhAlvo; exhSave(st); exhRefazer(); return; }
-  const g = e.target.closest('[data-exh-g]');
-  if(g){ const st = exhLoad(); st.g = g.dataset.exhG; exhSave(st); exhRefazer(); return; }
   if(e.target.closest('[data-exh-limpar]')){ if(!confirm('Apagar todas as marcações e anotações da folha de registro deste aparelho?')) return; const st = exhLoad(); exhSave({f: st.f}); exhRefazer(); return; }
   if(e.target.closest('[data-exh-copiar]')){
     const st = exhLoad(); const k = exhCalc(st);
-    let t = 'Pronome\tLinha de base (n)\tLinha de base (%)\tReforço (n)\tReforço (%)\n';
-    EXH.pronomes.forEach((p,i)=> t += `${p}\t${k.lb.c[i]}\t${exhFmt(k.lb.pct[i])}\t${k.rf.c[i]}\t${exhFmt(k.rf.pct[i])}\n`);
-    t += '\nBloco de verbos\tPronome reforçado (%)\n'; ['1–10','11–20','21–30','31–40'].forEach((b,i)=> t += `${b}\t${exhFmt(k.blocos[i].pct)}\n`);
+    let t = 'Frequência absoluta\nPronomes\tLB\tINT\n';
+    EXH.pronomes.forEach((p,i)=> t += `${p}\t${k.lb.c[i]}\t${k.rf.c[i]}\n`);
+    t += `Total\t${k.lb.c.reduce((a,b)=>a+b,0)}\t${k.rf.c.reduce((a,b)=>a+b,0)}\n\nComparativo LB-INT (frequência relativa, %)\nPronomes\tLB\tINT\n`;
+    EXH.pronomes.forEach((p,i)=> t += `${p}\t${exhFmt(k.lb.pct[i])}\t${exhFmt(k.rf.pct[i])}\n`);
     const ok = ()=>{ const btn = e.target.closest('[data-exh-copiar]'); btn.textContent = 'Tabela copiada'; setTimeout(()=> btn.textContent = 'Copiar a tabela para o Excel', 1800); };
     if(navigator.clipboard) navigator.clipboard.writeText(t).then(ok, ()=> prompt('Copie a tabela:', t)); else prompt('Copie a tabela:', t);
     return;
@@ -11518,16 +11501,18 @@ document.getElementById('discPage').addEventListener('click', e=>{
       table.d{border-collapse:collapse; font-size:12px; margin-top:16px;} .d th,.d td{border:1px solid #999; padding:4px 8px; text-align:center;} .alvo td{font-weight:bold;}
       p{font-size:12px;} @page{margin:14mm;}</style></head><body>
       <table class="cab">${linha('Nome completo:', f.nome)}${linha('Matrícula:', f.mat)}${linha('Disciplina:', f.disc)}${linha('Unidade:', f.uni)}${linha('Data de entrega:', f.entrega)}${linha('Participante:', f.part)}</table>
-      ${exhGrafico(st, st.g)}
+      ${exhGrafico(st)}
       ${exhTabelaHTML(st).replace('class="exh-tab"','class="d"')}
-      <p>Frequência relativa = respostas com o pronome ÷ respostas válidas da fase × 100. Linha de base: verbos 1 a 10. Reforço: verbos 11 a 40.</p>
+      <p>LB: linha de base (verbos 1 a 10). INT: intervenção, com reforço (verbos 11 a 40). Frequência relativa = frequência absoluta × 100 ÷ 10 (LB) ou ÷ 30 (INT).</p>
       <script>window.onload = function(){ window.print(); };<\/script></body></html>`);
     w.document.close();
   }
 });
 document.getElementById('discPage').addEventListener('input', e=>{
   const fi = e.target.closest('[data-exh-f]');
-  if(fi){ const st = exhLoad(); st.f = st.f || {}; st.f[fi.dataset.exhF] = fi.value; exhSave(st); return; }
+  if(fi){ const st = exhLoad(); st.f = st.f || {}; st.f[fi.dataset.exhF] = fi.value; exhSave(st);
+    if(fi.dataset.exhF === 'part'){ const gr = document.querySelector('#exh .exh-graf'); if(gr && exhCalc(st).registradas) gr.innerHTML = exhGrafico(st); }
+    return; }
   const q = e.target.closest('[data-exh-q]');
   if(q){ const st = exhLoad(); st.q = st.q || []; st.q[+q.dataset.exhQ] = q.value; exhSave(st); }
 });
