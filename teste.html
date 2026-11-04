@@ -2174,6 +2174,7 @@
   .exh-tipo{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:6px 0 8px; font-size:14px; font-weight:600;}
   .exh-graf{background:#fff; border:1px solid var(--rule); border-radius:6px; padding:8px;}
   .exh-svg{width:100%; height:auto; display:block;}
+  .exh-vazio{margin:0; padding:34px 14px; text-align:center; color:#666; font-size:14px;}
   .exh-acoes{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:6px;}
   .exh-limpar{color:#B8323F !important;}
   .exh-nota{font-size:12.5px; color:var(--ink-faint); margin-top:10px;}
@@ -11403,9 +11404,13 @@ function exhGrafico(st, k){
     g += `<text x="${W/2}" y="22" font-size="14" font-weight="bold" text-anchor="middle" fill="#222">Uso do pronome reforçado (${alvoNome}) a cada bloco de 10 verbos</text>`;
     const xm = (xs[0]+xs[1])/2;
     g += `<line x1="${xm}" x2="${xm}" y1="${T}" y2="${T+ph}" stroke="#333" stroke-dasharray="5 4"/><text x="${xm-6}" y="${T+14}" font-size="11.5" text-anchor="end" fill="#333">Linha de base</text><text x="${xm+6}" y="${T+14}" font-size="11.5" fill="#333">Reforço</text>`;
-    const pts = k_.blocos.map((b,i)=>[xs[i], y(b.pct)]);
-    g += `<polyline points="${pts.slice(1).map(p=>p.join(',')).join(' ')}" fill="none" stroke="#1F5C56" stroke-width="2.5"/>`;
-    k_.blocos.forEach((b,i)=>{ g += `<circle cx="${xs[i]}" cy="${y(b.pct)}" r="5" fill="${i ? '#1F5C56' : '#7B8287'}"/><text x="${xs[i]}" y="${y(b.pct)-10}" font-size="12" text-anchor="middle" fill="#222">${exhFmt(b.pct)}%</text>`;
+    // só os blocos que já têm respostas registradas
+    const pts = k_.blocos.map((b,i)=> b.validas ? [xs[i], y(b.pct)] : null);
+    const linha = pts.slice(1).filter(Boolean);
+    if(linha.length > 1) g += `<polyline points="${linha.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#1F5C56" stroke-width="2.5"/>`;
+    k_.blocos.forEach((b,i)=>{
+      if(b.validas) g += `<circle cx="${xs[i]}" cy="${y(b.pct)}" r="5" fill="${i ? '#1F5C56' : '#7B8287'}"/><text x="${xs[i]}" y="${y(b.pct)-10}" font-size="12" text-anchor="middle" fill="#222">${exhFmt(b.pct)}%</text>`;
+      else g += `<text x="${xs[i]}" y="${T+ph-10}" font-size="11" text-anchor="middle" fill="#999">sem dados</text>`;
       g += `<text x="${xs[i]}" y="${T+ph+20}" font-size="12.5" text-anchor="middle" fill="#222">Verbos ${[ '1–10','11–20','21–30','31–40'][i]}</text>`; });
     g += `<text x="${L+pw/2}" y="${H-12}" font-size="13" text-anchor="middle" fill="#222">Blocos de verbos</text>`;
   } else {
@@ -11454,7 +11459,7 @@ function exhFolhaHTML(){
     <div class="exh-tipo"><span>Gráfico:</span>
       <button type="button" class="exh-tipo-b${st.g !== 'blocos' ? ' on' : ''}" data-exh-g="barras">Barras por pronome</button>
       <button type="button" class="exh-tipo-b${st.g === 'blocos' ? ' on' : ''}" data-exh-g="blocos">Pronome reforçado por bloco</button></div>
-    <div class="exh-graf">${exhGrafico(st, st.g)}</div>
+    <div class="exh-graf">${st.g === 'blocos' && !st.alvo ? '<p class="exh-vazio">Para ver este gráfico, escolha lá em cima o pronome reforçado (EU ou NÓS).</p>' : exhCalc(st).registradas ? exhGrafico(st, st.g) : '<p class="exh-vazio">O gráfico aparece aqui assim que você marcar as respostas na folha.</p>'}</div>
     <h4 class="rt-h">Dados para o cabeçalho do gráfico</h4>
     <div class="exh-campos">${campo('nome','Nome completo')}${campo('mat','Matrícula')}${campo('disc','Disciplina','nome como aparece no seu portal')}${campo('uni','Unidade')}${campo('entrega','Data de entrega','dd/mm/aaaa')}</div>
     <div class="exh-acoes">
