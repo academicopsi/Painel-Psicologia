@@ -2139,6 +2139,56 @@
   .eb-leg button{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; padding:5px 9px 5px 5px; border:1px solid var(--rule); border-radius:999px; background:var(--paper); color:var(--ink); cursor:pointer;}
   .eb-leg button b{display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:#1B2422; color:#fff; font-size:11px;}
   .eb-leg button.on{border-color:#F08A24; box-shadow:0 0 0 2px rgba(240,138,36,.25);}
+
+  /* Experimental: trabalho com humanos */
+  .exh-mat{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+  .exh-fala li{font-style:italic;} .exh-fala li + li{font-style:normal;}
+  .exh-campos{display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:8px 12px; margin:4px 0 12px;}
+  .exh-campo{display:flex; flex-direction:column; gap:4px; font-size:12.5px; font-weight:600; color:var(--ink-soft);}
+  .exh-campo input, .exh-perg textarea{font:inherit; font-size:14px; font-weight:400; padding:8px 10px; border:1px solid var(--rule); border-radius:6px; background:var(--paper); color:var(--ink);}
+  .exh-alvo{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:6px 0 10px; font-size:14px; font-weight:600;}
+  .exh-alvo small{flex-basis:100%; font-weight:400; color:var(--ink-faint);}
+  .exh-alvo-b, .exh-tipo-b{font:inherit; font-size:13.5px; font-weight:700; padding:6px 14px; border-radius:999px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); cursor:pointer;}
+  .exh-alvo-b.on, .exh-tipo-b.on{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  .exh-aviso{background:var(--ochre-soft); border-left:3px solid var(--ochre); padding:8px 12px; border-radius:6px; font-size:13.5px;}
+  .exh-folha-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--rule); border-radius:6px;}
+  .exh-folha{border-collapse:collapse; width:100%; min-width:560px; font-size:13px;}
+  .exh-folha th{position:sticky; top:0; background:var(--paper-alt); font-size:11.5px; padding:6px 4px; border-bottom:1px solid var(--rule);}
+  .exh-folha td{padding:3px 4px; border-bottom:1px solid var(--rule); text-align:center;}
+  .exh-folha .exh-n{color:var(--ink-faint); font-family:var(--mono); font-size:11.5px; width:24px;}
+  .exh-folha .exh-v{text-align:left; font-weight:600; white-space:nowrap;}
+  .exh-folha tr.exh-fase td{background:var(--petrol); color:#fff; font-weight:700; text-align:left; font-size:12.5px; padding:6px 8px;}
+  .exh-folha tr.anul td.exh-v{text-decoration:line-through; color:var(--ink-faint);}
+  .exh-b{width:34px; height:30px; border-radius:6px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); font-weight:800; cursor:pointer;}
+  .exh-b.alvo{border-color:var(--petrol-line);}
+  .exh-b.on{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .exh-anul{font:inherit; font-size:11.5px; padding:4px 8px; border-radius:6px; border:1px solid var(--rule); background:transparent; color:var(--ink-soft); cursor:pointer;}
+  .exh-anul.on{background:#B8323F; border-color:#B8323F; color:#fff;}
+  .exh-prog{font-size:13px; color:var(--ink-soft); margin:8px 0 14px;}
+  .exh-perg{display:flex; flex-direction:column; gap:4px; font-size:13.5px; margin-bottom:8px;}
+  .exh-tab{border-collapse:collapse; font-size:13px; margin:4px 0 12px;}
+  .exh-tab th, .exh-tab td{border:1px solid var(--rule); padding:5px 10px; text-align:center;}
+  .exh-tab th{background:var(--paper-alt); font-size:12px;} .exh-tab th small{font-weight:400; color:var(--ink-faint);}
+  .exh-tab td:first-child{text-align:left; font-weight:600;} .exh-tab tfoot td{font-weight:700; background:var(--paper-alt);} .exh-tab tr.alvo td{background:color-mix(in srgb, var(--petrol) 12%, transparent); font-weight:700;}
+  .exh-tipo{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:6px 0 8px; font-size:14px; font-weight:600;}
+  .exh-graf{background:#fff; border:1px solid var(--rule); border-radius:8px; padding:6px; overflow:hidden;}
+  .exh-svg{width:100%; height:auto; display:block;}
+  .exh-vazio{margin:0; padding:34px 14px; text-align:center; color:#666; font-size:14px;}
+  .exh-acoes{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:6px;}
+  .exh-limpar{color:#B8323F !important;}
+  .exh-nota{font-size:12.5px; color:var(--ink-faint); margin-top:10px;}
+  @media (max-width:600px){
+    .exh-folha{min-width:0; font-size:12px;}
+    .exh-folha .exh-n, .exh-folha th:first-child{display:none;}
+    .exh-folha th{font-size:9.5px; padding:5px 1px;}
+    .exh-folha td{padding:3px 1px;}
+    .exh-b{width:23px; height:30px; border-radius:5px;}
+    .exh-anul{font-size:0; width:23px; height:30px; padding:0;}
+    .exh-folha .exh-v{font-size:11px; padding-left:3px;}
+    .exh-folha td{padding:3px 0;}
+    .exh-anul::after{content:"⊘"; font-size:15px;}
+    .exh-folha tr.exh-fase td{font-size:11.5px;}
+  }
 </style>
 </head>
 <body>
@@ -3561,11 +3611,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-04', disc: 'Psicologia Experimental', desc: 'Trabalho com humanos (reforço do pronome EU ou NÓS): passo a passo do experimento, PowerPoint com os 40 slides, folha de registro digital e gráfico LB × INT pronto para imprimir, no modelo dos vídeos da pasta.', link: {url:'#disc-04'}},
   {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam no menu Estudo, em Modo prova, e na página de cada disciplina.', link: {page:'viewSimulados'}},
   {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
   {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
-  {date: '2026-11-02', disc: 'Psicologia da Aprendizagem', desc: 'Piaget (aula 3): resumo interativo, dois exercícios novos, 14 termos no glossário e as comparações assimilação × acomodação e Piaget × Vygotsky. Nova página Revisão dos erros, com as questões erradas nos exercícios e quizzes.', link: {url:'#resumo-piaget'}},
 ];
 
 
@@ -10540,9 +10590,11 @@ function renderDiscPage(d){
   const roteiros = ROTEIROS.filter(r=>r.disc === d.n);
   const simulados = SIM_JOGO.filter(x=>x.disc === d.n);
   const temGuia = MONTADOR.disc === d.n;
+  const temExh = EXH.disc === d.n;
   const atalhos = [
     ['dpPrazos', 'Prazos', c.prazos.length],
     ['dpGuia', 'Relatório', temGuia ? MONTADOR.secoes.length : 0],
+    ['dpExperimento', 'Experimento', temExh ? 40 : 0],
     ['dpRoteiro', 'Estudo dirigido', roteiros.reduce((n, r)=>n + r.questoes.length, 0)],
     ['dpSimulado', 'Simulado', simulados.reduce((n, x)=>n + x.questoes.length, 0)],
     ['dpResumos', 'Resumos', c.resumos.length],
@@ -10571,6 +10623,7 @@ function renderDiscPage(d){
 
   const secSim = simulados.length ? sec('dpSimulado', 'Simulado', '', simulados.map(simHTMLCard).join('')) : '';
 
+  const secExh = temExh ? sec('dpExperimento', 'Trabalho com humanos', 'gráfico de frequência relativa', exhHTML()) : '';
   const secGuia = temGuia ? sec('dpGuia', 'Relatório do projeto', '', montadorHTML() + exemplosHTML()) : '';
 
   const secResumos = c.resumos.length ? sec('dpResumos', 'Resumos', `${resumosFeitos}/${c.resumos.length} estudados`,
@@ -10622,8 +10675,8 @@ function renderDiscPage(d){
     ${continuarHTML(d)}
     ${errAvisoDisc(d)}
     ${prova ? `<div class="modo-prova dp-mp">${modoProvaCard(prova)}</div>` : ''}
-    ${secPrazos}${secGuia}${secRoteiro}${secSim}${secResumos}${secEx}${secVid}${secGl}
-    ${!temGuia && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
+    ${secPrazos}${secGuia}${secExh}${secRoteiro}${secSim}${secResumos}${secEx}${secVid}${secGl}
+    ${!temGuia && !temExh && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
   `;
 }
 document.getElementById('discPage').addEventListener('click', e=>{
@@ -11270,6 +11323,212 @@ document.addEventListener('keydown', ev=>{
 });
 
 
+
+// ===== Psicologia Experimental: trabalho com humanos (reforço de pronome) =====
+// Guia do procedimento + folha de registro digital + gráfico de frequência relativa (%).
+const EXH = {
+  disc: '04',
+  verbos: ['Representar','Mandar','Gostar','Lembrar','Indicar','Favorecer','Defender','Estudar','Verificar','Esperar',
+    'Escrever','Relatar','Aconselhar','Convidar','Plantar','Falar','Precisar','Buscar','Desenhar','Experimentar',
+    'Andar','Rodar','Enganar','Voltar','Vender','Acabar','Administrar','Ajudar','Parar','Apresentar',
+    'Fabricar','Tratar','Telefonar','Chamar','Continuar','Entender','Derrubar','Contar','Confirmar','Desmontar'],
+  pronomes: ['Eu','Tu','Ele/Ela','Nós','Vós','Eles/Elas'],
+  pptx: 'arquivos/experimento-pronomes-40-slides.pptx',
+  pasta: 'https://drive.google.com/drive/folders/162RsDUEGxxKyT1Z3Dr-Xb9-SuF1xzj2F',
+  passos: [
+    {t:'Antes de começar', itens:[
+      'O trabalho é individual. Você é o experimentador e escolhe uma pessoa para ser o participante.',
+      'O participante não pode ser aluno de Psicologia nem ter menos de 10 anos.',
+      'Prepare a apresentação com 40 slides: um verbo por slide e a lista de pronomes (Eu, Tu, Ele/Ela, Nós, Vós, Eles/Elas). O PowerPoint pronto está logo acima.',
+      'Sente-se ao lado do participante, controlando a passagem dos slides. Se for on-line, prefira o Google Meet, com a tela compartilhada.',
+      'Tenha a folha de registro em mãos (de papel ou a digital, mais abaixo).']},
+    {t:'Cuidados éticos', itens:[
+      'Conte ao participante que é um trabalho da disciplina e que serve para os alunos aprenderem conceitos básicos de análise experimental do comportamento. Diga o nome da disciplina, da professora e da faculdade.',
+      'Avise que ele pode interromper a qualquer momento, sem nenhum prejuízo.',
+      'Só comece se ele concordar.']},
+    {t:'Instrução padronizada (leia exatamente)', fala:true, itens:[
+      '"O propósito deste experimento é verificar como as pessoas constroem frases e ele não envolve avaliação de inteligência ou de personalidade. Vou mostrar a você slides contendo, cada um, um verbo no infinitivo e uma lista de pronomes. Diga em voz alta uma frase que comece com um dos pronomes e contenha o verbo em questão. Você pode usar o verbo em qualquer tempo. Não importa que a frase seja longa ou curta, verdadeira ou falsa, simples ou complexa. Inicialmente você pode achar a tarefa difícil, mas logo ela parecerá mais fácil, portanto, não desanime. Você entendeu?"',
+      'Ao terminar a leitura, pergunte se ele entendeu. Só continue se a resposta for sim.',
+      'Se ele pedir mais explicações, apenas leia a instrução de novo, sem comentar nada. Assim todos os participantes recebem a mesma instrução.',
+      'Se ele fizer perguntas durante a tarefa, ou disser uma frase sem pronome ou sem o verbo, interrompa e diga: "Lembre-se de que você deve construir uma frase que comece com um dos pronomes deste slide e que utilize o verbo em questão. Você pode usar o verbo em qualquer tempo. Não importa que a frase seja longa ou curta, verdadeira ou falsa, simples ou complexa."']},
+    {t:'Fase I: linha de base (verbos 1 a 10)', itens:[
+      'As duas fases são aplicadas uma seguida da outra, numa única sessão.',
+      'Do Representar ao Esperar, não reforce nada, qualquer que seja o pronome.',
+      'Só registre o pronome usado e passe para o próximo slide quando ele terminar a frase.']},
+    {t:'Fase II: intervenção, com reforço (verbos 11 a 40)', itens:[
+      'A partir do Escrever (11º verbo), reforce só UM pronome: EU ou NÓS. Nunca os dois.',
+      'O pronome escolhido precisa ter aparecido pelo menos 2 vezes na Fase I.',
+      'Reforce sempre que ele terminar uma frase com o pronome escolhido, com "Certo", "Muito bem", "Ótimo" ou "Muito bom", variando ao acaso, de forma natural e aprovadora.',
+      'Elogie só depois que a frase terminar. Elogiar no meio dá uma "dica" do que está sendo reforçado.',
+      'Cuidado para não reforçar sem querer os outros pronomes com sorriso, olhar de aprovação ou aceno de cabeça.']},
+    {t:'Como registrar', itens:[
+      'Marque um X no pronome usado em cada verbo.',
+      'Se não usar pronome ou não usar o verbo, risque a linha daquela tentativa (na folha digital: "Anular").',
+      'Se ele errar e se corrigir, ou trocar de pronome logo em seguida, anote a segunda resposta.',
+      'No fim, anote seu nome, a data e uma sigla para o participante (por exemplo, P1).']},
+    {t:'Depois do experimento', itens:[
+      'Agradeça e diga que o experimento terminou.',
+      'Pergunte e anote as respostas no verso da folha: 1) O que você achou do experimento? 2) Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais? 3) O que levou você a escolher este ou aquele pronome?']},
+    {t:'O que entregar', itens:[
+      'Um gráfico de frequência relativa (%) impresso, com nome completo, matrícula, nome da disciplina, unidade e data de entrega.',
+      'Nos vídeos da pasta, a planilha tem três abas: Frequência absoluta (quantas vezes cada pronome apareceu na linha de base e na intervenção), Frequência relativa (frequência absoluta × 100 ÷ 10 na LB e ÷ 30 na INT) e Comparativo LB-INT.',
+      'O gráfico dos vídeos é de colunas: os pronomes no eixo horizontal, a frequência relativa no vertical, uma coluna para LB e outra para INT, e o título com o participante e o pronome reforçado (por exemplo, "P1 - Nós").',
+      'A folha digital abaixo faz as mesmas contas e o mesmo gráfico, e copia as tabelas para você colar na planilha.']},
+  ],
+};
+function exhLoad(){ try{ return JSON.parse(localStorage.getItem('av-experimento')) || {}; }catch(e){ return {}; } }
+function exhSave(o){ try{ localStorage.setItem('av-experimento', JSON.stringify(o)); }catch(e){} }
+function exhCalc(st){
+  const r = st.r || {}; const P = EXH.pronomes;
+  const fase = (ini, fim)=>{ const c = P.map(()=>0); let validas = 0, anuladas = 0;
+    for(let i=ini;i<fim;i++){ const v = r[i]; if(v === 'x') anuladas++; else if(v != null){ c[v]++; validas++; } }
+    return {c, validas, anuladas, pct: c.map(n=> n*100/(fim-ini))}; };
+  const lb = fase(0,10), rf = fase(10,40);
+  const alvo = st.alvo === 'Nós' ? 3 : st.alvo === 'Eu' ? 0 : -1;
+  const blocos = [[0,10],[10,20],[20,30],[30,40]].map(([a,b])=>{ const f = fase(a,b); return {validas:f.validas, pct: alvo >= 0 ? f.pct[alvo] : 0, n: alvo >= 0 ? f.c[alvo] : 0}; });
+  const registradas = Object.keys(r).length;
+  return {lb, rf, alvo, blocos, registradas};
+}
+const exhFmt = n => (Math.round(n*10)/10).toLocaleString('pt-BR');
+function exhGrafico(st){
+  const W = 680, H = 380, L = 54, R = 20, T = 92, B = 54, ph = H-T-B, pw = W-L-R;
+  const k_ = exhCalc(st); const P = EXH.pronomes; const f = st.f || {};
+  const y = v => T + ph - v/100*ph;
+  const LB = '#B9C4CC', INT = '#1F5C56', TX = '#1B2422', SUB = '#5E6B68', GRID = '#E7E9E8';
+  const fonte = `font-family="Inter, 'Helvetica Neue', Arial, sans-serif"`;
+  let g = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" class="exh-svg" role="img" ${fonte}>`;
+  g += `<rect width="${W}" height="${H}" fill="#FFFFFF"/>`;
+  // título e subtítulo alinhados à esquerda
+  const titulo = `${(f.part || 'P1').trim()} - ${k_.alvo >= 0 ? P[k_.alvo] : 'pronome reforçado'}`;
+  g += `<text x="${L-30}" y="30" font-size="18" font-weight="700" fill="${TX}">${escHTML(titulo)}</text>`;
+  g += `<text x="${L-30}" y="51" font-size="12.5" fill="${SUB}">Frequência relativa de cada pronome na linha de base (LB) e na intervenção (INT)</text>`;
+  // legenda
+  g += `<rect x="${L-30}" y="64" width="11" height="11" rx="2" fill="${LB}"/><text x="${L-14}" y="74" font-size="12" fill="${TX}">LB · verbos 1–10</text>`;
+  g += `<rect x="${L+96}" y="64" width="11" height="11" rx="2" fill="${INT}"/><text x="${L+112}" y="74" font-size="12" fill="${TX}">INT · verbos 11–40</text>`;
+  // faixa de destaque do pronome reforçado
+  const gw = pw/6;
+  if(k_.alvo >= 0) g += `<rect x="${L + gw*k_.alvo + 4}" y="${T-6}" width="${gw-8}" height="${ph+6}" rx="6" fill="#1F5C56" fill-opacity="0.06"/>`;
+  // grade
+  for(let v=0; v<=100; v+=25){
+    g += `<line x1="${L}" x2="${L+pw}" y1="${y(v)}" y2="${y(v)}" stroke="${v ? GRID : '#9AA3A1'}" stroke-width="${v ? 1 : 1.2}"/>`;
+    g += `<text x="${L-10}" y="${y(v)+4}" font-size="11.5" text-anchor="end" fill="${SUB}">${v}%</text>`;
+  }
+  // colunas
+  const bw = Math.min(26, gw*0.3);
+  P.forEach((p,i)=>{ const cx = L + gw*(i+0.5);
+    [[k_.lb.pct[i], LB, -bw-3, SUB],[k_.rf.pct[i], INT, 3, INT]].forEach(([v,cor,dx,cl])=>{
+      const h = T+ph-y(v);
+      if(h > 0) g += `<path d="M${cx+dx},${T+ph} V${y(v)+3} Q${cx+dx},${y(v)} ${cx+dx+3},${y(v)} H${cx+dx+bw-3} Q${cx+dx+bw},${y(v)} ${cx+dx+bw},${y(v)+3} V${T+ph} Z" fill="${cor}"/>`;
+      if(v > 0) g += `<text x="${cx+dx+bw/2}" y="${y(v)-6}" font-size="10.5" font-weight="600" text-anchor="middle" fill="${cl}">${exhFmt(v)}</text>`; });
+    g += `<text x="${cx}" y="${T+ph+20}" font-size="12.5" text-anchor="middle" fill="${TX}"${i === k_.alvo ? ' font-weight="700"' : ''}>${p}</text>`; });
+  g += `<text x="${L+pw/2}" y="${H-10}" font-size="11.5" text-anchor="middle" fill="${SUB}">Pronomes</text>`;
+  return g + '</svg>';
+}
+function exhTabelaHTML(st){
+  const k = exhCalc(st); const P = EXH.pronomes;
+  return `<table class="exh-tab"><thead><tr><th>Pronomes</th><th>LB<br><small>freq. abs.</small></th><th>LB<br><small>freq. rel. (%)</small></th><th>INT<br><small>freq. abs.</small></th><th>INT<br><small>freq. rel. (%)</small></th></tr></thead>
+    <tbody>${P.map((p,i)=>`<tr${i === k.alvo ? ' class="alvo"' : ''}><td>${p}</td><td>${k.lb.c[i]}</td><td>${exhFmt(k.lb.pct[i])}</td><td>${k.rf.c[i]}</td><td>${exhFmt(k.rf.pct[i])}</td></tr>`).join('')}</tbody><tfoot><tr><td>Total</td><td>${k.lb.c.reduce((a,b)=>a+b,0)}</td><td>${exhFmt(k.lb.pct.reduce((a,b)=>a+b,0))}</td><td>${k.rf.c.reduce((a,b)=>a+b,0)}</td><td>${exhFmt(k.rf.pct.reduce((a,b)=>a+b,0))}</td></tr></tfoot></table>`;
+}
+function exhFolhaHTML(){
+  const st = exhLoad(); const r = st.r || {}; const P = EXH.pronomes; const k = exhCalc(st);
+  const linha = i => `<tr class="${r[i] === 'x' ? 'anul' : ''}"><td class="exh-n">${i+1}</td><td class="exh-v">${EXH.verbos[i]}</td>${P.map((p,j)=>`<td><button type="button" class="exh-b${r[i] === j ? ' on' : ''}${i >= 10 && j === k.alvo ? ' alvo' : ''}" data-exh-r="${i}" data-exh-p="${j}" aria-label="${EXH.verbos[i]}: ${p}">${r[i] === j ? '✕' : ''}</button></td>`).join('')}<td><button type="button" class="exh-anul${r[i] === 'x' ? ' on' : ''}" data-exh-r="${i}" data-exh-p="x" title="Sem pronome ou sem o verbo: riscar a linha">Anular</button></td></tr>`;
+  const cab = `<tr><th>#</th><th>Verbo</th>${P.map(p=>`<th>${p}</th>`).join('')}<th></th></tr>`;
+  const lbAlvo = k.alvo >= 0 ? k.lb.c[k.alvo] : 0;
+  const aviso = k.alvo >= 0 && k.lb.validas === 10 && lbAlvo < 2 ? `<p class="exh-aviso">Atenção: "${P[k.alvo]}" apareceu ${lbAlvo} ${lbAlvo === 1 ? 'vez' : 'vezes'} na Fase I. O pronome reforçado precisa ter aparecido pelo menos 2 vezes; escolha o outro${(k.lb.c[k.alvo === 0 ? 3 : 0] >= 2) ? '' : ' (se ele também não apareceu 2 vezes, confirme com a professora)'}.</p>` : '';
+  const f = st.f || {};
+  const campo = (id, rot, ph)=> `<label class="exh-campo"><span>${rot}</span><input data-exh-f="${id}" value="${escHTML(f[id] || '')}" placeholder="${ph || ''}"></label>`;
+  return `
+    <div class="exh-campos">${campo('exp','Experimentador')}${campo('part','Participante (sigla)','P1')}${campo('sexo','Sexo')}${campo('idade','Idade')}${campo('data','Data do experimento','dd/mm/aaaa')}</div>
+    <div class="exh-alvo"><span>Pronome que vou reforçar na Fase II:</span>
+      ${['Eu','Nós'].map(p=>`<button type="button" class="exh-alvo-b${st.alvo === p ? ' on' : ''}" data-exh-alvo="${p}">${p.toUpperCase()}</button>`).join('')}
+      <small>Escolha depois da Fase I: precisa ter aparecido pelo menos 2 vezes.</small></div>
+    ${aviso}
+    <div class="exh-folha-wrap"><table class="exh-folha">
+      <thead>${cab}</thead>
+      <tbody><tr class="exh-fase"><td colspan="9">Fase I · Linha de base: só registrar</td></tr>${[...Array(10)].map((_,i)=>linha(i)).join('')}
+      <tr class="exh-fase"><td colspan="9">Fase II · Intervenção: reforçar ${k.alvo >= 0 ? `só o "${P[k.alvo].toUpperCase()}"` : 'o pronome escolhido'}, depois que a frase terminar</td></tr>${[...Array(30)].map((_,i)=>linha(i+10)).join('')}</tbody>
+    </table></div>
+    <p class="exh-prog">${k.registradas} de 40 verbos registrados${k.lb.anuladas + k.rf.anuladas ? ` · ${k.lb.anuladas + k.rf.anuladas} anulado${k.lb.anuladas + k.rf.anuladas > 1 ? 's' : ''}` : ''}</p>
+    <h4 class="rt-h">Perguntas depois do experimento</h4>
+    ${['O que você achou do experimento?','Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais?','O que levou você a escolher este ou aquele pronome?'].map((q,i)=>`<label class="exh-perg"><span>${i+1}. ${q}</span><textarea rows="2" data-exh-q="${i}">${escHTML((st.q || [])[i] || '')}</textarea></label>`).join('')}
+    <h4 class="rt-h">Resultado</h4>
+    ${exhTabelaHTML(st)}
+    <div class="exh-graf">${exhCalc(st).registradas ? exhGrafico(st) : '<p class="exh-vazio">O gráfico aparece aqui assim que você marcar as respostas na folha.</p>'}</div>
+    ${(()=>{ const k = exhCalc(st); const an = k.lb.anuladas + k.rf.anuladas; return an ? `<p class="exh-aviso">Você tem ${an} ${an === 1 ? 'tentativa anulada' : 'tentativas anuladas'}. A conta segue o modelo dos vídeos (× 100 ÷ 10 na LB e ÷ 30 na INT), então os totais não chegam a 100%. Confirme com a professora como tratar as anuladas.</p>` : ''; })()}
+    <h4 class="rt-h">Dados para o cabeçalho do gráfico</h4>
+    <div class="exh-campos">${campo('nome','Nome completo')}${campo('mat','Matrícula')}${campo('disc','Disciplina','nome como aparece no seu portal')}${campo('uni','Unidade')}${campo('entrega','Data de entrega','dd/mm/aaaa')}</div>
+    <div class="exh-acoes">
+      <button type="button" class="btn btn-primary" data-exh-imprimir>Imprimir o gráfico</button>
+      <button type="button" class="btn" data-exh-copiar>Copiar a tabela para o Excel</button>
+      <button type="button" class="link-btn" data-page-go="viewApoio" data-target-go="graficos">Guia: como montar o gráfico no Excel</button>
+      <button type="button" class="link-btn exh-limpar" data-exh-limpar>Limpar a folha</button>
+    </div>
+    <p class="exh-nota">Tudo fica salvo só neste aparelho. As contas e o gráfico seguem o modelo dos vídeos da pasta: frequência relativa = frequência absoluta × 100 ÷ 10 na linha de base (LB) e ÷ 30 na intervenção (INT), e gráfico de colunas LB × INT por pronome.</p>`;
+}
+function exhHTML(){
+  const st = exhLoad(); const k = exhCalc(st);
+  return `<details class="rt-box" id="exh" data-exh>
+    <summary class="rt-sum"><span class="rt-sum-t">Trabalho com humanos: reforço do pronome EU ou NÓS</span><span class="rt-sum-s">Passo a passo, folha de registro digital e gráfico LB × INT · ${k.registradas} de 40 verbos registrados</span><span class="rt-sum-go">Abrir</span></summary>
+    <div class="rt">
+      <div class="rt-head">
+        <p class="rt-intro">Experimento individual baseado na Prática 16 de Matos e Tomanari (2002), <em>A análise do comportamento no laboratório</em>, adaptada pela disciplina. O objetivo é ver o efeito de reforçar diferencialmente um pronome (EU ou NÓS) na construção de frases: 10 verbos de linha de base e 30 com reforço.</p>
+        <div class="exh-mat">
+          <a class="btn" href="${EXH.pptx}" download>Baixar o PowerPoint (40 slides)</a>
+          <a class="btn" href="${EXH.pasta}" target="_blank" rel="noopener">Pasta da explicação no Drive ↗</a>
+        </div>
+      </div>
+      ${EXH.passos.map((p, i)=>`<details class="graveyard rt-q"><summary><span class="rt-qt">${i+1}. ${escHTML(p.t)}</span></summary><div class="rt-body"><ul class="${p.fala ? 'exh-fala' : 'rt-pede'}">${p.itens.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul></div></details>`).join('')}
+      <details class="graveyard rt-q" open><summary><span class="rt-qt">Folha de registro digital e gráfico</span></summary><div class="rt-body" id="exhFolha">${exhFolhaHTML()}</div></details>
+    </div>
+  </details>`;
+}
+function exhRefazer(){ const el = document.getElementById('exhFolha'); if(el){ const sy = window.scrollY; el.innerHTML = exhFolhaHTML(); window.scrollTo(0, sy); }
+  const s = document.querySelector('#exh .rt-sum-s'); if(s){ const k = exhCalc(exhLoad()); s.textContent = `Passo a passo, folha de registro digital e gráfico LB × INT · ${k.registradas} de 40 verbos registrados`; } }
+document.getElementById('discPage').addEventListener('click', e=>{
+  const b = e.target.closest('[data-exh-r]');
+  if(b){ const st = exhLoad(); st.r = st.r || {}; const i = +b.dataset.exhR; const v = b.dataset.exhP === 'x' ? 'x' : +b.dataset.exhP;
+    if(st.r[i] === v) delete st.r[i]; else st.r[i] = v; exhSave(st); exhRefazer(); return; }
+  const a = e.target.closest('[data-exh-alvo]');
+  if(a){ const st = exhLoad(); st.alvo = st.alvo === a.dataset.exhAlvo ? null : a.dataset.exhAlvo; exhSave(st); exhRefazer(); return; }
+  if(e.target.closest('[data-exh-limpar]')){ if(!confirm('Apagar todas as marcações e anotações da folha de registro deste aparelho?')) return; const st = exhLoad(); exhSave({f: st.f}); exhRefazer(); return; }
+  if(e.target.closest('[data-exh-copiar]')){
+    const st = exhLoad(); const k = exhCalc(st);
+    let t = 'Frequência absoluta\nPronomes\tLB\tINT\n';
+    EXH.pronomes.forEach((p,i)=> t += `${p}\t${k.lb.c[i]}\t${k.rf.c[i]}\n`);
+    t += `Total\t${k.lb.c.reduce((a,b)=>a+b,0)}\t${k.rf.c.reduce((a,b)=>a+b,0)}\n\nComparativo LB-INT (frequência relativa, %)\nPronomes\tLB\tINT\n`;
+    EXH.pronomes.forEach((p,i)=> t += `${p}\t${exhFmt(k.lb.pct[i])}\t${exhFmt(k.rf.pct[i])}\n`);
+    const ok = ()=>{ const btn = e.target.closest('[data-exh-copiar]'); btn.textContent = 'Tabela copiada'; setTimeout(()=> btn.textContent = 'Copiar a tabela para o Excel', 1800); };
+    if(navigator.clipboard) navigator.clipboard.writeText(t).then(ok, ()=> prompt('Copie a tabela:', t)); else prompt('Copie a tabela:', t);
+    return;
+  }
+  if(e.target.closest('[data-exh-imprimir]')){
+    const st = exhLoad(); const f = st.f || {}; const k = exhCalc(st);
+    if(k.registradas < 40 && !confirm(`Só ${k.registradas} de 40 verbos estão registrados. Imprimir mesmo assim?`)) return;
+    const linha = (r, v)=> `<tr><th>${r}</th><td>${escHTML(v || '')}</td></tr>`;
+    const w = window.open('', '_blank'); if(!w){ alert('Libere as janelas pop-up deste site para imprimir.'); return; }
+    w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Gráfico de frequência relativa</title><style>
+      body{font-family:Arial,Helvetica,sans-serif; color:#111; margin:24px;} table.cab{border-collapse:collapse; margin-bottom:18px; font-size:13px;}
+      .cab th{text-align:left; padding:3px 12px 3px 0; font-weight:bold;} .cab td{padding:3px 0;} svg{width:100%; max-width:680px; display:block;}
+      table.d{border-collapse:collapse; font-size:12px; margin-top:16px;} .d th,.d td{border:1px solid #999; padding:4px 8px; text-align:center;} .alvo td{font-weight:bold;}
+      p{font-size:12px;} @page{margin:14mm;}</style></head><body>
+      <table class="cab">${linha('Nome completo:', f.nome)}${linha('Matrícula:', f.mat)}${linha('Disciplina:', f.disc)}${linha('Unidade:', f.uni)}${linha('Data de entrega:', f.entrega)}${linha('Participante:', f.part)}</table>
+      ${exhGrafico(st)}
+      ${exhTabelaHTML(st).replace('class="exh-tab"','class="d"')}
+      <p>LB: linha de base (verbos 1 a 10). INT: intervenção, com reforço (verbos 11 a 40). Frequência relativa = frequência absoluta × 100 ÷ 10 (LB) ou ÷ 30 (INT).</p>
+      <script>window.onload = function(){ window.print(); };<\/script></body></html>`);
+    w.document.close();
+  }
+});
+document.getElementById('discPage').addEventListener('input', e=>{
+  const fi = e.target.closest('[data-exh-f]');
+  if(fi){ const st = exhLoad(); st.f = st.f || {}; st.f[fi.dataset.exhF] = fi.value; exhSave(st);
+    if(fi.dataset.exhF === 'part'){ const gr = document.querySelector('#exh .exh-graf'); if(gr && exhCalc(st).registradas) gr.innerHTML = exhGrafico(st); }
+    return; }
+  const q = e.target.closest('[data-exh-q]');
+  if(q){ const st = exhLoad(); st.q = st.q || []; st.q[+q.dataset.exhQ] = q.value; exhSave(st); }
+});
+
+
 // ===== Revisão dos erros =====
 // Guarda no aparelho as questões erradas (exercícios com situação e quizzes dos resumos).
 // Uma questão sai da lista quando é respondida corretamente.
@@ -11691,6 +11950,7 @@ const PAGINAS_BUSCA = [
   {t:'Resumos', s:'Resumos interativos por disciplina', l:{page:'viewEstudar'}},
   {t:'Exercícios', s:'Quizzes e atividades por disciplina', l:{page:'viewFerramentas'}},
   {t:'Modo prova', s:'Simulados no estilo vestibular, por disciplina', l:{page:'viewSimulados'}},
+  {t:'Trabalho com humanos (Experimental)', s:'Experimento do pronome EU ou NÓS: folha de registro e gráfico', l:{disc:'04'}},
   {t:'Revisão dos erros', s:'Questões erradas para treinar de novo', l:{page:'viewErros'}},
   {t:'Glossário e guias', s:'Glossário, comparações, normas ABNT e gráficos', l:{page:'viewApoio'}},
   {t:'Glossário', s:'Termos das disciplinas', l:{page:'viewApoio', target:'glossario'}},
