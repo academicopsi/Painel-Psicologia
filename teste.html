@@ -2172,7 +2172,7 @@
   .exh-tab th{background:var(--paper-alt); font-size:12px;} .exh-tab th small{font-weight:400; color:var(--ink-faint);}
   .exh-tab td:first-child{text-align:left; font-weight:600;} .exh-tab tfoot td{font-weight:700; background:var(--paper-alt);} .exh-tab tr.alvo td{background:color-mix(in srgb, var(--petrol) 12%, transparent); font-weight:700;}
   .exh-tipo{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:6px 0 8px; font-size:14px; font-weight:600;}
-  .exh-graf{background:#fff; border:1px solid var(--rule); border-radius:6px; padding:8px;}
+  .exh-graf{background:#fff; border:1px solid var(--rule); border-radius:8px; padding:6px; overflow:hidden;}
   .exh-svg{width:100%; height:auto; display:block;}
   .exh-vazio{margin:0; padding:34px 14px; text-align:center; color:#666; font-size:14px;}
   .exh-acoes{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin-top:6px;}
@@ -11392,25 +11392,37 @@ function exhCalc(st){
 }
 const exhFmt = n => (Math.round(n*10)/10).toLocaleString('pt-BR');
 function exhGrafico(st){
-  const W = 640, H = 350, L = 56, R = 110, T = 52, B = 58, ph = H-T-B, pw = W-L-R;
+  const W = 680, H = 380, L = 54, R = 20, T = 92, B = 54, ph = H-T-B, pw = W-L-R;
   const k_ = exhCalc(st); const P = EXH.pronomes; const f = st.f || {};
   const y = v => T + ph - v/100*ph;
-  const LB = '#4285F4', INT = '#EA4335';
-  let g = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" class="exh-svg" role="img" font-family="Arial, Helvetica, sans-serif">`;
-  for(let v=0; v<=100; v+=20) g += `<line x1="${L}" x2="${L+pw}" y1="${y(v)}" y2="${y(v)}" stroke="#E2DED6"/><text x="${L-8}" y="${y(v)+4}" font-size="12" text-anchor="end" fill="#555">${v}</text>`;
-  g += `<line x1="${L}" x2="${L}" y1="${T}" y2="${T+ph}" stroke="#333"/><line x1="${L}" x2="${L+pw}" y1="${T+ph}" y2="${T+ph}" stroke="#333"/>`;
-  g += `<text transform="translate(16 ${T+ph/2}) rotate(-90)" font-size="13" text-anchor="middle" fill="#222">Frequência relativa (%)</text>`;
+  const LB = '#B9C4CC', INT = '#1F5C56', TX = '#1B2422', SUB = '#5E6B68', GRID = '#E7E9E8';
+  const fonte = `font-family="Inter, 'Helvetica Neue', Arial, sans-serif"`;
+  let g = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" class="exh-svg" role="img" ${fonte}>`;
+  g += `<rect width="${W}" height="${H}" fill="#FFFFFF"/>`;
+  // título e subtítulo alinhados à esquerda
   const titulo = `${(f.part || 'P1').trim()} - ${k_.alvo >= 0 ? P[k_.alvo] : 'pronome reforçado'}`;
-  g += `<text x="${L+pw/2}" y="26" font-size="16" font-weight="bold" text-anchor="middle" fill="#222">${escHTML(titulo)}</text>`;
-  const gw = pw/6, bw = gw*0.32;
+  g += `<text x="${L-30}" y="30" font-size="18" font-weight="700" fill="${TX}">${escHTML(titulo)}</text>`;
+  g += `<text x="${L-30}" y="51" font-size="12.5" fill="${SUB}">Frequência relativa de cada pronome na linha de base (LB) e na intervenção (INT)</text>`;
+  // legenda
+  g += `<rect x="${L-30}" y="64" width="11" height="11" rx="2" fill="${LB}"/><text x="${L-14}" y="74" font-size="12" fill="${TX}">LB · verbos 1–10</text>`;
+  g += `<rect x="${L+96}" y="64" width="11" height="11" rx="2" fill="${INT}"/><text x="${L+112}" y="74" font-size="12" fill="${TX}">INT · verbos 11–40</text>`;
+  // faixa de destaque do pronome reforçado
+  const gw = pw/6;
+  if(k_.alvo >= 0) g += `<rect x="${L + gw*k_.alvo + 4}" y="${T-6}" width="${gw-8}" height="${ph+6}" rx="6" fill="#1F5C56" fill-opacity="0.06"/>`;
+  // grade
+  for(let v=0; v<=100; v+=25){
+    g += `<line x1="${L}" x2="${L+pw}" y1="${y(v)}" y2="${y(v)}" stroke="${v ? GRID : '#9AA3A1'}" stroke-width="${v ? 1 : 1.2}"/>`;
+    g += `<text x="${L-10}" y="${y(v)+4}" font-size="11.5" text-anchor="end" fill="${SUB}">${v}%</text>`;
+  }
+  // colunas
+  const bw = Math.min(26, gw*0.3);
   P.forEach((p,i)=>{ const cx = L + gw*(i+0.5);
-    [[k_.lb.pct[i], LB, -bw-2],[k_.rf.pct[i], INT, 2]].forEach(([v,cor,dx])=>{
-      g += `<rect x="${cx+dx}" y="${y(v)}" width="${bw}" height="${T+ph-y(v)}" fill="${cor}"/>`;
-      if(v > 0) g += `<text x="${cx+dx+bw/2}" y="${y(v)-5}" font-size="10.5" text-anchor="middle" fill="#222">${exhFmt(v)}</text>`; });
-    g += `<text x="${cx}" y="${T+ph+20}" font-size="12.5" text-anchor="middle" fill="#222">${p}</text>`; });
-  g += `<text x="${L+pw/2}" y="${H-12}" font-size="13" text-anchor="middle" fill="#222">Pronomes</text>`;
-  g += `<rect x="${L+pw+16}" y="${T+4}" width="12" height="12" fill="${LB}"/><text x="${L+pw+33}" y="${T+14}" font-size="12.5" fill="#222">LB</text>`;
-  g += `<rect x="${L+pw+16}" y="${T+24}" width="12" height="12" fill="${INT}"/><text x="${L+pw+33}" y="${T+34}" font-size="12.5" fill="#222">INT</text>`;
+    [[k_.lb.pct[i], LB, -bw-3, SUB],[k_.rf.pct[i], INT, 3, INT]].forEach(([v,cor,dx,cl])=>{
+      const h = T+ph-y(v);
+      if(h > 0) g += `<path d="M${cx+dx},${T+ph} V${y(v)+3} Q${cx+dx},${y(v)} ${cx+dx+3},${y(v)} H${cx+dx+bw-3} Q${cx+dx+bw},${y(v)} ${cx+dx+bw},${y(v)+3} V${T+ph} Z" fill="${cor}"/>`;
+      if(v > 0) g += `<text x="${cx+dx+bw/2}" y="${y(v)-6}" font-size="10.5" font-weight="600" text-anchor="middle" fill="${cl}">${exhFmt(v)}</text>`; });
+    g += `<text x="${cx}" y="${T+ph+20}" font-size="12.5" text-anchor="middle" fill="${TX}"${i === k_.alvo ? ' font-weight="700"' : ''}>${p}</text>`; });
+  g += `<text x="${L+pw/2}" y="${H-10}" font-size="11.5" text-anchor="middle" fill="${SUB}">Pronomes</text>`;
   return g + '</svg>';
 }
 function exhTabelaHTML(st){
