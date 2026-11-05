@@ -3627,10 +3627,10 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e 30 questões novas no simulado da N2, que agora tem 70.', link: {url:'#resumo-aprendizagem-7-9'}},
-  {date: '2026-11-04', disc: 'Psicologia Experimental', desc: 'Trabalho com humanos (reforço do pronome EU ou NÓS): passo a passo do experimento, PowerPoint com os 40 slides, folha de registro digital e gráfico LB × INT pronto para imprimir, no modelo dos vídeos da pasta.', link: {url:'#disc-04'}},
   {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam no menu Estudo, em Modo prova, e na página de cada disciplina.', link: {page:'viewSimulados'}},
   {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
+  {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
 ];
 
 
@@ -11146,7 +11146,7 @@ function renderDiscPage(d){
   const roteiros = ROTEIROS.filter(r=>r.disc === d.n);
   const simulados = SIM_JOGO.filter(x=>x.disc === d.n);
   const temGuia = MONTADOR.disc === d.n;
-  const temExh = EXH.disc === d.n;
+  const temExh = !EXH.oculto && EXH.disc === d.n;
   const atalhos = [
     ['dpPrazos', 'Prazos', c.prazos.length],
     ['dpGuia', 'Relatório', temGuia ? MONTADOR.secoes.length : 0],
@@ -11883,6 +11883,7 @@ document.addEventListener('keydown', ev=>{
 // ===== Psicologia Experimental: trabalho com humanos (reforço de pronome) =====
 // Guia do procedimento + folha de registro digital + gráfico de frequência relativa (%).
 const EXH = {
+  oculto: true, // seção escondida do site por enquanto; para mostrar de novo, troque para false
   disc: '04',
   verbos: ['Representar','Mandar','Gostar','Lembrar','Indicar','Favorecer','Defender','Estudar','Verificar','Esperar',
     'Escrever','Relatar','Aconselhar','Convidar','Plantar','Falar','Precisar','Buscar','Desenhar','Experimentar',
@@ -12506,7 +12507,6 @@ const PAGINAS_BUSCA = [
   {t:'Resumos', s:'Resumos interativos por disciplina', l:{page:'viewEstudar'}},
   {t:'Exercícios', s:'Quizzes e atividades por disciplina', l:{page:'viewFerramentas'}},
   {t:'Modo prova', s:'Simulados no estilo vestibular, por disciplina', l:{page:'viewSimulados'}},
-  {t:'Trabalho com humanos (Experimental)', s:'Experimento do pronome EU ou NÓS: folha de registro e gráfico', l:{disc:'04'}},
   {t:'Revisão dos erros', s:'Questões erradas para treinar de novo', l:{page:'viewErros'}},
   {t:'Glossário e guias', s:'Glossário, comparações, normas ABNT e gráficos', l:{page:'viewApoio'}},
   {t:'Glossário', s:'Termos das disciplinas', l:{page:'viewApoio', target:'glossario'}},
