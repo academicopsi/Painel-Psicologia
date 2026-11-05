@@ -3113,6 +3113,21 @@
       </div>
     </details>
     <details class="graveyard">
+      <summary>Discalculia, TDAH ou TEA?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia o achado, o sinal ou o fato histórico e diga a qual dos três quadros das aulas 7, 8 e 9 ele pertence.</div>
+        <div class="prompt-box">
+          <div class="plabel">Achado</div>
+          <div class="pfrase" id="dtSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="dtShuffleBtn">🔀 Sortear outro</button>
+        <div id="dtOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="dtCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="dtFeedbackBox"></div>
+        <div class="tool-disclaimer">Com base nas aulas 7, 8 e 9 (Rotta et al., <em>Transtornos da aprendizagem</em>, caps. 14, 20 e 25). Exercício de reconhecimento de conceitos, sem finalidade de avaliar pessoas reais.</div>
+      </div>
+    </details>
+    <details class="graveyard">
       <summary>Monte a ZDP (Vygotsky)</summary>
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Leia a observação, toque numa tarefa e depois toque na zona onde ela fica. Clique em "Corrigir". Depois, use o botão "O tempo passa" para ver a ZDP se deslocar.</div>
@@ -3611,11 +3626,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e simulado de 30 questões.', link: {url:'#resumo-aprendizagem-7-9'}},
   {date: '2026-11-04', disc: 'Psicologia Experimental', desc: 'Trabalho com humanos (reforço do pronome EU ou NÓS): passo a passo do experimento, PowerPoint com os 40 slides, folha de registro digital e gráfico LB × INT pronto para imprimir, no modelo dos vídeos da pasta.', link: {url:'#disc-04'}},
   {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam no menu Estudo, em Modo prova, e na página de cada disciplina.', link: {page:'viewSimulados'}},
   {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
-  {date: '2026-11-02', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Conteúdo da N2: resumo com aposentadoria, quadros neuropatológicos, quadros psicopatológicos e luto e morte, dois exercícios novos, 16 termos no glossário e duas comparações.', link: {url:'#resumo-idoso-n2'}},
 ];
 
 
@@ -3686,6 +3701,13 @@ const STUDY = [
     subtitulo: 'Aulas 4, 5 e 6 num só resumo',
     desc: 'Uma aba por aula: mediação e ZDP, educação bancária × dialógica e dislexia, com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-aprendizagem-4-6'
+  },
+  {
+    materia: 'Psicologia da Aprendizagem',
+    titulo: 'Discalculia, TDAH e autismo (TEA)',
+    subtitulo: 'Aulas 7, 8 e 9 num só resumo',
+    desc: 'Uma aba por aula: discalculia e o modelo do triplo código, TDAH (história, critérios e diagnóstico) e neurobiologia do autismo, com "Teste-se" e quiz.',
+    link: '#resumo-aprendizagem-7-9'
   },
   {
     materia: 'Bases Biológicas',
@@ -4510,6 +4532,255 @@ SIM_JOGO.push({
       "A compreensão de texto é a habilidade mais herdável de todas.",
       "Só os pais podem transmitir, nunca outros parentes próximos."],
    c:1, w:"Cerca de 50% dos casos são herdados, e 35–40% dos parentes de primeiro grau são afetados. Vários cromossomos já foram associados, com transmissão poligênica."},
+  ]
+});
+
+SIM_JOGO.push({
+  id: 'aprendizagem-7-9',
+  disc: '03',
+  titulo: "Simulado: discalculia, TDAH e TEA",
+  desc: "30 questões no estilo vestibular sobre as aulas 7, 8 e 9: discalculia, TDAH e aspectos neurobiológicos do autismo.",
+  partes: [{k:"discalculia",t:"Discalculia",n:10},{k:"tdah",t:"TDAH",n:10},{k:"tea",t:"TEA",n:10}],
+  questoes: [
+  {tema:"Discalculia", p:"Segundo a CID-10, a discalculia é uma alteração específica em aritmética. Assinale a alternativa correta sobre ela.",
+   o:["Afeta sobretudo a álgebra, a trigonometria e o cálculo diferencial.",
+      "É sempre consequência de uma escolarização feita de forma inadequada.",
+      "Só pode ser diagnosticada quando há deficiência intelectual associada.",
+      "Não é explicada por deficiência intelectual nem por escola inadequada.",
+      "Atinge a leitura e a escrita de palavras, e não as operações numéricas."],
+   c:3, w:"A CID-10 a define como alteração específica em aritmética, não atribuível a retardo mental ou escolarização inadequada, afetando as operações básicas, e não álgebra ou cálculo."},
+
+  {tema:"Discalculia", p:"Uma conta simples ativa vários mecanismos cerebrais. Qual deles se relaciona à organização espacial dos números, essencial em multiplicações e divisões?",
+   o:["A discriminação visuoespacial.",
+      "A associação verbal fixa da tabuada.",
+      "O subitizing de pequenas quantidades.",
+      "A transcodificação do código verbal.",
+      "A memória remota de fatos da infância."],
+   c:0, w:"A discriminação visuoespacial permite interpretar e organizar a posição dos números, o que pesa muito em multiplicações e divisões."},
+
+  {tema:"Discalculia", p:"No modelo do triplo código (Dehaene, 1996), converter o algarismo 3 na palavra \"três\" corresponde a qual processo?",
+   o:["Representação analógica de quantidade.",
+      "Associação verbal fixa, como a tabuada.",
+      "Subitizing, sem necessidade de contar.",
+      "Complementaridade entre as operações.",
+      "Processo transcodificado entre códigos."],
+   c:4, w:"O processo transcodificado é a passagem de um código para outro, como do arábico para o verbal (3 → três) e vice-versa."},
+
+  {tema:"Discalculia", p:"Sobre a origem das habilidades matemáticas, os estudos citados na aula indicam que",
+   o:["só surgem com a escola formal, depois dos sete anos de idade.",
+      "são exclusivas dos humanos e dependem totalmente da linguagem.",
+      "há áreas cerebrais específicas para numerosidade e estimativa.",
+      "Piaget e a neurociência atual concordam que elas são inatas.",
+      "recém-nascidos não distinguem quantidades antes de falar."],
+   c:2, w:"Chimpanzés ordenam números de 1 a 9 e recém-nascidos distinguem mais um e menos um. A neuroimagem indica áreas específicas para numerosidade, cálculo mental, comparação e estimativa; Piaget via as habilidades como construídas."},
+
+  {tema:"Discalculia", p:"Uma criança entende que, se 5 + 3 = 8, então 8 − 5 = 3. Essa compreensão corresponde à",
+   o:["comutatividade.",
+      "complementaridade.",
+      "ordem estável da contagem.",
+      "correspondência um a um.",
+      "transcodificação numérica."],
+   c:1, w:"A complementaridade é perceber a relação entre as operações. A comutatividade seria entender que 3 × 6 = 6 × 3."},
+
+  {tema:"Discalculia", p:"Sobre o subitizing, assinale a alternativa correta.",
+   o:["No adulto, vai em média até cerca de quatro elementos.",
+      "É a contagem lenta, um a um, de grandes quantidades.",
+      "Só se desenvolve depois dos dez anos, com a tabuada.",
+      "É igual à enumeração e depende do hemisfério esquerdo.",
+      "Está mais preservado em adolescentes com deficiência intelectual."],
+   c:0, w:"Subitizing é reconhecer de imediato a quantidade de um pequeno grupo, sem contar; vai até cerca de quatro no adulto e deve estar desenvolvido aos seis anos. Está ausente em adolescentes com deficiência intelectual."},
+
+  {tema:"Discalculia", p:"Um adulto que fazia contas normalmente sofre um AVC e perde a capacidade de calcular. Esse quadro é chamado de",
+   o:["discalculia do desenvolvimento.",
+      "dislexia adquirida.",
+      "subitizing alterado.",
+      "acalculia.",
+      "transtorno de conduta."],
+   c:3, w:"A acalculia (Henschen, 1925) é a perda da capacidade de calcular após lesão cerebral. A discalculia do desenvolvimento é a dificuldade de aprender, presente desde o início."},
+
+  {tema:"Discalculia", p:"Na discalculia associada ao hemisfério direito, segundo O'Hare et al. (1991), a criança",
+   o:["não reconhece os símbolos, mas entende bem as quantidades.",
+      "tem agnosia para dedos e confusão entre direita e esquerda.",
+      "apresenta dislexia associada em praticamente todos os casos.",
+      "não tem dificuldade nenhuma em multiplicações ou divisões.",
+      "não conceitua quantidades, mas reconhece os símbolos."],
+   c:4, w:"No hemisfério direito falha o conceito de quantidade, com símbolos preservados. A falha nos símbolos, a dislexia, a agnosia para dedos e a confusão direita-esquerda se ligam ao hemisfério esquerdo."},
+
+  {tema:"Discalculia", p:"Para uma criança com discalculia ligada ao hemisfério esquerdo, a estratégia de reabilitação indicada na aula é",
+   o:["uso de gráficos e treino de orientação espacial.",
+      "suspensão do ensino de matemática até a adolescência.",
+      "reforço verbal e softwares do processo verbal.",
+      "apenas medicação, sem intervenção pedagógica.",
+      "repetição de cópias sem participação do professor."],
+   c:2, w:"No hemisfério esquerdo, reforço verbal e softwares que trabalham o processo verbal; no direito, gráficos e orientação espacial. Os melhores resultados com tecnologia vêm com participação direta do professor."},
+
+  {tema:"Discalculia", p:"A discalculia do desenvolvimento, segundo a APA, atinge aproximadamente",
+   o:["30% a 40% das crianças em idade escolar.",
+      "3% a 6% das crianças em idade escolar.",
+      "menos de 0,1% das crianças em idade escolar.",
+      "metade das crianças com inteligência normal.",
+      "apenas crianças sem acesso à escola."],
+   c:1, w:"A APA estima de 3% a 6% das crianças em idade escolar, com inteligência normal, escola adequada e motivação."},
+
+  {tema:"TDAH", p:"Na história do TDAH, quem foi o primeiro a descrever um quadro com déficit de atenção e hiperatividade?",
+   o:["Wallon, em 1925.",
+      "Bradley, em 1937.",
+      "Binet, em 1907.",
+      "Still, em 1900.",
+      "Gillberg, em 1990."],
+   c:3, w:"Still (1900) fez a primeira descrição. Wallon escreveu L'Enfant Turbulent (1925) e Bradley relatou o efeito da benzedrina (1937)."},
+
+  {tema:"TDAH", p:"No simpósio de Oxford (1962), o termo \"lesão cerebral mínima\" foi substituído por \"disfunção cerebral mínima\" porque",
+   o:["não havia comprovação de lesão no cérebro.",
+      "o metilfenidato curava a lesão em poucas semanas.",
+      "a lesão só aparecia em meninas adolescentes.",
+      "o DSM-5 já tinha proibido o termo antigo.",
+      "a neuroimagem mostrava lesões em todos os casos."],
+   c:0, w:"Como não se comprovava lesão, o termo passou a ser disfunção cerebral mínima (DCM), que depois deu lugar ao TDAH."},
+
+  {tema:"TDAH", p:"No DSM-5, o TDAH é dividido em três apresentações. A apresentação F90.0 é a",
+   o:["combinada.",
+      "predominantemente hiperativa/impulsiva.",
+      "grave, com muitos sintomas.",
+      "residual, típica do adulto.",
+      "predominantemente desatenta."],
+   c:4, w:"F90.0 é a predominantemente desatenta; F90.1, a hiperativa/impulsiva; F90.2, a combinada."},
+
+  {tema:"TDAH", p:"Sobre a prevalência do TDAH, assinale a alternativa correta.",
+   o:["É igual em meninos e meninas em todas as idades.",
+      "Nas meninas predomina a hiperatividade motora.",
+      "Na infância, há cerca de dois meninos para cada menina.",
+      "Os sintomas sempre desaparecem por completo antes da vida adulta.",
+      "Atinge mais de metade das crianças em idade escolar."],
+   c:2, w:"A proporção é de cerca de 2:1 na infância (até 6,2:1 nos casos graves) e chega a 1:1 na adolescência. Nas meninas predomina a desatenção, e os sintomas persistem em 10% a 60% dos adultos."},
+
+  {tema:"TDAH", p:"Quanto à etiologia do TDAH, é correto afirmar que",
+   o:["é causada por um único gene, sem influência ambiental.",
+      "é multifatorial, com genes ligados à dopamina, como DAT1 e DRD4.",
+      "deve-se apenas à educação permissiva dada pelos pais, sem genética.",
+      "resulta sempre de traumatismo craniano após o nascimento.",
+      "depende só de fatores pós-natais, como meningite."],
+   c:1, w:"A etiologia é multifatorial: vários genes de pequeno efeito (como DAT1 e DRD4) somados a fatores pré, peri e pós-natais e ao ambiente."},
+
+  {tema:"TDAH", p:"Quais estruturas cerebrais estão implicadas na fisiopatologia do TDAH, segundo a aula?",
+   o:["Córtex pré-frontal e gânglios da base.",
+      "Giro fusiforme e células de Purkinje.",
+      "Lobo occipital e nervo óptico.",
+      "Hipocampo e bulbo olfatório.",
+      "Medula espinhal e nervos cranianos inferiores."],
+   c:0, w:"O córtex pré-frontal e os gânglios da base, modulados pela dopamina do mesencéfalo."},
+
+  {tema:"TDAH", p:"Sobre o diagnóstico do TDAH, assinale a alternativa correta.",
+   o:["É confirmado por um exame de sangue que mede a dopamina.",
+      "É feito ao dar o remédio e ver se a criança melhora.",
+      "Basta uma escala de sintomas respondida só pelo professor da criança.",
+      "É clínico, e os sintomas precisam aparecer em mais de um ambiente.",
+      "Depende de ressonância magnética com lesão frontal visível."],
+   c:3, w:"Não há marcador biológico nem teste isolado; o diagnóstico é clínico, com anamnese, observação, exame neurológico evolutivo e escalas. Não pode ser feito por teste terapêutico com psicoestimulantes."},
+
+  {tema:"TDAH", p:"Pelo DSM-5, para a apresentação combinada do TDAH, os critérios de desatenção e de hiperatividade/impulsividade devem estar presentes",
+   o:["nas últimas duas semanas.",
+      "apenas durante as provas escolares.",
+      "somente depois dos 18 anos.",
+      "por pelo menos dez anos.",
+      "nos últimos seis meses."],
+   c:4, w:"Os critérios precisam estar preenchidos nos últimos seis meses, em diferentes ambientes, com prejuízo."},
+
+  {tema:"TDAH", p:"Em 1955, Bradley sugeriu um medicamento que é fundamental no tratamento do TDAH até hoje. Trata-se do",
+   o:["ácido valproico.",
+      "misoprostol.",
+      "metilfenidato.",
+      "antidepressivo tricíclico.",
+      "oxitocina sintética."],
+   c:2, w:"Bradley relatou o efeito da benzedrina em 1937 e sugeriu o metilfenidato em 1955."},
+
+  {tema:"TDAH", p:"Sobre a relação entre TDAH e dificuldade de aprendizagem, é correto afirmar que",
+   o:["são o mesmo transtorno, com nomes diferentes.",
+      "são entidades diferentes, mas frequentemente associadas.",
+      "uma criança com TDAH nunca tem dificuldade escolar.",
+      "a dificuldade de aprendizagem é sempre a causa principal do TDAH.",
+      "o TDAH só é avaliado depois de excluir a escola."],
+   c:1, w:"São entidades diferentes, mas andam juntas; por isso, investigar TDAH inclui avaliar o desempenho escolar."},
+
+  {tema:"TEA", p:"Os transtornos do espectro autista são caracterizados por uma díade de sintomas. Ela é formada por",
+   o:["desatenção e hiperatividade.",
+      "dificuldade persistente em contas e leitura lenta de palavras.",
+      "perda de memória e desorientação no tempo.",
+      "déficits sociocomunicativos e interesses restritos.",
+      "alucinações e delírios persistentes."],
+   c:3, w:"Déficits na interação social e na comunicação, e repertório restrito de interesses."},
+
+  {tema:"TEA", p:"Sobre a história da compreensão do autismo, assinale a alternativa correta.",
+   o:["Nos anos 1940 e 1950, foi atribuído a pais pouco responsivos.",
+      "Desde 1940 é visto como transtorno exclusivamente genético.",
+      "Gillberg, em 1990, defendeu uma causa só psicológica.",
+      "Hoje se sabe que tem uma única causa, já identificada.",
+      "Só nos anos 2010 surgiram os primeiros indícios de base cerebral."],
+   c:0, w:"Nos anos 1940 e 1950 era visto como transtorno psicológico ligado a pais emocionalmente pouco responsivos; nos anos 1960 surgiram indícios cerebrais; Gillberg (1990) defendeu a disfunção orgânica."},
+
+  {tema:"TEA", p:"Estudos amplos com gêmeos revisaram a estimativa de contribuição genética para o TEA. Hoje, estima-se que o risco seja",
+   o:["90% genético e 10% ambiental.",
+      "totalmente ambiental, sem genética.",
+      "10% genético e 90% ambiental.",
+      "100% genético, por um só gene.",
+      "50% genético e 50% ambiental."],
+   c:4, w:"A ideia antiga de 90% genético foi revista; hoje se fala em cerca de 50% genético e 50% ambiental."},
+
+  {tema:"TEA", p:"O irmão de uma criança com TEA tem, em relação à população geral, um risco",
+   o:["igual, sem nenhuma diferença.",
+      "duas vezes menor.",
+      "15 a 20 vezes maior.",
+      "100 vezes maior em todos os casos.",
+      "apenas 5% maior."],
+   c:2, w:"O risco de recorrência em irmãos é de 15 a 20 vezes o da população geral."},
+
+  {tema:"TEA", p:"Entre os medicamentos teratógenos citados como fator de risco pré-natal para TEA, o que aumenta o risco em cerca de 7 vezes é o",
+   o:["metilfenidato.",
+      "ácido valproico.",
+      "paracetamol em dose alta.",
+      "ácido fólico.",
+      "benzedrina."],
+   c:1, w:"O ácido valproico (valproato) eleva o risco em cerca de 7 vezes; talidomida e misoprostol também são citados."},
+
+  {tema:"TEA", p:"Na neuroimagem estrutural de crianças com TEA, um achado descrito na aula é",
+   o:["macrocrania em 25% a 30% das crianças entre 2 e 3 anos.",
+      "volume cerebral total diminuído desde o nascimento.",
+      "corpo caloso aumentado em todos os casos.",
+      "crescimento cerebral normal até a idade adulta.",
+      "ausência total da amígdala e do hipocampo nos dois hemisférios."],
+   c:0, w:"Há aumento do volume total, com macrocrania em 25% a 30% entre 2 e 3 anos; o crescimento acelera por volta dos 12 meses. Corpo caloso, mesencéfalo e vérmis estão reduzidos."},
+
+  {tema:"TEA", p:"A hipoativação do giro fusiforme, observada na neuroimagem funcional no TEA, se relaciona principalmente a",
+   o:["controle do equilíbrio.",
+      "cálculo de multiplicações.",
+      "processamento do olfato.",
+      "reconhecimento de faces.",
+      "regulação da temperatura."],
+   c:3, w:"O giro fusiforme é pouco ativado no reconhecimento de faces; a amígdala alterada se liga à pouca fixação do olhar."},
+
+  {tema:"TEA", p:"O conceito de \"disconectividade\" no TEA se refere a",
+   o:["ausência total de sinapses no córtex.",
+      "excesso de conexão entre áreas frontais e posteriores.",
+      "perda das células de Purkinje por lesão no parto.",
+      "falta de mielina apenas na medula espinhal.",
+      "pouca conexão à distância e muita conexão local."],
+   c:4, w:"Há pouca conectividade de longa distância (como frontotemporal) e excesso de conectividade local, o que prejudica a comunicação entre áreas."},
+
+  {tema:"TEA", p:"Sobre epilepsia e TEA, assinale a alternativa correta.",
+   o:["A frequência é igual à da população geral, cerca de 1%.",
+      "As crises começam sempre depois dos 40 anos de idade.",
+      "Atinge cerca de 30% das crianças com TEA, com dois picos.",
+      "O tipo de crise mais comum é sempre a generalizada.",
+      "É mais rara quando há comprometimento grave de linguagem e cognição."],
+   c:2, w:"Cerca de 30% das crianças com TEA têm epilepsia (1% na população), com picos na infância precoce e na adolescência; a crise parcial simples é a mais comum, e o risco é maior com déficit grave de linguagem e cognição."},
+
+  {tema:"TEA", p:"Segundo o modelo que reúne os achados neurobiológicos do TEA, as alterações cerebrais estruturais e funcionais são",
+   o:["a causa primária e única do transtorno.",
+      "consequências de fatores genéticos somados aos ambientais.",
+      "efeito exclusivo da forma de criação dada pelos pais na infância.",
+      "resultado de uma lesão adquirida na adolescência.",
+      "achados sem nenhuma relação com o transtorno."],
+   c:1, w:"Vulnerabilidade genética mais gatilhos ambientais levam a um processo anormal; as alterações cerebrais seriam consequência, com desvio precoce em geral na primeira metade da gestação."},
   ]
 });
 
@@ -5972,6 +6243,21 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
   {t:'Estrefossimbolia', disc:'Psicologia da Aprendizagem', d:'"Símbolos invertidos": inversões e letras espelhadas na leitura e na escrita, descritas por Orton em 1928.'},
   {t:'Déficit fonológico', disc:'Psicologia da Aprendizagem', d:'Dificuldade em processar os sons da fala (fonemas), que prejudica a decodificação de palavras. Principal teoria sobre a dislexia.', ex:'Dificuldade em perceber que "pato" e "gato" só diferem no primeiro som.'},
   {t:'Teoria do duplo déficit', disc:'Psicologia da Aprendizagem', d:'Explicação da dislexia que combina déficit fonológico e déficit na nomeação rápida, associada às formas mais graves.'},
+  {t:'Discalculia', disc:'Psicologia da Aprendizagem', d:'Alteração específica em aritmética que não se explica por deficiência intelectual nem por escola inadequada. Afeta as operações básicas, e não álgebra ou cálculo.'},
+  {t:'Acalculia', disc:'Psicologia da Aprendizagem', d:'Perda da capacidade de calcular depois de lesão cerebral (Henschen, 1925). Difere da discalculia do desenvolvimento, que é dificuldade de aprender.'},
+  {t:'Modelo do triplo código', disc:'Psicologia da Aprendizagem', d:'Modelo de Dehaene (1996): o cérebro manipula números pela representação (verbal ou visual), pelo processo transcodificado e pela associação verbal fixa.', ex:'A tabuada guardada como frase: "três vezes sete, vinte e um".'},
+  {t:'Subitizing', disc:'Psicologia da Aprendizagem', d:'Reconhecer na hora quantos itens há num grupo pequeno, sem contar. No adulto vai até cerca de quatro elementos e deve estar desenvolvido aos seis anos.', ex:'Olhar um dado e saber que saiu três sem contar os pontos.'},
+  {t:'Complementaridade', disc:'Psicologia da Aprendizagem', d:'Compreender a relação entre as operações matemáticas.', ex:'Se 5 + 3 = 8, então 8 − 5 = 3.'},
+  {t:'TDAH', disc:'Psicologia da Aprendizagem', d:'Transtorno de déficit de atenção/hiperatividade: síndrome neurocomportamental com desatenção, hiperatividade e impulsividade, com prejuízo acadêmico, profissional e social.'},
+  {t:'Disfunção cerebral mínima (DCM)', disc:'Psicologia da Aprendizagem', d:'Nome adotado no simpósio de Oxford (1962) no lugar de "lesão cerebral mínima", porque não havia prova de lesão. Antecedeu o termo TDAH.'},
+  {t:'Apresentações do TDAH', disc:'Psicologia da Aprendizagem', d:'Divisão do DSM-5: combinada (F90.2), predominantemente desatenta (F90.0) e predominantemente hiperativa/impulsiva (F90.1).'},
+  {t:'Metilfenidato', disc:'Psicologia da Aprendizagem', d:'Psicoestimulante sugerido por Bradley em 1955 para o tratamento do TDAH e ainda fundamental. O diagnóstico não pode ser feito pelo teste com o remédio.'},
+  {t:'SNAP-IV', disc:'Psicologia da Aprendizagem', d:'Escala de sintomas usada na avaliação do TDAH, ao lado de Conners e CBCL. Nenhuma escala isolada fecha o diagnóstico, que é clínico.'},
+  {t:'Transtorno do espectro autista (TEA)', disc:'Psicologia da Aprendizagem', d:'Transtorno do neurodesenvolvimento com déficits na interação social e na comunicação e repertório restrito de interesses. Prevalência atual de cerca de 1 em 68.'},
+  {t:'Disconectividade', disc:'Psicologia da Aprendizagem', d:'Achado no TEA: pouca conexão de longa distância entre áreas do cérebro e excesso de conexão local, o que prejudica a comunicação entre áreas.'},
+  {t:'Macrocrania', disc:'Psicologia da Aprendizagem', d:'Cabeça maior que o esperado. Aparece em 25% a 30% das crianças com TEA entre 2 e 3 anos, com aceleração do crescimento cerebral por volta dos 12 meses.'},
+  {t:'Giro fusiforme', disc:'Psicologia da Aprendizagem', d:'Área ligada ao reconhecimento de faces, pouco ativada no TEA segundo a neuroimagem funcional.'},
+  {t:'Ácido valproico', disc:'Psicologia da Aprendizagem', d:'Anticonvulsivante que, usado na gestação, aumenta em cerca de 7 vezes o risco de TEA. O mesmo remédio pode ajudar a criança com TEA no controle de epilepsia ou humor.'},
 
   // Psicologia Experimental
   {t:'Variável independente (VI)', disc:'Psicologia Experimental', d:'Variável que o pesquisador manipula para ver o efeito.', ex:'As horas de sono que o pesquisador define para cada grupo (4 h ou 8 h).'},
@@ -6203,6 +6489,24 @@ const COMPARACOES = [
     ['O que é','O que a criança já faz sozinha','O que faz com ajuda de alguém mais experiente'],
     ['Olha para','Funções já amadurecidas','Funções em amadurecimento'],
     ['Na ZDP','É o limite de baixo da zona','É o limite de cima da zona'],
+  ]},
+  {titulo:'Acalculia × discalculia do desenvolvimento', disc:'Psicologia da Aprendizagem', cols:['Acalculia','Discalculia do desenvolvimento'], linhas:[
+    ['O que é','Perda da capacidade de calcular','Dificuldade de aprender matemática'],
+    ['Origem','Lesão cerebral (adquirida)','Presente desde o desenvolvimento'],
+    ['Referência','Henschen (1925); subtipos de Hécaen (1961)','APA: 3% a 6% dos escolares'],
+    ['Condição','Habilidade existia antes','Inteligência, escola e motivação adequadas'],
+  ]},
+  {titulo:'Discalculia: hemisfério direito × esquerdo', disc:'Psicologia da Aprendizagem', cols:['Hemisfério direito','Hemisfério esquerdo'], linhas:[
+    ['O que falha','Conceituar quantidades','Reconhecer e produzir símbolos'],
+    ['O que fica','Reconhecimento dos símbolos','Conceito de quantidade'],
+    ['Sinais associados','Dispraxia construtiva, disprosódia','Dislexia, agnosia para dedos, confusão direita-esquerda'],
+    ['Intervenção','Gráficos e orientação espacial','Reforço verbal e softwares do processo verbal'],
+  ]},
+  {titulo:'TDAH × TEA', disc:'Psicologia da Aprendizagem', cols:['TDAH','TEA'], linhas:[
+    ['Sintomas centrais','Desatenção, hiperatividade e impulsividade','Déficit sociocomunicativo e interesses restritos'],
+    ['Prevalência citada','Cerca de 5% das crianças (DSM-5)','Cerca de 1 em 68'],
+    ['Bases cerebrais','Córtex pré-frontal, gânglios da base, dopamina','Disconectividade, giro fusiforme, cerebelo, serotonina'],
+    ['Genética','Multifatorial (DAT1, DRD4)','Cerca de 50% genético e 50% ambiental'],
   ]},
   {titulo:'Pesquisa básica × aplicada', disc:'Psicologia Experimental', cols:['Básica','Aplicada'], linhas:[
     ['Objetivo','Ampliar o conhecimento','Resolver um problema específico'],
@@ -6981,6 +7285,241 @@ const RESUMOS = {
         {p:'A proporção entre meninos e meninas com dislexia é de cerca de…', o:['1:1','1,7:1','5:1','1:2'], c:1, w:'Há leve predominância no sexo masculino: cerca de 1,7 para 1.'},
       ]
     }
+    ]
+  },
+  'aprendizagem-7-9': {
+    disc: '03',
+    eyebrow: 'Psicologia da Aprendizagem · Aulas 7, 8 e 9',
+    titulo: 'Discalculia, TDAH e autismo (TEA)',
+    lead: 'Aulas 7, 8 e 9, uma por aba: dificuldades em matemática, TDAH e aspectos neurobiológicos do autismo. Cada aba termina com perguntas de revisão ("Teste-se") e quiz.',
+    fonte: 'Resumo feito a partir dos slides das aulas 7, 8 e 9 de Psicologia da Aprendizagem, baseadas em Rotta, Ohlweiler e Riesgo, Transtornos da aprendizagem (2. ed., 2016), capítulos 14, 20 e 25.',
+    caps: [
+    {
+      id:'discalculia', aba:'Aula 7 · Discalculia', titulo:'Matemática: distúrbios específicos e dificuldades', intro:'O que é a discalculia, como o cérebro faz contas, como as habilidades matemáticas se desenvolvem e o que muda conforme o hemisfério afetado.',
+      etapas:[
+        {fase:'O que é', when:'Definição', titulo:'Discalculia', pontos:[
+          'Pela CID-10: alteração específica em <strong>aritmética</strong>, que não se explica por deficiência intelectual nem por escolarização inadequada.',
+          'Afeta as <strong>habilidades de cálculo básicas</strong> (somar, subtrair, multiplicar, dividir), e não as habilidades abstratas como álgebra ou cálculo.',
+          'Shalev: transtorno específico que afeta a aquisição normal da aritmética, com bases cerebrais (evidências genéticas, neurobiológicas e epidemiológicas). Ensino inadequado e privação ambiental também podem participar.',
+          'A prevalência é tão alta quanto a da dislexia, mas há poucos estudos, principalmente no Brasil.'],
+          q:'A discalculia afeta mais as operações básicas ou a álgebra?', a:'As operações básicas: adição, subtração, multiplicação e divisão.'},
+        {when:'Cérebro', titulo:'Fazer contas é uma função complexa', pontos:[
+          'Uma conta simples ativa vários mecanismos ao mesmo tempo:',
+          '<strong>Processamento da informação:</strong> perceber, reconhecer e produzir números; relacionar número e símbolo.',
+          '<strong>Discriminação visuoespacial:</strong> organizar os números no espaço, essencial em multiplicações e divisões.',
+          '<strong>Memória e atenção:</strong> memória de curto e longo prazo, memória de trabalho, raciocínio e atenção sustentada.'],
+          q:'Por que a discriminação visuoespacial importa nas contas?', a:'Porque é preciso organizar e interpretar a posição dos números no espaço, o que pesa muito em multiplicações e divisões.'},
+        {when:'Dehaene, 1996', titulo:'O modelo do triplo código', pontos:[
+          'Os números são manipulados no cérebro de três formas:',
+          '<strong>1. Representação:</strong> o número em forma verbal ("trinta e sete") ou visual, como sequência de símbolos (37).',
+          '<strong>2. Processo transcodificado:</strong> converter um código no outro (3 → "três" e vice-versa).',
+          '<strong>3. Associação verbal fixa:</strong> a tabuada é memorizada como sequência verbal ("três vezes sete, vinte e um"). Já a subtração usa a representação de quantidade e o código arábico visual.'],
+          q:'Na tabuada, que tipo de código é usado, segundo o modelo do triplo código?', a:'A associação verbal fixa: a tabuada é guardada como uma sequência de palavras.'},
+        {fase:'Desenvolvimento', when:'Inato ou construído?', titulo:'Habilidades matemáticas: inatas e evolutivas', pontos:[
+          'Não são exclusivas dos humanos: chimpanzés ordenam números de 1 a 9. Recém-nascidos já distinguem "mais um" e "menos um".',
+          'Comunidades com só duas ou três palavras numéricas mostram que o senso numérico é universal.',
+          'Piaget via as habilidades matemáticas como <strong>construídas</strong>. Estudos atuais de neuroimagem indicam que nascemos com <strong>áreas cerebrais específicas</strong> para numerosidade, cálculo mental, comparação e estimativa.'],
+          q:'Como a visão de Piaget difere da neurociência atual sobre a matemática?', a:'Piaget via as habilidades como construídas; a neuroimagem atual indica que nascemos com áreas cerebrais específicas para a matemática.'},
+        {when:'A partir dos 3 anos', titulo:'Como a matemática se desenvolve', pontos:[
+          '<strong>Habilidade para contar:</strong> ordem estável, princípio cardinal e contagem sequencial de objetos.',
+          '<strong>Conceito numérico:</strong> correspondência um a um, representação de conjuntos e reconhecimento sem contar (subitizing).',
+          '<strong>Comutatividade, associatividade e complementaridade:</strong> entender que 3×6 = 6×3 e que, se 5+3 = 8, então 8−5 = 3.',
+          '<strong>Aritmética e fatos numéricos:</strong> procedimentos, tabuadas e operações básicas.'],
+          q:'O que é entender a complementaridade?', a:'Perceber que as operações se relacionam: se 5 + 3 = 8, então 8 − 5 = 3.'},
+        {when:'Kaufman, 1949', titulo:'Subitizing', pontos:[
+          'Reconhecer <strong>na hora</strong> quantas coisas há num grupo pequeno, sem contar. É diferente de enumerar.',
+          'No adulto, vai em média até <strong>quatro</strong> elementos.',
+          'Aos 6 anos, a criança deve ter o subitizing desenvolvido. Está ausente em adolescentes com deficiência intelectual (Freeman e Camos) e prejudicado em meninas com síndrome de Turner.',
+          'Pasini e Tessari: o hemisfério <strong>direito</strong> responde pela contagem até quatro, e o <strong>esquerdo</strong> pelas quantidades maiores.'],
+          q:'Até quantos elementos, em média, vai o subitizing no adulto?', a:'Até quatro elementos.'},
+        {fase:'Quadros clínicos', when:'Dois tipos', titulo:'Acalculia × discalculia do desenvolvimento', pontos:[
+          '<strong>Acalculia</strong> (Henschen, 1925): <strong>perda</strong> da capacidade de calcular, depois de lesão cerebral. Hécaen (1961) descreveu três subtipos em 183 pacientes: alexia/agrafia para números (hemisfério esquerdo), acalculia espacial (direito) e anaritmetia (ambos).',
+          '<strong>Discalculia do desenvolvimento:</strong> dificuldade de <strong>aprender</strong> matemática apesar de inteligência normal, escola adequada e motivação. Atinge de <strong>3% a 6%</strong> das crianças em idade escolar.'],
+          q:'Qual a diferença entre acalculia e discalculia do desenvolvimento?', a:'A acalculia é a perda de uma capacidade que existia, por lesão cerebral; a discalculia é a dificuldade de aprender matemática desde o início, apesar de inteligência e ensino adequados.'},
+        {when:'Sinais', titulo:'Sintomas e hemisfério afetado', pontos:[
+          'Sintomas frequentes: números escritos espelhados, dificuldade com somas simples e com os sinais das operações, com números de vários dígitos, memória fraca para fatos numéricos, má organização no papel em multiplicações e divisões e associação com dislexia.',
+          '<strong>Hemisfério direito</strong> (O’Hare et al., 1991): não consegue conceituar quantidades, mas reconhece os símbolos.',
+          '<strong>Hemisfério esquerdo:</strong> não reconhece nem produz os símbolos, mas preserva o conceito de quantidade. Associa-se a dislexia, agnosia para dedos e confusão direita-esquerda.'],
+          q:'Na discalculia ligada ao hemisfério esquerdo, o que fica preservado?', a:'O conceito de quantidade; o que falha é reconhecer e produzir os símbolos numéricos.'},
+        {when:'Epilepsia', titulo:'Epilepsia e matemática', pontos:[
+          'As crises interrompem o aprendizado, prejudicam a consolidação da memória, podem lesar o tecido cerebral, e os remédios também afetam a cognição.',
+          'Aparecem dificuldades para reconhecer números, contar, combinar números (230, 302, 320) e formar conjuntos.',
+          'Lobos <strong>parietais e temporais</strong> são os mais envolvidos.'],
+          q:'Cite dois motivos pelos quais a epilepsia prejudica a matemática.', a:'Interrupção do aprendizado, falha na consolidação da memória, lesão do tecido cerebral e efeito dos medicamentos (quaisquer dois).'},
+        {fase:'Intervenção', when:'O que fazer', titulo:'Reabilitação e papel do professor', pontos:[
+          'A estratégia muda conforme o hemisfério: no <strong>direito</strong>, gráficos e treino de orientação espacial; no <strong>esquerdo</strong>, reforço verbal e softwares que trabalham o processo verbal.',
+          'Com tecnologia, os melhores resultados aparecem com <strong>participação direta do professor</strong> (Wilson et al., 1996).',
+          'Conhecer as etapas do desenvolvimento aritmético permite identificar cedo, na pré-escola e no fundamental, as crianças em risco.'],
+          q:'Que estratégia é indicada quando o comprometimento é do hemisfério direito?', a:'Uso de gráficos e treino de orientação espacial.'},
+      ],
+      extras:[
+        {tipo:'tabela', titulo:'Discalculia: hemisfério direito × esquerdo', cab:['Hemisfério','O que falha','O que fica','Intervenção'], linhas:[
+          ['Direito','Conceituar quantidades','Reconhecer os símbolos','Gráficos e orientação espacial'],
+          ['Esquerdo','Reconhecer e produzir símbolos','Conceito de quantidade','Reforço verbal e softwares do processo verbal'],
+        ]},
+      ],
+      quiz:[
+        {p:'Pela CID-10, a discalculia afeta principalmente…', o:['Álgebra e cálculo','As operações básicas','A leitura','A memória remota'], c:1, w:'Adição, subtração, multiplicação e divisão; não as habilidades abstratas.'},
+        {p:'O modelo do triplo código é de…', o:['Piaget','Dehaene','Kaufman','Henschen'], c:1, w:'Dehaene e colaboradores, 1996.'},
+        {p:'Reconhecer na hora 3 objetos, sem contar, é…', o:['Subitizing','Acalculia','Transcodificação','Complementaridade'], c:0, w:'Subitizing: em média até quatro elementos no adulto.'},
+        {p:'A perda da capacidade de calcular por lesão cerebral é a…', o:['Discalculia do desenvolvimento','Acalculia','Dislexia','Anaritmetia apenas'], c:1, w:'Acalculia (Henschen, 1925). A discalculia do desenvolvimento é dificuldade de aprender.'},
+        {p:'A discalculia do desenvolvimento atinge cerca de…', o:['3% a 6% das crianças','30% das crianças','menos de 0,5%','50% das crianças'], c:0, w:'3% a 6% das crianças em idade escolar.'},
+      ]
+    },
+    {
+      id:'tdah', aba:'Aula 8 · TDAH', titulo:'Transtorno de déficit de atenção/hiperatividade: aspectos clínicos', intro:'O TDAH e sua relação com as dificuldades de aprendizagem são a principal causa de consulta neuropediátrica em idade escolar.',
+      etapas:[
+        {fase:'História', when:'1896 a 1925', titulo:'As primeiras descrições', pontos:[
+          '<strong>1896, Bourneville:</strong> instabilidade como ruptura entre impulsos e inibições.',
+          '<strong>1900, Still:</strong> primeiro a descrever um quadro com déficit de atenção e hiperatividade.',
+          '<strong>1905, Boncour:</strong> "instabilidade pura" nos escolares.',
+          '<strong>1907, Binet e Simon:</strong> três tipos de crianças nas escolas especiais: deficientes mentais, instáveis e grupo misto.',
+          '<strong>1925, Wallon:</strong> "L’Enfant Turbulent".'],
+          q:'Quem foi o primeiro a descrever um quadro com déficit de atenção e hiperatividade?', a:'Still, em 1900.'},
+        {when:'1937 a 1968', titulo:'Da lesão cerebral mínima ao TDAH', pontos:[
+          'Strauss e Lehtinen (1947): síndrome com dificuldades de aprendizagem, comportamento e motricidade.',
+          '1954: "lesão cerebral mínima" (LCM). 1962, simpósio de Oxford: trocado por "<strong>disfunção cerebral mínima</strong>" (DCM), porque não havia prova de lesão.',
+          'Bradley: em 1937 relatou o efeito da benzedrina e, em 1955, sugeriu o <strong>metilfenidato</strong>, que é fundamental até hoje.'],
+          q:'Por que "lesão cerebral mínima" foi trocada por "disfunção cerebral mínima"?', a:'Porque não havia comprovação de lesão no cérebro.'},
+        {fase:'Definição', when:'Classificações', titulo:'Da CID-9 ao DSM-5', pontos:[
+          'CID-9 (1975): grave déficit de concentração. DSM-III (1980): "transtorno do déficit de atenção com ou sem hiperatividade". DSM-IV (1994): desatenção, hiperatividade e impulsividade.',
+          '<strong>DSM-5:</strong> três apresentações: <strong>combinada</strong> (F90.2), <strong>predominantemente desatenta</strong> (F90.0) e <strong>predominantemente hiperativa/impulsiva</strong> (F90.1).',
+          'Hoje é uma <strong>síndrome neurocomportamental</strong> com desatenção, hiperatividade e impulsividade, que causa prejuízo acadêmico, profissional e social.'],
+          q:'Quais são as três apresentações do TDAH no DSM-5?', a:'Combinada, predominantemente desatenta e predominantemente hiperativa/impulsiva.'},
+        {when:'Números', titulo:'Prevalência', pontos:[
+          'Entre 3% e 30% das crianças em idade escolar, conforme o país. O DSM-5 estima cerca de <strong>5%</strong> das crianças e <strong>2,5%</strong> dos adultos.',
+          'Na infância, <strong>2 meninos para 1 menina</strong> (até 6,2:1 nos casos graves); na adolescência, cerca de 1:1.',
+          'Nas meninas predomina a <strong>desatenção</strong>; nos meninos, a hiperatividade e a impulsividade.',
+          'Os sintomas persistem na vida adulta em 10% a 60% dos casos.'],
+          q:'Que sintoma predomina nas meninas com TDAH?', a:'A desatenção.'},
+        {fase:'Causas', when:'Etiologia', titulo:'Genes e ambiente', pontos:[
+          'Etiologia <strong>multifatorial</strong>: vários genes de pequeno efeito que, juntos, dão vulnerabilidade. Destacam-se o gene do transportador de dopamina (<strong>DAT1</strong>) e o do receptor de dopamina (<strong>DRD4</strong>).',
+          '<strong>Pré-natais:</strong> infecções e intoxicações maternas, irradiação, doenças crônicas e traumatismos.',
+          '<strong>Perinatais:</strong> prematuridade, asfixia fetal, partos difíceis, hemorragia.',
+          '<strong>Pós-natais:</strong> meningites e encefalites, traumatismo craniano, intoxicações, tumores.'],
+          q:'Quais genes ligados à dopamina parecem envolvidos no TDAH?', a:'DAT1 (transportador de dopamina) e DRD4 (receptor de dopamina).'},
+        {when:'Fisiopatologia', titulo:'Base neurobiológica', pontos:[
+          'Envolve o <strong>córtex pré-frontal</strong> e os <strong>gânglios da base</strong>, modulados pela dopamina do mesencéfalo.',
+          'O ambiente também pesa: nível socioeconômico, condições afetivas da família e planejamento da gravidez.',
+          'É uma síndrome <strong>heterogênea</strong>: não há um gene nem uma causa única.'],
+          q:'Quais estruturas cerebrais estão envolvidas na fisiopatologia do TDAH?', a:'O córtex pré-frontal e os gânglios da base, modulados pela dopamina.'},
+        {fase:'Diagnóstico', when:'Clínico', titulo:'Como se diagnostica', pontos:[
+          'O diagnóstico é <strong>clínico e comportamental</strong>: não existe marcador biológico.',
+          'Começa pela anamnese: queixa, tempo de evolução e se os sintomas aparecem em <strong>mais de um ambiente</strong> (escola e casa).',
+          'Inclui história clínica (prematuridade, traumatismo, síndromes como Down, X frágil e Williams), história familiar e observação de cadernos e provas.',
+          'Exame neurológico evolutivo (ENE), escalas como Conners, SNAP-IV e CBCL e, se preciso, avaliação psicológica, psicopedagógica, visual e auditiva.',
+          '<strong>Nenhum teste isolado</strong> fecha o diagnóstico, e ele não pode ser feito pelo "teste" do remédio.'],
+          q:'O diagnóstico de TDAH pode ser feito dando o remédio para ver se a criança melhora?', a:'Não. O diagnóstico é clínico, feito com história, observação, exame e escalas; não pode ser feito por teste terapêutico com psicoestimulantes.'},
+        {when:'DSM-5', titulo:'Critérios e gravidade', pontos:[
+          'Combinada: critérios de desatenção e de hiperatividade/impulsividade preenchidos nos <strong>últimos seis meses</strong>.',
+          'Gravidade: <strong>leve</strong> (poucos sintomas), <strong>moderada</strong> e <strong>grave</strong> (muitos sintomas, além do necessário).',
+          'Os sintomas precisam aparecer em diferentes ambientes, com prejuízo acadêmico, social e nas relações.'],
+          q:'Por quanto tempo os critérios precisam estar presentes, segundo o DSM-5?', a:'Nos últimos seis meses.'},
+        {fase:'Curso', when:'Ao longo da vida', titulo:'Comorbidades e evolução', pontos:[
+          'Começa na primeira infância, com sintomas acima do esperado para o desenvolvimento.',
+          'Pode persistir na vida adulta (10% a 60%), com risco de acidentes de carro, abuso de álcool ou drogas e problemas no trabalho.',
+          'Aumenta o risco de <strong>transtorno opositor desafiante</strong>, transtorno de conduta e abuso de drogas.',
+          'TDAH e dificuldade de aprendizagem são coisas diferentes, mas andam juntas: investigar TDAH inclui avaliar o desempenho escolar.'],
+          q:'TDAH e dificuldade de aprendizagem são a mesma coisa?', a:'Não. São entidades diferentes, mas frequentemente associadas.'},
+      ],
+      extras:[
+        {tipo:'tabela', titulo:'As três apresentações do TDAH (DSM-5)', cab:['Apresentação','Código','Característica'], linhas:[
+          ['Predominantemente desatenta','F90.0','Atenção abaixo do esperado para a idade, com prejuízo escolar e social'],
+          ['Predominantemente hiperativa/impulsiva','F90.1','Agitação e impulsividade em primeiro plano'],
+          ['Combinada','F90.2','Critérios dos dois grupos nos últimos seis meses'],
+        ]},
+      ],
+      quiz:[
+        {p:'O primeiro a descrever um quadro de déficit de atenção e hiperatividade foi…', o:['Still','Wallon','Bradley','Binet'], c:0, w:'Still, em 1900.'},
+        {p:'O metilfenidato foi sugerido por Bradley em…', o:['1896','1937','1955','1980'], c:2, w:'Em 1937 ele relatou a benzedrina; em 1955 sugeriu o metilfenidato.'},
+        {p:'A proporção de meninos para meninas com TDAH na infância é de cerca de…', o:['1:1','2:1','1:2','10:1'], c:1, w:'2:1, podendo chegar a 6,2:1 nos casos graves.'},
+        {p:'O diagnóstico de TDAH é…', o:['Por exame de sangue','Por neuroimagem','Clínico','Pelo teste com remédio'], c:2, w:'Não há marcador biológico; é clínico.'},
+        {p:'A apresentação F90.0 é a…', o:['Combinada','Predominantemente desatenta','Hiperativa/impulsiva','Grave'], c:1, w:'F90.0: predominantemente desatenta.'},
+      ]
+    },
+    {
+      id:'tea', aba:'Aula 9 · TEA', titulo:'Aspectos neurobiológicos dos transtornos do espectro autista', intro:'Das bases genéticas e ambientais à neuropatologia, neuroimagem e conectividade cerebral no autismo.',
+      etapas:[
+        {fase:'O que é', when:'Definição', titulo:'Transtornos do espectro autista (TEA)', pontos:[
+          'Transtornos do <strong>neurodesenvolvimento</strong> com uma díade de sintomas: <strong>déficits na interação social e na comunicação</strong> e <strong>repertório restrito de interesses</strong>.',
+          'Prevalência em alta: 1 em 2.500 crianças nos anos 1980; hoje cerca de <strong>1 em 68</strong>.'],
+          q:'Quais são os dois grupos de sintomas do TEA?', a:'Déficits na interação social e na comunicação, e repertório restrito de interesses.'},
+        {when:'História', titulo:'Da teoria psicológica à base biológica', pontos:[
+          'Anos 1940 e 1950: autismo visto como transtorno psicológico causado por pais emocionalmente pouco responsivos.',
+          'Início dos anos 1960: evidências de que era um transtorno cerebral.',
+          '1990, <strong>Gillberg</strong>: o autismo é uma disfunção orgânica e deve ser visto pela perspectiva biológica.',
+          'Hoje: transtornos complexos, heterogêneos, de etiologia multifatorial.'],
+          q:'O que defendeu Gillberg em 1990?', a:'Que o autismo é uma disfunção orgânica e deve ser compreendido sob uma perspectiva biológica.'},
+        {fase:'Causas', when:'Genética', titulo:'Hereditariedade', pontos:[
+          'O risco em irmãos de crianças afetadas é <strong>15 a 20 vezes</strong> maior que na população geral.',
+          'Estudos grandes com gêmeos indicam risco determinado <strong>50% por fatores genéticos e 50% ambientais</strong>, revendo a ideia antiga de 90% genético.',
+          'Mais de 100 genes e 40 regiões do genoma já foram associados, ligados a sinapse, migração neuronal, neurotransmissão (GABA, glutamato) e regulação do DNA.',
+          'Cerca de 10% dos casos têm síndrome genética associada: X frágil (cerca de 3% dos autistas), esclerose tuberosa (50% têm TEA), Down, Angelman, Prader-Willi e outras.'],
+          q:'Qual é a contribuição genética estimada hoje para o risco de TEA?', a:'Cerca de 50%; os outros 50% são fatores ambientais.'},
+        {when:'Ambiente', titulo:'Fatores de risco pré-natais', pontos:[
+          'Idade materna e paterna avançadas, diabetes gestacional, gestação múltipla, imigração materna.',
+          'Medicamentos teratógenos: talidomida, misoprostol e <strong>ácido valproico</strong> (risco 7 vezes maior), em qualquer dose e momento da gestação.',
+          'Depressão materna (+60% de risco), sobretudo pela exposição a antidepressivos; infecção, febre e antibióticos.',
+          'Poluição do ar: risco 3 vezes maior em áreas muito poluídas.'],
+          q:'Qual medicamento usado na gestação aumenta em 7 vezes o risco de TEA?', a:'O ácido valproico (valproato).'},
+        {when:'Ambiente', titulo:'Fatores perinatais e neonatais', pontos:[
+          'Complicações no parto: apresentação fetal anômala, sofrimento fetal, aspiração de mecônio, lesões no parto e anemia neonatal.',
+          'Peso ao nascer abaixo de 1.500 g e prematuridade (quanto menor a idade gestacional, maior o risco).',
+          'Apgar baixo aos 5 minutos, icterícia (hiperbilirrubinemia), incompatibilidade ABO/Rh e cesárea eletiva.'],
+          q:'Cite dois fatores de risco perinatais para TEA.', a:'Sofrimento fetal, baixo peso (< 1.500 g), prematuridade, Apgar baixo, anemia neonatal, icterícia (quaisquer dois).'},
+        {fase:'Cérebro', when:'Neuropatologia', titulo:'O que se vê no tecido cerebral', pontos:[
+          'Alterações nas minicolunas do neocórtex; células menores no sistema límbico (hipocampo, amígdala).',
+          '<strong>Células de Purkinje</strong> do cerebelo em menor número e tamanho.',
+          'Mais micróglia e citocinas inflamatórias.',
+          'Menos subunidade GABA-B em áreas frontais, parietais e no cerebelo: neurotransmissão inibitória prejudicada.'],
+          q:'O que acontece com as células de Purkinje no TEA?', a:'Estão em menor número e são menores, no cerebelo.'},
+        {when:'Neuroimagem estrutural', titulo:'Volume e crescimento cerebral', pontos:[
+          'Volume cerebral total <strong>aumentado</strong> (hemisférios, cerebelo, núcleo caudado), com redução no mesencéfalo, vérmis do cerebelo e corpo caloso.',
+          '<strong>Macrocrania</strong> em 25% a 30% das crianças entre 2 e 3 anos; o crescimento cerebral acelera por volta dos 12 meses, junto com os sintomas. Poucos adultos têm macrocrania.',
+          'Amígdala cresce cedo e depois estaciona; em adolescentes e adultos, o complexo amígdala-hipocampo é menor.'],
+          q:'Quando o crescimento cerebral acelera nas crianças com TEA?', a:'Por volta dos 12 meses, junto com o surgimento dos principais sintomas.'},
+        {when:'Neuroimagem funcional', titulo:'Ativação e conectividade', pontos:[
+          'Áreas e estratégias diferentes para processar informações: menos ativação pré-frontal nas funções executivas e menos ativação do giro temporal superior na linguagem.',
+          '<strong>Giro fusiforme</strong> pouco ativado no reconhecimento de faces; amígdala alterada, ligada à pouca fixação do olhar.',
+          '<strong>Disconectividade:</strong> pouca conexão de longa distância (entre áreas frontais e posteriores) e muita conexão local (por exemplo, áreas visuais).'],
+          q:'O que é a "disconectividade" no TEA?', a:'Pouca conectividade de longa distância entre áreas do cérebro, com excesso de conectividade local, o que prejudica a comunicação entre áreas.'},
+        {fase:'Outros sistemas', when:'Epilepsia', titulo:'Eletrofisiologia e epilepsia', pontos:[
+          'EEG e MEG mostram dissincronia em longas distâncias e diferença na velocidade do processamento auditivo.',
+          'Epilepsia: cerca de <strong>1%</strong> na população geral e cerca de <strong>30%</strong> em crianças com TEA, maior com comprometimento grave de linguagem e déficit cognitivo.',
+          'Dois picos de início das crises: <strong>infância precoce e adolescência</strong>. O tipo mais comum é a crise parcial simples.',
+          'Curiosidade: o valproato usado pela mãe aumenta o risco de TEA, e o mesmo remédio pode ajudar o filho com TEA a controlar epilepsia ou humor.'],
+          q:'Qual a prevalência de epilepsia em crianças com TEA?', a:'Cerca de 30%, contra cerca de 1% na população geral.'},
+        {when:'Química e imunidade', titulo:'Neuropeptídeos, inflamação e serotonina', pontos:[
+          '<strong>Oxitocina</strong> mais baixa no sangue; com a vasopressina, é chamada de "peptídeo social" e é alvo de pesquisa de tratamento. A secretina não mostrou melhora em estudos grandes.',
+          'Estresse oxidativo: menor capacidade antioxidante e alterações nas mitocôndrias.',
+          'Imunidade: mais doenças autoimunes e alergias, citocinas inflamatórias aumentadas, mais micróglia ativa.',
+          '<strong>Serotonina:</strong> o achado mais consistente. Está aumentada em 1/3 das crianças com autismo.'],
+          q:'Qual é o achado neuroquímico mais consistente no autismo?', a:'Serotonina aumentada, em cerca de um terço das crianças.'},
+        {fase:'Síntese', when:'Modelo', titulo:'Juntando os achados', pontos:[
+          'Vulnerabilidade genética + gatilhos ambientais desencadeiam um processo anormal, com mau funcionamento celular e sináptico.',
+          'As alterações na estrutura e no funcionamento do cérebro seriam <strong>consequências</strong> desse processo, e não causas primárias.',
+          'O fenótipo seria a expressão final de um desvio precoce na formação do cérebro, iniciado em geral na <strong>primeira metade da gestação</strong>.',
+          'A causa exata ainda não é conhecida.'],
+          q:'As alterações cerebrais vistas no TEA são causa ou consequência?', a:'Segundo o modelo da aula, consequências de um processo que começa com vulnerabilidade genética somada a gatilhos ambientais.'},
+      ],
+      extras:[
+        {tipo:'caixas', titulo:'Números que caem em prova', itens:[
+          {t:'1 em 68', d:'Prevalência atual de TEA (era 1 em 2.500 nos anos 1980).'},
+          {t:'50% / 50%', d:'Contribuição genética e ambiental para o risco de TEA.'},
+          {t:'15 a 20 vezes', d:'Aumento do risco em irmãos de crianças com TEA.'},
+          {t:'7 vezes', d:'Aumento do risco com ácido valproico na gestação.'},
+          {t:'30%', d:'Crianças com TEA que têm epilepsia (1% na população geral).'},
+          {t:'25% a 30%', d:'Crianças com TEA com macrocrania entre 2 e 3 anos.'},
+        ]},
+      ],
+      quiz:[
+        {p:'A prevalência atual de TEA citada na aula é de…', o:['1 em 2.500','1 em 68','1 em 10','1 em 1.000'], c:1, w:'Era 1 em 2.500 nos anos 1980; hoje cerca de 1 em 68.'},
+        {p:'Segundo os estudos atuais com gêmeos, o risco de TEA é…', o:['90% genético','50% genético e 50% ambiental','100% ambiental','10% genético'], c:1, w:'A crença antiga de 90% genético foi revista.'},
+        {p:'Em 1990, quem defendeu o autismo como disfunção orgânica?', o:['Kanner','Gillberg','Still','Dehaene'], c:1, w:'Gillberg, numa publicação histórica.'},
+        {p:'O giro fusiforme hipoativado se relaciona a…', o:['Reconhecimento de faces','Equilíbrio','Contas','Audição'], c:0, w:'Há hipoativação do giro fusiforme no reconhecimento de faces.'},
+        {p:'Em crianças com TEA, a epilepsia aparece em cerca de…', o:['1%','10%','30%','80%'], c:2, w:'Cerca de 30%, contra 1% na população geral.'},
+      ]
+    },
     ]
   },
   'experimental': {
@@ -8996,6 +9535,32 @@ const DX_MARCOS = [
   {marca:'1970', t:'Critchley divulga a definição da Federação Mundial de Neurologia', d:'Uma das primeiras definições amplamente aceitas.'},
 ];
 criarOrdenador({pre:'dx', itens:DX_MARCOS});
+
+// --- Ferramenta: Discalculia, TDAH ou TEA? (Psicologia da Aprendizagem) ---
+const DT_POOL = ['Discalculia','TDAH','TEA'];
+const DT_CENARIOS = [
+  {situacao:'Dificuldade específica em somar, subtrair, multiplicar e dividir, com inteligência normal e escola adequada.', correta:'Discalculia', explicacao:'É a definição de discalculia pela CID-10: alteração específica em aritmética.'},
+  {situacao:'Explicado pelo modelo do triplo código de Dehaene.', correta:'Discalculia', explicacao:'O modelo descreve como o cérebro manipula números: representação, transcodificação e associação verbal fixa.'},
+  {situacao:'A criança não reconhece os símbolos numéricos, mas entende quantidades; tem agnosia para dedos.', correta:'Discalculia', explicacao:'É o padrão ligado ao hemisfério esquerdo, segundo O’Hare et al. (1991).'},
+  {situacao:'Números escritos espelhados e dificuldade com os sinais das operações.', correta:'Discalculia', explicacao:'Estão entre os sintomas frequentes citados na aula 7.'},
+  {situacao:'Ausência de subitizing aos 6 anos, idade em que já deveria estar desenvolvido.', correta:'Discalculia', explicacao:'O subitizing é uma das etapas do desenvolvimento das habilidades matemáticas.'},
+  {situacao:'Atinge de 3% a 6% das crianças em idade escolar, segundo a APA.', correta:'Discalculia', explicacao:'É a prevalência citada para a discalculia do desenvolvimento.'},
+  {situacao:'Still fez a primeira descrição do quadro, em 1900.', correta:'TDAH', explicacao:'Still foi o primeiro a descrever déficit de atenção com hiperatividade.'},
+  {situacao:'Já foi chamado de lesão cerebral mínima e depois de disfunção cerebral mínima.', correta:'TDAH', explicacao:'O termo mudou no simpósio de Oxford (1962) por falta de prova de lesão.'},
+  {situacao:'Tem três apresentações no DSM-5: combinada, desatenta e hiperativa/impulsiva.', correta:'TDAH', explicacao:'São as apresentações F90.2, F90.0 e F90.1.'},
+  {situacao:'Genes do transportador e do receptor de dopamina (DAT1 e DRD4) são investigados.', correta:'TDAH', explicacao:'A etiologia é multifatorial, com genes de pequeno efeito ligados à dopamina.'},
+  {situacao:'Envolve córtex pré-frontal e gânglios da base, modulados pela dopamina.', correta:'TDAH', explicacao:'É a base neurobiológica descrita na aula 8.'},
+  {situacao:'Cerca de dois meninos para cada menina na infância; nas meninas predomina a desatenção.', correta:'TDAH', explicacao:'A proporção é de 2:1, chegando a 1:1 na adolescência.'},
+  {situacao:'Bradley sugeriu o metilfenidato para o tratamento em 1955.', correta:'TDAH', explicacao:'O metilfenidato é fundamental até hoje no tratamento do TDAH.'},
+  {situacao:'Díade de sintomas: déficits na interação social e na comunicação e interesses restritos.', correta:'TEA', explicacao:'É a definição do transtorno do espectro autista.'},
+  {situacao:'Nos anos 1940 e 1950, era atribuído a pais emocionalmente pouco responsivos.', correta:'TEA', explicacao:'Depois, Gillberg (1990) defendeu a disfunção orgânica.'},
+  {situacao:'Uso de ácido valproico na gestação aumenta o risco em cerca de 7 vezes.', correta:'TEA', explicacao:'É um dos teratógenos citados como fator de risco pré-natal.'},
+  {situacao:'Macrocrania em 25% a 30% das crianças entre 2 e 3 anos.', correta:'TEA', explicacao:'O crescimento cerebral acelera por volta dos 12 meses, junto com os sintomas.'},
+  {situacao:'Pouca ativação do giro fusiforme no reconhecimento de faces.', correta:'TEA', explicacao:'É um achado da neuroimagem funcional no autismo.'},
+  {situacao:'Epilepsia em cerca de 30% das crianças, com picos na infância precoce e na adolescência.', correta:'TEA', explicacao:'Na população geral, a epilepsia atinge cerca de 1%.'},
+  {situacao:'Serotonina aumentada em cerca de um terço das crianças.', correta:'TEA', explicacao:'É o achado neuroquímico mais consistente no autismo.'},
+];
+criarClassificador({pre:'dt', cenarios:DT_CENARIOS, pool:DT_POOL});
 // --- Psicologia Experimental: método científico, básica × aplicada, níveis de seleção ---
 criarOrdenador({pre:'mc', itens:[
   {marca:'1º', t:'Observação', d:'Perceber o fenômeno usando os sentidos e instrumentos.'},
@@ -10033,7 +10598,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
   const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
-  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length + DT_CENARIOS.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
   const totalCursos = COURSES.length;
@@ -11540,7 +12105,7 @@ function errMapa(){
   if(ERR_MAPA) return ERR_MAPA;
   ERR_MAPA = new Map();
   [RP_CENARIOS, PD_CENARIOS, PE_CENARIOS, TD_CENARIOS, NT_CENARIOS, SN_CENARIOS, MM_CENARIOS, ES_CENARIOS, BD_CENARIOS, VG_CENARIOS,
-   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS]
+   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS, DT_CENARIOS]
     .forEach(arr => (arr || []).forEach(c => { if(c && c.situacao && c.correta) ERR_MAPA.set(String(c.situacao).trim(), c); }));
   return ERR_MAPA;
 }
