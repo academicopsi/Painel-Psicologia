@@ -1040,6 +1040,10 @@
     background:var(--paper-alt); border-left:3px solid var(--petrol); border-radius:8px;
     padding:10px 14px; margin-top:8px; font-size:14.5px; line-height:1.6;
   }
+  .abnt-par{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px;}
+  .abnt-par .apx-h{margin-top:0 !important;}
+  .abnt-lista{margin:8px 0 10px; padding-left:20px; font-size:14.5px; line-height:1.6;}
+  @media (max-width:640px){ .abnt-par{grid-template-columns:1fr;} }
   .abnt-long{margin-left:clamp(12px, 8%, 60px); font-size:13px; line-height:1.4;}
   .abnt-card code{background:var(--paper-alt); border:1px solid var(--rule); padding:1px 6px; border-radius:5px; font-size:13px;}
   .ref-form{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px 14px; margin-top:14px;}
@@ -3417,8 +3421,37 @@
   <section class="ex-section" id="abnt" hidden>
     <div class="cal-head">
       <h2>Normas ABNT</h2>
-      <p>Resumo de citações (NBR 10520:2023) e um gerador de referências (NBR 6023). Confira se o professor adota alguma regra diferente.</p>
+      <p>Diferença entre citação e referência, resumo de citações (NBR 10520:2023) e um gerador de referências (NBR 6023). Confira se o professor adota alguma regra diferente.</p>
     </div>
+
+    <details class="graveyard" open>
+      <summary><strong>Citação × referência</strong> a diferença e quando citar</summary>
+      <div class="tool-card abnt-card">
+        <div class="abnt-par">
+          <div class="abnt-par-i">
+            <h3 class="apx-h">Citação no texto</h3>
+            <div class="sub">É a menção à fonte no meio do trabalho, junto da ideia que você usou. É curta: sobrenome do autor, ano e, quando o trecho é copiado, a página.</div>
+            <div class="abnt-ex">… selecionado por suas consequências (Skinner, 1953).</div>
+          </div>
+          <div class="abnt-par-i">
+            <h3 class="apx-h">Referência</h3>
+            <div class="sub">É a descrição completa da obra (autor, título, local, editora e ano), na lista "Referências" no final do trabalho, em ordem alfabética.</div>
+            <div class="abnt-ex">SKINNER, B. F. <strong>Science and human behavior</strong>. New York: Macmillan, 1953.</div>
+          </div>
+        </div>
+        <div class="abnt-tip" style="margin-top:14px;">Uma depende da outra: toda obra citada no texto precisa estar na lista de referências, e a lista só traz obras citadas. O sobrenome que aparece na citação é o mesmo que abre a referência, e assim o leitor encontra a obra completa. Na referência o sobrenome continua todo em maiúsculas.</div>
+
+        <h3 class="apx-h">Quando fazer a citação</h3>
+        <div class="sub">Sempre que usar algo que não é seu, copiando o trecho (citação direta) ou explicando com as suas palavras (citação indireta):</div>
+        <ul class="abnt-lista">
+          <li>ideias, teorias, conceitos e definições de um autor;</li>
+          <li>dados, números, resultados de pesquisa e estatísticas;</li>
+          <li>trechos copiados, mesmo que curtos;</li>
+          <li>tabelas, figuras e esquemas tirados de outra fonte.</li>
+        </ul>
+        <div class="sub">Não precisa citar o que é conhecimento geral, as suas próprias análises e conclusões e os dados que você mesmo coletou. Na dúvida, cite: usar ideias de outra pessoa sem indicar a fonte é plágio.</div>
+      </div>
+    </details>
 
     <details class="graveyard" open>
       <summary><strong>Citações</strong> como citar autores no texto</summary>
