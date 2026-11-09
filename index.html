@@ -11560,7 +11560,8 @@ document.getElementById('shareBtn').addEventListener('click', ()=>{
   const aberto = currentPage === 'viewFerramentas' && /^#exercicio-/.test(location.hash) ? document.querySelector('#viewFerramentas details[open] > summary') : null;
   const titulo = aberto ? [...aberto.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim() : nome;
   const msg = titulo ? `${titulo} · Arquivo Vivo: ${url}` : `Confira o Arquivo Vivo, painel do Drive de Psicologia: ${url}`;
-  if(navigator.share){ navigator.share({title: titulo ? `${titulo} · Arquivo Vivo` : 'Arquivo Vivo', text: titulo ? `${titulo} · Arquivo Vivo` : 'Confira o Arquivo Vivo, painel do Drive de Psicologia', url}).catch(()=>{}); return; }
+  // o link vai dentro do texto: vários apps (WhatsApp, por exemplo) descartam o campo url quando há texto
+  if(navigator.share){ navigator.share({title: titulo ? `${titulo} · Arquivo Vivo` : 'Arquivo Vivo', text: msg}).catch(()=>{}); return; }
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 });
 
