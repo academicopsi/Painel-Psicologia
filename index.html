@@ -3709,7 +3709,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA: mexa na adenina para ver de onde vem a conta e pratique questões como as da aula, com dica e correção passo a passo. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
+  {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA, com dica e correção passo a passo, e 8 questões de cálculo das bases no simulado da N2, que agora tem 48. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
   {date: '2026-11-09', disc: 'Geral', desc: 'Resumos ampliados com o que faltava dos slides: neurotransmissores e tabela de efeitos do SNA, núcleos dos nervos cranianos, as três classificações da dislexia, mais detalhes de Vygotsky, Freire, discalculia, TDAH, TEA e embriologia, níveis de compactação do DNA e exemplos de como responder às questões de Piaget, Vygotsky e Freire.', link: {page:'viewEstudar'}},
   {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e 30 questões novas no simulado da N2, que agora tem 70.', link: {url:'#resumo-aprendizagem-7-9'}},
   {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
@@ -3964,8 +3964,8 @@ const SIM_JOGO = [{
   id: 'bases-n2',
   disc: '01',
   titulo: 'Simulado N2: embriologia e DNA',
-  desc: '40 questões no estilo vestibular: da fertilização à 2ª semana e estrutura do DNA.',
-  partes: [{k:'embrio', t:'Embriologia', n:22}, {k:'dna', t:'Estrutura do DNA', n:18}],
+  desc: '48 questões no estilo vestibular: da fertilização à 2ª semana, estrutura do DNA e cálculo das bases (regra de Chargaff).',
+  partes: [{k:'embrio', t:'Embriologia', n:22}, {k:'dna', t:'Estrutura do DNA', n:18}, {k:'calc', t:'Cálculo das bases', n:8}],
   questoes: [
   {tema:"Fertilização", p:"A laqueadura tubária (ligadura das tubas uterinas) é um método contraceptivo eficaz. Do ponto de vista da embriologia, ela impede a gravidez principalmente porque",
    o:["bloqueia a ovulação, pois os ovários deixam de receber o estímulo hormonal da hipófise.",
@@ -4286,6 +4286,70 @@ const SIM_JOGO = [{
       "As bases nitrogenadas se soltam do açúcar durante a cópia e depois voltam.",
       "O fosfato se desprende do esqueleto da fita e libera as bases para a cópia."],
    c:0, w:"As pontes de hidrogênio entre as bases são fracas, então as fitas se separam sem que cada fita se desmonte. O esqueleto açúcar–fosfato continua inteiro."},
+  {tema:"Cálculo das bases", p:"Se em uma molécula de DNA de fita dupla há 35% de adenina, qual é a porcentagem de citosina?",
+   o:["35%",
+      "30%",
+      "15%",
+      "65%",
+      "70%"],
+   c:2, w:"A = T = 35%, então A + T = 70%. Sobram 30% para G + C, e como G = C, a citosina é 15%."},
+
+  {tema:"Cálculo das bases", p:"Se em uma molécula de DNA de fita dupla há 29% de guanina, as porcentagens de adenina, timina e citosina são, respectivamente,",
+   o:["29%, 29% e 21%.",
+      "21%, 29% e 29%.",
+      "42%, 42% e 29%.",
+      "21%, 21% e 29%.",
+      "29%, 21% e 21%."],
+   c:3, w:"C = G = 29%, então G + C = 58%. Sobram 42% para A + T, e como A = T, cada uma tem 21%."},
+
+  {tema:"Cálculo das bases", p:"Uma molécula de DNA de fita dupla tem 22% de timina. A porcentagem de guanina é",
+   o:["28%.",
+      "22%.",
+      "44%.",
+      "56%.",
+      "78%."],
+   c:0, w:"A = T = 22%, então A + T = 44%. Sobram 56% para G + C, e a guanina tem metade: 28%."},
+
+  {tema:"Cálculo das bases", p:"Uma molécula de DNA de fita dupla tem 1.000 nucleotídeos, dos quais 240 têm citosina. Quantos nucleotídeos têm adenina?",
+   o:["240",
+      "480",
+      "520",
+      "260",
+      "760"],
+   c:3, w:"G = C = 240, então G + C = 480. Sobram 1.000 − 480 = 520 para A + T, e cada uma tem 260."},
+
+  {tema:"Cálculo das bases", p:"Analise as igualdades, válidas para qualquer DNA de fita dupla: I. [A] + [T] = [G] + [C]. II. [A] + [G] = [T] + [C]. Está correto o que se afirma em",
+   o:["I, apenas.",
+      "II, apenas.",
+      "I e II.",
+      "nenhuma delas.",
+      "I, só se A = G."],
+   c:1, w:"Como A = T e G = C, as purinas (A + G) sempre igualam as pirimidinas (T + C). Já A + T só é igual a G + C quando o DNA tem exatamente 50% de A + T."},
+
+  {tema:"Cálculo das bases", p:"Em um DNA de fita dupla, guanina e citosina somam 46% das bases. A porcentagem de timina é",
+   o:["23%.",
+      "46%.",
+      "54%.",
+      "27%.",
+      "77%."],
+   c:3, w:"Se G + C = 46%, então A + T = 54%. Como A = T, a timina é 27%."},
+
+  {tema:"Cálculo das bases", p:"Duas moléculas de DNA têm 10 pares de bases cada: I. 5' ATCTTAGCAA 3' e II. 5' GCGGTTCTGC 3'. Qual precisa de mais calor para se desnaturar, e por quê?",
+   o:["I, porque tem mais pares A–T, que têm 3 pontes de hidrogênio.",
+      "II, porque tem mais pares C–G, que têm 3 pontes de hidrogênio.",
+      "As duas igualmente, porque têm o mesmo número total de pares de bases.",
+      "I, porque suas ligações fosfodiéster são mais numerosas.",
+      "II, porque a desnaturação rompe as ligações fosfodiéster."],
+   c:1, w:"A molécula II tem 7 pares C–G e a I só 3. O par C–G tem 3 pontes de hidrogênio, e o A–T tem 2. Por isso a II desnatura a uma temperatura maior (61 °C contra 53 °C, no exemplo da aula). A desnaturação rompe as pontes de hidrogênio, e não as fosfodiéster."},
+
+  {tema:"Cálculo das bases", p:"Um DNA de fita dupla tem 30% de adenina. A porcentagem total de bases púricas (purinas) nessa molécula é",
+   o:["50%.",
+      "30%.",
+      "60%.",
+      "40%.",
+      "70%."],
+   c:0, w:"Purinas são A e G. A = 30% e G = 20%, então A + G = 50%. Em qualquer DNA de fita dupla, purinas e pirimidinas são sempre 50% cada."},
+
   ]
 }];
 
@@ -7221,12 +7285,12 @@ const RESUMOS = {
             "titulo": "Onde entram os aminoácidos",
             "pontos": [
               "<em>Complemento: não estava nos slides nem no quadro; fecha o caminho DNA → RNA → proteína.</em>",
-              "<strong>A ideia em uma frase:</strong> o RNA é uma receita, e a proteína é o prato. Os ingredientes são os <strong>aminoácidos</strong>.",
-              "O RNA é lido em grupos de <strong>3 letras</strong>. Cada grupo se chama <strong>códon</strong> e significa um aminoácido. Exemplo: CCA = prolina; AAA = lisina.",
-              "Quem faz a leitura é o <strong>ribossomo</strong>. Quem traz cada aminoácido até ele é o <strong>RNA transportador</strong>. O ribossomo vai prendendo um aminoácido no outro, como contas num colar, e o colar pronto é a proteína.",
-              "<strong>Onde começa:</strong> no códon <strong>AUG</strong>, que traz a metionina. Pense nele como a letra maiúscula do início da frase: o ribossomo passa pelo RNA até achar o primeiro AUG, e só dali em diante começa a ler.",
-              "<strong>Onde termina:</strong> nos códons de parada (UAA, UAG ou UGA), que funcionam como o ponto final.",
-              "<strong>No exemplo do quadro:</strong> AAA UGA <strong>AUG CCA AAA UAG</strong> CCA. A leitura começa no AUG e dá: metionina, prolina, lisina e ponto final no UAG. O que vem antes do AUG não é lido, por isso o UGA do começo não para nada."
+              "Proteínas são cadeias de <strong>aminoácidos</strong> (há 20 tipos). A sequência de bases do RNA mensageiro determina a ordem desses aminoácidos, e essa ordem define a forma e a função da proteína.",
+              "O RNA mensageiro é lido em trincas de bases, os <strong>códons</strong>. Cada códon corresponde a um aminoácido ou a um sinal de parada. Exemplos: CCA = prolina; AAA = lisina.",
+              "A leitura acontece no <strong>ribossomo</strong>. O <strong>RNA transportador</strong> leva cada aminoácido até ele, reconhecendo o códon por uma trinca complementar, o anticódon. O ribossomo une os aminoácidos por <strong>ligações peptídicas</strong>.",
+              "<strong>Início:</strong> o códon <strong>AUG</strong>, que codifica a metionina. O ribossomo percorre o RNA no sentido 5' → 3' e começa a tradução no primeiro AUG; a partir dele, a leitura segue de três em três bases.",
+              "<strong>Fim:</strong> os códons de parada UAA, UAG e UGA não codificam aminoácido e encerram a síntese.",
+              "<strong>No exemplo do quadro:</strong> 5' AAA UGA <strong>AUG CCA AAA UAG</strong> CCA 3'. A tradução começa no AUG e produz metionina, prolina e lisina, terminando no UAG. O trecho antes do AUG não é traduzido, por isso o UGA inicial não interrompe nada."
             ],
             "q": "Em qual códon a síntese de proteína começa, e onde ela termina?",
             "a": "Começa no AUG (metionina), o primeiro que o ribossomo encontra. Termina no primeiro códon de parada depois dele (UAA, UAG ou UGA)."
@@ -7237,13 +7301,13 @@ const RESUMOS = {
             "titulo": "Como as mutações chegam ao RNA",
             "pontos": [
               "<em>Complemento: não estava nos slides nem no quadro.</em>",
-              "<strong>Mutação</strong> é uma letra trocada, a mais ou a menos no DNA. Como o RNA é uma cópia do DNA, ele copia o erro junto, e a proteína pode sair diferente.",
-              "<strong>Comparando com uma frase de palavras de 3 letras,</strong> SEU CÃO VIU UMA AVE:",
-              "<strong>Silenciosa:</strong> a letra muda, mas o sentido não. Acontece porque vários códons significam o mesmo aminoácido (AAA e AAG são lisina).",
-              "<strong>De sentido trocado:</strong> uma palavra vira outra. SEU CÃO VIU UMA AV<strong>Ó</strong>. Na proteína, entra um aminoácido diferente.",
-              "<strong>Sem sentido:</strong> aparece um ponto final antes da hora. SEU CÃO. A proteína sai cortada.",
-              "<strong>Mudança na leitura:</strong> some uma letra e todas as palavras seguintes se embaralham. Tirando o C: SEU ÃOV IUU MAA VE. É a mais grave.",
-              "<strong>Exemplo real, a anemia falciforme:</strong> uma única letra trocada no gene da hemoglobina troca um aminoácido, e as hemácias ficam com formato de foice."
+              "<strong>Mutação</strong> é uma alteração na sequência de bases do DNA: uma base trocada, acrescentada ou perdida. Como o RNA é transcrito a partir do DNA, a alteração passa para o RNA mensageiro e pode mudar a proteína.",
+              "O efeito depende de como a mutação altera os códons:",
+              "<strong>Silenciosa:</strong> o códon muda, mas continua codificando o mesmo aminoácido, porque vários códons correspondem ao mesmo aminoácido (AAA e AAG são lisina). A proteína não muda.",
+              "<strong>De sentido trocado:</strong> o novo códon codifica outro aminoácido. A proteína muda em um ponto, e o efeito pode ir de nenhum a grave.",
+              "<strong>Sem sentido:</strong> o novo códon é de parada. A síntese termina antes da hora, e a proteína sai incompleta.",
+              "<strong>Mudança na matriz de leitura:</strong> a perda ou a inserção de bases (em número que não seja múltiplo de 3) desloca a leitura em trincas. Todos os códons seguintes mudam, o que costuma ser o efeito mais grave.",
+              "<strong>Exemplo, a anemia falciforme:</strong> a troca de uma única base no gene da hemoglobina transforma o códon GAG em GUG no RNA. Um ácido glutâmico é substituído por valina, e a hemoglobina alterada deforma as hemácias."
             ],
             "q": "O que acontece com a proteína quando some uma letra no meio do gene?",
             "a": "Todas as palavras de 3 letras depois daquele ponto se embaralham, e todos os aminoácidos seguintes mudam. Por isso é o tipo mais grave."
