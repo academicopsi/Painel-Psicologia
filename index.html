@@ -7227,10 +7227,12 @@ const RESUMOS = {
               "Quem traz os aminoácidos é o <strong>RNA transportador (RNAt)</strong>. Ele tem uma trinca complementar ao códon, o <strong>anticódon</strong>, e carrega o aminoácido correspondente.",
               "O ribossomo une um aminoácido ao seguinte por <strong>ligações peptídicas</strong>, e a cadeia cresce até chegar a um códon de parada.",
               "<strong>O código genético:</strong> são 64 códons. 61 codificam aminoácidos e 3 são de parada (UAA, UAG e UGA). O AUG codifica a metionina e marca o início. Como há mais códons que aminoácidos, vários códons codificam o mesmo aminoácido: o código é <strong>degenerado</strong> (redundante).",
-              "<strong>No exemplo do quadro:</strong> o RNA 5' AAA UGA <strong>AUG CCA AAA UAG</strong> CCA 3' começa a ser traduzido no AUG e dá metionina, prolina, lisina e parada."
+              "<strong>No exemplo do quadro:</strong> o RNA 5' AAA UGA <strong>AUG CCA AAA UAG</strong> CCA 3' começa a ser traduzido no AUG e dá metionina, prolina, lisina e parada.",
+              "<strong>Onde a síntese começa de fato:</strong> no primeiro <strong>AUG</strong>, e não na primeira base do RNA. O ribossomo se prende perto da ponta 5' do RNA mensageiro e vai percorrendo-o no sentido 5' → 3' até encontrar o AUG. Ali entra a primeira metionina, e a partir dele o RNA passa a ser lido de três em três.",
+              "No exemplo do quadro, o trecho AAA UGA, antes do AUG, não é traduzido. Por isso o UGA ali não para nada: ele só funcionaria como códon de parada se estivesse depois do AUG, na mesma leitura de três em três. A primeira parada de verdade é o UAG."
             ],
-            "q": "Qual molécula leva os aminoácidos até o ribossomo, e como ela \"sabe\" qual levar?",
-            "a": "O RNA transportador (RNAt). Ele tem um anticódon complementar ao códon do RNA mensageiro, e cada RNAt carrega o aminoácido correspondente ao seu anticódon."
+            "q": "Em qual códon a síntese de proteína começa, e qual aminoácido ele traz?",
+            "a": "No AUG, o primeiro que o ribossomo encontra ao percorrer o RNA de 5' para 3'. Ele codifica a metionina, que é sempre o primeiro aminoácido da cadeia."
           },
           {
             "fase": "Quando o DNA muda",
@@ -7565,6 +7567,17 @@ const RESUMOS = {
             ],
             "c": 2,
             "w": "A leitura de três em três se desloca: é a mudança na matriz de leitura."
+          },
+          {
+            "p": "No RNA 5' AAA UGA AUG CCA AAA UAG 3', a tradução começa em…",
+            "o": [
+              "AAA",
+              "UGA",
+              "AUG",
+              "UAG"
+            ],
+            "c": 2,
+            "w": "O ribossomo percorre o RNA de 5' para 3' até o primeiro AUG. O UGA antes dele não é lido."
           }
         ]
       }
