@@ -7211,8 +7211,7 @@ const RESUMOS = {
               "Na <strong>transcrição</strong>, a enzima <strong>RNA polimerase</strong> usa uma das fitas do DNA como molde e faz uma fita de RNA complementar.",
               "O RNA é sempre sintetizado no sentido <strong>5' → 3'</strong>. Por isso a fita usada como molde é a que corre de 3' para 5'.",
               "O RNA fica igual à outra fita do DNA (a de 5' para 3'), só que com <strong>U no lugar de T</strong>.",
-              "<strong>Exemplo do quadro:</strong> DNA 5' AAA TGA ATG CCA AAA TAG CCA 3' / 3' TTT ACT TAC GGT TTT ATC GGT 5' → RNA 5' AAA UGA AUG CCA AAA UAG CCA 3'.",
-              "<strong>Código genético</strong> (complemento): o RNA é lido de três em três bases (códons), e cada códon corresponde a um aminoácido ou a um sinal. No exemplo aparecem AUG, o códon de início, e UGA e UAG, códons de parada."
+              "<strong>Exemplo do quadro:</strong> DNA 5' AAA TGA ATG CCA AAA TAG CCA 3' / 3' TTT ACT TAC GGT TTT ATC GGT 5' → RNA 5' AAA UGA AUG CCA AAA UAG CCA 3'."
             ],
             "q": "Em que sentido o RNA é sintetizado, e qual base ele usa no lugar da timina?",
             "a": "No sentido 5' → 3', pela RNA polimerase. O RNA usa uracila (U) no lugar da timina (T)."
@@ -7221,32 +7220,33 @@ const RESUMOS = {
             "when": "Tradução",
             "titulo": "Onde entram os aminoácidos",
             "pontos": [
-              "<em>Complemento: tradução não estava nos slides nem no quadro; está aqui para fechar o caminho DNA → RNA → proteína.</em>",
-              "Proteínas são cadeias de <strong>aminoácidos</strong>. Existem 20 tipos, e a ordem deles define a forma da proteína e, com isso, a sua função.",
-              "O RNA mensageiro sai do núcleo e vai até o <strong>ribossomo</strong>, que o lê de três em três bases. Cada trinca é um <strong>códon</strong>.",
-              "Quem traz os aminoácidos é o <strong>RNA transportador (RNAt)</strong>. Ele tem uma trinca complementar ao códon, o <strong>anticódon</strong>, e carrega o aminoácido correspondente.",
-              "O ribossomo une um aminoácido ao seguinte por <strong>ligações peptídicas</strong>, e a cadeia cresce até chegar a um códon de parada.",
-              "<strong>O código genético:</strong> são 64 códons. 61 codificam aminoácidos e 3 são de parada (UAA, UAG e UGA). O AUG codifica a metionina e marca o início. Como há mais códons que aminoácidos, vários códons codificam o mesmo aminoácido: o código é <strong>degenerado</strong> (redundante).",
-              "<strong>No exemplo do quadro:</strong> o RNA 5' AAA UGA <strong>AUG CCA AAA UAG</strong> CCA 3' começa a ser traduzido no AUG e dá metionina, prolina, lisina e parada.",
-              "<strong>Onde a síntese começa de fato:</strong> no primeiro <strong>AUG</strong>, e não na primeira base do RNA. O ribossomo se prende perto da ponta 5' do RNA mensageiro e vai percorrendo-o no sentido 5' → 3' até encontrar o AUG. Ali entra a primeira metionina, e a partir dele o RNA passa a ser lido de três em três.",
-              "No exemplo do quadro, o trecho AAA UGA, antes do AUG, não é traduzido. Por isso o UGA ali não para nada: ele só funcionaria como códon de parada se estivesse depois do AUG, na mesma leitura de três em três. A primeira parada de verdade é o UAG."
+              "<em>Complemento: não estava nos slides nem no quadro; fecha o caminho DNA → RNA → proteína.</em>",
+              "<strong>A ideia em uma frase:</strong> o RNA é uma receita, e a proteína é o prato. Os ingredientes são os <strong>aminoácidos</strong>.",
+              "O RNA é lido em grupos de <strong>3 letras</strong>. Cada grupo se chama <strong>códon</strong> e significa um aminoácido. Exemplo: CCA = prolina; AAA = lisina.",
+              "Quem faz a leitura é o <strong>ribossomo</strong>. Quem traz cada aminoácido até ele é o <strong>RNA transportador</strong>. O ribossomo vai prendendo um aminoácido no outro, como contas num colar, e o colar pronto é a proteína.",
+              "<strong>Onde começa:</strong> no códon <strong>AUG</strong>, que traz a metionina. Pense nele como a letra maiúscula do início da frase: o ribossomo passa pelo RNA até achar o primeiro AUG, e só dali em diante começa a ler.",
+              "<strong>Onde termina:</strong> nos códons de parada (UAA, UAG ou UGA), que funcionam como o ponto final.",
+              "<strong>No exemplo do quadro:</strong> AAA UGA <strong>AUG CCA AAA UAG</strong> CCA. A leitura começa no AUG e dá: metionina, prolina, lisina e ponto final no UAG. O que vem antes do AUG não é lido, por isso o UGA do começo não para nada."
             ],
-            "q": "Em qual códon a síntese de proteína começa, e qual aminoácido ele traz?",
-            "a": "No AUG, o primeiro que o ribossomo encontra ao percorrer o RNA de 5' para 3'. Ele codifica a metionina, que é sempre o primeiro aminoácido da cadeia."
+            "q": "Em qual códon a síntese de proteína começa, e onde ela termina?",
+            "a": "Começa no AUG (metionina), o primeiro que o ribossomo encontra. Termina no primeiro códon de parada depois dele (UAA, UAG ou UGA)."
           },
           {
             "fase": "Quando o DNA muda",
             "when": "Mutações",
             "titulo": "Como as mutações chegam ao RNA",
             "pontos": [
-              "<em>Complemento: mutações não estavam nos slides nem no quadro.</em>",
-              "Uma <strong>mutação</strong> é uma alteração na sequência de bases do DNA. Na transcrição, a RNA polimerase copia o DNA como ele está, então o RNA mensageiro leva a mutação junto até o ribossomo.",
-              "Como o ribossomo lê de três em três bases, o efeito depende de como a mutação muda os códons. Veja os tipos na tabela abaixo, aplicados ao exemplo do quadro.",
-              "Mutações fora do gene também contam: se a alteração cair na região que liga e desliga o gene, a célula pode produzir mais RNA, menos ou nenhum.",
-              "<strong>Exemplo clássico, a anemia falciforme:</strong> uma única base trocada no gene da hemoglobina faz o códon GAG virar GUG no RNA. Com isso, um ácido glutâmico vira valina, e a hemoglobina passa a deformar as hemácias."
+              "<em>Complemento: não estava nos slides nem no quadro.</em>",
+              "<strong>Mutação</strong> é uma letra trocada, a mais ou a menos no DNA. Como o RNA é uma cópia do DNA, ele copia o erro junto, e a proteína pode sair diferente.",
+              "<strong>Comparando com uma frase de palavras de 3 letras,</strong> SEU CÃO VIU UMA AVE:",
+              "<strong>Silenciosa:</strong> a letra muda, mas o sentido não. Acontece porque vários códons significam o mesmo aminoácido (AAA e AAG são lisina).",
+              "<strong>De sentido trocado:</strong> uma palavra vira outra. SEU CÃO VIU UMA AV<strong>Ó</strong>. Na proteína, entra um aminoácido diferente.",
+              "<strong>Sem sentido:</strong> aparece um ponto final antes da hora. SEU CÃO. A proteína sai cortada.",
+              "<strong>Mudança na leitura:</strong> some uma letra e todas as palavras seguintes se embaralham. Tirando o C: SEU ÃOV IUU MAA VE. É a mais grave.",
+              "<strong>Exemplo real, a anemia falciforme:</strong> uma única letra trocada no gene da hemoglobina troca um aminoácido, e as hemácias ficam com formato de foice."
             ],
-            "q": "Por que uma mutação silenciosa não muda a proteína?",
-            "a": "Porque o código genético é degenerado: o códon mudou, mas continua codificando o mesmo aminoácido (por exemplo, AAA e AAG codificam lisina)."
+            "q": "O que acontece com a proteína quando some uma letra no meio do gene?",
+            "a": "Todas as palavras de 3 letras depois daquele ponto se embaralham, e todos os aminoácidos seguintes mudam. Por isso é o tipo mais grave."
           }
         ],
         "extras": [
