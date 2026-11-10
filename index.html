@@ -6611,7 +6611,7 @@ const RESUMOS = {
     "eyebrow": "Bases Biológicas",
     "titulo": "Embriologia e estrutura do DNA",
     "lead": "Desenvolvimento embrionário (da fertilização à 2ª semana) e estrutura do DNA. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
-    "fonte": "Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos tópicos do quadro da aula, com o conteúdo padrão de biologia molecular; descoberta, regra de Chargaff, medidas da hélice e cromatina complementam o que estava no quadro. Na ampliação de novembro, a parte de DNA ganhou os experimentos que mostraram que o DNA é o material genético, os níveis de compactação e a comparação com o RNA, com base em conteúdo padrão de biologia molecular.",
+    "fonte": "Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos slides e do quadro da aula, complementado com conteúdo padrão de biologia molecular (experimentos de Griffith, Avery e Hershey-Chase, medidas da hélice, níveis de compactação e cromatina).",
     "caps": [
       {
         "id": "embrio",
@@ -6981,7 +6981,7 @@ const RESUMOS = {
         "id": "dna",
         "aba": "Estrutura do DNA",
         "titulo": "Estrutura do DNA",
-        "intro": "Do que o DNA é feito e como as partes se encaixam: nucleotídeos, bases, açúcar, fosfato, a dupla fita antiparalela e como ele se compacta em cromossomo.",
+        "intro": "Do que o DNA é feito e como as partes se encaixam: nucleotídeos, bases, açúcar, fosfato, a dupla fita antiparalela, a desnaturação, a síntese de RNA e como o DNA se compacta em cromossomo. No fim, as questões da aula resolvidas.",
         "etapas": [
           {
             "fase": "Composição",
@@ -6991,7 +6991,7 @@ const RESUMOS = {
               "<strong>1869:</strong> Friedrich Miescher isola do núcleo das células uma substância ácida, que chama de nucleína: o primeiro registro do DNA.",
               "<strong>1950:</strong> Erwin Chargaff mostra que, no DNA, a quantidade de A é igual à de T, e a de C é igual à de G.",
               "<strong>1952:</strong> Rosalind Franklin e Maurice Wilkins obtêm imagens de difração de raios X que indicam uma hélice.",
-              "<strong>1953:</strong> James Watson e Francis Crick propõem o modelo da <strong>dupla-hélice</strong>, juntando essas evidências."
+              "<strong>1953:</strong> James Watson (americano) e Francis Crick (inglês) propõem o modelo da dupla-hélice, juntando essas evidências. Foi considerada a contribuição mais importante da biologia depois do livro de Darwin (1859) e da publicação de Mendel (1866)."
             ],
             "q": "Quem propôs o modelo da dupla-hélice e em que ano?",
             "a": "James Watson e Francis Crick, em 1953, com base nos dados de Rosalind Franklin, Maurice Wilkins e Erwin Chargaff."
@@ -7059,7 +7059,8 @@ const RESUMOS = {
             "pontos": [
               "Açúcar de cinco carbonos (pentose), numerados de 1' a 5'.",
               "No carbono 1' liga-se a base; no 5', o fosfato; no 3' fica a hidroxila (OH) que se liga ao próximo nucleotídeo.",
-              "\"Desoxi\": falta um oxigênio no carbono 2' em relação à <strong>ribose</strong>, o açúcar do RNA."
+              "\"Desoxi\": falta um oxigênio no carbono 2' em relação à <strong>ribose</strong>, o açúcar do RNA.",
+              "Nos desenhos da aula, a diferença aparece no carbono 2': a ribose do RNA tem uma hidroxila (OH) ali; a desoxirribose do DNA tem só um hidrogênio."
             ],
             "q": "Qual a diferença entre o açúcar do DNA e o do RNA?",
             "a": "O DNA tem desoxirribose, com um oxigênio a menos no carbono 2'; o RNA tem ribose."
@@ -7070,7 +7071,10 @@ const RESUMOS = {
             "pontos": [
               "O fosfato liga o carbono 5' de um nucleotídeo ao carbono 3' do seguinte: a <strong>ligação fosfodiéster</strong>.",
               "A repetição açúcar–fosfato forma o <strong>esqueleto</strong> de cada fita, por fora; as bases ficam para dentro.",
-              "O fosfato tem carga negativa, então o DNA é uma molécula de <strong>carga negativa</strong>."
+              "O fosfato tem carga negativa, então o DNA é uma molécula de <strong>carga negativa</strong>.",
+              "Cada fita de DNA tem um <strong>grupo fosfato na extremidade 5'</strong>.",
+              "A carga negativa dos fosfatos torna o DNA uma molécula <strong>altamente hidrofílica</strong> (atrai água).",
+              "As moléculas que interagem com o DNA, como as histonas, em geral têm <strong>cargas positivas</strong> e fazem <strong>ligações iônicas</strong> com ele."
             ],
             "q": "Que ligação une um nucleotídeo ao seguinte na mesma fita?",
             "a": "A ligação fosfodiéster, feita pelo fosfato entre o carbono 5' de um e o carbono 3' do outro."
@@ -7088,6 +7092,17 @@ const RESUMOS = {
             ],
             "q": "O que quer dizer que a dupla fita do DNA é antiparalela?",
             "a": "Que as duas fitas correm em sentidos opostos: uma de 5' para 3' e a outra de 3' para 5'."
+          },
+          {
+            "when": "Desnaturação",
+            "titulo": "Separar as fitas com calor",
+            "pontos": [
+              "Aquecido, o DNA se <strong>desnatura</strong>: as pontes de hidrogênio se rompem e as duas fitas se separam. As ligações fosfodiéster continuam intactas.",
+              "Como o par C–G tem <strong>3 pontes</strong> e o par A–T tem <strong>2</strong>, quanto mais pares C–G, mais calor é preciso para separar as fitas.",
+              "<strong>Exemplo da aula:</strong> 5' ATCTTAGCAA 3' tem 3 pares C–G em 10 e desnatura a 53 °C; 5' GCGGTTCTGC 3' tem 7 pares C–G em 10 e desnatura a 61 °C."
+            ],
+            "q": "Por que um DNA rico em C e G precisa de mais calor para se desnaturar?",
+            "a": "Porque cada par C–G é unido por 3 pontes de hidrogênio, e cada par A–T por 2. Mais pares C–G significa mais pontes para romper."
           },
           {
             "fase": "Forma e organização",
@@ -7136,6 +7151,20 @@ const RESUMOS = {
             ],
             "q": "Qual tipo de cromatina contém os genes ativos?",
             "a": "A eucromatina, menos condensada."
+          },
+          {
+            "fase": "Do DNA ao RNA",
+            "when": "Transcrição",
+            "titulo": "Síntese de RNA",
+            "pontos": [
+              "Na <strong>transcrição</strong>, a enzima <strong>RNA polimerase</strong> usa uma das fitas do DNA como molde e faz uma fita de RNA complementar.",
+              "O RNA é sempre sintetizado no sentido <strong>5' → 3'</strong>. Por isso a fita usada como molde é a que corre de 3' para 5'.",
+              "O RNA fica igual à outra fita do DNA (a de 5' para 3'), só que com <strong>U no lugar de T</strong>.",
+              "<strong>Exemplo do quadro:</strong> DNA 5' AAA TGA ATG CCA AAA TAG CCA 3' / 3' TTT ACT TAC GGT TTT ATC GGT 5' → RNA 5' AAA UGA AUG CCA AAA UAG CCA 3'.",
+              "<strong>Código genético</strong> (complemento): o RNA é lido de três em três bases (códons), e cada códon corresponde a um aminoácido ou a um sinal. No exemplo aparecem AUG, o códon de início, e UGA e UAG, códons de parada."
+            ],
+            "q": "Em que sentido o RNA é sintetizado, e qual base ele usa no lugar da timina?",
+            "a": "No sentido 5' → 3', pela RNA polimerase. O RNA usa uracila (U) no lugar da timina (T)."
           }
         ],
         "extras": [
@@ -7204,6 +7233,32 @@ const RESUMOS = {
                 "Guardar e transmitir a informação genética",
                 "Levar a informação e participar da síntese de proteínas"
               ]
+            ]
+          },
+          {
+            "tipo": "caixas",
+            "titulo": "Questões da aula, resolvidas",
+            "itens": [
+              {
+                "t": "35% de adenina: quanto de citosina?",
+                "d": "A = T, então T = 35%. A + T = 70%, e sobram 30% para G + C. Como G = C, cada um tem 15%. <strong>Citosina = 15%.</strong>"
+              },
+              {
+                "t": "29% de guanina: quanto de A, T e C?",
+                "d": "C = G = 29%. G + C = 58%, e sobram 42% para A + T. <strong>Citosina = 29%, adenina = 21% e timina = 21%.</strong>"
+              },
+              {
+                "t": "[A] + [T] = [G] + [C]?",
+                "d": "<strong>Falsa</strong> como regra: só vale se o DNA tiver exatamente 50% de A + T. No exemplo de 35% de adenina, A + T = 70% e G + C = 30%."
+              },
+              {
+                "t": "[A] + [G] = [T] + [C]?",
+                "d": "<strong>Verdadeira:</strong> como A = T e G = C, a soma das purinas (A + G) é sempre igual à das pirimidinas (T + C)."
+              },
+              {
+                "t": "Por que 53 °C e 61 °C?",
+                "d": "A segunda molécula tem 7 pares C–G em 10, e a primeira só 3. O par C–G tem 3 pontes de hidrogênio, e o A–T tem 2. Mais pontes, mais energia para separar as fitas: temperatura de desnaturação maior."
+              }
             ]
           }
         ],
@@ -7317,6 +7372,50 @@ const RESUMOS = {
             ],
             "c": 0,
             "w": "Duas cópias de H2A, H2B, H3 e H4."
+          },
+          {
+            "p": "Num DNA com 35% de adenina, a porcentagem de citosina é…",
+            "o": [
+              "35%",
+              "15%",
+              "30%",
+              "65%"
+            ],
+            "c": 1,
+            "w": "T = 35%; G + C = 30%; C = 15%."
+          },
+          {
+            "p": "Qual igualdade vale para qualquer DNA de fita dupla?",
+            "o": [
+              "[A] + [T] = [G] + [C]",
+              "[A] + [G] = [T] + [C]",
+              "[A] = [G]",
+              "[T] = [C]"
+            ],
+            "c": 1,
+            "w": "Purinas = pirimidinas, porque A = T e G = C."
+          },
+          {
+            "p": "A carga negativa dos fosfatos deixa o DNA…",
+            "o": [
+              "Hidrofóbico",
+              "Altamente hidrofílico",
+              "Sem carga",
+              "Positivo"
+            ],
+            "c": 1,
+            "w": "Por isso ele interage com moléculas positivas, como as histonas, por ligações iônicas."
+          },
+          {
+            "p": "A RNA polimerase sintetiza o RNA no sentido…",
+            "o": [
+              "3' → 5'",
+              "5' → 3'",
+              "Nos dois sentidos",
+              "Do centro para as pontas"
+            ],
+            "c": 1,
+            "w": "Sempre 5' → 3'."
           }
         ]
       }
