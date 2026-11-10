@@ -1073,6 +1073,28 @@
   .ex-section[hidden]{display:none;}
 
   /* Ferramentas agrupadas por disciplina */
+  /* Calculando as bases do DNA */
+  .ch-h{font-size:15px; font-weight:800; margin:20px 0 6px; color:var(--ink);}
+  .ch-p{font-size:14.5px; line-height:1.6; margin:0 0 12px; color:var(--ink-soft);}
+  .ch-slider{display:flex; flex-direction:column; gap:6px; font-size:14.5px; margin-bottom:10px;}
+  .ch-slider input{width:100%; accent-color:var(--petrol);}
+  .ch-barra{display:flex; height:34px; border-radius:8px; overflow:hidden; border:1px solid var(--rule);}
+  .ch-seg{display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; transition:flex-basis .2s;}
+  .ch-A{background:#1F5C56;} .ch-T{background:#3E8A80;} .ch-G{background:#B7791F;} .ch-C{background:#D39A45;}
+  .ch-fita{display:grid; grid-template-columns:repeat(10, 1fr); gap:4px; margin:12px 0 6px;}
+  .ch-par{display:flex; flex-direction:column; align-items:center; gap:2px; font-family:var(--mono, monospace); font-size:13px; font-weight:700;}
+  .ch-par span{width:100%; text-align:center; padding:3px 0; border-radius:4px; color:#fff;}
+  .ch-par i{font-style:normal; font-size:10px; color:var(--ink-faint); line-height:1;}
+  .ch-passos{margin:10px 0 0; padding-left:20px; font-size:14px; line-height:1.65;}
+  .ch-passos li{margin-bottom:2px;}
+  .ch-campos{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 12px;}
+  .ch-campo{display:flex; align-items:center; gap:6px; font-size:14.5px; font-weight:600;}
+  .ch-campo input{width:78px; padding:8px 10px; border:1px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); font:inherit; font-weight:600;}
+  .ch-campo input.ok{border-color:var(--petrol); background:var(--petrol-soft);}
+  .ch-campo input.err{border-color:var(--danger);}
+  .ch-acoes{display:flex; flex-wrap:wrap; gap:8px;}
+  .ch-placar{font-size:13px; color:var(--ink-faint); margin:10px 0 0;}
+  .ch-sol{margin:8px 0 0; padding-left:20px;}
   .tool-group{margin-top:36px;}
   .tool-group:first-of-type{margin-top:8px;}
   .tool-group-title{display:flex; align-items:center; flex-wrap:wrap; gap:10px; font-size:20px; font-weight:800; letter-spacing:-0.02em; margin:0 0 4px;}
@@ -2690,6 +2712,35 @@
         <div class="tool-disclaimer">Esquemas simplificados e fora de escala, desenhados a partir das figuras do slide de Bases Biológicas: luz do útero à esquerda, endométrio à direita, sinciciotrofoblasto verde e disco embrionário voltado para dentro do endométrio. Os dias são aproximados; confira sempre as figuras do slide e do livro.</div>
       </div>
     </details>
+    <details class="graveyard">
+      <summary>Calculando as bases do DNA (regra de Chargaff)</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Primeiro entenda de onde vem a conta, mexendo na quantidade de adenina. Depois pratique com questões como as da aula, com correção passo a passo.</div>
+
+        <h3 class="ch-h">1. Entenda a regra</h3>
+        <p class="ch-p">No DNA de fita dupla, cada <strong>A</strong> está pareada com uma <strong>T</strong>, e cada <strong>G</strong> com uma <strong>C</strong>. Por isso A e T sempre têm a mesma porcentagem, e G e C também. As quatro juntas somam 100%.</p>
+        <label class="ch-slider"><span>Adenina: <strong id="chValA">30</strong>%</span>
+          <input type="range" id="chSlider" min="0" max="50" step="1" value="30" aria-label="Porcentagem de adenina"></label>
+        <div class="ch-barra" id="chBarra" aria-hidden="true"></div>
+        <div class="ch-fita" id="chFita" aria-hidden="true"></div>
+        <ol class="ch-passos" id="chPassos"></ol>
+
+        <h3 class="ch-h">2. Pratique</h3>
+        <div class="prompt-box">
+          <div class="plabel">Questão</div>
+          <div class="pfrase" id="chEnunciado"></div>
+        </div>
+        <div class="ch-campos" id="chCampos"></div>
+        <div class="ch-acoes">
+          <button class="correct-btn" id="chConferir" style="margin-top:0;">Conferir</button>
+          <button class="shuffle-btn" id="chDica" style="margin-top:0;">💡 Dica</button>
+          <button class="shuffle-btn" id="chNova" style="margin-top:0;">🔀 Outra questão</button>
+        </div>
+        <div class="pfeedback" id="chFeedback"></div>
+        <p class="ch-placar" id="chPlacar"></p>
+        <div class="tool-disclaimer">Baseado nas questões da aula de Bases Biológicas sobre a estrutura do DNA. A regra vale para DNA de fita dupla; em uma fita só (ou no RNA) as proporções não precisam ser iguais.</div>
+      </div>
+    </details>
   </section>
 
   <section class="tool-group">
@@ -3658,11 +3709,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA: mexa na adenina para ver de onde vem a conta e pratique questões como as da aula, com dica e correção passo a passo. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
   {date: '2026-11-09', disc: 'Geral', desc: 'Resumos ampliados com o que faltava dos slides: neurotransmissores e tabela de efeitos do SNA, núcleos dos nervos cranianos, as três classificações da dislexia, mais detalhes de Vygotsky, Freire, discalculia, TDAH, TEA e embriologia, níveis de compactação do DNA e exemplos de como responder às questões de Piaget, Vygotsky e Freire.', link: {page:'viewEstudar'}},
   {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e 30 questões novas no simulado da N2, que agora tem 70.', link: {url:'#resumo-aprendizagem-7-9'}},
   {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-03', disc: 'Geral', desc: 'Simulados em modo prova, com 40 questões no estilo vestibular: Bases Biológicas, Aprendizagem, Experimental e Desenvolvimento Adulto e Idoso. Ficam no menu Estudo, em Modo prova, e na página de cada disciplina.', link: {page:'viewSimulados'}},
-  {date: '2026-11-02', disc: 'Projeto de Extensão', desc: 'Montador do relatório: escreva cada seção com perguntas-guia e verificação automática (objetivos, metodologia, referências), monte objetivos e baixe o texto como Word. Inclui 7 projetos de extensão publicados para consulta.', link: {disc:'06'}},
 ];
 
 
@@ -13370,6 +13421,106 @@ SNA_ORGAOS.forEach(o=>{
   PA_CENARIOS.push({situacao:`${o.nome}: ${o.simp}`, correta:'Simpático', explicacao:`No simpático: ${o.simp.toLowerCase()}${o.para ? ` No parassimpático: ${o.para.toLowerCase()}` : ''}`});
 });
 criarClassificador({pre:'pa', cenarios:PA_CENARIOS, opcoes:['Parassimpático','Simpático']});
+
+// --- Calculando as bases do DNA (Bases Biológicas) ---
+(function(){
+  const $ = id => document.getElementById(id);
+  if(!$('chSlider')) return;
+  const NOME = {A:'adenina', T:'timina', G:'guanina', C:'citosina'};
+  const PAR = {A:'T', T:'A', G:'C', C:'G'};
+  const fmt = n => (Math.round(n*10)/10).toLocaleString('pt-BR');
+
+  // 1. Entenda a regra
+  function desenha(){
+    const a = +$('chSlider').value, g = (100 - 2*a)/2;
+    $('chValA').textContent = a;
+    const v = {A:a, T:a, G:g, C:g};
+    $('chBarra').innerHTML = ['A','T','G','C'].map(b=> v[b] > 0 ? `<div class="ch-seg ch-${b}" style="flex-basis:${v[b]}%">${v[b] >= 7 ? b+' '+fmt(v[b])+'%' : b}</div>` : '').join('');
+    // 10 pares: quantos são A–T e quantos são G–C
+    const at = Math.round((2*a)/10);
+    let html = '';
+    for(let i=0;i<10;i++){
+      const ehAT = i < at; const cima = ehAT ? (i%2 ? 'T':'A') : (i%2 ? 'C':'G');
+      html += `<div class="ch-par"><span class="ch-${cima}">${cima}</span><i>${ehAT ? '2' : '3'}</i><span class="ch-${PAR[cima]}">${PAR[cima]}</span></div>`;
+    }
+    $('chFita').innerHTML = html;
+    $('chPassos').innerHTML = `
+      <li>A = T, porque cada A está pareada com uma T: <strong>A = ${a}% e T = ${a}%</strong>.</li>
+      <li>Juntas, A + T = ${2*a}%.</li>
+      <li>O resto é de G e C: 100 − ${2*a} = <strong>${100-2*a}%</strong>.</li>
+      <li>G = C, então divide por 2: <strong>G = ${fmt(g)}% e C = ${fmt(g)}%</strong>.</li>
+      <li>Confira: purinas (A + G = ${fmt(a+g)}%) = pirimidinas (T + C = ${fmt(a+g)}%). Sempre dá 50% e 50%.</li>`;
+  }
+  $('chSlider').addEventListener('input', desenha);
+  desenha();
+
+  // 2. Pratique
+  const rnd = (a,b)=> a + Math.floor(Math.random()*(b-a+1));
+  let q = null, acertos = 0, total = 0, dicas = 0;
+  function gera(){
+    const tipo = rnd(0,3);
+    if(tipo <= 1){ // porcentagem de uma base → outras
+      const dada = ['A','T','G','C'][rnd(0,3)];
+      const p = rnd(5,45);
+      const v = {}; v[dada] = p; v[PAR[dada]] = p;
+      const resto = (100 - 2*p)/2; ['A','T','G','C'].forEach(b=>{ if(v[b] == null) v[b] = resto; });
+      const outros = (dada === 'A' || dada === 'T') ? ['G','C'] : ['A','T'];
+      const pede = tipo === 0 ? [outros[rnd(0,1)]] : ['A','T','G','C'].filter(b=> b !== dada);
+      return {un:'%', v, pede, dada, p, txt: tipo === 0
+        ? `Se em uma molécula de DNA há <strong>${p}% de ${NOME[dada]}</strong>, qual é a porcentagem de <strong>${NOME[pede[0]]}</strong>?`
+        : `Se em uma molécula de DNA há <strong>${p}% de ${NOME[dada]}</strong>, qual é a porcentagem de ${pede.map(b=>NOME[b]).join(', ').replace(/, ([^,]*)$/,' e $1')}?`};
+    }
+    if(tipo === 2){ // contagem de bases
+      const tot = [100,200,400,600,1000][rnd(0,4)];
+      const pct = rnd(1,9)*5; const dada = ['A','T','G','C'][rnd(0,3)];
+      const n = tot*pct/100; const v = {}; v[dada] = n; v[PAR[dada]] = n;
+      const resto = (tot - 2*n)/2; ['A','T','G','C'].forEach(b=>{ if(v[b] == null) v[b] = resto; });
+      const outra = (dada === 'A' || dada === 'T') ? 'G' : 'A';
+      return {un:'', v, pede:[outra], dada, p:n, tot, txt:`Uma molécula de DNA de fita dupla tem <strong>${tot} nucleotídeos</strong>, e <strong>${n}</strong> deles têm ${NOME[dada]}. Quantos nucleotídeos têm <strong>${NOME[outra]}</strong>?`};
+    }
+    // tipo 3: soma de um par dada
+    const gc = rnd(4,16)*5; const g = gc/2; const v = {G:g, C:g, A:(100-gc)/2, T:(100-gc)/2};
+    return {un:'%', v, pede:['A'], soma:gc, txt:`Um DNA tem <strong>${gc}% de G + C</strong> (guanina e citosina juntas). Qual é a porcentagem de <strong>adenina</strong>?`};
+  }
+  function solucao(){
+    const v = q.v;
+    if(q.soma != null) return `<ol class="ch-sol"><li>G + C = ${q.soma}%, então A + T = 100 − ${q.soma} = ${100-q.soma}%.</li><li>A = T, então divide por 2: <strong>A = ${fmt(v.A)}%</strong></li></ol>`;
+    const d = q.dada, par = PAR[d], outros = ['A','T','G','C'].filter(b=> b !== d && b !== par);
+    if(q.tot) return `<ol class="ch-sol"><li>${NOME[d]} pareia com ${NOME[par]}: também são ${q.p}.</li><li>Juntas: ${2*q.p} nucleotídeos.</li><li>Sobram ${q.tot} − ${2*q.p} = ${q.tot-2*q.p} para ${NOME[outros[0]]} e ${NOME[outros[1]]}.</li><li>Divide por 2: <strong>${fmt(v[outros[0]])} de cada</strong></li></ol>`;
+    return `<ol class="ch-sol"><li>${NOME[d]} pareia com ${NOME[par]}: <strong>${par} = ${q.p}%</strong></li><li>Juntas: ${d} + ${par} = ${2*q.p}%.</li><li>Sobram 100 − ${2*q.p} = ${100-2*q.p}% para ${outros.join(' + ')}.</li><li>Divide por 2: <strong>${outros[0]} = ${fmt(v[outros[0]])}% e ${outros[1]} = ${fmt(v[outros[1]])}%</strong></li></ol>`;
+  }
+  function nova(){
+    q = gera(); dicas = 0;
+    $('chEnunciado').innerHTML = q.txt;
+    $('chCampos').innerHTML = q.pede.map(b=>`<label class="ch-campo">${NOME[b].charAt(0).toUpperCase()+NOME[b].slice(1)} <input inputmode="decimal" data-ch-b="${b}" aria-label="${NOME[b]}">${q.un}</label>`).join('');
+    const fb = $('chFeedback'); fb.className = 'pfeedback'; fb.innerHTML = '';
+    $('chDica').disabled = false;
+  }
+  function dica(){
+    const d = q.dada, par = d ? PAR[d] : null;
+    const D = q.soma != null
+      ? ['Se G + C é uma parte do total, o que sobra é A + T.', 'A e T têm sempre o mesmo valor: divida o que sobrou por 2.']
+      : [`Com quem ${NOME[d]} pareia? Essa base tem o mesmo valor.`, `Some o par (${d} + ${par}) e veja quanto sobra do total (${q.tot ? q.tot : '100%'}).`, 'O que sobrou é dividido igualmente entre as outras duas bases.'];
+    const fb = $('chFeedback'); fb.className = 'pfeedback partial show';
+    fb.innerHTML = '<strong>Dica:</strong> ' + D.slice(0, ++dicas).join(' ');
+    if(dicas >= D.length) $('chDica').disabled = true;
+  }
+  function conferir(){
+    const ins = [...document.querySelectorAll('#chCampos input')];
+    if(ins.some(i=> i.value.trim() === '')){ const fb = $('chFeedback'); fb.className = 'pfeedback partial show'; fb.innerHTML = 'Preencha todos os campos antes de conferir.'; return; }
+    let ok = true;
+    ins.forEach(i=>{ const val = parseFloat(i.value.replace(',', '.').replace('%','')); const certo = Math.abs(val - q.v[i.dataset.chB]) < 0.05; i.classList.toggle('ok', certo); i.classList.toggle('err', !certo); if(!certo) ok = false; });
+    total++; if(ok) acertos++;
+    const fb = $('chFeedback'); fb.className = 'pfeedback show ' + (ok ? 'good' : 'bad');
+    fb.innerHTML = (ok ? '<strong>Certo!</strong> Veja o raciocínio:' : '<strong>Ainda não.</strong> Veja o passo a passo:') + solucao();
+    $('chPlacar').textContent = `Nesta sessão: ${acertos} de ${total} certas.`;
+  }
+  $('chNova').addEventListener('click', nova);
+  $('chDica').addEventListener('click', dica);
+  $('chConferir').addEventListener('click', conferir);
+  $('chCampos').addEventListener('keydown', e=>{ if(e.key === 'Enter') conferir(); });
+  nova();
+})();
 
 // --- Do Zigoto ao Disco Bilaminar (Bases Biológicas) ---
 // Desenhos esquemáticos redesenhados a partir das figuras do slide da aula:
