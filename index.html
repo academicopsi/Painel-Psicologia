@@ -3034,6 +3034,21 @@
         <div class="tool-disclaimer">Esquema redesenhado a partir do slide "Representação esquemática do sistema nervoso autônomo" (aula de SNA). Desenho simplificado, fora de escala.</div>
       </div>
     </details>
+      <details class="graveyard">
+      <summary>Qual Classe de Neuromediador?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia o neuromediador e indique a classe a que ele pertence, como na tabela do slide de sinapse química.</div>
+        <div class="prompt-box">
+          <div class="plabel">Neuromediador</div>
+          <div class="pfrase" id="nmSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="nmShuffleBtn">🔀 Sortear outro</button>
+        <div id="nmOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="nmCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="nmFeedbackBox"></div>
+        <div class="tool-disclaimer">Classes conforme a tabela de neuromediadores do slide de revisão de Neuroanatomia.</div>
+      </div>
+    </details>
   </section>
 
   <section class="tool-group">
@@ -3709,11 +3724,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-10', disc: 'Neuroanatomia', desc: 'Revisão: nova aba no resumo com organização do sistema nervoso (SNC e SNP, vesículas encefálicas, divisão segmentar e suprassegmentar), neurônio e sinapses (elétrica e química, neuromediadores, receptores). Exercício Qual Classe de Neuromediador?, 14 termos no glossário, 3 comparações e 15 questões novas no simulado, que agora tem 75.', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Depressão no idoso (Stella et al., 2002): diagnóstico, sintomas, aspectos neurobiológicos, relação com doenças e com demência, tratamento e benefícios da atividade física. Também entrou no simulado da N2, que agora tem 48 questões, e no glossário.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA, com dica e correção passo a passo, e 8 questões de cálculo das bases no simulado da N2, que agora tem 48. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
   {date: '2026-11-09', disc: 'Geral', desc: 'Resumos ampliados com o que faltava dos slides: neurotransmissores e tabela de efeitos do SNA, núcleos dos nervos cranianos, as três classificações da dislexia, mais detalhes de Vygotsky, Freire, discalculia, TDAH, TEA e embriologia, níveis de compactação do DNA e exemplos de como responder às questões de Piaget, Vygotsky e Freire.', link: {page:'viewEstudar'}},
   {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e 30 questões novas no simulado da N2, que agora tem 70.', link: {url:'#resumo-aprendizagem-7-9'}},
-  {date: '2026-11-03', disc: 'Neuroanatomia', desc: 'Nervos cranianos: nova aba no resumo com os 12 pares, inervação da língua e lesões; exercício Qual Nervo Craniano?, 12 termos no glossário, 2 comparações e simulado de 60 questões (medula, SNA e nervos cranianos).', link: {url:'#resumo-medula-sna'}},
 ];
 
 
@@ -3766,9 +3781,9 @@ const STUDY = [
   },
   {
     materia: 'Neuroanatomia',
-    titulo: 'Medula espinhal, SNA e nervos cranianos',
-    subtitulo: 'Três aulas num só resumo',
-    desc: 'Medula (organização, nervos espinhais, vias e meninges), SNA (simpático × parassimpático) e os 12 pares de nervos cranianos, com "Teste-se" e quiz no fim de cada aba.',
+    titulo: 'Neuroanatomia: revisão, medula, SNA e nervos cranianos',
+    subtitulo: 'Quatro aulas num só resumo',
+    desc: 'Revisão (organização do sistema nervoso, neurônio e sinapses), medula (organização, nervos espinhais, vias e meninges), SNA (simpático × parassimpático) e os 12 pares de nervos cranianos, com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-medula-sna'
   },
   {
@@ -5648,8 +5663,8 @@ SIM_JOGO.push({
   id: 'neuro-n2',
   disc: '02',
   titulo: 'Simulado N2: medula, SNA e nervos cranianos',
-  desc: '60 questões no estilo vestibular: medula espinhal e meninges, SNA (somático × autônomo, simpático e parassimpático) e nervos cranianos.',
-  partes: [{k:'medula', t:'Medula e meninges', n:20}, {k:'sna', t:'SNA', n:20}, {k:'nervos', t:'Nervos cranianos', n:20}],
+  desc: '75 questões no estilo vestibular: medula espinhal e meninges, sistema nervoso autônomo, nervos cranianos e revisão de organização do sistema nervoso e sinapses.',
+  partes: [{k:'medula', t:'Medula e meninges', n:20}, {k:'sna', t:'SNA', n:20}, {k:'nervos', t:'Nervos cranianos', n:20}, {k:'org', t:'Revisão: SN e sinapses', n:15}],
   questoes: [
   {tema:"Medula", p:"Sobre a localização da medula espinhal no adulto, é correto afirmar que ela",
    o:["ocupa todo o canal vertebral, do forame magno até a ponta do cóccix.",
@@ -6130,6 +6145,126 @@ SIM_JOGO.push({
       "glossofaríngeo e abducente direitos.",
       "oculomotor direito e troclear esquerdo."],
    c:1, w:"Na lesão do hipoglosso, a língua desvia para o lado lesado (direito). O acessório inerva o trapézio (elevar o ombro) e o esternocleidomastóideo (girar a cabeça)."},
+  {tema:"Revisão: SN e sinapses", p:"O encéfalo é formado por cérebro, cerebelo e tronco encefálico. As partes do tronco encefálico, no sentido de cima para baixo, são",
+   o:["mesencéfalo, ponte e bulbo.",
+      "ponte, mesencéfalo e bulbo.",
+      "bulbo, ponte e mesencéfalo.",
+      "diencéfalo, ponte e bulbo.",
+      "mesencéfalo, cerebelo e bulbo."],
+   c:0, w:"De cima para baixo: mesencéfalo, ponte e bulbo. O diencéfalo faz parte do cérebro, e o cerebelo fica atrás do tronco."},
+
+  {tema:"Revisão: SN e sinapses", p:"O sistema nervoso periférico é formado por",
+   o:["encéfalo e medula espinal.",
+      "nervos cranianos, nervos espinais e gânglios.",
+      "cérebro, cerebelo e tronco encefálico.",
+      "medula espinal e nervos cranianos apenas.",
+      "meninges, líquor, medula espinal e tronco encefálico."],
+   c:1, w:"O SNP reúne nervos cranianos, nervos espinais e gânglios. Encéfalo e medula formam o SNC."},
+
+  {tema:"Revisão: SN e sinapses", p:"No desenvolvimento do encéfalo, o rombencéfalo dá origem a duas vesículas. O metencéfalo forma",
+   o:["o bulbo.",
+      "o tálamo e o hipotálamo.",
+      "o cerebelo e a ponte.",
+      "os hemisférios cerebrais.",
+      "o mesencéfalo."],
+   c:2, w:"O rombencéfalo se divide em metencéfalo (cerebelo e ponte) e mielencéfalo (bulbo)."},
+
+  {tema:"Revisão: SN e sinapses", p:"O prosencéfalo, vesícula anterior do tubo neural, se divide em",
+   o:["metencéfalo e mielencéfalo.",
+      "telencéfalo e diencéfalo.",
+      "mesencéfalo e rombencéfalo.",
+      "ponte e bulbo.",
+      "cerebelo e ponte."],
+   c:1, w:"Prosencéfalo → telencéfalo e diencéfalo, que formam o cérebro."},
+
+  {tema:"Revisão: SN e sinapses", p:"Na divisão do sistema nervoso em segmentar e suprassegmentar, pertencem ao sistema suprassegmentar",
+   o:["a medula espinal e o tronco encefálico.",
+      "o cérebro e o cerebelo.",
+      "os nervos espinais e os gânglios.",
+      "a medula espinal e o cerebelo.",
+      "o tronco encefálico e os nervos cranianos."],
+   c:1, w:"Segmentar: medula e tronco encefálico, ligados diretamente aos nervos. Suprassegmentar: cérebro e cerebelo."},
+
+  {tema:"Revisão: SN e sinapses", p:"Segundo a divisão funcional apresentada em aula, o sistema nervoso sensorial se divide em",
+   o:["somático e visceral apenas.",
+      "somático, visceral e especial.",
+      "simpático e parassimpático.",
+      "aferente, eferente e de associação.",
+      "aferente e eferente apenas."],
+   c:1, w:"O sensorial é somático, visceral e especial; o motor é somático e visceral."},
+
+  {tema:"Revisão: SN e sinapses", p:"No córtex cerebral, o giro situado imediatamente à frente do sulco central, no lobo frontal, é o",
+   o:["giro pós-central.",
+      "giro pré-central.",
+      "giro temporal superior.",
+      "lóbulo parietal superior.",
+      "giro frontal inferior."],
+   c:1, w:"À frente do sulco central fica o giro pré-central (frontal); atrás, o pós-central (parietal)."},
+
+  {tema:"Revisão: SN e sinapses", p:"No axônio, a bainha de mielina é interrompida em intervalos regulares. Esses intervalos são os",
+   o:["dendritos.",
+      "nodos de Ranvier.",
+      "terminais do axônio.",
+      "corpos celulares.",
+      "botões sinápticos."],
+   c:1, w:"Os nodos de Ranvier interrompem a bainha de mielina, que no SNP é feita pelas células de Schwann."},
+
+  {tema:"Revisão: SN e sinapses", p:"Um neurônio que leva informações da pele até a medula espinal é classificado como",
+   o:["eferente.",
+      "aferente.",
+      "motor.",
+      "pós-ganglionar.",
+      "de projeção motora."],
+   c:1, w:"Aferente é o que leva informação da periferia para o SNC; eferente leva comandos do SNC para músculos e glândulas."},
+
+  {tema:"Revisão: SN e sinapses", p:"Uma sinapse entre o axônio de um neurônio e o corpo celular de outro é chamada de",
+   o:["axodendrítica.",
+      "axoaxônica.",
+      "axossomática.",
+      "neuromuscular.",
+      "neuroglandular."],
+   c:2, w:"Axossomática: axônio com soma (corpo celular). Axodendrítica: com dendrito. Axoaxônica: com outro axônio."},
+
+  {tema:"Revisão: SN e sinapses", p:"Sobre a sinapse elétrica, é correto afirmar que",
+   o:["depende da liberação de vesículas na fenda sináptica.",
+      "usa junções comunicantes e pode ser bidirecional.",
+      "só ocorre entre neurônio e glândula.",
+      "é sempre mais lenta que a sinapse química.",
+      "depende de receptores ligados à proteína G."],
+   c:1, w:"Na sinapse elétrica, os íons passam direto pelas junções comunicantes, quase sem atraso e nos dois sentidos."},
+
+  {tema:"Revisão: SN e sinapses", p:"Na sinapse química, os neuromediadores ficam armazenados em",
+   o:["junções comunicantes do neurônio pós-sináptico.",
+      "vesículas sinápticas do neurônio pré-sináptico.",
+      "canais iônicos da membrana pós-sináptica.",
+      "nodos de Ranvier do axônio.",
+      "células de Schwann da bainha de mielina."],
+   c:1, w:"O pré-sináptico libera os neuromediadores guardados em vesículas na fenda sináptica; eles agem nos receptores do pós-sináptico."},
+
+  {tema:"Revisão: SN e sinapses", p:"Moléculas liberadas por neurônios que modulam a informação transmitida pelos neurotransmissores são chamadas de",
+   o:["neuromoduladores.",
+      "neuroglandulares.",
+      "junções comunicantes.",
+      "receptores ionotrópicos.",
+      "neurônios aferentes."],
+   c:0, w:"Neuromediadores se dividem em neurotransmissores (alteram o potencial de membrana) e neuromoduladores (modulam a informação dos neurotransmissores)."},
+
+  {tema:"Revisão: SN e sinapses", p:"Glutamato, GABA e glicina pertencem, na tabela de neuromediadores, à classe dos",
+   o:["peptídeos.",
+      "aminoácidos.",
+      "gases e lipídios.",
+      "lipídios.",
+      "aminas."],
+   c:1, w:"Aminoácidos: glutamato, GABA e glicina. Aminas: acetilcolina, dopamina, noradrenalina, adrenalina, histamina e serotonina."},
+
+  {tema:"Revisão: SN e sinapses", p:"O receptor que é um canal iônico controlado por ligante, alterando diretamente o potencial de membrana, é o receptor",
+   o:["metabotrópico.",
+      "ionotrópico.",
+      "associado à proteína G.",
+      "muscarínico ligado à proteína G.",
+      "de junção comunicante."],
+   c:1, w:"O ionotrópico é o próprio canal iônico. O metabotrópico está associado à proteína G e age de forma indireta."},
+
   ]
 });
 
@@ -6514,6 +6649,20 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
   {t:'Área de Broca', disc:'Neuroanatomia', d:'Região do lobo frontal, em geral no hemisfério esquerdo, ligada à produção da fala.', ex:'Lesão nessa área: a pessoa entende o que ouve, mas fala com esforço e com frases curtas.'},
   {t:'Área de Wernicke', disc:'Neuroanatomia', d:'Região do lobo temporal, em geral no hemisfério esquerdo, ligada à compreensão da linguagem.', ex:'Lesão nessa área: a pessoa fala fluentemente, mas sem sentido, e tem dificuldade de compreender.'},
   {t:'Corpo caloso', disc:'Neuroanatomia', d:'Feixe de fibras que conecta os dois hemisférios cerebrais e permite a comunicação entre eles.'},
+  {t:'Neuroanatomia × neurofisiologia', disc:'Neuroanatomia', d:'A neuroanatomia estuda as estruturas do sistema nervoso; a neurofisiologia, o funcionamento delas.'},
+  {t:'Vesículas encefálicas', disc:'Neuroanatomia', d:'As três dilatações do tubo neural no embrião: prosencéfalo, mesencéfalo e rombencéfalo. Depois, o prosencéfalo forma telencéfalo e diencéfalo, e o rombencéfalo forma metencéfalo e mielencéfalo.'},
+  {t:'Metencéfalo', disc:'Neuroanatomia', d:'Parte do rombencéfalo que forma o cerebelo e a ponte.'},
+  {t:'Mielencéfalo', disc:'Neuroanatomia', d:'Parte do rombencéfalo que forma o bulbo.'},
+  {t:'Divisão segmentar e suprassegmentar', disc:'Neuroanatomia', d:'Segmentar: medula espinal e tronco encefálico, ligados diretamente aos nervos. Suprassegmentar: cérebro e cerebelo.'},
+  {t:'Giro pré-central', disc:'Neuroanatomia', d:'Giro do lobo frontal logo à frente do sulco central. O giro pós-central fica logo atrás, no lobo parietal.'},
+  {t:'Bainha de mielina', disc:'Neuroanatomia', d:'Envoltório do axônio, interrompido pelos nodos de Ranvier. No sistema nervoso periférico é formada pelas células de Schwann.'},
+  {t:'Neurônio aferente e eferente', disc:'Neuroanatomia', d:'Aferente leva informação da periferia ao SNC (sensitivo); eferente leva comandos do SNC a músculos e glândulas (motor).'},
+  {t:'Sinapse', disc:'Neuroanatomia', d:'Transferência de informação de um neurônio para outro ou para outro tipo de célula. Pode ser elétrica ou química.'},
+  {t:'Junção comunicante', disc:'Neuroanatomia', d:'Canal que liga duas células na sinapse elétrica e deixa os íons passarem direto de uma para a outra, nos dois sentidos.'},
+  {t:'Neuromediador', disc:'Neuroanatomia', d:'Molécula liberada por neurônios que gera resposta em outros neurônios ou células. Inclui neurotransmissores e neuromoduladores.'},
+  {t:'Neurotransmissor × neuromodulador', disc:'Neuroanatomia', d:'O neurotransmissor altera o potencial de membrana da célula pós-sináptica; o neuromodulador modula a informação transmitida pelos neurotransmissores.'},
+  {t:'Receptor ionotrópico', disc:'Neuroanatomia', d:'Canal iônico controlado por ligante: ao receber o neurotransmissor, abre e altera o potencial de membrana na hora.'},
+  {t:'Receptor metabotrópico', disc:'Neuroanatomia', d:'Receptor associado à proteína G: age de forma indireta, com resposta mais lenta e duradoura.'},
 
   // Bases Biológicas
   {t:'Neurônio', disc:'Bases Biológicas', d:'Célula do sistema nervoso especializada em transmitir sinais. Partes: dendritos (recebem), corpo celular e axônio (conduz o impulso).'},
@@ -6653,6 +6802,20 @@ const COMPARACOES = [
     ['Tractos','Córtico-espinhal lateral e anterior','Tecto, vestíbulo, rubro e retículo-espinhal'],
     ['Papel','Movimento voluntário fino','Postura, tônus e ajustes automáticos'],
     ['Decussação','Nas pirâmides do bulbo','Varia conforme o tracto'],
+  ]},
+  {titulo:'Sinapse elétrica × química', disc:'Neuroanatomia', cols:['Elétrica','Química'], linhas:[
+    ['Como passa a informação','Íons atravessam junções comunicantes','Neuromediadores liberados na fenda sináptica'],
+    ['Sentido','Pode ser bidirecional','Do neurônio pré para o pós-sináptico'],
+    ['Velocidade','Quase sem atraso','Mais lenta'],
+  ]},
+  {titulo:'Receptor ionotrópico × metabotrópico', disc:'Neuroanatomia', cols:['Ionotrópico','Metabotrópico'], linhas:[
+    ['O que é','Canal iônico controlado por ligante','Receptor associado à proteína G'],
+    ['Como age','Abre o canal e muda o potencial de membrana direto','De forma indireta, pela proteína G'],
+    ['Resposta','Rápida','Mais lenta e duradoura'],
+  ]},
+  {titulo:'Segmentar × suprassegmentar', disc:'Neuroanatomia', cols:['Segmentar','Suprassegmentar'], linhas:[
+    ['Partes','Medula espinal e tronco encefálico','Cérebro e cerebelo'],
+    ['Ligação com os nervos','Direta, segmento por segmento','Não se liga diretamente aos nervos'],
   ]},
   {titulo:'Substância cinzenta × branca (na medula)', disc:'Neuroanatomia', cols:['Cinzenta','Branca'], linhas:[
     ['Formada por','Corpos de neurônios','Axônios (tractos)'],
@@ -10782,10 +10945,305 @@ const RESUMOS = {
   "medula-sna": {
     "disc": "02",
     "eyebrow": "Neuroanatomia · Prof. Alexandre Sancho",
-    "titulo": "Medula espinhal, SNA e nervos cranianos",
-    "lead": "Medula espinhal, sistema nervoso autônomo e nervos cranianos, uma aula por aba. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
-    "fonte": "Resumo feito a partir dos slides de Neuroanatomia: \"Medula espinhal e envoltórios\", \"Sistema nervoso autônomo\" e \"Nervos cranianos\". Na aba de nervos cranianos, a origem do oculomotor segue o pedúnculo cerebral (no slide aparece \"pedúnculo cerebelar\", um erro de digitação), e a raiz espinhal do acessório segue Machado (primeiros segmentos cervicais).",
+    "titulo": "Neuroanatomia: organização do SN, medula, SNA e nervos cranianos",
+    "lead": "Revisão da organização do sistema nervoso e das sinapses, medula espinhal, sistema nervoso autônomo e nervos cranianos, uma aula por aba. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
+    "fonte": "Resumo feito a partir dos slides de Neuroanatomia: revisão (organização do sistema nervoso e sinapses), \"Medula espinhal e envoltórios\", \"Sistema nervoso autônomo\" e \"Nervos cranianos\". Na aba de nervos cranianos, a origem do oculomotor segue o pedúnculo cerebral (no slide aparece \"pedúnculo cerebelar\", um erro de digitação), e a raiz espinhal do acessório segue Machado (primeiros segmentos cervicais). A aba de revisão (organização do sistema nervoso, neurônio e sinapses) foi feita a partir dos slides de revisão de Neuroanatomia; a divisão segmentar e suprassegmentar segue a definição clássica de Machado.",
     "caps": [
+      {
+        "id": "organizacao",
+        "aba": "Revisão · SN e sinapses",
+        "titulo": "Organização do sistema nervoso, neurônio e sinapses",
+        "intro": "Os conceitos de base da Neuroanatomia: como o sistema nervoso se divide, de onde vêm as partes do encéfalo, o neurônio e como os neurônios se comunicam.",
+        "etapas": [
+          {
+            "fase": "Primeiras definições",
+            "when": "Duas áreas",
+            "titulo": "Neuroanatomia × neurofisiologia",
+            "pontos": [
+              "<strong>Neuroanatomia:</strong> estuda as <strong>estruturas</strong> anatômicas do sistema nervoso.",
+              "<strong>Neurofisiologia:</strong> estuda o <strong>funcionamento</strong> e a operação dessas estruturas.",
+              "Para a Psicologia, a neuroanatomia é a base estrutural para compreender processos mentais, emocionais e comportamentais: tomada de decisão, controle inibitório, emoções, linguagem, memória e atenção."
+            ],
+            "q": "Qual a diferença entre neuroanatomia e neurofisiologia?",
+            "a": "A neuroanatomia estuda as estruturas do sistema nervoso; a neurofisiologia estuda o funcionamento delas."
+          },
+          {
+            "when": "SNC e SNP",
+            "titulo": "As grandes divisões",
+            "pontos": [
+              "<strong>Sistema nervoso central (SNC):</strong> encéfalo e medula espinal. O encéfalo é formado por <strong>cérebro</strong>, <strong>cerebelo</strong> e <strong>tronco encefálico</strong>.",
+              "O tronco encefálico tem três partes, de cima para baixo: <strong>mesencéfalo, ponte e bulbo</strong>.",
+              "<strong>Sistema nervoso periférico (SNP):</strong> nervos cranianos, nervos espinais e gânglios.",
+              "Do slide: cérebro = funções cognitivas superiores (córtex), cerebelo = coordenação motora e equilíbrio, sistema límbico = emoções e memória, medula = leva os sinais entre o encéfalo e o corpo."
+            ],
+            "q": "Quais são as três partes do tronco encefálico, de cima para baixo?",
+            "a": "Mesencéfalo, ponte e bulbo."
+          },
+          {
+            "when": "Lobos e giros",
+            "titulo": "O telencéfalo por fora",
+            "pontos": [
+              "<strong>Lobos</strong> (vista lateral): frontal, parietal, temporal e occipital. O <strong>sulco lateral</strong> separa o lobo temporal do frontal e do parietal.",
+              "<strong>Giros:</strong> pré-central (no lobo frontal, à frente do sulco central) e pós-central (no parietal, atrás dele); giros frontais superior, médio e inferior; giros temporais superior, médio e inferior; lóbulos parietais superior e inferior.",
+              "<strong>Vista medial:</strong> corpo caloso (rostro, joelho, tronco e esplênio), sulco do corpo caloso, sulco do cíngulo e seu ramo marginal, sulco paracentral, sulco central, sulco parieto-occipital, sulco calcarino, hipotálamo, e abaixo o mesencéfalo, a ponte e o bulbo."
+            ],
+            "q": "Que giro fica imediatamente à frente do sulco central, e qual fica atrás?",
+            "a": "À frente, o giro pré-central (lobo frontal); atrás, o giro pós-central (lobo parietal)."
+          },
+          {
+            "fase": "Desenvolvimento",
+            "when": "Vesículas encefálicas",
+            "titulo": "De onde vêm as partes do encéfalo",
+            "pontos": [
+              "No embrião, o tubo neural forma três vesículas: <strong>prosencéfalo</strong> (anterior), <strong>mesencéfalo</strong> (médio) e <strong>rombencéfalo</strong> (posterior).",
+              "O <strong>prosencéfalo</strong> se divide em <strong>telencéfalo</strong> e <strong>diencéfalo</strong>, que formam o cérebro.",
+              "O <strong>mesencéfalo</strong> continua sendo mesencéfalo.",
+              "O <strong>rombencéfalo</strong> se divide em <strong>metencéfalo</strong> (que forma o cerebelo e a ponte) e <strong>mielencéfalo</strong> (que forma o bulbo)."
+            ],
+            "q": "De qual vesícula vêm o cerebelo e a ponte?",
+            "a": "Do metencéfalo, que vem do rombencéfalo."
+          },
+          {
+            "fase": "Divisões funcionais",
+            "when": "O que o SN faz",
+            "titulo": "Funções básicas e divisão funcional",
+            "pontos": [
+              "Funções básicas, como no slide: <strong>detectar e receber</strong> informações (sistema sensorial), <strong>integrar e processar</strong> essas informações (no slide, também sob o sistema sensorial) e <strong>comandar respostas</strong> adequadas (sistema motor).",
+              "<strong>Sistema nervoso sensorial:</strong> somático, visceral e especial.",
+              "<strong>Sistema nervoso motor:</strong> somático e visceral.",
+              "Exemplo do slide: um estímulo na pele sobe por uma <strong>fibra aferente</strong> (SNP) até o SNC; o comando motor desce pela <strong>fibra eferente</strong> até o músculo. É o caminho do reflexo de retirar a mão de um cacto."
+            ],
+            "q": "Quais são as divisões do sistema nervoso sensorial e do motor?",
+            "a": "Sensorial: somático, visceral e especial. Motor: somático e visceral."
+          },
+          {
+            "when": "Segmentar × suprassegmentar",
+            "titulo": "Divisão segmentar e suprassegmentar",
+            "pontos": [
+              "<strong>Segmentar:</strong> partes ligadas diretamente aos nervos, segmento por segmento: a <strong>medula espinal</strong> (com seus segmentos cervicais, torácicos, lombares e sacrais) e o <strong>tronco encefálico</strong>.",
+              "<strong>Suprassegmentar:</strong> partes que ficam acima e não se ligam diretamente aos nervos: <strong>cérebro e cerebelo</strong>.",
+              "Na aula, a divisão aparece ilustrada pela medula: meninges (pia-máter, aracnoide e dura-máter), canal vertebral, espaço epidural e o corte transversal (cornos anterior, posterior e lateral; sulcos e fissura mediana anterior)."
+            ],
+            "q": "O que pertence ao sistema nervoso suprassegmentar?",
+            "a": "O cérebro e o cerebelo, que não se ligam diretamente aos nervos. Medula e tronco encefálico são segmentares."
+          },
+          {
+            "fase": "Neurônio",
+            "when": "Estrutura",
+            "titulo": "As partes do neurônio",
+            "pontos": [
+              "<strong>Corpo celular</strong> (com núcleo e mitocôndrias), <strong>dendritos</strong> (recebem informação) e <strong>axônio</strong> (conduz o impulso até o terminal).",
+              "O axônio pode ter <strong>bainha de mielina</strong>, interrompida pelos <strong>nodos de Ranvier</strong>. No SNP, a mielina é feita pelas <strong>células de Schwann</strong>.",
+              "Tipos listados no slide: neurônio <strong>aferente</strong> (leva informação para o SNC), <strong>eferente</strong> (leva comandos do SNC), <strong>acessório</strong> e <strong>de projeção</strong>.",
+              "Na medula, os corpos dos neurônios formam a <strong>substância cinzenta</strong>, e os axônios mielinizados, a <strong>substância branca</strong>."
+            ],
+            "q": "Qual a diferença entre neurônio aferente e eferente?",
+            "a": "O aferente leva informação da periferia para o SNC (sensitivo); o eferente leva comandos do SNC para músculos e glândulas (motor)."
+          },
+          {
+            "fase": "Sinapses",
+            "when": "Tipos",
+            "titulo": "Transmissão sináptica",
+            "pontos": [
+              "Sinapse é a transferência de informação de um neurônio para outro ou para outro tipo de célula.",
+              "Pelo tipo de célula: <strong>sinapse neural</strong> (neurônio–neurônio), <strong>junção neuromuscular</strong> (neurônio–músculo) e <strong>junção neuroglandular</strong> (neurônio–glândula).",
+              "Pelo local de contato: <strong>axodendrítica</strong> (axônio com dendrito), <strong>axossomática</strong> (axônio com corpo celular) e <strong>axoaxônica</strong> (axônio com axônio).",
+              "Pelo mecanismo: <strong>elétrica</strong> ou <strong>química</strong>."
+            ],
+            "q": "O que é uma sinapse axossomática?",
+            "a": "A que acontece entre o axônio de um neurônio e o corpo celular (soma) de outro."
+          },
+          {
+            "when": "Elétrica",
+            "titulo": "Sinapse elétrica",
+            "pontos": [
+              "As células ficam ligadas por <strong>junções comunicantes</strong>, canais que deixam os íons (como o Na⁺) passar direto de uma célula para a outra.",
+              "A despolarização passa quase sem atraso, e a comunicação pode ser <strong>bidirecional</strong>."
+            ],
+            "q": "Por que a sinapse elétrica pode ser bidirecional?",
+            "a": "Porque os íons passam diretamente pelas junções comunicantes, nos dois sentidos, sem depender de neurotransmissor."
+          },
+          {
+            "when": "Química",
+            "titulo": "Sinapse química",
+            "pontos": [
+              "O <strong>neurônio pré-sináptico</strong> guarda os neuromediadores em <strong>vesículas sinápticas</strong> e os libera na <strong>fenda sináptica</strong>; eles agem em receptores do <strong>neurônio pós-sináptico</strong>.",
+              "<strong>Neuromediadores:</strong> moléculas liberadas por neurônios que geram resposta em outros neurônios ou células. Dividem-se em <strong>neurotransmissores</strong> (alteram o potencial de membrana) e <strong>neuromoduladores</strong> (modulam a informação transmitida pelos neurotransmissores).",
+              "Classes: <strong>aminoácidos</strong> (glutamato, GABA, glicina), <strong>aminas</strong> (acetilcolina, dopamina, noradrenalina, adrenalina, histamina, serotonina), <strong>peptídeos</strong> (encefalinas, substância P, VIP, GRP) e <strong>outros</strong> (gases, como o óxido nítrico, e lipídios, como os endocanabinoides)."
+            ],
+            "q": "Qual a diferença entre neurotransmissor e neuromodulador?",
+            "a": "O neurotransmissor altera o potencial de membrana da célula pós-sináptica; o neuromodulador modula a informação transmitida pelos neurotransmissores."
+          },
+          {
+            "when": "Receptores",
+            "titulo": "Ionotrópico × metabotrópico",
+            "pontos": [
+              "<strong>Receptor ionotrópico:</strong> é um canal iônico controlado por ligante. Quando o neurotransmissor se liga, o canal abre e o potencial de membrana muda na hora. (No slide aparece \"inotrópico\".)",
+              "<strong>Receptor metabotrópico:</strong> está associado à <strong>proteína G</strong>. A ligação ativa a proteína G, que age de forma indireta, e a resposta é mais lenta e mais duradoura."
+            ],
+            "q": "Qual tipo de receptor é associado à proteína G?",
+            "a": "O metabotrópico. O ionotrópico é o próprio canal iônico controlado por ligante."
+          }
+        ],
+        "extras": [
+          {
+            "tipo": "tabela",
+            "titulo": "Vesículas encefálicas",
+            "cab": [
+              "3 vesículas",
+              "5 vesículas",
+              "O que formam"
+            ],
+            "linhas": [
+              [
+                "Prosencéfalo",
+                "Telencéfalo",
+                "Cérebro (hemisférios)"
+              ],
+              [
+                "Prosencéfalo",
+                "Diencéfalo",
+                "Cérebro (tálamo, hipotálamo)"
+              ],
+              [
+                "Mesencéfalo",
+                "Mesencéfalo",
+                "Mesencéfalo"
+              ],
+              [
+                "Rombencéfalo",
+                "Metencéfalo",
+                "Cerebelo e ponte"
+              ],
+              [
+                "Rombencéfalo",
+                "Mielencéfalo",
+                "Bulbo"
+              ]
+            ]
+          },
+          {
+            "tipo": "tabela",
+            "titulo": "Classes de neuromediadores",
+            "cab": [
+              "Classe",
+              "Exemplos"
+            ],
+            "linhas": [
+              [
+                "Aminoácidos",
+                "Glutamato, GABA (ácido gama-aminobutírico), glicina"
+              ],
+              [
+                "Aminas",
+                "Acetilcolina, dopamina, noradrenalina, adrenalina, histamina, serotonina"
+              ],
+              [
+                "Peptídeos",
+                "Encefalinas, substância P, peptídeo vasoativo intestinal (VIP), peptídeo liberador de gastrina (GRP)"
+              ],
+              [
+                "Outros",
+                "Gases (óxido nítrico) e lipídios (endocanabinoides)"
+              ]
+            ]
+          },
+          {
+            "tipo": "tabela",
+            "titulo": "Sinapse elétrica × química",
+            "cab": [
+              "",
+              "Elétrica",
+              "Química"
+            ],
+            "linhas": [
+              [
+                "Como passa a informação",
+                "Íons atravessam junções comunicantes",
+                "Neuromediadores liberados na fenda"
+              ],
+              [
+                "Sentido",
+                "Pode ser bidirecional",
+                "Do pré para o pós-sináptico"
+              ],
+              [
+                "Velocidade",
+                "Quase sem atraso",
+                "Mais lenta (há liberação e ligação)"
+              ]
+            ]
+          }
+        ],
+        "quiz": [
+          {
+            "p": "O tronco encefálico é formado por…",
+            "o": [
+              "Cérebro, cerebelo e bulbo",
+              "Mesencéfalo, ponte e bulbo",
+              "Telencéfalo e diencéfalo",
+              "Medula e ponte"
+            ],
+            "c": 1,
+            "w": "De cima para baixo: mesencéfalo, ponte e bulbo."
+          },
+          {
+            "p": "O cerebelo e a ponte vêm do…",
+            "o": [
+              "Telencéfalo",
+              "Diencéfalo",
+              "Metencéfalo",
+              "Mielencéfalo"
+            ],
+            "c": 2,
+            "w": "O metencéfalo, uma das partes do rombencéfalo."
+          },
+          {
+            "p": "São partes suprassegmentares…",
+            "o": [
+              "Medula e tronco encefálico",
+              "Cérebro e cerebelo",
+              "Nervos e gânglios",
+              "Medula e cerebelo"
+            ],
+            "c": 1,
+            "w": "Cérebro e cerebelo não se ligam diretamente aos nervos."
+          },
+          {
+            "p": "O GABA é um neuromediador da classe dos…",
+            "o": [
+              "Peptídeos",
+              "Aminas",
+              "Aminoácidos",
+              "Gases"
+            ],
+            "c": 2,
+            "w": "Glutamato, GABA e glicina são aminoácidos."
+          },
+          {
+            "p": "A sinapse que pode ser bidirecional é a…",
+            "o": [
+              "Química",
+              "Elétrica",
+              "Neuromuscular",
+              "Neuroglandular"
+            ],
+            "c": 1,
+            "w": "Na elétrica, os íons passam pelas junções comunicantes nos dois sentidos."
+          },
+          {
+            "p": "O receptor associado à proteína G é o…",
+            "o": [
+              "Ionotrópico",
+              "Metabotrópico",
+              "Canal iônico por ligante",
+              "Junção comunicante"
+            ],
+            "c": 1,
+            "w": "O ionotrópico é o próprio canal iônico."
+          }
+        ]
+      },
       {
         "id": "medula2",
         "aba": "Medula espinhal",
@@ -13410,6 +13868,87 @@ const TE_CENARIOS = [
 ];
 criarClassificador({pre:'te', cenarios:TE_CENARIOS, opcoes:TE_OPCOES});
 
+// --- Ferramenta: Qual Classe de Neuromediador? (Neuroanatomia) ---
+const NM_OPCOES = ['Aminoácido','Amina','Peptídeo','Outros (gases e lipídios)'];
+const NM_CENARIOS = [
+ {
+  "situacao": "Glutamato",
+  "correta": "Aminoácido",
+  "explicacao": "Glutamato é um aminoácido, como glutamato, GABA e glicina."
+ },
+ {
+  "situacao": "GABA (ácido gama-aminobutírico)",
+  "correta": "Aminoácido",
+  "explicacao": "GABA é um aminoácido, como glutamato, GABA e glicina."
+ },
+ {
+  "situacao": "Glicina",
+  "correta": "Aminoácido",
+  "explicacao": "Glicina é um aminoácido, como glutamato, GABA e glicina."
+ },
+ {
+  "situacao": "Acetilcolina",
+  "correta": "Amina",
+  "explicacao": "Acetilcolina está entre as aminas: acetilcolina, dopamina, noradrenalina, adrenalina, histamina e serotonina."
+ },
+ {
+  "situacao": "Dopamina",
+  "correta": "Amina",
+  "explicacao": "Dopamina está entre as aminas: acetilcolina, dopamina, noradrenalina, adrenalina, histamina e serotonina."
+ },
+ {
+  "situacao": "Noradrenalina",
+  "correta": "Amina",
+  "explicacao": "Noradrenalina está entre as aminas: acetilcolina, dopamina, noradrenalina, adrenalina, histamina e serotonina."
+ },
+ {
+  "situacao": "Adrenalina",
+  "correta": "Amina",
+  "explicacao": "Adrenalina está entre as aminas: acetilcolina, dopamina, noradrenalina, adrenalina, histamina e serotonina."
+ },
+ {
+  "situacao": "Histamina",
+  "correta": "Amina",
+  "explicacao": "Histamina está entre as aminas: acetilcolina, dopamina, noradrenalina, adrenalina, histamina e serotonina."
+ },
+ {
+  "situacao": "Serotonina",
+  "correta": "Amina",
+  "explicacao": "Serotonina está entre as aminas: acetilcolina, dopamina, noradrenalina, adrenalina, histamina e serotonina."
+ },
+ {
+  "situacao": "Encefalinas",
+  "correta": "Peptídeo",
+  "explicacao": "Encefalinas é um peptídeo, como encefalinas, substância P, VIP e GRP."
+ },
+ {
+  "situacao": "Substância P",
+  "correta": "Peptídeo",
+  "explicacao": "Substância P é um peptídeo, como encefalinas, substância P, VIP e GRP."
+ },
+ {
+  "situacao": "Peptídeo vasoativo intestinal (VIP)",
+  "correta": "Peptídeo",
+  "explicacao": "Peptídeo vasoativo intestinal é um peptídeo, como encefalinas, substância P, VIP e GRP."
+ },
+ {
+  "situacao": "Peptídeo liberador de gastrina (GRP)",
+  "correta": "Peptídeo",
+  "explicacao": "Peptídeo liberador de gastrina é um peptídeo, como encefalinas, substância P, VIP e GRP."
+ },
+ {
+  "situacao": "Óxido nítrico",
+  "correta": "Outros (gases e lipídios)",
+  "explicacao": "O óxido nítrico é um gás: está na classe \"outros\", junto com os lipídios."
+ },
+ {
+  "situacao": "Endocanabinoides",
+  "correta": "Outros (gases e lipídios)",
+  "explicacao": "Os endocanabinoides são lipídios: estão na classe \"outros\", junto com os gases."
+ }
+];
+criarClassificador({pre:'nm', cenarios:NM_CENARIOS, opcoes:NM_OPCOES});
+
 const KR_OPCOES = ['Negação','Raiva','Barganha','Depressão','Aceitação'];
 const KR_CENARIOS = [
   {situacao:'"Esses exames devem estar trocados. Eu me sinto bem, vou procurar outro médico."', correta:KR_OPCOES[0], explicacao:'Recusar a realidade do diagnóstico é a negação.'},
@@ -14672,7 +15211,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
   const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
-  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length + DT_CENARIOS.length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length + DT_CENARIOS.length + NM_CENARIOS.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
   const totalCursos = COURSES.length;
@@ -15978,7 +16517,7 @@ function errMapa(){
   if(ERR_MAPA) return ERR_MAPA;
   ERR_MAPA = new Map();
   [RP_CENARIOS, PD_CENARIOS, PE_CENARIOS, TD_CENARIOS, NT_CENARIOS, SN_CENARIOS, MM_CENARIOS, ES_CENARIOS, BD_CENARIOS, VG_CENARIOS,
-   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS, DT_CENARIOS]
+   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS, DT_CENARIOS, NM_CENARIOS]
     .forEach(arr => (arr || []).forEach(c => { if(c && c.situacao && c.correta) ERR_MAPA.set(String(c.situacao).trim(), c); }));
   return ERR_MAPA;
 }
