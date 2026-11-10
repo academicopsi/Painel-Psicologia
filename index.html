@@ -6662,7 +6662,7 @@ const RESUMOS = {
     "eyebrow": "Bases Biológicas",
     "titulo": "Embriologia e estrutura do DNA",
     "lead": "Desenvolvimento embrionário (da fertilização à 2ª semana) e estrutura do DNA. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
-    "fonte": "Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos slides e do quadro da aula, complementado com conteúdo padrão de biologia molecular (experimentos de Griffith, Avery e Hershey-Chase, medidas da hélice, níveis de compactação e cromatina).",
+    "fonte": "Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos slides e do quadro da aula, complementado com conteúdo padrão de biologia molecular (experimentos de Griffith, Avery e Hershey-Chase, medidas da hélice, níveis de compactação, cromatina, tradução e mutações).",
     "caps": [
       {
         "id": "embrio",
@@ -7032,7 +7032,7 @@ const RESUMOS = {
         "id": "dna",
         "aba": "Estrutura do DNA",
         "titulo": "Estrutura do DNA",
-        "intro": "Do que o DNA é feito e como as partes se encaixam: nucleotídeos, bases, açúcar, fosfato, a dupla fita antiparalela, a desnaturação, a síntese de RNA e como o DNA se compacta em cromossomo. No fim, as questões da aula resolvidas.",
+        "intro": "Do que o DNA é feito e como as partes se encaixam: nucleotídeos, bases, açúcar, fosfato, a dupla fita antiparalela, a desnaturação, a síntese de RNA, onde entram os aminoácidos, as mutações e como o DNA se compacta em cromossomo. No fim, as questões da aula resolvidas.",
         "etapas": [
           {
             "fase": "Composição",
@@ -7216,6 +7216,35 @@ const RESUMOS = {
             ],
             "q": "Em que sentido o RNA é sintetizado, e qual base ele usa no lugar da timina?",
             "a": "No sentido 5' → 3', pela RNA polimerase. O RNA usa uracila (U) no lugar da timina (T)."
+          },
+          {
+            "when": "Tradução",
+            "titulo": "Onde entram os aminoácidos",
+            "pontos": [
+              "<em>Complemento: tradução não estava nos slides nem no quadro; está aqui para fechar o caminho DNA → RNA → proteína.</em>",
+              "Proteínas são cadeias de <strong>aminoácidos</strong>. Existem 20 tipos, e a ordem deles define a forma da proteína e, com isso, a sua função.",
+              "O RNA mensageiro sai do núcleo e vai até o <strong>ribossomo</strong>, que o lê de três em três bases. Cada trinca é um <strong>códon</strong>.",
+              "Quem traz os aminoácidos é o <strong>RNA transportador (RNAt)</strong>. Ele tem uma trinca complementar ao códon, o <strong>anticódon</strong>, e carrega o aminoácido correspondente.",
+              "O ribossomo une um aminoácido ao seguinte por <strong>ligações peptídicas</strong>, e a cadeia cresce até chegar a um códon de parada.",
+              "<strong>O código genético:</strong> são 64 códons. 61 codificam aminoácidos e 3 são de parada (UAA, UAG e UGA). O AUG codifica a metionina e marca o início. Como há mais códons que aminoácidos, vários códons codificam o mesmo aminoácido: o código é <strong>degenerado</strong> (redundante).",
+              "<strong>No exemplo do quadro:</strong> o RNA 5' AAA UGA <strong>AUG CCA AAA UAG</strong> CCA 3' começa a ser traduzido no AUG e dá metionina, prolina, lisina e parada."
+            ],
+            "q": "Qual molécula leva os aminoácidos até o ribossomo, e como ela \"sabe\" qual levar?",
+            "a": "O RNA transportador (RNAt). Ele tem um anticódon complementar ao códon do RNA mensageiro, e cada RNAt carrega o aminoácido correspondente ao seu anticódon."
+          },
+          {
+            "fase": "Quando o DNA muda",
+            "when": "Mutações",
+            "titulo": "Como as mutações chegam ao RNA",
+            "pontos": [
+              "<em>Complemento: mutações não estavam nos slides nem no quadro.</em>",
+              "Uma <strong>mutação</strong> é uma alteração na sequência de bases do DNA. Na transcrição, a RNA polimerase copia o DNA como ele está, então o RNA mensageiro leva a mutação junto até o ribossomo.",
+              "Como o ribossomo lê de três em três bases, o efeito depende de como a mutação muda os códons. Veja os tipos na tabela abaixo, aplicados ao exemplo do quadro.",
+              "Mutações fora do gene também contam: se a alteração cair na região que liga e desliga o gene, a célula pode produzir mais RNA, menos ou nenhum.",
+              "<strong>Exemplo clássico, a anemia falciforme:</strong> uma única base trocada no gene da hemoglobina faz o códon GAG virar GUG no RNA. Com isso, um ácido glutâmico vira valina, e a hemoglobina passa a deformar as hemácias."
+            ],
+            "q": "Por que uma mutação silenciosa não muda a proteína?",
+            "a": "Porque o código genético é degenerado: o códon mudou, mas continua codificando o mesmo aminoácido (por exemplo, AAA e AAG codificam lisina)."
           }
         ],
         "extras": [
@@ -7283,6 +7312,42 @@ const RESUMOS = {
                 "Função",
                 "Guardar e transmitir a informação genética",
                 "Levar a informação e participar da síntese de proteínas"
+              ]
+            ]
+          },
+          {
+            "tipo": "tabela",
+            "titulo": "Mutações no exemplo do quadro",
+            "cab": [
+              "Tipo",
+              "O que muda no RNA",
+              "Efeito na proteína"
+            ],
+            "linhas": [
+              [
+                "Sem mutação",
+                "AUG · CCA · AAA · UAG",
+                "Metionina, prolina, lisina, parada"
+              ],
+              [
+                "Silenciosa",
+                "AAA → AAG",
+                "Continua lisina: nada muda"
+              ],
+              [
+                "De sentido trocado",
+                "CCA → CAA",
+                "Prolina vira glutamina: muda um aminoácido"
+              ],
+              [
+                "Sem sentido",
+                "AAA → UAA",
+                "Códon de parada antes da hora: proteína cortada"
+              ],
+              [
+                "Mudança na leitura",
+                "Perde-se um C: AUG · CAA · AAU · AGC…",
+                "Todos os códons depois mudam (metionina, glutamina, asparagina, serina…)"
               ]
             ]
           },
@@ -7467,6 +7532,39 @@ const RESUMOS = {
             ],
             "c": 1,
             "w": "Sempre 5' → 3'."
+          },
+          {
+            "p": "Quem carrega os aminoácidos até o ribossomo?",
+            "o": [
+              "RNA mensageiro",
+              "RNA transportador",
+              "DNA polimerase",
+              "Histona"
+            ],
+            "c": 1,
+            "w": "O RNAt, que reconhece o códon pelo anticódon."
+          },
+          {
+            "p": "Uma mutação que cria um códon de parada antes da hora é chamada de…",
+            "o": [
+              "Silenciosa",
+              "De sentido trocado",
+              "Sem sentido",
+              "Mudança na leitura"
+            ],
+            "c": 2,
+            "w": "Sem sentido (nonsense): a proteína sai cortada."
+          },
+          {
+            "p": "Perder uma única base no meio de um gene costuma…",
+            "o": [
+              "Não mudar nada",
+              "Mudar só um aminoácido",
+              "Mudar todos os códons depois do ponto",
+              "Duplicar a proteína"
+            ],
+            "c": 2,
+            "w": "A leitura de três em três se desloca: é a mudança na matriz de leitura."
           }
         ]
       }
