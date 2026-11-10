@@ -3395,6 +3395,21 @@
         <div class="tool-disclaimer">Os estágios não seguem uma ordem fixa: podem se misturar, voltar ou nem acontecer. Exercício de reconhecimento de conceitos, sem finalidade de avaliar pessoas reais.</div>
       </div>
     </details>
+      <details class="graveyard">
+      <summary>Depressão no Idoso: Caso a Caso</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia o caso e responda com base no texto de Stella et al. (2002): grupo de sintomas, tipo de depressão, relação com a demência, tratamento indicado e efeito da atividade física.</div>
+        <div class="prompt-box">
+          <div class="plabel">Caso</div>
+          <div class="pfrase" id="diSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="diShuffleBtn">🔀 Sortear outro caso</button>
+        <div id="diOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="diCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="diFeedbackBox"></div>
+        <div class="tool-disclaimer"><strong>Isso não é uma ferramenta de diagnóstico.</strong> Os casos são fictícios e servem para estudar o texto de Stella, Gobbi, Corazza e Costa (2002), Motriz, v. 8, n. 3.</div>
+      </div>
+    </details>
   </section>
 
 
@@ -3709,7 +3724,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Depressão no idoso (Stella et al., 2002): diagnóstico, sintomas, aspectos neurobiológicos, relação com doenças e com demência, tratamento e benefícios da atividade física. Também entrou no simulado da N2, que agora tem 48 questões, e no glossário.', link: {url:'#resumo-idoso-n2'}},
+  {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Depressão no idoso (Stella et al., 2002): diagnóstico, sintomas, aspectos neurobiológicos, relação com doenças e com demência, tratamento e benefícios da atividade física. Também entrou no simulado da N2, que agora tem 48 questões, no glossário e no novo exercício Depressão no Idoso: Caso a Caso.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA, com dica e correção passo a passo, e 8 questões de cálculo das bases no simulado da N2, que agora tem 48. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
   {date: '2026-11-09', disc: 'Geral', desc: 'Resumos ampliados com o que faltava dos slides: neurotransmissores e tabela de efeitos do SNA, núcleos dos nervos cranianos, as três classificações da dislexia, mais detalhes de Vygotsky, Freire, discalculia, TDAH, TEA e embriologia, níveis de compactação do DNA e exemplos de como responder às questões de Piaget, Vygotsky e Freire.', link: {page:'viewEstudar'}},
   {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e 30 questões novas no simulado da N2, que agora tem 70.', link: {url:'#resumo-aprendizagem-7-9'}},
@@ -13338,7 +13353,7 @@ function criarClassificador(cfg){
     do{ novo = cfg.cenarios[Math.floor(Math.random()*cfg.cenarios.length)]; } while(novo === atual && cfg.cenarios.length > 1);
     atual = novo;
     $('SituacaoTexto').textContent = atual.situacao;
-    const ops = cfg.opcoes ? cfg.opcoes : embaralhar([atual.correta, ...embaralhar(cfg.pool.filter(x=>x!==atual.correta)).slice(0,3)]);
+    const ops = atual.ops ? embaralhar(atual.ops.slice()) : cfg.opcoes ? cfg.opcoes : embaralhar([atual.correta, ...embaralhar(cfg.pool.filter(x=>x!==atual.correta)).slice(0,3)]);
     $('Opcoes').innerHTML = ops.map(op=>`
       <label class="opcao-radio">
         <input type="radio" name="${cfg.pre}-opcao" value="${op}">
@@ -13409,6 +13424,187 @@ const TE_CENARIOS = [
   {situacao:'Seu Jorge recusou convites para festas grandes e disse que, nessa idade, quer gastar o tempo só com quem ele ama.', correta:TE_OPCOES[4], explicacao:'Menos relações, mais profundas: é a seletividade socioemocional de Carstensen.'}
 ];
 criarClassificador({pre:'te', cenarios:TE_CENARIOS, opcoes:TE_OPCOES});
+
+// --- Ferramenta: Depressão no Idoso: Caso a Caso (Desenvolvimento Adulto e Idoso) ---
+const DI_CENARIOS = [
+ {
+  "situacao": "Dona Lúcia, 78 anos, perdeu o interesse por tudo o que gostava de fazer e passa os dias sentindo que não serve para nada. A que grupo de sintomas isso pertence?",
+  "correta": "Do humor",
+  "ops": [
+   "Do humor",
+   "Neurovegetativo",
+   "Cognitivo",
+   "Psicótico"
+  ],
+  "explicacao": "Anedonia (perda de interesse) e sentimento de inutilidade são sintomas do humor."
+ },
+ {
+  "situacao": "Seu Antônio, 81 anos, emagreceu, dorme mal, se queixa de dores pelo corpo que nenhum exame explica e vive achando que tem uma doença grave. A que grupo de sintomas isso pertence?",
+  "correta": "Neurovegetativo",
+  "ops": [
+   "Do humor",
+   "Neurovegetativo",
+   "Cognitivo",
+   "Psicótico"
+  ],
+  "explicacao": "Emagrecimento, distúrbio do sono, dores inespecíficas e hipocondria são sintomas neurovegetativos."
+ },
+ {
+  "situacao": "Dona Marta, 74 anos, deprimida, não consegue se concentrar na novela, esquece o que acabou de ouvir e demora para raciocinar. A que grupo de sintomas isso pertence?",
+  "correta": "Cognitivo",
+  "ops": [
+   "Do humor",
+   "Neurovegetativo",
+   "Cognitivo",
+   "Psicótico"
+  ],
+  "explicacao": "Dificuldade de concentração e de memória e lentificação do raciocínio são sintomas cognitivos."
+ },
+ {
+  "situacao": "Seu Joaquim, 83 anos, deprimido, tem certeza de que perdeu todo o dinheiro e de que a família vai ficar na miséria, embora as contas estejam em dia. A que grupo de sintomas isso pertence?",
+  "correta": "Psicótico",
+  "ops": [
+   "Do humor",
+   "Neurovegetativo",
+   "Cognitivo",
+   "Psicótico"
+  ],
+  "explicacao": "É um delírio de ruína, sintoma psicótico. Na depressão com delírios, Kim et al. (1999) acharam volumes pré-frontais menores."
+ },
+ {
+  "situacao": "Um idoso com Alzheimer avançado apresenta tristeza e apatia que fazem parte do próprio quadro demencial. Qual relação entre depressão e demência é essa?",
+  "correta": "Depressão na demência",
+  "ops": [
+   "Depressão na demência",
+   "Demência com depressão",
+   "Depressão com comprometimento cognitivo",
+   "Demência na depressão (pseudodemência)"
+  ],
+  "explicacao": "Na \"depressão na demência\", os sintomas depressivos são parte integrante do processo demencial."
+ },
+ {
+  "situacao": "Uma senhora já diagnosticada com demência há três anos passa a ficar triste e chorosa depois da morte da irmã. Qual relação entre depressão e demência é essa?",
+  "correta": "Demência com depressão",
+  "ops": [
+   "Depressão na demência",
+   "Demência com depressão",
+   "Depressão com comprometimento cognitivo",
+   "Demência na depressão (pseudodemência)"
+  ],
+  "explicacao": "Na \"demência com depressão\", os sintomas depressivos se instalam sobre uma demência que já existia."
+ },
+ {
+  "situacao": "Um senhor deprimido se queixa de que esquece recados e não consegue se concentrar; ao tratar a depressão, as queixas melhoram por completo. Qual relação entre depressão e demência é essa?",
+  "correta": "Demência na depressão (pseudodemência)",
+  "ops": [
+   "Depressão na demência",
+   "Demência com depressão",
+   "Depressão com comprometimento cognitivo",
+   "Demência na depressão (pseudodemência)"
+  ],
+  "explicacao": "Quando o prejuízo cognitivo é causado pela própria depressão e melhora com o tratamento dela, fala-se em \"demência na depressão\", a pseudodemência depressiva."
+ },
+ {
+  "situacao": "Uma idosa com depressão continua deprimida e apresenta dificuldade de concentração e de memória recente, sem diagnóstico de demência. Qual relação entre depressão e demência é essa?",
+  "correta": "Depressão com comprometimento cognitivo",
+  "ops": [
+   "Depressão na demência",
+   "Demência com depressão",
+   "Depressão com comprometimento cognitivo",
+   "Demência na depressão (pseudodemência)"
+  ],
+  "explicacao": "Na \"depressão com comprometimento cognitivo\", a depressão evolui com dificuldades de concentração e de memória recente."
+ },
+ {
+  "situacao": "Seu Pedro, 70 anos, deprimido desde a aposentadoria, precisa reorganizar o projeto de vida. Qual psicoterapia o texto indica?",
+  "correta": "Psicoterapia breve",
+  "ops": [
+   "Psicoterapia breve",
+   "Psicanálise de longa duração",
+   "Nenhuma: só medicamento",
+   "Terapia centrada só no passado"
+  ],
+  "explicacao": "A psicoterapia breve é prospectiva, voltada para o presente e o futuro, ajuda a reorganizar o projeto de vida e dura em geral seis meses."
+ },
+ {
+  "situacao": "O psiquiatra vai começar um antidepressivo para uma idosa que já toma vários remédios para pressão e diabetes. Qual é a primeira escolha segundo o texto?",
+  "correta": "ISRS (citalopram ou sertralina)",
+  "ops": [
+   "Psicoterapia breve",
+   "ISRS (citalopram ou sertralina)",
+   "Eletroconvulsoterapia (ECT)",
+   "Antidepressivo tricíclico como primeira escolha"
+  ],
+  "explicacao": "Os ISRS são a primeira escolha, sobretudo citalopram e sertralina. Os tricíclicos não são, pelos efeitos anticolinérgicos. É preciso atenção às interações com os outros remédios."
+ },
+ {
+  "situacao": "Um idoso gravemente deprimido corre risco iminente de suicídio, e não há tempo para esperar o efeito do antidepressivo. Qual opção o texto aponta como valiosa e segura nesse caso?",
+  "correta": "Eletroconvulsoterapia (ECT)",
+  "ops": [
+   "Psicoterapia breve",
+   "ISRS (citalopram ou sertralina)",
+   "Eletroconvulsoterapia (ECT)",
+   "Antidepressivo tricíclico como primeira escolha"
+  ],
+  "explicacao": "A ECT é indicada no risco iminente de suicídio, na catatonia sem resposta aos remédios e na intolerância a eles. É feita em hospital, sob anestesia geral."
+ },
+ {
+  "situacao": "Um idoso deprimido teve infarto há um mês. A ECT pode ser feita agora?",
+  "correta": "Não: infarto nos últimos 3 meses é contraindicação absoluta",
+  "ops": [
+   "Não: infarto nos últimos 3 meses é contraindicação absoluta",
+   "Sim, porque a ECT não tem contraindicações",
+   "Sim, desde que sem anestesia",
+   "Não, porque a ECT é proibida para idosos"
+  ],
+  "explicacao": "Contraindicações absolutas: hipertensão intracraniana, infarto nos últimos 3 meses e AVC nos últimos 6 meses."
+ },
+ {
+  "situacao": "Dona Rosa teve o primeiro episódio de depressão aos 70 anos; nunca tinha tido antes. O que o texto diz sobre esse tipo de depressão?",
+  "correta": "Fatores neurobiológicos do envelhecimento pesam mais que os genéticos",
+  "ops": [
+   "Fatores neurobiológicos do envelhecimento pesam mais que os genéticos",
+   "O componente genético é maior do que na de início precoce",
+   "Não tem relação com estruturas cerebrais",
+   "É sempre causada por medicamentos"
+  ],
+  "explicacao": "Na depressão de início tardio (depois dos 65), a genética tende a pesar menos e os fatores neurobiológicos mais: menos serotonina da rafe, alterações no caudado e no tálamo, hipofrontalidade."
+ },
+ {
+  "situacao": "Um idoso com Parkinson está desanimado e sem apetite, e a família acha que \"é da doença mesmo\". O que o texto alerta?",
+  "correta": "A depressão é frequente no Parkinson e costuma passar despercebida",
+  "ops": [
+   "A depressão é frequente no Parkinson e costuma passar despercebida",
+   "Parkinson nunca se associa a depressão",
+   "Os sintomas são sempre só da doença neurológica",
+   "Só se trata depressão depois de curar o Parkinson"
+  ],
+  "explicacao": "A depressão aparece em 40% a 60% das pessoas com Parkinson e muitas vezes é confundida com a doença ou com o envelhecimento, ficando sem tratamento."
+ },
+ {
+  "situacao": "Um idoso deprimido fez 16 semanas de exercício aeróbio, 3 vezes por semana. Segundo Blumenthal et al. e Babyak et al., o que se espera em comparação com quem só tomou sertralina?",
+  "correta": "Melhora parecida e menos recaídas depois",
+  "ops": [
+   "Melhora parecida e menos recaídas depois",
+   "Nenhuma melhora com o exercício",
+   "Melhora mais rápida que a do remédio",
+   "Mais recaídas que o grupo do remédio"
+  ],
+  "explicacao": "Os três grupos melhoraram de forma parecida (o remédio agiu mais rápido), e no acompanhamento o grupo do exercício teve menos recaídas."
+ },
+ {
+  "situacao": "Um idoso deprimido passa o dia todo na cama. Segundo o texto, que risco físico isso traz?",
+  "correta": "Acúmulo de secreção nas vias respiratórias e pneumonia",
+  "ops": [
+   "Acúmulo de secreção nas vias respiratórias e pneumonia",
+   "Nenhum, o repouso sempre ajuda",
+   "Aumento da massa óssea",
+   "Melhora da circulação periférica"
+  ],
+  "explicacao": "A imobilidade compromete a atividade pulmonar, acumula secreções e favorece pneumonias, além de descontrolar a pressão e piorar a circulação e a artrose."
+ }
+];
+criarClassificador({pre:'di', cenarios:DI_CENARIOS, pool:[]});
 
 const KR_OPCOES = ['Negação','Raiva','Barganha','Depressão','Aceitação'];
 const KR_CENARIOS = [
@@ -14672,7 +14868,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
   const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
-  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length + DT_CENARIOS.length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length + DT_CENARIOS.length + DI_CENARIOS.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
   const totalCursos = COURSES.length;
@@ -15978,7 +16174,7 @@ function errMapa(){
   if(ERR_MAPA) return ERR_MAPA;
   ERR_MAPA = new Map();
   [RP_CENARIOS, PD_CENARIOS, PE_CENARIOS, TD_CENARIOS, NT_CENARIOS, SN_CENARIOS, MM_CENARIOS, ES_CENARIOS, BD_CENARIOS, VG_CENARIOS,
-   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS, DT_CENARIOS]
+   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS, DT_CENARIOS, DI_CENARIOS]
     .forEach(arr => (arr || []).forEach(c => { if(c && c.situacao && c.correta) ERR_MAPA.set(String(c.situacao).trim(), c); }));
   return ERR_MAPA;
 }
