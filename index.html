@@ -1073,6 +1073,17 @@
   .ex-section[hidden]{display:none;}
 
   /* Ferramentas agrupadas por disciplina */
+  /* Treino de discursivas */
+  .td-filtros{display:flex; flex-wrap:wrap; gap:6px; margin:4px 0 14px;}
+  .td-filtros button{font:inherit; font-size:13px; font-weight:600; padding:6px 12px; border-radius:999px; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); cursor:pointer;}
+  .td-filtros button.on{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  .td-resp{width:100%; box-sizing:border-box; margin-top:12px; padding:12px; border:1px solid var(--rule); border-radius:10px; background:var(--paper); color:var(--ink); font:inherit; font-size:15px; line-height:1.55; resize:vertical;}
+  .td-acoes{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+  .td-modelo{margin-top:16px; padding:14px 16px; border-left:3px solid var(--petrol); background:var(--petrol-soft); border-radius:8px; font-size:14.5px; line-height:1.6;}
+  .td-modelo h4{margin:0 0 6px; font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-faint);}
+  .td-check{display:flex; gap:8px; align-items:flex-start; margin:6px 0; cursor:pointer;}
+  .td-check input{margin-top:4px; accent-color:var(--petrol);}
+  .td-placar{margin-top:8px; font-weight:700;}
   /* Calculando as bases do DNA */
   .ch-h{font-size:15px; font-weight:800; margin:20px 0 6px; color:var(--ink);}
   .ch-p{font-size:14.5px; line-height:1.6; margin:0 0 12px; color:var(--ink-soft);}
@@ -3222,6 +3233,24 @@
         <div class="tool-disclaimer">Casos fictícios, para treinar os conceitos de nível real, nível potencial e ZDP (aula 4, Moreira cap. 7). A ZDP é dinâmica: muda o tempo todo.</div>
       </div>
     </details>
+      <details class="graveyard">
+      <summary>Treino de Discursivas: Piaget, Vygotsky e Freire</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Na prova caem duas discursivas sobre os teóricos. Escreva a sua resposta, depois compare com a resposta-modelo e marque os pontos que você incluiu.</div>
+        <div class="td-filtros" id="tdFiltros"></div>
+        <div class="prompt-box">
+          <div class="plabel" id="tdRotulo">Questão</div>
+          <div class="pfrase" id="tdPergunta"></div>
+        </div>
+        <textarea class="td-resp" id="tdResp" rows="7" placeholder="Escreva sua resposta aqui, como faria na prova."></textarea>
+        <div class="td-acoes">
+          <button class="correct-btn" id="tdVer" style="margin-top:0;">Ver resposta-modelo</button>
+          <button class="shuffle-btn" id="tdProx" style="margin-top:0;">Próxima pergunta →</button>
+        </div>
+        <div class="td-modelo" id="tdModelo" hidden></div>
+        <div class="tool-disclaimer">Respostas-modelo feitas a partir dos resumos das aulas 3, 4 e 5. O que você escreve fica salvo só neste aparelho.</div>
+      </div>
+    </details>
   </section>
 
   <section class="tool-group">
@@ -3739,11 +3768,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-11', disc: 'Psicologia da Aprendizagem', desc: 'Simulado da N2 no formato da prova: a opção Como na prova sorteia 10 questões de transtornos (dislexia, discalculia, TDAH e TEA), e a dislexia ganhou 3 questões novas. Para as 2 discursivas sobre os teóricos, novo exercício Treino de Discursivas, com 13 perguntas sobre Piaget, Vygotsky e Freire, resposta-modelo e pontos que não podem faltar.', link: {url:'#simulado-aprendizagem-n2'}},
   {date: '2026-11-11', disc: 'Psicologia Experimental', desc: 'Análise do comportamento: nova aba no resumo com contingência tríplice, reforçamento positivo e negativo (fuga e esquiva), reforçadores primários, secundários e generalizados e operações motivadoras. Exercício Qual Conceito da Análise do Comportamento?, 10 termos no glossário, 4 comparações e 12 questões novas no simulado, que agora tem 52.', link: {url:'#resumo-experimental'}},
   {date: '2026-11-10', disc: 'Neuroanatomia', desc: 'Revisão: nova aba no resumo com organização do sistema nervoso (SNC e SNP, vesículas encefálicas, divisão segmentar e suprassegmentar), neurônio e sinapses (elétrica e química, neuromediadores, receptores). Exercício Qual Classe de Neuromediador?, 14 termos no glossário, 3 comparações e 15 questões novas no simulado, que agora tem 75.', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides da aula de questões psicopatológicas no resumo: prevalência da depressão em idosos, por que o diagnóstico é mais difícil, sentimento de finitude e cuidado. Também entraram 3 questões no simulado da N2, que agora tem 43.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA, com dica e correção passo a passo, e 8 questões de cálculo das bases no simulado da N2, que agora tem 48. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
-  {date: '2026-11-09', disc: 'Geral', desc: 'Resumos ampliados com o que faltava dos slides: neurotransmissores e tabela de efeitos do SNA, núcleos dos nervos cranianos, as três classificações da dislexia, mais detalhes de Vygotsky, Freire, discalculia, TDAH, TEA e embriologia, níveis de compactação do DNA e exemplos de como responder às questões de Piaget, Vygotsky e Freire.', link: {page:'viewEstudar'}},
 ];
 
 
@@ -4387,8 +4416,8 @@ SIM_JOGO.push({
   id: 'aprendizagem-n2',
   disc: '03',
   titulo: 'Simulado N2: Psicologia da Aprendizagem',
-  desc: '70 questões no estilo vestibular: Piaget, Vygotsky e a ZDP, Paulo Freire, dislexia, discalculia, TDAH e autismo (TEA).',
-  partes: [{k:'piaget', t:'Piaget', n:14}, {k:'vygotsky', t:'Vygotsky e ZDP', n:10}, {k:'freire', t:'Freire', n:9}, {k:'dislexia', t:'Dislexia', n:7}, {k:'discalculia', t:'Discalculia', n:10}, {k:'tdah', t:'TDAH', n:10}, {k:'tea', t:'TEA', n:10}],
+  desc: '73 questões no estilo vestibular. Na prova caem 10 objetivas de transtornos (dislexia, discalculia, TDAH e TEA) e 2 discursivas sobre Piaget, Vigotski e Paulo Freire: use "Como na prova" para sortear 10 de transtornos e o Treino de Discursivas para os teóricos.',
+  partes: [{k:'prova', t:'Como na prova: 10 de transtornos', n:10, sorteio:['dislexia','discalculia','tdah','tea']}, {k:'piaget', t:'Piaget', n:14}, {k:'vygotsky', t:'Vygotsky e ZDP', n:10}, {k:'freire', t:'Freire', n:9}, {k:'dislexia', t:'Dislexia', n:10}, {k:'discalculia', t:'Discalculia', n:10}, {k:'tdah', t:'TDAH', n:10}, {k:'tea', t:'TEA', n:10}],
   questoes: [
   {tema:"Piaget", p:"Segundo Moreira, na teoria de Piaget há o que é mais famoso e o que é mais importante (o \"núcleo duro\"). Eles são, respectivamente,",
    o:["a zona de desenvolvimento proximal e os signos.",
@@ -4709,6 +4738,30 @@ SIM_JOGO.push({
       "A compreensão de texto é a habilidade mais herdável de todas.",
       "Só os pais podem transmitir, nunca outros parentes próximos."],
    c:1, w:"Cerca de 50% dos casos são herdados, e 35–40% dos parentes de primeiro grau são afetados. Vários cromossomos já foram associados, com transmissão poligênica."},
+
+  {tema:"Dislexia", p:"Na classificação de Boder, a dislexia em que a criança tem dificuldade de perceber as letras como formas visuais (gestalts) é chamada de",
+   o:["disfonética.",
+      "diseidética.",
+      "fonológica.",
+      "profunda.",
+      "auditiva."],
+   c:1, w:"Boder: disfonética (ligada à análise fonética das palavras), diseidética (percepção visual das letras) e mista, a forma mais grave."},
+
+  {tema:"Dislexia", p:"Na classificação de Coltheart, a dislexia fonológica, a superficial e a profunda se distinguem pela via de leitura afetada. A dislexia profunda corresponde a",
+   o:["falha apenas na via direta, de reconhecer a palavra inteira.",
+      "falha apenas na via indireta, de converter letras em sons.",
+      "falha nas duas vias de leitura, a direta e a indireta.",
+      "falha na discriminação auditiva, sem relação com a leitura.",
+      "falha nas sequências visuais, com inversões de letras."],
+   c:2, w:"Coltheart: fonológica (via indireta), superficial (via direta) e profunda (as duas vias)."},
+
+  {tema:"Dislexia", p:"Segundo Bryant e Bradley, citados na aula, as crianças disléxicas são inteligentes, rápidas e atentas. A única diferença em relação às outras crianças aparece",
+   o:["na leitura de palavras inventadas.",
+      "nos testes de inteligência (WISC).",
+      "na acuidade visual e auditiva.",
+      "na atenção sustentada em sala.",
+      "na coordenação motora fina."],
+   c:0, w:"A diferença está na leitura de palavras inventadas (pseudopalavras), que exige converter letras em sons."},
 
   {tema:"Discalculia", p:"Segundo a CID-10, a discalculia é uma alteração específica em aritmética. Assinale a alternativa correta sobre ela.",
    o:["Afeta sobretudo a álgebra, a trigonometria e o cálculo diferencial.",
@@ -14745,6 +14798,40 @@ SNA_ORGAOS.forEach(o=>{
 });
 criarClassificador({pre:'pa', cenarios:PA_CENARIOS, opcoes:['Parassimpático','Simpático']});
 
+// --- Treino de Discursivas: Piaget, Vygotsky e Freire (Psicologia da Aprendizagem) ---
+(function(){
+  const $ = id => document.getElementById(id); if(!$('tdPergunta')) return;
+  const TD = [{"a": "Piaget", "p": "Explique os conceitos de assimilação, acomodação e equilibração em Piaget e dê um exemplo.", "m": "Para Piaget, a mente age sobre a realidade por meio de esquemas. Na assimilação, a pessoa incorpora a realidade aos esquemas que já tem, sem modificá-los. Quando os esquemas não conseguem assimilar uma situação nova, há desequilíbrio, e a mente se reestrutura e constrói novos esquemas: é a acomodação, e é por ela que ocorre o desenvolvimento cognitivo. O processo de passar de um equilíbrio a outro, mais amplo, é a equilibração majorante, fator preponderante do desenvolvimento mental. Exemplo: a criança chama o gato de cachorro (assimilação ao esquema de \"animal de quatro patas\"); ao perceber diferenças, entra em desequilíbrio, reestrutura o esquema e cria a categoria \"gato\" (acomodação), chegando a um novo equilíbrio.", "k": ["Esquemas como forma de a mente agir sobre a realidade", "Assimilação: incorporar ao esquema sem modificá-lo", "Desequilíbrio diante do que o esquema não explica", "Acomodação: reestruturar ou criar esquemas, o que gera desenvolvimento", "Equilibração majorante: novo equilíbrio, mais amplo", "Um exemplo concreto aplicando os conceitos"]}, {"a": "Piaget", "p": "Descreva os quatro períodos do desenvolvimento mental segundo Piaget.", "m": "Piaget descreve quatro períodos, com ordem invariável (as idades podem variar). No sensório-motor (0 a 2 anos), a criança age pela percepção e pela ação e aos poucos percebe os objetos como independentes de si. No pré-operacional (2 a 7 anos), surgem a linguagem e os símbolos, mas o pensamento ainda não é reversível e não há conservação. No operacional-concreto (7 a 12 anos), a lógica se torna reversível, mas aplicada a objetos concretos. No operacional-formal (a partir dos 12 anos), surge o raciocínio hipotético-dedutivo, com hipóteses abstratas.", "k": ["Sensório-motor (0–2): percepção e ação", "Pré-operacional (2–7): linguagem e símbolo, sem reversibilidade nem conservação", "Operacional-concreto (7–12): lógica reversível sobre o concreto", "Operacional-formal (12+): hipóteses e pensamento abstrato", "A ordem é invariável; as idades podem variar"]}, {"a": "Piaget", "p": "Quais as implicações da teoria de Piaget para o ensino?", "m": "Para Piaget, ensinar é provocar desequilíbrio para que o aluno, buscando reequilibrar-se, se reestruture e aprenda. Esse desequilíbrio precisa ser compatível com o período de desenvolvimento do aluno: um erro comum é exigir conservação e reversibilidade de quem ainda não as tem. O professor não deve ser nem diretivo nem não diretivo: cria situações desequilibradoras, organiza contraexemplos e estimula a pesquisa, num ensino ativo. No ensino reversível (Kubli), o professor relaciona os esquemas do aluno aos que quer ensinar, passando de um equilíbrio a outro por estados próximos.", "k": ["Ensinar é provocar desequilíbrio", "O ensino deve respeitar o período de desenvolvimento", "Nem diretivo nem não diretivo: o professor também é ativo", "Métodos ativos, contraexemplos e pesquisa", "Ensino reversível (Kubli): partir dos esquemas do aluno"]}, {"a": "Piaget", "p": "Uma criança de 5 anos diz que o copo alto e fino tem mais água do que o baixo e largo, mesmo depois de ver a mesma água ser passada de um para o outro. Explique pela teoria de Piaget.", "m": "A criança está no período pré-operacional. Ela se fixa no aspecto mais chamativo da situação, a altura, e ainda não tem conservação de quantidade nem reversibilidade: não consegue \"desfazer\" mentalmente a transformação e voltar ao ponto de partida. No período operacional-concreto, por volta dos 7 anos, a lógica se torna reversível e ela entende que a quantidade se conserva. Para o professor, isso significa propor atividades compatíveis com o período e provocar desequilíbrios que a criança consiga reequilibrar.", "k": ["Identifica o período pré-operacional", "Fixação no aspecto mais chamativo (altura)", "Ausência de conservação", "Ausência de reversibilidade", "Relaciona ao operacional-concreto e à implicação para o ensino"]}, {"a": "Vygotsky", "p": "O que é a Zona de Desenvolvimento Proximal (ZDP) e qual o papel do professor nela?", "m": "A ZDP é a distância entre o nível de desenvolvimento real, aquilo que a pessoa faz sozinha, e o nível potencial, aquilo que consegue fazer com a ajuda de um adulto ou de um colega mais capaz. Ela abrange funções que ainda estão em maturação e é dinâmica. Para Vygotsky, a aprendizagem é condição para o desenvolvimento, e o bom ensino está à frente dele. Por isso o professor deve atuar dentro da ZDP, propondo tarefas um pouco além do que o aluno faz sozinho e oferecendo a mediação necessária. Ensinar o que o aluno já domina não é efetivo.", "k": ["Nível real: o que faz sozinho", "Nível potencial: o que faz com ajuda", "ZDP = distância entre os dois; funções em maturação", "A aprendizagem puxa o desenvolvimento", "Professor atua dentro da ZDP, com mediação"]}, {"a": "Vygotsky", "p": "Explique o papel da mediação, dos instrumentos e dos signos e a lei da dupla formação em Vygotsky.", "m": "Para Vygotsky, os processos mentais superiores têm origem social e só podem ser entendidos pelos instrumentos e signos que os medeiam. Instrumento é algo usado para fazer alguma coisa; signo é algo que significa outra coisa (indicadores, icônicos e simbólicos, como as palavras). Pela lei da dupla formação, toda função aparece duas vezes: primeiro no nível social, entre pessoas (interpessoal), e depois no individual (intrapessoal). O desenvolvimento acontece pela internalização dos instrumentos e signos criados pela cultura, e a linguagem é o principal deles. Exemplo: o bebê tenta pegar um objeto, alguém responde ao gesto, e ele passa a apontar.", "k": ["Origem social dos processos mentais superiores", "Instrumento × signo (e os tipos de signo)", "Lei da dupla formação: interpessoal → intrapessoal", "Internalização de instrumentos e signos da cultura", "Linguagem como signo mais importante", "Exemplo (como o gesto de apontar)"]}, {"a": "Vygotsky", "p": "Descreva as fases da fala para Vygotsky e o que muda em relação a Piaget sobre a fala egocêntrica.", "m": "Para Vygotsky, a fala passa por três fases: social, egocêntrica e interna. A linguagem é o sistema de signos mais importante e libera o pensamento do contexto imediato. A fala egocêntrica não é pensamento egocêntrico, como se poderia entender em Piaget: é a criança usando a linguagem para regular a própria ação. Quanto mais complexa a tarefa, maior o papel da fala. O momento mais importante do desenvolvimento intelectual é quando fala e atividade prática se juntam, e a internalização da fala permite o pensamento abstrato.", "k": ["Fases: social → egocêntrica → interna", "Fala egocêntrica regula a própria ação", "Diferença em relação à ideia de pensamento egocêntrico", "Junção de fala e atividade prática", "Internalização da fala permite o pensamento abstrato"]}, {"a": "Vygotsky", "p": "Um aluno não consegue resolver sozinho um problema de matemática, mas resolve quando a professora faz perguntas que orientam o raciocínio. Explique pela teoria de Vygotsky.", "m": "O que o aluno faz sozinho é o seu nível de desenvolvimento real; o que faz com a orientação da professora é o nível potencial. A distância entre os dois é a Zona de Desenvolvimento Proximal, onde estão funções em maturação. As perguntas da professora são mediação: ela atua dentro da ZDP, e o que hoje o aluno faz com ajuda, amanhã fará sozinho. Isso mostra que, para Vygotsky, a aprendizagem puxa o desenvolvimento, e que o processo vai do social (com a professora) para o individual (lei da dupla formação).", "k": ["Nível real (sozinho) e nível potencial (com ajuda)", "Identifica a ZDP", "As perguntas da professora como mediação", "O que faz com ajuda hoje fará sozinho depois", "Do social para o individual / aprendizagem puxa o desenvolvimento"]}, {"a": "Freire", "p": "Compare a educação bancária e a educação dialógica (problematizadora) em Paulo Freire.", "m": "Na educação bancária, educar é depositar conhecimentos: o educador é o sujeito, que sabe, fala e escolhe; o educando é objeto, que escuta, segue e se acomoda. Estudar vira memorizar, e o resultado é a consciência ingênua e a adaptação ao mundo, o que interessa aos opressores. Na educação dialógica, não se educa para nem sobre o educando, mas com ele. O diálogo, que exige amor ao mundo e às pessoas, é a essência da educação como prática da liberdade; o conhecimento é construído e sempre provisório, e o educando se assume como sujeito crítico, capaz de transformar a realidade.", "k": ["Bancária: depositar conhecimento", "Educador sujeito × educando objeto", "Memorização e consciência ingênua, adaptação", "Dialógica: educar com o educando, pelo diálogo", "Educando como sujeito crítico; conhecimento provisório", "Ligação com a transformação da realidade e a autonomia"]}, {"a": "Freire", "p": "O que são temas geradores e palavras geradoras na proposta de Paulo Freire?", "m": "O método parte da realidade do educando, em três etapas: investigação, tematização e problematização. Os temas geradores vêm das relações entre a pessoa e o mundo (por exemplo, salário leva a trabalho e classes sociais; governo leva a poder político e participação popular) e são usados sobretudo na pós-alfabetização. As palavras geradoras, usadas na alfabetização, são escolhidas pela riqueza fonética, pelas dificuldades fonéticas e pelo aspecto pragmático. A busca dos temas inaugura o diálogo, e o educador devolve o universo temático como problema, e não como dissertação.", "k": ["Partem da realidade do educando", "Etapas: investigação, tematização, problematização", "Temas geradores: relações pessoa–mundo, com exemplo", "Palavras geradoras: critérios de escolha, alfabetização", "Devolver como problema: inaugura o diálogo"]}, {"a": "Freire", "p": "Explique a afirmação de Freire de que \"ensinar não é transferir conhecimento\" e o que significa o educador ser diretivo, mas não autoritário.", "m": "Em Pedagogia da autonomia, Freire afirma que ensinar não é transferir conhecimento, mas criar possibilidades para a sua produção ou construção. Não há docência sem discência: quem ensina aprende ao ensinar, e quem aprende ensina ao aprender. A educação é sempre diretiva, mas isso não é comando nem domesticação: o educador dirige o trabalho para, com o educando, superar a ingenuidade inicial, reconhecendo que o educando também tem saberes e que todos somos inacabados. O educador que castra a curiosidade em nome da memorização \"não forma, domestica\".", "k": ["Criar possibilidades para a construção do conhecimento", "Não há docência sem discência", "Diretivo não é autoritário nem domesticador", "O educando também tem saberes; somos inacabados", "Curiosidade: não castrar (\"não forma, domestica\")"]}, {"a": "Freire", "p": "Diferencie consciência ingênua e consciência crítica em Paulo Freire.", "m": "A consciência ingênua simplifica os problemas, aceita a realidade como imutável e se satisfaz com explicações mágicas. A consciência crítica não se satisfaz com aparências, vê a realidade como mutável, investiga, ama o diálogo e aceita revisões. A educação bancária reforça a consciência ingênua; a educação dialógica e problematizadora busca a consciência crítica, condição para que o oprimido se liberte e transforme a realidade.", "k": ["Ingênua: simplifica, realidade imutável, explicações mágicas", "Crítica: investiga, realidade mutável, aceita revisões", "Bancária reforça a ingênua", "Dialógica busca a crítica", "Ligação com libertação e transformação"]}, {"a": "Comparação", "p": "Compare Piaget e Vygotsky quanto à relação entre aprendizagem e desenvolvimento.", "m": "Para Piaget, o desenvolvimento cognitivo vem primeiro e limita o que pode ser aprendido: o ensino deve ser compatível com o período de desenvolvimento, e a construção do conhecimento ocorre pela equilibração, com foco no indivíduo em interação com o meio. Para Vygotsky, a aprendizagem é condição para o desenvolvimento e vai à frente dele: o bom ensino atua na ZDP, e o desenvolvimento vem da internalização de instrumentos e signos da cultura, com foco na interação social. Os dois são construtivistas, mas Piaget enfatiza o sujeito e a equilibração, e Vygotsky, o social e a mediação.", "k": ["Piaget: desenvolvimento antes, ensino compatível com o período", "Piaget: equilibração, foco no indivíduo", "Vygotsky: aprendizagem puxa o desenvolvimento (ZDP)", "Vygotsky: mediação, interação social, internalização", "Ambos construtivistas, com ênfases diferentes"]}];
+  const FILTROS = ['Todas','Piaget','Vygotsky','Freire','Comparação'];
+  let filtro = 'Todas', atual = -1;
+  const lerResp = ()=>{ try{ return JSON.parse(localStorage.getItem('av-discursivas')) || {}; }catch(e){ return {}; } };
+  const salvarResp = o=>{ try{ localStorage.setItem('av-discursivas', JSON.stringify(o)); }catch(e){} };
+  function filtros(){ $('tdFiltros').innerHTML = FILTROS.map(f=>`<button type="button" class="${f === filtro ? 'on' : ''}" data-td-f="${f}">${f}</button>`).join(''); }
+  function lista(){ return TD.map((q,i)=>i).filter(i=> filtro === 'Todas' || TD[i].a === filtro); }
+  function mostra(i){
+    atual = i; const q = TD[i]; const l = lista();
+    $('tdRotulo').textContent = `${q.a} · questão ${l.indexOf(i)+1} de ${l.length}`;
+    $('tdPergunta').textContent = q.p;
+    $('tdResp').value = lerResp()[i] || '';
+    $('tdModelo').hidden = true; $('tdModelo').innerHTML = '';
+  }
+  function proxima(){ const l = lista(); const k = l.indexOf(atual); mostra(l[(k+1) % l.length]); }
+  function ver(){
+    const q = TD[atual];
+    $('tdModelo').innerHTML = `<h4>Resposta-modelo</h4><p style="margin:0 0 12px;">${escHTML(q.m)}</p><h4>Pontos que não podem faltar</h4>${q.k.map((k,j)=>`<label class="td-check"><input type="checkbox" data-td-k="${j}"><span>${escHTML(k)}</span></label>`).join('')}<div class="td-placar" id="tdPlacar">Marque os pontos que a sua resposta incluiu.</div>`;
+    $('tdModelo').hidden = false;
+  }
+  $('tdFiltros').addEventListener('click', e=>{ const b = e.target.closest('[data-td-f]'); if(!b) return; filtro = b.dataset.tdF; filtros(); mostra(lista()[0]); });
+  $('tdResp').addEventListener('input', ()=>{ const o = lerResp(); o[atual] = $('tdResp').value; salvarResp(o); });
+  $('tdVer').addEventListener('click', ver);
+  $('tdProx').addEventListener('click', proxima);
+  $('tdModelo').addEventListener('change', ()=>{
+    const t = TD[atual].k.length, n = $('tdModelo').querySelectorAll('input:checked').length;
+    $('tdPlacar').textContent = n === t ? `Completa: ${n} de ${t} pontos.` : `${n} de ${t} pontos. Releia a resposta-modelo e complete o que faltou.`;
+  });
+  filtros(); mostra(0);
+})();
+
 // --- Calculando as bases do DNA (Bases Biológicas) ---
 (function(){
   const $ = id => document.getElementById(id);
@@ -16582,11 +16669,17 @@ function simTemas(sim){
   return out;
 }
 function simIndices(sim, parte){
-  let ini = 0;
-  for(const p of (sim.partes || [])){
-    if(p.k === parte) return sim.questoes.map((_, i)=>i).slice(ini, ini + p.n);
-    ini += p.n;
+  // partes com "sorteio" não ocupam questões próprias: sorteiam n questões das partes listadas, alternando entre elas
+  const faixas = {}; let ini = 0;
+  for(const p of (sim.partes || [])){ if(p.sorteio) continue; faixas[p.k] = sim.questoes.map((_, i)=>i).slice(ini, ini + p.n); ini += p.n; }
+  const sp = (sim.partes || []).find(p=> p.k === parte && p.sorteio);
+  if(sp){
+    const filas = embaralhar(sp.sorteio.map(k=> embaralhar((faixas[k] || []).slice())));
+    const out = []; let r = 0;
+    while(out.length < sp.n && filas.some(f=> f.length)){ const f = filas[r % filas.length]; if(f.length) out.push(f.shift()); r++; }
+    return out;
   }
+  if(faixas[parte]) return faixas[parte];
   return sim.questoes.map((_, i)=>i);
 }
 
