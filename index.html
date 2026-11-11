@@ -3725,7 +3725,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   {date: '2026-11-10', disc: 'Neuroanatomia', desc: 'Revisão: nova aba no resumo com organização do sistema nervoso (SNC e SNP, vesículas encefálicas, divisão segmentar e suprassegmentar), neurônio e sinapses (elétrica e química, neuromediadores, receptores). Exercício Qual Classe de Neuromediador?, 14 termos no glossário, 3 comparações e 15 questões novas no simulado, que agora tem 75.', link: {url:'#resumo-medula-sna'}},
-  {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Depressão no idoso (Stella et al., 2002): diagnóstico, sintomas, aspectos neurobiológicos, relação com doenças e com demência, tratamento e benefícios da atividade física. Também entrou no simulado da N2, que agora tem 51 questões, e no glossário. Os slides da aula de questões psicopatológicas também entraram no resumo.', link: {url:'#resumo-idoso-n2'}},
+  {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides da aula de questões psicopatológicas no resumo: prevalência da depressão em idosos, por que o diagnóstico é mais difícil, sentimento de finitude e cuidado. Também entraram 3 questões no simulado da N2, que agora tem 43.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA, com dica e correção passo a passo, e 8 questões de cálculo das bases no simulado da N2, que agora tem 48. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
   {date: '2026-11-09', disc: 'Geral', desc: 'Resumos ampliados com o que faltava dos slides: neurotransmissores e tabela de efeitos do SNA, núcleos dos nervos cranianos, as três classificações da dislexia, mais detalhes de Vygotsky, Freire, discalculia, TDAH, TEA e embriologia, níveis de compactação do DNA e exemplos de como responder às questões de Piaget, Vygotsky e Freire.', link: {page:'viewEstudar'}},
   {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e 30 questões novas no simulado da N2, que agora tem 70.', link: {url:'#resumo-aprendizagem-7-9'}},
@@ -5270,8 +5270,8 @@ SIM_JOGO.push({
   id: 'idoso-n2',
   disc: '05',
   titulo: 'Simulado N2: velhice',
-  desc: '51 questões no estilo vestibular: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos, luto e morte e depressão no idoso.',
-  partes: [{k:'apos', t:'Aposentadoria', n:10}, {k:'neuro', t:'Neuropatológicos', n:10}, {k:'psico', t:'Psicopatológicos', n:10}, {k:'luto', t:'Luto e morte', n:10}, {k:'depressao', t:'Depressão no idoso', n:11}],
+  desc: '43 questões no estilo vestibular: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos, luto e morte e depressão no idoso.',
+  partes: [{k:'apos', t:'Aposentadoria', n:10}, {k:'neuro', t:'Neuropatológicos', n:10}, {k:'psico', t:'Psicopatológicos', n:10}, {k:'luto', t:'Luto e morte', n:10}, {k:'depressao', t:'Depressão no idoso', n:3}],
   questoes: [
   {tema:"Aposentadoria", p:"Segundo Silva e Carvalho (2019), a aposentadoria pode ter implicações psicossociais importantes. A principal razão apontada pelos autores é que",
    o:["a aposentadoria sempre causa depressão, em qualquer pessoa.",
@@ -5592,69 +5592,6 @@ SIM_JOGO.push({
       "típico apenas de quem tem depressão e não aceita a morte.",
       "a prova de que idosos longevos não pensam na própria morte."],
    c:1, w:"O discurso foi ambíguo. Os autores concluem que o idoso oscila entre os dois modos e defendem ações educativas contra o estereótipo de que envelhecer é \"caminhar ao lado da morte\"."},
-  {tema:"Depressão no idoso", p:"Segundo Stella et al. (2002), a prevalência de depressão entre idosos varia conforme o local onde vivem. Assinale a alternativa correta.",
-   o:["É maior nos idosos da comunidade, que chegam a 30%.",
-      "É maior nos idosos institucionalizados, que chegam a 30%.",
-      "É igual na comunidade e nas instituições, cerca de 15%.",
-      "É menor nas instituições, graças ao cuidado constante da equipe.",
-      "Não chega a 2% em nenhum dos grupos estudados."],
-   c:1, w:"Na comunidade, a prevalência fica entre 2% e 14%; em idosos que vivem em instituições, chega a 30%. Na população geral, gira em torno de 15%."},
-
-  {tema:"Depressão no idoso", p:"Um senhor de 72 anos procura o clínico com dores difusas, insônia, falta de apetite e emagrecimento, mas nega tristeza. Segundo o texto de Stella et al. (2002), é correto afirmar que",
-   o:["a ausência de tristeza descarta depressão nesse caso.",
-      "no idoso, a depressão costuma vir com queixas somáticas.",
-      "os sintomas são próprios do envelhecimento normal.",
-      "o quadro indica apenas uma doença clínica, sem relação psíquica.",
-      "só exames de neuroimagem podem esclarecer o quadro."],
-   c:1, w:"No idoso, a depressão costuma se manifestar por queixas físicas, e por razões socioculturais muitos idosos relutam em relatar sintomas mentais. Tratar os sintomas como envelhecimento normal é justamente o erro que o texto aponta."},
-
-  {tema:"Depressão no idoso", p:"Sobre a depressão de início tardio (depois dos 65 anos), é correto afirmar que",
-   o:["tem componente genético maior que a de início precoce.",
-      "os fatores neurobiológicos tendem a pesar mais que os genéticos.",
-      "não se associa a nenhuma alteração em estruturas cerebrais.",
-      "é causada exclusivamente por fatores psíquicos acumulados.",
-      "decorre do aumento da produção de serotonina pelos núcleos da rafe."],
-   c:1, w:"Na depressão que começou cedo e se prolongou, o componente genético tende a ser maior. Na de início tardio, pesam mais fatores neurobiológicos: menos serotonina dos núcleos da rafe, alterações no caudado e no tálamo e hipofrontalidade."},
-
-  {tema:"Depressão no idoso", p:"Segundo Stoppe Jr e Louzã Neto (1999), citados por Stella et al., a \"pseudodemência depressiva\" corresponde à",
-   o:["depressão na demência, parte do próprio processo demencial.",
-      "demência com depressão sobre um quadro demencial prévio.",
-      "demência na depressão, com prejuízo causado pela depressão.",
-      "demência de Alzheimer sem nenhum sintoma de humor.",
-      "depressão que surge apenas após o uso de ECT."],
-   c:2, w:"Na \"demência na depressão\" (pseudodemência depressiva), o comprometimento cognitivo resulta do próprio processo depressivo, e não de uma demência."},
-
-  {tema:"Depressão no idoso", p:"Sobre o tratamento medicamentoso da depressão no idoso, segundo Stella et al. (2002),",
-   o:["os tricíclicos são a primeira escolha por serem mais baratos.",
-      "os ISRS, como citalopram e sertralina, são a primeira escolha.",
-      "não se recomenda remédio, apenas psicoterapia e exercício.",
-      "benzodiazepínicos são indicados como tratamento principal.",
-      "a dose inicial deve ser alta, para acelerar a resposta ao tratamento."],
-   c:1, w:"Os ISRS são a primeira escolha. Os tricíclicos não são, pelos efeitos anticolinérgicos; se necessário, usa-se nortriptilina em dose baixa. Benzodiazepínicos, aliás, podem causar sintomas depressivos."},
-
-  {tema:"Depressão no idoso", p:"A modalidade de psicoterapia indicada no texto para o idoso deprimido é a",
-   o:["psicanálise de longa duração, voltada para a infância.",
-      "psicoterapia breve, prospectiva, com cerca de seis meses.",
-      "terapia de grupo obrigatória em instituição de longa permanência.",
-      "terapia sem prazo, centrada apenas nas perdas do passado.",
-      "orientação exclusiva aos familiares, sem atender o idoso."],
-   c:1, w:"A psicoterapia breve é prospectiva, voltada para o presente e o futuro, ajuda a reorganizar o projeto de vida e dura em geral seis meses."},
-
-  {tema:"Depressão no idoso", p:"No estudo de Blumenthal et al. (1999), 156 idosos com depressão maior foram divididos em grupos de sertralina, exercício e combinado. O resultado foi que",
-   o:["só o grupo combinado teve redução dos sintomas depressivos.",
-      "os três grupos melhoraram de forma semelhante em 16 semanas.",
-      "o exercício foi mais rápido que o medicamento desde o início.",
-      "o grupo do exercício teve mais recaídas no acompanhamento.",
-      "nenhum grupo apresentou melhora estatisticamente relevante."],
-   c:1, w:"Os três grupos melhoraram de forma parecida; o remédio agiu mais rápido. No acompanhamento de seis meses (Babyak et al., 2000), o grupo do exercício teve menos recaídas."},
-
-  {tema:"Depressão no idoso", p:"Entre os mecanismos propostos no texto para explicar o efeito da atividade física sobre a depressão, está",
-   o:["a redução das endorfinas, que diminui a ansiedade.",
-      "o aumento de monoaminas e endorfinas após o exercício.",
-      "a substituição completa do contato social pelo exercício.",
-      "o aumento dos efeitos anticolinérgicos dos antidepressivos.",
-      "a diminuição da perfusão sanguínea cerebral durante o esforço."],
-   c:1, w:"Os mecanismos discutidos incluem o aumento de monoaminas e endorfinas, a prevenção de doenças crônicas, a melhor aptidão funcional, a autoestima e o contato social. A atividade física melhora a perfusão cerebral."},
 
   {tema:"Depressão no idoso", p:"Segundo os slides da aula, a prevalência do transtorno depressivo entre idosos",
    o:["vai de 4,8% a 14,6% na comunidade e chega a 22% entre institucionalizados.",
@@ -5662,7 +5599,7 @@ SIM_JOGO.push({
       "é a mesma em todos os contextos, cerca de 30% dos idosos em qualquer situação de vida.",
       "é desprezível na comunidade e só aparece em idosos com demência já instalada.",
       "é de 40% em qualquer contexto, número que se repete em todas as pesquisas."],
-   c:0, w:"Os slides citam 4,8% a 14,6% na comunidade e até 22% entre hospitalizados ou institucionalizados. (Stella et al. trazem números um pouco diferentes: 2% a 14% e até 30%.)"},
+   c:0, w:"Os slides citam 4,8% a 14,6% entre idosos da comunidade e até 22% entre hospitalizados ou institucionalizados."},
 
   {tema:"Depressão no idoso", p:"Estima-se que a depressão no idoso não seja reconhecida em cerca de 40% dos casos. Segundo a aula, um dos motivos é",
    o:["a visão errônea de que a depressão faz parte normal do envelhecimento.",
@@ -6735,10 +6672,6 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
   {t:'Inteligência cristalizada', disc:'Desenvolvimento Adulto e Idoso', d:'Conhecimentos e habilidades acumulados pela experiência, como vocabulário. Tende a se manter ou crescer na vida adulta.', ex:'Vocabulário e conhecimentos gerais, que costumam se manter ou até crescer com a idade.'},
   {t:'Plasticidade', disc:'Desenvolvimento Adulto e Idoso', d:'Capacidade do cérebro e do comportamento de se modificar com a experiência, que continua presente ao longo de toda a vida.', ex:'Um idoso que aprende a usar o celular, mostrando que o cérebro continua se adaptando.'},
   {t:'Reserva cognitiva', disc:'Desenvolvimento Adulto e Idoso', d:'Capacidade do cérebro de compensar perdas; escolaridade e atividades estimulantes ao longo da vida estão associadas a uma reserva maior.', ex:'Uma pessoa com muitos anos de estudo que demora mais a mostrar sintomas mesmo com alterações no cérebro.'},
-  {t:'Pseudodemência depressiva', disc:'Desenvolvimento Adulto e Idoso', d:'Prejuízo cognitivo, como queixas de memória, causado pela própria depressão, e não por uma demência. Na classificação de Stoppe Jr e Louzã Neto, é a "demência na depressão".'},
-  {t:'Depressão de início tardio', disc:'Desenvolvimento Adulto e Idoso', d:'Depressão que começa depois dos 65 anos. Tende a ter componente genético menor e mais peso de fatores neurobiológicos do envelhecimento (Stella et al., 2002).'},
-  {t:'Psicoterapia breve', disc:'Desenvolvimento Adulto e Idoso', d:'Modalidade indicada para o idoso deprimido: prospectiva, voltada para o presente e o futuro, ajuda a reorganizar o projeto de vida e dura em geral seis meses.'},
-  {t:'Hipofrontalidade', disc:'Desenvolvimento Adulto e Idoso', d:'Redução da atividade do córtex pré-frontal vista em exames funcionais, como o SPECT. Associa-se à depressão de início tardio.'},
 
   // Geral / trabalhos acadêmicos
   {t:'Fichamento', disc:'Trabalhos acadêmicos', d:'Registro organizado das ideias principais de um texto, com a referência completa e, se houver citações diretas, as páginas.'},
@@ -8274,7 +8207,7 @@ const RESUMOS = {
     "eyebrow": "Desenvolvimento Adulto e Idoso · Prova N2",
     "titulo": "Velhice: aposentadoria, quadros clínicos e luto",
     "lead": "Os quatro temas da N2, um por aba: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos e luto e morte. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
-    "fonte": "Resumo feito a partir das leituras do plano da disciplina: Silva e Carvalho (2019), Damasceno (1999), Oliveira et al. (2018), Souza et al. (2023), Borim et al. (2013), Resende et al. (2011) e Menezes e Lopes (2014). A parte de depressão no idoso segue Stella, Gobbi, Corazza e Costa (2002), Depressão no idoso: diagnóstico, tratamento e benefícios da atividade física, revista Motriz, v. 8, n. 3, p. 91-98. As partes de Papalia e Martorell (2021) seguem os conceitos centrais dos capítulos indicados; confira os detalhes no livro.",
+    "fonte": "Resumo feito a partir das leituras do plano da disciplina: Silva e Carvalho (2019), Damasceno (1999), Oliveira et al. (2018), Souza et al. (2023), Borim et al. (2013), Resende et al. (2011) e Menezes e Lopes (2014). As partes de Papalia e Martorell (2021) seguem os conceitos centrais dos capítulos indicados; confira os detalhes no livro.",
     "caps": [
       {
         "id": "aposentadoria",
@@ -8726,102 +8659,6 @@ const RESUMOS = {
             ],
             "q": "Que caminho os slides propõem para o cuidado da saúde mental na velhice?",
             "a": "Implementar as políticas públicas já criadas, com ações integradas de prevenção e promoção da saúde física e mental, e ampliar os serviços dos centros de convivência e de assistência integrada, buscando um envelhecimento ativo e satisfatório."
-          },
-          {
-            "fase": "Depressão no idoso",
-            "when": "Stella et al., 2002",
-            "titulo": "Quanto e por quê",
-            "pontos": [
-              "A depressão é a enfermidade mental frequente no idoso, com grande sofrimento psíquico, e é considerada <strong>fator de risco para demência</strong>.",
-              "Prevalência: cerca de 15% na população geral; entre <strong>2% e 14%</strong> nos idosos que vivem na comunidade; até <strong>30%</strong> nos que vivem em instituições.",
-              "Envelhecer não é sinônimo de adoecer: o envelhecimento normal pode deixar os processos mentais mais lentos, mas isso não é perda de funções cognitivas.",
-              "Causas: fatores genéticos, eventos de vida (luto, abandono), doenças incapacitantes, isolamento social, perdas progressivas (companheiro, laços afetivos, capacidade de trabalho) e aposentadoria que reduz os recursos de sobrevivência.",
-              "Por razões socioculturais, muitos idosos relutam em relatar sintomas mentais, que aparecem misturados a queixas físicas."
-            ],
-            "q": "Onde a depressão é mais prevalente entre idosos, segundo Stella et al. (2002)?",
-            "a": "Nos idosos que vivem em instituições, com prevalência de até 30%, contra 2% a 14% nos que vivem na comunidade."
-          },
-          {
-            "when": "Stella et al., 2002",
-            "titulo": "Diagnóstico e sintomas",
-            "pontos": [
-              "O diagnóstico passa por anamnese detalhada (com o paciente e com familiares ou cuidadores), exame psiquiátrico, exame clínico geral, avaliação neurológica, identificação de efeitos adversos de medicamentos, exames laboratoriais e de neuroimagem.",
-              "No idoso, além dos sintomas comuns, aparecem <strong>queixas somáticas</strong>, hipocondria, baixa autoestima, sentimento de inutilidade, humor disfórico, alteração do sono e do apetite, ideação paranoide e pensamento recorrente de suicídio.",
-              "Em idosos deprimidos, o risco de suicídio é <strong>duas vezes maior</strong> do que nos não deprimidos.",
-              "Os sintomas se dividem em quatro grupos: do humor, neurovegetativos, cognitivos e psicóticos (veja a tabela abaixo)."
-            ],
-            "q": "Quais são os quatro grupos de sintomas da depressão no idoso?",
-            "a": "Sintomas do humor, neurovegetativos, cognitivos e psicóticos."
-          },
-          {
-            "when": "Stella et al., 2002",
-            "titulo": "Aspectos neurobiológicos",
-            "pontos": [
-              "Depressão que começou cedo na vida e se prolongou até a velhice tende a ter <strong>componente genético</strong> maior. Depressão que começou <strong>depois dos 65 anos</strong> (de início tardio) tende a ter mais peso dos fatores neurobiológicos.",
-              "Fatores de vulnerabilidade: menor resposta ao hormônio estimulador da tireoide, <strong>redução da atividade serotoninérgica e noradrenérgica</strong>, alterações vasculares e degeneração de circuitos ligados à vida afetiva.",
-              "Menor produção de serotonina pelos <strong>núcleos da rafe</strong> e menos receptores para ela.",
-              "Comprometimento dos núcleos da base (especialmente o <strong>núcleo caudado</strong>) e do <strong>tálamo</strong>, e <strong>hipofrontalidade</strong> (menor atividade pré-frontal no SPECT) se associam à depressão de início tardio.",
-              "Na depressão com delírios, Kim et al. (1999) encontraram volumes pré-frontais menores. Depressão com sintomas psicóticos, ansiedade e irritabilidade tende a prever agressividade e agitação."
-            ],
-            "q": "O que diferencia a depressão de início tardio da que começou cedo e se prolongou até a velhice?",
-            "a": "Na de início tardio (depois dos 65 anos), o componente genético tende a ser menor e os fatores neurobiológicos do envelhecimento pesam mais. Na que começou cedo, o componente genético tende a ser maior."
-          },
-          {
-            "when": "Stella et al., 2002",
-            "titulo": "Depressão e doenças clínicas",
-            "pontos": [
-              "Depressão e doença clínica têm <strong>influência recíproca</strong>: as doenças favorecem a depressão, e a depressão agrava as doenças e aumenta a mortalidade.",
-              "Muitas vezes os sintomas depressivos são confundidos com a própria doença ou vistos como consequência \"normal\" do envelhecimento, e não são tratados.",
-              "Prevalência de depressão em algumas doenças: Parkinson (40% a 60%), Alzheimer (30% a 40%), AVC (30% a 60%), Huntington (30% a 40%), esclerose múltipla (20% a 60%) e epilepsia (10% a 50%). Também é alta em Cushing, hipotireoidismo, diabetes, doenças cardíacas e autoimunes.",
-              "Alguns medicamentos podem causar sintomas depressivos: anti-hipertensivos, antiparkinsonianos, benzodiazepínicos e corticoides.",
-              "O deprimido cuida menos de si, come menos e fica mais tempo no leito, o que pode baixar a imunidade e favorecer infecções."
-            ],
-            "q": "Por que se diz que depressão e doença clínica têm influência recíproca?",
-            "a": "Porque as doenças clínicas favorecem a depressão, e a depressão agrava a evolução dessas doenças e aumenta a mortalidade."
-          },
-          {
-            "when": "Stella et al., 2002",
-            "titulo": "Depressão e funções cognitivas",
-            "pontos": [
-              "A depressão no idoso é fator de risco para demência: alguns estudos sugerem que <strong>50%</strong> evoluem para demência em cinco anos.",
-              "A depressão pode alterar temporariamente a cognição, o que dificulta diferenciá-la da demência. Por outro lado, o Alzheimer pode começar com sintomas depressivos.",
-              "Queixas de memória em deprimidos deram origem ao termo <strong>\"pseudodemência depressiva\"</strong>.",
-              "Stoppe Jr e Louzã Neto (1999) descrevem quatro relações entre depressão e demência (veja a tabela abaixo)."
-            ],
-            "q": "O que é a \"pseudodemência depressiva\"?",
-            "a": "Quando o comprometimento cognitivo, como as queixas de memória, resulta da própria depressão, e não de um processo demencial."
-          },
-          {
-            "fase": "Tratamento",
-            "when": "Stella et al., 2002",
-            "titulo": "Como se trata",
-            "pontos": [
-              "Objetivos: reduzir o sofrimento psíquico, diminuir o risco de suicídio, melhorar o estado geral e garantir qualidade de vida.",
-              "Primeiro, verificar se alguma doença ou medicamento está causando ou agravando a depressão, e investigar fatores psicossociais como luto, isolamento e abandono.",
-              "<strong>Psicoterapia breve:</strong> a modalidade indicada para idosos. É prospectiva, voltada para o presente e o futuro, ajuda a reorganizar o projeto de vida e dura em geral <strong>seis meses</strong>. Terapia ocupacional, arte e lazer também ajudam.",
-              "<strong>Medicamentos:</strong> antidepressivos de segunda geração, mais seguros. Os <strong>ISRS</strong> são a primeira escolha (sobretudo citalopram e sertralina). Os tricíclicos não são a primeira escolha, por causa dos efeitos anticolinérgicos; se preciso, usa-se a nortriptilina em dose baixa. Atenção às interações, porque idosos costumam tomar vários remédios.",
-              "Medicamento e psicoterapia juntos têm mostrado bons resultados.",
-              "<strong>Eletroconvulsoterapia (ECT):</strong> opção segura quando há risco iminente de suicídio, catatonia sem resposta aos remédios ou intolerância a eles. É feita em hospital, sob anestesia geral. Contraindicações absolutas: hipertensão intracraniana, infarto nos últimos 3 meses e AVC nos últimos 6 meses."
-            ],
-            "q": "Qual psicoterapia é indicada para o idoso deprimido, e como ela funciona?",
-            "a": "A psicoterapia breve: prospectiva, voltada para o presente e o futuro, ajuda a reorganizar o projeto de vida e dura em geral seis meses."
-          },
-          {
-            "fase": "Atividade física",
-            "when": "Stella et al., 2002",
-            "titulo": "Os benefícios do exercício",
-            "pontos": [
-              "Ficar muito tempo no leito prejudica a saúde: acúmulo de secreção nas vias respiratórias (risco de pneumonia), descontrole da pressão, pior circulação e agravamento da artrose.",
-              "<strong>Cooper (1982):</strong> exercício aeróbio de intensidade moderada e longa duração (a partir de 30 minutos) aumenta as <strong>endorfinas</strong> e alivia o estresse.",
-              "<strong>Blumenthal et al. (1999):</strong> 156 idosos com depressão maior em três grupos (sertralina, exercício e os dois juntos). Em 16 semanas os três melhoraram de forma parecida; o remédio agiu mais rápido. Seis meses depois, o grupo do exercício teve <strong>menos recaídas</strong> (Babyak et al., 2000).",
-              "Miranda et al. (1996): em 27 idosos, 45 minutos de atividade aeróbia diminuíram a tensão e a depressão.",
-              "<strong>Strawbridge et al. (2002):</strong> 1.947 adultos acompanhados por cinco anos. Quanto menor o nível de atividade física, maior a prevalência e a incidência de depressão, com ou sem incapacidades.",
-              "Vantagens sobre o remédio: não tem efeitos colaterais indesejáveis e exige participação ativa, o que melhora a autoestima e a autoconfiança. Em grupo, ainda amplia as relações sociais.",
-              "Mecanismos propostos: aumento de monoaminas e endorfinas depois do exercício, prevenção de doenças crônicas, melhor aptidão funcional e mais contato social. Também estimula atenção, memória de curto prazo e funções executivas.",
-              "Os autores propõem que as prefeituras organizem programas de atividade física e que os Grupos de Terceira Idade incluam exercícios."
-            ],
-            "q": "O que mostrou o estudo de Blumenthal et al. (1999) com 156 idosos?",
-            "a": "Sertralina, exercício e os dois juntos reduziram a depressão de forma parecida em 16 semanas (o remédio agiu mais rápido). No acompanhamento, o grupo do exercício teve menos recaídas."
           }
         ],
         "quiz": [
@@ -8892,39 +8729,6 @@ const RESUMOS = {
             "w": "Atividade física, religiosidade, otimismo, autonomia e boas relações protegem."
           },
           {
-            "p": "Segundo Stella et al. (2002), a primeira escolha de medicamento para o idoso deprimido são os…",
-            "o": [
-              "Tricíclicos",
-              "ISRS, como citalopram e sertralina",
-              "Benzodiazepínicos",
-              "Corticoides"
-            ],
-            "c": 1,
-            "w": "Os tricíclicos não são a primeira escolha por causa dos efeitos anticolinérgicos."
-          },
-          {
-            "p": "A \"pseudodemência depressiva\" é…",
-            "o": [
-              "Um tipo de Alzheimer",
-              "O prejuízo cognitivo causado pela depressão",
-              "Uma demência sem sintomas",
-              "Um efeito da ECT"
-            ],
-            "c": 1,
-            "w": "É a \"demência na depressão\" de Stoppe Jr e Louzã Neto."
-          },
-          {
-            "p": "No estudo de Blumenthal et al., o que o exercício teve de vantagem no acompanhamento?",
-            "o": [
-              "Agiu mais rápido",
-              "Menos recaídas",
-              "Nenhuma",
-              "Curou todos"
-            ],
-            "c": 1,
-            "w": "O remédio agiu mais rápido, mas o grupo do exercício teve menos recaídas."
-          },
-          {
             "p": "Segundo os slides da aula, em quantos casos a depressão no idoso não é reconhecida?",
             "o": [
               "10%",
@@ -8936,104 +8740,7 @@ const RESUMOS = {
             "w": "Estima-se 40%, pela visão de que é parte normal do envelhecimento e pelos sintomas somáticos que mascaram o quadro."
           }
         ],
-        "extras": [
-          {
-            "tipo": "caixas",
-            "titulo": "Atenção: os números mudam conforme a fonte",
-            "itens": [
-              {
-                "t": "Slides da aula",
-                "d": "Depressão em 4,8% a 14,6% dos idosos da comunidade e até 22% dos hospitalizados ou institucionalizados; não reconhecida em 40% dos casos."
-              },
-              {
-                "t": "Stella et al. (2002)",
-                "d": "Depressão em 2% a 14% dos idosos da comunidade e até 30% dos institucionalizados; cerca de 15% na população geral."
-              },
-              {
-                "t": "Na prova",
-                "d": "Se a questão citar o autor, use o número dele. Se não citar, a referência mais segura é a da aula."
-              }
-            ]
-          },
-          {
-            "tipo": "tabela",
-            "titulo": "Sintomas da depressão no idoso (Stella et al., 2002)",
-            "cab": [
-              "Grupo",
-              "Sintomas"
-            ],
-            "linhas": [
-              [
-                "Do humor",
-                "Humor deprimido ou disfórico, irritabilidade, tristeza, desânimo, sentimento de abandono e de inutilidade, baixa autoestima, retraimento social, anedonia, ideias autodepreciativas e de morte, tentativas de suicídio"
-              ],
-              [
-                "Neurovegetativos",
-                "Inapetência, emagrecimento, distúrbio do sono, perda de energia, lentificação ou inquietação psicomotora, hipocondria, dores inespecíficas"
-              ],
-              [
-                "Cognitivos",
-                "Dificuldade de concentração e de memória, lentificação do raciocínio"
-              ],
-              [
-                "Psicóticos",
-                "Ideias paranoides, delírios de ruína e de morte, alucinações que mandam a pessoa se matar"
-              ]
-            ]
-          },
-          {
-            "tipo": "tabela",
-            "titulo": "Depressão e demência: as quatro relações (Stoppe Jr e Louzã Neto, 1999)",
-            "cab": [
-              "Relação",
-              "O que acontece"
-            ],
-            "linhas": [
-              [
-                "Depressão na demência",
-                "Os sintomas depressivos fazem parte do próprio processo demencial"
-              ],
-              [
-                "Demência com depressão",
-                "A depressão se instala sobre uma demência que já existia"
-              ],
-              [
-                "Depressão com comprometimento cognitivo",
-                "A depressão evolui com dificuldades de concentração e de memória recente"
-              ],
-              [
-                "Demência na depressão",
-                "O prejuízo cognitivo é causado pela depressão: a \"pseudodemência depressiva\""
-              ]
-            ]
-          },
-          {
-            "tipo": "tabela",
-            "titulo": "Atividade física e depressão (Strawbridge et al., 2002)",
-            "cab": [
-              "Nível de atividade",
-              "Prevalência em 1994",
-              "Incidência em 1999"
-            ],
-            "linhas": [
-              [
-                "Baixo",
-                "11,5% (risco 4,21 vezes)",
-                "7,7% (risco 4,94 vezes)"
-              ],
-              [
-                "Médio",
-                "6,1% (risco 2,11 vezes)",
-                "4,3% (risco 2,64 vezes)"
-              ],
-              [
-                "Alto",
-                "3,0% (referência)",
-                "1,7% (referência)"
-              ]
-            ]
-          }
-        ]
+        "extras": []
       },
       {
         "id": "luto",
