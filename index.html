@@ -3334,6 +3334,21 @@
         <div class="tool-disclaimer">Os três níveis atuam juntos no comportamento humano; cada exemplo destaca o nível predominante (Skinner, 1981; Aula 4).</div>
       </div>
     </details>
+      <details class="graveyard">
+      <summary>Qual Conceito da Análise do Comportamento?</summary>
+      <div class="tool-card" style="margin-top:12px;">
+        <div class="sub">Leia a situação e identifique o conceito: parte da contingência, tipo de reforçamento, tipo de reforçador ou operação motivadora.</div>
+        <div class="prompt-box">
+          <div class="plabel">Situação</div>
+          <div class="pfrase" id="acSituacaoTexto"></div>
+        </div>
+        <button class="shuffle-btn" id="acShuffleBtn">🔀 Sortear outra</button>
+        <div id="acOpcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div>
+        <button class="correct-btn" id="acCorrigirBtn" style="margin-top:12px;">Corrigir</button>
+        <div class="pfeedback" id="acFeedbackBox"></div>
+        <div class="tool-disclaimer">Com base nas anotações de aula de Análise do Comportamento: contingência, reforçamento, reforçadores e operações motivadoras.</div>
+      </div>
+    </details>
   </section>
 
   <section class="tool-group">
@@ -3724,11 +3739,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-11', disc: 'Psicologia Experimental', desc: 'Análise do comportamento: nova aba no resumo com contingência tríplice, reforçamento positivo e negativo (fuga e esquiva), reforçadores primários, secundários e generalizados e operações motivadoras. Exercício Qual Conceito da Análise do Comportamento?, 10 termos no glossário, 4 comparações e 12 questões novas no simulado, que agora tem 52.', link: {url:'#resumo-experimental'}},
   {date: '2026-11-10', disc: 'Neuroanatomia', desc: 'Revisão: nova aba no resumo com organização do sistema nervoso (SNC e SNP, vesículas encefálicas, divisão segmentar e suprassegmentar), neurônio e sinapses (elétrica e química, neuromediadores, receptores). Exercício Qual Classe de Neuromediador?, 14 termos no glossário, 3 comparações e 15 questões novas no simulado, que agora tem 75.', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides da aula de questões psicopatológicas no resumo: prevalência da depressão em idosos, por que o diagnóstico é mais difícil, sentimento de finitude e cuidado. Também entraram 3 questões no simulado da N2, que agora tem 43.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA, com dica e correção passo a passo, e 8 questões de cálculo das bases no simulado da N2, que agora tem 48. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
   {date: '2026-11-09', disc: 'Geral', desc: 'Resumos ampliados com o que faltava dos slides: neurotransmissores e tabela de efeitos do SNA, núcleos dos nervos cranianos, as três classificações da dislexia, mais detalhes de Vygotsky, Freire, discalculia, TDAH, TEA e embriologia, níveis de compactação do DNA e exemplos de como responder às questões de Piaget, Vygotsky e Freire.', link: {page:'viewEstudar'}},
-  {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e 30 questões novas no simulado da N2, que agora tem 70.', link: {url:'#resumo-aprendizagem-7-9'}},
 ];
 
 
@@ -3775,8 +3790,8 @@ const STUDY = [
   {
     materia: 'Psicologia Experimental',
     titulo: 'Ciência, pesquisa e seleção pelas consequências',
-    subtitulo: 'Aulas 1, 2 e 4 num só resumo',
-    desc: 'Intuição × método científico, conceitos em pesquisa (básica × aplicada, VI e VD, hipótese) e os três níveis de seleção de Skinner, com "Teste-se" e quiz no fim de cada aba.',
+    subtitulo: 'Aulas 1, 2 e 4 e análise do comportamento',
+    desc: 'Intuição × método científico, conceitos em pesquisa (básica × aplicada, VI e VD, hipótese), os três níveis de seleção de Skinner e análise do comportamento (contingência, reforçamento, reforçadores e operações motivadoras), com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-experimental'
   },
   {
@@ -4941,8 +4956,8 @@ SIM_JOGO.push({
   id: 'experimental-n2',
   disc: '04',
   titulo: 'Simulado N2: seleção pelas consequências e condicionamento respondente',
-  desc: '40 questões no estilo vestibular: seleção pelas consequências (Skinner), comportamento respondente e operante, NS, US, UR, CS e CR.',
-  partes: [{k:'selecao', t:'Seleção pelas consequências', n:18}, {k:'respondente', t:'NS, US, UR, CS e CR', n:22}],
+  desc: '52 questões no estilo vestibular: seleção pelas consequências (Skinner), comportamento respondente e operante, NS, US, UR, CS e CR, contingência tríplice, reforçamento, reforçadores e operações motivadoras.',
+  partes: [{k:'selecao', t:'Seleção pelas consequências', n:18}, {k:'respondente', t:'NS, US, UR, CS e CR', n:22}, {k:'reforco', t:'Reforçamento e operações motivadoras', n:12}],
   questoes: [
   {tema:"Skinner", p:"O pensamento de Skinner passou por uma mudança importante ao longo da obra. Essa mudança foi",
    o:["de um modelo inspirado na biologia para um modelo inspirado na física.",
@@ -5263,6 +5278,102 @@ SIM_JOGO.push({
       "NS e US.",
       "UR e CR."],
    c:1, fixa:true, w:"Antes, a sala não provocava choro: era NS. Pareada com a dor da vacina (US), virou CS, e o choro na sala é a CR."},
+  {tema:"Reforçamento e operações motivadoras", p:"Na contingência tríplice, o celular toca, a pessoa atende e conversa com um amigo. Os termos Sᵈ, R e C correspondem, respectivamente, a",
+   o:["atender, celular tocar e conversar.",
+      "celular tocar, atender e conversar.",
+      "conversar, atender e celular tocar.",
+      "celular tocar, conversar e atender.",
+      "atender, conversar e celular tocar."],
+   c:1, w:"Sᵈ é o sinal (o celular toca), R é a resposta (atender) e C é a consequência no ambiente (conversar)."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"Sobre o reforçamento negativo, é correto afirmar que",
+   o:["diminui a frequência do comportamento, como a punição.",
+      "aumenta a frequência do comportamento pela retirada de um aversivo.",
+      "consiste em acrescentar um estímulo desagradável após a resposta.",
+      "só ocorre quando o comportamento é inadequado ou indesejado.",
+      "é sinônimo de punição negativa na análise experimental do comportamento."],
+   c:1, w:"\"Negativo\" significa que algo foi retirado. Como todo reforço, ele aumenta a frequência do comportamento; não é punição."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"O barulho de uma obra está alto e uma estudante fecha a janela. Fechar a janela é mantido por",
+   o:["reforçamento positivo.",
+      "esquiva.",
+      "fuga.",
+      "operação abolidora.",
+      "punição positiva."],
+   c:2, w:"Na fuga, o aversivo já está presente e a resposta o remove."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"Levar o guarda-chuva quando a previsão é de chuva é um comportamento mantido por",
+   o:["fuga.",
+      "esquiva.",
+      "reforçamento positivo.",
+      "saciação.",
+      "extinção."],
+   c:1, w:"Na esquiva, a resposta evita que o aversivo apareça."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"Água, comida, sono e oxigênio são exemplos de reforçadores",
+   o:["generalizados.",
+      "condicionados.",
+      "incondicionados ou primários.",
+      "secundários.",
+      "discriminativos e consequentes ao mesmo tempo."],
+   c:2, w:"Têm efeito inato, sem depender de aprendizagem, porque estão ligados à sobrevivência da espécie."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"O \"clique\" de um adestrador, sempre seguido de petisco, passa a reforçar o comportamento do cão. O clique tornou-se um reforçador",
+   o:["primário, por ter efeito inato.",
+      "generalizado, por estar ligado a vários reforçadores.",
+      "condicionado, por ter sido pareado com um primário.",
+      "abolidor, por diminuir o valor do petisco.",
+      "discriminativo, por sinalizar a resposta."],
+   c:2, w:"Um estímulo neutro pareado com um reforçador primário adquire função reforçadora: é condicionado (secundário)."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"O dinheiro reforça comportamentos mesmo quando a pessoa não está com fome ou sede. Isso acontece porque ele é um reforçador",
+   o:["primário.",
+      "generalizado.",
+      "incondicionado.",
+      "neutro.",
+      "abolidor."],
+   c:1, w:"Por estar associado a muitos reforçadores, o generalizado funciona independentemente da privação do momento."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"A diferença central entre reforçador secundário e reforçador generalizado é que",
+   o:["o secundário é inato e o generalizado é aprendido.",
+      "o secundário se liga a um reforçador; o generalizado, a muitos.",
+      "o generalizado depende sempre de privação para poder funcionar.",
+      "o secundário não precisa de pareamento para reforçar.",
+      "os dois são sinônimos e podem ser usados um no lugar do outro."],
+   c:1, w:"O secundário está associado a um reforçador; o generalizado, a vários."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"Operações motivadoras são eventos que",
+   o:["ensinam um comportamento novo de forma permanente.",
+      "alteram momentaneamente a efetividade dos reforçadores.",
+      "sinalizam que o reforço está disponível no ambiente.",
+      "eliminam definitivamente a resposta do repertório.",
+      "substituem o estímulo discriminativo dentro da contingência tríplice."],
+   c:1, w:"Elas mudam temporariamente o quanto o reforçador vale e, com isso, a frequência da resposta. Não ensinam nada novo."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"Depois de muitas horas sem comer, a comida passa a reforçar muito mais. A privação, nesse caso, é uma operação",
+   o:["abolidora.",
+      "estabelecedora.",
+      "discriminativa.",
+      "consequente.",
+      "generalizada."],
+   c:1, w:"A operação estabelecedora (privação) aumenta o valor do reforçador e a probabilidade da resposta."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"Logo depois do almoço, a comida perde força como reforçador. Isso caracteriza uma operação",
+   o:["estabelecedora, por privação.",
+      "abolidora, por saciação.",
+      "discriminativa, por sinalização.",
+      "de fuga, por retirada do aversivo.",
+      "de esquiva, por evitação."],
+   c:1, w:"A operação abolidora (saciação) diminui o valor do reforçador e a probabilidade da resposta."},
+
+  {tema:"Reforçamento e operações motivadoras", p:"Na padaria, a placa \"aberto\" e a fome do cliente correspondem, respectivamente, a",
+   o:["operação motivadora e Sᵈ.",
+      "Sᵈ e operação motivadora.",
+      "resposta e consequência.",
+      "reforçador primário e secundário.",
+      "consequência e Sᵈ."],
+   c:1, w:"O Sᵈ sinaliza que o reforço está disponível (a placa); a operação motivadora altera o quanto ele é desejado (a fome)."},
+
   ]
 });
 
@@ -6592,6 +6703,16 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
   {t:'Seleção cultural (3º nível)', disc:'Psicologia Experimental', d:'Seleção de práticas culturais mantidas por gerações, possibilitada pela linguagem (comportamento verbal). Explica a origem e as diferenças entre culturas.', ex:'Cumprimentar com dois beijos no rosto num país e com aperto de mão em outro.'},
   {t:'Variação e seleção (Darwin)', disc:'Psicologia Experimental', d:'Os dois processos da evolução: indivíduos variam entre si, e o ambiente torna mais frequentes as variações vantajosas. Evolução não é sinônimo de progresso.'},
   {t:'Prática cultural', disc:'Psicologia Experimental', d:'Comportamento selecionado e mantido ao longo de muitas gerações num grupo.', ex:'Uma família que mantém, há gerações, a receita de um prato no Natal.'},
+  {t:'Contingência tríplice', disc:'Psicologia Experimental', d:'Relação em três termos entre ambiente, organismo e ambiente: estímulo discriminativo (Sᵈ) → resposta (R) → estímulo consequente (C).', ex:'Celular toca (Sᵈ) → atender (R) → falar com a pessoa (C).'},
+  {t:'Estímulo discriminativo (Sᵈ)', disc:'Psicologia Experimental', d:'Sinal do ambiente que indica que uma resposta tem chance de ser reforçada.', ex:'A placa “aberto” da padaria.'},
+  {t:'Fuga', disc:'Psicologia Experimental', d:'Forma de reforçamento negativo em que o aversivo já está presente e a resposta o remove.', ex:'Fechar a janela porque o barulho está alto.'},
+  {t:'Esquiva', disc:'Psicologia Experimental', d:'Forma de reforçamento negativo em que a resposta evita que o aversivo apareça.', ex:'Levar o guarda-chuva para não se molhar.'},
+  {t:'Reforçador incondicionado (primário)', disc:'Psicologia Experimental', d:'Reforçador de efeito inato, que não depende de aprendizagem, ligado à sobrevivência da espécie.', ex:'Água, comida, sono, oxigênio.'},
+  {t:'Reforçador condicionado (secundário)', disc:'Psicologia Experimental', d:'Estímulo neutro que passa a reforçar por ter sido pareado com um reforçador primário.', ex:'O clique do adestrador, sempre seguido de petisco.'},
+  {t:'Reforçador generalizado', disc:'Psicologia Experimental', d:'Reforçador condicionado pareado com vários reforçadores diferentes; funciona independentemente da privação do momento.', ex:'Dinheiro, atenção, aprovação social.'},
+  {t:'Operação motivadora', disc:'Psicologia Experimental', d:'Evento que altera momentaneamente a efetividade de um reforçador e, com isso, a frequência da resposta. Não ensina nada novo.'},
+  {t:'Operação estabelecedora', disc:'Psicologia Experimental', d:'Operação motivadora, como a privação, que aumenta o valor do reforçador e a probabilidade da resposta.', ex:'Depois de horas sem comer, a comida reforça muito mais.'},
+  {t:'Operação abolidora', disc:'Psicologia Experimental', d:'Operação motivadora, como a saciação, que diminui o valor do reforçador e a probabilidade da resposta.', ex:'Logo depois do almoço, a comida perde força.'},
 
   // Neuroanatomia
   {t:'Telencéfalo', disc:'Neuroanatomia', d:'Maior parte do encéfalo: os dois hemisférios cerebrais, com o córtex, os núcleos da base e estruturas como o hipocampo e a amígdala.'},
@@ -6847,6 +6968,25 @@ const COMPARACOES = [
     ['O pesquisador','Manipula ou controla','Mede'],
     ['Papel','A possível causa','O possível efeito'],
     ['Exemplo','Horas de sono (4 h ou 8 h)','Palavras lembradas'],
+  ]},
+  {titulo:'Fuga × esquiva', disc:'Psicologia Experimental', cols:['Fuga','Esquiva'], linhas:[
+    ['O aversivo','Já está presente','Ainda não apareceu'],
+    ['A resposta','Remove o aversivo','Evita que ele apareça'],
+    ['Exemplo','Fechar a janela com o barulho alto','Levar o guarda-chuva'],
+  ]},
+  {titulo:'Reforçador primário × secundário × generalizado', disc:'Psicologia Experimental', cols:['Primário','Secundário','Generalizado'], linhas:[
+    ['Origem','Inato, ligado à sobrevivência','Pareado com um reforçador','Pareado com vários reforçadores'],
+    ['Depende de privação?','Sim','Sim','Não, quase não sofre saciação'],
+    ['Exemplo','Comida, água','Clique do adestrador','Dinheiro, atenção'],
+  ]},
+  {titulo:'Operação estabelecedora × abolidora', disc:'Psicologia Experimental', cols:['Estabelecedora','Abolidora'], linhas:[
+    ['Ligada a','Privação','Saciação'],
+    ['Valor do reforçador','Aumenta','Diminui'],
+    ['Probabilidade da resposta','Aumenta','Diminui'],
+  ]},
+  {titulo:'Sᵈ × operação motivadora', disc:'Psicologia Experimental', cols:['Sᵈ','Operação motivadora'], linhas:[
+    ['O que faz','Sinaliza que o reforço está disponível','Altera o quanto o reforço é desejado'],
+    ['Exemplo na padaria','A placa “aberto”','A fome'],
   ]},
   {titulo:'Filogenia × ontogenia × cultura', disc:'Psicologia Experimental', cols:['1º · Filogenético','2º · Ontogenético','3º · Cultural'], linhas:[
     ['Seleciona','Características da espécie','Comportamentos na vida do indivíduo','Práticas mantidas por gerações'],
@@ -10287,9 +10427,9 @@ const RESUMOS = {
   "experimental": {
     "disc": "04",
     "eyebrow": "Psicologia Experimental · Profa. Ana Carolina Miranda",
-    "titulo": "Ciência, pesquisa e seleção pelas consequências",
-    "lead": "Aulas 1, 2 e 4, uma por aba. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
-    "fonte": "Resumo feito a partir dos slides de Psicologia Experimental: Aula 1 (introdução), Aula 2 (conceitos em pesquisa) e Aula 4 (introdução à seleção pelas consequências).",
+    "titulo": "Ciência, pesquisa, seleção pelas consequências e análise do comportamento",
+    "lead": "Aulas 1, 2 e 4 e as anotações de análise do comportamento, uma por aba. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
+    "fonte": "Resumo feito a partir dos slides de Psicologia Experimental: Aula 1 (introdução), Aula 2 (conceitos em pesquisa) e Aula 4 (introdução à seleção pelas consequências). A aba de análise do comportamento foi feita a partir das anotações de aula sobre contingência, reforçamento, reforçadores e operações motivadoras.",
     "caps": [
       {
         "id": "ciencia",
@@ -10734,6 +10874,231 @@ const RESUMOS = {
             ],
             "c": 1,
             "w": "O controle operante da musculatura vocal permitiu a linguagem, e com ela a cultura."
+          }
+        ]
+      },
+      {
+        "id": "reforcamento",
+        "aba": "Análise do comportamento",
+        "titulo": "Contingência, reforçamento, reforçadores e operações motivadoras",
+        "intro": "Como o ambiente e o comportamento se relacionam: a contingência tríplice, os tipos de reforçamento, os tipos de reforçadores e o que muda momentaneamente o valor de um reforçador.",
+        "etapas": [
+          {
+            "fase": "Contingência",
+            "when": "Sᵈ → R → C",
+            "titulo": "Contingência tríplice",
+            "pontos": [
+              "Descreve a relação entre <strong>ambiente → organismo → ambiente</strong>, em três termos.",
+              "<strong>Sᵈ (estímulo discriminativo):</strong> sinal do ambiente que indica que a resposta tem chance de ser reforçada. Ex.: o celular toca.",
+              "<strong>R (resposta):</strong> o que o organismo faz. Ex.: atender.",
+              "<strong>C (estímulo consequente):</strong> o que acontece no ambiente depois da resposta. Ex.: falar com a pessoa."
+            ],
+            "q": "No exemplo do celular, qual é o Sᵈ, a R e a C?",
+            "a": "Sᵈ: o celular toca. R: atender. C: falar com a pessoa."
+          },
+          {
+            "fase": "Reforçamento",
+            "when": "Definição",
+            "titulo": "Reforçamento positivo e negativo",
+            "pontos": [
+              "<strong>Reforçamento</strong> é o aumento ou a manutenção da frequência de emissão de uma resposta.",
+              "<strong>Positivo (+):</strong> pelo <strong>acréscimo</strong> de um estímulo reforçador. Ex.: o aluno estuda, tira nota boa e passa a estudar mais.",
+              "<strong>Negativo (−):</strong> pela <strong>retirada</strong> de um estímulo aversivo.",
+              "<strong>Atenção:</strong> \"negativo\" não significa ruim nem punição; significa que algo foi retirado. Como todo reforço, o negativo <strong>aumenta</strong> a frequência do comportamento."
+            ],
+            "q": "O reforçamento negativo aumenta ou diminui a frequência do comportamento?",
+            "a": "Aumenta, como todo reforçamento. \"Negativo\" só indica que um estímulo aversivo foi retirado."
+          },
+          {
+            "when": "Duas formas",
+            "titulo": "Fuga e esquiva",
+            "pontos": [
+              "O reforçamento negativo pode acontecer de duas formas:",
+              "<strong>Fuga:</strong> o aversivo <strong>já está presente</strong>, e a resposta o remove. Ex.: o barulho está alto e você fecha a janela.",
+              "<strong>Esquiva:</strong> a resposta <strong>evita que o aversivo apareça</strong>. Ex.: levar o guarda-chuva para não se molhar."
+            ],
+            "q": "Qual a diferença entre fuga e esquiva?",
+            "a": "Na fuga, o aversivo já está presente e a resposta o remove. Na esquiva, a resposta impede que o aversivo apareça."
+          },
+          {
+            "fase": "Reforçadores",
+            "when": "Primários",
+            "titulo": "Incondicionados ou primários",
+            "pontos": [
+              "Exemplos: água, comida, sexo, sono, fuga do perigo, oxigênio.",
+              "<strong>Efeito inato:</strong> não dependem de aprendizagem para reforçar, porque estão ligados à sobrevivência da espécie."
+            ],
+            "q": "Por que a comida reforça sem precisar de aprendizagem?",
+            "a": "Porque é um reforçador incondicionado (primário): seu efeito é inato, ligado à sobrevivência da espécie."
+          },
+          {
+            "when": "Secundários",
+            "titulo": "Condicionados ou secundários",
+            "pontos": [
+              "<strong>Primário + neutro → o neutro adquire função reforçadora.</strong>",
+              "Um estímulo neutro passa a reforçar por ter sido <strong>pareado com um reforçador primário</strong>. Ex.: o \"clique\" do adestrador, sempre seguido de petisco.",
+              "Outros exemplos: elogio, nota boa, som de notificação."
+            ],
+            "q": "Como o \"clique\" do adestrador passa a ser reforçador?",
+            "a": "Por ter sido pareado repetidas vezes com um reforçador primário (o petisco). Assim, vira um reforçador condicionado ou secundário."
+          },
+          {
+            "when": "Generalizados",
+            "titulo": "Reforçadores generalizados",
+            "pontos": [
+              "São reforçadores condicionados pareados com <strong>vários reforçadores diferentes</strong>, e não com um só.",
+              "Funcionam <strong>independentemente da privação</strong> do momento: não é preciso estar com fome para o dinheiro reforçar.",
+              "Exemplos: dinheiro, atenção, aprovação social.",
+              "<strong>Diferença central:</strong> o secundário está associado a <strong>um</strong> reforçador; o generalizado, a <strong>muitos</strong>."
+            ],
+            "q": "Por que o dinheiro é um reforçador generalizado?",
+            "a": "Porque está associado a muitos reforçadores diferentes, e por isso funciona independentemente da privação do momento."
+          },
+          {
+            "fase": "Operações motivadoras",
+            "when": "Definição",
+            "titulo": "O que são",
+            "pontos": [
+              "Eventos que <strong>alteram momentaneamente a efetividade dos reforçadores</strong> e, com isso, a frequência de emissão da resposta.",
+              "<strong>Estabelecedoras (privação):</strong> aumentam o valor do reforçador e a probabilidade da resposta. Ex.: depois de horas sem comer, a comida reforça muito mais.",
+              "<strong>Abolidoras (saciação):</strong> diminuem o valor do reforçador e a probabilidade da resposta. Ex.: logo depois do almoço, a comida perde força como reforçador.",
+              "O efeito é <strong>momentâneo</strong>: a operação motivadora não ensina nada novo, só muda temporariamente o quanto o reforçador \"vale\"."
+            ],
+            "q": "Qual a diferença entre operação estabelecedora e abolidora?",
+            "a": "A estabelecedora (privação) aumenta o valor do reforçador e a probabilidade da resposta; a abolidora (saciação) diminui os dois."
+          },
+          {
+            "when": "Não confundir",
+            "titulo": "Operação motivadora × Sᵈ",
+            "pontos": [
+              "O <strong>Sᵈ sinaliza</strong> que o reforço está disponível; a <strong>operação motivadora altera o quanto</strong> ele é desejado.",
+              "Ex.: a placa \"aberto\" da padaria é Sᵈ; a fome é operação motivadora.",
+              "Ligação com os reforçadores generalizados: por estarem associados a muitos reforçadores, como o dinheiro, sofrem <strong>pouco efeito de saciação</strong>."
+            ],
+            "q": "Na padaria, qual é o Sᵈ e qual é a operação motivadora?",
+            "a": "A placa \"aberto\" é o Sᵈ (sinaliza que o reforço está disponível); a fome é a operação motivadora (aumenta o valor do pão)."
+          }
+        ],
+        "extras": [
+          {
+            "tipo": "tabela",
+            "titulo": "Positivo × negativo, fuga × esquiva",
+            "cab": [
+              "",
+              "O que acontece",
+              "Exemplo"
+            ],
+            "linhas": [
+              [
+                "Reforçamento positivo",
+                "Acrescenta um estímulo reforçador",
+                "Estudar e tirar nota boa"
+              ],
+              [
+                "Reforçamento negativo: fuga",
+                "Remove um aversivo que já está presente",
+                "Fechar a janela por causa do barulho"
+              ],
+              [
+                "Reforçamento negativo: esquiva",
+                "Evita que o aversivo apareça",
+                "Levar o guarda-chuva"
+              ]
+            ]
+          },
+          {
+            "tipo": "tabela",
+            "titulo": "Tipos de reforçadores",
+            "cab": [
+              "Tipo",
+              "Como passa a reforçar",
+              "Exemplos"
+            ],
+            "linhas": [
+              [
+                "Incondicionado (primário)",
+                "Efeito inato, ligado à sobrevivência",
+                "Água, comida, sono, oxigênio"
+              ],
+              [
+                "Condicionado (secundário)",
+                "Pareado com um reforçador primário",
+                "Clique do adestrador, elogio, nota boa"
+              ],
+              [
+                "Generalizado",
+                "Pareado com vários reforçadores; independe da privação",
+                "Dinheiro, atenção, aprovação social"
+              ]
+            ]
+          }
+        ],
+        "quiz": [
+          {
+            "p": "Na contingência tríplice, o \"celular tocando\" é o…",
+            "o": [
+              "Sᵈ",
+              "R",
+              "C",
+              "Operação motivadora"
+            ],
+            "c": 0,
+            "w": "É o estímulo discriminativo: sinaliza que atender tem chance de ser reforçado."
+          },
+          {
+            "p": "Levar o guarda-chuva para não se molhar é um exemplo de…",
+            "o": [
+              "Fuga",
+              "Esquiva",
+              "Reforço positivo",
+              "Punição"
+            ],
+            "c": 1,
+            "w": "A resposta evita que o aversivo apareça."
+          },
+          {
+            "p": "Fechar a janela porque o barulho está alto é…",
+            "o": [
+              "Fuga",
+              "Esquiva",
+              "Reforço positivo",
+              "Saciação"
+            ],
+            "c": 0,
+            "w": "O aversivo já estava presente, e a resposta o remove."
+          },
+          {
+            "p": "O dinheiro é um reforçador…",
+            "o": [
+              "Primário",
+              "Secundário associado a um só reforçador",
+              "Generalizado",
+              "Abolidor"
+            ],
+            "c": 2,
+            "w": "Está associado a muitos reforçadores e funciona sem depender da privação."
+          },
+          {
+            "p": "Ficar horas sem comer é uma operação…",
+            "o": [
+              "Abolidora",
+              "Estabelecedora",
+              "Discriminativa",
+              "Consequente"
+            ],
+            "c": 1,
+            "w": "A privação aumenta o valor da comida como reforçador."
+          },
+          {
+            "p": "A operação motivadora…",
+            "o": [
+              "Ensina um comportamento novo",
+              "Altera momentaneamente o valor do reforçador",
+              "Sinaliza que o reforço está disponível",
+              "É sempre um reforçador primário"
+            ],
+            "c": 1,
+            "w": "Quem sinaliza a disponibilidade é o Sᵈ; a OM muda o quanto o reforçador vale."
           }
         ]
       }
@@ -13910,6 +14275,176 @@ const NS_CENARIOS = [
 ];
 criarClassificador({pre:'ns', cenarios:NS_CENARIOS, opcoes:['1º nível: filogenético','2º nível: ontogenético','3º nível: cultural']});
 
+// --- Ferramenta: Qual Conceito da Análise do Comportamento? (Psicologia Experimental) ---
+const AC_CENARIOS = [
+ {
+  "situacao": "O semáforo fica verde, e o motorista acelera. Na contingência tríplice, o semáforo verde é…",
+  "correta": "Sᵈ (estímulo discriminativo)",
+  "ops": [
+   "Sᵈ (estímulo discriminativo)",
+   "R (resposta)",
+   "C (estímulo consequente)",
+   "Operação motivadora"
+  ],
+  "explicacao": "É o sinal do ambiente que indica que acelerar tem chance de ser reforçado: o Sᵈ."
+ },
+ {
+  "situacao": "O celular toca, Ana atende e conversa com a amiga. \"Atender\" é…",
+  "correta": "R (resposta)",
+  "ops": [
+   "Sᵈ (estímulo discriminativo)",
+   "R (resposta)",
+   "C (estímulo consequente)",
+   "Operação motivadora"
+  ],
+  "explicacao": "É o que o organismo faz: a resposta."
+ },
+ {
+  "situacao": "Pedro aperta o botão do elevador, e a porta se abre. A porta se abrir é…",
+  "correta": "C (estímulo consequente)",
+  "ops": [
+   "Sᵈ (estímulo discriminativo)",
+   "R (resposta)",
+   "C (estímulo consequente)",
+   "Operação motivadora"
+  ],
+  "explicacao": "É o que acontece no ambiente depois da resposta: o estímulo consequente."
+ },
+ {
+  "situacao": "João está há horas sem comer, e o lanche passa a valer muito mais para ele. Ficar sem comer é…",
+  "correta": "Operação estabelecedora",
+  "ops": [
+   "Operação estabelecedora",
+   "Operação abolidora",
+   "Sᵈ (estímulo discriminativo)",
+   "Reforçador generalizado"
+  ],
+  "explicacao": "A privação é uma operação estabelecedora: aumenta o valor da comida e a probabilidade de buscá-la."
+ },
+ {
+  "situacao": "Logo depois do almoço, Carla recusa a sobremesa que costuma adorar. O almoço funcionou como…",
+  "correta": "Operação abolidora",
+  "ops": [
+   "Operação estabelecedora",
+   "Operação abolidora",
+   "Sᵈ (estímulo discriminativo)",
+   "Reforçador generalizado"
+  ],
+  "explicacao": "A saciação é uma operação abolidora: diminui momentaneamente o valor da comida."
+ },
+ {
+  "situacao": "A placa \"aberto\" na porta da padaria indica que dá para comprar pão. A placa é…",
+  "correta": "Sᵈ (estímulo discriminativo)",
+  "ops": [
+   "Operação estabelecedora",
+   "Operação abolidora",
+   "Sᵈ (estímulo discriminativo)",
+   "Reforçador generalizado"
+  ],
+  "explicacao": "Ela sinaliza que o reforço está disponível: é Sᵈ. A fome seria a operação motivadora."
+ },
+ {
+  "situacao": "Lucas passa a estudar mais depois que começou a tirar notas boas. Isso é…",
+  "correta": "Reforçamento positivo",
+  "ops": [
+   "Reforçamento positivo",
+   "Fuga (reforçamento negativo)",
+   "Esquiva (reforçamento negativo)",
+   "Punição"
+  ],
+  "explicacao": "Um estímulo reforçador foi acrescentado, e a frequência do comportamento aumentou."
+ },
+ {
+  "situacao": "O barulho da obra está alto, e Marina fecha a janela. Fechar a janela foi reforçado por…",
+  "correta": "Fuga (reforçamento negativo)",
+  "ops": [
+   "Reforçamento positivo",
+   "Fuga (reforçamento negativo)",
+   "Esquiva (reforçamento negativo)",
+   "Punição"
+  ],
+  "explicacao": "O aversivo já estava presente e a resposta o removeu: fuga."
+ },
+ {
+  "situacao": "Bia leva o guarda-chuva porque a previsão é de chuva. Esse comportamento é mantido por…",
+  "correta": "Esquiva (reforçamento negativo)",
+  "ops": [
+   "Reforçamento positivo",
+   "Fuga (reforçamento negativo)",
+   "Esquiva (reforçamento negativo)",
+   "Punição"
+  ],
+  "explicacao": "A resposta evita que o aversivo (molhar-se) apareça: esquiva."
+ },
+ {
+  "situacao": "Paulo toma um remédio e a dor de cabeça passa; depois disso, ele passa a tomar o remédio sempre que sente dor. Isso é…",
+  "correta": "Fuga (reforçamento negativo)",
+  "ops": [
+   "Reforçamento positivo",
+   "Fuga (reforçamento negativo)",
+   "Esquiva (reforçamento negativo)",
+   "Punição"
+  ],
+  "explicacao": "A dor já estava presente e a resposta a removeu. Como o comportamento aumentou, é reforçamento negativo por fuga, e não punição."
+ },
+ {
+  "situacao": "A água para quem está com sede é um…",
+  "correta": "Reforçador primário",
+  "ops": [
+   "Reforçador primário",
+   "Reforçador secundário",
+   "Reforçador generalizado",
+   "Estímulo neutro"
+  ],
+  "explicacao": "Tem efeito inato, ligado à sobrevivência: reforçador primário (incondicionado)."
+ },
+ {
+  "situacao": "O clique do adestrador, que sempre vem seguido de petisco, passou a reforçar o cachorro. O clique é um…",
+  "correta": "Reforçador secundário",
+  "ops": [
+   "Reforçador primário",
+   "Reforçador secundário",
+   "Reforçador generalizado",
+   "Estímulo neutro"
+  ],
+  "explicacao": "Era neutro e passou a reforçar por ter sido pareado com um reforçador primário: secundário."
+ },
+ {
+  "situacao": "O dinheiro reforça o comportamento de trabalhar mesmo quando a pessoa não está com fome nem com sede. O dinheiro é um…",
+  "correta": "Reforçador generalizado",
+  "ops": [
+   "Reforçador primário",
+   "Reforçador secundário",
+   "Reforçador generalizado",
+   "Estímulo neutro"
+  ],
+  "explicacao": "Está associado a muitos reforçadores e funciona independentemente da privação: generalizado."
+ },
+ {
+  "situacao": "Antes de qualquer pareamento, o som de um sino não tem efeito nenhum sobre o comportamento do cachorro. O sino é…",
+  "correta": "Estímulo neutro",
+  "ops": [
+   "Reforçador primário",
+   "Reforçador secundário",
+   "Reforçador generalizado",
+   "Estímulo neutro"
+  ],
+  "explicacao": "Ainda não tem função reforçadora: é um estímulo neutro. Pareado com um primário, pode virar secundário."
+ },
+ {
+  "situacao": "A atenção dos pais reforça muitos comportamentos diferentes da criança. A atenção é um…",
+  "correta": "Reforçador generalizado",
+  "ops": [
+   "Reforçador primário",
+   "Reforçador secundário",
+   "Reforçador generalizado",
+   "Estímulo neutro"
+  ],
+  "explicacao": "Está associada a muitos reforçadores: é um reforçador generalizado, como a aprovação social."
+ }
+];
+criarClassificador({pre:'ac', cenarios:AC_CENARIOS, pool:[]});
+
 
 
 // --- Ferramenta: Medula, Qual é a Estrutura? (Neuroanatomia) ---
@@ -15008,7 +15543,7 @@ if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
 (function(){
   const totalDisciplinas = DISC[1].length + DISC[2].length;
   const totalFerramentas = document.querySelectorAll('#viewFerramentas .tool-card').length + STUDY.length;
-  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length + DT_CENARIOS.length + NM_CENARIOS.length;
+  const totalQuestoes = FRASES.length + VAR_CENARIOS.length + MONTAR_CENARIOS.length + RP_CENARIOS.length + PD_CENARIOS.length + PE_CENARIOS.length + TD_CENARIOS.length + NT_CENARIOS.length + SN_CENARIOS.length + MM_CENARIOS.length + GM_CARACTERISTICAS.length + LL_CENARIOS.length + FE_CENARIOS.length + BRAIN_REGIOES.length + FERT_FASES.length + ES_CENARIOS.length + BD_CENARIOS.length + VG_CENARIOS.length + CI_CENARIOS.length + DX_MARCOS.length + ME_CENARIOS.length + SA_CENARIOS.length + NC_CENARIOS.length + DT_CENARIOS.length + NM_CENARIOS.length + AC_CENARIOS.length;
   const totalVideos = Object.values(VIDEOS).reduce((a,b)=> a+b.length, 0);
   const totalSimulados = Object.values(SIMULADOS).reduce((a,b)=> a+b.length, 0);
   const totalCursos = COURSES.length;
@@ -16314,7 +16849,7 @@ function errMapa(){
   if(ERR_MAPA) return ERR_MAPA;
   ERR_MAPA = new Map();
   [RP_CENARIOS, PD_CENARIOS, PE_CENARIOS, TD_CENARIOS, NT_CENARIOS, SN_CENARIOS, MM_CENARIOS, ES_CENARIOS, BD_CENARIOS, VG_CENARIOS,
-   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS, DT_CENARIOS, NM_CENARIOS]
+   CI_CENARIOS, BA_CENARIOS, NS_CENARIOS, ME_CENARIOS, SA_CENARIOS, LL_CENARIOS, FE_CENARIOS, PA_CENARIOS, PP_CENARIOS, AA_CENARIOS, TE_CENARIOS, KR_CENARIOS, NC_CENARIOS, DT_CENARIOS, NM_CENARIOS, AC_CENARIOS]
     .forEach(arr => (arr || []).forEach(c => { if(c && c.situacao && c.correta) ERR_MAPA.set(String(c.situacao).trim(), c); }));
   return ERR_MAPA;
 }
