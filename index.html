@@ -3725,7 +3725,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   {date: '2026-11-10', disc: 'Neuroanatomia', desc: 'Revisão: nova aba no resumo com organização do sistema nervoso (SNC e SNP, vesículas encefálicas, divisão segmentar e suprassegmentar), neurônio e sinapses (elétrica e química, neuromediadores, receptores). Exercício Qual Classe de Neuromediador?, 14 termos no glossário, 3 comparações e 15 questões novas no simulado, que agora tem 75.', link: {url:'#resumo-medula-sna'}},
-  {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Depressão no idoso (Stella et al., 2002): diagnóstico, sintomas, aspectos neurobiológicos, relação com doenças e com demência, tratamento e benefícios da atividade física. Também entrou no simulado da N2, que agora tem 48 questões, e no glossário.', link: {url:'#resumo-idoso-n2'}},
+  {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Depressão no idoso (Stella et al., 2002): diagnóstico, sintomas, aspectos neurobiológicos, relação com doenças e com demência, tratamento e benefícios da atividade física. Também entrou no simulado da N2, que agora tem 51 questões, e no glossário. Os slides da aula de questões psicopatológicas também entraram no resumo.', link: {url:'#resumo-idoso-n2'}},
   {date: '2026-11-09', disc: 'Bases Biológicas', desc: 'Novo exercício Calculando as bases do DNA, com dica e correção passo a passo, e 8 questões de cálculo das bases no simulado da N2, que agora tem 48. O resumo de DNA também foi conferido com os slides e ganhou desnaturação, síntese de RNA e as questões resolvidas.', link: {url:'#exercicio-calculando-as-bases-do-dna-regra-de-chargaff'}},
   {date: '2026-11-09', disc: 'Geral', desc: 'Resumos ampliados com o que faltava dos slides: neurotransmissores e tabela de efeitos do SNA, núcleos dos nervos cranianos, as três classificações da dislexia, mais detalhes de Vygotsky, Freire, discalculia, TDAH, TEA e embriologia, níveis de compactação do DNA e exemplos de como responder às questões de Piaget, Vygotsky e Freire.', link: {page:'viewEstudar'}},
   {date: '2026-11-04', disc: 'Psicologia da Aprendizagem', desc: 'Aulas 7, 8 e 9: resumo com discalculia, TDAH e aspectos neurobiológicos do autismo (TEA), exercício Discalculia, TDAH ou TEA?, 15 termos no glossário, 3 comparações e 30 questões novas no simulado da N2, que agora tem 70.', link: {url:'#resumo-aprendizagem-7-9'}},
@@ -5270,8 +5270,8 @@ SIM_JOGO.push({
   id: 'idoso-n2',
   disc: '05',
   titulo: 'Simulado N2: velhice',
-  desc: '48 questões no estilo vestibular: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos, luto e morte e depressão no idoso.',
-  partes: [{k:'apos', t:'Aposentadoria', n:10}, {k:'neuro', t:'Neuropatológicos', n:10}, {k:'psico', t:'Psicopatológicos', n:10}, {k:'luto', t:'Luto e morte', n:10}, {k:'depressao', t:'Depressão no idoso', n:8}],
+  desc: '51 questões no estilo vestibular: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos, luto e morte e depressão no idoso.',
+  partes: [{k:'apos', t:'Aposentadoria', n:10}, {k:'neuro', t:'Neuropatológicos', n:10}, {k:'psico', t:'Psicopatológicos', n:10}, {k:'luto', t:'Luto e morte', n:10}, {k:'depressao', t:'Depressão no idoso', n:11}],
   questoes: [
   {tema:"Aposentadoria", p:"Segundo Silva e Carvalho (2019), a aposentadoria pode ter implicações psicossociais importantes. A principal razão apontada pelos autores é que",
    o:["a aposentadoria sempre causa depressão, em qualquer pessoa.",
@@ -5655,6 +5655,30 @@ SIM_JOGO.push({
       "o aumento dos efeitos anticolinérgicos dos antidepressivos.",
       "a diminuição da perfusão sanguínea cerebral durante o esforço."],
    c:1, w:"Os mecanismos discutidos incluem o aumento de monoaminas e endorfinas, a prevenção de doenças crônicas, a melhor aptidão funcional, a autoestima e o contato social. A atividade física melhora a perfusão cerebral."},
+
+  {tema:"Depressão no idoso", p:"Segundo os slides da aula, a prevalência do transtorno depressivo entre idosos",
+   o:["vai de 4,8% a 14,6% na comunidade e chega a 22% entre institucionalizados.",
+      "é de 22% na comunidade e cai para 4,8% entre os idosos que vivem em instituições.",
+      "é a mesma em todos os contextos, cerca de 30% dos idosos em qualquer situação de vida.",
+      "é desprezível na comunidade e só aparece em idosos com demência já instalada.",
+      "é de 40% em qualquer contexto, número que se repete em todas as pesquisas."],
+   c:0, w:"Os slides citam 4,8% a 14,6% na comunidade e até 22% entre hospitalizados ou institucionalizados. (Stella et al. trazem números um pouco diferentes: 2% a 14% e até 30%.)"},
+
+  {tema:"Depressão no idoso", p:"Estima-se que a depressão no idoso não seja reconhecida em cerca de 40% dos casos. Segundo a aula, um dos motivos é",
+   o:["a visão errônea de que a depressão faz parte normal do envelhecimento.",
+      "o fato de o idoso nunca apresentar sintomas somáticos associados.",
+      "a ausência de qualquer semelhança com o quadro de outras faixas etárias.",
+      "a raridade da depressão na população idosa que vive na comunidade.",
+      "a obrigatoriedade de exames de neuroimagem para fechar o diagnóstico."],
+   c:0, w:"A depressão é vista erroneamente como consequência fisiológica do envelhecimento, e os sintomas somáticos relatados pelos idosos mascaram o quadro."},
+
+  {tema:"Depressão no idoso", p:"Segundo a aula, o sentimento de finitude da vida no envelhecimento pode desencadear um estado depressivo que culmina em",
+   o:["aumento da autonomia e menor dependência da família no dia a dia.",
+      "falta de motivação, distanciamento da família e mais dependência.",
+      "melhora da autoavaliação e maior envolvimento em novos projetos de vida.",
+      "redução da ansiedade e da irritabilidade com o passar dos anos de vida.",
+      "ausência de qualquer efeito sobre o cotidiano da pessoa idosa."],
+   c:1, w:"O slide descreve sensação de inutilidade, insuficiência, ansiedade e irritabilidade, que podem levar a falta de motivação, distanciamento da família, limitação física, impotência, falta de autonomia e mais dependência emocional e financeira."},
 
   ]
 });
@@ -8667,6 +8691,43 @@ const RESUMOS = {
             "a": "A de 50 a 59 anos."
           },
           {
+            "fase": "Aula: questões psicopatológicas",
+            "when": "Slides da aula",
+            "titulo": "Envelhecer e adoecer",
+            "pontos": [
+              "A mudança demográfica, com mais idosos na população, aumenta o número de pessoas com <strong>risco de adquirir doenças</strong> (Maia, Durante e Ramos, 2004) e com <strong>propensão à incapacidade funcional</strong> (Papaléo Netto, 2006).",
+              "Entre os transtornos que afetam idosos, o <strong>transtorno depressivo</strong> tem prevalência de <strong>4,8% a 14,6%</strong> entre os que vivem na comunidade e chega a <strong>22%</strong> entre os hospitalizados ou institucionalizados.",
+              "A depressão merece atenção especial: é frequente e prejudica a qualidade de vida, mas os sintomas só ocasionalmente são reconhecidos pelo paciente e pelos profissionais de saúde, o que causa sofrimento desnecessário a todos os envolvidos."
+            ],
+            "q": "Qual a prevalência de depressão em idosos segundo os slides da aula?",
+            "a": "De 4,8% a 14,6% entre idosos que vivem na comunidade, chegando a 22% entre hospitalizados ou institucionalizados."
+          },
+          {
+            "when": "Slides da aula",
+            "titulo": "Por que o diagnóstico é mais difícil no idoso",
+            "pontos": [
+              "Na maioria das vezes, diagnosticar depressão no idoso é mais difícil do que no jovem: estima-se que em <strong>40% dos casos</strong> ela não seja reconhecida.",
+              "Um motivo é a <strong>visão errônea</strong> de que a depressão é consequência fisiológica e, portanto, parte normal do envelhecimento.",
+              "Outro são os <strong>sintomas somáticos</strong> relatados pelos idosos, que mascaram o quadro.",
+              "O quadro clínico, na maior parte das vezes, se parece com o de outras idades: perda de interesse e prazer em atividades antes significativas, distúrbios vegetativos, alterações da psicomotricidade, perda de energia, diminuição da autoestima, dificuldades cognitivas, sentimentos impróprios de desesperança ou culpa e pensamentos recorrentes de morte."
+            ],
+            "q": "Por que a depressão no idoso deixa de ser reconhecida em cerca de 40% dos casos?",
+            "a": "Pela visão errônea de que ela é parte normal do envelhecimento e porque os sintomas somáticos mascaram o quadro."
+          },
+          {
+            "when": "Slides da aula",
+            "titulo": "Finitude, consequências e cuidado",
+            "pontos": [
+              "A depressão pode interferir em todos os aspectos do cotidiano, em graus variados de intensidade.",
+              "No envelhecimento, a pessoa pode desenvolver o <strong>sentimento de finitude da vida</strong> e se avaliar negativamente, o que desencadeia um estado depressivo com sensação de inutilidade, insuficiência, ansiedade e irritabilidade.",
+              "Isso pode levar a falta de motivação, distanciamento da família, limitação física progressiva, sensação de impotência, falta de autonomia e mais dependência emocional e financeira.",
+              "<strong>Cuidado:</strong> implementar as políticas públicas já criadas, garantindo direitos por meio de ações integradas de instituições com atividades de prevenção e promoção da saúde física e mental.",
+              "Investir na ampliação dos serviços dos <strong>centros de convivência</strong> e de assistência integrada ao idoso, para um <strong>envelhecimento ativo e satisfatório</strong>."
+            ],
+            "q": "Que caminho os slides propõem para o cuidado da saúde mental na velhice?",
+            "a": "Implementar as políticas públicas já criadas, com ações integradas de prevenção e promoção da saúde física e mental, e ampliar os serviços dos centros de convivência e de assistência integrada, buscando um envelhecimento ativo e satisfatório."
+          },
+          {
             "fase": "Depressão no idoso",
             "when": "Stella et al., 2002",
             "titulo": "Quanto e por quê",
@@ -8862,9 +8923,38 @@ const RESUMOS = {
             ],
             "c": 1,
             "w": "O remédio agiu mais rápido, mas o grupo do exercício teve menos recaídas."
+          },
+          {
+            "p": "Segundo os slides da aula, em quantos casos a depressão no idoso não é reconhecida?",
+            "o": [
+              "10%",
+              "25%",
+              "40%",
+              "70%"
+            ],
+            "c": 2,
+            "w": "Estima-se 40%, pela visão de que é parte normal do envelhecimento e pelos sintomas somáticos que mascaram o quadro."
           }
         ],
         "extras": [
+          {
+            "tipo": "caixas",
+            "titulo": "Atenção: os números mudam conforme a fonte",
+            "itens": [
+              {
+                "t": "Slides da aula",
+                "d": "Depressão em 4,8% a 14,6% dos idosos da comunidade e até 22% dos hospitalizados ou institucionalizados; não reconhecida em 40% dos casos."
+              },
+              {
+                "t": "Stella et al. (2002)",
+                "d": "Depressão em 2% a 14% dos idosos da comunidade e até 30% dos institucionalizados; cerca de 15% na população geral."
+              },
+              {
+                "t": "Na prova",
+                "d": "Se a questão citar o autor, use o número dele. Se não citar, a referência mais segura é a da aula."
+              }
+            ]
+          },
           {
             "tipo": "tabela",
             "titulo": "Sintomas da depressão no idoso (Stella et al., 2002)",
