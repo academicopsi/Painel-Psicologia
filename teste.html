@@ -17664,6 +17664,7 @@ document.addEventListener('click', e=>{
   .bot-msg.ele li{margin:3px 0;}
   .bot-msg small{color:var(--ink-soft);}
   .bot-revisao{display:block; font-size:12px; font-weight:600; color:var(--petrol); margin-bottom:4px;}
+  .bot-resposta{margin-top:8px; padding-top:8px; border-top:1px dashed var(--rule);}
   .bot-acoes{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
   .bot-acoes button, .bot-chips button{font:inherit; font-size:13px; font-weight:600; padding:6px 11px; border-radius:999px; border:1px solid var(--petrol-line); background:var(--petrol-soft); color:var(--petrol); cursor:pointer;}
   .bot-acoes button:hover, .bot-chips button:hover{border-color:var(--petrol);}
@@ -17800,7 +17801,8 @@ document.addEventListener('click', e=>{
     const pool = GLOSSARIO.filter(g => discOf(g.disc) && g.d && g.d.length < 220);
     if(!pool.length) return null;
     const g = um(pool);
-    return {h:`<span class="bot-revisao">💡 Revisão relâmpago · ${escHTML(g.disc)}</span><strong>${escHTML(g.t)}</strong><br>${escHTML(g.d)}`, a:[{label:'Ver no glossário', l:{page:'viewApoio', target:'glossario', term:g.t}}]};
+    return {h:`<span class="bot-revisao">🧠 Desafio relâmpago · ${escHTML(g.disc)}</span>${um(['Você lembra o que é', 'Valendo: o que é', 'Rapidinho: você sabe o que é'])} <strong>${escHTML(g.t)}</strong>?`,
+            a:[{label:'Ver resposta', revela:`<div class="bot-resposta">${escHTML(g.d)}</div>`, depois:{label:'Ver no glossário', l:{page:'viewApoio', target:'glossario', term:g.t}}}]};
   }
 
   // ---------- contexto da conversa ----------
@@ -18070,6 +18072,17 @@ document.addEventListener('click', e=>{
       const box = document.createElement('div'); box.className = 'bot-acoes';
       acoes.forEach(a=>{
         const bt = document.createElement('button'); bt.type = 'button'; bt.textContent = a.label;
+        if(a.revela){
+          // desafio: mostra a resposta na própria mensagem
+          bt.addEventListener('click', ()=>{
+            box.insertAdjacentHTML('beforebegin', a.revela);
+            bt.remove();
+            if(a.depois){ const g = document.createElement('button'); g.type = 'button'; g.textContent = a.depois.label; g.addEventListener('click', ()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(a.depois.l); }); box.appendChild(g); }
+            rostoTopo('feliz', true);
+            if(b === msgs.lastElementChild?.querySelector('.bot-msg')) msgs.scrollTop = msgs.scrollHeight;
+            else b.scrollIntoView({block:'nearest', behavior:'smooth'});
+          });
+        } else
         bt.addEventListener('click', ()=>{ ctx.oferta = null; if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(a.l); });
         box.appendChild(bt);
       });
