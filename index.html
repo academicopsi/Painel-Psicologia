@@ -3768,7 +3768,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-11', disc: 'Psicologia da Aprendizagem', desc: 'Simulado da N2 no formato da prova: a opção Como na prova sorteia 10 questões de transtornos (dislexia, discalculia, TDAH e TEA), e a dislexia ganhou 3 questões novas. Para as 2 discursivas sobre os teóricos, novo exercício Treino de Discursivas, com 13 perguntas sobre Piaget, Vygotsky e Freire, resposta-modelo e pontos que não podem faltar.', link: {url:'#simulado-aprendizagem-n2'}},
+  {date: '2026-11-11', disc: 'Psicologia da Aprendizagem', desc: 'Novo exercício Treino de Discursivas, com 13 perguntas sobre Piaget, Vygotsky e Freire, resposta-modelo e pontos que não podem faltar. A dislexia também ganhou 3 questões novas no simulado da N2, que agora tem 73.', link: {url:'#exercicio-treino-de-discursivas-piaget-vygotsky-e-freire'}},
   {date: '2026-11-11', disc: 'Psicologia Experimental', desc: 'Análise do comportamento: nova aba no resumo com contingência tríplice, reforçamento positivo e negativo (fuga e esquiva), reforçadores primários, secundários e generalizados e operações motivadoras. Exercício Qual Conceito da Análise do Comportamento?, 10 termos no glossário, 4 comparações e 12 questões novas no simulado, que agora tem 52.', link: {url:'#resumo-experimental'}},
   {date: '2026-11-10', disc: 'Neuroanatomia', desc: 'Revisão: nova aba no resumo com organização do sistema nervoso (SNC e SNP, vesículas encefálicas, divisão segmentar e suprassegmentar), neurônio e sinapses (elétrica e química, neuromediadores, receptores). Exercício Qual Classe de Neuromediador?, 14 termos no glossário, 3 comparações e 15 questões novas no simulado, que agora tem 75.', link: {url:'#resumo-medula-sna'}},
   {date: '2026-11-10', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides da aula de questões psicopatológicas no resumo: prevalência da depressão em idosos, por que o diagnóstico é mais difícil, sentimento de finitude e cuidado. Também entraram 3 questões no simulado da N2, que agora tem 43.', link: {url:'#resumo-idoso-n2'}},
@@ -4416,8 +4416,8 @@ SIM_JOGO.push({
   id: 'aprendizagem-n2',
   disc: '03',
   titulo: 'Simulado N2: Psicologia da Aprendizagem',
-  desc: '73 questões no estilo vestibular. Na prova caem 10 objetivas de transtornos (dislexia, discalculia, TDAH e TEA) e 2 discursivas sobre Piaget, Vigotski e Paulo Freire: use "Como na prova" para sortear 10 de transtornos e o Treino de Discursivas para os teóricos.',
-  partes: [{k:'prova', t:'Como na prova: 10 de transtornos', n:10, sorteio:['dislexia','discalculia','tdah','tea']}, {k:'piaget', t:'Piaget', n:14}, {k:'vygotsky', t:'Vygotsky e ZDP', n:10}, {k:'freire', t:'Freire', n:9}, {k:'dislexia', t:'Dislexia', n:10}, {k:'discalculia', t:'Discalculia', n:10}, {k:'tdah', t:'TDAH', n:10}, {k:'tea', t:'TEA', n:10}],
+  desc: '73 questões no estilo vestibular: Piaget, Vygotsky e a ZDP, Paulo Freire, dislexia, discalculia, TDAH e autismo (TEA).',
+  partes: [{k:'piaget', t:'Piaget', n:14}, {k:'vygotsky', t:'Vygotsky e ZDP', n:10}, {k:'freire', t:'Freire', n:9}, {k:'dislexia', t:'Dislexia', n:10}, {k:'discalculia', t:'Discalculia', n:10}, {k:'tdah', t:'TDAH', n:10}, {k:'tea', t:'TEA', n:10}],
   questoes: [
   {tema:"Piaget", p:"Segundo Moreira, na teoria de Piaget há o que é mais famoso e o que é mais importante (o \"núcleo duro\"). Eles são, respectivamente,",
    o:["a zona de desenvolvimento proximal e os signos.",
