@@ -17689,19 +17689,64 @@ document.addEventListener('click', e=>{
     '05':['idoso','idosos','adulto','velhice','envelhecimento'],
     '06':['extensao']
   };
+  const TESTE_AVISO = '';
   const SUGESTOES = ['Próxima prova', 'Prazos da semana', 'Drive de Neuroanatomia', 'O que é reforço negativo?', 'Novidades do site', 'O que o Psiu sabe?'];
 
-  // carinha do Psiu (cérebro de óculos, traço elegante)
-  const AVATAR = `<svg class="psiu-av" viewBox="13 12 94 94" aria-hidden="true"><rect x="0" y="0" width="120" height="120" fill="#E3EFEC"/><g fill="#CFE3DA" stroke="#1F5C56" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#1F5C56" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M30 48 C35 44 39 49 44 45"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M90 48 C85 44 81 49 76 45"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#F5F7F6" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#F5F7F6" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/><circle class="psiu-olho" cx="48" cy="59" r="2.8" fill="#14211F"/><circle class="psiu-olho" cx="72" cy="59" r="2.8" fill="#14211F"/><path d="M53 72 Q60 76 67 72" fill="none" stroke="#1F5C56" stroke-width="2.2" stroke-linecap="round"/><text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text></svg>`;
-  document.querySelectorAll('[data-psiu-av]').forEach(el => el.outerHTML = AVATAR);
+  // ---------- carinha do Psiu (cérebro de óculos) com expressões ----------
+  // expressões: neutro, feliz, pensando, confuso, acolhendo
+  const BOCAS = {
+    neutro:   '<path d="M52 71 Q60 77 68 71" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>',
+    feliz:    '<path d="M50 69 Q60 81 70 69" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>',
+    pensando: '<path d="M55 73.5 Q61 72 66 74" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>',
+    confuso:  '<path d="M53 74 Q56.5 71 60 74 Q63.5 77 67 74" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>',
+    acolhendo:'<path d="M54 72 Q60 75 66 72" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>'
+  };
+  const OLHOS = {
+    neutro:   [48, 59, 72, 59],
+    feliz:    [48, 59, 72, 59],
+    pensando: [50, 56.5, 74, 56.5],
+    confuso:  [48, 59, 72, 59],
+    acolhendo:[48, 60, 72, 60]
+  };
+  const SOBRANCELHAS = {
+    confuso:  '<path d="M40 46 Q47 42.5 54 45" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/><path d="M66 47.5 Q72 47 79 48" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>',
+    acolhendo:'<path d="M41 47 Q47 45.5 54 46.5" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/><path d="M66 46.5 Q73 45.5 79 47" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>',
+    pensando: '<path d="M66 45 Q72 42 79 44.5" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>'
+  };
+  function avatar(ex){
+    ex = BOCAS[ex] ? ex : 'neutro';
+    const o = OLHOS[ex];
+    const olhos = ex === 'feliz'
+      ? '<path d="M44.5 60 Q48 56 51.5 60" fill="none" stroke="#14211F" stroke-width="2.4" stroke-linecap="round"/><path d="M68.5 60 Q72 56 75.5 60" fill="none" stroke="#14211F" stroke-width="2.4" stroke-linecap="round"/>'
+      : `<circle class="psiu-olho" cx="${o[0]}" cy="${o[1]}" r="2.8" fill="#14211F"/><circle class="psiu-olho" cx="${o[2]}" cy="${o[3]}" r="2.8" fill="#14211F"/>`;
+    return `<svg class="psiu-av" data-ex="${ex}" viewBox="13 12 94 94" aria-hidden="true"><rect x="0" y="0" width="120" height="120" fill="#E3EFEC"/><g fill="#CFE3DA" stroke="#1F5C56" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#1F5C56" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g>${SOBRANCELHAS[ex] || ''}<circle cx="48" cy="58" r="9" fill="#F5F7F6" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#F5F7F6" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/>${olhos}${BOCAS[ex]}<text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text></svg>`;
+  }
+  document.querySelectorAll('[data-psiu-av]').forEach(el => el.outerHTML = avatar('neutro'));
   const fab = document.getElementById('botFab'), painel = document.getElementById('botPainel');
   const msgs = document.getElementById('botMsgs'), chips = document.getElementById('botChips');
   const form = document.getElementById('botForm'), inp = document.getElementById('botInput');
-  let iniciado = false;
+  let iniciado = false, timerRosto = null, ocupadoAte = 0;
+  function rostoTopo(ex, volta){
+    const novo = document.createRange().createContextualFragment(avatar(ex)).firstChild;
+    const atual = painel.querySelector('.bot-topo .psiu-av');
+    atual.replaceWith(novo);
+    clearTimeout(timerRosto);
+    if(volta) timerRosto = setTimeout(()=> rostoTopo('neutro'), 3500);
+  }
 
+  // ---------- memória no aparelho (nome e visitas) ----------
+  function lerMem(){ try{ return JSON.parse(localStorage.getItem('av-psiu')) || {}; }catch(e){ return {}; } }
+  function salvarMem(m){ try{ localStorage.setItem('av-psiu', JSON.stringify(m)); }catch(e){} }
+  const mem = lerMem();
+
+  // ---------- utilidades ----------
+  const um = lista => lista[Math.floor(Math.random() * lista.length)];
   const nomeDisc = n => (DISC[2].find(d=>d.n===n) || {}).name || '';
   const palavras = q => q.replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
   const tem = (ws, lista) => lista.some(p => ws.includes(p));
+  const temFrase = (q, lista) => lista.some(p => q.includes(p));
+  const nomeOu = (antes, depois) => mem.nome ? `${antes}${mem.nome}${depois}` : '';
+  function saudacaoHora(){ const h = new Date().getHours(); return h >= 5 && h < 12 ? 'Bom dia' : h >= 12 && h < 18 ? 'Boa tarde' : 'Boa noite'; }
 
   function acharDisc(q, ws){
     for(const d of DISC[2]){
@@ -17719,119 +17764,210 @@ document.addEventListener('click', e=>{
   const linhaTarefa = (t, comMateria) => `<li><strong>${fmtDia(t.prazo)}</strong> (${quandoTxt(diasAte(t.prazo))}): ${comMateria ? escHTML(t.materia) + ' · ' : ''}${escHTML(t.tarefa)}</li>`;
   const calendario = {label:'Ver calendário', l:{page:'viewPrazos', target:'calendario'}};
 
+  // ---------- contexto da conversa ----------
+  // ultimo: último assunto (para "e a de neuro?"); oferta: o que o Psiu ofereceu (para "sim")
+  const ctx = {ultimo:null, disc:null, oferta:null, perguntouComoVai:false};
+  const CONTINUAVEIS = ['prova','prazo','drive','prof','resumo','exercicio','video'];
+
+  // ---------- frases que pedem cuidado ----------
+  const SOFRIMENTO = ['quero morrer','vou me matar','me matar','suicid','tirar minha vida','tirar a minha vida','me machucar','me cortar','acabar com tudo','acabar com a minha vida','nao quero mais viver','sem vontade de viver','nao vejo saida','ninguem se importa comigo','queria sumir','quero sumir','desaparecer pra sempre','desaparecer para sempre'];
+  const NERVOSO = ['nervoso','nervosa','ansioso','ansiosa','ansiedade','preocupado','preocupada','medo','tenso','tensa','estressado','estressada','estresse','cansado','cansada','desanimado','desanimada','perdido','perdida','travado','travada'];
+  const NERVOSO_FRASES = ['nao vou conseguir','vou reprovar','vou rodar','nao sei nada','nao aguento mais','to mal','estou mal','to triste','estou triste','nao consigo estudar'];
+
+  function intencao(q, ws){
+    if(tem(ws, ['professor','professora','prof','profa','professores']) || /quem (da|e o|e a|ensina)/.test(q)) return 'prof';
+    if(tem(ws, ['drive','pasta','pastas','slide','slides','material','materiais','livro','livros','pdf','arquivos'])) return 'drive';
+    if(tem(ws, ['prova','provas','n1','n2','avaliacao','avaliacoes'])) return 'prova';
+    if(tem(ws, ['semana','hoje','amanha','prazo','prazos','tarefa','tarefas','trabalho','trabalhos','entrega','entregas','atividade','atividades','dever','agenda','calendario'])) return 'prazo';
+    if(tem(ws, ['resumo','resumos','estudar','revisar','revisao','conteudo','materia'])) return 'resumo';
+    if(tem(ws, ['exercicio','exercicios','quiz','treinar','praticar','simulado','simulados','questoes','questao'])) return 'exercicio';
+    if(tem(ws, ['video','videos','videoaula','youtube'])) return 'video';
+    if(tem(ws, ['novidade','novidades','atualizacao','atualizacoes','novo','novos','nova','novas'])) return 'novidade';
+    if(tem(ws, ['abnt','referencia','referencias','citacao','citacoes','norma','normas'])) return 'abnt';
+    if(tem(ws, ['grafico','graficos','excel','planilha'])) return 'grafico';
+    if(tem(ws, ['curso','cursos','certificado','certificados','extra','extras'])) return 'curso';
+    if(tem(ws, ['glossario','termos'])) return 'glossario';
+    return null;
+  }
+
   // ---------- respostas ----------
   function responder(texto){
-    const q = normTxt(texto).replace(/^\//, '');
+    const q = normTxt(texto).replace(/^\//, '').replace(/[!?.]+$/, '').trim();
     const ws = palavras(q);
-    const disc = acharDisc(q, ws);
 
+    // 1) sofrimento de verdade: sempre primeiro
+    if(temFrase(q, SOFRIMENTO)){
+      ctx.oferta = null;
+      return {x:'acolhendo', h:`Sinto muito que você esteja passando por isso. Eu sou só o assistente do site e não consigo ajudar com algo tão importante, mas você não precisa enfrentar isso sem apoio.<ul>
+        <li><strong>CVV:</strong> ligue <strong>188</strong> (gratuito, 24 horas) ou converse pelo site cvv.org.br</li>
+        <li><strong>Se estiver em perigo agora:</strong> ligue <strong>192</strong> (SAMU) ou vá a um pronto-socorro</li></ul>
+        Se puder, conte também para alguém de confiança como você está.`,
+        a:[{label:'Abrir o site do CVV', l:{url:'https://cvv.org.br'}}]};
+    }
+
+    // 2) nome
+    const mn = String(texto).match(/(?:meu nome (?:é|e)|me chamo|pode me chamar de|eu sou (?:o|a))\s+([A-Za-zÀ-ÿ]{2,20})/i);
+    if(mn && ws.length <= 6){
+      const nome = mn[1].charAt(0).toUpperCase() + mn[1].slice(1).toLowerCase();
+      mem.nome = nome; salvarMem(mem);
+      return {x:'feliz', h:um([`Prazer, ${escHTML(nome)}! Vou lembrar do seu nome neste aparelho.`, `Que bom te conhecer, ${escHTML(nome)}! Pode contar comigo para provas, prazos e materiais.`])};
+    }
+    if(/(esquece|apaga|esqueca) (o )?meu nome/.test(q)){
+      delete mem.nome; salvarMem(mem);
+      return {h:'Pronto, esqueci o seu nome neste aparelho.'};
+    }
+
+    // 3) resposta a uma oferta ("sim", "não")
+    if(ctx.oferta && /^(sim|s|quero|claro|pode|pode ser|bora|vamos|ok|beleza|blz|aham|isso|por favor)\b/.test(q) && ws.length <= 4){
+      const o = ctx.oferta; ctx.oferta = null;
+      return {x:'feliz', h:um(['Abrindo para você.', 'Vamos lá.', 'Combinado, abrindo.']), ir:o};
+    }
+    if(ctx.oferta && /^(nao|n|agora nao|depois|deixa|nao precisa)\b/.test(q) && ws.length <= 4){
+      ctx.oferta = null;
+      return {h:um(['Tudo bem. Se precisar, é só chamar.', 'Sem problema. Estou por aqui.'])};
+    }
+
+    // 4) conversa curta
+    if(ctx.perguntouComoVai && ws.length <= 5 && /^(bem|tudo|to bem|estou bem|otimo|otima|tranquilo|tranquila|de boa|beleza|sim)\b/.test(q)){
+      ctx.perguntouComoVai = false;
+      return {x:'feliz', h:um(['Que bom! Em que posso ajudar?', 'Que ótimo. Precisa de alguma coisa do site?'])};
+    }
+    if(ctx.perguntouComoVai && ws.length <= 5 && /^(mal|mais ou menos|cansad|nao muito|meio)/.test(q)){
+      ctx.perguntouComoVai = false;
+      const p = futuras(ehProva)[0];
+      return {x:'acolhendo', h:`Poxa, sinto muito. Fim de período costuma pesar mesmo.${p ? ` Se ajudar, posso mostrar o que tem para revisar para a prova de ${escHTML(p.materia)}.` : ''}`, oferta: p ? {disc:discDaTarefa(p)} : null};
+    }
+    ctx.perguntouComoVai = false;
+    if(/^(tudo bem|td bem|tudo bom|td bom|como vai|como voce esta|como vc ta|como voce ta|beleza|blz|suave)\b/.test(q) && ws.length <= 5){
+      ctx.perguntouComoVai = true;
+      return {x:'feliz', h:um(['Tudo certo por aqui! E com você?', 'Tudo bem, obrigado por perguntar. E você, como está?'])};
+    }
     if(!ws.length || /^(oi|ola|opa|eai|e ai|bom dia|boa tarde|boa noite|hey|psiu)\b/.test(q) && ws.length <= 3)
-      return {h:'Oi! Aqui é o Psiu. Pode perguntar sobre provas, prazos, materiais do Drive, termos do glossário, resumos ou novidades do site.'};
-    if(tem(ws, ['obrigado','obrigada','valeu','vlw','brigado']))
-      return {h:'Por nada. Se precisar de mais alguma coisa, é só perguntar.'};
+      return {x:'feliz', h:`${um(['Oi', 'Olá', saudacaoHora()])}${nomeOu(', ', '')}! ${um(['Em que posso ajudar?', 'O que você está procurando?', 'Pode perguntar sobre provas, prazos, materiais ou termos do glossário.'])}`};
+    if(tem(ws, ['obrigado','obrigada','valeu','vlw','brigado','brigada','agradeco']))
+      return {x:'feliz', h:um(['Por nada! Bons estudos.', 'Imagina. Se precisar de mais alguma coisa, é só chamar.', `Disponha${nomeOu(', ', '')}!`])};
+    if(/^(kk+|haha+|hehe+|rs+)$/.test(q)) return {x:'feliz', h:'Haha.'};
+    if(/(voce|vc) (e|eh) (um |uma )?(psicolog|terapeuta|analista)/.test(q))
+      return {h:'Não, sou só o assistente do site. Ajudo a encontrar provas, prazos e materiais da turma. Para conversar sobre como você está, o melhor é falar com um psicólogo de verdade.'};
+    if(/(voce|vc) (e|eh) (um |uma )?(robo|humano|pessoa|gente|ia|inteligencia artificial|bot|real)/.test(q))
+      return {h:'Sou um assistente automático do site. Não sou uma pessoa nem uma IA: respondo com o que está cadastrado no Arquivo Vivo.'};
+    if(/quem (te|o) (criou|fez|programou)|quem (criou|fez) (voce|vc|o psiu|o site)/.test(q))
+      return {x:'feliz', h:'Fui criado pelo Thiago Monteiro, que também criou e mantém o Arquivo Vivo.'};
+    if(/por que (psiu|esse nome|o nome)|porque (psiu|esse nome)|de onde vem (o nome|psiu)/.test(q))
+      return {x:'feliz', h:'Psi, de Psicologia. E "psiu" é o jeito de chamar alguém: quando precisar, é só me chamar.'};
+    if(/^(qual (e )?(o )?seu nome|quem e (voce|vc)|quem (e|eh) o psiu)/.test(q))
+      return {h:'Eu sou o Psiu, o assistente do Arquivo Vivo. Ajudo com provas, prazos, materiais do Drive, termos do glossário e novidades do site.'};
     if(tem(ws, ['ajuda','comandos','help']) || /o que (voce|vc|o psiu) (responde|faz|sabe)/.test(q))
       return {h:`Algumas coisas que dá para perguntar:<ul>
-        <li><strong>Provas:</strong> "próxima prova", "prova de neuro"</li>
+        <li><strong>Provas:</strong> "próxima prova", "e a de neuro?"</li>
         <li><strong>Prazos:</strong> "prazos da semana", "trabalhos de experimental"</li>
         <li><strong>Drive:</strong> "slides de bases", "drive de idoso"</li>
         <li><strong>Termos:</strong> "o que é sinapse?"</li>
         <li><strong>Estudo:</strong> "resumos de aprendizagem", "exercícios", "vídeos"</li>
         <li><strong>Turma:</strong> "professor de experimental", "novidades"</li></ul>
-        <small>Também funciona com barra: /provas, /prazos, /drive.</small>`};
+        <small>Também funciona com barra: /provas, /prazos, /drive. E, se quiser, me diga seu nome.</small>`};
 
-    // glossário: "o que é X", "o que significa X", "conceito de X"
-    const mg = q.match(/(?:o que (?:e|eh|sao|significa)|significado de|defina|definicao de|conceito de|explica|explique)\s+(?:o |a |os |as |um |uma )?(.+?)\??$/);
-    if(mg){
-      const r = glossario(mg[1].trim());
-      if(r) return r;
+    // 5) glossário: "o que é X"
+    const mg = q.match(/(?:o que (?:e|eh|sao|significa)|significado de|defina|definicao de|conceito de|explica|explique)\s+(?:o |a |os |as |um |uma )?(.+)$/);
+    if(mg){ const r = glossario(mg[1].trim()); if(r) return r; }
+
+    // 6) nervosismo com a prova
+    if(!mg && (tem(ws, NERVOSO) || temFrase(q, NERVOSO_FRASES))){
+      const p = futuras(ehProva)[0];
+      let h = um(['É bem comum ficar assim perto das provas.', 'Faz sentido se sentir assim, ainda mais nessa época de provas.', 'Fim de período pesa mesmo, e não é só você que se sente assim.']);
+      if(p) h += ` A próxima é de <strong>${escHTML(p.materia)}</strong>, ${quandoTxt(diasAte(p.prazo))}. Que tal começar por uma parte pequena, como um resumo ou algumas questões do simulado?`;
+      else h += ' Que tal começar por uma parte pequena, como um resumo ou algumas questões?';
+      if(temFrase(q, ['nao aguento mais','to mal','estou mal','to triste','estou triste'])) h += '<br><small>Se não for só a prova e estiver pesado de verdade, o CVV atende pelo 188, de graça e a qualquer hora.</small>';
+      const dn = p ? discDaTarefa(p) : null;
+      return {x:'acolhendo', h, a: dn ? [{label:'Revisar ' + nomeDisc(dn), l:{disc:dn}}, {label:'Modo prova', l:{page:'viewSimulados'}}] : [{label:'Resumos', l:{page:'viewEstudar'}}]};
     }
 
-    if(tem(ws, ['professor','professora','prof','profa','professores']) || /quem (da|e o|e a|ensina)/.test(q)){
-      if(disc) return {h:`${escHTML(nomeDisc(disc))}: <strong>${PROFS[disc]}</strong>.`, a:[{label:'Página da disciplina', l:{disc}}]};
+    // 7) assunto + continuação ("e a de neuro?")
+    let disc = acharDisc(q, ws);
+    let it = intencao(q, ws);
+    const continuacao = /^(e|e a|e o|e de|e da|e do|e na|e no)\b/.test(q) || ws.length <= 3;
+    if(!it && ctx.ultimo && CONTINUAVEIS.includes(ctx.ultimo) && continuacao && (disc || /\b(proxima|proximo|outra|outro|depois)\b/.test(q))){
+      it = ctx.ultimo;
+    }
+    if(it){ ctx.ultimo = it; ctx.disc = disc; }
+
+    if(it === 'prof'){
+      if(disc) return {h:`${um(['Quem dá', 'Quem dá aula de'])} ${escHTML(nomeDisc(disc))} é ${PROFS[disc].startsWith('Profa') ? 'a' : 'o'} <strong>${PROFS[disc]}</strong>.`, a:[{label:'Página da disciplina', l:{disc}}]};
       return {h:'Professores do semestre:<ul>' + DISC[2].map(d=>`<li>${escHTML(d.name)}: ${PROFS[d.n]}</li>`).join('') + '</ul>'};
     }
-
-    if(tem(ws, ['drive','pasta','pastas','slide','slides','material','materiais','livro','livros','pdf','arquivos'])){
-      if(disc) return {h:`Esta é a pasta de <strong>${escHTML(nomeDisc(disc))}</strong> no Drive.`, a:[{label:'Abrir a pasta no Drive', l:{drive:disc}}, {label:'Página da disciplina', l:{disc}}]};
-      return {h:'Este é o Drive das disciplinas, com os slides e os livros das aulas.', a:[{label:'Abrir o Drive', l:{url:DRIVE_GERAL}}]};
+    if(it === 'drive'){
+      if(disc) return {h:`${um(['Aqui está a pasta de', 'Esta é a pasta de', 'Separei a pasta de'])} <strong>${escHTML(nomeDisc(disc))}</strong> no Drive.`, a:[{label:'Abrir a pasta no Drive', l:{drive:disc}}, {label:'Página da disciplina', l:{disc}}]};
+      return {h:um(['Este é o Drive das disciplinas, com os slides e os livros das aulas.', 'Os slides e os livros ficam todos no Drive das disciplinas.']), a:[{label:'Abrir o Drive', l:{url:DRIVE_GERAL}}]};
     }
 
-    const querProva = tem(ws, ['prova','provas','n1','n2','avaliacao','avaliacoes']);
     const querSemana = tem(ws, ['semana','hoje','amanha']);
-    if(querProva){
+    if(it === 'prova'){
       let lista = futuras(t => ehProva(t) && (!disc || discDaTarefa(t) === disc));
       if(querSemana) lista = lista.filter(t => diasAte(t.prazo) <= 7);
       if(!lista.length){
         const onde = disc ? ` de ${escHTML(nomeDisc(disc))}` : '';
-        return {h:`Não há prova${onde} marcada ${querSemana ? 'para os próximos 7 dias' : 'daqui para frente'} no site.`, a:[calendario]};
+        return {x:'pensando', h:`Não há prova${onde} marcada ${querSemana ? 'para os próximos 7 dias' : 'daqui para frente'} no site.`, a:[calendario]};
       }
-      if(tem(ws, ['proxima','proximo']) || (disc && lista.length === 1)){
-        const t = lista[0];
-        const dn = discDaTarefa(t);
-        return {h:`A próxima prova de <strong>${escHTML(t.materia)}</strong> é a ${escHTML(t.tarefa)}, em <strong>${fmtDia(t.prazo)}</strong> (${quandoTxt(diasAte(t.prazo))}).`,
-                a:(dn ? [{label:'Estudar para ela', l:{disc:dn}}] : []).concat([calendario])};
+      if(tem(ws, ['proxima','proximo']) || disc){
+        const t = lista[0], dn = discDaTarefa(t), d = diasAte(t.prazo);
+        let h = `${um(['A próxima prova', 'A próxima'])} de <strong>${escHTML(t.materia)}</strong> é a ${escHTML(t.tarefa)}, em <strong>${fmtDia(t.prazo)}</strong> (${quandoTxt(d)}).`;
+        let oferta = null;
+        if(dn && d <= 7){ h += ` ${d <= 2 ? 'Está chegando!' : 'Falta pouco.'} Quer abrir a página da disciplina para revisar?`; oferta = {disc:dn}; }
+        else if(dn){ h += ' Quer ver o que tem para estudar?'; oferta = {disc:dn}; }
+        return {h, oferta, a:(dn ? [{label:'Revisar ' + nomeDisc(dn), l:{disc:dn}}] : []).concat([calendario])};
       }
-      return {h:`Provas ${querSemana ? 'dos próximos 7 dias' : 'marcadas'}:<ul>${lista.map(t=>linhaTarefa(t, !disc)).join('')}</ul>`, a:[{label:'Modo prova', l:{page:'viewSimulados'}}, calendario]};
+      return {h:`${um(['Provas marcadas', 'Estas são as provas que vêm por aí'])}${querSemana ? ' nos próximos 7 dias' : ''}:<ul>${lista.map(t=>linhaTarefa(t, !disc)).join('')}</ul>Quer treinar no modo prova?`, oferta:{page:'viewSimulados'}, a:[{label:'Modo prova', l:{page:'viewSimulados'}}, calendario]};
     }
-
-    if(querSemana || tem(ws, ['prazo','prazos','tarefa','tarefas','trabalho','trabalhos','entrega','entregas','atividade','atividades','dever','agenda','calendario'])){
+    if(it === 'prazo'){
       let lista = futuras(t => !disc || discDaTarefa(t) === disc);
       if(querSemana) lista = lista.filter(t => diasAte(t.prazo) <= 7);
       if(tem(ws, ['trabalho','trabalhos','atividade','atividades','tarefa','tarefas','entrega','entregas','dever'])) lista = lista.filter(t => !ehProva(t));
-      if(!lista.length) return {h:`Nenhum prazo ${querSemana ? 'para os próximos 7 dias' : 'daqui para frente'}${disc ? ' em ' + escHTML(nomeDisc(disc)) : ''}.`, a:[calendario]};
+      if(!lista.length) return {x:'feliz', h:um([`Nenhum prazo ${querSemana ? 'para os próximos 7 dias' : 'daqui para frente'}${disc ? ' em ' + escHTML(nomeDisc(disc)) : ''}. Respira!`, `Nada marcado ${querSemana ? 'para os próximos 7 dias' : 'daqui para frente'}${disc ? ' em ' + escHTML(nomeDisc(disc)) : ''}.`]), a:[calendario]};
       return {h:`${querSemana ? 'Nos próximos 7 dias' : 'Próximos prazos'}${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}:<ul>${lista.slice(0, 8).map(t=>linhaTarefa(t, !disc)).join('')}</ul>`, a:[calendario]};
     }
-
-    if(tem(ws, ['resumo','resumos','estudar','revisar','revisao','conteudo','materia'])){
+    if(it === 'resumo'){
       const lista = STUDY.filter(s => !disc || (discOf(s.materia) || {}).n === disc);
-      if(!lista.length) return {h:'Ainda não há resumo dessa disciplina no site.', a:[{label:'Todos os resumos', l:{page:'viewEstudar'}}]};
-      return {h:`Resumos${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}:`, a:lista.slice(0, 6).map(s=>({label:s.titulo, l:{url:s.link}})).concat(disc ? [] : [{label:'Ver todos', l:{page:'viewEstudar'}}])};
+      if(!lista.length) return {x:'confuso', h:'Ainda não há resumo dessa disciplina no site.', a:[{label:'Todos os resumos', l:{page:'viewEstudar'}}]};
+      return {h:`${um(['Resumos', 'Separei os resumos'])}${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}:`, a:lista.slice(0, 6).map(s=>({label:s.titulo, l:{url:s.link}})).concat(disc ? [] : [{label:'Ver todos', l:{page:'viewEstudar'}}])};
     }
-
-    if(tem(ws, ['exercicio','exercicios','quiz','treinar','praticar','simulado','simulados','questoes','questao'])){
-      if(disc) return {h:`Os exercícios e o simulado de ${escHTML(nomeDisc(disc))} ficam na página da disciplina.`, a:[{label:'Página da disciplina', l:{disc}}, {label:'Modo prova', l:{page:'viewSimulados'}}]};
+    if(it === 'exercicio'){
+      if(disc) return {h:`Os exercícios e o simulado de ${escHTML(nomeDisc(disc))} ficam na página da disciplina. Quer abrir?`, oferta:{disc}, a:[{label:'Página da disciplina', l:{disc}}, {label:'Modo prova', l:{page:'viewSimulados'}}]};
       return {h:'Dá para treinar de três jeitos:', a:[{label:'Exercícios', l:{page:'viewFerramentas'}}, {label:'Modo prova', l:{page:'viewSimulados'}}, {label:'Revisão dos erros', l:{page:'viewErros'}}]};
     }
-
-    if(tem(ws, ['video','videos','videoaula','youtube'])){
+    if(it === 'video'){
       const ns = disc ? [disc] : Object.keys(VIDEOS);
       const itens = ns.flatMap(n => (VIDEOS[n] || []).map(v => `<li>${escHTML(v.titulo)}${disc ? '' : ` <small>· ${escHTML(nomeDisc(n))}</small>`}</li>`));
-      if(!itens.length) return {h:'Ainda não há vídeo dessa disciplina no site.', a:[{label:'Vídeos', l:{page:'viewVideos'}}]};
+      if(!itens.length) return {x:'confuso', h:'Ainda não há vídeo dessa disciplina no site.', a:[{label:'Vídeos', l:{page:'viewVideos'}}]};
       return {h:`Vídeos${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}:<ul>${itens.slice(0, 6).join('')}</ul>`, a:[{label:'Abrir os vídeos', l:disc ? {disc} : {page:'viewVideos'}}]};
     }
-
-    if(tem(ws, ['novidade','novidades','atualizacao','atualizacoes','novo','novos','nova','novas'])){
-      return {h:'O que entrou no site por último:<ul>' + UPDATES.slice(0, 3).map(u=>`<li><strong>${fmtDia(u.date)}</strong> · ${escHTML(u.disc)}: ${escHTML(curto(u.desc.split('. ')[0], 110))}</li>`).join('') + '</ul>',
+    if(it === 'novidade'){
+      return {x:'feliz', h:um(['O que entrou no site por último:', 'As novidades mais recentes:']) + '<ul>' + UPDATES.slice(0, 3).map(u=>`<li><strong>${fmtDia(u.date)}</strong> · ${escHTML(u.disc)}: ${escHTML(curto(u.desc.split('. ')[0], 110))}</li>`).join('') + '</ul>',
               a:UPDATES.slice(0, 3).filter(u=>u.link).map(u=>({label:'Abrir: ' + u.disc, l:u.link}))};
     }
+    if(it === 'abnt') return {h:'O guia de ABNT tem citações e um gerador de referências.', a:[{label:'Normas ABNT', l:{page:'viewApoio', target:'abnt'}}]};
+    if(it === 'grafico') return {h:'O guia de gráficos mostra como montar no Excel e no Planilhas.', a:[{label:'Gráficos', l:{page:'viewApoio', target:'graficos'}}]};
+    if(it === 'curso') return {h:'Cursos complementares:<ul>' + COURSES.map(c=>`<li>${escHTML(c.nome)} <small>· ${escHTML(c.nota || '')}</small></li>`).join('') + '</ul>', a:[{label:'Cursos extras', l:{page:'viewCursos'}}]};
+    if(it === 'glossario') return {h:'O glossário reúne os termos das disciplinas. Aqui também dá para perguntar direto, por exemplo "o que é sinapse?".', a:[{label:'Abrir o glossário', l:{page:'viewApoio', target:'glossario'}}]};
 
-    if(tem(ws, ['abnt','referencia','referencias','citacao','citacoes','norma','normas']))
-      return {h:'O guia de ABNT tem citações e um gerador de referências.', a:[{label:'Normas ABNT', l:{page:'viewApoio', target:'abnt'}}]};
-    if(tem(ws, ['grafico','graficos','excel','planilha']))
-      return {h:'O guia de gráficos mostra como montar no Excel e no Planilhas.', a:[{label:'Gráficos', l:{page:'viewApoio', target:'graficos'}}]};
-    if(tem(ws, ['curso','cursos','certificado','certificados','extra','extras']))
-      return {h:'Cursos complementares:<ul>' + COURSES.map(c=>`<li>${escHTML(c.nome)} <small>· ${escHTML(c.nota || '')}</small></li>`).join('') + '</ul>', a:[{label:'Cursos extras', l:{page:'viewCursos'}}]};
-    if(tem(ws, ['glossario','termos']))
-      return {h:'O glossário reúne os termos das disciplinas. Aqui também dá para perguntar direto, por exemplo "o que é sinapse?".', a:[{label:'Abrir o glossário', l:{page:'viewApoio', target:'glossario'}}]};
-
-    // só citou a disciplina
+    // 8) só citou a disciplina
     if(disc){
+      ctx.disc = disc;
       const p = futuras(t => discDaTarefa(t) === disc)[0];
       return {h:`<strong>${escHTML(nomeDisc(disc))}</strong> · ${PROFS[disc]}${p ? `<br>Próximo prazo: ${escHTML(p.tarefa)}, em ${fmtDia(p.prazo)} (${quandoTxt(diasAte(p.prazo))}).` : ''}`,
               a:[{label:'Página da disciplina', l:{disc}}, {label:'Pasta no Drive', l:{drive:disc}}]};
     }
 
-    // termo solto do glossário ("sinapse")
+    // 9) termo solto do glossário ("sinapse")
     const rg = glossario(q);
     if(rg) return rg;
 
-    // último recurso: a busca do site
+    // 10) último recurso: a busca do site
     const termos = ws.filter(w => w.length > 2 && !['que','qual','quais','onde','como','tem','para','uma','sobre','dos','das','esta','esse','essa'].includes(w));
     if(termos.length){
       const achados = indiceBusca().filter(i => { const all = normTxt(i.t + ' ' + (i.s||'') + ' ' + (i.x||'')); return termos.every(w => all.includes(w)); }).slice(0, 4);
-      if(achados.length) return {h:'Encontrei isto no site:', a:achados.map(i=>({label:i.t.length > 48 ? i.t.slice(0, 46) + '…' : i.t, l:i.l}))};
+      if(achados.length) return {x:'pensando', h:um(['Encontrei isto no site:', 'Não tenho uma resposta pronta, mas achei isto:']), a:achados.map(i=>({label:i.t.length > 48 ? i.t.slice(0, 46) + '…' : i.t, l:i.l}))};
     }
-    return {h:'Essa eu não entendi. Tente perguntar de outro jeito, como "próxima prova", "drive de bases" ou "o que é sinapse?".'};
+    return {x:'confuso', h:um(['Hmm, essa eu não entendi. Tente de outro jeito, como "próxima prova", "drive de bases" ou "o que é sinapse?".', 'Não consegui entender essa. Pode perguntar de outra forma? Por exemplo: "prazos da semana" ou "o que é sinapse?".'])};
   }
 
   function curto(t, n){ t = t.replace(/[:.]\s*$/, ''); return t.length > n ? t.slice(0, t.lastIndexOf(' ', n)) + '…' : t + '.'; }
@@ -17851,7 +17987,7 @@ document.addEventListener('click', e=>{
   }
 
   // ---------- conversa ----------
-  function bolha(quem, html, acoes){
+  function bolha(quem, html, acoes, ex){
     const b = document.createElement('div');
     b.className = 'bot-msg ' + quem;
     b.innerHTML = html;
@@ -17859,29 +17995,47 @@ document.addEventListener('click', e=>{
       const box = document.createElement('div'); box.className = 'bot-acoes';
       acoes.forEach(a=>{
         const bt = document.createElement('button'); bt.type = 'button'; bt.textContent = a.label;
-        bt.addEventListener('click', ()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(a.l); });
+        bt.addEventListener('click', ()=>{ ctx.oferta = null; if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(a.l); });
         box.appendChild(bt);
       });
       b.appendChild(box);
     }
-    if(quem === 'ele'){ const ln = document.createElement('div'); ln.className = 'bot-linha'; ln.innerHTML = AVATAR; ln.appendChild(b); msgs.appendChild(ln); }
+    if(quem === 'ele'){ const ln = document.createElement('div'); ln.className = 'bot-linha'; ln.innerHTML = avatar(ex); ln.appendChild(b); msgs.appendChild(ln); }
     else msgs.appendChild(b);
     msgs.scrollTop = msgs.scrollHeight;
   }
   function perguntar(texto){
     texto = String(texto || '').trim(); if(!texto) return;
     bolha('eu', escHTML(texto));
-    const dig = document.createElement('div'); dig.className = 'bot-linha'; dig.innerHTML = AVATAR + '<span class="bot-digitando">Psiu está pensando…</span>';
+    const dig = document.createElement('div'); dig.className = 'bot-linha'; dig.innerHTML = avatar('pensando') + '<span class="bot-digitando">Psiu está pensando…</span>';
     msgs.appendChild(dig); msgs.scrollTop = msgs.scrollHeight;
+    rostoTopo('pensando');
     let r;
-    try{ r = responder(texto); }catch(e){ r = {h:'Algo deu errado nessa resposta. Tente perguntar de outro jeito.'}; console.error(e); }
-    setTimeout(()=>{ dig.remove(); bolha('ele', r.h, r.a); }, 380);
+    try{ r = responder(texto); }catch(e){ r = {x:'confuso', h:'Algo deu errado nessa resposta. Tente perguntar de outro jeito.'}; console.error(e); }
+    if(r.oferta !== undefined) ctx.oferta = r.oferta;
+    else if(!r.ir) ctx.oferta = null;
+    // tempo de "digitação" proporcional ao tamanho da resposta
+    const tam = r.h.replace(/<[^>]+>/g, '').length;
+    const agora = Date.now();
+    const espera = Math.max(Math.min(1800, 450 + tam * 7), ocupadoAte - agora + 400); // respostas sempre na ordem
+    ocupadoAte = agora + espera;
+    setTimeout(()=>{
+      dig.remove(); bolha('ele', r.h, r.a, r.x);
+      rostoTopo(r.x || 'neutro', true);
+      if(r.ir) setTimeout(()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(r.ir); }, 600);
+    }, espera);
   }
   function abrir(){
     painel.hidden = false; document.body.classList.add('bot-aberto');
     if(!iniciado){
       iniciado = true;
-      bolha('ele', 'Oi! Eu sou o Psiu, o assistente do Arquivo Vivo. Posso ajudar com provas, prazos, materiais do Drive, termos do glossário e novidades do site.');
+      const voltou = (mem.visitas || 0) > 0;
+      mem.visitas = (mem.visitas || 0) + 1; salvarMem(mem);
+      const ola = saudacaoHora() + nomeOu(', ', '');
+      bolha('ele', voltou
+        ? `${ola}! Que bom te ver de novo. Em que posso ajudar hoje?${TESTE_AVISO}`
+        : `${ola}! Eu sou o Psiu, o assistente do Arquivo Vivo. Posso ajudar com provas, prazos, materiais do Drive, termos do glossário e novidades do site.${TESTE_AVISO}`, null, 'feliz');
+      rostoTopo('feliz', true);
       chips.innerHTML = SUGESTOES.map(s=>`<button type="button">${escHTML(s)}</button>`).join('');
     }
     if(!window.matchMedia('(max-width:600px)').matches) inp.focus();
