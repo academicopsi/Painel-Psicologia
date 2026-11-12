@@ -7078,6 +7078,24 @@ const DISC_ALIASES = {
 
 
 /* ---------------------------------------------------------------------
+   12. RESPOSTAS DO PSIU (banco de perguntas e respostas)
+   O Psiu procura aqui antes das respostas automáticas (provas, prazos,
+   Drive, glossário). Escreva em p os jeitos como a turma costuma
+   perguntar; não precisa de acento nem de ponto de interrogação.
+   Formato:
+     {p:['jeito de perguntar', 'outro jeito'], r:'Resposta curta.'},
+   Com botão (opcional), no mesmo formato de link das Atualizações:
+     {p:['...'], r:'...', botao:'Texto do botão', link:{page:'viewPrazos'}},
+   Para quebrar linha na resposta, use \n.
+   No fim do semestre, apague as respostas que só valiam para ele.
+   --------------------------------------------------------------------- */
+const PSIU_RESPOSTAS = [
+  {p:['instalar o app', 'baixar o app', 'instalar o site', 'colocar na tela inicial', 'tem aplicativo'], r:'O Arquivo Vivo pode ser instalado no celular como um app, direto pelo navegador. O passo a passo está na página Instale o app.', botao:'Como instalar', link:{page:'viewInstalar'}},
+  {p:['achei um erro', 'tem um erro', 'informacao errada', 'quero sugerir', 'sugestao para o site', 'mandar material'], r:'Fale com o Thiago Monteiro, que mantém o site. Correções e sugestões são sempre bem-vindas.'},
+];
+
+
+/* ---------------------------------------------------------------------
    10. RESUMOS INTERATIVOS FEITOS DENTRO DO SITE
    Cada resumo abre numa página do próprio site (endereço #resumo-ID) e
    aparece em "Resumos" quando a lista STUDY tem
@@ -17867,7 +17885,11 @@ document.addEventListener('click', e=>{
         <li><strong>Turma:</strong> "professor de experimental", "novidades"</li></ul>
         <small>Também funciona com barra: /provas, /prazos, /drive. E, se quiser, me diga seu nome.</small>`};
 
-    // 5) glossário: "o que é X"
+    // 5) banco de respostas
+    const rb = bancoRespostas(q, ws);
+    if(rb) return rb;
+
+    // 5b) glossário: "o que é X"
     const mg = q.match(/(?:o que (?:e|eh|sao|significa)|significado de|defina|definicao de|conceito de|explica|explique)\s+(?:o |a |os |as |um |uma )?(.+)$/);
     if(mg){ const r = glossario(mg[1].trim()); if(r) return r; }
 
@@ -17968,6 +17990,22 @@ document.addEventListener('click', e=>{
       if(achados.length) return {x:'pensando', h:um(['Encontrei isto no site:', 'Não tenho uma resposta pronta, mas achei isto:']), a:achados.map(i=>({label:i.t.length > 48 ? i.t.slice(0, 46) + '…' : i.t, l:i.l}))};
     }
     return {x:'confuso', h:um(['Hmm, essa eu não entendi. Tente de outro jeito, como "próxima prova", "drive de bases" ou "o que é sinapse?".', 'Não consegui entender essa. Pode perguntar de outra forma? Por exemplo: "prazos da semana" ou "o que é sinapse?".'])};
+  }
+
+  // banco de respostas escrito à mão (PSIU_RESPOSTAS, no bloco de dados do site)
+  function bancoRespostas(q, ws){
+    if(typeof PSIU_RESPOSTAS === 'undefined') return null;
+    let melhor = null, nota = 0;
+    PSIU_RESPOSTAS.forEach(r => (r.p || []).forEach(p => {
+      const np = normTxt(p).replace(/[?!.,]/g, '').trim(); if(!np) return;
+      let s = 0;
+      if(q === np) s = 1000;
+      else if(q.includes(np)) s = 100 + np.length;
+      else { const pw = palavras(np).filter(w => w.length > 2); if(pw.length && pw.every(w => ws.includes(w))) s = 10 + pw.length; }
+      if(s > nota){ nota = s; melhor = r; }
+    }));
+    if(!melhor) return null;
+    return {h: escHTML(melhor.r).replace(/\n/g, '<br>'), a: melhor.link ? [{label: melhor.botao || 'Abrir', l: melhor.link}] : null};
   }
 
   function curto(t, n){ t = t.replace(/[:.]\s*$/, ''); return t.length > n ? t.slice(0, t.lastIndexOf(' ', n)) + '…' : t + '.'; }
