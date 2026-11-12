@@ -17609,21 +17609,32 @@ document.addEventListener('click', e=>{
 });
 </script>
 <!-- =====================================================================
-     ASSISTENTE DA TURMA (versão de teste)
+     PSIU · ASSISTENTE DA TURMA (versão de teste)
      Responde com os dados do próprio site: TASKS, DISC, GLOSSARIO,
      STUDY, VIDEOS, UPDATES e COURSES. Não usa internet nem IA.
      ===================================================================== -->
 <style>
   .bot-fab{position:fixed; right:18px; bottom:18px; z-index:250; display:flex; align-items:center; gap:8px; padding:12px 18px; border:none; border-radius:999px; background:var(--petrol); color:#fff; font:inherit; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 24px var(--shadow-lg);}
   .bot-fab:hover{background:var(--petrol-dark);}
-  .bot-fab svg{width:20px; height:20px;}
+  .bot-fab{padding:6px 18px 6px 6px;}
+  .bot-fab .psiu-av{width:38px; height:38px;}
+  .psiu-av{display:block; flex:none;}
+  .psiu-olho{transform-box:fill-box; transform-origin:center; animation:psiuPisca 5s infinite;}
+  @keyframes psiuPisca{0%,92%,100%{transform:scaleY(1);} 95%{transform:scaleY(.1);}}
+  @media (prefers-reduced-motion:reduce){ .psiu-olho{animation:none;} }
+  .bot-topo .psiu-av{width:38px; height:38px;}
+  .bot-nome{flex:1; display:flex; flex-direction:column; line-height:1.2;}
+  .bot-nome small{font-size:12px; opacity:.85;}
+  .bot-linha{display:flex; align-items:flex-end; gap:8px; align-self:flex-start; max-width:92%;}
+  .bot-linha .psiu-av{width:30px; height:30px;}
+  .bot-linha .bot-msg{max-width:none;}
   body.dark .bot-fab{color:#0F1615;}
   body.bot-aberto .bot-fab{display:none;}
   .bot-painel{position:fixed; right:18px; bottom:18px; z-index:260; width:380px; height:min(580px, calc(100vh - var(--nav-h) - 36px)); display:flex; flex-direction:column; background:var(--paper); border:1px solid var(--rule); border-radius:var(--radius); box-shadow:0 18px 48px var(--shadow-lg); overflow:hidden;}
   .bot-painel[hidden]{display:none;}
   .bot-topo{display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--petrol); color:#fff;}
   body.dark .bot-topo{color:#0F1615;}
-  .bot-topo strong{font-family:'Lora', serif; font-size:17px; flex:1;}
+  .bot-topo strong{font-family:'Lora', serif; font-size:18px;}
   .bot-tag{font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:rgba(255,255,255,.2);}
   .bot-x{border:none; background:transparent; color:inherit; font-size:24px; line-height:1; cursor:pointer; padding:0 4px;}
   .bot-msgs{flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; background:var(--bg); -webkit-overflow-scrolling:touch;}
@@ -17637,7 +17648,7 @@ document.addEventListener('click', e=>{
   .bot-acoes{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
   .bot-acoes button, .bot-chips button{font:inherit; font-size:13px; font-weight:600; padding:6px 11px; border-radius:999px; border:1px solid var(--petrol-line); background:var(--petrol-soft); color:var(--petrol); cursor:pointer;}
   .bot-acoes button:hover, .bot-chips button:hover{border-color:var(--petrol);}
-  .bot-digitando{align-self:flex-start; color:var(--ink-faint); font-size:13px; padding:4px 6px;}
+  .bot-digitando{color:var(--ink-faint); font-size:13px; padding:4px 2px;}
   .bot-chips{display:flex; gap:6px; overflow-x:auto; padding:8px 12px 0; background:var(--paper); scrollbar-width:none;}
   .bot-chips::-webkit-scrollbar{display:none;}
   .bot-chips button{white-space:nowrap; flex:none;}
@@ -17654,13 +17665,13 @@ document.addEventListener('click', e=>{
   @media print{ .bot-fab, .bot-painel{display:none !important;} }
 </style>
 
-<button class="bot-fab" id="botFab" aria-label="Abrir o assistente da turma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Assistente</button>
-<div class="bot-painel" id="botPainel" role="dialog" aria-label="Assistente da turma" hidden>
-  <div class="bot-topo"><strong>Assistente da turma</strong><span class="bot-tag">Teste</span><button class="bot-x" id="botFechar" aria-label="Fechar">×</button></div>
+<button class="bot-fab" id="botFab" aria-label="Abrir o Psiu, assistente da turma" title="Psiu, precisa de ajuda?"><span data-psiu-av></span> Psiu</button>
+<div class="bot-painel" id="botPainel" role="dialog" aria-label="Psiu, assistente da turma" hidden>
+  <div class="bot-topo"><span data-psiu-av></span><span class="bot-nome"><strong>Psiu</strong><small>Assistente da turma</small></span><span class="bot-tag">Teste</span><button class="bot-x" id="botFechar" aria-label="Fechar">×</button></div>
   <div class="bot-msgs" id="botMsgs" aria-live="polite"></div>
   <div class="bot-chips" id="botChips"></div>
   <form class="bot-form" id="botForm" autocomplete="off">
-    <input id="botInput" type="text" placeholder="Pergunte sobre provas, prazos, termos…" aria-label="Sua pergunta" enterkeyhint="send">
+    <input id="botInput" type="text" placeholder="Pergunte ao Psiu…" aria-label="Sua pergunta" enterkeyhint="send">
     <button type="submit">Enviar</button>
   </form>
 </div>
@@ -17679,8 +17690,11 @@ document.addEventListener('click', e=>{
     '05':['idoso','idosos','adulto','velhice','envelhecimento'],
     '06':['extensao']
   };
-  const SUGESTOES = ['Próxima prova', 'Prazos da semana', 'Drive de Neuroanatomia', 'O que é reforço negativo?', 'Novidades do site', 'O que você responde?'];
+  const SUGESTOES = ['Próxima prova', 'Prazos da semana', 'Drive de Neuroanatomia', 'O que é reforço negativo?', 'Novidades do site', 'O que o Psiu sabe?'];
 
+  // carinha do Psiu (robô de óculos com Ψ na testa)
+  const AVATAR = `<svg class="psiu-av" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="58" fill="#E1F5EE"/><circle cx="60" cy="16" r="5" fill="#B7791F"/><line x1="60" y1="21" x2="60" y2="28" stroke="#1F5C56" stroke-width="3"/><circle cx="60" cy="64" r="36" fill="#1F5C56"/><text x="60" y="47" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="14" fill="#E3EFEC">Ψ</text><circle cx="46" cy="64" r="10" fill="#F5F7F6" stroke="#14211F" stroke-width="2.5"/><circle cx="74" cy="64" r="10" fill="#F5F7F6" stroke="#14211F" stroke-width="2.5"/><line x1="56" y1="64" x2="64" y2="64" stroke="#14211F" stroke-width="2.5"/><circle class="psiu-olho" cx="46" cy="65" r="3.5" fill="#14211F"/><circle class="psiu-olho" cx="74" cy="65" r="3.5" fill="#14211F"/><path d="M52 82 Q60 87 68 82" stroke="#F5F7F6" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`;
+  document.querySelectorAll('[data-psiu-av]').forEach(el => el.outerHTML = AVATAR);
   const fab = document.getElementById('botFab'), painel = document.getElementById('botPainel');
   const msgs = document.getElementById('botMsgs'), chips = document.getElementById('botChips');
   const form = document.getElementById('botForm'), inp = document.getElementById('botInput');
@@ -17712,11 +17726,11 @@ document.addEventListener('click', e=>{
     const ws = palavras(q);
     const disc = acharDisc(q, ws);
 
-    if(!ws.length || /^(oi|ola|opa|eai|e ai|bom dia|boa tarde|boa noite|hey)\b/.test(q) && ws.length <= 3)
-      return {h:'Olá! Pergunte sobre provas, prazos, materiais do Drive, termos do glossário, resumos ou novidades do site.'};
+    if(!ws.length || /^(oi|ola|opa|eai|e ai|bom dia|boa tarde|boa noite|hey|psiu)\b/.test(q) && ws.length <= 3)
+      return {h:'Oi! Aqui é o Psiu. Pode perguntar sobre provas, prazos, materiais do Drive, termos do glossário, resumos ou novidades do site.'};
     if(tem(ws, ['obrigado','obrigada','valeu','vlw','brigado']))
       return {h:'Por nada. Se precisar de mais alguma coisa, é só perguntar.'};
-    if(tem(ws, ['ajuda','comandos','help']) || /o que (voce|vc) (responde|faz|sabe)/.test(q))
+    if(tem(ws, ['ajuda','comandos','help']) || /o que (voce|vc|o psiu) (responde|faz|sabe)/.test(q))
       return {h:`Algumas coisas que dá para perguntar:<ul>
         <li><strong>Provas:</strong> "próxima prova", "prova de neuro"</li>
         <li><strong>Prazos:</strong> "prazos da semana", "trabalhos de experimental"</li>
@@ -17818,7 +17832,7 @@ document.addEventListener('click', e=>{
       const achados = indiceBusca().filter(i => { const all = normTxt(i.t + ' ' + (i.s||'') + ' ' + (i.x||'')); return termos.every(w => all.includes(w)); }).slice(0, 4);
       if(achados.length) return {h:'Encontrei isto no site:', a:achados.map(i=>({label:i.t.length > 48 ? i.t.slice(0, 46) + '…' : i.t, l:i.l}))};
     }
-    return {h:'Não entendi essa. Tente perguntar de outro jeito, como "próxima prova", "drive de bases" ou "o que é sinapse?".'};
+    return {h:'Essa eu não entendi. Tente perguntar de outro jeito, como "próxima prova", "drive de bases" ou "o que é sinapse?".'};
   }
 
   function curto(t, n){ t = t.replace(/[:.]\s*$/, ''); return t.length > n ? t.slice(0, t.lastIndexOf(' ', n)) + '…' : t + '.'; }
@@ -17851,13 +17865,14 @@ document.addEventListener('click', e=>{
       });
       b.appendChild(box);
     }
-    msgs.appendChild(b);
+    if(quem === 'ele'){ const ln = document.createElement('div'); ln.className = 'bot-linha'; ln.innerHTML = AVATAR; ln.appendChild(b); msgs.appendChild(ln); }
+    else msgs.appendChild(b);
     msgs.scrollTop = msgs.scrollHeight;
   }
   function perguntar(texto){
     texto = String(texto || '').trim(); if(!texto) return;
     bolha('eu', escHTML(texto));
-    const dig = document.createElement('div'); dig.className = 'bot-digitando'; dig.textContent = 'digitando…';
+    const dig = document.createElement('div'); dig.className = 'bot-linha'; dig.innerHTML = AVATAR + '<span class="bot-digitando">Psiu está pensando…</span>';
     msgs.appendChild(dig); msgs.scrollTop = msgs.scrollHeight;
     let r;
     try{ r = responder(texto); }catch(e){ r = {h:'Algo deu errado nessa resposta. Tente perguntar de outro jeito.'}; console.error(e); }
@@ -17867,7 +17882,7 @@ document.addEventListener('click', e=>{
     painel.hidden = false; document.body.classList.add('bot-aberto');
     if(!iniciado){
       iniciado = true;
-      bolha('ele', 'Olá! Sou o assistente do Arquivo Vivo. Pergunte sobre provas, prazos, materiais, termos do glossário ou novidades do site.<br><small>Versão de teste: as respostas vêm só do que está no site.</small>');
+      bolha('ele', 'Oi! Eu sou o Psiu, o assistente do Arquivo Vivo. Posso ajudar com provas, prazos, materiais do Drive, termos do glossário e novidades do site.<br><small>Versão de teste: as respostas vêm só do que está no site.</small>');
       chips.innerHTML = SUGESTOES.map(s=>`<button type="button">${escHTML(s)}</button>`).join('');
     }
     if(!window.matchMedia('(max-width:600px)').matches) inp.focus();
