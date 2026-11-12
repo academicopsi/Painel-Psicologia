@@ -17663,6 +17663,7 @@ document.addEventListener('click', e=>{
   .bot-msg.ele ul{margin:6px 0 0; padding-left:18px;}
   .bot-msg.ele li{margin:3px 0;}
   .bot-msg small{color:var(--ink-soft);}
+  .bot-revisao{display:block; font-size:12px; font-weight:600; color:var(--petrol); margin-bottom:4px;}
   .bot-acoes{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
   .bot-acoes button, .bot-chips button{font:inherit; font-size:13px; font-weight:600; padding:6px 11px; border-radius:999px; border:1px solid var(--petrol-line); background:var(--petrol-soft); color:var(--petrol); cursor:pointer;}
   .bot-acoes button:hover, .bot-chips button:hover{border-color:var(--petrol);}
@@ -17799,7 +17800,7 @@ document.addEventListener('click', e=>{
     const pool = GLOSSARIO.filter(g => discOf(g.disc) && g.d && g.d.length < 220);
     if(!pool.length) return null;
     const g = um(pool);
-    return `💡 <strong>Sabia que…?</strong> Lembra de <strong>${escHTML(g.t)}</strong>, da aula de ${escHTML(g.disc)}? ${escHTML(g.d)}`;
+    return {h:`<span class="bot-revisao">💡 Revisão relâmpago · ${escHTML(g.disc)}</span><strong>${escHTML(g.t)}</strong><br>${escHTML(g.d)}`, a:[{label:'Ver no glossário', l:{page:'viewApoio', target:'glossario', term:g.t}}]};
   }
 
   // ---------- contexto da conversa ----------
@@ -18107,7 +18108,7 @@ document.addEventListener('click', e=>{
           respostasDesdeCuriosidade = 0;
           ocupadoAte += 1600;
           const minha = ++numMsg;
-          setTimeout(()=>{ if(minha !== numMsg) return; bolha('ele', c, null, 'feliz'); rostoTopo('feliz', true); }, espera + 1600);
+          setTimeout(()=>{ if(minha !== numMsg) return; bolha('ele', c.h, c.a, 'feliz'); rostoTopo('feliz', true); }, espera + 1600);
         }
       }
     }
