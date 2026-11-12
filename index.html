@@ -17607,5 +17607,293 @@ document.addEventListener('click', e=>{
   irParaHash(a.getAttribute('href'));
 });
 </script>
+<!-- =====================================================================
+     PSIU · ASSISTENTE DA TURMA
+     Responde com os dados do próprio site: TASKS, DISC, GLOSSARIO,
+     STUDY, VIDEOS, UPDATES e COURSES. Não usa internet nem IA.
+     ===================================================================== -->
+<style>
+  .bot-fab{position:fixed; right:18px; bottom:18px; z-index:250; display:flex; align-items:center; gap:8px; padding:12px 18px; border:none; border-radius:999px; background:var(--petrol); color:#fff; font:inherit; font-size:15px; font-weight:600; cursor:pointer; box-shadow:0 8px 24px var(--shadow-lg);}
+  .bot-fab:hover{background:var(--petrol-dark);}
+  .bot-fab{padding:6px 18px 6px 6px;}
+  .bot-fab .psiu-av{width:38px; height:38px;}
+  .psiu-av{display:block; flex:none;}
+  .psiu-olho{transform-box:fill-box; transform-origin:center; animation:psiuPisca 5s infinite;}
+  @keyframes psiuPisca{0%,92%,100%{transform:scaleY(1);} 95%{transform:scaleY(.1);}}
+  @media (prefers-reduced-motion:reduce){ .psiu-olho{animation:none;} }
+  .bot-topo .psiu-av{width:38px; height:38px;}
+  .bot-nome{flex:1; display:flex; flex-direction:column; line-height:1.2;}
+  .bot-nome small{font-size:12px; opacity:.85;}
+  .bot-linha{display:flex; align-items:flex-end; gap:8px; align-self:flex-start; max-width:92%;}
+  .bot-linha .psiu-av{width:30px; height:30px;}
+  .bot-linha .bot-msg{max-width:none;}
+  body.dark .bot-fab{color:#0F1615;}
+  body.bot-aberto .bot-fab{display:none;}
+  .bot-painel{position:fixed; right:18px; bottom:18px; z-index:260; width:380px; height:min(580px, calc(100vh - var(--nav-h) - 36px)); display:flex; flex-direction:column; background:var(--paper); border:1px solid var(--rule); border-radius:var(--radius); box-shadow:0 18px 48px var(--shadow-lg); overflow:hidden;}
+  .bot-painel[hidden]{display:none;}
+  .bot-topo{display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--petrol); color:#fff;}
+  body.dark .bot-topo{color:#0F1615;}
+  .bot-topo strong{font-family:'Lora', serif; font-size:18px;}
+  .bot-tag{font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:2px 8px; border-radius:999px; background:rgba(255,255,255,.2);}
+  .bot-x{border:none; background:transparent; color:inherit; font-size:24px; line-height:1; cursor:pointer; padding:0 4px;}
+  .bot-msgs{flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; background:var(--bg); -webkit-overflow-scrolling:touch;}
+  .bot-msg{max-width:88%; padding:10px 13px; border-radius:14px; font-size:14.5px; line-height:1.5; word-wrap:break-word;}
+  .bot-msg.eu{align-self:flex-end; background:var(--petrol); color:#fff; border-bottom-right-radius:4px;}
+  body.dark .bot-msg.eu{color:#0F1615;}
+  .bot-msg.ele{align-self:flex-start; background:var(--paper); border:1px solid var(--rule); border-bottom-left-radius:4px;}
+  .bot-msg.ele ul{margin:6px 0 0; padding-left:18px;}
+  .bot-msg.ele li{margin:3px 0;}
+  .bot-msg small{color:var(--ink-soft);}
+  .bot-acoes{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+  .bot-acoes button, .bot-chips button{font:inherit; font-size:13px; font-weight:600; padding:6px 11px; border-radius:999px; border:1px solid var(--petrol-line); background:var(--petrol-soft); color:var(--petrol); cursor:pointer;}
+  .bot-acoes button:hover, .bot-chips button:hover{border-color:var(--petrol);}
+  .bot-digitando{color:var(--ink-faint); font-size:13px; padding:4px 2px;}
+  .bot-chips{display:flex; gap:6px; overflow-x:auto; padding:8px 12px 0; background:var(--paper); scrollbar-width:none;}
+  .bot-chips::-webkit-scrollbar{display:none;}
+  .bot-chips button{white-space:nowrap; flex:none;}
+  .bot-form{display:flex; gap:8px; padding:10px 12px 12px; background:var(--paper);}
+  .bot-form input{flex:1; min-width:0; font:inherit; font-size:16px; padding:10px 12px; border:1px solid var(--rule); border-radius:999px; background:var(--paper-alt); color:var(--ink); outline:none;}
+  .bot-form input:focus{border-color:var(--petrol);}
+  .bot-form button{border:none; border-radius:999px; background:var(--petrol); color:#fff; font:inherit; font-weight:600; padding:0 16px; cursor:pointer;}
+  body.dark .bot-form button{color:#0F1615;}
+  @media (max-width:600px){
+    .bot-fab{right:14px; bottom:14px; padding:12px 16px;}
+    .bot-painel{inset:0; width:auto; height:100%; height:100dvh; border-radius:0; border:none;}
+    body.bot-aberto{overflow:hidden;}
+  }
+  @media print{ .bot-fab, .bot-painel{display:none !important;} }
+</style>
+
+<button class="bot-fab" id="botFab" aria-label="Abrir o Psiu, assistente da turma" title="Psiu, precisa de ajuda?"><span data-psiu-av></span> Psiu</button>
+<div class="bot-painel" id="botPainel" role="dialog" aria-label="Psiu, assistente da turma" hidden>
+  <div class="bot-topo"><span data-psiu-av></span><span class="bot-nome"><strong>Psiu</strong><small>Assistente da turma</small></span><button class="bot-x" id="botFechar" aria-label="Fechar">×</button></div>
+  <div class="bot-msgs" id="botMsgs" aria-live="polite"></div>
+  <div class="bot-chips" id="botChips"></div>
+  <form class="bot-form" id="botForm" autocomplete="off">
+    <input id="botInput" type="text" placeholder="Pergunte ao Psiu…" aria-label="Sua pergunta" enterkeyhint="send">
+    <button type="submit">Enviar</button>
+  </form>
+</div>
+
+<script>
+(function(){
+  const DRIVE_GERAL = 'https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br';
+  // professores por disciplina (número da disciplina em DISC[2])
+  const PROFS = {'01':'Prof. Gustavo', '02':'Prof. Alexandre Sancho', '03':'Prof. Raphael', '04':'Profa. Ana Carolina Miranda', '05':'Prof. Thiago', '06':'Prof. Gustavo'};
+  // jeitos curtos de falar o nome da disciplina
+  const APELIDOS = {
+    '01':['bases','biologia','bio','biologicas','dna','genetica','gustavo'],
+    '02':['neuro','neuroanatomia','anatomia','sancho','alexandre'],
+    '03':['aprendizagem','aprend','raphael','rafael'],
+    '04':['experimental','ana','carolina'],
+    '05':['idoso','idosos','adulto','velhice','envelhecimento'],
+    '06':['extensao']
+  };
+  const SUGESTOES = ['Próxima prova', 'Prazos da semana', 'Drive de Neuroanatomia', 'O que é reforço negativo?', 'Novidades do site', 'O que o Psiu sabe?'];
+
+  // carinha do Psiu (robô de óculos com Ψ na testa)
+  const AVATAR = `<svg class="psiu-av" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="58" fill="#E1F5EE"/><circle cx="60" cy="16" r="5" fill="#B7791F"/><line x1="60" y1="21" x2="60" y2="28" stroke="#1F5C56" stroke-width="3"/><circle cx="60" cy="64" r="36" fill="#1F5C56"/><text x="60" y="47" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="14" fill="#E3EFEC">Ψ</text><circle cx="46" cy="64" r="10" fill="#F5F7F6" stroke="#14211F" stroke-width="2.5"/><circle cx="74" cy="64" r="10" fill="#F5F7F6" stroke="#14211F" stroke-width="2.5"/><line x1="56" y1="64" x2="64" y2="64" stroke="#14211F" stroke-width="2.5"/><circle class="psiu-olho" cx="46" cy="65" r="3.5" fill="#14211F"/><circle class="psiu-olho" cx="74" cy="65" r="3.5" fill="#14211F"/><path d="M52 82 Q60 87 68 82" stroke="#F5F7F6" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`;
+  document.querySelectorAll('[data-psiu-av]').forEach(el => el.outerHTML = AVATAR);
+  const fab = document.getElementById('botFab'), painel = document.getElementById('botPainel');
+  const msgs = document.getElementById('botMsgs'), chips = document.getElementById('botChips');
+  const form = document.getElementById('botForm'), inp = document.getElementById('botInput');
+  let iniciado = false;
+
+  const nomeDisc = n => (DISC[2].find(d=>d.n===n) || {}).name || '';
+  const palavras = q => q.replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
+  const tem = (ws, lista) => lista.some(p => ws.includes(p));
+
+  function acharDisc(q, ws){
+    for(const d of DISC[2]){
+      if((DISC_ALIASES[d.n] || [d.name]).some(a => q.includes(normTxt(a)))) return d.n;
+    }
+    for(const [n, aps] of Object.entries(APELIDOS)){ if(tem(ws, aps)) return n; }
+    return null;
+  }
+  function discDaTarefa(t){ const d = discOf(t.materia); return d ? d.n : null; }
+  function futuras(filtro){
+    return TASKS.filter(t => t.prazo && diasAte(t.prazo) >= 0 && (!filtro || filtro(t)))
+                .sort((a,b) => a.prazo.localeCompare(b.prazo));
+  }
+  const ehProva = t => /prova/i.test(t.tarefa);
+  const linhaTarefa = (t, comMateria) => `<li><strong>${fmtDia(t.prazo)}</strong> (${quandoTxt(diasAte(t.prazo))}): ${comMateria ? escHTML(t.materia) + ' · ' : ''}${escHTML(t.tarefa)}</li>`;
+  const calendario = {label:'Ver calendário', l:{page:'viewPrazos', target:'calendario'}};
+
+  // ---------- respostas ----------
+  function responder(texto){
+    const q = normTxt(texto).replace(/^\//, '');
+    const ws = palavras(q);
+    const disc = acharDisc(q, ws);
+
+    if(!ws.length || /^(oi|ola|opa|eai|e ai|bom dia|boa tarde|boa noite|hey|psiu)\b/.test(q) && ws.length <= 3)
+      return {h:'Oi! Aqui é o Psiu. Pode perguntar sobre provas, prazos, materiais do Drive, termos do glossário, resumos ou novidades do site.'};
+    if(tem(ws, ['obrigado','obrigada','valeu','vlw','brigado']))
+      return {h:'Por nada. Se precisar de mais alguma coisa, é só perguntar.'};
+    if(tem(ws, ['ajuda','comandos','help']) || /o que (voce|vc|o psiu) (responde|faz|sabe)/.test(q))
+      return {h:`Algumas coisas que dá para perguntar:<ul>
+        <li><strong>Provas:</strong> "próxima prova", "prova de neuro"</li>
+        <li><strong>Prazos:</strong> "prazos da semana", "trabalhos de experimental"</li>
+        <li><strong>Drive:</strong> "slides de bases", "drive de idoso"</li>
+        <li><strong>Termos:</strong> "o que é sinapse?"</li>
+        <li><strong>Estudo:</strong> "resumos de aprendizagem", "exercícios", "vídeos"</li>
+        <li><strong>Turma:</strong> "professor de experimental", "novidades"</li></ul>
+        <small>Também funciona com barra: /provas, /prazos, /drive.</small>`};
+
+    // glossário: "o que é X", "o que significa X", "conceito de X"
+    const mg = q.match(/(?:o que (?:e|eh|sao|significa)|significado de|defina|definicao de|conceito de|explica|explique)\s+(?:o |a |os |as |um |uma )?(.+?)\??$/);
+    if(mg){
+      const r = glossario(mg[1].trim());
+      if(r) return r;
+    }
+
+    if(tem(ws, ['professor','professora','prof','profa','professores']) || /quem (da|e o|e a|ensina)/.test(q)){
+      if(disc) return {h:`${escHTML(nomeDisc(disc))}: <strong>${PROFS[disc]}</strong>.`, a:[{label:'Página da disciplina', l:{disc}}]};
+      return {h:'Professores do semestre:<ul>' + DISC[2].map(d=>`<li>${escHTML(d.name)}: ${PROFS[d.n]}</li>`).join('') + '</ul>'};
+    }
+
+    if(tem(ws, ['drive','pasta','pastas','slide','slides','material','materiais','livro','livros','pdf','arquivos'])){
+      if(disc) return {h:`Esta é a pasta de <strong>${escHTML(nomeDisc(disc))}</strong> no Drive.`, a:[{label:'Abrir a pasta no Drive', l:{drive:disc}}, {label:'Página da disciplina', l:{disc}}]};
+      return {h:'Este é o Drive das disciplinas, com os slides e os livros das aulas.', a:[{label:'Abrir o Drive', l:{url:DRIVE_GERAL}}]};
+    }
+
+    const querProva = tem(ws, ['prova','provas','n1','n2','avaliacao','avaliacoes']);
+    const querSemana = tem(ws, ['semana','hoje','amanha']);
+    if(querProva){
+      let lista = futuras(t => ehProva(t) && (!disc || discDaTarefa(t) === disc));
+      if(querSemana) lista = lista.filter(t => diasAte(t.prazo) <= 7);
+      if(!lista.length){
+        const onde = disc ? ` de ${escHTML(nomeDisc(disc))}` : '';
+        return {h:`Não há prova${onde} marcada ${querSemana ? 'para os próximos 7 dias' : 'daqui para frente'} no site.`, a:[calendario]};
+      }
+      if(tem(ws, ['proxima','proximo']) || (disc && lista.length === 1)){
+        const t = lista[0];
+        const dn = discDaTarefa(t);
+        return {h:`A próxima prova de <strong>${escHTML(t.materia)}</strong> é a ${escHTML(t.tarefa)}, em <strong>${fmtDia(t.prazo)}</strong> (${quandoTxt(diasAte(t.prazo))}).`,
+                a:(dn ? [{label:'Estudar para ela', l:{disc:dn}}] : []).concat([calendario])};
+      }
+      return {h:`Provas ${querSemana ? 'dos próximos 7 dias' : 'marcadas'}:<ul>${lista.map(t=>linhaTarefa(t, !disc)).join('')}</ul>`, a:[{label:'Modo prova', l:{page:'viewSimulados'}}, calendario]};
+    }
+
+    if(querSemana || tem(ws, ['prazo','prazos','tarefa','tarefas','trabalho','trabalhos','entrega','entregas','atividade','atividades','dever','agenda','calendario'])){
+      let lista = futuras(t => !disc || discDaTarefa(t) === disc);
+      if(querSemana) lista = lista.filter(t => diasAte(t.prazo) <= 7);
+      if(tem(ws, ['trabalho','trabalhos','atividade','atividades','tarefa','tarefas','entrega','entregas','dever'])) lista = lista.filter(t => !ehProva(t));
+      if(!lista.length) return {h:`Nenhum prazo ${querSemana ? 'para os próximos 7 dias' : 'daqui para frente'}${disc ? ' em ' + escHTML(nomeDisc(disc)) : ''}.`, a:[calendario]};
+      return {h:`${querSemana ? 'Nos próximos 7 dias' : 'Próximos prazos'}${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}:<ul>${lista.slice(0, 8).map(t=>linhaTarefa(t, !disc)).join('')}</ul>`, a:[calendario]};
+    }
+
+    if(tem(ws, ['resumo','resumos','estudar','revisar','revisao','conteudo','materia'])){
+      const lista = STUDY.filter(s => !disc || (discOf(s.materia) || {}).n === disc);
+      if(!lista.length) return {h:'Ainda não há resumo dessa disciplina no site.', a:[{label:'Todos os resumos', l:{page:'viewEstudar'}}]};
+      return {h:`Resumos${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}:`, a:lista.slice(0, 6).map(s=>({label:s.titulo, l:{url:s.link}})).concat(disc ? [] : [{label:'Ver todos', l:{page:'viewEstudar'}}])};
+    }
+
+    if(tem(ws, ['exercicio','exercicios','quiz','treinar','praticar','simulado','simulados','questoes','questao'])){
+      if(disc) return {h:`Os exercícios e o simulado de ${escHTML(nomeDisc(disc))} ficam na página da disciplina.`, a:[{label:'Página da disciplina', l:{disc}}, {label:'Modo prova', l:{page:'viewSimulados'}}]};
+      return {h:'Dá para treinar de três jeitos:', a:[{label:'Exercícios', l:{page:'viewFerramentas'}}, {label:'Modo prova', l:{page:'viewSimulados'}}, {label:'Revisão dos erros', l:{page:'viewErros'}}]};
+    }
+
+    if(tem(ws, ['video','videos','videoaula','youtube'])){
+      const ns = disc ? [disc] : Object.keys(VIDEOS);
+      const itens = ns.flatMap(n => (VIDEOS[n] || []).map(v => `<li>${escHTML(v.titulo)}${disc ? '' : ` <small>· ${escHTML(nomeDisc(n))}</small>`}</li>`));
+      if(!itens.length) return {h:'Ainda não há vídeo dessa disciplina no site.', a:[{label:'Vídeos', l:{page:'viewVideos'}}]};
+      return {h:`Vídeos${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}:<ul>${itens.slice(0, 6).join('')}</ul>`, a:[{label:'Abrir os vídeos', l:disc ? {disc} : {page:'viewVideos'}}]};
+    }
+
+    if(tem(ws, ['novidade','novidades','atualizacao','atualizacoes','novo','novos','nova','novas'])){
+      return {h:'O que entrou no site por último:<ul>' + UPDATES.slice(0, 3).map(u=>`<li><strong>${fmtDia(u.date)}</strong> · ${escHTML(u.disc)}: ${escHTML(curto(u.desc.split('. ')[0], 110))}</li>`).join('') + '</ul>',
+              a:UPDATES.slice(0, 3).filter(u=>u.link).map(u=>({label:'Abrir: ' + u.disc, l:u.link}))};
+    }
+
+    if(tem(ws, ['abnt','referencia','referencias','citacao','citacoes','norma','normas']))
+      return {h:'O guia de ABNT tem citações e um gerador de referências.', a:[{label:'Normas ABNT', l:{page:'viewApoio', target:'abnt'}}]};
+    if(tem(ws, ['grafico','graficos','excel','planilha']))
+      return {h:'O guia de gráficos mostra como montar no Excel e no Planilhas.', a:[{label:'Gráficos', l:{page:'viewApoio', target:'graficos'}}]};
+    if(tem(ws, ['curso','cursos','certificado','certificados','extra','extras']))
+      return {h:'Cursos complementares:<ul>' + COURSES.map(c=>`<li>${escHTML(c.nome)} <small>· ${escHTML(c.nota || '')}</small></li>`).join('') + '</ul>', a:[{label:'Cursos extras', l:{page:'viewCursos'}}]};
+    if(tem(ws, ['glossario','termos']))
+      return {h:'O glossário reúne os termos das disciplinas. Aqui também dá para perguntar direto, por exemplo "o que é sinapse?".', a:[{label:'Abrir o glossário', l:{page:'viewApoio', target:'glossario'}}]};
+
+    // só citou a disciplina
+    if(disc){
+      const p = futuras(t => discDaTarefa(t) === disc)[0];
+      return {h:`<strong>${escHTML(nomeDisc(disc))}</strong> · ${PROFS[disc]}${p ? `<br>Próximo prazo: ${escHTML(p.tarefa)}, em ${fmtDia(p.prazo)} (${quandoTxt(diasAte(p.prazo))}).` : ''}`,
+              a:[{label:'Página da disciplina', l:{disc}}, {label:'Pasta no Drive', l:{drive:disc}}]};
+    }
+
+    // termo solto do glossário ("sinapse")
+    const rg = glossario(q);
+    if(rg) return rg;
+
+    // último recurso: a busca do site
+    const termos = ws.filter(w => w.length > 2 && !['que','qual','quais','onde','como','tem','para','uma','sobre','dos','das','esta','esse','essa'].includes(w));
+    if(termos.length){
+      const achados = indiceBusca().filter(i => { const all = normTxt(i.t + ' ' + (i.s||'') + ' ' + (i.x||'')); return termos.every(w => all.includes(w)); }).slice(0, 4);
+      if(achados.length) return {h:'Encontrei isto no site:', a:achados.map(i=>({label:i.t.length > 48 ? i.t.slice(0, 46) + '…' : i.t, l:i.l}))};
+    }
+    return {h:'Essa eu não entendi. Tente perguntar de outro jeito, como "próxima prova", "drive de bases" ou "o que é sinapse?".'};
+  }
+
+  function curto(t, n){ t = t.replace(/[:.]\s*$/, ''); return t.length > n ? t.slice(0, t.lastIndexOf(' ', n)) + '…' : t + '.'; }
+  function glossario(termo){
+    const t = normTxt(termo).replace(/[?!.]+$/, '').trim();
+    if(t.length < 3) return null;
+    const base = g => normTxt(g.t).replace(/\s*\(.*?\)\s*/g, ' ').trim();
+    let achados = GLOSSARIO.filter(g => base(g) === t || normTxt(g.t) === t);
+    if(!achados.length) achados = GLOSSARIO.filter(g => base(g).includes(t) || (t.length > 5 && t.includes(base(g))));
+    if(!achados.length) return null;
+    const g = achados[0];
+    let h = `<strong>${escHTML(g.t)}</strong> <small>· ${escHTML(g.disc)}</small><br>${escHTML(g.d)}`;
+    if(g.ex) h += `<br><small>Exemplo: ${escHTML(g.ex)}</small>`;
+    const outros = [...new Set(achados.slice(1).map(x=>x.t))].filter(x => x !== g.t).slice(0, 3);
+    if(outros.length) h += `<br><small>Também no glossário: ${outros.map(escHTML).join(', ')}.</small>`;
+    return {h, a:[{label:'Ver no glossário', l:{page:'viewApoio', target:'glossario', term:g.t}}]};
+  }
+
+  // ---------- conversa ----------
+  function bolha(quem, html, acoes){
+    const b = document.createElement('div');
+    b.className = 'bot-msg ' + quem;
+    b.innerHTML = html;
+    if(acoes && acoes.length){
+      const box = document.createElement('div'); box.className = 'bot-acoes';
+      acoes.forEach(a=>{
+        const bt = document.createElement('button'); bt.type = 'button'; bt.textContent = a.label;
+        bt.addEventListener('click', ()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(a.l); });
+        box.appendChild(bt);
+      });
+      b.appendChild(box);
+    }
+    if(quem === 'ele'){ const ln = document.createElement('div'); ln.className = 'bot-linha'; ln.innerHTML = AVATAR; ln.appendChild(b); msgs.appendChild(ln); }
+    else msgs.appendChild(b);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+  function perguntar(texto){
+    texto = String(texto || '').trim(); if(!texto) return;
+    bolha('eu', escHTML(texto));
+    const dig = document.createElement('div'); dig.className = 'bot-linha'; dig.innerHTML = AVATAR + '<span class="bot-digitando">Psiu está pensando…</span>';
+    msgs.appendChild(dig); msgs.scrollTop = msgs.scrollHeight;
+    let r;
+    try{ r = responder(texto); }catch(e){ r = {h:'Algo deu errado nessa resposta. Tente perguntar de outro jeito.'}; console.error(e); }
+    setTimeout(()=>{ dig.remove(); bolha('ele', r.h, r.a); }, 380);
+  }
+  function abrir(){
+    painel.hidden = false; document.body.classList.add('bot-aberto');
+    if(!iniciado){
+      iniciado = true;
+      bolha('ele', 'Oi! Eu sou o Psiu, o assistente do Arquivo Vivo. Posso ajudar com provas, prazos, materiais do Drive, termos do glossário e novidades do site.');
+      chips.innerHTML = SUGESTOES.map(s=>`<button type="button">${escHTML(s)}</button>`).join('');
+    }
+    if(!window.matchMedia('(max-width:600px)').matches) inp.focus();
+  }
+  function fechar(){ painel.hidden = true; document.body.classList.remove('bot-aberto'); }
+  fab.addEventListener('click', abrir);
+  document.getElementById('botFechar').addEventListener('click', fechar);
+  chips.addEventListener('click', e=>{ const b = e.target.closest('button'); if(b) perguntar(b.textContent); });
+  form.addEventListener('submit', e=>{ e.preventDefault(); perguntar(inp.value); inp.value = ''; });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && !painel.hidden) fechar(); });
+})();
+</script>
+
 </body>
 </html>
