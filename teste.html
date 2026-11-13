@@ -18056,7 +18056,8 @@ document.addEventListener('click', e=>{
   const limpa = t => normTxt(t).replace(/[^a-z0-9%\s]/g, ' ').replace(/\s+/g, ' ').trim();
   const fmtNum = n => String(Math.round(n * 100) / 100).replace('.', ',');
   const PALAVRAS_VAZIAS = ['qual','quais','onde','como','para','sobre','quero','queria','gostaria','treinar','praticar','exercicio','exercicios','estudar','estudo','resumo','resumos','algum','alguma','questoes','questao','fazer','preciso','materia','conteudo','aula','posso','acho','encontro','esta','estao','isso','essa','esse','pelo','pela','com','uma','umas','uns','dos','das','que','tem','achar','encontrar','revisar','ver','sobre','parte','assunto','tema','jogo','quiz','testar','teste','site','psiu','voce','tudo','mais','fala'];
-  const termosDe = q => limpa(q).split(' ').filter(w => w.length > 3 && !PALAVRAS_VAZIAS.includes(w));
+  const CURTAS_VAZIAS = ['sao','ver','meu','seu','nas','nos','por','ele','ela','sim','nao','mas','tem','que','com','dos','das','uma','uns','sei','vou','foi','era','ser'];
+  const termosDe = q => limpa(q).split(' ').filter(w => w.length > 2 && !PALAVRAS_VAZIAS.includes(w) && !CURTAS_VAZIAS.includes(w));
 
   // ---------- 1. Comparações: "diferença entre mitose e meiose", "piaget x vygotsky" ----------
   const GENERICAS = ['sistema','nervoso','teoria','pesquisa','normal','inicial','doenca','variavel','educacao','consciencia','desenvolvimento','neuronio','motor','raiz','substancia','receptor','sinapse','condicionamento','hemisferio','reforcador','operacao','medula','discalculia'];
