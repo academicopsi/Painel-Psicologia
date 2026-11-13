@@ -17634,12 +17634,23 @@ document.addEventListener('click', e=>{
      STUDY, VIDEOS, UPDATES e COURSES. Não usa internet nem IA.
      ===================================================================== -->
 <style>
-  .bot-fab{position:fixed; right:16px; bottom:16px; z-index:250; width:60px; height:60px; padding:0; border:none; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; filter:drop-shadow(0 3px 5px rgba(0,0,0,.22));}
-  .psiu-corpo{display:block; width:60px; height:60px; overflow:visible; transition:transform .2s ease;}
+  .bot-fab{position:fixed; right:16px; bottom:16px; z-index:250; width:62px; height:62px; padding:0; touch-action:none; border:none; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; filter:drop-shadow(0 3px 5px rgba(0,0,0,.22));}
+  .psiu-corpo{display:block; width:62px; height:62px; overflow:visible; transition:transform .2s ease;}
   .bot-fab:hover .psiu-corpo, .bot-fab:focus-visible .psiu-corpo{transform:scale(1.08) rotate(-3deg);}
   .bot-fab:focus-visible{outline:2px solid var(--petrol); outline-offset:4px; border-radius:50%;}
-  .psiu-balao{position:absolute; right:66px; bottom:32px; white-space:nowrap; background:var(--paper); color:var(--ink); border:1px solid var(--rule); border-radius:12px 12px 3px 12px; padding:6px 11px; font:inherit; font-size:13px; font-weight:600; box-shadow:0 4px 12px var(--shadow-lg); animation:psiuBalao .25s ease-out; pointer-events:none;}
+  .psiu-balao{position:absolute; right:68px; bottom:34px; white-space:nowrap; background:var(--paper); color:var(--ink); border:1px solid var(--rule); border-radius:12px 12px 3px 12px; padding:6px 11px; font:inherit; font-size:13px; font-weight:600; box-shadow:0 4px 12px var(--shadow-lg); animation:psiuBalao .25s ease-out; pointer-events:none;}
   .psiu-balao[hidden]{display:none;}
+  .bot-fab.balao-direita .psiu-balao{right:auto; left:68px; border-radius:12px 12px 12px 3px;}
+  .bot-fab.arrastando{cursor:grabbing;} .bot-fab.arrastando .psiu-corpo{transform:scale(1.1);}
+  .bot-fab.deitado .psiu-corpo{transform:rotate(-90deg);}
+  .psiu-timer{position:absolute; left:50%; bottom:-12px; transform:translateX(-50%); background:var(--petrol); color:#fff; font:inherit; font-size:11px; font-weight:700; padding:1px 7px; border-radius:999px; pointer-events:none; font-variant-numeric:tabular-nums;}
+  .psiu-timer.pausa{background:#B7791F;} .psiu-timer[hidden]{display:none;}
+  body.dark .psiu-timer{color:#0F1615;}
+  .psiu-mira{transition:transform .15s ease-out;}
+  .bot-acoes button.certo{background:#E1F5EE; border-color:#1D9E75; color:#0F6E56;} .bot-acoes button.errado{background:#FCEBEB; border-color:#E24B4A; color:#A32D2D;}
+  .bot-acoes button:disabled{cursor:default; opacity:.85;}
+  @keyframes rGira2{to{transform:rotate(360deg)}} @keyframes rTreme{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+  .r-gira2{animation:rGira2 1s linear infinite}.r-gira3{animation:rGira2 2.4s linear infinite}.r-treme{animation:rTreme .25s linear 6}
   @keyframes psiuBalao{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
   @keyframes rLado{0%,15%{transform:translateX(0)}30%,45%{transform:translateX(-4px)}60%,80%{transform:translateX(4px)}100%{transform:translateX(0)}}
   @keyframes rCima{0%,20%{transform:translate(0,0)}40%,85%{transform:translate(2px,-4px)}100%{transform:translate(0,0)}}
@@ -17739,7 +17750,7 @@ document.addEventListener('click', e=>{
   @media print{ .bot-fab, .bot-painel{display:none !important;} }
 </style>
 
-<button class="bot-fab" id="botFab" aria-label="Abrir o Psiu, colega virtual da turma" title="Psiu! Precisa de ajuda?"><span class="psiu-balao" id="psiuBalao" hidden></span><svg class="psiu-corpo" id="psiuCorpo" viewBox="0 0 120 120" aria-hidden="true"></svg></button>
+<button class="bot-fab" id="botFab" aria-label="Abrir o Psiu, colega virtual da turma" title="Psiu! Precisa de ajuda?"><span class="psiu-balao" id="psiuBalao" hidden></span><span class="psiu-timer" id="psiuTimer" hidden></span><svg class="psiu-corpo" id="psiuCorpo" viewBox="0 0 120 120" aria-hidden="true"></svg></button>
 <div class="bot-painel" id="botPainel" role="dialog" aria-label="Psiu, colega virtual da turma" hidden>
   <div class="bot-topo"><span data-psiu-av></span><span class="bot-nome"><strong>Psiu</strong><small>Colega virtual da turma</small></span><button class="bot-x" id="botFechar" aria-label="Fechar">×</button></div>
   <div class="bot-msgs" id="botMsgs" aria-live="polite"></div>
@@ -17765,7 +17776,7 @@ document.addEventListener('click', e=>{
     '06':['extensao']
   };
   const TESTE_AVISO = '';
-  const SUGESTOES = ['Próxima prova', 'Prazos da semana', 'Drive de Neuroanatomia', 'O que é reforço negativo?', 'Novidades do site', 'O que o Psiu sabe?'];
+  const SUGESTOES = ['Próxima prova', 'Prazos da semana', 'Drive de Neuroanatomia', 'O que é reforço negativo?', 'Novidades do site', 'Estuda comigo', 'Bora um quiz?', 'Me conta uma piada', 'O que o Psiu sabe?'];
 
   // ---------- carinha do Psiu (cérebro de óculos) com expressões ----------
   // expressões: neutro, feliz, pensando, confuso, acolhendo
@@ -17912,9 +17923,9 @@ document.addEventListener('click', e=>{
   const INTERVALO = 46000, DURACAO = 12000;
   let reacaoAtual = 'parado', timerReacao = null, timerBalao = null, ultimoScroll = 0;
   // pose de base conforme o horário: cochilando das 23h às 8h, babando na carteira das 20h às 23h, na praia nos fins de semana de dia
-  function poseBase(){ const n = new Date(), h = n.getHours(), fds = n.getDay() === 0 || n.getDay() === 6; return (h >= 23 || h < 8) ? 'soneca' : h >= 20 ? 'carteira' : fds ? 'praia' : 'parado'; }
+  function poseBase(){ if(pomo) return pomo.fase === 'foco' ? 'lendo' : 'cafe'; const n = new Date(), h = n.getHours(), fds = n.getDay() === 0 || n.getDay() === 6; return (h >= 23 || h < 8) ? 'soneca' : h >= 20 ? 'carteira' : fds ? 'praia' : 'parado'; }
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)');
-  function desenhar(nome){ reacaoAtual = nome; corpo.innerHTML = REACOES[nome].svg(); }
+  function desenhar(nome){ reacaoAtual = nome; corpo.innerHTML = REACOES[nome].svg() + (COM_ACESSORIO && COM_ACESSORIO.includes(nome) ? acessorios() : ''); }
   function falar(txt){
     if(!txt) return;
     balao.textContent = txt; balao.hidden = false;
@@ -17924,7 +17935,7 @@ document.addEventListener('click', e=>{
     if(calmo.matches || document.body.classList.contains('bot-aberto')) return;
     const r = REACOES[nome]; if(!r) return;
     desenhar(nome);
-    if(comFala && r.falas) falar(um(r.falas));
+    if(comFala && r.falas) falar(nome === 'cafe' && new Date().getDay() === 1 ? 'Segunda-feira… cadê o café?' : um(r.falas));
     setTimeout(() => { if(reacaoAtual === nome) desenhar(poseBase()); }, DURACAO);
   }
   // datas especiais (Carnaval e Páscoa mudam de dia todo ano, então são calculados)
@@ -17949,9 +17960,10 @@ document.addEventListener('click', e=>{
     const agora = new Date(), h = agora.getHours(), min = agora.getMinutes(), mes = agora.getMonth();
     const sacola = ['lado', 'lado', 'pensando', 'pensando', 'musica', 'malhando', 'ideia', 'pavlov', 'diva', 'lupa', 'comemorando', 'capelo', 'celular', 'rorschach', 'skinner', 'sinapse', 'jaleco', 'paodequeijo', 'marcatexto', 'livros', 'mensagem', 'aplaudindo'];
     if(h >= 18 && h < 23) sacola.push('cafe', 'cafe');
-    if(h >= 19 && h < 22) sacola.push('mao', 'mao');
-    if((h === 18 && min >= 30) || (h === 19 && min < 15)) sacola.push('atrasado', 'atrasado', 'atrasado');
-    if(h >= 21 && h < 23) sacola.push('relogio', 'relogio');
+    const diaDeAula = typeof AULAS !== 'undefined' && AULAS[agora.getDay()];
+    if(diaDeAula && h >= 19 && h < 22) sacola.push('mao', 'mao');
+    if(diaDeAula && ((h === 18 && min >= 30) || (h === 19 && min < 15))) sacola.push('atrasado', 'atrasado', 'atrasado');
+    if(diaDeAula && h >= 21 && h < 23) sacola.push('relogio', 'relogio');
     if(h >= 15 && h < 19) sacola.push('paodequeijo');
     sacola.push('popstar');
     if(agora.getDay() === 5 && h >= 18) sacola.push('popstar', 'popstar', 'popstar');
@@ -17979,7 +17991,7 @@ document.addEventListener('click', e=>{
     timerReacao = setTimeout(() => {
       if(reacaoAtual !== poseBase() && ['parado', 'soneca', 'carteira', 'praia'].includes(reacaoAtual)) desenhar(poseBase()); // virou o horário
       const quieto = Date.now() - ultimoScroll > 1500;
-      if(document.hidden || !quieto){ agendar(3000); return; } // a pessoa está rolando: tenta de novo em 3 s
+      if(document.hidden || !quieto || pomo || dormindoInativo){ agendar(3000); return; } // a pessoa está rolando: tenta de novo em 3 s
       reagir(sortearReacao(), Math.random() < 0.5);
       agendar();
     }, espera);
@@ -17987,8 +17999,10 @@ document.addEventListener('click', e=>{
   window.addEventListener('scroll', () => { ultimoScroll = Date.now(); }, {passive:true});
   desenhar(poseBase());
   setTimeout(() => {
-    // primeira reação: sempre as boas-vindas
-    reagir('acenando', true);
+    // primeira reação: sempre as boas-vindas (com a sequência de dias, se houver)
+    const seq = sequenciaDias();
+    if(primeiraVisitaHoje && seq >= 2){ reagir('acenando'); falar(`${seq}º dia seguido por aqui!`); }
+    else reagir('acenando', true);
     agendar();
   }, 6000);
   function nomeCurto(m){ const d = discOf(m); const n = d ? d.n : null; return {'01':'Bases','02':'Neuro','03':'Aprendizagem','04':'Experimental','05':'Idoso','06':'Extensão'}[n] || m; }
@@ -18052,6 +18066,7 @@ document.addEventListener('click', e=>{
   // ---------- respostas ----------
   function responder(texto){
     const anterior = ctx.ultimo; ctx.ultimo = null; // só continua o assunto da resposta imediatamente anterior
+    temaPendente = null;
     const q = normTxt(texto).replace(/^\//, '').replace(/[!?.]+$/, '').trim();
     const ws = palavras(q);
 
@@ -18064,6 +18079,10 @@ document.addEventListener('click', e=>{
         Se puder, conte também para alguém de confiança como você está.`,
         a:[{label:'Abrir o site do CVV', l:{url:'https://cvv.org.br'}}]};
     }
+
+    // 1b) respostas especiais: emoji, depois da prova, pomodoro, quiz, piada, aniversário…
+    const esp = respostasEspeciais(String(texto), q, ws);
+    if(esp) return esp;
 
     // 2) nome
     const mn = String(texto).match(/(?:meu nome (?:é|e)|me chamo|pode me chamar de|eu sou (?:o|a))\s+([A-Za-zÀ-ÿ]{2,20})/i);
@@ -18171,7 +18190,7 @@ document.addEventListener('click', e=>{
     if(!it && anterior && CONTINUAVEIS.includes(anterior) && continuacao && (disc || /\b(proxima|proximo|outra|outro|depois)\b/.test(q))){
       it = anterior;
     }
-    if(it){ ctx.ultimo = it; ctx.disc = disc; }
+    if(it){ ctx.ultimo = it; ctx.disc = disc; temaPendente = temaDe(it, disc); }
 
     if(it === 'prof'){
       if(disc) return {h:`${um(['Quem dá', 'Quem dá aula de'])} ${escHTML(nomeDisc(disc))} é ${PROFS[disc].startsWith('Profa') ? 'a' : 'o'} <strong>${PROFS[disc]}</strong>.`, a:[{label:'Página da disciplina', l:{disc}}]};
@@ -18250,7 +18269,7 @@ document.addEventListener('click', e=>{
       const achados = indiceBusca().filter(i => { const all = normTxt(i.t + ' ' + (i.s||'') + ' ' + (i.x||'')); return termos.every(w => all.includes(w)); }).slice(0, 4);
       if(achados.length) return {x:'pensando', h:um(['Achei isto no site:', 'Não tenho uma resposta pronta, mas olha o que encontrei:']), a:achados.map(i=>({label:i.t.length > 48 ? i.t.slice(0, 46) + '…' : i.t, l:i.l}))};
     }
-    return {x:'confuso', h:um(['Eita, viajei nessa 😅 Manda de outro jeito? Tipo "próxima prova", "drive de bases" ou "o que é sinapse?".', 'Hmm, acho que eu estava no intervalo quando explicaram isso. Pergunta de outro jeito? Tipo "prazos da semana" ou "o que é sinapse?".'])};
+    return {x:'confuso', h:um(['Eita, viajei nessa 😅 Manda de outro jeito? Tipo "próxima prova", "drive de bases" ou "o que é sinapse?".', 'Hmm, acho que eu estava no intervalo quando explicaram isso. Pergunta de outro jeito? Tipo "prazos da semana" ou "o que é sinapse?".', 'Essa eu não sei, mas o Thiago pode saber. Fala com ele!'])};
   }
 
   // =====================================================================
@@ -18290,7 +18309,7 @@ document.addEventListener('click', e=>{
     h += '</ul>';
     if(c.linhas.length > 4) h += `<small>A tabela completa tem mais ${c.linhas.length - 4} ${c.linhas.length - 4 === 1 ? 'linha' : 'linhas'}.</small>`;
     const dc = discOf(c.disc); h += dc ? comentario(dc.n).replace(/^ /, '<br>') : '';
-    return {h, a:[{label:'Ver a tabela completa', l:{page:'viewApoio', target:'comparacoes'}}]};
+    return {h, tema:c.titulo, a:[{label:'Ver a tabela completa', l:{page:'viewApoio', target:'comparacoes'}}]};
   }
 
   // ---------- 2. Simpático × parassimpático por órgão ----------
@@ -18350,7 +18369,7 @@ document.addEventListener('click', e=>{
       <li>${B} + ${par} = ${fmtNum(2 * p)}%. Sobram 100 − ${fmtNum(2 * p)} = ${fmtNum(resto)}% para ${outras[0]} + ${outras[1]}.</li>
       <li>Como ${outras[0]} = ${outras[1]}, cada uma tem ${fmtNum(resto)} ÷ 2 = ${fmtNum(cada)}%.</li></ol>
       <strong>Resposta:</strong> ${B} = ${fmtNum(p)}%, ${par} = ${fmtNum(p)}%, ${outras[0]} = ${fmtNum(cada)}%, ${outras[1]} = ${fmtNum(cada)}%.<br>${um(['Viu? É só parear e dividir.', 'Simples assim. Quer treinar mais umas?', 'Mais uma dessas e você vira monitor de Bases.'])}${piada(0.2)}`;
-    return {x:'feliz', h, a:[ferramenta]};
+    return {x:'feliz', h, tema:'a regra de Chargaff', a:[ferramenta]};
   }
 
   // ---------- 4. Período de Piaget pela idade ----------
@@ -18371,7 +18390,7 @@ document.addEventListener('click', e=>{
     let h = `${um(['Essa é clássica!', 'Deixa comigo.', 'Piaget responderia rapidinho:'])} Com ${escHTML(m[1])} ${escHTML(m[2])}, a criança está no período <strong>${per.nome}</strong> (${per.faixa}).`;
     if(g) h += `<br><small>${escHTML(g.d)}</small>`;
     h += '<br><small>As idades são aproximadas, e Piaget ligava mais para a ordem dos períodos do que para o calendário.</small>';
-    return {h, a:[{label:'Resumo de Piaget', l:{resumo:'piaget', cap:0}}, {label:'Treinar os períodos', l:{page:'viewFerramentas', target:'tool-qual-periodo-piaget'}}]};
+    return {h, tema:'os períodos de Piaget', a:[{label:'Resumo de Piaget', l:{resumo:'piaget', cap:0}}, {label:'Treinar os períodos', l:{page:'viewFerramentas', target:'tool-qual-periodo-piaget'}}]};
   }
 
   // ---------- 5. Embriologia: "o que acontece no dia 6?" ----------
@@ -18410,7 +18429,7 @@ document.addEventListener('click', e=>{
     if(!achadas.length) return null;
     if(achadas.length > 3) achadas = achadas.slice(0, 3);
     const h = `${um(['Bora para a embriologia!', 'Viagem no tempo:', 'Essa linha do tempo eu sei de cor.'])} Por volta do <strong>dia ${d}</strong>:<ul>${achadas.map(e => `<li><strong>${escHTML(e.titulo)}</strong> <small>(${escHTML(e.when)})</small><br>${resumoPonto(e)}</li>`).join('')}</ul><small>Os dias são aproximados, como no material da aula.</small>`;
-    return {h, a:botoes};
+    return {h, tema:'embriologia', a:botoes};
   }
 
   // ---------- 6. "Onde estudo X?" (procura nas abas dos resumos) ----------
@@ -18436,7 +18455,7 @@ document.addEventListener('click', e=>{
     achados.sort((a, b) => b.pts - a.pts);
     const top = achados.filter(a => a.pts >= achados[0].pts - 5).slice(0, 3);
     const curtoLbl = t => t.length > 40 ? t.slice(0, 38) + '…' : t;
-    return {h:`${um(['Achei! Está aqui nos resumos:', 'Isso a gente viu! Está aqui:', 'Tem resumo disso, sim. Olha:'])}<ul>${top.map(a => `<li><strong>${escHTML(a.topico)}</strong><br><small>no resumo ${escHTML(a.nome)} · ${escHTML(a.disc)}</small></li>`).join('')}</ul>`,
+    return {tema:top[0].topico, h:`${um(['Achei! Está aqui nos resumos:', 'Isso a gente viu! Está aqui:', 'Tem resumo disso, sim. Olha:'])}<ul>${top.map(a => `<li><strong>${escHTML(a.topico)}</strong><br><small>no resumo ${escHTML(a.nome)} · ${escHTML(a.disc)}</small></li>`).join('')}</ul>`,
             a:top.map(a => ({label:curtoLbl(a.topico), l:{resumo:a.id, cap:a.i}}))};
   }
 
@@ -18451,7 +18470,7 @@ document.addEventListener('click', e=>{
       return {t, pts: termos.filter(w => n.includes(w) || (w.length > 5 && n.includes(w.slice(0, -1)))).length};
     }).filter(x => x.pts).sort((a, b) => b.pts - a.pts).slice(0, 3);
     if(!achados.length) return null;
-    return {h:um(['Bora treinar! Achei estes exercícios:', 'Hora de suar a camisa. Tem estes:', 'Separei estes para você. Valendo nota! Brincadeira.']),
+    return {tema:achados[0].t.titulo, h:um(['Bora treinar! Achei estes exercícios:', 'Hora de suar a camisa. Tem estes:', 'Separei estes para você. Valendo nota! Brincadeira.']),
             a:achados.map(x => ({label:x.t.titulo, l:{page:'viewFerramentas', target:x.t.id}}))};
   }
 
@@ -18487,7 +18506,7 @@ document.addEventListener('click', e=>{
     if(g.ex) h += `<br><small>Exemplo: ${escHTML(g.ex)}</small>`;
     const outros = [...new Set(achados.slice(1).map(x=>x.t))].filter(x => x !== g.t).slice(0, 3);
     if(outros.length) h += `<br><small>Também no glossário: ${outros.map(escHTML).join(', ')}.</small>`;
-    return {h, a:[{label:'Ver no glossário', l:{page:'viewApoio', target:'glossario', term:g.t}}]};
+    return {h, tema:g.t, a:[{label:'Ver no glossário', l:{page:'viewApoio', target:'glossario', term:g.t}}]};
   }
 
   // ---------- conversa ----------
@@ -18510,6 +18529,10 @@ document.addEventListener('click', e=>{
             if(b === msgs.lastElementChild?.querySelector('.bot-msg')) msgs.scrollTop = msgs.scrollHeight;
             else b.scrollIntoView({block:'nearest', behavior:'smooth'});
           });
+        } else if(a.diz){
+          bt.addEventListener('click', () => perguntar(a.diz));
+        } else if(a.quiz !== undefined){
+          bt.addEventListener('click', () => responderQuiz(a.quiz, bt, box));
         } else
         bt.addEventListener('click', ()=>{ ctx.oferta = null; if(window.matchMedia('(max-width:600px)').matches) fechar(); irPara(a.l); });
         box.appendChild(bt);
@@ -18528,6 +18551,7 @@ document.addEventListener('click', e=>{
     rostoTopo('pensando');
     let r;
     try{ r = responder(texto); }catch(e){ r = {x:'confuso', h:'Ops, me enrolei nessa. Tenta perguntar de outro jeito.'}; console.error(e); }
+    const tema = r.tema || temaPendente; if(tema){ mem.assunto = tema; mem.assuntoEm = Date.now(); salvarMem(mem); }
     if(r.oferta !== undefined) ctx.oferta = r.oferta;
     else if(!r.ir) ctx.oferta = null;
     // tempo de "digitação" proporcional ao tamanho da resposta
@@ -18535,9 +18559,16 @@ document.addEventListener('click', e=>{
     const agora = Date.now();
     const espera = Math.max(Math.min(1800, 450 + tam * 7), ocupadoAte - agora + 400); // respostas sempre na ordem
     ocupadoAte = agora + espera;
+    // respostas longas saem em duas mensagens, como no WhatsApp
+    const corte = r.h.search(/<ul>|<ol>/);
+    const partes = (corte > 20 && r.h.replace(/<[^>]+>/g, '').length > 180) ? [r.h.slice(0, corte).replace(/(<br>\s*)+$/, ''), r.h.slice(corte)] : null;
+    if(partes) ocupadoAte += 900;
     setTimeout(()=>{
-      dig.remove(); bolha('ele', r.h, r.a, r.x);
+      dig.remove();
+      if(partes){ bolha('ele', partes[0], null, r.x); setTimeout(() => { bolha('ele', partes[1], r.a, r.x); }, 900); }
+      else bolha('ele', r.h, r.a, r.x);
       rostoTopo(r.x || 'neutro', true);
+      if(r.depois) setTimeout(r.depois, 900);
       if(r.ir) setTimeout(()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); irPara(r.ir); }, 600);
     }, espera);
     // de vez em quando, uma curiosidade do glossário (só depois de respostas comuns)
@@ -18562,8 +18593,8 @@ document.addEventListener('click', e=>{
       mem.visitas = (mem.visitas || 0) + 1; salvarMem(mem);
       const ola = saudacaoHora() + nomeOu(', ', '');
       bolha('ele', voltou
-        ? `${ola}! ${um(['Olha quem voltou!', 'De volta à aula, hein?', 'Sentiu saudade, foi?'])} O que a gente vai ver hoje?${TESTE_AVISO}`
-        : `${ola}! Eu sou o Psiu, o colega virtual da turma 🧠 Não perco uma aula (pelos slides, pelo menos) e sei de cor a data de todas as provas. Manda a dúvida: prova, prazo, material ou aquele termo que o professor soltou e ninguém anotou.${TESTE_AVISO}`, null, 'feliz');
+        ? `${ola}! ${um(['Olha quem voltou!', 'De volta à aula, hein?', 'Sentiu saudade, foi?'])} O que a gente vai ver hoje?${extrasSaudacao()}${TESTE_AVISO}`
+        : `${ola}! Eu sou o Psiu, o colega virtual da turma 🧠 Não perco uma aula (pelos slides, pelo menos) e sei de cor a data de todas as provas. Manda a dúvida: prova, prazo, material ou aquele termo que o professor soltou e ninguém anotou.${extrasSaudacao()}${TESTE_AVISO}`, null, 'feliz');
       rostoTopo('feliz', true);
       // "Psiu!" de alerta quando tem prova muito perto
       const pp = futuras(ehProva)[0];
@@ -18575,16 +18606,382 @@ document.addEventListener('click', e=>{
         ocupadoAte = Date.now() + 1300;
         setTimeout(()=>{ bolha('ele', quando, dn ? [{label:'Revisar ' + nomeDisc(dn), l:{disc:dn}}] : null, d === 0 ? 'feliz' : 'neutro'); if(dn && d > 0) ctx.oferta = {disc:dn}; }, 1200);
       }
+      posProvaNoChat();
       chips.innerHTML = SUGESTOES.map(s=>`<button type="button">${escHTML(s)}</button>`).join('');
     }
     if(!window.matchMedia('(max-width:600px)').matches) inp.focus();
   }
-  function fechar(){ painel.hidden = true; document.body.classList.remove('bot-aberto'); }
-  fab.addEventListener('click', abrir);
+  function fechar(){ painel.hidden = true; document.body.classList.remove('bot-aberto'); aoFechar(); }
+  fab.addEventListener('click', e => { if(ignorarClique){ e.preventDefault(); return; } abrir(); });
   document.getElementById('botFechar').addEventListener('click', fechar);
   chips.addEventListener('click', e=>{ const b = e.target.closest('button'); if(b) perguntar(b.textContent); });
   form.addEventListener('submit', e=>{ e.preventDefault(); perguntar(inp.value); inp.value = ''; });
   document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && !painel.hidden) fechar(); });
+  // =====================================================================
+  // PSIU MAIS HUMANO: percebe, lembra, cuida, brinca
+  // =====================================================================
+  // agenda das aulas (0 = domingo, 1 = segunda … 6 = sábado). Exemplo: 1:['Neuroanatomia'], 3:['Bases Biológicas']
+  const AULAS = {1:['Bases Biológicas', 'Projeto de Extensão'], 2:['Desenvolvimento Adulto e Idoso', 'Neuroanatomia'], 3:['Psicologia Experimental', 'Psicologia da Aprendizagem']};
+  const NASCIMENTO_PSIU = new Date(2026, 10, 12); // 12/11/2026
+  const PIADAS_AULA = [
+    'Por que o neurônio foi à festa? Porque estava a fim de fazer sinapse.',
+    'O que o behaviorista disse quando chegou atrasado? A culpa foi do ambiente, não minha.',
+    'Qual o lanche preferido do Pavlov? Qualquer um que venha depois do sininho.',
+    'Por que a mitose nunca se sente sozinha? Porque sempre termina com uma cópia de si mesma.',
+    'O que o DNA disse para o RNA? Para de me copiar!',
+    'Por que o Skinner adora pão de queijo? Porque é reforço positivo quentinho.',
+    'Por que o Vygotsky estuda sempre em grupo? Porque sozinho ele sai da zona.',
+    'Por que o bebê do Piaget não acha o brinquedo escondido? Para ele, o que sumiu deixou de existir. Igual ao meu ânimo na segunda.'
+  ];
+  const HUMOR_DIA = ['Domingo de descanso… ou de revisão?', 'Segunda-feira… cadê o café?', 'Terça: a semana ainda nem esquentou.', 'Quarta: metade do caminho!', 'Quinta: quase sexta!', 'Sextou!', 'Sábado: o cérebro também merece folga.'];
+  const NOMES_MES = ['janeiro','fevereiro','marco','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+
+  // estado (var, porque partes do código acima consultam antes desta linha rodar)
+  var pomo = null, dormindoInativo = false, ignorarClique = false, temaPendente = null, reacaoAoFechar = null, quiz = null;
+  const hojeISO = () => { const n = new Date(); return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, '0')}-${String(n.getDate()).padStart(2, '0')}`; };
+  const umaVezPorDia = chave => { mem.vistos = mem.vistos || {}; if(mem.vistos[chave] === hojeISO()) return false; mem.vistos[chave] = hojeISO(); salvarMem(mem); return true; };
+  const limite = {}; const podeAgora = (chave, ms) => { const t = Date.now(); if(limite[chave] && t - limite[chave] < ms) return false; limite[chave] = t; return true; };
+  const chatAberto = () => document.body.classList.contains('bot-aberto');
+
+  // ---------- acessórios conquistados no quiz ----------
+  var COM_ACESSORIO = ['parado', 'lado', 'pensando', 'ideia', 'comemorando', 'aplaudindo', 'acenando', 'sinapse', 'cafe', 'mensagem', 'celular', 'escuro', 'susto'];
+  const NIVEIS = [{min:10, nome:'um cachecol'}, {min:30, nome:'uma medalha'}, {min:60, nome:'uma coroa de louros'}];
+  function acessorios(){
+    const n = mem.acertos || 0; let s = '';
+    if(n >= 60) s += '<g fill="#639922" stroke="#3B6D11" stroke-width=".8"><ellipse cx="34" cy="34" rx="3" ry="6" transform="rotate(-40 34 34)"/><ellipse cx="40" cy="25" rx="3" ry="6" transform="rotate(-60 40 25)"/><ellipse cx="49" cy="19" rx="3" ry="6" transform="rotate(-80 49 19)"/><ellipse cx="86" cy="34" rx="3" ry="6" transform="rotate(40 86 34)"/><ellipse cx="80" cy="25" rx="3" ry="6" transform="rotate(60 80 25)"/><ellipse cx="71" cy="19" rx="3" ry="6" transform="rotate(80 71 19)"/></g>';
+    if(n >= 30) s += '<path d="M50 80 L60 96 L70 80" fill="none" stroke="#378ADD" stroke-width="4"/><circle cx="60" cy="100" r="7" fill="#FAC775" stroke="#BA7517" stroke-width="2"/>';
+    if(n >= 10) s += '<path d="M34 78 Q60 92 86 78 L86 86 Q60 100 34 86 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.5"/><path d="M44 83 L44 91 M56 87 L56 95 M68 87 L68 95 M78 83 L78 91" stroke="#FFFFFF" stroke-width="3" opacity=".8"/><path d="M76 88 L80 108 L88 106 L84 86 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.5"/>';
+    return s;
+  }
+
+  // ---------- reações novas ----------
+  Object.assign(REACOES, {
+    tonto:     {svg:() => CEREBRO() + OCULOS() + '<g class="r-gira2" style="transform-origin:48px 58px"><path d="M48 58 m-5 0 a5 5 0 1 0 10 0 a3.6 3.6 0 1 0 -7 0 a2 2 0 1 0 4 0" fill="none" stroke="#14211F" stroke-width="1.6"/></g><g class="r-gira2" style="transform-origin:72px 58px"><path d="M72 58 m-5 0 a5 5 0 1 0 10 0 a3.6 3.6 0 1 0 -7 0 a2 2 0 1 0 4 0" fill="none" stroke="#14211F" stroke-width="1.6"/></g>' + BOCA('M53 74 Q56.5 71 60 74 Q63.5 77 67 74') + '<g class="r-gira3" style="transform-origin:60px 22px"><circle cx="44" cy="20" r="2.5" fill="#FAC775"/><circle cx="76" cy="20" r="2.5" fill="#85B7EB"/><circle cx="60" cy="10" r="2.5" fill="#E46F7E"/></g>'},
+    susto:     {svg:() => '<g class="r-treme">' + CEREBRO() + OCULOS() + '<circle cx="48" cy="58" r="1.8" fill="#14211F"/><circle cx="72" cy="58" r="1.8" fill="#14211F"/><path d="M40 43 Q47 39 54 42 M66 42 Q73 39 80 43" fill="none" stroke="#14211F" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="60" cy="74" rx="4" ry="5" fill="#14211F"/></g><text x="94" y="30" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#E24B4A">!</text>'},
+    escuro:    {svg:() => CEREBRO() + ESCUROS + BOCA('M51 70 Q60 80 69 70')},
+    pendurado: {svg:() => CEREBRO() + OCULOS() + '<circle cx="48" cy="59" r="2" fill="#14211F"/><circle cx="72" cy="59" r="2" fill="#14211F"/><ellipse cx="60" cy="74" rx="3.5" ry="4.5" fill="#14211F"/>' + BRACO(32, 50, 26, 26) + BRACO(88, 50, 94, 26) + '<g class="r-bal" style="transform-origin:60px 84px"><path d="M46 84 L44 104 M74 84 L76 104" stroke="#1F5C56" stroke-width="4" stroke-linecap="round"/></g>'}
+  });
+  // olhos que seguem o dedo ou o mouse (só na pose normal)
+  REACOES.parado.svg = () => CEREBRO() + OCULOS() + '<g class="psiu-mira">' + PUPILAS() + '</g>' + BOCA();
+  let pedidoMira = null, ultimoPonteiro = null;
+  document.addEventListener('pointermove', e => {
+    ultimoPonteiro = e; atividade();
+    if(pedidoMira) return;
+    pedidoMira = requestAnimationFrame(() => {
+      pedidoMira = null;
+      const mira = corpo.querySelector('.psiu-mira'); if(!mira || !ultimoPonteiro) return;
+      const r = corpo.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const dx = ultimoPonteiro.clientX - cx, dy = ultimoPonteiro.clientY - cy, dist = Math.hypot(dx, dy) || 1;
+      const k = Math.min(3.5, dist / 40);
+      mira.style.transform = `translate(${(dx / dist * k).toFixed(2)}px, ${(dy / dist * k).toFixed(2)}px)`;
+    });
+  }, {passive:true});
+
+  // ---------- percebe a pessoa ----------
+  let ultimaAtividade = Date.now();
+  function atividade(){
+    ultimaAtividade = Date.now();
+    if(dormindoInativo){
+      dormindoInativo = false;
+      if(!chatAberto() && !calmo.matches){ reagir('susto'); falar(um(['Opa! Estou acordado!', 'Hã? Eu não estava dormindo!'])); }
+    }
+  }
+  ['keydown', 'touchstart', 'wheel'].forEach(ev => window.addEventListener(ev, atividade, {passive:true}));
+  setInterval(() => {
+    if(!dormindoInativo && !pomo && !chatAberto() && Date.now() - ultimaAtividade > 180000 && !document.hidden){
+      dormindoInativo = true; desenhar('soneca');
+    }
+  }, 10000);
+  // saiu da aba e voltou
+  let saiuEm = null;
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden){ saiuEm = Date.now(); return; }
+    if(saiuEm && Date.now() - saiuEm > 30000 && !chatAberto()){ reagir('acenando'); falar(um(['Voltou! Achei que tinha ido para a cantina.', 'Olha quem voltou!'])); }
+    saiuEm = null;
+  });
+  // modo escuro
+  let escuroAntes = document.body.classList.contains('dark');
+  new MutationObserver(() => {
+    const agora = document.body.classList.contains('dark');
+    if(agora === escuroAntes) return; escuroAntes = agora;
+    if(chatAberto()) return;
+    if(agora){ reagir('escuro'); falar('Eita, apagaram a luz!'); }
+    else { reagir('ideia'); falar('Acenderam a luz!'); }
+  }).observe(document.body, {attributes:true, attributeFilter:['class']});
+  // rolou rápido demais
+  let rolagem = [];
+  window.addEventListener('scroll', () => {
+    atividade();
+    const t = Date.now(); rolagem.push([t, window.scrollY]); rolagem = rolagem.filter(p => t - p[0] < 500);
+    const dist = Math.abs(rolagem[rolagem.length - 1][1] - rolagem[0][1]);
+    if(dist > 2500 && !chatAberto() && podeAgora('tonto', 120000)){ reagir('tonto'); falar('Calma, fiquei tonto!'); }
+  }, {passive:true});
+  // internet
+  window.addEventListener('offline', () => { if(!chatAberto()){ reagir('pensando'); } falar('Ih, a internet caiu. Mas eu continuo aqui!'); });
+  window.addEventListener('online', () => { falar('A internet voltou!'); });
+  // copiou texto do site
+  document.addEventListener('copy', e => {
+    if(e.target && e.target.closest && e.target.closest('#botPainel')) return;
+    if(podeAgora('copia', 300000)){ reagir('marcatexto'); falar('Copiou? Cita a fonte, hein! Tem guia de ABNT no site.'); }
+  });
+  // celular deitado
+  const deitadoMQ = window.matchMedia('(orientation: landscape) and (pointer: coarse)');
+  function aoDeitar(){ fab.classList.toggle('deitado', deitadoMQ.matches); if(deitadoMQ.matches && podeAgora('deitado', 60000)) falar('Deitou o celular? Eu deito junto.'); }
+  if(deitadoMQ.addEventListener) deitadoMQ.addEventListener('change', aoDeitar);
+  // comenta o que a pessoa abre
+  const COMENTA_RESUMO = {vygotsky:'Ah, Vygotsky! Bora de ZDP.', piaget:'Piaget! Os quatro períodos na ponta da língua.', embriologia:'Embriologia: do zigoto ao disco bilaminar!'};
+  if(typeof window.openResumo === 'function'){
+    const abrirResumoOriginal = window.openResumo;
+    window.openResumo = function(id){
+      const r = abrirResumoOriginal.apply(this, arguments);
+      if(!chatAberto() && podeAgora('abriu', 60000)) setTimeout(() => { reagir('lendo'); falar(COMENTA_RESUMO[id] || um(['Boa escolha! Estou lendo junto.', 'Bora estudar!'])); }, 600);
+      return r;
+    };
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href*="drive.google.com"]');
+    if(a && !a.closest('#botPainel') && podeAgora('drive', 60000)){ reagir('ideia'); falar('Vai buscar os slides? Boa!'); }
+  });
+
+  // ---------- arrastar o Psiu ----------
+  function posicionar(x, y){
+    const w = fab.offsetWidth, h = fab.offsetHeight;
+    x = Math.max(4, Math.min(window.innerWidth - w - 4, x)); y = Math.max(4, Math.min(window.innerHeight - h - 4, y));
+    fab.style.left = x + 'px'; fab.style.top = y + 'px'; fab.style.right = 'auto'; fab.style.bottom = 'auto';
+    fab.classList.toggle('balao-direita', x < 220);
+    return {x, y};
+  }
+  try{ const p = JSON.parse(localStorage.getItem('av-psiu-pos')); if(p) posicionar(p.x * window.innerWidth, p.y * window.innerHeight); }catch(e){}
+  window.addEventListener('resize', () => { if(fab.style.left) posicionar(parseFloat(fab.style.left), parseFloat(fab.style.top)); });
+  let arraste = null;
+  fab.addEventListener('pointerdown', e => { arraste = {x0:e.clientX, y0:e.clientY, ox:fab.getBoundingClientRect().left, oy:fab.getBoundingClientRect().top, ativo:false, id:e.pointerId}; try{ fab.setPointerCapture(e.pointerId); }catch(err){} });
+  fab.addEventListener('pointermove', e => {
+    if(!arraste) return;
+    const dx = e.clientX - arraste.x0, dy = e.clientY - arraste.y0;
+    if(!arraste.ativo && Math.hypot(dx, dy) > 8){
+      arraste.ativo = true; fab.classList.add('arrastando');
+      desenhar('pendurado'); falar(um(['Ei, me põe no chão!', 'Aonde a gente vai?']));
+    }
+    if(arraste.ativo) posicionar(arraste.ox + dx, arraste.oy + dy);
+  });
+  function soltar(){
+    if(!arraste) return;
+    if(arraste.ativo){
+      fab.classList.remove('arrastando'); ignorarClique = true; setTimeout(() => { ignorarClique = false; }, 300);
+      const r = fab.getBoundingClientRect();
+      try{ localStorage.setItem('av-psiu-pos', JSON.stringify({x:r.left / window.innerWidth, y:r.top / window.innerHeight})); }catch(e){}
+      desenhar(poseBase()); falar('Ufa. Aqui está bom.');
+    }
+    arraste = null;
+  }
+  fab.addEventListener('pointerup', soltar); fab.addEventListener('pointercancel', soltar);
+  function voltarAoCanto(){ fab.style.left = fab.style.top = fab.style.right = fab.style.bottom = ''; fab.classList.remove('balao-direita'); try{ localStorage.removeItem('av-psiu-pos'); }catch(e){} }
+
+  // ---------- pomodoro ----------
+  const timerEl = document.getElementById('psiuTimer');
+  function pomoAtivo(){ return !!pomo; }
+  function iniciarPomodoro(){
+    pomo = {fase:'foco', fim:Date.now() + 25 * 60000};
+    desenhar(poseBase()); tickPomodoro();
+  }
+  function pararPomodoro(){ pomo = null; timerEl.hidden = true; fab.title = 'Psiu! Precisa de ajuda?'; desenhar(poseBase()); }
+  function tickPomodoro(){
+    if(!pomo) return;
+    const falta = pomo.fim - Date.now();
+    if(falta <= 0){
+      if(pomo.fase === 'foco'){
+        pomo = {fase:'pausa', fim:Date.now() + 5 * 60000}; desenhar(poseBase());
+        falar('Pausa para o café! 5 minutos.');
+        if(chatAberto()) bolha('ele', 'Pausa para o café! Foram 25 minutos de foco. Descansa 5 minutos e já volto a te chamar.', null, 'feliz');
+      } else {
+        pararPomodoro(); reagir('malhando'); falar('Fim da pausa. Bora mais um?');
+        if(chatAberto()) bolha('ele', 'Fim da pausa! Bora mais um pomodoro?', [{label:'Bora!', diz:'estuda comigo'}], 'feliz');
+        return;
+      }
+    }
+    const s = Math.max(0, Math.ceil((pomo.fim - Date.now()) / 1000));
+    timerEl.textContent = `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+    timerEl.hidden = false; timerEl.classList.toggle('pausa', pomo.fase === 'pausa');
+    fab.title = pomo.fase === 'foco' ? `Foco: faltam ${timerEl.textContent}` : `Pausa: faltam ${timerEl.textContent}`;
+    setTimeout(tickPomodoro, 1000);
+  }
+
+  // ---------- quiz de 3 perguntas ----------
+  function novaPergunta(){
+    const usados = quiz.usados;
+    const pool = GLOSSARIO.filter(g => g.d && g.d.length < 200 && !usados.includes(g.t));
+    const g = um(pool.sort(() => Math.random() - 0.5)); usados.push(g.t);
+    const mesmos = GLOSSARIO.filter(x => x.t !== g.t && x.disc === g.disc);
+    const outros = (mesmos.length >= 2 ? mesmos : GLOSSARIO.filter(x => x.t !== g.t)).sort(() => Math.random() - 0.5).slice(0, 2);
+    const opcoes = [{t:g.t, certo:true}].concat(outros.map(o => ({t:o.t, certo:false}))).sort(() => Math.random() - 0.5);
+    quiz.atual = g;
+    bolha('ele', `<span class="bot-revisao">Pergunta ${quiz.n + 1} de 3 · ${escHTML(g.disc)}</span>Qual termo é este?<br><em>${escHTML(g.d)}</em>`, opcoes.map(o => ({label:o.t, quiz:o.certo})), 'pensando');
+  }
+  function responderQuiz(certo, botao, caixa){
+    if(!quiz) return;
+    caixa.querySelectorAll('button').forEach(b => { b.disabled = true; if(b.textContent === quiz.atual.t) b.classList.add('certo'); });
+    if(!certo) botao.classList.add('errado');
+    quiz.n++; if(certo) quiz.acertos++;
+    caixa.insertAdjacentHTML('beforebegin', `<div class="bot-resposta">${certo ? um(['Isso!', 'Acertou!', 'Na mosca!']) : `Quase! Era <strong>${escHTML(quiz.atual.t)}</strong>.`}</div>`);
+    rostoTopo(certo ? 'feliz' : 'confuso', true);
+    if(quiz.n < 3){ setTimeout(novaPergunta, 900); return; }
+    const a = quiz.acertos; quiz = null;
+    const antes = mem.acertos || 0; mem.acertos = antes + a; salvarMem(mem);
+    const ganhou = NIVEIS.find(nv => antes < nv.min && mem.acertos >= nv.min);
+    setTimeout(() => {
+      bolha('ele', (a === 3 ? 'Gabaritou! 3 de 3. Mandou muito bem!' : a === 2 ? 'Você acertou 2 de 3. Quase lá!' : a === 1 ? 'Você acertou 1 de 3. Bora revisar e tentar de novo?' : 'Zero de 3 dessa vez. Tudo bem, o glossário está aí para isso.')
+        + (ganhou ? `<br><br>Com isso você já acertou ${mem.acertos} no total, e eu ganhei ${ganhou.nome}! Obrigado.` : ''),
+        [{label:'Mais um quiz', diz:'quiz'}, {label:'Abrir o glossário', l:{page:'viewApoio', target:'glossario'}}], a >= 2 ? 'feliz' : 'acolhendo');
+      rostoTopo(a >= 2 ? 'feliz' : 'acolhendo', true);
+      if(ganhou) reacaoAoFechar = 'comemorando';
+    }, 900);
+  }
+
+  // ---------- datas ----------
+  function idadePsiu(){ const n = new Date(); return (n.getFullYear() - NASCIMENTO_PSIU.getFullYear()) * 12 + n.getMonth() - NASCIMENTO_PSIU.getMonth(); }
+  function niverHoje(){ const n = new Date(); return mem.niver && mem.niver === `${String(n.getMonth() + 1).padStart(2, '0')}-${String(n.getDate()).padStart(2, '0')}`; }
+  function contagemSemestre(){ const l = futuras(ehProva); if(!l.length) return null; const ult = l[l.length - 1]; return {dias:diasAte(ult.prazo), materia:ult.materia}; }
+  function sequenciaDias(){
+    const dias = mem.diasVisita || []; let n = 0; const d = new Date();
+    for(;;){ const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; if(!dias.includes(iso)) break; n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+  const primeiraVisitaHoje = !(mem.diasVisita || []).includes(hojeISO());
+  mem.diasVisita = (mem.diasVisita || []).filter(x => x !== hojeISO()).concat(hojeISO()).slice(-60); salvarMem(mem);
+  function provaRecente(){
+    mem.provasPerguntadas = mem.provasPerguntadas || [];
+    return TASKS.filter(t => ehProva(t) && t.prazo && diasAte(t.prazo) < 0 && diasAte(t.prazo) >= -2 && !mem.provasPerguntadas.includes(t.prazo + '|' + t.materia))[0] || null;
+  }
+
+  // ---------- falas extras da abertura do chat ----------
+  function extrasSaudacao(){
+    const linhas = [], d = new Date().getDay();
+    if(niverHoje()) linhas.push(`Feliz aniversário${nomeOu(', ', '')}! 🎂`);
+    if(mem.assunto && mem.assuntoEm && Date.now() - mem.assuntoEm > 2 * 3600000 && Date.now() - mem.assuntoEm < 14 * 86400000)
+      linhas.push(`Da última vez a gente viu ${escHTML(mem.assunto)}. Conseguiu revisar?`);
+    if(AULAS[d] && AULAS[d].length) linhas.push(`Hoje tem aula de ${AULAS[d].join(' e ')}!`);
+    else if(Math.random() < 0.5) linhas.push(HUMOR_DIA[d]);
+    const c = contagemSemestre();
+    if(c && c.dias <= 30 && c.dias > 2 && Math.random() < 0.4) linhas.push(`Faltam ${c.dias} dias para a última prova do semestre. Depois, férias!`);
+    return linhas.length ? '<br>' + linhas.join('<br>') : '';
+  }
+  function posProvaNoChat(){
+    const p = provaRecente(); if(!p) return;
+    mem.provasPerguntadas.push(p.prazo + '|' + p.materia); salvarMem(mem);
+    ctx.posProva = p.materia;
+    ocupadoAte = Math.max(ocupadoAte, Date.now()) + 1500;
+    setTimeout(() => bolha('ele', `E aí, como foi a prova de ${escHTML(p.materia)}?`, [{label:'Fui bem', diz:'fui bem'}, {label:'Mais ou menos', diz:'mais ou menos'}, {label:'Fui mal', diz:'fui mal'}], 'neutro'), 1400);
+  }
+  function aoFechar(){ if(reacaoAoFechar){ const r = reacaoAoFechar; reacaoAoFechar = null; setTimeout(() => reagir(r, true), 400); } }
+
+  // ---------- respostas especiais (rodam antes das outras) ----------
+  const EMOJI = /\p{Extended_Pictographic}/u;
+  function temaDe(it, disc){
+    const n = disc ? nomeDisc(disc) : '';
+    return {prova: n ? `a prova de ${n}` : 'as provas', prazo:'os prazos', drive: n ? `o Drive de ${n}` : 'o Drive', resumo: n ? `os resumos de ${n}` : 'os resumos', exercicio:'os exercícios', video:'os vídeos'}[it] || null;
+  }
+  function respostasEspeciais(texto, q, ws){
+    const h = new Date().getHours();
+    // só emoji
+    const semEmoji = texto.replace(/[\p{Extended_Pictographic}‍️\s]/gu, '');
+    if(EMOJI.test(texto) && !semEmoji){
+      if(/[😭😢😩😞🥲😔😓]/u.test(texto)) return {x:'acolhendo', h:'Força! Falta pouco. Se quiser, me fala o que está pegando.'};
+      if(/[😂🤣😆😹]/u.test(texto)) return {x:'feliz', h:'Kkkk, rindo junto.'};
+      if(/[❤️🥰😍💖💕😘]/u.test(texto)) return {x:'feliz', h:'Ownt! Assim eu fico vermelho. Ou mais rosa ainda.'};
+      if(/[👍👌🙌✅]/u.test(texto)) return {x:'feliz', h:'Fechou!'};
+      if(/[🔥]/u.test(texto)) return {x:'feliz', h:'Pegando fogo!'};
+      if(/[😴🥱💤]/u.test(texto)) return {h:'Também estou com sono. Café?'};
+      if(/[🧠]/u.test(texto)) return {x:'feliz', h:'Ei, sou eu!'};
+      return {x:'feliz', h:'Gostei do emoji. Quer perguntar alguma coisa?'};
+    }
+    // depois da prova
+    if(ctx.posProva){
+      const m = ctx.posProva;
+      if(/\b(mais ou menos|medio|media|razoavel|normal|sei la|nao sei)\b/.test(q)){ ctx.posProva = null; return {h:`Faz parte. Uma prova não define ninguém, e a próxima vem melhor. Quer ver o que vem por aí?`, oferta:{page:'viewPrazos', target:'calendario'}}; }
+      if(/\b(mal|pessim\w*|horrivel|ruim|reprovei|errei tudo|nao fui bem|fui mal)\b/.test(q)){ ctx.posProva = null; return {x:'acolhendo', h:`Poxa, sinto muito. Uma prova ruim não define ninguém. Respira, descansa hoje, e quando quiser a gente revisa junto.<br><small>Se estiver pesado de verdade, conversar com alguém de confiança ajuda.</small>`}; }
+      if(/\b(bem|otim\w*|arrasei|gabaritei|tranquil\w*|facil|boa)\b/.test(q)){ ctx.posProva = null; reacaoAoFechar = 'comemorando'; return {x:'feliz', h:um([`Boa! Sabia que você ia mandar bem em ${escHTML(m)}.`, 'Mandou bem! Todo aquele resumo valeu a pena.', 'Arrasou! Reforço positivo merecido.'])}; }
+    }
+    // saudação na hora errada
+    if(/^bom dia\b/.test(q) && (h >= 12 || h < 4)) return {x:'feliz', h:`Bom dia? Já são ${h}h, colega. Mas bom dia também!`};
+    if(/^boa tarde\b/.test(q) && (h < 12 || h >= 18)) return {x:'feliz', h:`Boa tarde? ${h < 12 ? 'Ainda' : 'Já'} são ${h}h! Mas tudo bem, boa tarde também.`};
+    if(/^boa noite\b/.test(q) && h >= 5 && h < 18) return {x:'feliz', h:`Boa noite? Ainda são ${h}h! Mas tudo bem, boa noite também.`};
+    // palavras secretas
+    if(ws.length <= 3){
+      if(ws.includes('freud')){ reacaoAoFechar = 'diva'; return {x:'feliz', h:'Freud? Deita aqui no divã e me conta tudo. Desde a infância, por favor.'}; }
+      if(ws.includes('skinner')){ reacaoAoFechar = 'skinner'; return {x:'feliz', h:'Skinner na área! Cuidado que eu reforço todo comportamento de estudo.'}; }
+      if(ws.includes('pavlov')){ reacaoAoFechar = 'pavlov'; return {x:'feliz', h:'Ouvi "Pavlov" e já comecei a babar.'}; }
+      if(ws.includes('cafe') || ws.includes('cafezinho')){ reacaoAoFechar = 'cafe'; return {x:'feliz', h:'Café? Aceito! Um pingado, por favor. Pago em pão de queijo… que eu também não tenho.'}; }
+    }
+    // piada e curiosidade
+    if(/\b(piada|piadinha|me faz rir)\b/.test(q)) return {x:'feliz', h:um(PIADAS_AULA)};
+    if(/\bcuriosidade\b/.test(q)){ const g = um(GLOSSARIO.filter(x => x.d && x.d.length < 220).sort(() => Math.random() - 0.5)); return {x:'feliz', h:`Curiosidade da aula de ${escHTML(g.disc)}: <strong>${escHTML(g.t)}</strong>. ${escHTML(g.d)}`, a:[{label:'Ver no glossário', l:{page:'viewApoio', target:'glossario', term:g.t}}]}; }
+    // pomodoro
+    if(/\b(parar|para|cancelar|chega de) (o )?pomodoro\b/.test(q)){ if(!pomo) return {h:'Não tem pomodoro rolando agora. Quer começar um?', a:[{label:'Estuda comigo', diz:'estuda comigo'}]}; pararPomodoro(); return {h:'Pomodoro parado. Quando quiser, é só chamar.'}; }
+    if(/\b(pomodoro|estuda comigo|estudar comigo|estuda junto|estudar junto)\b/.test(q)){
+      if(pomo) return {h:`Já estamos num pomodoro! Faltam ${timerEl.textContent}.`, a:[{label:'Parar', diz:'parar pomodoro'}]};
+      iniciarPomodoro();
+      return {x:'feliz', h:'Bora! 25 minutos de foco. Eu fico aqui lendo junto, e o tempo aparece embaixo de mim. Quando acabar, eu aviso.', a:[{label:'Parar', diz:'parar pomodoro'}]};
+    }
+    // quiz
+    if(/\b(quiz|me testa|me testar|teste rapido)\b/.test(q)){ quiz = {n:0, acertos:0, usados:[]}; return {x:'feliz', h:'Bora! São 3 perguntas com termos do glossário. Valendo… nada, mas é para treinar.', depois:novaPergunta}; }
+    if(/\b(conquista|conquistas|acessorio|acessorios|meu progresso)\b/.test(q)){
+      const n = mem.acertos || 0, prox = NIVEIS.find(nv => n < nv.min);
+      const tem = NIVEIS.filter(nv => n >= nv.min).map(nv => nv.nome);
+      return {h:`Você já acertou <strong>${n}</strong> no quiz.${tem.length ? ` Graças a você eu tenho ${tem.join(', ')}.` : ''}${prox ? ` Faltam ${prox.min - n} acertos para eu ganhar ${prox.nome}.` : ' Ganhei todos os acessórios. Obrigado!'}`, a:[{label:'Bora um quiz', diz:'quiz'}]};
+    }
+    // aniversário da pessoa
+    const mn = q.match(/(?:meu )?aniversario (?:e |eh |cai )?(?:(?:no |em )?dia )?(\d{1,2})(?:\/| de )(\d{1,2}|[a-z]+)/);
+    if(mn){
+      const dia = +mn[1], mes = /^\d+$/.test(mn[2]) ? +mn[2] : NOMES_MES.findIndex(x => x.startsWith(mn[2].slice(0, 3))) + 1;
+      if(dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12){
+        mem.niver = `${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`; salvarMem(mem);
+        return {x:'feliz', h:`Anotado! Dia ${dia}/${mes} tem festa aqui. Fica guardado só neste aparelho.`};
+      }
+    }
+    if(/(esquece|apaga|esqueca) (o )?meu aniversario/.test(q)){ delete mem.niver; salvarMem(mem); return {h:'Pronto, esqueci o seu aniversário.'}; }
+    // aniversário do Psiu
+    if(/(seu|teu) aniversario|quantos (anos|meses) (voce|vc) tem|quando (voce|vc) nasceu/.test(q)){
+      const m = idadePsiu();
+      return {x:'feliz', h:`Nasci em 12 de novembro de 2026, junto com a ideia de ter um colega virtual na turma. ${m < 1 ? 'Sou recém-nascido!' : m < 12 ? `Tenho ${m} ${m === 1 ? 'mês' : 'meses'}.` : `Já tenho ${Math.floor(m / 12)} ${Math.floor(m / 12) === 1 ? 'ano' : 'anos'}.`}`};
+    }
+    // férias e fim do semestre
+    if(/\b(ferias|fim do semestre|quanto falta|ultima prova)\b/.test(q)){
+      const c = contagemSemestre();
+      return c ? {h:`A última prova marcada é a de ${escHTML(c.materia)}, ${quandoTxt(c.dias)}. Depois disso, férias!`, a:[calendario]} : {x:'feliz', h:'Não tem mais prova marcada no site. Cheiro de férias!'};
+    }
+    // agenda das aulas
+    if(/\b(aula|aulas)\b/.test(q) && /\b(hoje|amanha|semana|que dia|qual dia|quando|tem)\b/.test(q)){
+      const d = new Date().getDay(), lista = n => (AULAS[n] || []).join(' e ');
+      if(/\bsemana\b/.test(q) || /que dia|qual dia|quando/.test(q)) return {h:'As aulas da semana:<ul><li><strong>Segunda:</strong> ' + lista(1) + '</li><li><strong>Terça:</strong> ' + lista(2) + '</li><li><strong>Quarta:</strong> ' + lista(3) + '</li></ul>', tema:'a agenda das aulas'};
+      if(/\bamanha\b/.test(q)){ const a = (d + 1) % 7; return AULAS[a] ? {h:`Amanhã tem ${lista(a)}.`} : {x:'feliz', h:'Amanhã não tem aula. Aproveita para revisar com calma… ou descansar.'}; }
+      return AULAS[d] ? {x:'feliz', h:`Hoje tem ${lista(d)}. Bora!`} : {x:'feliz', h:'Hoje não tem aula. Dia de colocar a matéria em dia… ou de descansar, que também conta.'};
+    }
+    // voltar para o canto
+    if(/volta (para|pro) o? ?canto|volta para o lugar|lugar de antes/.test(q)){ voltarAoCanto(); return {x:'feliz', h:'Pronto, voltei para o meu cantinho.'}; }
+    return null;
+  }
+
+  // ---------- cócegas (tocar na carinha dentro do chat) ----------
+  painel.querySelector('.bot-topo').addEventListener('click', e => {
+    if(!e.target.closest('.psiu-av')) return;
+    rostoTopo('feliz', true);
+    if(podeAgora('cocegas', 45000)) bolha('ele', um(['Ei, isso faz cócegas!', 'Hahaha, para! Cócegas não!', 'Assim eu não consigo me concentrar!']), null, 'feliz');
+  });
+
+  // ---------- recados de data no cantinho (uma vez por dia) ----------
+  setTimeout(() => {
+    if(chatAberto()) return;
+    const n = new Date(), h = n.getHours();
+    if(niverHoje() && umaVezPorDia('niver')){ reagir('comemorando'); falar(`Feliz aniversário${nomeOu(', ', '')}! 🎂`); return; }
+    if(n.getDate() === 12 && idadePsiu() > 0 && umaVezPorDia('niverPsiu')){
+      const m = idadePsiu(); reagir('psicologo');
+      falar(m % 12 === 0 ? `Hoje é meu aniversário! ${m / 12} ${m === 12 ? 'ano' : 'anos'} de Arquivo Vivo 🎂` : `Hoje faço ${m} ${m === 1 ? 'mês' : 'meses'} de Arquivo Vivo!`); return;
+    }
+    const p = provaRecente(); if(p && umaVezPorDia('posProva')){ reagir('pensando'); falar(`E aí, como foi a prova de ${nomeCurto(p.materia)}? Me conta no chat.`); return; }
+    if(h >= 2 && h < 5 && podeAgora('madrugada', 3600000)){ falar('Vai dormir, colega. Cérebro descansado aprende mais.'); return; }
+    const d = n.getDay(); if(AULAS[d] && AULAS[d].length && h >= 17 && h < 19 && umaVezPorDia('aula')){ reagir('mao'); falar(`Hoje tem ${AULAS[d].join(' e ')}!`); }
+  }, 20000);
+  desenhar(poseBase()); // redesenha já com os olhos que seguem o ponteiro e os acessórios
 })();
 </script>
 
