@@ -18077,12 +18077,13 @@ document.addEventListener('click', e=>{
     });
     if(!melhor || !(pedeComparar || ws.length <= 5)) return null;
     const c = melhor;
-    let h = `<strong>${escHTML(c.titulo)}</strong> <small>· ${escHTML(c.disc)}</small><ul>`;
+    let h = `${um(['Clássico de prova! Olha a diferença:', 'Essa confusão é comum, relaxa. Olha só:', 'Separei a comparação para você:', 'Essa todo mundo troca. Vamos lá:'])}<br><strong>${escHTML(c.titulo)}</strong> <small>· ${escHTML(c.disc)}</small><ul>`;
     c.linhas.slice(0, 4).forEach(l => {
       h += `<li><strong>${escHTML(l[0])}</strong>` + c.cols.map((col, i) => `<br>${escHTML(col)}: ${escHTML(l[i + 1] || '')}`).join('') + '</li>';
     });
     h += '</ul>';
     if(c.linhas.length > 4) h += `<small>A tabela completa tem mais ${c.linhas.length - 4} ${c.linhas.length - 4 === 1 ? 'linha' : 'linhas'}.</small>`;
+    const dc = discOf(c.disc); h += dc ? comentario(dc.n).replace(/^ /, '<br>') : '';
     return {h, a:[{label:'Ver a tabela completa', l:{page:'viewApoio', target:'comparacoes'}}]};
   }
 
@@ -18106,12 +18107,12 @@ document.addEventListener('click', e=>{
       if(o.simp) ls.push(`<strong>Simpático:</strong> ${escHTML(o.simp)}`);
       ls.push(o.para ? `<strong>Parassimpático:</strong> ${escHTML(o.para)}` : '<strong>Parassimpático:</strong> no material da aula, só o simpático aparece agindo aqui.');
       if(para && !simp) ls.reverse();
-      return {h:`<strong>${escHTML(o.nome)}</strong><br>${ls.join('<br>')}<br><small>Dica: o simpático prepara para "luta ou fuga"; o parassimpático, para "repouso e digestão".</small>`, a:[ferramenta]};
+      return {h:`${um(['Anota aí:', 'Essa o professor adora cobrar.', 'Boa pergunta! Olha só:'])}<br><strong>${escHTML(o.nome)}</strong><br>${ls.join('<br>')}<br><small>Macete: simpático é "luta ou fuga"; parassimpático é "repouso e digestão".</small>`, a:[ferramenta]};
     }
     if((simp !== para) && /\b(faz|fazem|age|agem|efeito|efeitos|acao|acoes|funcao|funcoes)\b/.test(q)){
       const lado = simp ? 'simp' : 'para';
       const itens = SNA_ORGAOS.filter(o => o[lado]).map(o => `<li>${escHTML(o.nome)}: ${escHTML(o[lado])}</li>`).join('');
-      return {h:`O que o <strong>${simp ? 'simpático' : 'parassimpático'}</strong> faz em cada órgão:<ul>${itens}</ul>`, a:[ferramenta]};
+      return {h:`${simp ? 'Modo luta ou fuga ativado!' : 'Modo repouso e digestão ativado.'} O que o <strong>${simp ? 'simpático' : 'parassimpático'}</strong> faz em cada órgão:<ul>${itens}</ul>`, a:[ferramenta]};
     }
     return null;
   }
@@ -18134,15 +18135,15 @@ document.addEventListener('click', e=>{
     const outras = (B === 'A' || B === 'T') ? ['G', 'C'] : ['A', 'T'];
     const ferramenta = {label:'Praticar Chargaff', l:{page:'viewFerramentas', target:'tool-calculando-as-bases-do-dna-regra-de-chargaff'}};
     if(/\b(rna|fita simples)\b/.test(q))
-      return {x:'pensando', h:'A regra de Chargaff vale para o <strong>DNA de fita dupla</strong>, em que as bases estão sempre pareadas. Numa fita simples não dá para fazer essa conta.', a:[ferramenta]};
+      return {x:'pensando', h:'Opa, cuidado com a pegadinha: a regra de Chargaff vale para o <strong>DNA de fita dupla</strong>, em que as bases estão sempre pareadas. Numa fita simples não dá para fazer essa conta.', a:[ferramenta]};
     if(p > 50)
-      return {x:'confuso', h:`Hmm, essa não fecha. Se ${B} = ${fmtNum(p)}%, então ${par} também teria ${fmtNum(p)}%, e só os dois já passariam de 100%. Confere o enunciado?`, a:[ferramenta]};
+      return {x:'confuso', h:`Opa, essa não fecha. Se ${B} = ${fmtNum(p)}%, então ${par} também teria ${fmtNum(p)}%, e só os dois já passariam de 100%. Confere o enunciado? Pegadinha de professor, talvez.`, a:[ferramenta]};
     const resto = 100 - 2 * p, cada = resto / 2;
-    const h = `Pela <strong>regra de Chargaff</strong>, A pareia com T e G pareia com C.<ol>
+    const h = `${um(['Conta de DNA? Essa eu tiro de letra 🧬', 'Essa cai na prova, hein! Olha a conta:', 'Bora pela regra de Chargaff, que não tem erro.'])}<br>A pareia com T e G pareia com C.<ol>
       <li>Se ${B} = ${fmtNum(p)}%, então ${par} = ${fmtNum(p)}%.</li>
       <li>${B} + ${par} = ${fmtNum(2 * p)}%. Sobram 100 − ${fmtNum(2 * p)} = ${fmtNum(resto)}% para ${outras[0]} + ${outras[1]}.</li>
       <li>Como ${outras[0]} = ${outras[1]}, cada uma tem ${fmtNum(resto)} ÷ 2 = ${fmtNum(cada)}%.</li></ol>
-      <strong>Resposta:</strong> ${B} = ${fmtNum(p)}%, ${par} = ${fmtNum(p)}%, ${outras[0]} = ${fmtNum(cada)}%, ${outras[1]} = ${fmtNum(cada)}%.`;
+      <strong>Resposta:</strong> ${B} = ${fmtNum(p)}%, ${par} = ${fmtNum(p)}%, ${outras[0]} = ${fmtNum(cada)}%, ${outras[1]} = ${fmtNum(cada)}%.<br>${um(['Viu? É só parear e dividir.', 'Simples assim. Quer treinar mais umas?', 'Mais uma dessas e você vira monitor de Bases.'])}${piada(0.2)}`;
     return {x:'feliz', h, a:[ferramenta]};
   }
 
@@ -18161,9 +18162,9 @@ document.addEventListener('click', e=>{
     if(/^mes/.test(m[2])) anos = anos / 12;
     const per = PIAGET.find(p => anos < p.ate);
     const g = GLOSSARIO.find(x => normTxt(x.t).includes(normTxt(per.nome)));
-    let h = `Com ${escHTML(m[1])} ${escHTML(m[2])}, a criança está no período <strong>${per.nome}</strong> (${per.faixa}).`;
+    let h = `${um(['Essa é clássica!', 'Deixa comigo.', 'Piaget responderia rapidinho:'])} Com ${escHTML(m[1])} ${escHTML(m[2])}, a criança está no período <strong>${per.nome}</strong> (${per.faixa}).`;
     if(g) h += `<br><small>${escHTML(g.d)}</small>`;
-    h += '<br><small>As idades são aproximadas.</small>';
+    h += '<br><small>As idades são aproximadas, e Piaget ligava mais para a ordem dos períodos do que para o calendário.</small>';
     return {h, a:[{label:'Resumo de Piaget', l:{resumo:'piaget', cap:0}}, {label:'Treinar os períodos', l:{page:'viewFerramentas', target:'tool-qual-periodo-piaget'}}]};
   }
 
@@ -18190,11 +18191,11 @@ document.addEventListener('click', e=>{
     if(ms && !md){
       const s = +(ms[1] || ms[2]);
       const lista = etapas.filter(e => e.fase && normTxt(e.fase).startsWith(s + 'a semana') || (e.fase || '').startsWith(s + 'ª semana'));
-      if(!lista.length) return {x:'pensando', h:'O material da aula vai da fertilização até o fim da 2ª semana.', a:botoes};
-      return {h:`Na <strong>${s}ª semana</strong>, a sequência é:<ul>${lista.map(e => `<li><strong>${escHTML(e.titulo)}</strong> <small>(${escHTML(e.when)})</small></li>`).join('')}</ul><small>Os dias são aproximados.</small>`, a:botoes};
+      if(!lista.length) return {x:'pensando', h:'Aí você me pegou: o material da aula vai da fertilização só até o fim da 2ª semana.', a:botoes};
+      return {h:`${um(['Bora para a embriologia!', 'Essa linha do tempo eu sei de cor.'])} Na <strong>${s}ª semana</strong>, a sequência é:<ul>${lista.map(e => `<li><strong>${escHTML(e.titulo)}</strong> <small>(${escHTML(e.when)})</small></li>`).join('')}</ul><small>Os dias são aproximados.</small>`, a:botoes};
     }
     const d = +(md[1] || md[2]);
-    if(d > 14) return {x:'pensando', h:'O material da aula vai até o fim da 2ª semana (por volta do dia 14).', a:botoes};
+    if(d > 14) return {x:'pensando', h:'Aí você me pegou: o material da aula vai só até o fim da 2ª semana (por volta do dia 14).', a:botoes};
     let achadas = etapas.filter(e => { const f = faixaDoWhen(e.when); return f && d >= f[0] && d <= f[1]; });
     if(!achadas.length){
       const antes = etapas.filter(e => { const f = faixaDoWhen(e.when); return f && f[0] <= d; });
@@ -18202,7 +18203,7 @@ document.addEventListener('click', e=>{
     }
     if(!achadas.length) return null;
     if(achadas.length > 3) achadas = achadas.slice(0, 3);
-    const h = `Por volta do <strong>dia ${d}</strong>:<ul>${achadas.map(e => `<li><strong>${escHTML(e.titulo)}</strong> <small>(${escHTML(e.when)})</small><br>${resumoPonto(e)}</li>`).join('')}</ul><small>Os dias são aproximados, como no material da aula.</small>`;
+    const h = `${um(['Bora para a embriologia!', 'Viagem no tempo:', 'Essa linha do tempo eu sei de cor.'])} Por volta do <strong>dia ${d}</strong>:<ul>${achadas.map(e => `<li><strong>${escHTML(e.titulo)}</strong> <small>(${escHTML(e.when)})</small><br>${resumoPonto(e)}</li>`).join('')}</ul><small>Os dias são aproximados, como no material da aula.</small>`;
     return {h, a:botoes};
   }
 
@@ -18229,7 +18230,7 @@ document.addEventListener('click', e=>{
     achados.sort((a, b) => b.pts - a.pts);
     const top = achados.filter(a => a.pts >= achados[0].pts - 5).slice(0, 3);
     const curtoLbl = t => t.length > 40 ? t.slice(0, 38) + '…' : t;
-    return {h:`${um(['Achei nos resumos:', 'Isso está aqui nos resumos:', 'Dá para estudar isso aqui:'])}<ul>${top.map(a => `<li><strong>${escHTML(a.topico)}</strong><br><small>no resumo ${escHTML(a.nome)} · ${escHTML(a.disc)}</small></li>`).join('')}</ul>`,
+    return {h:`${um(['Achei! Está aqui nos resumos:', 'Isso a gente viu! Está aqui:', 'Tem resumo disso, sim. Olha:'])}<ul>${top.map(a => `<li><strong>${escHTML(a.topico)}</strong><br><small>no resumo ${escHTML(a.nome)} · ${escHTML(a.disc)}</small></li>`).join('')}</ul>`,
             a:top.map(a => ({label:curtoLbl(a.topico), l:{resumo:a.id, cap:a.i}}))};
   }
 
@@ -18244,7 +18245,7 @@ document.addEventListener('click', e=>{
       return {t, pts: termos.filter(w => n.includes(w) || (w.length > 5 && n.includes(w.slice(0, -1)))).length};
     }).filter(x => x.pts).sort((a, b) => b.pts - a.pts).slice(0, 3);
     if(!achados.length) return null;
-    return {h:um(['Bora treinar! Achei estes exercícios:', 'Para treinar isso, tem estes:', 'Separei estes exercícios:']),
+    return {h:um(['Bora treinar! Achei estes exercícios:', 'Hora de suar a camisa. Tem estes:', 'Separei estes para você. Valendo nota! Brincadeira.']),
             a:achados.map(x => ({label:x.t.titulo, l:{page:'viewFerramentas', target:x.t.id}}))};
   }
 
