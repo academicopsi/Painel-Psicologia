@@ -17939,6 +17939,10 @@ document.addEventListener('click', e=>{
     const rb = bancoRespostas(q, ws);
     if(rb) return rb;
 
+    // 5a) respostas a partir do conteúdo do site (contas, comparações, resumos, exercícios)
+    const rc = chargaff(q) || piagetIdade(q) || embriologia(q) || sna(q, ws) || comparacao(q, ws) || treinarTema(q) || ondeEstudar(q);
+    if(rc) return rc;
+
     // 5b) glossário: "o que é X"
     const mg = q.match(/(?:o que (?:e|eh|sao|significa)|significado de|defina|definicao de|conceito de|explica|explique)\s+(?:o |a |os |as |um |uma )?(.+)$/);
     if(mg){ const r = glossario(mg[1].trim()); if(r) return r; }
@@ -18043,6 +18047,211 @@ document.addEventListener('click', e=>{
     return {x:'confuso', h:um(['Eita, viajei nessa 😅 Manda de outro jeito? Tipo "próxima prova", "drive de bases" ou "o que é sinapse?".', 'Hmm, acho que eu estava no intervalo quando explicaram isso. Pergunta de outro jeito? Tipo "prazos da semana" ou "o que é sinapse?".'])};
   }
 
+  // =====================================================================
+  // RESPOSTAS A PARTIR DO CONTEÚDO DO SITE
+  // O Psiu lê COMPARACOES, SNA_ORGAOS, RESUMOS, TOOL_LIST e GLOSSARIO.
+  // Quando esses dados mudam, as respostas mudam junto.
+  // =====================================================================
+  const limpa = t => normTxt(t).replace(/[^a-z0-9%\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  const fmtNum = n => String(Math.round(n * 100) / 100).replace('.', ',');
+  const PALAVRAS_VAZIAS = ['qual','quais','onde','como','para','sobre','quero','queria','gostaria','treinar','praticar','exercicio','exercicios','estudar','estudo','resumo','resumos','algum','alguma','questoes','questao','fazer','preciso','materia','conteudo','aula','posso','acho','encontro','esta','estao','isso','essa','esse','pelo','pela','com','uma','umas','uns','dos','das','que','tem','achar','encontrar','revisar','ver','sobre','parte','assunto','tema','jogo','quiz','testar','teste','site','psiu','voce','tudo','mais','fala'];
+  const CURTAS_VAZIAS = ['sao','ver','meu','seu','nas','nos','por','ele','ela','sim','nao','mas','tem','que','com','dos','das','uma','uns','sei','vou','foi','era','ser'];
+  const termosDe = q => limpa(q).split(' ').filter(w => w.length > 2 && !PALAVRAS_VAZIAS.includes(w) && !CURTAS_VAZIAS.includes(w));
+
+  // ---------- 1. Comparações: "diferença entre mitose e meiose", "piaget x vygotsky" ----------
+  const GENERICAS = ['sistema','nervoso','teoria','pesquisa','normal','inicial','doenca','variavel','educacao','consciencia','desenvolvimento','neuronio','motor','raiz','substancia','receptor','sinapse','condicionamento','hemisferio','reforcador','operacao','medula','discalculia'];
+  function comparacao(q, ws){
+    if(typeof COMPARACOES === 'undefined') return null;
+    const pedeComparar = /\b(diferenca|diferencas|difere|diferem|diferente|diferentes|x|vs|versus|compar\w*|entre)\b/.test(q);
+    let melhor = null, nota = 0;
+    COMPARACOES.forEach(c => {
+      const partes = c.titulo.split('×').map(p => limpa(p.replace(/\(.*?\)/g, '')));
+      let acertos = 0;
+      const usadas = new Set();
+      partes.forEach(p => {
+        const pal = p.split(' ').filter(w => w.length > 2 && !GENERICAS.includes(w));
+        const achou = pal.find(w => ws.includes(w) && !usadas.has(w));
+        if(achou){ acertos++; usadas.add(achou); }
+      });
+      if(acertos >= 2 && acertos > nota){ nota = acertos; melhor = c; }
+    });
+    if(!melhor || !(pedeComparar || ws.length <= 5)) return null;
+    const c = melhor;
+    let h = `${um(['Clássico de prova! Olha a diferença:', 'Essa confusão é comum, relaxa. Olha só:', 'Separei a comparação para você:', 'Essa todo mundo troca. Vamos lá:'])}<br><strong>${escHTML(c.titulo)}</strong> <small>· ${escHTML(c.disc)}</small><ul>`;
+    c.linhas.slice(0, 4).forEach(l => {
+      h += `<li><strong>${escHTML(l[0])}</strong>` + c.cols.map((col, i) => `<br>${escHTML(col)}: ${escHTML(l[i + 1] || '')}`).join('') + '</li>';
+    });
+    h += '</ul>';
+    if(c.linhas.length > 4) h += `<small>A tabela completa tem mais ${c.linhas.length - 4} ${c.linhas.length - 4 === 1 ? 'linha' : 'linhas'}.</small>`;
+    const dc = discOf(c.disc); h += dc ? comentario(dc.n).replace(/^ /, '<br>') : '';
+    return {h, a:[{label:'Ver a tabela completa', l:{page:'viewApoio', target:'comparacoes'}}]};
+  }
+
+  // ---------- 2. Simpático × parassimpático por órgão ----------
+  const ORGAOS = {
+    olho:['olho','olhos','pupila','pupilas'], gland:['saliva','salivar','salivares','lacrimal','lacrimais','glandula','glandulas','lagrima','lagrimas'],
+    pulm:['pulmao','pulmoes','bronquio','bronquios','respiracao'], cor:['coracao','batimento','batimentos','cardiaco','cardiaca'],
+    fig:['figado','bile','glicogenio'], est:['estomago','digestao'], supra:['suprarrenal','adrenal','adrenais','suprarrenais','adrenalina','noradrenalina'],
+    int:['intestino','intestinos','peristaltismo'], bex:['bexiga','urina','urinar']
+  };
+  function sna(q, ws){
+    if(typeof SNA_ORGAOS === 'undefined') return null;
+    const simp = ws.some(w => /^simpatic/.test(w)), para = ws.some(w => /^parassimpatic/.test(w));
+    const ctx = simp || para || tem(ws, ['autonomo','sna']);
+    if(!ctx) return null;
+    const ferramenta = {label:'Painel do SNA', l:{page:'viewFerramentas', target:'tool-painel-do-sna-parassimpatico-simpatico'}};
+    const id = Object.keys(ORGAOS).find(k => tem(ws, ORGAOS[k]));
+    if(id){
+      const o = SNA_ORGAOS.find(x => x.id === id); if(!o) return null;
+      const ls = [];
+      if(o.simp) ls.push(`<strong>Simpático:</strong> ${escHTML(o.simp)}`);
+      ls.push(o.para ? `<strong>Parassimpático:</strong> ${escHTML(o.para)}` : '<strong>Parassimpático:</strong> no material da aula, só o simpático aparece agindo aqui.');
+      if(para && !simp) ls.reverse();
+      return {h:`${um(['Anota aí:', 'Essa o professor adora cobrar.', 'Boa pergunta! Olha só:'])}<br><strong>${escHTML(o.nome)}</strong><br>${ls.join('<br>')}<br><small>Macete: simpático é "luta ou fuga"; parassimpático é "repouso e digestão".</small>`, a:[ferramenta]};
+    }
+    if((simp !== para) && /\b(faz|fazem|age|agem|efeito|efeitos|acao|acoes|funcao|funcoes)\b/.test(q)){
+      const lado = simp ? 'simp' : 'para';
+      const itens = SNA_ORGAOS.filter(o => o[lado]).map(o => `<li>${escHTML(o.nome)}: ${escHTML(o[lado])}</li>`).join('');
+      return {h:`${simp ? 'Modo luta ou fuga ativado!' : 'Modo repouso e digestão ativado.'} O que o <strong>${simp ? 'simpático' : 'parassimpático'}</strong> faz em cada órgão:<ul>${itens}</ul>`, a:[ferramenta]};
+    }
+    return null;
+  }
+
+  // ---------- 3. Regra de Chargaff: "25% de A, quanto de T e G?" ----------
+  const BASES = {a:'A', adenina:'A', t:'T', timina:'T', g:'G', guanina:'G', c:'C', citosina:'C'};
+  function chargaff(q){
+    if(!/%|por cento/.test(q)) return null;
+    const temContexto = /\b(dna|base|bases|chargaff|adenina|timina|guanina|citosina|fita|nucleotideo|nucleotideos)\b/.test(q);
+    let m = q.match(/(\d+(?:[.,]\d+)?)\s*(?:%|por cento)\s*(?:de\s+|da\s+|das\s+)?(adenina|timina|guanina|citosina|[atgc])\b/);
+    let num, base;
+    if(m){ num = m[1]; base = m[2]; }
+    else {
+      m = q.match(/\b(adenina|timina|guanina|citosina|[atgc])\s*(?:=|:|com|tem|e|de)?\s*(\d+(?:[.,]\d+)?)\s*(?:%|por cento)/);
+      if(m){ num = m[2]; base = m[1]; }
+    }
+    if(!m || (!temContexto && base.length === 1 && !/%\s*de\s+[atgc]\b/.test(q))) return null;
+    const B = BASES[base], p = parseFloat(String(num).replace(',', '.'));
+    const par = {A:'T', T:'A', G:'C', C:'G'}[B];
+    const outras = (B === 'A' || B === 'T') ? ['G', 'C'] : ['A', 'T'];
+    const ferramenta = {label:'Praticar Chargaff', l:{page:'viewFerramentas', target:'tool-calculando-as-bases-do-dna-regra-de-chargaff'}};
+    if(/\b(rna|fita simples)\b/.test(q))
+      return {x:'pensando', h:'Opa, cuidado com a pegadinha: a regra de Chargaff vale para o <strong>DNA de fita dupla</strong>, em que as bases estão sempre pareadas. Numa fita simples não dá para fazer essa conta.', a:[ferramenta]};
+    if(p > 50)
+      return {x:'confuso', h:`Opa, essa não fecha. Se ${B} = ${fmtNum(p)}%, então ${par} também teria ${fmtNum(p)}%, e só os dois já passariam de 100%. Confere o enunciado? Pegadinha de professor, talvez.`, a:[ferramenta]};
+    const resto = 100 - 2 * p, cada = resto / 2;
+    const h = `${um(['Conta de DNA? Essa eu tiro de letra 🧬', 'Essa cai na prova, hein! Olha a conta:', 'Bora pela regra de Chargaff, que não tem erro.'])}<br>A pareia com T e G pareia com C.<ol>
+      <li>Se ${B} = ${fmtNum(p)}%, então ${par} = ${fmtNum(p)}%.</li>
+      <li>${B} + ${par} = ${fmtNum(2 * p)}%. Sobram 100 − ${fmtNum(2 * p)} = ${fmtNum(resto)}% para ${outras[0]} + ${outras[1]}.</li>
+      <li>Como ${outras[0]} = ${outras[1]}, cada uma tem ${fmtNum(resto)} ÷ 2 = ${fmtNum(cada)}%.</li></ol>
+      <strong>Resposta:</strong> ${B} = ${fmtNum(p)}%, ${par} = ${fmtNum(p)}%, ${outras[0]} = ${fmtNum(cada)}%, ${outras[1]} = ${fmtNum(cada)}%.<br>${um(['Viu? É só parear e dividir.', 'Simples assim. Quer treinar mais umas?', 'Mais uma dessas e você vira monitor de Bases.'])}${piada(0.2)}`;
+    return {x:'feliz', h, a:[ferramenta]};
+  }
+
+  // ---------- 4. Período de Piaget pela idade ----------
+  const PIAGET = [
+    {ate:2, nome:'Sensório-motor', faixa:'0 a 2 anos'},
+    {ate:7, nome:'Pré-operacional', faixa:'2 a 7 anos'},
+    {ate:12, nome:'Operacional-concreto', faixa:'7 a 12 anos'},
+    {ate:Infinity, nome:'Operacional-formal', faixa:'12 anos em diante'}
+  ];
+  function piagetIdade(q){
+    if(/\b(erikson|idoso|idosa|adulto|adulta|velhice)\b/.test(q)) return null;
+    const m = q.match(/(\d+(?:[.,]\d+)?)\s*(anos?|meses|mes)\b/);
+    if(!m || !/\b(piaget|periodo|estagio|fase|crianca|criancas|bebe|bebes|adolescente|menino|menina|filho|filha)\b/.test(q)) return null;
+    let anos = parseFloat(m[1].replace(',', '.'));
+    if(/^mes/.test(m[2])) anos = anos / 12;
+    const per = PIAGET.find(p => anos < p.ate);
+    const g = GLOSSARIO.find(x => normTxt(x.t).includes(normTxt(per.nome)));
+    let h = `${um(['Essa é clássica!', 'Deixa comigo.', 'Piaget responderia rapidinho:'])} Com ${escHTML(m[1])} ${escHTML(m[2])}, a criança está no período <strong>${per.nome}</strong> (${per.faixa}).`;
+    if(g) h += `<br><small>${escHTML(g.d)}</small>`;
+    h += '<br><small>As idades são aproximadas, e Piaget ligava mais para a ordem dos períodos do que para o calendário.</small>';
+    return {h, a:[{label:'Resumo de Piaget', l:{resumo:'piaget', cap:0}}, {label:'Treinar os períodos', l:{page:'viewFerramentas', target:'tool-qual-periodo-piaget'}}]};
+  }
+
+  // ---------- 5. Embriologia: "o que acontece no dia 6?" ----------
+  function faixaDoWhen(w){
+    w = normTxt(w || '');
+    let m;
+    if((m = w.match(/dia (\d+)/))) return /≈|~/.test(w) ? [+m[1], +m[1] + 1] : [+m[1], +m[1]];
+    if((m = w.match(/(\d+) horas/))) return [Math.floor(m[1] / 24), 3];
+    if(/8 celulas/.test(w)) return [3, 3];
+    if(/fim da 1/.test(w)) return [7, 7];
+    if(/fim da 2/.test(w)) return [13, 14];
+    if(/2. semana/.test(w)) return [8, 13];
+    return null;
+  }
+  function embriologia(q){
+    if(typeof RESUMOS === 'undefined' || !RESUMOS.embriologia) return null;
+    if(!/\b(embriao|embrionario|embriologia|zigoto|fertilizacao|fecundacao|gestacao|blastocisto|morula|implantacao|clivagem|concepcao)\b/.test(q)) return null;
+    const md = q.match(/\b(?:dia|no dia|dias?)\s*(\d+)|(\d+)\s*(?:o|º)?\s*dias?\b/), ms = q.match(/(\d)\s*(?:a|ª)?\s*semana|semana\s*(\d)/);
+    if(!md && !ms) return null;
+    const etapas = RESUMOS.embriologia.caps[0].etapas;
+    const botoes = [{label:'Abrir o resumo', l:{resumo:'embriologia', cap:0}}, {label:'Linha do tempo', l:{page:'viewFerramentas', target:'tool-do-zigoto-ao-disco-bilaminar-linha-do-tempo'}}];
+    const resumoPonto = e => (e.pontos && e.pontos[0]) ? e.pontos[0] : '';
+    if(ms && !md){
+      const s = +(ms[1] || ms[2]);
+      const lista = etapas.filter(e => e.fase && normTxt(e.fase).startsWith(s + 'a semana') || (e.fase || '').startsWith(s + 'ª semana'));
+      if(!lista.length) return {x:'pensando', h:'Aí você me pegou: o material da aula vai da fertilização só até o fim da 2ª semana.', a:botoes};
+      return {h:`${um(['Bora para a embriologia!', 'Essa linha do tempo eu sei de cor.'])} Na <strong>${s}ª semana</strong>, a sequência é:<ul>${lista.map(e => `<li><strong>${escHTML(e.titulo)}</strong> <small>(${escHTML(e.when)})</small></li>`).join('')}</ul><small>Os dias são aproximados.</small>`, a:botoes};
+    }
+    const d = +(md[1] || md[2]);
+    if(d > 14) return {x:'pensando', h:'Aí você me pegou: o material da aula vai só até o fim da 2ª semana (por volta do dia 14).', a:botoes};
+    let achadas = etapas.filter(e => { const f = faixaDoWhen(e.when); return f && d >= f[0] && d <= f[1]; });
+    if(!achadas.length){
+      const antes = etapas.filter(e => { const f = faixaDoWhen(e.when); return f && f[0] <= d; });
+      achadas = antes.slice(-1);
+    }
+    if(!achadas.length) return null;
+    if(achadas.length > 3) achadas = achadas.slice(0, 3);
+    const h = `${um(['Bora para a embriologia!', 'Viagem no tempo:', 'Essa linha do tempo eu sei de cor.'])} Por volta do <strong>dia ${d}</strong>:<ul>${achadas.map(e => `<li><strong>${escHTML(e.titulo)}</strong> <small>(${escHTML(e.when)})</small><br>${resumoPonto(e)}</li>`).join('')}</ul><small>Os dias são aproximados, como no material da aula.</small>`;
+    return {h, a:botoes};
+  }
+
+  // ---------- 6. "Onde estudo X?" (procura nas abas dos resumos) ----------
+  function ondeEstudar(q){
+    if(typeof RESUMOS === 'undefined') return null;
+    if(!/\b(onde|qual resumo|que resumo|resumo (?:de|sobre|do|da)|estudar (?:sobre|o|a)|revisar (?:sobre|o|a)|ler sobre|explicacao (?:de|sobre))\b/.test(q)) return null;
+    const termos = termosDe(q).filter(w => !['drive','pasta','prova','prazo'].includes(w));
+    if(!termos.length) return null;
+    const achados = [];
+    Object.entries(RESUMOS).forEach(([id, r]) => r.caps.forEach((c, i) => {
+      const textos = [c.titulo || c.aba].concat((c.etapas || []).map(e => e.titulo));
+      const vistos = new Set();
+      let melhorTxt = null, melhorN = 0;
+      textos.forEach(t => {
+        const n = limpa(t);
+        const hits = termos.filter(w => n.includes(w));
+        hits.forEach(w => vistos.add(w));
+        if(hits.length > melhorN){ melhorN = hits.length; melhorTxt = t; }
+      });
+      if(vistos.size) achados.push({id, i, pts: melhorN * 10 + vistos.size, topico: melhorTxt, nome: c.titulo || c.aba, disc: nomeDisc(r.disc) || r.eyebrow});
+    }));
+    if(!achados.length) return null;
+    achados.sort((a, b) => b.pts - a.pts);
+    const top = achados.filter(a => a.pts >= achados[0].pts - 5).slice(0, 3);
+    const curtoLbl = t => t.length > 40 ? t.slice(0, 38) + '…' : t;
+    return {h:`${um(['Achei! Está aqui nos resumos:', 'Isso a gente viu! Está aqui:', 'Tem resumo disso, sim. Olha:'])}<ul>${top.map(a => `<li><strong>${escHTML(a.topico)}</strong><br><small>no resumo ${escHTML(a.nome)} · ${escHTML(a.disc)}</small></li>`).join('')}</ul>`,
+            a:top.map(a => ({label:curtoLbl(a.topico), l:{resumo:a.id, cap:a.i}}))};
+  }
+
+  // ---------- 7. "Quero treinar X" (procura nos exercícios) ----------
+  function treinarTema(q){
+    if(typeof TOOL_LIST === 'undefined') return null;
+    if(!/\b(treinar|treino|praticar|pratica|exercicio|exercicios|questoes|quiz|jogo|testar|exercitar)\b/.test(q)) return null;
+    const termos = termosDe(q);
+    if(!termos.length) return null;
+    const achados = TOOL_LIST.map(t => {
+      const n = limpa(t.titulo);
+      return {t, pts: termos.filter(w => n.includes(w) || (w.length > 5 && n.includes(w.slice(0, -1)))).length};
+    }).filter(x => x.pts).sort((a, b) => b.pts - a.pts).slice(0, 3);
+    if(!achados.length) return null;
+    return {h:um(['Bora treinar! Achei estes exercícios:', 'Hora de suar a camisa. Tem estes:', 'Separei estes para você. Valendo nota! Brincadeira.']),
+            a:achados.map(x => ({label:x.t.titulo, l:{page:'viewFerramentas', target:x.t.id}}))};
+  }
+
+  // abre links do site, incluindo uma aba específica de um resumo
+  function irPara(l){ if(l && l.resumo){ openResumo(l.resumo, {cap:l.cap || 0}); return; } navigateTo(l); }
+
   // banco de respostas escrito à mão (PSIU_RESPOSTAS, no bloco de dados do site)
   function bancoRespostas(q, ws){
     if(typeof PSIU_RESPOSTAS === 'undefined') return null;
@@ -18090,13 +18299,13 @@ document.addEventListener('click', e=>{
             box.insertAdjacentHTML('beforebegin', a.revela);
             if(Math.random() < 0.4) box.insertAdjacentHTML('beforebegin', `<div class="bot-resposta">${um(['Acertou? Então me deve um pão de queijo. Para mim, o Psiu, viu? Aceito pagamento em bons estudos.', 'Acertou? Reforço positivo para você. Errou? Tudo bem, o glossário está aí para isso.', 'Se acertou de primeira, está pronto para a prova. Se não, pelo menos agora não esquece mais.'])}</div>`);
             bt.remove();
-            if(a.depois){ const g = document.createElement('button'); g.type = 'button'; g.textContent = a.depois.label; g.addEventListener('click', ()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(a.depois.l); }); box.appendChild(g); }
+            if(a.depois){ const g = document.createElement('button'); g.type = 'button'; g.textContent = a.depois.label; g.addEventListener('click', ()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); irPara(a.depois.l); }); box.appendChild(g); }
             rostoTopo('feliz', true);
             if(b === msgs.lastElementChild?.querySelector('.bot-msg')) msgs.scrollTop = msgs.scrollHeight;
             else b.scrollIntoView({block:'nearest', behavior:'smooth'});
           });
         } else
-        bt.addEventListener('click', ()=>{ ctx.oferta = null; if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(a.l); });
+        bt.addEventListener('click', ()=>{ ctx.oferta = null; if(window.matchMedia('(max-width:600px)').matches) fechar(); irPara(a.l); });
         box.appendChild(bt);
       });
       b.appendChild(box);
@@ -18123,7 +18332,7 @@ document.addEventListener('click', e=>{
     setTimeout(()=>{
       dig.remove(); bolha('ele', r.h, r.a, r.x);
       rostoTopo(r.x || 'neutro', true);
-      if(r.ir) setTimeout(()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); navigateTo(r.ir); }, 600);
+      if(r.ir) setTimeout(()=>{ if(window.matchMedia('(max-width:600px)').matches) fechar(); irPara(r.ir); }, 600);
     }, espera);
     // de vez em quando, uma curiosidade do glossário (só depois de respostas comuns)
     if(!r.ir && (!r.x || r.x === 'neutro' || r.x === 'feliz')){
