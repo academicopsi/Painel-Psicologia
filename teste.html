@@ -17961,9 +17961,10 @@ document.addEventListener('click', e=>{
     const agora = new Date(), h = agora.getHours(), min = agora.getMinutes(), mes = agora.getMonth();
     const sacola = ['lado', 'lado', 'pensando', 'pensando', 'musica', 'malhando', 'ideia', 'pavlov', 'diva', 'lupa', 'comemorando', 'capelo', 'celular', 'rorschach', 'skinner', 'sinapse', 'jaleco', 'paodequeijo', 'marcatexto', 'livros', 'mensagem', 'aplaudindo'];
     if(h >= 18 && h < 23) sacola.push('cafe', 'cafe');
-    if(h >= 19 && h < 22) sacola.push('mao', 'mao');
-    if((h === 18 && min >= 30) || (h === 19 && min < 15)) sacola.push('atrasado', 'atrasado', 'atrasado');
-    if(h >= 21 && h < 23) sacola.push('relogio', 'relogio');
+    const diaDeAula = typeof AULAS !== 'undefined' && AULAS[agora.getDay()];
+    if(diaDeAula && h >= 19 && h < 22) sacola.push('mao', 'mao');
+    if(diaDeAula && ((h === 18 && min >= 30) || (h === 19 && min < 15))) sacola.push('atrasado', 'atrasado', 'atrasado');
+    if(diaDeAula && h >= 21 && h < 23) sacola.push('relogio', 'relogio');
     if(h >= 15 && h < 19) sacola.push('paodequeijo');
     sacola.push('popstar');
     if(agora.getDay() === 5 && h >= 18) sacola.push('popstar', 'popstar', 'popstar');
@@ -18621,7 +18622,7 @@ document.addEventListener('click', e=>{
   // PSIU MAIS HUMANO: percebe, lembra, cuida, brinca
   // =====================================================================
   // agenda das aulas (0 = domingo, 1 = segunda … 6 = sábado). Exemplo: 1:['Neuroanatomia'], 3:['Bases Biológicas']
-  const AULAS = {};
+  const AULAS = {1:['Bases Biológicas', 'Projeto de Extensão'], 2:['Desenvolvimento Adulto e Idoso', 'Neuroanatomia'], 3:['Psicologia Experimental', 'Psicologia da Aprendizagem']};
   const NASCIMENTO_PSIU = new Date(2026, 10, 12); // 12/11/2026
   const PIADAS_AULA = [
     'Por que o neurônio foi à festa? Porque estava a fim de fazer sinapse.',
@@ -18948,6 +18949,13 @@ document.addEventListener('click', e=>{
     if(/\b(ferias|fim do semestre|quanto falta|ultima prova)\b/.test(q)){
       const c = contagemSemestre();
       return c ? {h:`A última prova marcada é a de ${escHTML(c.materia)}, ${quandoTxt(c.dias)}. Depois disso, férias!`, a:[calendario]} : {x:'feliz', h:'Não tem mais prova marcada no site. Cheiro de férias!'};
+    }
+    // agenda das aulas
+    if(/\b(aula|aulas)\b/.test(q) && /\b(hoje|amanha|semana|que dia|qual dia|quando|tem)\b/.test(q)){
+      const d = new Date().getDay(), lista = n => (AULAS[n] || []).join(' e ');
+      if(/\bsemana\b/.test(q) || /que dia|qual dia|quando/.test(q)) return {h:'As aulas da semana:<ul><li><strong>Segunda:</strong> ' + lista(1) + '</li><li><strong>Terça:</strong> ' + lista(2) + '</li><li><strong>Quarta:</strong> ' + lista(3) + '</li></ul>', tema:'a agenda das aulas'};
+      if(/\bamanha\b/.test(q)){ const a = (d + 1) % 7; return AULAS[a] ? {h:`Amanhã tem ${lista(a)}.`} : {x:'feliz', h:'Amanhã não tem aula. Aproveita para revisar com calma… ou descansar.'}; }
+      return AULAS[d] ? {x:'feliz', h:`Hoje tem ${lista(d)}. Bora!`} : {x:'feliz', h:'Hoje não tem aula. Dia de colocar a matéria em dia… ou de descansar, que também conta.'};
     }
     // voltar para o canto
     if(/volta (para|pro) o? ?canto|volta para o lugar|lugar de antes/.test(q)){ voltarAoCanto(); return {x:'feliz', h:'Pronto, voltei para o meu cantinho.'}; }
