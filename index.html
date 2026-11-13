@@ -17920,7 +17920,7 @@ document.addEventListener('click', e=>{
     praia:    {svg:() => '<circle class="r-luz" cx="12" cy="12" r="9" fill="#FAC775"/><path d="M20 112 L46 64 M100 112 L80 72" stroke="#854F0B" stroke-width="3.5" stroke-linecap="round"/><path d="M28 100 L92 100 L84 70 L40 58 Z" fill="#5DCAA5"/><path d="M34 88 L90 92 M38 76 L87 81" stroke="#FFFFFF" stroke-width="5"/><g transform="rotate(-10 60 70)">' + CEREBRO() + ESCUROS + BOCA('M51 70 Q60 80 69 70') + '</g><circle cx="98" cy="70" r="11" fill="#639922" stroke="#3B6D11" stroke-width="2"/><ellipse cx="98" cy="62" rx="5" ry="2" fill="#EAF3DE"/><path d="M98 62 L104 46" stroke="#E46F7E" stroke-width="2.5" stroke-linecap="round"/>' + BRACO(86, 64, 90, 74), tempo:5000, falas:['Fim de semana é sagrado', 'Água de coco e zero prazo']}
   });
 
-  const INTERVALO = 46000, DURACAO = 12000;
+  const INTERVALO = 36000, DURACAO = 8000;
   let reacaoAtual = 'parado', timerReacao = null, timerBalao = null, ultimoScroll = 0;
   // pose de base conforme o horário: cochilando das 23h às 8h, babando na carteira das 20h às 23h, na praia nos fins de semana de dia
   function poseBase(){ if(pomo) return pomo.fase === 'foco' ? 'lendo' : 'cafe'; const n = new Date(), h = n.getHours(), fds = n.getDay() === 0 || n.getDay() === 6; return (h >= 23 || h < 8) ? 'soneca' : h >= 20 ? 'carteira' : fds ? 'praia' : 'parado'; }
@@ -17985,7 +17985,7 @@ document.addEventListener('click', e=>{
       if(noFim && Date.now() - ultimaEspiada > 120000){ ultimaEspiada = Date.now(); reagir('espiando', true); }
     }, 700);
   }, {passive:true});
-  // ritmo: uma reação a cada 46 segundos, e cada uma fica 12 segundos na tela
+  // ritmo: uma reação a cada 36 segundos, e cada uma fica 8 segundos na tela
   function agendar(espera = INTERVALO){
     clearTimeout(timerReacao);
     timerReacao = setTimeout(() => {
