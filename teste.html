@@ -17635,11 +17635,11 @@ document.addEventListener('click', e=>{
      STUDY, VIDEOS, UPDATES e COURSES. Não usa internet nem IA.
      ===================================================================== -->
 <style>
-  .bot-fab{position:fixed; right:16px; bottom:16px; z-index:250; width:57px; height:57px; padding:0; border:none; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; filter:drop-shadow(0 3px 5px rgba(0,0,0,.22));}
-  .psiu-corpo{display:block; width:57px; height:57px; overflow:visible; transition:transform .2s ease;}
+  .bot-fab{position:fixed; right:16px; bottom:16px; z-index:250; width:64px; height:64px; padding:0; border:none; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; filter:drop-shadow(0 3px 5px rgba(0,0,0,.22));}
+  .psiu-corpo{display:block; width:64px; height:64px; overflow:visible; transition:transform .2s ease;}
   .bot-fab:hover .psiu-corpo, .bot-fab:focus-visible .psiu-corpo{transform:scale(1.08) rotate(-3deg);}
   .bot-fab:focus-visible{outline:2px solid var(--petrol); outline-offset:4px; border-radius:50%;}
-  .psiu-balao{position:absolute; right:64px; bottom:30px; white-space:nowrap; background:var(--paper); color:var(--ink); border:1px solid var(--rule); border-radius:12px 12px 3px 12px; padding:6px 11px; font:inherit; font-size:13px; font-weight:600; box-shadow:0 4px 12px var(--shadow-lg); animation:psiuBalao .25s ease-out; pointer-events:none;}
+  .psiu-balao{position:absolute; right:70px; bottom:34px; white-space:nowrap; background:var(--paper); color:var(--ink); border:1px solid var(--rule); border-radius:12px 12px 3px 12px; padding:6px 11px; font:inherit; font-size:13px; font-weight:600; box-shadow:0 4px 12px var(--shadow-lg); animation:psiuBalao .25s ease-out; pointer-events:none;}
   .psiu-balao[hidden]{display:none;}
   @keyframes psiuBalao{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
   @keyframes rLado{0%,15%{transform:translateX(0)}30%,45%{transform:translateX(-4px)}60%,80%{transform:translateX(4px)}100%{transform:translateX(0)}}
@@ -17841,6 +17841,8 @@ document.addEventListener('click', e=>{
   };
 
   let reacaoAtual = 'parado', timerReacao = null, timerBalao = null, ultimoScroll = 0;
+  // pose de base conforme o horário: cochilando das 23h às 8h, babando na carteira das 20h às 23h
+  function poseBase(){ const h = new Date().getHours(); return (h >= 23 || h < 8) ? 'soneca' : h >= 20 ? 'carteira' : 'parado'; }
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)');
   function desenhar(nome){ reacaoAtual = nome; corpo.innerHTML = REACOES[nome].svg(); }
   function falar(txt){
@@ -17853,30 +17855,30 @@ document.addEventListener('click', e=>{
     const r = REACOES[nome]; if(!r) return;
     desenhar(nome);
     if(comFala && r.falas) falar(um(r.falas));
-    setTimeout(() => { if(reacaoAtual === nome) desenhar('parado'); }, r.tempo || 4000);
+    setTimeout(() => { if(reacaoAtual === nome) desenhar(poseBase()); }, r.tempo || 4000);
   }
   // escolhe a reação conforme a hora e o que está acontecendo na turma
   function sortearReacao(){
     const h = new Date().getHours();
     const sacola = ['lado', 'lado', 'pensando', 'pensando', 'musica', 'malhando', 'ideia'];
-    if(h >= 0 && h < 5) sacola.push('soneca', 'soneca', 'soneca', 'soneca');
-    if(h >= 18 && h < 22) sacola.push('cafe', 'cafe', 'cafe');
-    if(h >= 21) sacola.push('carteira', 'carteira', 'carteira');
+    if(h >= 18 && h < 23) sacola.push('cafe', 'cafe', 'cafe');
     const pp = futuras(ehProva)[0];
     if(pp && diasAte(pp.prazo) <= 3) sacola.push('lendo', 'lendo', 'lendo');
     if(typeof NEW_DAYS !== 'undefined' && TASKS.some(t => t.added && -diasAte(t.added) <= NEW_DAYS)) sacola.push('anotando', 'anotando');
-    return um(sacola);
+    const base = poseBase();
+    return um(sacola.filter(r => r !== base));
   }
   function agendar(){
     clearTimeout(timerReacao);
     timerReacao = setTimeout(() => {
       const quieto = Date.now() - ultimoScroll > 1500;
+      if(reacaoAtual !== poseBase() && ['parado', 'soneca', 'carteira'].includes(reacaoAtual)) desenhar(poseBase()); // virou o horário
       if(!document.hidden && quieto) reagir(sortearReacao(), Math.random() < 0.5);
       agendar();
     }, 30000 + Math.random() * 30000);
   }
   window.addEventListener('scroll', () => { ultimoScroll = Date.now(); }, {passive:true});
-  desenhar('parado');
+  desenhar(poseBase());
   setTimeout(() => {
     // primeira reação logo no começo; véspera de prova ganha um "Psiu!"
     const pp = futuras(ehProva)[0];
