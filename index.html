@@ -3850,8 +3850,8 @@ const STUDY = [
   {
     materia: 'Bases Biológicas',
     titulo: 'Embriologia e estrutura do DNA',
-    subtitulo: 'Dois temas num só resumo',
-    desc: 'Uma aba para o desenvolvimento embrionário (da fertilização à 2ª semana) e outra para a estrutura do DNA, com "Teste-se" e quiz no fim de cada aba.',
+    subtitulo: 'Três temas num só resumo',
+    desc: 'Uma aba para o desenvolvimento embrionário (da fertilização à 2ª semana), outra para a estrutura do DNA e outra para a tradução, com "Teste-se" e quiz no fim de cada aba.',
     link: '#resumo-embriologia'
   },
   {
@@ -4019,8 +4019,8 @@ const SIM_JOGO = [{
   id: 'bases-n2',
   disc: '01',
   titulo: 'Simulado N2: embriologia e DNA',
-  desc: '54 questões no estilo vestibular: da fertilização à 2ª semana, estrutura do DNA, cálculo das bases (regra de Chargaff) e pontes de hidrogênio.',
-  partes: [{k:'embrio', t:'Embriologia', n:22}, {k:'dna', t:'Estrutura do DNA', n:18}, {k:'calc', t:'Cálculo das bases', n:8}, {k:'pontes', t:'Pontes de hidrogênio', n:6}],
+  desc: '65 questões no estilo vestibular: da fertilização à 2ª semana, estrutura do DNA, cálculo das bases (regra de Chargaff), pontes de hidrogênio e tradução.',
+  partes: [{k:'embrio', t:'Embriologia', n:22}, {k:'dna', t:'Estrutura do DNA', n:18}, {k:'calc', t:'Cálculo das bases', n:8}, {k:'pontes', t:'Pontes de hidrogênio', n:6}, {k:'traducao', t:'Tradução', n:11}],
   questoes: [
   {tema:"Fertilização", p:"A laqueadura tubária (ligadura das tubas uterinas) é um método contraceptivo eficaz. Do ponto de vista da embriologia, ela impede a gravidez principalmente porque",
    o:["bloqueia a ovulação, pois os ovários deixam de receber o estímulo hormonal da hipófise.",
@@ -4430,6 +4430,67 @@ const SIM_JOGO = [{
   {tema:"Pontes de hidrogênio", p:"Um DNA de fita dupla tem 100 pares de bases e 30% de adenina. Quantas pontes de hidrogênio unem as duas fitas?",
    o:["200", "220", "240", "260", "300"],
    c:2, fixa:true, w:"100 pares são 200 bases. Com 30% de adenina, são 60 A, e cada A forma um par A–T: 60 pares A–T. Os outros 40 pares são C–G. Pontes: 60 × 2 + 40 × 3 = 120 + 120 = 240."},
+  {tema:"Tradução", p:"Sobre os ribossomos, assinale a alternativa correta.",
+   o:["Procariotos têm ribossomo 70S (50S + 30S), e eucariotos têm ribossomo 80S (60S + 40S).",
+      "Procariotos têm ribossomo 80S, e eucariotos têm ribossomo 70S.",
+      "O ribossomo tem uma única subunidade, que se liga ao DNA.",
+      "O ribossomo é o local da transcrição, onde o RNA é produzido.",
+      "Procariotos e eucariotos têm exatamente o mesmo ribossomo, de 70S."],
+   c:0, w:"O ribossomo é o local da síntese de proteínas e tem duas subunidades. Nos procariotos, 70S (50S + 30S); nos eucariotos, 80S (60S + 40S)."},
+  {tema:"Tradução", p:"Para começar a tradução, o ribossomo precisa encontrar o início do RNAm. Isso acontece",
+   o:["em procariotos, pela sequência de Shine-Dalgarno; em eucariotos, pelo cap 5', avançando até o AUG.",
+      "em procariotos, pelo cap 5'; em eucariotos, pela sequência de Shine-Dalgarno.",
+      "nos dois casos, pelo primeiro códon de parada do RNAm.",
+      "nos dois casos, pela sequência de Shine-Dalgarno, que pareia com o RNAt.",
+      "em eucariotos, pelo códon UAA, que marca o início da leitura."],
+   c:0, w:"Em procariotos, a sequência de Shine-Dalgarno pareia com o RNA ribossômico 16S, um pouco antes do códon de iniciação. Em eucariotos não há Shine-Dalgarno: a subunidade 40S reconhece o cap 5' e avança até o AUG."},
+  {tema:"Tradução", p:"Durante o alongamento da tradução,",
+   o:["o RNAt com a cadeia em crescimento fica no sítio P, e o próximo RNAt chega ao sítio A.",
+      "o RNAt com a cadeia em crescimento fica no sítio A, e o próximo RNAt chega ao sítio P.",
+      "os aminoácidos se unem por pontes de hidrogênio, como as bases do DNA.",
+      "o ribossomo lê o RNAm no sentido 3' → 5', de dois em dois nucleotídeos.",
+      "cada RNAt fica preso ao ribossomo até o fim da síntese da proteína."],
+   c:0, w:"O primeiro RNAt fica no sítio P, e o do próximo aminoácido chega ao sítio A. Os aminoácidos se unem por ligação peptídica, o RNAt vazio é liberado, e o ribossomo anda um códon (lendo de 5' para 3')."},
+  {tema:"Tradução", p:"Sobre o código genético, analise:<br>I. É degenerado: um mesmo aminoácido pode ser codificado por vários códons.<br>II. Não tem ambiguidade: cada códon corresponde a um só aminoácido.<br>III. É universal, com exceções como protozoários ciliados e mitocôndrias.<br>Está correto o que se afirma em",
+   o:["I, II e III.", "I, apenas.", "I e II, apenas.", "II e III, apenas.", "III, apenas."],
+   c:0, fixa:true, w:"As três afirmativas estão corretas e são as três propriedades do código vistas na aula: degenerado, sem ambiguidade e universal."},
+  {tema:"Tradução", p:"Existem 64 códons, mas só 20 tipos de aminoácidos. Isso é possível porque",
+   o:["o código genético é degenerado: vários códons podem codificar o mesmo aminoácido.",
+      "o código genético é ambíguo: cada códon pode codificar vários aminoácidos.",
+      "a maioria dos códons é de parada.",
+      "cada aminoácido é codificado por um único códon, e os outros não são usados.",
+      "os códons são lidos de duas em duas bases."],
+   c:0, w:"Dos 64 códons, 61 codificam aminoácidos e 3 são de parada. Como há só 20 aminoácidos, vários códons codificam o mesmo aminoácido: o código é degenerado (a leucina, por exemplo, tem seis códons)."},
+  {tema:"Tradução", p:"Quantos aminoácidos tem o peptídeo formado a partir do RNAm 5′ GC AUG GCA UGC GAC UAA GG 3′?",
+   o:["3", "4", "5", "6", "7"],
+   c:1, fixa:true, w:"A tradução começa no AUG e segue de três em três: AUG (metionina), GCA (alanina), UGC (cisteína), GAC (ácido aspártico) e UAA, que é de parada. São 4 aminoácidos."},
+  {tema:"Tradução", p:"Usando a tabela do código genético, o RNAm 5′ AUG UUU GGA CAC UGA 3′ produz a sequência",
+   o:["metionina, fenilalanina, glicina, histidina.",
+      "metionina, fenilalanina, glicina, histidina, triptofano.",
+      "fenilalanina, glicina, histidina.",
+      "metionina, leucina, glicina, glutamina.",
+      "metionina, fenilalanina, prolina, histidina."],
+   c:0, w:"AUG = metionina, UUU = fenilalanina, GGA = glicina, CAC = histidina. O UGA é um códon de parada: não codifica aminoácido, e a tradução termina ali."},
+  {tema:"Tradução", p:"Um RNAt tem anticódon complementar ao códon GCA do RNAm. Esse anticódon é",
+   o:["CGU", "CGT", "GCA", "UGC", "ACG"],
+   c:0, w:"O anticódon é a trinca complementar ao códon: G pareia com C, C com G e A com U. Então GCA → CGU. Como é RNA, não há timina (T)."},
+  {tema:"Tradução", p:"Uma fita molde de DNA tem o trecho 3′ TAC AAA CCG ATT 5′. O RNAm transcrito e a proteína formada são",
+   o:["RNAm 5′ AUG UUU GGC UAA 3′; metionina, fenilalanina e glicina.",
+      "RNAm 5′ ATG TTT GGC TAA 3′; metionina, fenilalanina e glicina.",
+      "RNAm 5′ UAC AAA CCG AUU 3′; tirosina, lisina, prolina e isoleucina.",
+      "RNAm 5′ AUG UUU GGC UAA 3′; metionina, fenilalanina, glicina e uma parada traduzida.",
+      "RNAm 5′ AUG UUU GGC UAA 3′; fenilalanina e glicina, pois o AUG não é traduzido."],
+   c:0, w:"O RNAm é complementar à fita molde, com U no lugar de T: 5′ AUG UUU GGC UAA 3′. AUG = metionina, UUU = fenilalanina, GGC = glicina, e UAA é parada. O AUG também é traduzido: é o primeiro aminoácido."},
+  {tema:"Tradução", p:"Exercício da aula: o RNAm 5′ AUAUGUCAUUAGCACUCUUUUGACAUAGC 3′ é traduzido. Quantos aminoácidos tem a proteína?",
+   o:["5", "6", "7", "9", "10"],
+   c:1, fixa:true, w:"A leitura começa no primeiro AUG: AUG (metionina), UCA (serina), UUA (leucina), GCA (alanina), CUC (leucina), UUU (fenilalanina) e UGA, que é de parada. São 6 aminoácidos. O \"AU\" antes do AUG e o trecho depois do UGA não são traduzidos."},
+  {tema:"Tradução", p:"Quando o ribossomo chega a um códon de parada (UAA, UAG ou UGA),",
+   o:["o polipeptídeo é liberado, o último RNAt sai e as subunidades do ribossomo se separam.",
+      "um RNAt com o anticódon complementar traz o último aminoácido.",
+      "o ribossomo volta ao início do RNAm e recomeça a mesma proteína.",
+      "a metionina é retirada e a tradução continua normalmente.",
+      "o RNAm é destruído antes de o polipeptídeo ser liberado."],
+   c:0, w:"Códon de parada não codifica aminoácido nem recebe RNAt. Nele, o polipeptídeo é liberado, o último RNAt sai e o ribossomo se separa. O polipeptídeo forma a nova proteína."},
 
   ]
 }];
@@ -6651,6 +6712,19 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
   {t:'Desoxirribose', disc:'Bases Biológicas', d:'Açúcar de cinco carbonos do DNA. Tem um oxigênio a menos no carbono 2\' que a ribose, o açúcar do RNA.', ex:'É o \'desoxi\' do nome ácido desoxirribonucleico.'},
   {t:'Ligação fosfodiéster', disc:'Bases Biológicas', d:'Ligação feita pelo fosfato entre o carbono 5\' de um nucleotídeo e o carbono 3\' do seguinte. Forma o esqueleto açúcar-fosfato da fita.', ex:'É como os elos de uma corrente, que prendem um nucleotídeo ao próximo.'},
   {t:'Dupla fita antiparalela', disc:'Bases Biológicas', d:'O DNA tem duas fitas complementares enroladas em dupla-hélice, correndo em sentidos opostos: uma de 5\' para 3\' e a outra de 3\' para 5\'.', ex:'5\' AGCT 3\' pareada com 3\' TCGA 5\'.'},
+  {t:'Tradução', disc:'Bases Biológicas', d:'Síntese de proteína a partir do RNA mensageiro: o ribossomo lê os códons e une os aminoácidos na ordem que eles indicam.', ex:'É a última etapa do caminho DNA → RNA → proteína.'},
+  {t:'Ribossomo', disc:'Bases Biológicas', d:'Local da síntese de proteínas. Tem uma subunidade maior e uma menor: 70S (50S + 30S) nos procariotos e 80S (60S + 40S) nos eucariotos.', ex:'O ribossomo lê o RNAm no sentido 5′ → 3′.'},
+  {t:'Códon', disc:'Bases Biológicas', d:'Trinca de nucleotídeos do RNA mensageiro que corresponde a um aminoácido ou a um sinal de parada.', ex:'AUG é o códon de início e codifica metionina.'},
+  {t:'Anticódon', disc:'Bases Biológicas', d:'Trinca do RNA transportador complementar ao códon do RNAm. É por ela que o RNAt reconhece onde deixar o aminoácido.', ex:'O códon AUG pareia com o anticódon UAC.'},
+  {t:'RNA transportador (RNAt)', disc:'Bases Biológicas', d:'RNA que leva cada aminoácido até o ribossomo e reconhece o códon do RNAm pelo seu anticódon.', ex:'Na tradução, o RNAt com a cadeia em crescimento fica no sítio P.'},
+  {t:'Código genético', disc:'Bases Biológicas', d:'Relação entre os códons do RNAm e os aminoácidos: 61 códons codificam aminoácidos e 3 são de parada. É degenerado, sem ambiguidade e universal.', ex:'Degenerado: UUA, UUG, CUU, CUC, CUA e CUG são todos leucina.'},
+  {t:'Códon de início', disc:'Bases Biológicas', d:'O códon AUG, que marca o começo da tradução e codifica metionina.', ex:'No RNAm 5′ AU AUG UCA… 3′, a leitura começa no AUG, e o AU antes dele não é traduzido.'},
+  {t:'Códon de parada', disc:'Bases Biológicas', d:'Os códons UAA, UAG e UGA, que não codificam aminoácido e encerram a tradução. Neles, o polipeptídeo é liberado.', ex:'Em AUG UUU GGC UAA, a proteína termina na glicina, porque o UAA é de parada.'},
+  {t:'Sítio P', disc:'Bases Biológicas', d:'Lugar do ribossomo onde fica o RNAt com a cadeia de aminoácidos em crescimento.', ex:'O primeiro RNAt, com a metionina, se encaixa no sítio P.'},
+  {t:'Sítio A', disc:'Bases Biológicas', d:'Lugar do ribossomo onde chega o RNAt com o próximo aminoácido, pareando com o códon seguinte.', ex:'Depois da ligação peptídica, o ribossomo anda um códon e o sítio A fica livre de novo.'},
+  {t:'Sequência de Shine-Dalgarno', disc:'Bases Biológicas', d:'Sítio de ligação do ribossomo no RNAm dos procariotos, um pouco antes do códon de início. Pareia com o RNA ribossômico 16S. Não existe em eucariotos.', ex:'No slide da aula: 5′ …AGGAGG…AUG… 3′.'},
+  {t:'Cap 5′', disc:'Bases Biológicas', d:'Estrutura (m7G) na ponta 5′ do RNAm dos eucariotos. A subunidade 40S do ribossomo reconhece o cap e avança até o AUG.', ex:'Em eucariotos, o cap 5′ faz o papel que a sequência de Shine-Dalgarno tem nos procariotos.'},
+  {t:'Ligação peptídica', disc:'Bases Biológicas', d:'Ligação que une um aminoácido ao seguinte durante a tradução, formando a cadeia polipeptídica.', ex:'No alongamento, o aminoácido do sítio P se liga ao do sítio A.'},
   {t:'Trissomia', disc:'Bases Biológicas', d:'Alteração em que a pessoa tem três cópias de um cromossomo em vez de duas.', ex:'Ter três cromossomos 21 (síndrome de Down).'},
   {t:'Síndrome de Down (trissomia 21)', disc:'Bases Biológicas', d:'Trissomia do cromossomo 21. Causa deficiência intelectual de grau variável e traços físicos característicos.', ex:'A trissomia mais comum entre os nascidos vivos.'},
   {t:'Síndrome de Edwards (trissomia 18)', disc:'Bases Biológicas', d:'Trissomia do cromossomo 18. Causa malformações graves e baixa sobrevida.', ex:'Mãos fechadas com dedos sobrepostos são um sinal típico.'},
@@ -7147,8 +7221,8 @@ const RESUMOS = {
     "disc": "01",
     "eyebrow": "Bases Biológicas",
     "titulo": "Embriologia e estrutura do DNA",
-    "lead": "Desenvolvimento embrionário (da fertilização à 2ª semana) e estrutura do DNA. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
-    "fonte": "Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos slides e do quadro da aula, complementado com conteúdo padrão de biologia molecular (experimentos de Griffith, Avery e Hershey-Chase, medidas da hélice, níveis de compactação, cromatina, tradução e mutações).",
+    "lead": "Desenvolvimento embrionário (da fertilização à 2ª semana), estrutura do DNA e tradução. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
+    "fonte": "Embriologia: feito a partir dos slides de Bases Biológicas (os dias são aproximados). Estrutura do DNA: feito a partir dos slides e do quadro da aula, complementado com conteúdo padrão de biologia molecular (experimentos de Griffith, Avery e Hershey-Chase, medidas da hélice, níveis de compactação, cromatina e mutações). Tradução: feito a partir dos slides de Tradução da aula.",
     "caps": [
       {
         "id": "embrio",
@@ -7706,7 +7780,7 @@ const RESUMOS = {
             "when": "Tradução",
             "titulo": "Onde entram os aminoácidos",
             "pontos": [
-              "<em>Complemento: não estava nos slides nem no quadro; fecha o caminho DNA → RNA → proteína.</em>",
+              "<em>Os detalhes estão na aba Tradução, feita a partir dos slides da aula.</em>",
               "Proteínas são cadeias de <strong>aminoácidos</strong> (há 20 tipos). A sequência de bases do RNA mensageiro determina a ordem desses aminoácidos, e essa ordem define a forma e a função da proteína.",
               "O RNA mensageiro é lido em trincas de bases, os <strong>códons</strong>. Cada códon corresponde a um aminoácido ou a um sinal de parada. Exemplos: CCA = prolina; AAA = lisina.",
               "A leitura acontece no <strong>ribossomo</strong>. O <strong>RNA transportador</strong> leva cada aminoácido até ele, reconhecendo o códon por uma trinca complementar, o anticódon. O ribossomo une os aminoácidos por <strong>ligações peptídicas</strong>.",
@@ -8064,6 +8138,307 @@ const RESUMOS = {
             ],
             "c": 2,
             "w": "O ribossomo percorre o RNA de 5' para 3' até o primeiro AUG. O UGA antes dele não é lido."
+          }
+        ]
+      },
+      {
+        "id": "traducao",
+        "aba": "Tradução",
+        "titulo": "Tradução: do RNA à proteína",
+        "intro": "Como o ribossomo lê o RNA mensageiro e monta a proteína: os personagens (ribossomo, RNA transportador, códon e anticódon), o código genético, as três etapas da tradução, as diferenças entre procariotos e eucariotos e o exercício da aula resolvido.",
+        "etapas": [
+          {
+            "fase": "Os personagens",
+            "when": "Visão geral",
+            "titulo": "O que é a tradução",
+            "pontos": [
+              "A <strong>tradução</strong> \"decodifica\" o RNA mensageiro (RNAm) e usa a informação dele para produzir uma <strong>cadeia de aminoácidos</strong>, que vai formar um peptídeo, um polipeptídeo ou uma proteína.",
+              "É a última parte do caminho <strong>DNA → RNA → proteína</strong>: a transcrição faz o RNA a partir do DNA, e a tradução faz a proteína a partir do RNA.",
+              "A mensagem do RNAm é transformada na sequência de aminoácidos <strong>com a ajuda do RNA transportador (RNAt)</strong>."
+            ],
+            "q": "O que a tradução produz, e a partir de quê?",
+            "a": "Uma cadeia de aminoácidos (peptídeo, polipeptídeo ou proteína), a partir da mensagem do RNA mensageiro."
+          },
+          {
+            "when": "Ribossomo",
+            "titulo": "Onde a proteína é montada",
+            "pontos": [
+              "O <strong>ribossomo</strong> é o local da síntese de proteínas: ele \"lê\" os códons do RNAm e os traduz em aminoácidos.",
+              "Tem duas subunidades, uma <strong>maior</strong> e uma <strong>menor</strong>, que se encaixam com o RNAm entre elas.",
+              "<strong>Procariotos:</strong> ribossomo <strong>70S</strong>, formado pelas subunidades 50S e 30S.",
+              "<strong>Eucariotos:</strong> ribossomo <strong>80S</strong>, formado pelas subunidades 60S e 40S."
+            ],
+            "q": "Qual é o ribossomo dos procariotos e o dos eucariotos?",
+            "a": "Procariotos: 70S (50S + 30S). Eucariotos: 80S (60S + 40S)."
+          },
+          {
+            "when": "Códon e anticódon",
+            "titulo": "Quem traz cada aminoácido",
+            "pontos": [
+              "No RNAm, as instruções vêm em grupos de <strong>três nucleotídeos</strong>, os <strong>códons</strong>.",
+              "O <strong>RNA transportador (RNAt)</strong> leva os aminoácidos até o ribossomo. Ele tem uma trinca chamada <strong>anticódon</strong>, complementar ao códon.",
+              "Para cada códon do RNAm há um anticódon complementar de um RNAt. Por isso há um <strong>pareamento de códons e anticódons</strong> dentro do ribossomo.",
+              "O pareamento é antiparalelo, como no DNA. <strong>Exemplo do slide:</strong> o códon 5' AUC 3' pareia com o anticódon 3' UAG 5'."
+            ],
+            "q": "O que é o anticódon, e onde ele fica?",
+            "a": "A trinca do RNA transportador que é complementar ao códon do RNAm. É por ela que o RNAt reconhece o códon certo."
+          },
+          {
+            "fase": "O código genético",
+            "when": "Código genético",
+            "titulo": "Os 64 códons",
+            "pontos": [
+              "A relação entre os códons do RNAm e os aminoácidos é o <strong>código genético</strong>.",
+              "Existem <strong>61 códons</strong> que codificam aminoácidos.",
+              "<strong>Três códons de parada</strong> (stop códons: <strong>UAA, UAG e UGA</strong>) sinalizam que o polipeptídeo deve terminar.",
+              "O códon <strong>AUG</strong> é o sinal de <strong>início</strong> da tradução e também codifica o aminoácido <strong>metionina</strong>.",
+              "O RNAm é lido pelo ribossomo no sentido <strong>5' → 3'</strong>."
+            ],
+            "q": "Quantos códons codificam aminoácidos, quantos são de parada e qual é o de início?",
+            "a": "61 codificam aminoácidos, 3 são de parada (UAA, UAG e UGA), e o de início é o AUG, que também codifica metionina."
+          },
+          {
+            "when": "Propriedades",
+            "titulo": "Degenerado, sem ambiguidade e universal",
+            "pontos": [
+              "<strong>Degenerado:</strong> um mesmo aminoácido pode ser codificado por vários códons diferentes. Exemplo: UUA, UUG, CUU, CUC, CUA e CUG são todos leucina.",
+              "<strong>Sem ambiguidade:</strong> cada códon corresponde a <strong>um só</strong> aminoácido.",
+              "<strong>Universal:</strong> o código é o mesmo nos mais diversos organismos. Exceções citadas na aula: <strong>protozoários ciliados e mitocôndrias</strong>.",
+              "Cuidado para não confundir: degenerado é \"vários códons → um aminoácido\"; sem ambiguidade é \"um códon → um aminoácido só\"."
+            ],
+            "q": "O que quer dizer que o código genético é degenerado?",
+            "a": "Que um mesmo aminoácido pode ser codificado por mais de um códon."
+          },
+          {
+            "fase": "As três etapas",
+            "when": "1. Iniciação",
+            "titulo": "Começo em procariotos",
+            "pontos": [
+              "A síntese de proteínas ocorre em três etapas: <strong>iniciação, alongamento e finalização</strong>.",
+              "Em procariotos, o ribossomo se liga ao RNAm na <strong>sequência de Shine-Dalgarno</strong> (o sítio de ligação do ribossomo, como AGGAGG), que fica um pouco antes do códon de iniciação.",
+              "Ela pareia com uma parte do RNA ribossômico <strong>16S</strong>, da subunidade menor.",
+              "O códon de iniciação é o <strong>AUG</strong> (raramente GUG ou UUG). Ali entra o primeiro RNAt, com a metionina."
+            ],
+            "q": "O que é a sequência de Shine-Dalgarno?",
+            "a": "O sítio de ligação do ribossomo no RNAm dos procariotos, um pouco antes do códon de iniciação. Ela pareia com o RNA ribossômico 16S."
+          },
+          {
+            "when": "1. Iniciação",
+            "titulo": "Começo em eucariotos",
+            "pontos": [
+              "Em eucariotos <strong>não há sequência de Shine-Dalgarno</strong>.",
+              "A subunidade menor (<strong>40S</strong>) reconhece o <strong>cap 5'</strong> (m⁷G) do RNAm.",
+              "Depois ela avança pelo RNAm (a \"procura ribossomal\") até encontrar o <strong>códon de início</strong>, o AUG.",
+              "Daí em diante, a tradução ocorre normalmente até o códon de término."
+            ],
+            "q": "Como o ribossomo encontra o começo do RNAm em eucariotos?",
+            "a": "Reconhece o cap 5' do RNAm e avança até o primeiro códon de início (AUG). Não há sequência de Shine-Dalgarno."
+          },
+          {
+            "when": "2. Alongamento",
+            "titulo": "Sítio P, sítio A e a ligação peptídica",
+            "pontos": [
+              "O primeiro RNAt se encaixa no <strong>sítio P</strong> do ribossomo. No <strong>sítio A</strong>, ao lado, o segundo códon pareia com o RNAt que traz o segundo aminoácido.",
+              "O primeiro aminoácido se une ao segundo por uma <strong>ligação peptídica</strong>, e o primeiro RNAt é liberado.",
+              "O ribossomo anda <strong>um códon</strong> ao longo do RNAm: o segundo RNAt passa para o sítio P, e o sítio A fica livre para o próximo.",
+              "O ciclo se repete, e a cadeia polipeptídica cresce um aminoácido por vez.",
+              "<strong>Exemplo animado da aula:</strong> 5' AUG GCA UGC GAC GAA UUC GGA CAC AUA… 3' vira metionina, alanina, cisteína, ácido aspártico, ácido glutâmico, fenilalanina, glicina, histidina, isoleucina…"
+            ],
+            "q": "O que acontece nos sítios P e A?",
+            "a": "O sítio P segura o RNAt com a cadeia que está crescendo; o sítio A recebe o RNAt do próximo aminoácido. Os dois aminoácidos se unem por ligação peptídica, e o ribossomo anda um códon."
+          },
+          {
+            "when": "3. Finalização",
+            "titulo": "O códon de parada",
+            "pontos": [
+              "Quando o ribossomo chega a um <strong>códon de parada</strong> (UAA, UAG ou UGA), o polipeptídeo é liberado.",
+              "O último RNAt sai, e as duas subunidades do ribossomo se separam.",
+              "O polipeptídeo liberado se dobra e forma a nova proteína."
+            ],
+            "q": "O que acontece quando o ribossomo chega a um códon de parada?",
+            "a": "O polipeptídeo é liberado, o último RNAt sai e o ribossomo se separa em suas duas subunidades."
+          },
+          {
+            "fase": "Na prática",
+            "when": "Exercício da aula",
+            "titulo": "Do DNA à proteína, passo a passo",
+            "pontos": [
+              "<strong>DNA (fita codificadora):</strong> 5' ATATG TCA TTA GCA CTC TTT TGA CAT AGC 3'",
+              "<strong>Fita molde:</strong> 3' TATAC AGT AAT CGT GAG AAA ACT GTA TCG 5'",
+              "<strong>RNAm</strong> (complementar à fita molde, com U no lugar de T): 5' AU <strong>AUG</strong> UCA UUA GCA CUC UUU <strong>UGA</strong> CAU AGC 3'",
+              "<strong>Onde começa:</strong> no primeiro AUG. O \"AU\" antes dele não é traduzido.",
+              "<strong>Proteína:</strong> AUG metionina · UCA serina · UUA leucina · GCA alanina · CUC leucina · UUU fenilalanina · <strong>UGA parada</strong>. O CAU AGC depois da parada não é traduzido.",
+              "<strong>Anticódons</strong> (complementares a cada códon): UAC, AGU, AAU, CGU, GAG, AAA.",
+              "<em>No slide aparece ACU embaixo do UGA, mas códon de parada não recebe RNAt: é nele que a tradução termina.</em>"
+            ],
+            "q": "No RNAm 5' AU AUG UCA UUA GCA CUC UUU UGA CAU AGC 3', quantos aminoácidos tem a proteína?",
+            "a": "Seis: metionina, serina, leucina, alanina, leucina e fenilalanina. A tradução começa no AUG e para no UGA."
+          }
+        ],
+        "extras": [
+          {
+            "tipo": "tabela",
+            "titulo": "Procariotos × eucariotos",
+            "cab": [
+              "",
+              "Procariotos",
+              "Eucariotos"
+            ],
+            "linhas": [
+              [
+                "Ribossomo",
+                "70S (50S + 30S)",
+                "80S (60S + 40S)"
+              ],
+              [
+                "Como o ribossomo acha o começo",
+                "Sequência de Shine-Dalgarno, que pareia com o RNA 16S",
+                "Reconhece o cap 5' e avança até o AUG"
+              ],
+              [
+                "Códon de início",
+                "AUG (raramente GUG ou UUG)",
+                "AUG"
+              ]
+            ]
+          },
+          {
+            "tipo": "tabela",
+            "titulo": "Os sinais do código",
+            "cab": [
+              "Códon",
+              "O que faz"
+            ],
+            "linhas": [
+              [
+                "AUG",
+                "Início da tradução e metionina"
+              ],
+              [
+                "UAA, UAG, UGA",
+                "Parada: não codificam aminoácido"
+              ],
+              [
+                "Os outros 60",
+                "Codificam aminoácidos (com o AUG, são 61)"
+              ]
+            ]
+          },
+          {
+            "tipo": "caixas",
+            "titulo": "Como resolver um exercício de tradução",
+            "itens": [
+              {
+                "t": "1. Ache a fita molde",
+                "d": "O RNAm é complementar à fita molde e igual à fita codificadora, com U no lugar de T."
+              },
+              {
+                "t": "2. Escreva o RNAm de 5' para 3'",
+                "d": "Troque cada base pela complementar (A→U, T→A, C→G, G→C) a partir da fita molde."
+              },
+              {
+                "t": "3. Procure o primeiro AUG",
+                "d": "A leitura começa nele. O que vem antes não é traduzido."
+              },
+              {
+                "t": "4. Leia de três em três",
+                "d": "Use a tabela do código genético para cada códon, até chegar a UAA, UAG ou UGA."
+              },
+              {
+                "t": "5. Anticódons",
+                "d": "Para cada códon, o anticódon é a trinca complementar (AUG → UAC). Códon de parada não tem anticódon."
+              }
+            ]
+          }
+        ],
+        "quiz": [
+          {
+            "p": "Onde ocorre a tradução?",
+            "o": [
+              "No núcleo, pela RNA polimerase",
+              "No ribossomo",
+              "No complexo de Golgi",
+              "No centrômero"
+            ],
+            "c": 1,
+            "w": "O ribossomo lê os códons do RNAm e monta a cadeia de aminoácidos."
+          },
+          {
+            "p": "Quantos códons codificam aminoácidos?",
+            "o": [
+              "20",
+              "61",
+              "64",
+              "3"
+            ],
+            "c": 1,
+            "w": "São 64 códons ao todo: 61 codificam aminoácidos e 3 são de parada."
+          },
+          {
+            "p": "O códon de início da tradução é…",
+            "o": [
+              "UAA",
+              "AUG",
+              "UGA",
+              "GUA"
+            ],
+            "c": 1,
+            "w": "O AUG inicia a tradução e codifica metionina."
+          },
+          {
+            "p": "Quem leva os aminoácidos até o ribossomo?",
+            "o": [
+              "RNA mensageiro",
+              "RNA transportador",
+              "DNA polimerase",
+              "RNA ribossômico 16S"
+            ],
+            "c": 1,
+            "w": "O RNAt traz cada aminoácido e reconhece o códon pelo anticódon."
+          },
+          {
+            "p": "\"Um mesmo aminoácido pode ser codificado por vários códons.\" Essa propriedade do código é ser…",
+            "o": [
+              "Universal",
+              "Sem ambiguidade",
+              "Degenerado",
+              "Antiparalelo"
+            ],
+            "c": 2,
+            "w": "Degenerado: vários códons para o mesmo aminoácido, como as seis trincas da leucina."
+          },
+          {
+            "p": "Em eucariotos, o ribossomo encontra o começo do RNAm pelo…",
+            "o": [
+              "Cap 5'",
+              "Shine-Dalgarno",
+              "Códon de parada",
+              "Sítio A"
+            ],
+            "c": 0,
+            "w": "Em eucariotos não há Shine-Dalgarno: a subunidade 40S reconhece o cap 5' e avança até o AUG."
+          },
+          {
+            "p": "O RNAt com a cadeia em crescimento fica no…",
+            "o": [
+              "Sítio A",
+              "Sítio P",
+              "Cap 5'",
+              "Códon de parada"
+            ],
+            "c": 1,
+            "w": "O sítio P segura o RNAt com a cadeia; o sítio A recebe o próximo aminoácido."
+          },
+          {
+            "p": "O anticódon que pareia com o códon AUG é…",
+            "o": [
+              "UAC",
+              "TAC",
+              "AUG",
+              "GUA"
+            ],
+            "c": 0,
+            "w": "A pareia com U e G com C: AUG → UAC. No RNA não há timina."
           }
         ]
       }
