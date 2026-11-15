@@ -2232,53 +2232,39 @@
     .exh-anul::after{content:"⊘"; font-size:15px;}
     .exh-folha tr.exh-fase td{font-size:11.5px;}
   }
-  /* ===== página da disciplina reorganizada ===== */
-  .dp-jump.dp-jump-s{display:flex; flex-wrap:wrap; gap:8px; max-width:none; margin-top:18px;}
-  .dp-jump.dp-jump-s button{justify-content:center; flex:1 1 0; width:auto; min-width:0; padding:8px 6px;}
-  .dp-intro{font-size:15px !important; color:var(--ink-soft); margin:0 0 16px !important; max-width:560px;}
-  .dp-sec-desc{font-size:14.5px; color:var(--ink-soft); margin:-8px 0 16px;}
-  .dp-sub + .dp-sub{margin-top:22px; padding-top:20px; border-top:1px dashed var(--rule);}
-  .dp-sub-head{display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:12px;}
-  .dp-sub-head h3{font-size:16px; font-weight:700; margin:0; letter-spacing:-0.01em;}
-  .dp-prova{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px 18px; background:var(--paper-alt); border:1px solid var(--rule); border-left:4px solid #C98A2B; border-radius:6px; padding:14px 18px; margin:0 0 18px;}
-  .dp-prova.urgente{border-left-color:#B5482F;}
-  .dp-prova-txt{display:flex; flex-direction:column; gap:2px;}
-  .dp-prova-lbl{font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft);}
-  .dp-prova-txt strong{font-size:17px;}
-  .dp-prova-q{font-size:13.5px; color:var(--ink-soft);}
-  .dp-prova-btns{display:flex; align-items:center; flex-wrap:wrap; gap:8px 14px;}
-  .dp-plist{list-style:none; margin:0; padding:0;}
-  .dp-plist li{display:grid; grid-template-columns:64px 1fr auto; gap:10px; align-items:baseline; padding:9px 0; border-top:1px solid var(--rule); font-size:14.5px;}
-  .dp-plist li:first-child{border-top:0;}
-  .dp-pdata{font-weight:700; color:var(--petrol);}
-  .dp-pq{font-size:13px; color:var(--ink-soft);}
-  .dp-plist li.urgente .dp-pq{color:#B5482F; font-weight:600;}
-  .dp-resumo-abas{grid-column:1 / -1;}
-  #grid .card{cursor:pointer;}
-  .dp-abas{display:flex; flex-wrap:wrap; gap:8px; padding:0 14px 12px;}
-  .dp-aba{font:inherit; text-align:left; display:flex; flex-direction:column; gap:1px; background:var(--paper); border:1px solid var(--petrol-line); border-radius:6px; padding:8px 12px; cursor:pointer; color:var(--ink); min-width:120px;}
-  .dp-aba:hover{border-color:var(--petrol);}
-  .dp-aba-t{font-weight:700; font-size:14px; color:var(--petrol);}
-  .dp-aba-s{font-size:12px; color:var(--ink-soft);}
-  .dp-aba.done .dp-aba-s::before{content:"✓ ";}
-  .dp-vlist{display:flex; flex-direction:column; border:1px solid var(--rule); border-radius:6px; background:var(--paper); overflow:hidden;}
-  .dp-vrow + .dp-vrow{border-top:1px solid var(--rule);}
-  .dp-vrow summary{list-style:none; display:flex; align-items:center; gap:12px; padding:12px 14px; cursor:pointer; font-size:14.5px; font-weight:600;}
-  .dp-vrow summary::-webkit-details-marker{display:none;}
-  .dp-vplay{flex:none; width:30px; height:30px; border-radius:50%; background:var(--petrol-soft); color:var(--petrol); display:grid; place-items:center;}
-  .dp-vplay svg{width:14px; height:14px;}
-  .dp-vrow[open] .dp-vplay{background:var(--petrol); color:#fff;}
-  .dp-vbody{padding:0 14px 14px;}
-  .dp-vbody .yt-fora{display:inline-block; margin-top:8px;}
-  @media (max-width:600px){
-    .dp-prova{padding:12px 14px;}
-    .dp-prova-btns{width:100%;}
-    .dp-prova-btns .btn{flex:1;}
-    .dp-plist li{grid-template-columns:56px 1fr; }
-    .dp-plist .dp-pq{grid-column:2;}
-    .dp-abas{padding:0 12px 12px;}
-    .dp-aba{flex:1 1 calc(50% - 8px); min-width:0;}
-  }
+  /* ===== página da disciplina como índice ===== */
+  .dx-header{margin-bottom:18px !important;}
+  .dx-prova{margin-top:6px; font-size:14.5px; color:var(--ink-soft); background:var(--paper-alt); border:1px solid var(--rule); border-left:4px solid #C98A2B; border-radius:6px; padding:10px 14px;}
+  .dx-prova.urgente{border-left-color:#B5482F;}
+  .dx-prova strong{color:var(--ink);}
+  .dx-prova-lbl{display:block; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:2px;}
+  .dx-index{display:flex; flex-direction:column; background:var(--paper); border:1px solid var(--rule); border-radius:8px; overflow:hidden;}
+  .dx-row{display:grid; grid-template-columns:1fr auto 18px; align-items:center; gap:12px; width:100%; text-align:left; font:inherit; color:var(--ink); background:none; border:0; border-top:1px solid var(--rule); padding:15px 16px; cursor:pointer; text-decoration:none; list-style:none;}
+  .dx-index > .dx-row:first-child, .dx-index > .dx-vid:first-child > .dx-row{border-top:0;}
+  .dx-row::-webkit-details-marker{display:none;}
+  .dx-row:hover{background:var(--petrol-soft);}
+  .dx-t{font-size:16px; font-weight:600;}
+  .dx-m{font-size:13.5px; color:var(--ink-soft); text-align:right;}
+  .dx-go{color:var(--petrol); font-weight:700; text-align:right;}
+  .dx-vid + .dx-vid > .dx-row, .dx-row + .dx-vid > .dx-row{border-top:1px solid var(--rule);}
+  .dx-vid[open] .dx-go{transform:rotate(180deg);}
+  .dx-vbody{padding:0 16px 16px;}
+  .dx-vbody .yt-fora{display:inline-block; margin-top:8px;}
+  .dx-back{margin-bottom:14px;}
+  #discPage .dx-sec{background:none; border:0; padding:0;}
+  .dx-grupo + .dx-grupo{margin-top:22px;}
+  .dx-gt{font-size:13px; font-weight:700; color:var(--ink-soft); margin:0 0 8px;}
+  .dx-check{margin-top:8px; font:inherit; font-size:13px; color:var(--ink-soft); background:none; border:1px dashed var(--rule); border-radius:6px; padding:6px 12px; cursor:pointer;}
+  .dx-check.done{color:var(--petrol); border-style:solid; border-color:var(--petrol-line); background:var(--petrol-soft);}
+  .dx-acoes{display:flex; gap:14px; flex-wrap:wrap; margin:0 0 12px;}
+  .dx-list{list-style:none; margin:0; padding:0; background:var(--paper); border:1px solid var(--rule); border-radius:8px;}
+  .dx-list li{display:grid; grid-template-columns:64px 1fr auto; gap:10px; align-items:baseline; padding:12px 16px; border-top:1px solid var(--rule); font-size:15px;}
+  .dx-list li:first-child{border-top:0;}
+  .dx-ld{font-weight:700; color:var(--petrol);}
+  .dx-lq{font-size:13px; color:var(--ink-soft);}
+  .dx-list li.urgente .dx-lq{color:#B5482F; font-weight:600;}
+  .dx-comps{margin-top:18px;}
+  @media (max-width:600px){ .dx-row{padding:14px;} .dx-t{font-size:15px;} .dx-list li{grid-template-columns:56px 1fr;} .dx-lq{grid-column:2;} }
 </style>
 </head>
 <body>
@@ -2357,7 +2343,7 @@
       <h1>Todo o material da turma, <span class="hl">em um só lugar.</span></h1>
       <p class="lead"><span class="so-desk">Slides e livros das aulas, prazos, resumos, exercícios, vídeos e cursos complementares.</span><span class="so-mob">Aulas, prazos, resumos e exercícios de cada disciplina.</span></p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#disciplinas" data-ir-disc><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg> Ver as disciplinas</a>
+        <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Abrir o Drive das disciplinas</a>
         <button class="btn btn-accent" data-page="viewPrazos" data-target="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> Calendário de prazos</button>
       </div>
       <button class="hero-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar disciplina, prova, resumo, termo…</span><kbd>/</kbd></button>
@@ -2390,8 +2376,8 @@
       <div class="drive-head">
         <span class="drive-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg></span>
         <div class="st-text">
-          <span class="num">Comece por aqui</span>
-          <h2 id="disciplinasTitulo">Disciplinas<span class="count" id="cntDisc"></span></h2>
+          <span class="num">Material oficial das aulas</span>
+          <h2 id="disciplinasTitulo">Drive das Disciplinas<span class="count" id="cntDisc"></span></h2>
         </div>
       </div>
       <div class="tabs">
@@ -2405,7 +2391,16 @@
 
   <div style="display:none"><span id="cntHomeTasks"></span><div id="homeTasks"></div><div id="homeTasksMore"></div></div>
 
-
+  <section class="home-section" aria-label="Acesso rápido">
+    <div class="quick-grid">
+      <button class="quick-card qc-feature" data-page="viewPrazos" data-target="calendario"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></span><span class="qc-body"><strong>Calendário</strong><span class="qc-desc">Todas as provas e entregas do semestre, mês a mês.</span></span><span class="qc-go">Abrir calendário →</span></button>
+      <button class="quick-card" data-page="viewFerramentas"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="qc-body"><strong>Exercícios</strong><span class="qc-desc">Quizzes e atividades organizados por disciplina.</span></span><span class="qc-go">Acessar →</span></button>
+      <button class="quick-card" data-page="viewEstudar"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><span class="qc-body"><strong>Resumos</strong><span class="qc-desc">A matéria em partes, com perguntas para se testar e quiz no fim.</span></span><span class="qc-go">Estudar →</span></button>
+      <button class="quick-card" data-page="viewApoio"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span><span class="qc-body"><strong>Glossário e guias</strong><span class="qc-desc">Glossário, comparações, normas ABNT e guias para os trabalhos.</span></span><span class="qc-go">Acessar →</span></button>
+      <button class="quick-card" data-page="viewVideos"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg></span><span class="qc-body"><strong>Vídeos</strong><span class="qc-desc">Vídeo-aulas recomendadas para cada disciplina.</span></span><span class="qc-go">Acessar →</span></button>
+      <button class="quick-card" data-page="viewCursos"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span class="qc-body"><strong>Cursos extras</strong><span class="qc-desc">Cursos complementares gratuitos e com certificado.</span></span><span class="qc-go">Acessar →</span></button>
+    </div>
+  </section>
 
 
 
@@ -13074,12 +13069,6 @@ function newBadge(dateStr){
 
 
 
-document.addEventListener('click', e=>{
-  const ir = e.target.closest('[data-ir-disc]');
-  if(ir){ e.preventDefault(); document.getElementById('disciplinas').scrollIntoView({behavior:'smooth', block:'start'}); return; }
-  const card = e.target.closest('#grid .card');
-  if(card && !e.target.closest('a,button') && document.querySelector('.tab.active')?.dataset.sem === '2') openDisc(card.dataset.d);
-});
 function renderGrid(sem){
   const grid = document.getElementById('grid');
   grid.innerHTML = DISC[sem].map(d=>`<div class="card" data-d="${d.n}" data-search="${d.name.toLowerCase()}">
@@ -13090,9 +13079,10 @@ function renderGrid(sem){
           <span>Google Drive</span>
         </span>
       </div>
-      ${String(sem) === '2' ? `<button class="name name-link" data-open-disc="${d.n}">${d.name}</button>` : `<span class="name">${d.name}</span>`}<span class="drive-folders">${String(sem) === '2' ? 'Resumos, simulados, exercícios e Drive' : 'Livros · Slides · Extras'}</span>
+      ${String(sem) === '2' ? `<button class="name name-link" data-open-disc="${d.n}">${d.name}</button>` : `<span class="name">${d.name}</span>`}<span class="drive-folders">Livros · Slides · Extras</span>
       <div class="card-actions">
-        ${String(sem) === '2' ? `<button class="card-drive" data-open-disc="${d.n}">Abrir disciplina →</button><a class="card-disc" href="${d.url}" target="_blank" rel="noopener">Só o Drive ↗</a>` : `<a class="card-drive" href="${d.url}" target="_blank" rel="noopener">Abrir Drive ↗</a>`}
+        <a class="card-drive" href="${d.url}" target="_blank" rel="noopener">Abrir Drive ↗</a>
+        ${String(sem) === '2' ? `<button class="card-disc" data-open-disc="${d.n}">Ver disciplina →</button>` : ''}
       </div>
     </div>`).join('');
 }
@@ -13430,10 +13420,10 @@ document.getElementById('navBurger').addEventListener('click', ()=>{
 function routeFromHash(){
   const h = decodeURIComponent(location.hash.slice(1));
   const ms = h.match(/^simulado-([\w-]+)$/);
-  if(ms){ const sx = SIM_JOGO.find(x=>x.id === ms[1]); if(sx){ setTimeout(()=>{ if(!(simEst && simEst.sim.id === sx.id)){ openDisc(sx.disc, {fromHistory:true}); simAbrir(sx.id); } }, 0); return; } }
+  if(ms){ const sx = SIM_JOGO.find(x=>x.id === ms[1]); if(sx){ setTimeout(()=>{ if(!(simEst && simEst.sim.id === sx.id)){ openDisc(sx.disc, {fromHistory:true, secao:'simulado'}); simAbrir(sx.id); } }, 0); return; } }
   if(simEst) simFechar();
-  const md = h.match(/^disc-(\d\d)$/);
-  if(md){ setTimeout(()=> openDisc(md[1], {fromHistory:true}), 0); return; }
+  const md = h.match(/^disc-(\d\d)(?:-([a-z]+))?$/);
+  if(md){ setTimeout(()=> openDisc(md[1], {fromHistory:true, secao: md[2]}), 0); return; }
   const mt = h.match(/^roteiro-([\w-]+)$/);
   if(mt){ setTimeout(()=> abrirRoteiro(mt[1]), 0); return; }
   const mr = h.match(/^resumo-([\w-]+)$/);
@@ -16643,104 +16633,91 @@ function renderDiscPage(d){
   const mesCurto = iso => new Date(iso+'T00:00:00').toLocaleDateString('pt-BR', {month:'short'}).replace('.', '');
   const diaNum = iso => new Date(iso+'T00:00:00').getDate();
 
-  // atalhos do topo: só os grupos que existem nesta disciplina
   const roteiros = ROTEIROS.filter(r=>r.disc === d.n);
   const simulados = SIM_JOGO.filter(x=>x.disc === d.n);
   const temGuia = MONTADOR.disc === d.n;
   const comps = COMPARACOES.filter(x=>{ const k = discOf(x.disc); return k && k.n === d.n; });
-  const atalhos = [
-    ['dpGuia', 'Relatório', temGuia],
-    ['dpEstudar', 'Estudar', roteiros.length || c.resumos.length],
-    ['dpPraticar', 'Praticar', simulados.length || c.exercicios.length],
-    ['dpVideos', 'Vídeos', c.videos.length],
-    ['dpGlossario', 'Glossário', c.termos.length || comps.length],
-  ].filter(a=>a[2]);
-
-  const grp = (id, titulo, desc, corpo) => `<section class="dp-section" id="${id}">
-    <div class="dp-sec-head"><h2>${titulo}</h2></div>${desc ? `<p class="dp-sec-desc">${desc}</p>` : ''}
-    ${corpo}
-  </section>`;
-  const sub = (titulo, meta, corpo) => `<div class="dp-sub"><div class="dp-sub-head"><h3>${titulo}</h3>${meta ? `<span class="dp-count">${meta}</span>` : ''}</div>${corpo}</div>`;
-
-  // prova da semana: uma faixa só, no topo; os outros prazos ficam numa lista curta
-  const provaHTML = prova ? `<div class="dp-prova${prova.dias <= 2 ? ' urgente' : ''}">
-      <div class="dp-prova-txt"><span class="dp-prova-lbl">Próxima prova</span><strong>${escHTML(prova.tarefa)}</strong><span class="dp-prova-q">${quandoTxt(prova.dias)} · ${fmtDia(prova.prazo)}</span></div>
-      <div class="dp-prova-btns">${simulados.map(x=>`<button class="btn btn-primary" data-sim-abrir="${x.id}">Fazer o simulado</button>`).join('')}<button class="link-btn" data-ics="${d.n}">Adicionar à agenda</button></div>
-    </div>` : '';
   const outros = prova ? c.prazos.filter(t => !(t.prazo === prova.prazo && t.tarefa === prova.tarefa)) : c.prazos;
-  const secPrazos = outros.length ? `<section class="dp-section dp-prazos" id="dpPrazos">
-    <div class="dp-sec-head"><h2>${prova ? 'Outros prazos' : 'Próximos prazos'}</h2><span class="dp-sec-links">${prova ? '' : `<button class="link-btn" data-ics="${d.n}">Adicionar à agenda</button>`}<button class="link-btn" data-page-go="viewPrazos" data-target-go="calendario">Ver no calendário</button></span></div>
-    <ul class="dp-plist">${outros.map(t=>{ const dd = diasAte(t.prazo); return `<li class="${dd<=3?'urgente':''}"><span class="dp-pdata">${diaNum(t.prazo)} ${mesCurto(t.prazo)}</span><span class="dp-ptit">${escHTML(t.tarefa)}${discOf(t.materia) ? '' : ' <small>· várias disciplinas</small>'}</span><span class="dp-pq">${quandoTxt(dd)}</span></li>`; }).join('')}</ul>
-  </section>` : '';
-
-  const secGuia = temGuia ? grp('dpGuia', 'Relatório do projeto', '', montadorHTML() + exemplosHTML()) : '';
-
-  // resumos: cada aba aparece com o próprio nome, para ninguém precisar abrir para descobrir o que tem dentro
-  const resumoHTML = r => {
-    const done = progStudyDone(r.link); const interno = r.link.startsWith('#');
+  const nQ = simulados.reduce((n, x)=>n + x.questoes.length, 0);
+  // resumos abertos por aba: cada aba conta como um item do índice
+  const itensResumo = c.resumos.flatMap(r=>{
     const rid = r.link.startsWith('#resumo-') ? r.link.slice(8) : null;
     const R = rid && RESUMOS[rid];
-    const abas = R && R.caps.length > 1 ? `<div class="dp-abas">${R.caps.map((cap,i)=>{ const f = Object.keys((rsEstado(rid)[cap.id]) || {}).length; return `<button class="dp-aba${f >= cap.etapas.length ? ' done' : ''}" data-continue-resumo="${rid}" data-cap="${i}"><span class="dp-aba-t">${escHTML(cap.aba)}</span><span class="dp-aba-s">${f ? `${f} de ${cap.etapas.length} partes` : `${cap.etapas.length} partes`}</span></button>`; }).join('')}</div>` : '';
-    return `<div class="dp-tile dp-resumo${done ? ' done' : ''}${abas ? ' dp-resumo-abas' : ''}">
-        <a class="dp-tile-link" href="${r.link}"${interno ? '' : ' target="_blank" rel="noopener"'}>
-          <div class="dp-tile-title">${escHTML(r.titulo)}</div>
-          <div class="dp-tile-sub">${abas ? `Em ${R.caps.length} abas. Abra pelo começo ou direto na aba:` : escHTML(r.subtitulo || 'Material de estudo')}${interno ? '' : ' ↗'}</div>
-          ${interno ? '' : '<div class="nota-fora">abre em outro site</div>'}
-        </a>
-        ${abas}
-        <button class="dp-check" data-study-toggle="${r.link}" aria-pressed="${done}" title="${done ? 'Desmarcar' : 'Marcar como estudado'}">${done ? '✓ Estudado' : 'Marcar como estudado'}</button>
-      </div>`;
-  };
-  const estudarPartes = [
-    c.resumos.length ? sub('Resumos', `${resumosFeitos}/${c.resumos.length} estudados`, `<div class="dp-tiles">${c.resumos.map(resumoHTML).join('')}</div>`) : '',
-    roteiros.length ? sub('Estudo dirigido', `${rtFeitas(roteiros[0])}/${roteiros[0].questoes.length} questões conferidas`, roteiros.map(roteiroHTML).join('')) : '',
-  ].join('');
-  const secEstudar = estudarPartes ? grp('dpEstudar', 'Estudar', 'A matéria explicada em partes, com perguntas para se testar no fim de cada uma.', estudarPartes) : '';
+    if(R && R.caps.length > 1) return R.caps.map((cap,i)=>({r, rid, cap, i}));
+    return [{r, rid, cap: R ? R.caps[0] : null, i: 0}];
+  });
 
-  const praticarPartes = [
-    simulados.length ? sub('Simulado', '', simulados.map(simHTMLCard).join('')) : '',
-    c.exercicios.length ? sub('Exercícios', `${exFeitos}/${c.exercicios.length} praticados`, `<div class="dp-tiles">${c.exercicios.map(t=>{ const p = progTool(t.id); return `
-      <button class="dp-tile dp-ex${p.t ? ' done' : ''}" data-tool-go="${t.id}">
-        <span class="tool-tipo ${t.tipo}">${t.tipo === 'quiz' ? 'Quiz' : 'Interativo'}</span>
-        <div class="dp-tile-title">${escHTML(t.titulo)}</div>
-        <div class="dp-tile-sub">${p.t ? `✓ ${p.a} ${p.a===1?'acerto':'acertos'} em ${p.t}` : 'Praticar →'}</div>
-      </button>`; }).join('')}</div>`) : '',
-  ].join('');
-  const secPraticar = praticarPartes ? grp('dpPraticar', 'Praticar', 'Questões para treinar depois de estudar.', praticarPartes) : '';
+  // o índice: uma linha por tipo de material, só o que existe
+  const SECOES = [
+    {k:'prazos', t:'Prazos', meta: outros.length, tem: outros.length},
+    {k:'relatorio', t:'Relatório do projeto', meta: temGuia ? MONTADOR.secoes.length + ' seções' : '', tem: temGuia},
+    {k:'resumos', t:'Resumos', meta: itensResumo.length, tem: c.resumos.length},
+    {k:'estudo', t:'Estudo dirigido', meta: roteiros.reduce((n, r)=>n + r.questoes.length, 0) + ' questões', tem: roteiros.length},
+    {k:'simulado', t:'Simulado', meta: nQ + ' questões', tem: simulados.length},
+    {k:'exercicios', t:'Exercícios', meta: c.exercicios.length, tem: c.exercicios.length},
+    {k:'videos', t:'Vídeos', meta: c.videos.length, tem: c.videos.length},
+    {k:'glossario', t:'Glossário', meta: c.termos.length + ' termos', tem: c.termos.length || comps.length},
+  ].filter(s=>s.tem);
+  let secao = discSecao && SECOES.some(s=>s.k === discSecao) ? discSecao : null;
+  document.getElementById('backFromDisc').style.display = secao ? 'none' : '';
 
-  const playSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
-  const secVid = c.videos.length ? grp('dpVideos', 'Vídeos', 'Toque no título para abrir o vídeo.',
-    `<div class="dp-vlist">${c.videos.map(v=>`<details class="dp-vrow"><summary><span class="dp-vplay">${playSvg}</span><span class="dp-vt">${escHTML(v.titulo)}</span></summary><div class="dp-vbody"><div class="video-frame">${videoLiteHTML(v)}</div><a class="yt-fora" href="https://www.youtube.com/watch?v=${v.youtubeId}" target="_blank" rel="noopener">Abrir no YouTube ↗</a></div></details>`).join('')}</div>`) : '';
+  const provaHTML = prova ? `<div class="dx-prova${prova.dias <= 2 ? ' urgente' : ''}"><span class="dx-prova-lbl">Próxima prova</span><strong>${escHTML(prova.tarefa)}</strong> · ${quandoTxt(prova.dias)}, ${fmtDia(prova.prazo)}</div>` : '';
 
-  const secGl = (c.termos.length || comps.length) ? `<section class="dp-section" id="dpGlossario">
-    ${c.termos.length ? `<details class="graveyard dp-gloss">
-      <summary><strong>Glossário</strong><span class="dp-gl-sub">${c.termos.length} termos desta disciplina</span></summary>
-      <input type="search" class="dp-gl-busca" placeholder="Buscar termo…" autocomplete="off">
+  if(!secao){
+    const linha = s => `<button class="dx-row" data-dp-secao="${s.k}"><span class="dx-t">${s.t}</span><span class="dx-m">${s.meta}</span><span class="dx-go" aria-hidden="true">→</span></button>`;
+    el.innerHTML = `
+      <header class="dp-header dx-header" data-d="${d.n}">
+        <div class="eyebrow">Disciplina ${d.n} · 2º semestre</div>
+        <h1>${escHTML(d.name)}</h1>
+        ${provaHTML}
+      </header>
+      ${continuarHTML(d)}
+      ${errAvisoDisc(d)}
+      <nav class="dx-index" aria-label="Conteúdo da disciplina">
+        ${SECOES.map(linha).join('')}
+        <button class="dx-row" data-pdf="${d.n}"><span class="dx-t">Resumão em PDF</span><span class="dx-m">tudo numa folha</span><span class="dx-go" aria-hidden="true">↓</span></button>
+        <a class="dx-row" href="${d.url}" target="_blank" rel="noopener"><span class="dx-t">Drive da disciplina</span><span class="dx-m">slides e livros</span><span class="dx-go" aria-hidden="true">↗</span></a>
+      </nav>
+    `;
+    return;
+  }
+
+  const S = SECOES.find(s=>s.k === secao);
+  let corpo = '';
+  if(secao === 'prazos'){
+    corpo = `<div class="dx-acoes"><button class="link-btn" data-ics="${d.n}">Adicionar à agenda</button><button class="link-btn" data-page-go="viewPrazos" data-target-go="calendario">Ver no calendário</button></div>
+    <ul class="dx-list">${outros.map(t=>{ const dd = diasAte(t.prazo); return `<li class="${dd<=3?'urgente':''}"><span class="dx-ld">${diaNum(t.prazo)} ${mesCurto(t.prazo)}</span><span class="dx-lt">${escHTML(t.tarefa)}${discOf(t.materia) ? '' : ' <small>· várias disciplinas</small>'}</span><span class="dx-lq">${quandoTxt(dd)}</span></li>`; }).join('')}</ul>`;
+  } else if(secao === 'relatorio'){
+    corpo = montadorHTML() + exemplosHTML();
+  } else if(secao === 'resumos'){
+    corpo = c.resumos.map(r=>{
+      const itens = itensResumo.filter(x=>x.r === r);
+      const done = progStudyDone(r.link); const interno = r.link.startsWith('#');
+      const rows = itens[0].rid ? itens.map(x=>{ const f = Object.keys((rsEstado(x.rid)[x.cap.id]) || {}).length; const n = x.cap.etapas.length; return `<button class="dx-row" data-continue-resumo="${x.rid}" data-cap="${x.i}"><span class="dx-t">${escHTML(itens.length > 1 ? x.cap.aba : r.titulo)}</span><span class="dx-m">${f >= n ? '✓ feito' : f ? `${f} de ${n} partes` : `${n} partes`}</span><span class="dx-go" aria-hidden="true">→</span></button>`; }).join('')
+        : `<a class="dx-row" href="${r.link}"${interno ? '' : ' target="_blank" rel="noopener"'}><span class="dx-t">${escHTML(r.titulo)}</span><span class="dx-m">${interno ? '' : 'outro site'}</span><span class="dx-go" aria-hidden="true">${interno ? '→' : '↗'}</span></a>`;
+      return `<div class="dx-grupo">${itens.length > 1 ? `<div class="dx-gt">${escHTML(r.titulo)}</div>` : ''}<div class="dx-index">${rows}</div>
+        <button class="dx-check${done ? ' done' : ''}" data-study-toggle="${r.link}" aria-pressed="${done}">${done ? '✓ Estudado' : 'Marcar como estudado'}</button></div>`;
+    }).join('');
+  } else if(secao === 'estudo'){
+    corpo = roteiros.map(roteiroHTML).join('');
+  } else if(secao === 'simulado'){
+    corpo = simulados.map(simHTMLCard).join('');
+  } else if(secao === 'exercicios'){
+    corpo = `<div class="dx-index">${c.exercicios.map(t=>{ const p = progTool(t.id); return `<button class="dx-row" data-tool-go="${t.id}"><span class="dx-t">${escHTML(t.titulo)}</span><span class="dx-m">${p.t ? `✓ ${p.a}/${p.t}` : (t.tipo === 'quiz' ? 'quiz' : 'interativo')}</span><span class="dx-go" aria-hidden="true">→</span></button>`; }).join('')}</div>`;
+  } else if(secao === 'videos'){
+    corpo = `<div class="dx-index">${c.videos.map(v=>`<details class="dx-vid"><summary class="dx-row"><span class="dx-t">${escHTML(v.titulo)}</span><span class="dx-m">assistir</span><span class="dx-go" aria-hidden="true">▾</span></summary><div class="dx-vbody"><div class="video-frame">${videoLiteHTML(v)}</div><a class="yt-fora" href="https://www.youtube.com/watch?v=${v.youtubeId}" target="_blank" rel="noopener">Abrir no YouTube ↗</a></div></details>`).join('')}</div>`;
+  } else if(secao === 'glossario'){
+    corpo = `${c.termos.length ? `<input type="search" class="dp-gl-busca" placeholder="Buscar termo…" autocomplete="off">
       <div class="dp-gl-vazio" hidden>Nenhum termo encontrado.</div>
-      <div class="dp-gl-list">${c.termos.map(g=>`<div class="gl-item"><div class="gl-top"><strong>${escHTML(g.t)}</strong></div><p>${escHTML(g.d)}</p>${g.ex ? `<p class="gl-ex"><b>Ex.:</b> ${escHTML(g.ex)}</p>` : ''}</div>`).join('')}</div>
-    </details>` : ''}
-    ${comps.length ? `<details class="graveyard dp-gloss">
-      <summary><strong>Comparações</strong><span class="dp-gl-sub">${comps.length} ${comps.length===1?'par':'pares'} de conceitos</span></summary>
-      <div class="dp-cmp-list">${comps.map(cmpItem).join('')}</div>
-    </details>` : ''}
-  </section>` : '';
-
-  const vazio = !temGuia && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length && !roteiros.length && !simulados.length;
+      <div class="dp-gl-list">${c.termos.map(g=>`<div class="gl-item"><div class="gl-top"><strong>${escHTML(g.t)}</strong></div><p>${escHTML(g.d)}</p>${g.ex ? `<p class="gl-ex"><b>Ex.:</b> ${escHTML(g.ex)}</p>` : ''}</div>`).join('')}</div>` : ''}
+      ${comps.length ? `<details class="graveyard dp-gloss dx-comps"><summary><strong>Comparações</strong><span class="dp-gl-sub">${comps.length} ${comps.length===1?'par':'pares'} de conceitos</span></summary><div class="dp-cmp-list">${comps.map(cmpItem).join('')}</div></details>` : ''}`;
+  }
   el.innerHTML = `
-    <header class="dp-header" data-d="${d.n}">
-      <div class="eyebrow">Disciplina ${d.n} · 2º semestre</div>
-      <h1>${escHTML(d.name)}</h1>
-      <p class="dp-intro">${vazio ? 'Por enquanto, esta disciplina só tem a pasta do Drive.' : 'O que o site tem desta disciplina. Slides, livros e textos das aulas ficam no Drive.'}</p>
-      <div class="dp-actions">
-        <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">Abrir Drive ↗</a>
-        <button class="btn btn-pdf" data-pdf="${d.n}">Resumão em PDF</button>
-      </div>
-      ${atalhos.length > 1 ? `<nav class="dp-jump dp-jump-s" aria-label="Nesta página">${atalhos.map(a=>`<button data-dp-jump="${a[0]}">${a[1]}</button>`).join('')}</nav>` : ''}
-    </header>
-    ${provaHTML}
-    ${continuarHTML(d)}
-    ${errAvisoDisc(d)}
-    ${secPrazos}${secGuia}${secEstudar}${secPraticar}${secVid}${secGl}
+    <button class="back-link dx-back" data-open-disc="${d.n}">← ${escHTML(d.name)}</button>
+    <section class="dp-section dx-sec" id="${({glossario:'dpGlossario', relatorio:'dpGuia', estudo:'dpRoteiro'})[secao] || 'dpSecao'}">
+      <div class="dp-sec-head"><h2>${S.t}</h2>${S.meta ? `<span class="dp-count">${S.meta}</span>` : ''}</div>
+      ${corpo}
+    </section>
   `;
 }
 document.getElementById('discPage').addEventListener('click', e=>{
@@ -16750,8 +16727,10 @@ document.getElementById('discPage').addEventListener('click', e=>{
   if(alvo){ if(alvo.querySelector('details')) alvo.querySelector('details').open = true; alvo.scrollIntoView({behavior:'smooth', block:'start'}); }
 });
 let discAtual = null;
+let discSecao = null;
 function openDisc(n, opts){
   opts = opts || {};
+  discSecao = opts.secao || null;
   const d = DISC[2].find(x=>x.n===n);
   if(!d){ switchPage('top', opts); return; }
   discAtual = n;
@@ -16759,8 +16738,14 @@ function openDisc(n, opts){
   switchPage('viewDisc', {fromHistory:true});
   document.querySelector(`.site-nav .nav-item[data-open-disc="${n}"]`)?.classList.add('active');
   document.querySelector('.nav-dd-disc')?.closest('.nav-group')?.querySelector('.nav-trigger')?.classList.add('active');
-  if(!opts.fromHistory && location.hash !== '#disc-' + n) history.pushState({disc:n}, '', '#disc-' + n);
+  const hs = '#disc-' + n + (discSecao ? '-' + discSecao : '');
+  if(!opts.fromHistory && location.hash !== hs) history.pushState({disc:n}, '', hs);
+  if(!opts.fromHistory) window.scrollTo(0, 0);
 }
+document.addEventListener('click', e=>{
+  const s = e.target.closest('[data-dp-secao]');
+  if(s && discAtual) openDisc(discAtual, {secao: s.dataset.dpSecao});
+});
 document.addEventListener('click', e=>{
   const od = e.target.closest('[data-open-disc]');
   if(od){ openDisc(od.dataset.openDisc); return; }
@@ -17116,7 +17101,7 @@ document.getElementById('discPage').addEventListener('toggle', e=>{
 function abrirRoteiro(id, opts){
   const r = ROTEIROS.find(x=>x.id === id);
   if(!r){ switchPage('top', {fromHistory:true}); return; }
-  openDisc(r.disc, {fromHistory:true});
+  openDisc(r.disc, {fromHistory:true, secao:'estudo'});
   if(opts && opts.push && location.hash !== '#roteiro-' + id) history.pushState({disc:r.disc}, '', '#roteiro-' + id);
   setTimeout(()=>{ const el = document.getElementById('rt-' + id); if(el){ el.open = true; el.scrollIntoView({block:'start'}); } }, 60);
 }
@@ -17648,10 +17633,10 @@ document.getElementById('discPage').addEventListener('input', e=>{
   const q = e.target.closest('.dp-gl-busca'); if(!q) return;
   const n = t => t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
   const v = n(q.value.trim());
-  const itens = q.closest('details').querySelectorAll('.gl-item');
+  const box = q.closest('details, .dx-sec'); const itens = box.querySelectorAll('.gl-item');
   let vis = 0;
   itens.forEach(it=>{ const ok = !v || n(it.textContent).includes(v); it.hidden = !ok; if(ok) vis++; });
-  q.closest('details').querySelector('.dp-gl-vazio').hidden = vis > 0;
+  box.querySelector('.dp-gl-vazio').hidden = vis > 0;
 });
 
 // ===== Resumão em PDF da disciplina =====
