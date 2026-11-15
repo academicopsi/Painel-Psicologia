@@ -2131,6 +2131,11 @@
   .sim-tema-bar{height:7px; background:rgba(255,255,255,.12); border-radius:4px; overflow:hidden;}
   .sim-tema-bar i{display:block; height:100%; background:#22A45D;}
   .sim-fim-acoes{display:flex; flex-direction:column; gap:10px; margin-top:4px;}
+  .sim-cartao{margin-top:6px; display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .sim-cartao[hidden]{display:none;}
+  .sim-cartao img{width:100%; max-width:360px; border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,.35);}
+  .sim-cartao .sim-cartao-acoes{display:flex; gap:8px; width:100%; max-width:360px;}
+  .sim-cartao .sim-cartao-acoes > *{flex:1; text-align:center; text-decoration:none;}
   .sim-rev{text-align:left; display:flex; flex-direction:column; gap:12px; margin-top:8px;}
   .sim-rev[hidden]{display:none;}
   .sim-rev-i{background:rgba(255,255,255,.07); border-left:4px solid #22A45D; border-radius:8px; padding:14px;}
@@ -4014,8 +4019,8 @@ const SIM_JOGO = [{
   id: 'bases-n2',
   disc: '01',
   titulo: 'Simulado N2: embriologia e DNA',
-  desc: '48 questões no estilo vestibular: da fertilização à 2ª semana, estrutura do DNA e cálculo das bases (regra de Chargaff).',
-  partes: [{k:'embrio', t:'Embriologia', n:22}, {k:'dna', t:'Estrutura do DNA', n:18}, {k:'calc', t:'Cálculo das bases', n:8}],
+  desc: '54 questões no estilo vestibular: da fertilização à 2ª semana, estrutura do DNA, cálculo das bases (regra de Chargaff) e pontes de hidrogênio.',
+  partes: [{k:'embrio', t:'Embriologia', n:22}, {k:'dna', t:'Estrutura do DNA', n:18}, {k:'calc', t:'Cálculo das bases', n:8}, {k:'pontes', t:'Pontes de hidrogênio', n:6}],
   questoes: [
   {tema:"Fertilização", p:"A laqueadura tubária (ligadura das tubas uterinas) é um método contraceptivo eficaz. Do ponto de vista da embriologia, ela impede a gravidez principalmente porque",
    o:["bloqueia a ovulação, pois os ovários deixam de receber o estímulo hormonal da hipófise.",
@@ -4399,6 +4404,32 @@ const SIM_JOGO = [{
       "40%.",
       "70%."],
    c:0, w:"Purinas são A e G. A = 30% e G = 20%, então A + G = 50%. Em qualquer DNA de fita dupla, purinas e pirimidinas são sempre 50% cada."},
+  {tema:"Pontes de hidrogênio", p:"Quantas pontes de hidrogênio mantêm o trecho 5′-GCGCAT-3′ unido à sua fita complementar?",
+   o:["12", "14", "16", "18", "20"],
+   c:2, fixa:true, w:"O trecho tem 4 pares C–G (G, C, G, C) e 2 pares A–T (A, T). Pontes: 4 × 3 + 2 × 2 = 12 + 4 = 16."},
+  {tema:"Pontes de hidrogênio", p:"Um trecho de DNA tem 12 pares de bases, dos quais 5 são C–G. O número total de pontes de hidrogênio entre as duas fitas é",
+   o:["26", "29", "31", "33", "36"],
+   c:1, fixa:true, w:"Se 5 dos 12 pares são C–G, os outros 7 são A–T. Pontes: 5 × 3 + 7 × 2 = 15 + 14 = 29."},
+  {tema:"Pontes de hidrogênio", p:"Sobre as pontes de hidrogênio do DNA, assinale a alternativa correta.",
+   o:["Unem as bases das duas fitas: duas entre A e T e três entre C e G.",
+      "Unem as bases das duas fitas: três entre A e T e duas entre C e G.",
+      "Unem o açúcar ao fosfato, formando o esqueleto de cada fita.",
+      "Unem um nucleotídeo ao seguinte dentro da mesma fita.",
+      "São mais fortes que as ligações fosfodiéster e não se rompem com o calor."],
+   c:0, w:"As pontes de hidrogênio ficam entre as bases complementares das duas fitas: 2 no par A–T e 3 no par C–G. Quem une os nucleotídeos de uma mesma fita é a ligação fosfodiéster. As pontes são mais fracas e se rompem com o calor, na desnaturação."},
+  {tema:"Pontes de hidrogênio", p:"Um trecho de DNA tem 15 pares de bases unidos por 40 pontes de hidrogênio. Quantos desses pares são C–G?",
+   o:["5", "8", "10", "12", "15"],
+   c:2, fixa:true, w:"Se os 15 pares fossem A–T, seriam 15 × 2 = 30 pontes. Cada par C–G no lugar de um A–T soma 1 ponte. Faltam 40 − 30 = 10 pontes, então são 10 pares C–G. Conferindo: 10 × 3 + 5 × 2 = 40."},
+  {tema:"Pontes de hidrogênio", p:"Três moléculas de DNA têm 10 pares de bases cada: a I tem 2 pares C–G, a II tem 5 e a III tem 8. Da que precisa de mais calor para desnaturar para a que precisa de menos, a ordem é",
+   o:["III, II, I.",
+      "I, II, III.",
+      "II, III, I.",
+      "I, III, II.",
+      "As três desnaturam na mesma temperatura, porque têm o mesmo número de pares."],
+   c:0, w:"Mais pares C–G, mais pontes de hidrogênio: a I tem 22, a II tem 25 e a III tem 28 pontes. Quanto mais pontes, mais energia é preciso para separar as fitas."},
+  {tema:"Pontes de hidrogênio", p:"Um DNA de fita dupla tem 100 pares de bases e 30% de adenina. Quantas pontes de hidrogênio unem as duas fitas?",
+   o:["200", "220", "240", "260", "300"],
+   c:2, fixa:true, w:"100 pares são 200 bases. Com 30% de adenina, são 60 A, e cada A forma um par A–T: 60 pares A–T. Os outros 40 pares são C–G. Pontes: 60 × 2 + 40 × 3 = 120 + 120 = 240."},
 
   ]
 }];
@@ -16830,6 +16861,96 @@ function simFinalizar(){
   e.recAnterior = r;
 }
 
+// ---------- cartão de resultado para compartilhar (imagem gerada na hora, no próprio aparelho) ----------
+let simCartaoBlob = null;
+function simCartaoPsiu(pct){
+  const olhos = pct >= 50
+    ? '<path d="M44.5 60 Q48 56 51.5 60 M68.5 60 Q72 56 75.5 60" fill="none" stroke="#14211F" stroke-width="2.4" stroke-linecap="round"/>'
+    : '<circle cx="48" cy="60" r="2.8" fill="#14211F"/><circle cx="72" cy="60" r="2.8" fill="#14211F"/><path d="M41 47 Q47 45.5 54 46.5 M66 46.5 Q73 45.5 79 47" fill="none" stroke="#14211F" stroke-width="2" stroke-linecap="round"/>';
+  const boca = pct >= 70 ? '<path d="M50 69 Q60 81 70 69 Z" fill="#14211F"/>' : '<path d="M52 71 Q60 77 68 71" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/>';
+  const bracos = pct >= 70 ? '<path d="M32 52 L18 30 M88 52 L102 30" stroke="#1F5C56" stroke-width="4" stroke-linecap="round"/><circle cx="18" cy="30" r="3.6" fill="#F4B9C1" stroke="#A8455A" stroke-width="1.6"/><circle cx="102" cy="30" r="3.6" fill="#F4B9C1" stroke="#A8455A" stroke-width="1.6"/>' : '';
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="480" height="480">${bracos}<g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/>${olhos}${boca}</svg>`;
+}
+function simCartaoQuebra(ctx, texto, larg){
+  const pal = texto.split(' '), linhas = []; let l = '';
+  pal.forEach(p => { const t = l ? l + ' ' + p : p; if(ctx.measureText(t).width > larg && l){ linhas.push(l); l = p; } else l = t; });
+  if(l) linhas.push(l); return linhas;
+}
+async function simCartaoGerar(){
+  const e = simEst; if(!e) return null;
+  try{ await document.fonts.ready; }catch(err){}
+  const W = 1080, H = 1350, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d');
+  const SERIF = "'Lora', Georgia, serif", SANS = "'Inter', Arial, sans-serif";
+  // fundo
+  x.fillStyle = '#F6F3EC'; x.fillRect(0, 0, W, H);
+  x.fillStyle = '#1F5C56'; x.fillRect(0, 0, W, 300);
+  x.fillStyle = '#CFE3DA'; x.font = `700 30px ${SANS}`; x.textAlign = 'left'; x.fillText('ARQUIVO VIVO · SIMULADO', 80, 96);
+  x.fillStyle = '#FFFFFF'; x.font = `600 52px ${SERIF}`;
+  const disc = (DISC[2].find(d => d.n === e.sim.disc) || {}).name || '';
+  const parte = e.parte && e.parte !== 'tudo' ? ((e.sim.partes || []).find(p => p.k === e.parte) || {}).t : '';
+  let y = 170; simCartaoQuebra(x, e.sim.titulo, W - 160).slice(0, 2).forEach(l => { x.fillText(l, 80, y); y += 64; });
+  x.fillStyle = '#CFE3DA'; x.font = `500 30px ${SANS}`; x.fillText(disc + (parte ? ' · ' + parte : ''), 80, Math.min(y + 4, 286));
+  // anel de acerto
+  const cx = 360, cy = 590, r = 190;
+  x.lineWidth = 34; x.lineCap = 'round';
+  x.strokeStyle = '#E3DED2'; x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.stroke();
+  x.strokeStyle = e.pct >= 70 ? '#1D9E75' : e.pct >= 50 ? '#B7791F' : '#A8455A';
+  if(e.pct > 0){ x.beginPath(); x.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * e.pct / 100); x.stroke(); }
+  x.fillStyle = '#14211F'; x.textAlign = 'center'; x.font = `700 120px ${SANS}`; x.fillText(e.pct + '%', cx, cy + 30);
+  x.fillStyle = '#5F5E5A'; x.font = `500 32px ${SANS}`; x.fillText('de acerto', cx, cy + 82);
+  // Psiu
+  const img = new Image();
+  await new Promise(ok => { img.onload = ok; img.onerror = ok; img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(simCartaoPsiu(e.pct)); });
+  try{ x.drawImage(img, 670, 470, 340, 340); }catch(err){}
+  const fala = e.pct >= 85 ? 'Arrasou! Skinner aprovaria.' : e.pct >= 70 ? 'Muito bem! Bora manter o ritmo.' : e.pct >= 50 ? 'Bom começo! Mais uma rodada?' : 'Faz parte. Bora revisar junto?';
+  x.font = `600 30px ${SANS}`; const fl = simCartaoQuebra(x, fala, 300);
+  const bw = 340, bh = 30 + fl.length * 40, bx = 670, by = 340;
+  x.fillStyle = '#FFFFFF'; x.strokeStyle = '#E3DED2'; x.lineWidth = 3;
+  x.beginPath(); x.roundRect(bx, by, bw, bh, 22); x.fill(); x.stroke();
+  x.fillStyle = '#14211F'; x.textAlign = 'center'; fl.forEach((l, i) => x.fillText(l, bx + bw / 2, by + 50 + i * 40));
+  // mensagem
+  const msg = e.pct >= 85 ? 'Excelente!' : e.pct >= 70 ? 'Muito bem!' : e.pct >= 50 ? 'Bom começo.' : 'Vale revisar o conteúdo.';
+  x.fillStyle = '#1F5C56'; x.font = `600 64px ${SERIF}`; x.fillText(msg, W / 2, 900);
+  // números
+  const dados = [[`${e.acertos}/${e.fila.length}`, 'acertos'], [e.pontos.toLocaleString('pt-BR'), 'pontos'], [String(e.maxSeq), 'maior sequência'], [simFmtTempo(e.seg), 'tempo']];
+  const cw = (W - 160 - 3 * 20) / 4;
+  dados.forEach(([v, l], i) => {
+    const px = 80 + i * (cw + 20), py = 960;
+    x.fillStyle = '#FFFFFF'; x.strokeStyle = '#E3DED2'; x.lineWidth = 3; x.beginPath(); x.roundRect(px, py, cw, 150, 20); x.fill(); x.stroke();
+    x.fillStyle = '#14211F'; x.font = `700 ${v.length > 8 ? 34 : 44}px ${SANS}`; x.fillText(v, px + cw / 2, py + 72);
+    x.fillStyle = '#5F5E5A'; x.font = `500 24px ${SANS}`; x.fillText(l, px + cw / 2, py + 116);
+  });
+  // rodapé
+  x.fillStyle = '#1F5C56'; x.fillRect(0, H - 150, W, 150);
+  x.fillStyle = '#FFFFFF'; x.font = `600 34px ${SANS}`; x.fillText('Faz o seu também!', W / 2, H - 88);
+  x.fillStyle = '#CFE3DA'; x.font = `500 26px ${SANS}`; x.fillText('academicopsi.github.io/Painel-Psicologia', W / 2, H - 44);
+  return await new Promise(ok => c.toBlob(ok, 'image/png'));
+}
+async function simCartaoMostrar(){
+  const area = document.querySelector('#simOverlay .sim-cartao'); if(!area) return;
+  if(!area.hidden){ area.hidden = true; return; }
+  area.hidden = false; area.innerHTML = '<span>Montando o cartão…</span>';
+  simCartaoBlob = await simCartaoGerar();
+  if(!simCartaoBlob){ area.innerHTML = '<span>Não deu para montar o cartão neste aparelho.</span>'; return; }
+  const url = URL.createObjectURL(simCartaoBlob);
+  area.innerHTML = `<img src="${url}" alt="Cartão com o resultado do simulado"><div class="sim-cartao-acoes"><button class="sim-start" data-sim-enviar>Enviar</button><a class="sim-sec" href="${url}" download="resultado-simulado.png">Baixar</a></div>`;
+  area.scrollIntoView({behavior:'smooth', block:'start'});
+}
+async function simCartaoEnviar(){
+  const e = simEst; if(!e || !simCartaoBlob) return;
+  const link = PUBLIC_URL + '#simulado-' + e.sim.id;
+  const texto = `Fiz o ${e.sim.titulo} no Arquivo Vivo: ${e.acertos}/${e.fila.length} (${e.pct}%). Faz o seu: ${link}`;
+  const arq = new File([simCartaoBlob], 'resultado-simulado.png', {type:'image/png'});
+  if(navigator.canShare && navigator.canShare({files:[arq]})){
+    try{ await navigator.share({files:[arq], text:texto}); }catch(err){}
+    return;
+  }
+  // sem compartilhamento de imagem (computador): baixa a imagem e abre o WhatsApp com o texto
+  const a = document.createElement('a'); a.href = URL.createObjectURL(simCartaoBlob); a.download = 'resultado-simulado.png'; document.body.appendChild(a); a.click(); a.remove();
+  window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+}
+
 function simFmtTempo(s){ const m = Math.floor(s / 60), r = s % 60; return m ? `${m} min ${String(r).padStart(2, '0')} s` : `${r} s`; }
 
 function simRender(){
@@ -16894,7 +17015,9 @@ function simRender(){
           <button class="sim-start" data-sim-revisar>Revisar respostas</button>
           ${erradas ? `<button class="sim-sec" data-sim-refazer>Refazer as ${erradas} que errei</button>` : ''}
           <button class="sim-sec" data-sim-denovo>Jogar de novo</button>
+          <button class="sim-sec" data-sim-compartilhar>Compartilhar resultado</button>
         </div>
+        <div class="sim-cartao" hidden></div>
         <div class="sim-rev" hidden>${e.resp.map((x, n)=>{ const q = e.sim.questoes[x.i]; return `
           <div class="sim-rev-i ${x.certo ? 'ok' : 'no'}">
             <div class="sim-rev-h"><span>${n + 1}. ${escHTML(q.tema)}</span><b>${x.certo ? 'Acertou' : (x.k === -1 ? 'Tempo esgotado' : 'Errou')}</b></div>
@@ -16920,6 +17043,8 @@ function simClique(ev){
   if(t.closest('[data-sim-revisar]')){ const r = document.querySelector('#simOverlay .sim-rev'); r.hidden = !r.hidden; if(!r.hidden) r.scrollIntoView({behavior:'smooth', block:'start'}); return; }
   if(t.closest('[data-sim-refazer]')){ simComecar(e.resp.filter(x=>!x.certo).map(x=>x.i)); return; }
   if(t.closest('[data-sim-denovo]')){ e.tela = 'inicio'; simRender(); return; }
+  if(t.closest('[data-sim-compartilhar]')){ simCartaoMostrar(); return; }
+  if(t.closest('[data-sim-enviar]')){ simCartaoEnviar(); return; }
 }
 document.addEventListener('click', ev=>{
   const a = ev.target.closest('[data-sim-abrir]'); if(!a) return;
