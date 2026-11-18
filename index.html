@@ -17749,9 +17749,9 @@ function roteiroHTML(r){
         <ol class="rt-pede">${q.pede.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ol>
         <h4 class="rt-h">Perguntas norteadoras</h4>
         <ul class="rt-pense">${q.pense.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
-        ${r.estudo ? '' : `<h4 class="rt-h">Termos de busca</h4>
+        <h4 class="rt-h">Termos de busca</h4>
         <p class="rt-nota">Cada termo abre a busca no Google Acadêmico; "SciELO" abre a mesma busca no SciELO. Artigos de outras áreas, como enfermagem e ensino de ciências, ajudam a entender o conceito; na resposta, priorize fontes de psicologia e educação e cite o autor original.</p>
-        <div class="rt-termos">${q.busque.map(t=>`<span class="rt-termo"><a href="${acad(t)}" target="_blank" rel="noopener">${escHTML(t)}</a><a class="rt-scielo" href="${scielo(t)}" target="_blank" rel="noopener">SciELO</a></span>`).join('')}</div>`}
+        <div class="rt-termos">${q.busque.map(t=>`<span class="rt-termo"><a href="${acad(t)}" target="_blank" rel="noopener">${escHTML(t)}</a><a class="rt-scielo" href="${scielo(t)}" target="_blank" rel="noopener">SciELO</a></span>`).join('')}</div>
         <h4 class="rt-h">${r.estudo ? 'Para aprofundar' : 'Bibliografia'}</h4>
         <div class="rt-fontes">${q.fontes.map(f=>`<div class="rt-fonte">
           <span class="rt-tipo">${escHTML(f.tipo)}</span>
