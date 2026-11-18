@@ -17634,7 +17634,6 @@ function renderDiscPage(d){
     </header>
     ${continuarHTML(d)}
     ${errAvisoDisc(d)}
-    ${prova ? `<div class="modo-prova dp-mp">${modoProvaCard(prova)}</div>` : ''}
     ${secPrazos}${secGuia}${secExh}${secRoteiro}${secSim}${secResumos}${secEx}${secVid}${secGl}
     ${!temGuia && !temExh && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
   `;
