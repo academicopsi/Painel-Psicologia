@@ -2231,7 +2231,7 @@
     .exh-anul::after{content:"⊘"; font-size:15px;}
     .exh-folha tr.exh-fase td{font-size:11.5px;}
   }
-  .rt-resp{margin-top:16px; border:1px solid var(--petrol-line); border-radius:6px; background:var(--petrol-soft);}
+  .rt-resp{margin:0 0 6px; border-left:3px solid var(--petrol); background:var(--petrol-soft); padding:10px 0 2px;}
   .rt-resp > summary{cursor:pointer; padding:11px 14px; font-weight:700; color:var(--petrol); list-style:none;}
   .rt-resp > summary::-webkit-details-marker{display:none;}
   .rt-resp > summary::before{content:"▸ "; }
@@ -3771,7 +3771,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-18', disc: 'Psicologia Experimental', desc: 'Estudo dirigido da N2: roteiro das 6 perguntas do quadro, com resposta para conferir, e 24 questões novas no simulado. Agora são 76.', link: {url:'#disc-04'}},
+  {date: '2026-11-18', disc: 'Psicologia Experimental', desc: 'Estudo dirigido da N2 (não é para entregar): as 6 perguntas do quadro respondidas, e 24 questões novas no simulado. Agora são 76.', link: {url:'#disc-04'}},
   {date: '2026-11-18', disc: 'Psicologia da Aprendizagem', desc: 'Revisão do professor para a N2 no simulado: 28 questões novas sobre dislexia (Boder, Coltheart, duplo déficit), discalculia (acalculia espacial, alexia e agrafia para números, hemisférios), TDAH, TEA, Piaget e Freire. Agora são 101.', link: {url:'#simulado-aprendizagem-n2'}},
   {date: '2026-11-17', disc: 'Neuroanatomia', desc: 'Simulado da N2 com 40 questões novas sobre as estruturas do encéfalo e suas funções: lobos, sulcos e giros, áreas de Broca e Wernicke, tálamo, hipotálamo, hipocampo, amígdala, cerebelo, tronco encefálico, corpo caloso e núcleos da base. Agora são 115.', link: {url:'#simulado-neuro-n2'}},
   {date: '2026-11-11', disc: 'Psicologia da Aprendizagem', desc: 'Novo exercício Treino de Discursivas, com 13 perguntas sobre Piaget, Vygotsky e Freire, resposta-modelo e pontos que não podem faltar. A dislexia também ganhou 3 questões novas no simulado da N2, que agora tem 73.', link: {url:'#exercicio-treino-de-discursivas-piaget-vygotsky-e-freire'}},
@@ -7365,12 +7365,13 @@ const ROTEIROS = [
     id: 'experimental-ed-n2',
     disc: '04',
     titulo: 'Estudo dirigido (N2): análise do comportamento',
-    sub: 'Roteiro de estudo, com resposta para conferir',
-    intro: 'As 6 perguntas do quadro, com os itens pedidos, perguntas norteadoras, termos de busca, bibliografia e uma lista de conferência. Cada questão tem uma resposta para conferir, que fica fechada: tente responder antes de abrir.',
+    sub: 'Perguntas do quadro com respostas',
+    estudo: true,
+    intro: 'As 6 perguntas que a professora passou no quadro para estudar para a N2. Não é para entregar. Cada questão traz a resposta, o que a pergunta cobra e onde aprofundar.',
     dicas: [
-      'Responda primeiro sem consultar nada e só depois use o roteiro para completar.',
+      'Para fixar, tente responder de cabeça antes de ler a resposta.',
       'Use a linguagem da análise do comportamento: estímulo, resposta, consequência, eliciar, emitir.',
-      'Dê exemplos seus. Os exemplos da resposta para conferir servem de modelo, não para copiar.'
+      'Pense em exemplos seus: na prova, eles mostram que você entendeu o conceito.'
     ],
     questoes: [
       {
@@ -7392,10 +7393,10 @@ const ROTEIROS = [
         ],
         noSite: [{t:'Resumo · Seleção pelas consequências (aula 4)', resumo:'experimental', cap:2}],
         confira: [
-          'Expliquei o Behaviorismo Radical e o conceito de ambiente antes das propriedades',
-          'Defini o comportamento respondente como relação em que o estímulo elicia a resposta',
-          'Apresentei as três propriedades: limiar, intensidade-magnitude e latência',
-          'Expliquei cada propriedade com um exemplo'
+          'Sei explicar o Behaviorismo Radical e o conceito de ambiente',
+          'Sei definir comportamento respondente',
+          'Sei as três propriedades do reflexo: limiar, intensidade-magnitude e latência',
+          'Consigo dar um exemplo para cada propriedade'
         ],
         resposta: [
           'Behaviorismo Radical é a filosofia da análise do comportamento, proposta por Skinner. É "radical" porque vai à raiz: trata como comportamento também os eventos privados, como pensar e sentir, e explica o comportamento pelas relações com o ambiente, sem recorrer a causas mentais.',
@@ -7424,10 +7425,10 @@ const ROTEIROS = [
         ],
         noSite: [{t:'Resumo · Análise do comportamento', resumo:'experimental', cap:3}],
         confira: [
-          'Defini reforçamento pelo efeito no comportamento: aumento ou manutenção da frequência',
-          'Expliquei que o positivo acrescenta um estímulo e o negativo retira um aversivo',
-          'Deixei claro que reforçamento negativo não é punição',
-          'Diferenciei fuga e esquiva com um exemplo de cada'
+          'Sei definir reforçamento pelo efeito no comportamento',
+          'Sei a diferença entre reforçamento positivo e negativo',
+          'Sei que reforçamento negativo não é punição',
+          'Sei diferenciar fuga e esquiva com exemplos'
         ],
         resposta: [
           'a) Reforçamento é o processo em que uma consequência aumenta ou mantém a frequência de uma resposta. Só se sabe que houve reforçamento olhando o que acontece com o comportamento depois.',
@@ -7453,9 +7454,9 @@ const ROTEIROS = [
         ],
         noSite: [{t:'Resumo · Análise do comportamento', resumo:'experimental', cap:3}],
         confira: [
-          'Apresentei os três tipos: primário, condicionado e generalizado',
-          'Expliquei como cada um adquire a função de reforçar',
-          'Dei um exemplo meu para cada tipo'
+          'Sei os três tipos: primário, condicionado e generalizado',
+          'Sei como cada um passa a reforçar',
+          'Consigo dar um exemplo para cada tipo'
         ],
         resposta: [
           'Primários, ou incondicionados: reforçam sem aprendizagem, porque estão ligados à sobrevivência da espécie. Ex.: água, comida, sono, oxigênio.',
@@ -7481,9 +7482,9 @@ const ROTEIROS = [
         ],
         noSite: [{t:'Resumo · Seleção pelas consequências (aula 4)', resumo:'experimental', cap:2}, {t:'Resumo · Análise do comportamento', resumo:'experimental', cap:3}],
         confira: [
-          'Defini o operante como comportamento controlado pelas consequências',
-          'Disse que o operante é emitido, e não eliciado',
-          'Dei um exemplo, de preferência descrito como Sᵈ → R → C'
+          'Sei definir comportamento operante',
+          'Sei a diferença entre emitido e eliciado',
+          'Consigo descrever um exemplo como Sᵈ → R → C'
         ],
         resposta: [
           'Comportamento operante é o comportamento que produz mudanças no ambiente e é afetado por essas mudanças. A probabilidade de ele voltar a ocorrer depende das consequências que produziu antes.',
@@ -7509,10 +7510,10 @@ const ROTEIROS = [
         ],
         noSite: [{t:'Resumo · Análise do comportamento', resumo:'experimental', cap:3}],
         confira: [
-          'Defini OM como evento que altera momentaneamente a efetividade do reforçador',
-          'Apresentei os dois tipos: estabelecedora e abolidora, com exemplo',
-          'Expliquei as duas formas: alteração do valor do reforçador e alteração da frequência do operante',
-          'Diferenciei OM de Sᵈ (opcional, mas ajuda)'
+          'Sei definir operação motivadora',
+          'Sei os dois tipos: estabelecedora e abolidora',
+          'Sei as duas formas como a OM afeta o operante',
+          'Sei diferenciar OM de Sᵈ'
         ],
         resposta: [
           'a) Operação motivadora (OM) é um evento ambiental que altera momentaneamente a efetividade de um reforçador e, com isso, a frequência dos comportamentos que já produziram esse reforçador. O efeito é temporário: a OM não ensina nada novo.',
@@ -7541,10 +7542,10 @@ const ROTEIROS = [
         ],
         noSite: [{t:'Resumo · Conceitos em pesquisa (aula 2)', resumo:'experimental', cap:1}],
         confira: [
-          'Diferenciei contiguidade (proximidade no tempo ou no espaço) de contingência (relação de dependência)',
-          'Expliquei o que é descrever de forma operacionalizada',
-          'Apontei riscos na pesquisa',
-          'Apontei riscos no dia a dia, com exemplo'
+          'Sei a diferença entre contiguidade e contingência',
+          'Sei o que é descrever de forma operacionalizada',
+          'Sei apontar riscos na pesquisa',
+          'Sei apontar riscos no dia a dia, com exemplo'
         ],
         resposta: [
           'Contiguidade é a proximidade no tempo ou no espaço entre dois eventos: um acontece junto ou logo depois do outro. Contingência é uma relação de dependência do tipo "se... então...": a consequência só ocorre se a resposta ocorrer. Dois eventos contíguos não são necessariamente contingentes.',
@@ -17708,35 +17709,36 @@ function roteiroHTML(r){
     <div class="rt-head">
       <p class="rt-intro">${escHTML(r.intro)}</p>
       <ul class="rt-dicas">${r.dicas.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
-      <button class="link-btn" data-page-go="viewApoio" data-target-go="abnt">Abrir o guia de normas ABNT</button>
+      ${r.estudo ? '' : '<button class="link-btn" data-page-go="viewApoio" data-target-go="abnt">Abrir o guia de normas ABNT</button>'}
     </div>
     ${r.questoes.map((q, i)=>{ const feita = rtQFeita(r, st, i); const a = st[i] || []; return `
     <details class="graveyard rt-q${feita ? ' feita' : ''}" data-rt-q="${i}">
       <summary><span class="rt-qn">Questão ${i+1}</span><span class="rt-qt">${escHTML(q.tema)}</span><span class="rt-ok">${feita ? '✓ Conferida' : ''}</span></summary>
       <div class="rt-body">
         <p class="rt-caso">${escHTML(q.caso)}</p>
+        ${q.resposta ? `<h4 class="rt-h">Resposta</h4><div class="rt-resp">${q.resposta.map(p=>`<p>${escHTML(p)}</p>`).join('')}</div>` : ''}
         <h4 class="rt-h">O que a questão pede</h4>
         <ol class="rt-pede">${q.pede.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ol>
         <h4 class="rt-h">Perguntas norteadoras</h4>
         <ul class="rt-pense">${q.pense.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
-        <h4 class="rt-h">Termos de busca</h4>
+        ${r.estudo ? '' : `<h4 class="rt-h">Termos de busca</h4>
         <p class="rt-nota">Cada termo abre a busca no Google Acadêmico; "SciELO" abre a mesma busca no SciELO. Artigos de outras áreas, como enfermagem e ensino de ciências, ajudam a entender o conceito; na resposta, priorize fontes de psicologia e educação e cite o autor original.</p>
-        <div class="rt-termos">${q.busque.map(t=>`<span class="rt-termo"><a href="${acad(t)}" target="_blank" rel="noopener">${escHTML(t)}</a><a class="rt-scielo" href="${scielo(t)}" target="_blank" rel="noopener">SciELO</a></span>`).join('')}</div>
-        <h4 class="rt-h">Bibliografia</h4>
+        <div class="rt-termos">${q.busque.map(t=>`<span class="rt-termo"><a href="${acad(t)}" target="_blank" rel="noopener">${escHTML(t)}</a><a class="rt-scielo" href="${scielo(t)}" target="_blank" rel="noopener">SciELO</a></span>`).join('')}</div>`}
+        <h4 class="rt-h">${r.estudo ? 'Para aprofundar' : 'Bibliografia'}</h4>
         <div class="rt-fontes">${q.fontes.map(f=>`<div class="rt-fonte">
           <span class="rt-tipo">${escHTML(f.tipo)}</span>
           <div class="rt-ref">${f.url ? `<a href="${f.url}" target="_blank" rel="noopener">${escHTML(f.ref)} ↗</a>` : escHTML(f.ref)}</div>
           <div class="rt-onde">${escHTML(f.onde)}</div>
         </div>`).join('')}</div>
         <h4 class="rt-h">No Arquivo Vivo</h4>
-        ${q.noSite.length ? `<p class="rt-nota">Material de revisão do site. Na resposta, cite a bibliografia, e não o site.</p>
+        ${q.noSite.length ? `${r.estudo ? '' : '<p class="rt-nota">Material de revisão do site. Na resposta, cite a bibliografia, e não o site.</p>'}
         <div class="rt-site">${q.noSite.map(s=> s.resumo
           ? `<button class="rt-site-btn" data-continue-resumo="${s.resumo}" data-cap="${s.cap || 0}">${escHTML(s.t)} →</button>`
           : `<button class="rt-site-btn" data-tool-go="${s.tool}">${escHTML(s.t)} →</button>`).join('')}</div>`
           : `<p class="rt-nota">${escHTML(q.semSite || '')}</p>`}
-        <h4 class="rt-h">Lista de conferência</h4>
+        <h4 class="rt-h">${r.estudo ? 'Já sei' : 'Lista de conferência'}</h4>
         <div class="rt-confira">${q.confira.map((x, k)=>`<label class="rt-check"><input type="checkbox" data-rt-k="${k}"${a[k] ? ' checked' : ''}><span>${escHTML(x)}</span></label>`).join('')}</div>
-        ${q.resposta ? `<details class="rt-resp"><summary>Ver a resposta para conferir</summary><p class="rt-nota">Tente responder antes de abrir. Use para conferir e escreva com as suas palavras.</p>${q.resposta.map(p=>`<p>${escHTML(p)}</p>`).join('')}</details>` : ''}
+
       </div>
     </details>`; }).join('')}
     </div>
