@@ -3771,7 +3771,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-18', disc: 'Psicologia Experimental', desc: 'Estudo dirigido da N2 (não é para entregar): as 6 perguntas do quadro respondidas, e 24 questões novas no simulado. Agora são 76.', link: {url:'#disc-04'}},
+  {date: '2026-11-18', disc: 'Psicologia Experimental', desc: 'Estudo dirigido da N2 (não é para entregar): as 6 perguntas do quadro respondidas, e 27 questões novas no simulado. Agora são 79.', link: {url:'#disc-04'}},
   {date: '2026-11-18', disc: 'Psicologia da Aprendizagem', desc: 'Revisão do professor para a N2 no simulado: 28 questões novas sobre dislexia (Boder, Coltheart, duplo déficit), discalculia (acalculia espacial, alexia e agrafia para números, hemisférios), TDAH, TEA, Piaget e Freire. Agora são 101.', link: {url:'#simulado-aprendizagem-n2'}},
   {date: '2026-11-17', disc: 'Neuroanatomia', desc: 'Simulado da N2 com 40 questões novas sobre as estruturas do encéfalo e suas funções: lobos, sulcos e giros, áreas de Broca e Wernicke, tálamo, hipotálamo, hipocampo, amígdala, cerebelo, tronco encefálico, corpo caloso e núcleos da base. Agora são 115.', link: {url:'#simulado-neuro-n2'}},
   {date: '2026-11-11', disc: 'Psicologia da Aprendizagem', desc: 'Novo exercício Treino de Discursivas, com 13 perguntas sobre Piaget, Vygotsky e Freire, resposta-modelo e pontos que não podem faltar. A dislexia também ganhou 3 questões novas no simulado da N2, que agora tem 73.', link: {url:'#exercicio-treino-de-discursivas-piaget-vygotsky-e-freire'}},
@@ -5323,8 +5323,8 @@ SIM_JOGO.push({
   id: 'experimental-n2',
   disc: '04',
   titulo: 'Simulado N2: seleção pelas consequências e condicionamento respondente',
-  desc: '76 questões no estilo vestibular: seleção pelas consequências (Skinner), comportamento respondente e operante, NS, US, UR, CS e CR, contingência tríplice, reforçamento, reforçadores, operações motivadoras e uma parte com as perguntas do estudo dirigido.',
-  partes: [{k:'selecao', t:'Seleção pelas consequências', n:18}, {k:'respondente', t:'NS, US, UR, CS e CR', n:22}, {k:'reforco', t:'Reforçamento e operações motivadoras', n:12}, {k:'estudo', t:'Estudo dirigido', n:24}],
+  desc: '79 questões no estilo vestibular: seleção pelas consequências (Skinner), comportamento respondente e operante, NS, US, UR, CS e CR, contingência tríplice, reforçamento, reforçadores, operações motivadoras e uma parte com as perguntas do estudo dirigido.',
+  partes: [{k:'selecao', t:'Seleção pelas consequências', n:18}, {k:'respondente', t:'NS, US, UR, CS e CR', n:22}, {k:'reforco', t:'Reforçamento e operações motivadoras', n:12}, {k:'estudo', t:'Estudo dirigido', n:27}],
   questoes: [
   {tema:"Skinner", p:"O pensamento de Skinner passou por uma mudança importante ao longo da obra. Essa mudança foi",
    o:["de um modelo inspirado na biologia para um modelo inspirado na física.",
@@ -5837,6 +5837,30 @@ SIM_JOGO.push({
       "a fuga é aprendida e a esquiva é sempre inata."],
    c:0, w:"Na fuga, a resposta remove um aversivo que já está presente. Na esquiva, a resposta impede que ele apareça. As duas são reforçamento negativo."},
 
+  {tema:"Estudo dirigido", p:"Extinção operante é o procedimento em que",
+   o:["uma consequência aversiva é apresentada depois da resposta.",
+      "a resposta deixa de produzir o reforçador que a mantinha.",
+      "um estímulo aversivo é retirado depois da resposta.",
+      "um estímulo neutro é pareado com um reforçador.",
+      "a privação aumenta o valor do reforçador."],
+   c:1, w:"Na extinção, o comportamento antes reforçado deixa de produzir a consequência que o mantinha e, por isso, tende a diminuir com o tempo."},
+
+  {tema:"Estudo dirigido", p:"Um aluno fazia piadas na aula e os colegas sempre riam. A turma combina de não rir mais. Nos primeiros dias, as piadas aumentam; depois, vão ficando raras. O aumento do começo é chamado de",
+   o:["recuperação espontânea.",
+      "explosão de extinção.",
+      "reforçamento negativo.",
+      "operação estabelecedora.",
+      "punição positiva."],
+   c:1, w:"Na extinção pode haver um aumento temporário da resposta no início, a explosão de extinção, antes da diminuição."},
+
+  {tema:"Estudo dirigido", p:"Sobre extinção e punição, assinale a alternativa correta.",
+   o:["São o mesmo procedimento com nomes diferentes.",
+      "Na extinção, o reforçador deixa de vir; não se aplica aversivo.",
+      "A extinção sempre aumenta o comportamento de forma permanente.",
+      "Na punição, o reforçador que mantinha a resposta só deixa de vir.",
+      "A extinção só acontece no comportamento respondente."],
+   c:1, w:"Extinção não é punição: na extinção, a consequência reforçadora simplesmente deixa de ocorrer. Lembrete do gabarito: extinção ≠ punição."},
+
   {tema:"Estudo dirigido", p:"Associe o reforçador ao tipo:<br>I. Água para quem está com sede.<br>II. O \"clique\" do adestrador, sempre seguido de petisco.<br>III. Dinheiro.<br>A associação correta é",
    o:["I generalizado, II primário, III condicionado.",
       "I primário, II condicionado, III generalizado.",
@@ -5895,11 +5919,11 @@ SIM_JOGO.push({
 
   {tema:"Estudo dirigido", p:"Quando uma operação motivadora diminui a frequência das respostas que costumavam produzir o reforçador, como comer menos depois do almoço, fala-se em efeito",
    o:["evocativo.",
-      "abolidor.",
+      "abativo.",
       "eliciador.",
       "discriminativo.",
       "aversivo."],
-   c:1, w:"O efeito alterador do comportamento pode ser evocativo (aumenta a frequência) ou abolidor (diminui)."},
+   c:1, w:"O efeito alterador do comportamento pode ser evocativo (aumenta a frequência) ou abativo (diminui). Não confundir com a operação abolidora, que é o tipo de OM que diminui o valor do reforçador."},
 
   {tema:"Estudo dirigido", p:"A diferença entre contiguidade e contingência é que",
    o:["contiguidade é proximidade; contingência é dependência.",
@@ -7409,14 +7433,15 @@ const ROTEIROS = [
         ]
       },
       {
-        tema: 'Reforçamento · positivo, negativo, fuga e esquiva',
-        caso: 'Sobre reforçamento, responda: a) O que é reforçamento? b) O que é reforçamento positivo? c) O que é reforçamento negativo? d) Diferencie fuga e esquiva.',
-        pede: ['a) Definir reforçamento', 'b) Definir reforçamento positivo', 'c) Definir reforçamento negativo', 'd) Diferenciar fuga e esquiva'],
+        tema: 'Reforçamento · positivo, negativo, fuga, esquiva e extinção',
+        caso: 'Sobre reforçamento, responda: a) O que é reforçamento? b) O que é reforçamento positivo? c) O que é reforçamento negativo? d) Diferencie fuga e esquiva. e) Defina extinção operante.',
+        pede: ['a) Definir reforçamento', 'b) Definir reforçamento positivo', 'c) Definir reforçamento negativo', 'd) Diferenciar fuga e esquiva', 'e) Definir extinção operante'],
         pense: [
           'Como saber se uma consequência foi reforçadora? É pelo que a pessoa sente ou pelo que acontece com o comportamento depois?',
           'O que é acrescentado no reforçamento positivo? E o que é retirado no negativo?',
           '"Negativo" quer dizer ruim? O reforçamento negativo aumenta ou diminui o comportamento?',
-          'Na fuga, o estímulo aversivo já está presente? E na esquiva?'
+          'Na fuga, o estímulo aversivo já está presente? E na esquiva?',
+          'O que acontece com um comportamento quando ele para de produzir o reforçador? Ele some na hora?'
         ],
         busque: ['reforçamento positivo e negativo', 'fuga e esquiva análise do comportamento', 'reforçamento negativo não é punição', 'controle aversivo'],
         fontes: [
@@ -7428,13 +7453,15 @@ const ROTEIROS = [
           'Sei definir reforçamento pelo efeito no comportamento',
           'Sei a diferença entre reforçamento positivo e negativo',
           'Sei que reforçamento negativo não é punição',
-          'Sei diferenciar fuga e esquiva com exemplos'
+          'Sei diferenciar fuga e esquiva com exemplos',
+          'Sei definir extinção operante e que ela não é punição'
         ],
         resposta: [
           'a) Reforçamento é o processo em que uma consequência aumenta ou mantém a frequência de uma resposta. Só se sabe que houve reforçamento olhando o que acontece com o comportamento depois.',
           'b) Reforçamento positivo: a resposta produz o acréscimo de um estímulo, e com isso a frequência dela aumenta. Ex.: o aluno estuda, tira nota boa e passa a estudar mais.',
           'c) Reforçamento negativo: a resposta retira ou evita um estímulo aversivo, e com isso a frequência dela aumenta. "Negativo" quer dizer que algo foi retirado, não que é ruim. Não é punição: o reforçamento negativo aumenta o comportamento.',
-          'd) Na fuga, o aversivo já está presente e a resposta o remove. Ex.: o barulho está alto e a pessoa fecha a janela. Na esquiva, a resposta impede que o aversivo apareça. Ex.: levar o guarda-chuva para não se molhar.'
+          'd) Na fuga, o aversivo já está presente e a resposta o remove. Ex.: o barulho está alto e a pessoa fecha a janela. Na esquiva, a resposta impede que o aversivo apareça. Ex.: levar o guarda-chuva para não se molhar.',
+          'e) Extinção operante: um comportamento antes reforçado deixa de produzir a consequência que o mantinha e, por isso, tende a diminuir com o tempo. Ex.: comentários feitos para chamar atenção deixam de receber atenção e vão ficando raros. No início pode haver um aumento temporário da resposta, a explosão de extinção. Extinção não é punição: a consequência só deixa de vir.'
         ]
       },
       {
@@ -7460,9 +7487,9 @@ const ROTEIROS = [
         ],
         resposta: [
           'Primários, ou incondicionados: reforçam sem aprendizagem, porque estão ligados à sobrevivência da espécie. Ex.: água, comida, sono, oxigênio.',
-          'Secundários, ou condicionados: são estímulos neutros que passam a reforçar depois de pareados com um reforçador primário. Ex.: o "clique" do adestrador, sempre seguido de petisco. Também elogio, nota boa e som de notificação.',
+          'Secundários, ou condicionados: são estímulos neutros que passam a reforçar depois de pareados com um reforçador primário. Ex.: o "clique" do adestrador, sempre seguido de petisco, ou uma ficha que pode ser trocada por um lanche. Também elogio e nota boa.',
           'Generalizados: são reforçadores condicionados pareados com muitos reforçadores diferentes, e por isso funcionam independentemente da privação do momento. Ex.: dinheiro, atenção, aprovação social.',
-          'Diferença central: o secundário está associado a um reforçador, e o generalizado, a muitos.'
+          'Diferença central: o secundário está associado a um reforçador, e o generalizado, a muitos. Os generalizados são um tipo de reforçador condicionado.'
         ]
       },
       {
@@ -7516,11 +7543,11 @@ const ROTEIROS = [
           'Sei diferenciar OM de Sᵈ'
         ],
         resposta: [
-          'a) Operação motivadora (OM) é um evento ambiental que altera momentaneamente a efetividade de um reforçador e, com isso, a frequência dos comportamentos que já produziram esse reforçador. O efeito é temporário: a OM não ensina nada novo.',
+          'a) Operação motivadora (OM) é um evento ou condição antecedente que altera momentaneamente a efetividade de uma consequência como reforçadora (ou punidora) e, com isso, a frequência dos comportamentos que já produziram esse reforçador. O efeito é temporário: a OM não ensina nada novo.',
           'b) Operação estabelecedora: aumenta o valor do reforçador. Ex.: a privação, como horas sem comer, faz a comida reforçar muito mais. Operação abolidora: diminui o valor do reforçador. Ex.: a saciação, logo depois do almoço.',
-          'c) A OM afeta o operante de duas formas. Efeito alterador do valor: muda o quanto o reforçador "vale". Efeito alterador do comportamento: muda a frequência das respostas que produziram esse reforçador, aumentando (efeito evocativo) ou diminuindo (efeito abolidor). Ex.: com fome, a comida vale mais e a pessoa procura comida com mais frequência.',
+          'c) A OM afeta o operante de duas formas. Efeito alterador do valor: muda o quanto o reforçador "vale". Efeito alterador do comportamento: muda a frequência das respostas que produziram esse reforçador, aumentando (efeito evocativo) ou diminuindo (efeito abativo). Ex.: com fome, a comida vale mais e a pessoa procura comida com mais frequência.',
           'Não confundir com o Sᵈ: o Sᵈ sinaliza que o reforço está disponível (a placa "aberto"), e a OM muda o quanto ele é desejado (a fome).',
-          'Fonte da parte c: Laraway et al. (2003). As anotações de aula do site falam em alterar a efetividade do reforçador e a frequência da resposta, que são essas duas formas.'
+          'Atenção ao termo: o efeito que diminui a frequência é o abativo. "Abolidora" é o nome do tipo de OM que diminui o valor do reforçador. Fonte da parte c: Laraway et al. (2003).'
         ]
       },
       {
@@ -7548,7 +7575,7 @@ const ROTEIROS = [
           'Sei apontar riscos no dia a dia, com exemplo'
         ],
         resposta: [
-          'Contiguidade é a proximidade no tempo ou no espaço entre dois eventos: um acontece junto ou logo depois do outro. Contingência é uma relação de dependência do tipo "se... então...": a consequência só ocorre se a resposta ocorrer. Dois eventos contíguos não são necessariamente contingentes.',
+          'Contiguidade é a proximidade no tempo ou no espaço entre dois eventos: um acontece junto ou logo depois do outro. Contingência é uma relação de dependência, funcional ou probabilística, do tipo "se... então...": a consequência depende da resposta. Dois eventos contíguos não são necessariamente contingentes.',
           'Descrever de forma operacionalizada é definir os eventos de modo observável e mensurável (o que foi feito, quantas vezes, em que condições), o que permite testar se existe mesmo uma relação de dependência.',
           'Na pesquisa, o risco é tomar coincidência ou correlação por causa: concluir que a VI produziu o efeito sem controlar outras variáveis, sem replicar e sem manipular a VI. Isso gera conclusões falsas, resultados que não se repetem e intervenções que não funcionam. Ex. da aula 2: concluir que café melhora as notas sem saber quantos alunos foram observados, como o desempenho foi medido e se os grupos eram parecidos.',
           'No dia a dia, o risco é criar crenças e explicações falsas: superstições (a camisa "da sorte"), rótulos sobre pessoas ("ele faz isso porque é preguiçoso") e decisões baseadas em coincidências. Skinner (1948) mostrou isso com pombos: a comida vinha em intervalos fixos, independentemente do que faziam, mas cada um passou a repetir o que estava fazendo quando a comida chegou. A contiguidade acidental bastou para manter um comportamento sem contingência real.'
@@ -7806,9 +7833,11 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
   {t:'Lei da latência', disc:'Psicologia Experimental', d:'Propriedade do reflexo: quanto mais intenso o estímulo, menor a latência, o tempo entre o estímulo e a resposta.'},
   {t:'Comportamento operante', disc:'Psicologia Experimental', d:'Comportamento que produz mudanças no ambiente e é afetado por elas. É emitido, e não eliciado, e sua probabilidade depende das consequências que já produziu.', ex:'Levantar a mão para pedir a palavra.'},
   {t:'Reforçamento', disc:'Psicologia Experimental', d:'Processo em que uma consequência aumenta ou mantém a frequência de uma resposta. Positivo: acrescenta um estímulo. Negativo: retira ou evita um aversivo.'},
-  {t:'Efeito alterador do valor e do comportamento', disc:'Psicologia Experimental', d:'As duas formas como a operação motivadora afeta o operante: muda o valor do reforçador e muda a frequência das respostas que o produziram, aumentando (evocativo) ou diminuindo (abolidor).', ex:'Com sede, a água vale mais e a pessoa procura um bebedouro com mais frequência.'},
+  {t:'Efeito alterador do valor e do comportamento', disc:'Psicologia Experimental', d:'As duas formas como a operação motivadora afeta o operante: muda o valor do reforçador e muda a frequência das respostas que o produziram, aumentando (evocativo) ou diminuindo (abativo).', ex:'Com sede, a água vale mais e a pessoa procura um bebedouro com mais frequência.'},
   {t:'Contiguidade × contingência', disc:'Psicologia Experimental', d:'Contiguidade é a proximidade no tempo ou no espaço entre dois eventos. Contingência é uma relação de dependência do tipo "se... então...". Eventos contíguos não são necessariamente contingentes.'},
   {t:'Comportamento supersticioso', disc:'Psicologia Experimental', d:'Comportamento mantido por contiguidade acidental com o reforçador, sem contingência real. Skinner (1948) o observou em pombos que recebiam comida em intervalos fixos.', ex:'Usar a camisa "da sorte" porque o time ganhou da última vez.'},
+  {t:'Extinção operante', disc:'Psicologia Experimental', d:'Procedimento em que um comportamento antes reforçado deixa de produzir a consequência que o mantinha e, por isso, tende a diminuir. Não é punição: a consequência só deixa de vir.', ex:'Comentários para chamar atenção deixam de receber atenção e vão ficando raros.'},
+  {t:'Explosão de extinção', disc:'Psicologia Experimental', d:'Aumento temporário da resposta no início da extinção, antes de ela começar a diminuir.'},
 
   // Neuroanatomia
   {t:'Telencéfalo', disc:'Neuroanatomia', d:'Maior parte do encéfalo: os dois hemisférios cerebrais, com o córtex, os núcleos da base e estruturas como o hipocampo e a amígdala.'},
