@@ -2231,6 +2231,13 @@
     .exh-anul::after{content:"⊘"; font-size:15px;}
     .exh-folha tr.exh-fase td{font-size:11.5px;}
   }
+  .rt-resp{margin-top:16px; border:1px solid var(--petrol-line); border-radius:6px; background:var(--petrol-soft);}
+  .rt-resp > summary{cursor:pointer; padding:11px 14px; font-weight:700; color:var(--petrol); list-style:none;}
+  .rt-resp > summary::-webkit-details-marker{display:none;}
+  .rt-resp > summary::before{content:"▸ "; }
+  .rt-resp[open] > summary::before{content:"▾ ";}
+  .rt-resp > p{margin:0 14px 10px; font-size:15px; line-height:1.6;}
+  .rt-resp > p.rt-nota{font-size:13px;}
 </style>
 </head>
 <body>
@@ -3764,11 +3771,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-18', disc: 'Psicologia Experimental', desc: 'Estudo dirigido da N2: roteiro das 6 perguntas do quadro, com resposta para conferir, e 24 questões novas no simulado. Agora são 76.', link: {url:'#disc-04'}},
   {date: '2026-11-18', disc: 'Psicologia da Aprendizagem', desc: 'Revisão do professor para a N2 no simulado: 28 questões novas sobre dislexia (Boder, Coltheart, duplo déficit), discalculia (acalculia espacial, alexia e agrafia para números, hemisférios), TDAH, TEA, Piaget e Freire. Agora são 101.', link: {url:'#simulado-aprendizagem-n2'}},
   {date: '2026-11-17', disc: 'Neuroanatomia', desc: 'Simulado da N2 com 40 questões novas sobre as estruturas do encéfalo e suas funções: lobos, sulcos e giros, áreas de Broca e Wernicke, tálamo, hipotálamo, hipocampo, amígdala, cerebelo, tronco encefálico, corpo caloso e núcleos da base. Agora são 115.', link: {url:'#simulado-neuro-n2'}},
   {date: '2026-11-11', disc: 'Psicologia da Aprendizagem', desc: 'Novo exercício Treino de Discursivas, com 13 perguntas sobre Piaget, Vygotsky e Freire, resposta-modelo e pontos que não podem faltar. A dislexia também ganhou 3 questões novas no simulado da N2, que agora tem 73.', link: {url:'#exercicio-treino-de-discursivas-piaget-vygotsky-e-freire'}},
   {date: '2026-11-11', disc: 'Psicologia Experimental', desc: 'Análise do comportamento: nova aba no resumo com contingência tríplice, reforçamento positivo e negativo (fuga e esquiva), reforçadores primários, secundários e generalizados e operações motivadoras. Exercício Qual Conceito da Análise do Comportamento?, 10 termos no glossário, 4 comparações e 12 questões novas no simulado, que agora tem 52.', link: {url:'#resumo-experimental'}},
-  {date: '2026-11-10', disc: 'Neuroanatomia', desc: 'Revisão: nova aba no resumo com organização do sistema nervoso (SNC e SNP, vesículas encefálicas, divisão segmentar e suprassegmentar), neurônio e sinapses (elétrica e química, neuromediadores, receptores). Exercício Qual Classe de Neuromediador?, 14 termos no glossário, 3 comparações e 15 questões novas no simulado, que agora tem 75.', link: {url:'#resumo-medula-sna'}},
 ];
 
 
@@ -5316,8 +5323,8 @@ SIM_JOGO.push({
   id: 'experimental-n2',
   disc: '04',
   titulo: 'Simulado N2: seleção pelas consequências e condicionamento respondente',
-  desc: '52 questões no estilo vestibular: seleção pelas consequências (Skinner), comportamento respondente e operante, NS, US, UR, CS e CR, contingência tríplice, reforçamento, reforçadores e operações motivadoras.',
-  partes: [{k:'selecao', t:'Seleção pelas consequências', n:18}, {k:'respondente', t:'NS, US, UR, CS e CR', n:22}, {k:'reforco', t:'Reforçamento e operações motivadoras', n:12}],
+  desc: '76 questões no estilo vestibular: seleção pelas consequências (Skinner), comportamento respondente e operante, NS, US, UR, CS e CR, contingência tríplice, reforçamento, reforçadores, operações motivadoras e uma parte com as perguntas do estudo dirigido.',
+  partes: [{k:'selecao', t:'Seleção pelas consequências', n:18}, {k:'respondente', t:'NS, US, UR, CS e CR', n:22}, {k:'reforco', t:'Reforçamento e operações motivadoras', n:12}, {k:'estudo', t:'Estudo dirigido', n:24}],
   questoes: [
   {tema:"Skinner", p:"O pensamento de Skinner passou por uma mudança importante ao longo da obra. Essa mudança foi",
    o:["de um modelo inspirado na biologia para um modelo inspirado na física.",
@@ -5734,6 +5741,197 @@ SIM_JOGO.push({
       "consequência e Sᵈ."],
    c:1, w:"O Sᵈ sinaliza que o reforço está disponível (a placa); a operação motivadora altera o quanto ele é desejado (a fome)."},
 
+  {tema:"Estudo dirigido", p:"O Behaviorismo Radical recebe esse nome porque",
+   o:["rejeita qualquer estudo dos eventos privados.",
+      "trata também pensar e sentir como comportamento.",
+      "estuda só o que pode ser visto por várias pessoas.",
+      "explica o comportamento por causas mentais.",
+      "aplica a punição como principal forma de ensino."],
+   c:1, w:"É radical porque vai à raiz: inclui os eventos privados na análise e os explica pelas relações com o ambiente, sem recorrer a causas mentais."},
+
+  {tema:"Estudo dirigido", p:"Para a análise do comportamento, \"ambiente\" é",
+   o:["apenas o espaço físico onde a pessoa está.",
+      "o conjunto das pessoas com quem a pessoa convive.",
+      "qualquer evento que afeta o organismo.",
+      "só o que existe fora da pele do organismo.",
+      "a cultura em que a pessoa nasceu e cresceu."],
+   c:2, w:"Ambiente inclui o mundo externo, a história de vida e até eventos dentro do próprio corpo."},
+
+  {tema:"Estudo dirigido", p:"Um sopro de ar muito fraco no olho não provoca a piscada. Só a partir de certa força ele passa a eliciar a resposta. Essa propriedade do reflexo é a",
+   o:["latência.",
+      "intensidade-magnitude.",
+      "habituação.",
+      "lei do limiar.",
+      "generalização."],
+   c:3, w:"Lei da intensidade-limiar: existe uma intensidade mínima do estímulo abaixo da qual a resposta não é eliciada (Moreira e Medeiros, 2019, cap. 1)."},
+
+  {tema:"Estudo dirigido", p:"Quanto mais forte o calor encostado na mão, mais intenso é o suor que aparece. Essa relação descreve a lei",
+   o:["do limiar.",
+      "da latência.",
+      "da intensidade-magnitude.",
+      "do reforçamento.",
+      "da extinção respondente."],
+   c:2, w:"Lei da intensidade-magnitude: quanto maior a intensidade do estímulo, maior a magnitude da resposta."},
+
+  {tema:"Estudo dirigido", p:"Pela lei da latência, quando a intensidade do estímulo aumenta, o tempo entre o estímulo e a resposta",
+   o:["aumenta.",
+      "diminui.",
+      "fica igual.",
+      "zera.",
+      "oscila ao acaso."],
+   c:1, w:"Latência é o tempo entre o estímulo e a resposta. Quanto mais intenso o estímulo, menor a latência: a resposta vem mais rápido."},
+
+  {tema:"Estudo dirigido", p:"As três propriedades (leis) do reflexo são",
+   o:["estímulo discriminativo, resposta e consequência.",
+      "limiar, intensidade-magnitude e latência.",
+      "fuga, esquiva e punição positiva.",
+      "privação, saciação e extinção respondente.",
+      "variação, seleção e retenção cultural."],
+   c:1, w:"Limiar (intensidade mínima), intensidade-magnitude (estímulo mais forte, resposta maior) e latência (estímulo mais forte, resposta mais rápida)."},
+
+  {tema:"Estudo dirigido", p:"Pela análise do comportamento, a melhor forma de saber se uma consequência foi reforçadora é",
+   o:["perguntar se a pessoa gostou da consequência.",
+      "observar se a frequência da resposta aumentou.",
+      "verificar se a consequência foi agradável.",
+      "conferir se a consequência foi dada logo depois.",
+      "avaliar se a consequência tinha valor em dinheiro."],
+   c:1, w:"Reforçamento se define pelo efeito: aumento ou manutenção da frequência da resposta. O que é agradável para um pode não reforçar para outro."},
+
+  {tema:"Estudo dirigido", p:"Uma criança arruma o quarto e ganha meia hora a mais de videogame. Depois disso, passa a arrumar o quarto com mais frequência. Isso é",
+   o:["reforçamento negativo.",
+      "reforçamento positivo.",
+      "punição positiva.",
+      "esquiva.",
+      "operação abolidora."],
+   c:1, w:"Um estímulo foi acrescentado (o tempo de videogame) e a frequência da resposta aumentou: reforçamento positivo."},
+
+  {tema:"Estudo dirigido", p:"Uma pessoa com dor de cabeça toma um analgésico, a dor passa, e ela volta a tomar o remédio nas próximas dores. O comportamento de tomar o remédio é mantido por",
+   o:["reforçamento positivo.",
+      "punição negativa.",
+      "reforçamento negativo.",
+      "operação estabelecedora.",
+      "extinção."],
+   c:2, w:"A resposta retirou um estímulo aversivo (a dor) e a frequência aumentou: reforçamento negativo, na forma de fuga."},
+
+  {tema:"Estudo dirigido", p:"Sobre o reforçamento negativo, assinale a alternativa correta.",
+   o:["É o mesmo que punição, porque envolve algo ruim.",
+      "Diminui a frequência do comportamento.",
+      "Aumenta a frequência ao retirar um aversivo.",
+      "Acontece quando algo bom é retirado.",
+      "Só acontece em laboratório, com animais."],
+   c:2, w:"Negativo significa que algo foi retirado. Como todo reforçamento, o negativo aumenta a frequência do comportamento."},
+
+  {tema:"Estudo dirigido", p:"Um aluno chega mais cedo à faculdade para não pegar o trânsito pesado da hora do rush. Esse comportamento é um exemplo de",
+   o:["fuga.",
+      "esquiva.",
+      "reforçamento positivo.",
+      "punição positiva.",
+      "comportamento respondente."],
+   c:1, w:"O aversivo (o trânsito) ainda não está presente, e a resposta evita que ele apareça: esquiva."},
+
+  {tema:"Estudo dirigido", p:"A diferença entre fuga e esquiva é que",
+   o:["na fuga o aversivo já está presente; na esquiva, não.",
+      "a fuga aumenta o comportamento e a esquiva o diminui.",
+      "a fuga é reforço positivo e a esquiva é negativo.",
+      "a esquiva só acontece com estímulos muito intensos.",
+      "a fuga é aprendida e a esquiva é sempre inata."],
+   c:0, w:"Na fuga, a resposta remove um aversivo que já está presente. Na esquiva, a resposta impede que ele apareça. As duas são reforçamento negativo."},
+
+  {tema:"Estudo dirigido", p:"Associe o reforçador ao tipo:<br>I. Água para quem está com sede.<br>II. O \"clique\" do adestrador, sempre seguido de petisco.<br>III. Dinheiro.<br>A associação correta é",
+   o:["I generalizado, II primário, III condicionado.",
+      "I primário, II condicionado, III generalizado.",
+      "I condicionado, II generalizado, III primário.",
+      "I primário, II generalizado, III condicionado.",
+      "I condicionado, II primário, III generalizado."],
+   c:1, w:"Água é primária (sem aprendizagem). O clique é condicionado (pareado com um reforçador). O dinheiro é generalizado (pareado com muitos)."},
+
+  {tema:"Estudo dirigido", p:"Um reforçador condicionado passa a ter função reforçadora porque",
+   o:["está ligado diretamente à sobrevivência.",
+      "foi pareado com um reforçador primário.",
+      "funciona sem nenhuma aprendizagem.",
+      "elicia uma resposta reflexa no organismo.",
+      "é apresentado antes da resposta, como Sᵈ."],
+   c:1, w:"Um estímulo neutro adquire função reforçadora ao ser pareado com um reforçador primário. Ex.: elogio, nota boa, som de notificação."},
+
+  {tema:"Estudo dirigido", p:"Comportamento operante é aquele que",
+   o:["é eliciado por um estímulo que vem antes dele.",
+      "é controlado pelas consequências que produz.",
+      "aparece em todos os membros da espécie.",
+      "não depende de nenhuma aprendizagem.",
+      "obedece às leis do limiar e da latência."],
+   c:1, w:"O operante produz mudanças no ambiente e é afetado por elas. É emitido, e não eliciado, e sua probabilidade depende das consequências anteriores."},
+
+  {tema:"Estudo dirigido", p:"Assinale a alternativa que traz um comportamento operante.",
+   o:["Lacrimejar quando um cisco cai no olho.",
+      "Salivar ao sentir o cheiro de comida.",
+      "Levantar a mão para pedir a palavra.",
+      "Arrepiar-se com um vento frio inesperado.",
+      "Contrair a pupila diante de uma luz forte."],
+   c:2, w:"Levantar a mão é emitido e mantido pela consequência (ganhar a palavra). As outras são respostas eliciadas, ou seja, respondentes."},
+
+  {tema:"Estudo dirigido", p:"Operação motivadora (OM) é um evento que",
+   o:["sinaliza que o reforço está disponível.",
+      "ensina um comportamento novo ao organismo.",
+      "muda por um tempo o valor do reforçador.",
+      "elicia uma resposta reflexa inata.",
+      "retira um estímulo aversivo do ambiente."],
+   c:2, w:"A OM altera momentaneamente a efetividade do reforçador e, com isso, a frequência das respostas ligadas a ele. Não ensina nada novo."},
+
+  {tema:"Estudo dirigido", p:"Os dois tipos de operação motivadora são",
+   o:["positiva e negativa.",
+      "estabelecedora e abolidora.",
+      "fuga e esquiva.",
+      "discriminativa e aversiva.",
+      "eliciadora e evocadora."],
+   c:1, w:"Estabelecedora (ex.: privação) aumenta o valor do reforçador. Abolidora (ex.: saciação) diminui."},
+
+  {tema:"Estudo dirigido", p:"Depois de horas sem beber água, a água vale muito mais e a pessoa procura um bebedouro com mais frequência. Essas duas mudanças correspondem às duas formas como a OM afeta o operante:",
+   o:["limiar e latência da resposta reflexa.",
+      "fuga e esquiva do estímulo aversivo.",
+      "valor do reforçador e frequência.",
+      "eliciação e emissão de respostas novas.",
+      "contiguidade e contingência entre eventos."],
+   c:2, w:"Efeito alterador do valor (a água vale mais) e efeito alterador do comportamento (procurar água fica mais frequente). Laraway et al. (2003)."},
+
+  {tema:"Estudo dirigido", p:"Quando uma operação motivadora diminui a frequência das respostas que costumavam produzir o reforçador, como comer menos depois do almoço, fala-se em efeito",
+   o:["evocativo.",
+      "abolidor.",
+      "eliciador.",
+      "discriminativo.",
+      "aversivo."],
+   c:1, w:"O efeito alterador do comportamento pode ser evocativo (aumenta a frequência) ou abolidor (diminui)."},
+
+  {tema:"Estudo dirigido", p:"A diferença entre contiguidade e contingência é que",
+   o:["contiguidade é proximidade; contingência é dependência.",
+      "as duas significam que um evento causou o outro.",
+      "contiguidade só existe no condicionamento operante.",
+      "contingência é só a proximidade no tempo e no espaço.",
+      "contiguidade exige que a relação seja testada."],
+   c:0, w:"Contiguidade: um evento acontece junto ou logo depois do outro. Contingência: relação do tipo \"se... então...\". Eventos contíguos não são necessariamente contingentes."},
+
+  {tema:"Estudo dirigido", p:"No experimento de Skinner (1948), pombos recebiam comida em intervalos fixos, não importava o que fizessem, e passaram a repetir o que faziam quando a comida chegava. Isso mostra que",
+   o:["a comida dependia do movimento de cada pombo.",
+      "a contiguidade acidental pode manter uma resposta.",
+      "os pombos aprenderam por condicionamento respondente.",
+      "a contingência entre resposta e comida era perfeita.",
+      "os movimentos eram reflexos inatos da espécie."],
+   c:1, w:"Não havia contingência, só contiguidade acidental entre resposta e comida. É o chamado comportamento supersticioso."},
+
+  {tema:"Estudo dirigido", p:"Um torcedor usa sempre a mesma camisa porque, da última vez, o time ganhou. Pela análise do comportamento, ele",
+   o:["identificou uma contingência real entre camisa e vitória.",
+      "tomou uma contiguidade por relação de dependência.",
+      "está sob controle de um reflexo condicionado.",
+      "mostra um efeito abolidor de operação motivadora.",
+      "tem um comportamento de esquiva bem-sucedido."],
+   c:1, w:"A vitória veio depois da camisa (contiguidade), mas não depende dela (sem contingência). É um exemplo de comportamento supersticioso no dia a dia."},
+
+  {tema:"Estudo dirigido", p:"Um pesquisador observa que alunos que tomam café tiram notas melhores e conclui que o café melhora o desempenho. O principal risco dessa inferência é",
+   o:["usar um número grande demais de participantes.",
+      "confundir correlação com causa.",
+      "definir o comportamento de forma operacional.",
+      "replicar o estudo em outros grupos de alunos.",
+      "medir o desempenho com notas, e não com relatos."],
+   c:1, w:"Sem controlar outras variáveis, manipular a VI e replicar, o que se tem é contiguidade ou correlação, não contingência. O exemplo é da aula 2."}
   ]
 });
 
@@ -7162,6 +7360,200 @@ const ROTEIROS = [
         ]
       }
     ]
+  },
+  {
+    id: 'experimental-ed-n2',
+    disc: '04',
+    titulo: 'Estudo dirigido (N2): análise do comportamento',
+    sub: 'Roteiro de estudo, com resposta para conferir',
+    intro: 'As 6 perguntas do quadro, com os itens pedidos, perguntas norteadoras, termos de busca, bibliografia e uma lista de conferência. Cada questão tem uma resposta para conferir, que fica fechada: tente responder antes de abrir.',
+    dicas: [
+      'Responda primeiro sem consultar nada e só depois use o roteiro para completar.',
+      'Use a linguagem da análise do comportamento: estímulo, resposta, consequência, eliciar, emitir.',
+      'Dê exemplos seus. Os exemplos da resposta para conferir servem de modelo, não para copiar.'
+    ],
+    questoes: [
+      {
+        tema: 'Comportamento respondente · as 3 propriedades do reflexo',
+        caso: 'Apresente e explique as 3 principais propriedades do comportamento respondente/reflexo. Relembre o Behaviorismo Radical, o conceito de ambiente e o de comportamento respondente.',
+        pede: ['Relembrar o Behaviorismo Radical', 'Definir ambiente', 'Definir comportamento respondente (reflexo)', 'Apresentar e explicar as 3 propriedades do reflexo'],
+        pense: [
+          'Para o Behaviorismo Radical, eventos que acontecem "dentro da pele", como pensamentos e sentimentos, ficam fora da análise?',
+          'Ambiente é só o lugar físico onde a pessoa está? O que mais conta como ambiente?',
+          'No reflexo, quem controla a resposta: o estímulo que vem antes ou a consequência que vem depois?',
+          'O que acontece com a resposta se o estímulo for fraco demais? E se ficar cada vez mais forte?',
+          'Com um estímulo mais forte, a resposta demora mais ou menos para aparecer?'
+        ],
+        busque: ['behaviorismo radical Skinner', 'comportamento respondente reflexo', 'lei da intensidade-magnitude reflexo', 'limiar e latência do reflexo'],
+        fontes: [
+          {tipo:'Livro', ref:'MOREIRA, Márcio B.; MEDEIROS, Carlos A. Princípios básicos de análise do comportamento. 2. ed. Porto Alegre: Artmed, 2019.', onde:'Capítulo 1, sobre o reflexo inato: definição de reflexo e as leis (propriedades) do reflexo.'},
+          {tipo:'Livro', ref:'SKINNER, B. F. Sobre o behaviorismo. São Paulo: Cultrix.', onde:'Introdução e primeiros capítulos, onde o autor diferencia o behaviorismo radical do metodológico.'},
+          {tipo:'Livro', ref:'CATANIA, A. Charles. Aprendizagem: comportamento, linguagem e cognição. 4. ed. Porto Alegre: Artmed, 1999.', onde:'Parte sobre o comportamento eliciado e as propriedades do reflexo.'}
+        ],
+        noSite: [{t:'Resumo · Seleção pelas consequências (aula 4)', resumo:'experimental', cap:2}],
+        confira: [
+          'Expliquei o Behaviorismo Radical e o conceito de ambiente antes das propriedades',
+          'Defini o comportamento respondente como relação em que o estímulo elicia a resposta',
+          'Apresentei as três propriedades: limiar, intensidade-magnitude e latência',
+          'Expliquei cada propriedade com um exemplo'
+        ],
+        resposta: [
+          'Behaviorismo Radical é a filosofia da análise do comportamento, proposta por Skinner. É "radical" porque vai à raiz: trata como comportamento também os eventos privados, como pensar e sentir, e explica o comportamento pelas relações com o ambiente, sem recorrer a causas mentais.',
+          'Ambiente é qualquer evento que afeta o organismo, e não só o espaço físico. Inclui o mundo externo (sons, pessoas, objetos), a história de vida e até eventos dentro do próprio corpo.',
+          'Comportamento respondente, ou reflexo, é uma relação entre um estímulo e uma resposta em que o estímulo, que vem antes, elicia a resposta. Ex.: um cisco no olho elicia o lacrimejar.',
+          'Limiar (lei da intensidade-limiar): existe uma intensidade mínima do estímulo para que a resposta seja eliciada. Abaixo dela, a resposta não aparece. Ex.: um sopro de ar muito fraco no olho não provoca a piscada.',
+          'Intensidade-magnitude: quanto mais intenso o estímulo, maior a magnitude (a força) da resposta. Ex.: quanto mais forte o calor na mão, mais intenso o suor.',
+          'Latência: quanto mais intenso o estímulo, menor a latência, isto é, o tempo entre o estímulo e a resposta. Ex.: um susto forte faz a pessoa reagir quase na hora.',
+          'Fonte: Moreira e Medeiros (2019), capítulo 1. O resumo do site não traz as três propriedades, então vale conferir no livro.'
+        ]
+      },
+      {
+        tema: 'Reforçamento · positivo, negativo, fuga e esquiva',
+        caso: 'Sobre reforçamento, responda: a) O que é reforçamento? b) O que é reforçamento positivo? c) O que é reforçamento negativo? d) Diferencie fuga e esquiva.',
+        pede: ['a) Definir reforçamento', 'b) Definir reforçamento positivo', 'c) Definir reforçamento negativo', 'd) Diferenciar fuga e esquiva'],
+        pense: [
+          'Como saber se uma consequência foi reforçadora? É pelo que a pessoa sente ou pelo que acontece com o comportamento depois?',
+          'O que é acrescentado no reforçamento positivo? E o que é retirado no negativo?',
+          '"Negativo" quer dizer ruim? O reforçamento negativo aumenta ou diminui o comportamento?',
+          'Na fuga, o estímulo aversivo já está presente? E na esquiva?'
+        ],
+        busque: ['reforçamento positivo e negativo', 'fuga e esquiva análise do comportamento', 'reforçamento negativo não é punição', 'controle aversivo'],
+        fontes: [
+          {tipo:'Livro', ref:'MOREIRA, Márcio B.; MEDEIROS, Carlos A. Princípios básicos de análise do comportamento. 2. ed. Porto Alegre: Artmed, 2019.', onde:'Capítulos sobre aprendizagem pelas consequências: o reforçamento e o controle aversivo (fuga e esquiva).'},
+          {tipo:'Livro', ref:'SKINNER, B. F. Ciência e comportamento humano. São Paulo: Martins Fontes.', onde:'Capítulos sobre comportamento operante e controle aversivo.'}
+        ],
+        noSite: [{t:'Resumo · Análise do comportamento', resumo:'experimental', cap:3}],
+        confira: [
+          'Defini reforçamento pelo efeito no comportamento: aumento ou manutenção da frequência',
+          'Expliquei que o positivo acrescenta um estímulo e o negativo retira um aversivo',
+          'Deixei claro que reforçamento negativo não é punição',
+          'Diferenciei fuga e esquiva com um exemplo de cada'
+        ],
+        resposta: [
+          'a) Reforçamento é o processo em que uma consequência aumenta ou mantém a frequência de uma resposta. Só se sabe que houve reforçamento olhando o que acontece com o comportamento depois.',
+          'b) Reforçamento positivo: a resposta produz o acréscimo de um estímulo, e com isso a frequência dela aumenta. Ex.: o aluno estuda, tira nota boa e passa a estudar mais.',
+          'c) Reforçamento negativo: a resposta retira ou evita um estímulo aversivo, e com isso a frequência dela aumenta. "Negativo" quer dizer que algo foi retirado, não que é ruim. Não é punição: o reforçamento negativo aumenta o comportamento.',
+          'd) Na fuga, o aversivo já está presente e a resposta o remove. Ex.: o barulho está alto e a pessoa fecha a janela. Na esquiva, a resposta impede que o aversivo apareça. Ex.: levar o guarda-chuva para não se molhar.'
+        ]
+      },
+      {
+        tema: 'Reforçadores · primários, condicionados e generalizados',
+        caso: 'Apresente, explique e dê um exemplo para cada um dos três tipos de reforçadores.',
+        pede: ['Apresentar os três tipos de reforçadores', 'Explicar cada um', 'Dar um exemplo para cada tipo'],
+        pense: [
+          'Que reforçadores funcionam sem nenhuma aprendizagem? Por quê?',
+          'Como um estímulo neutro passa a reforçar? Com o que ele precisa ser pareado?',
+          'Por que o dinheiro reforça mesmo quando a pessoa não está com fome nem com sede?',
+          'Qual a diferença entre um reforçador condicionado e um generalizado?'
+        ],
+        busque: ['reforçador primário incondicionado', 'reforçador condicionado secundário', 'reforçador generalizado'],
+        fontes: [
+          {tipo:'Livro', ref:'MOREIRA, Márcio B.; MEDEIROS, Carlos A. Princípios básicos de análise do comportamento. 2. ed. Porto Alegre: Artmed, 2019.', onde:'Trecho sobre reforçadores incondicionados, condicionados e generalizados.'},
+          {tipo:'Livro', ref:'SKINNER, B. F. Ciência e comportamento humano. São Paulo: Martins Fontes.', onde:'Trecho sobre reforçadores condicionados e generalizados.'}
+        ],
+        noSite: [{t:'Resumo · Análise do comportamento', resumo:'experimental', cap:3}],
+        confira: [
+          'Apresentei os três tipos: primário, condicionado e generalizado',
+          'Expliquei como cada um adquire a função de reforçar',
+          'Dei um exemplo meu para cada tipo'
+        ],
+        resposta: [
+          'Primários, ou incondicionados: reforçam sem aprendizagem, porque estão ligados à sobrevivência da espécie. Ex.: água, comida, sono, oxigênio.',
+          'Secundários, ou condicionados: são estímulos neutros que passam a reforçar depois de pareados com um reforçador primário. Ex.: o "clique" do adestrador, sempre seguido de petisco. Também elogio, nota boa e som de notificação.',
+          'Generalizados: são reforçadores condicionados pareados com muitos reforçadores diferentes, e por isso funcionam independentemente da privação do momento. Ex.: dinheiro, atenção, aprovação social.',
+          'Diferença central: o secundário está associado a um reforçador, e o generalizado, a muitos.'
+        ]
+      },
+      {
+        tema: 'Comportamento operante · definição',
+        caso: 'Defina comportamento operante.',
+        pede: ['Definir comportamento operante', 'De preferência, diferenciar do respondente e dar um exemplo'],
+        pense: [
+          'No operante, o que controla a resposta: o estímulo que vem antes ou a consequência que vem depois?',
+          'Por que se diz que a resposta "opera" sobre o ambiente?',
+          'O operante é eliciado ou emitido?',
+          'Como a contingência tríplice (Sᵈ → R → C) ajuda a descrever um operante?'
+        ],
+        busque: ['comportamento operante definição', 'condicionamento operante Skinner', 'contingência tríplice'],
+        fontes: [
+          {tipo:'Livro', ref:'MOREIRA, Márcio B.; MEDEIROS, Carlos A. Princípios básicos de análise do comportamento. 2. ed. Porto Alegre: Artmed, 2019.', onde:'Capítulo que introduz a aprendizagem pelas consequências.'},
+          {tipo:'Livro', ref:'SKINNER, B. F. Ciência e comportamento humano. São Paulo: Martins Fontes.', onde:'Capítulo sobre o comportamento operante.'}
+        ],
+        noSite: [{t:'Resumo · Seleção pelas consequências (aula 4)', resumo:'experimental', cap:2}, {t:'Resumo · Análise do comportamento', resumo:'experimental', cap:3}],
+        confira: [
+          'Defini o operante como comportamento controlado pelas consequências',
+          'Disse que o operante é emitido, e não eliciado',
+          'Dei um exemplo, de preferência descrito como Sᵈ → R → C'
+        ],
+        resposta: [
+          'Comportamento operante é o comportamento que produz mudanças no ambiente e é afetado por essas mudanças. A probabilidade de ele voltar a ocorrer depende das consequências que produziu antes.',
+          'Diferente do respondente, que é eliciado por um estímulo antecedente, o operante é emitido pelo organismo e controlado pelas consequências. É o 2º nível da seleção pelas consequências, o da história de vida do indivíduo.',
+          'Ex.: o celular toca (Sᵈ), a pessoa atende (R) e conversa com um amigo (C). Como atender já produziu conversas antes, ela continua atendendo.'
+        ]
+      },
+      {
+        tema: 'Operações motivadoras · definição, tipos e efeitos',
+        caso: 'Sobre Operações Motivadoras, responda: a) Qual a definição de OM? b) Quais os dois tipos de OM? c) Quais são as duas formas que a OM afeta/modifica um operante?',
+        pede: ['a) Definir operação motivadora', 'b) Apresentar os dois tipos', 'c) Explicar as duas formas como a OM afeta o operante'],
+        pense: [
+          'Por que a comida reforça muito mais depois de horas sem comer, e pouco logo depois do almoço?',
+          'A OM ensina um comportamento novo, ou só muda algo por um tempo?',
+          'A OM muda só o "valor" do reforçador, ou também a frequência com que a pessoa faz o que produz esse reforçador?',
+          'Qual a diferença entre a OM e o Sᵈ? A placa "aberto" da padaria e a fome do cliente são a mesma coisa?'
+        ],
+        busque: ['operações motivadoras', 'operação estabelecedora operação abolidora', 'efeito alterador do valor e efeito alterador do comportamento', 'Michael operações estabelecedoras'],
+        fontes: [
+          {tipo:'Artigo', ref:'LARAWAY, Sean et al. Motivating operations and terms to describe them: some further refinements. Journal of Applied Behavior Analysis, v. 36, n. 3, p. 407-414, 2003.', onde:'Artigo que organiza os termos: operações estabelecedoras e abolidoras, efeito alterador do valor e efeito alterador do comportamento. Em inglês.'},
+          {tipo:'Artigo', ref:'MICHAEL, Jack. Establishing operations. The Behavior Analyst, v. 16, n. 2, p. 191-206, 1993.', onde:'Texto clássico que deu origem ao conceito. Em inglês.'},
+          {tipo:'Livro', ref:'MOREIRA, Márcio B.; MEDEIROS, Carlos A. Princípios básicos de análise do comportamento. 2. ed. Porto Alegre: Artmed, 2019.', onde:'Trecho sobre operações motivadoras.'}
+        ],
+        noSite: [{t:'Resumo · Análise do comportamento', resumo:'experimental', cap:3}],
+        confira: [
+          'Defini OM como evento que altera momentaneamente a efetividade do reforçador',
+          'Apresentei os dois tipos: estabelecedora e abolidora, com exemplo',
+          'Expliquei as duas formas: alteração do valor do reforçador e alteração da frequência do operante',
+          'Diferenciei OM de Sᵈ (opcional, mas ajuda)'
+        ],
+        resposta: [
+          'a) Operação motivadora (OM) é um evento ambiental que altera momentaneamente a efetividade de um reforçador e, com isso, a frequência dos comportamentos que já produziram esse reforçador. O efeito é temporário: a OM não ensina nada novo.',
+          'b) Operação estabelecedora: aumenta o valor do reforçador. Ex.: a privação, como horas sem comer, faz a comida reforçar muito mais. Operação abolidora: diminui o valor do reforçador. Ex.: a saciação, logo depois do almoço.',
+          'c) A OM afeta o operante de duas formas. Efeito alterador do valor: muda o quanto o reforçador "vale". Efeito alterador do comportamento: muda a frequência das respostas que produziram esse reforçador, aumentando (efeito evocativo) ou diminuindo (efeito abolidor). Ex.: com fome, a comida vale mais e a pessoa procura comida com mais frequência.',
+          'Não confundir com o Sᵈ: o Sᵈ sinaliza que o reforço está disponível (a placa "aberto"), e a OM muda o quanto ele é desejado (a fome).',
+          'Fonte da parte c: Laraway et al. (2003). As anotações de aula do site falam em alterar a efetividade do reforçador e a frequência da resposta, que são essas duas formas.'
+        ]
+      },
+      {
+        tema: 'Contiguidade × contingência · riscos das inferências',
+        caso: 'Quando as relações entre eventos são descritas de forma subjetiva, não operacionalizada, muitas vezes descrevemos relações de contiguidade e não de contingência. Quais os riscos dessas inferências na pesquisa e no dia a dia?',
+        pede: ['Diferenciar contiguidade de contingência', 'Explicar o que é descrever de forma operacionalizada', 'Apontar riscos na pesquisa', 'Apontar riscos no dia a dia'],
+        pense: [
+          'Dois eventos que acontecem juntos, ou um logo depois do outro, têm necessariamente uma relação de dependência?',
+          'O que significa dizer que uma consequência é contingente a uma resposta ("se... então...")?',
+          'O que Skinner observou com os pombos que recebiam comida em intervalos fixos, independentemente do que faziam?',
+          'Lembre o exemplo da aula 2: "alunos que tomam café tiram notas melhores". Que perguntas precisam ser feitas antes de concluir algo?',
+          'No dia a dia, que crenças surgem de coincidências? Superstições, rótulos, conclusões sobre pessoas?'
+        ],
+        busque: ['contingência e contiguidade', 'comportamento supersticioso Skinner', 'superstition in the pigeon', 'correlação não implica causalidade', 'definição operacional comportamento'],
+        fontes: [
+          {tipo:'Artigo', ref:'SKINNER, B. F. "Superstition" in the pigeon. Journal of Experimental Psychology, v. 38, n. 2, p. 168-172, 1948.', onde:'Experimento clássico em que a contiguidade acidental entre resposta e comida produz comportamento supersticioso. Em inglês.'},
+          {tipo:'Livro', ref:'MOREIRA, Márcio B.; MEDEIROS, Carlos A. Princípios básicos de análise do comportamento. 2. ed. Porto Alegre: Artmed, 2019.', onde:'Trechos sobre contingência e sobre comportamento supersticioso.'},
+          {tipo:'Livro', ref:'SKINNER, B. F. Ciência e comportamento humano. São Paulo: Martins Fontes.', onde:'Capítulo sobre comportamento operante, no trecho sobre comportamento supersticioso.'}
+        ],
+        noSite: [{t:'Resumo · Conceitos em pesquisa (aula 2)', resumo:'experimental', cap:1}],
+        confira: [
+          'Diferenciei contiguidade (proximidade no tempo ou no espaço) de contingência (relação de dependência)',
+          'Expliquei o que é descrever de forma operacionalizada',
+          'Apontei riscos na pesquisa',
+          'Apontei riscos no dia a dia, com exemplo'
+        ],
+        resposta: [
+          'Contiguidade é a proximidade no tempo ou no espaço entre dois eventos: um acontece junto ou logo depois do outro. Contingência é uma relação de dependência do tipo "se... então...": a consequência só ocorre se a resposta ocorrer. Dois eventos contíguos não são necessariamente contingentes.',
+          'Descrever de forma operacionalizada é definir os eventos de modo observável e mensurável (o que foi feito, quantas vezes, em que condições), o que permite testar se existe mesmo uma relação de dependência.',
+          'Na pesquisa, o risco é tomar coincidência ou correlação por causa: concluir que a VI produziu o efeito sem controlar outras variáveis, sem replicar e sem manipular a VI. Isso gera conclusões falsas, resultados que não se repetem e intervenções que não funcionam. Ex. da aula 2: concluir que café melhora as notas sem saber quantos alunos foram observados, como o desempenho foi medido e se os grupos eram parecidos.',
+          'No dia a dia, o risco é criar crenças e explicações falsas: superstições (a camisa "da sorte"), rótulos sobre pessoas ("ele faz isso porque é preguiçoso") e decisões baseadas em coincidências. Skinner (1948) mostrou isso com pombos: a comida vinha em intervalos fixos, independentemente do que faziam, mas cada um passou a repetir o que estava fazendo quando a comida chegou. A contiguidade acidental bastou para manter um comportamento sem contingência real.'
+        ]
+      }
+    ]
   }
 ];
 
@@ -7405,6 +7797,17 @@ const GLOSSARIO = [ // ex: '...' é opcional (exemplo do dia a dia)
   {t:'Operação motivadora', disc:'Psicologia Experimental', d:'Evento que altera momentaneamente a efetividade de um reforçador e, com isso, a frequência da resposta. Não ensina nada novo.'},
   {t:'Operação estabelecedora', disc:'Psicologia Experimental', d:'Operação motivadora, como a privação, que aumenta o valor do reforçador e a probabilidade da resposta.', ex:'Depois de horas sem comer, a comida reforça muito mais.'},
   {t:'Operação abolidora', disc:'Psicologia Experimental', d:'Operação motivadora, como a saciação, que diminui o valor do reforçador e a probabilidade da resposta.', ex:'Logo depois do almoço, a comida perde força.'},
+  {t:'Behaviorismo radical', disc:'Psicologia Experimental', d:'Filosofia da análise do comportamento, proposta por Skinner. Trata também os eventos privados, como pensar e sentir, como comportamento, e os explica pelas relações com o ambiente, sem recorrer a causas mentais.'},
+  {t:'Ambiente (análise do comportamento)', disc:'Psicologia Experimental', d:'Qualquer evento que afeta o organismo: o mundo externo, a história de vida e até eventos dentro do próprio corpo. Não é só o espaço físico.'},
+  {t:'Comportamento respondente (reflexo)', disc:'Psicologia Experimental', d:'Relação em que um estímulo antecedente elicia uma resposta.', ex:'Um cisco no olho elicia o lacrimejar.'},
+  {t:'Lei da intensidade-limiar', disc:'Psicologia Experimental', d:'Propriedade do reflexo: existe uma intensidade mínima do estímulo para que a resposta seja eliciada. Abaixo dela, a resposta não aparece.', ex:'Um sopro de ar muito fraco no olho não provoca a piscada.'},
+  {t:'Lei da intensidade-magnitude', disc:'Psicologia Experimental', d:'Propriedade do reflexo: quanto mais intenso o estímulo, maior a magnitude da resposta.', ex:'Quanto mais forte o calor na mão, mais intenso o suor.'},
+  {t:'Lei da latência', disc:'Psicologia Experimental', d:'Propriedade do reflexo: quanto mais intenso o estímulo, menor a latência, o tempo entre o estímulo e a resposta.'},
+  {t:'Comportamento operante', disc:'Psicologia Experimental', d:'Comportamento que produz mudanças no ambiente e é afetado por elas. É emitido, e não eliciado, e sua probabilidade depende das consequências que já produziu.', ex:'Levantar a mão para pedir a palavra.'},
+  {t:'Reforçamento', disc:'Psicologia Experimental', d:'Processo em que uma consequência aumenta ou mantém a frequência de uma resposta. Positivo: acrescenta um estímulo. Negativo: retira ou evita um aversivo.'},
+  {t:'Efeito alterador do valor e do comportamento', disc:'Psicologia Experimental', d:'As duas formas como a operação motivadora afeta o operante: muda o valor do reforçador e muda a frequência das respostas que o produziram, aumentando (evocativo) ou diminuindo (abolidor).', ex:'Com sede, a água vale mais e a pessoa procura um bebedouro com mais frequência.'},
+  {t:'Contiguidade × contingência', disc:'Psicologia Experimental', d:'Contiguidade é a proximidade no tempo ou no espaço entre dois eventos. Contingência é uma relação de dependência do tipo "se... então...". Eventos contíguos não são necessariamente contingentes.'},
+  {t:'Comportamento supersticioso', disc:'Psicologia Experimental', d:'Comportamento mantido por contiguidade acidental com o reforçador, sem contingência real. Skinner (1948) o observou em pombos que recebiam comida em intervalos fixos.', ex:'Usar a camisa "da sorte" porque o time ganhou da última vez.'},
 
   // Neuroanatomia
   {t:'Telencéfalo', disc:'Neuroanatomia', d:'Maior parte do encéfalo: os dois hemisférios cerebrais, com o córtex, os núcleos da base e estruturas como o hipocampo e a amígdala.'},
@@ -17333,6 +17736,7 @@ function roteiroHTML(r){
           : `<p class="rt-nota">${escHTML(q.semSite || '')}</p>`}
         <h4 class="rt-h">Lista de conferência</h4>
         <div class="rt-confira">${q.confira.map((x, k)=>`<label class="rt-check"><input type="checkbox" data-rt-k="${k}"${a[k] ? ' checked' : ''}><span>${escHTML(x)}</span></label>`).join('')}</div>
+        ${q.resposta ? `<details class="rt-resp"><summary>Ver a resposta para conferir</summary><p class="rt-nota">Tente responder antes de abrir. Use para conferir e escreva com as suas palavras.</p>${q.resposta.map(p=>`<p>${escHTML(p)}</p>`).join('')}</details>` : ''}
       </div>
     </details>`; }).join('')}
     </div>
