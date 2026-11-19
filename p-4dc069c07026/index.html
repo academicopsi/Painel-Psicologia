@@ -2214,11 +2214,11 @@ const EXH = {
     {t:'Antes de começar', itens:[
       'O trabalho é individual. Você é o experimentador e escolhe uma pessoa para ser o participante.',
       'O participante não pode ser aluno de Psicologia nem ter menos de 10 anos.',
-      'Prepare a apresentação com 40 slides: um verbo por slide e a lista de pronomes (Eu, Tu, Ele/Ela, Nós, Vós, Eles/Elas). O PowerPoint pronto está logo acima.',
+      'Prepare a apresentação com 40 slides: um verbo por slide e a lista de pronomes pessoais do caso reto (Eu, Tu, Ele/Ela, Nós, Vós, Eles/Elas). Os verbos são os da lista de Matos e Tomanari (2002, p. 236). Se quiser, use o PowerPoint pronto logo acima.',
       'Sente-se ao lado do participante, controlando a passagem dos slides. Se for on-line, prefira o Google Meet, com a tela compartilhada.',
       'Tenha a folha de registro em mãos (de papel ou a digital, mais abaixo).']},
     {t:'Cuidados éticos', itens:[
-      'Conte ao participante que é um trabalho da disciplina e que serve para os alunos aprenderem conceitos básicos de análise experimental do comportamento. Diga o nome da disciplina, da professora e da faculdade.',
+      'Conte ao participante que é um trabalho da disciplina Análise Experimental e Aplicada ao Comportamento II, da professora Ana Carolina Miranda, da Faculdade Unigranrio-Afya, e que serve para os alunos aprenderem conceitos básicos de análise experimental do comportamento.',
       'Avise que ele pode interromper a qualquer momento, sem nenhum prejuízo.',
       'Só comece se ele concordar.']},
     {t:'Instrução padronizada (leia exatamente)', fala:true, itens:[
@@ -2231,7 +2231,7 @@ const EXH = {
       'Do Representar ao Esperar, não reforce nada, qualquer que seja o pronome.',
       'Só registre o pronome usado e passe para o próximo slide quando ele terminar a frase.']},
     {t:'Fase II: intervenção, com reforço (verbos 11 a 40)', itens:[
-      'A partir do Escrever (11º verbo), reforce só UM pronome: EU ou NÓS. Nunca os dois.',
+      'A partir do Escrever (11º verbo), inclusive, reforce positivamente só UM pronome: EU ou NÓS. Nunca os dois. Cada aluno escolhe qual.',
       'O pronome escolhido precisa ter aparecido pelo menos 2 vezes na Fase I.',
       'Reforce sempre que ele terminar uma frase com o pronome escolhido, com "Certo", "Muito bem", "Ótimo" ou "Muito bom", variando ao acaso, de forma natural e aprovadora.',
       'Elogie só depois que a frase terminar. Elogiar no meio dá uma "dica" do que está sendo reforçado.',
@@ -2243,12 +2243,19 @@ const EXH = {
       'No fim, anote seu nome, a data e uma sigla para o participante (por exemplo, P1).']},
     {t:'Depois do experimento', itens:[
       'Agradeça e diga que o experimento terminou.',
+      'O participante pode ter construído as frases seguindo alguma hipótese sobre o experimento. As perguntas abaixo servem para investigar se foi o caso.',
       'Pergunte e anote as respostas no verso da folha: 1) O que você achou do experimento? 2) Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais? 3) O que levou você a escolher este ou aquele pronome?']},
     {t:'O que entregar', itens:[
-      'Um gráfico de frequência relativa (%) impresso, com nome completo, matrícula, nome da disciplina, unidade e data de entrega.',
-      'Nos vídeos da pasta, a planilha tem três abas: Frequência absoluta (quantas vezes cada pronome apareceu na linha de base e na intervenção), Frequência relativa (frequência absoluta × 100 ÷ 10 na LB e ÷ 30 na INT) e Comparativo LB-INT.',
+      'Só um gráfico de frequência relativa (%) impresso, com nome completo, matrícula, nome da disciplina, unidade e data de entrega.',
+      'Nos vídeos da pasta, a planilha tem três abas: Frequência absoluta (quantas vezes cada pronome apareceu na linha de base e na intervenção), Frequência relativa (frequência absoluta × 100 ÷ 10 na LB e ÷ 30 na INT) e Comparativo LB-INT. As instruções escritas não dizem o que fazer com tentativas anuladas: se tiver alguma, confirme com a professora.',
       'O gráfico dos vídeos é de colunas: os pronomes no eixo horizontal, a frequência relativa no vertical, uma coluna para LB e outra para INT, e o título com o participante e o pronome reforçado (por exemplo, "P1 - Nós").',
       'A folha digital abaixo faz as mesmas contas e o mesmo gráfico, e copia as tabelas para você colar na planilha.']},
+    {t:'Montar a planilha e o gráfico (modelo dos vídeos)', itens:[
+      'Aba "Frequencia Absoluta": na linha 1, "Linha de Base" em cima das colunas da Fase I e "Intervenção" em cima das da Fase II, com uma coluna vazia entre os blocos. Na linha 2, "Pronomes" e o participante com o pronome (ex.: "P1 - Nós"), uma coluna por participante em cada bloco. Linhas 3 a 8: os pronomes. Linha 9: Total (10 e 30).',
+      'Aba "Frequencia Relativa": em cada bloco, duas colunas por participante, "Freq.Relativa" e "Freq Abs". A relativa pega a coluna ao lado: =C4*100/10 na Linha de Base e =…*100/30 na Intervenção. No Total, a relativa dá 100.',
+      'Aba "Comparativo LB-INT": na linha 1, o participante com o pronome em cima de duas colunas. Na linha 2, "Pronomes", "LB" e "INT". Linhas 3 a 8: a frequência relativa de cada pronome, sem o Total.',
+      'Gráfico: selecione a tabela do comparativo, da linha 2 até Eles/Elas, e vá em Inserir → Gráfico → Gráfico de colunas. Título "P1 - Nós", legenda LB e INT, eixo horizontal "Pronomes" e eixo vertical automático. Um gráfico por participante.',
+      'Os botões "Copiar" da folha digital já saem no formato dessas abas: cole na célula A1 de cada uma.']},
   ],
 };
 
@@ -2322,10 +2329,32 @@ function exhComparativoHTML(st, tipo){
     <tbody>${P.map((pr,j)=>`<tr><td>${pr}</td>${ks.map(k=>`<td${j === k.alvo ? ' class="exh-c-alvo"' : ''}>${val(k,'lb',j)}</td><td${j === k.alvo ? ' class="exh-c-alvo"' : ''}>${val(k,'rf',j)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 function exhTSV(st, tipo){
-  const P = EXH.pronomes; const ks = st.ps.map(p=> exhCalc(p));
-  let t = '\t' + st.ps.map((_,i)=> exhTitulo(st, i) + '\t').join('') + '\n';
+  // Saída em fórmulas (=...), para dar certo em planilha com vírgula ou ponto decimal.
+  const P = EXH.pronomes; const ks = st.ps.map(p=> exhCalc(p)); const n = st.ps.length;
+  const tit = i => exhTitulo(st, i); const soma = a => a.reduce((x,y)=>x+y,0);
+  const col = c => { let s = ''; c++; while(c){ const m = (c-1)%26; s = String.fromCharCode(65+m) + s; c = Math.floor((c-1)/26); } return s; };
+  if(tipo === 'abs'){
+    let t = '\tLinha de Base' + '\t'.repeat(n+1) + 'Intervenção\n';
+    t += 'Pronomes\t' + st.ps.map((_,i)=>tit(i)).join('\t') + '\t\t' + st.ps.map((_,i)=>tit(i)).join('\t') + '\n';
+    P.forEach((pr,j)=>{ t += pr + '\t' + ks.map(k=>k.lb.c[j]).join('\t') + '\t\t' + ks.map(k=>k.rf.c[j]).join('\t') + '\n'; });
+    t += 'Total\t' + ks.map(k=>soma(k.lb.c)).join('\t') + '\t\t' + ks.map(k=>soma(k.rf.c)).join('\t') + '\n';
+    return t;
+  }
+  if(tipo === 'rel'){
+    // colunas: A pronomes | LB: (rel, abs) por participante | vazia | INT: (rel, abs) por participante
+    const lbRel = i => 1 + 2*i, intRel = i => 2 + 2*n + 2*i;
+    let t = '\tLinha de Base' + '\t'.repeat(2*n+1) + 'Intervenção\n';
+    t += '\t' + st.ps.map(()=> 'Freq.Relativa\tFreq Abs').join('\t') + '\t\t' + st.ps.map(()=> 'Freq.Relativa\tFreq Abs').join('\t') + '\n';
+    t += 'Pronomes\t' + st.ps.map((_,i)=> tit(i) + '\t').join('\t') + '\t\t' + st.ps.map((_,i)=> tit(i) + '\t').join('\t') + '\n';
+    P.forEach((pr,j)=>{ const r = j + 4;
+      t += pr + '\t' + ks.map((k,i)=> `=${col(lbRel(i)+1)}${r}*100/10\t${k.lb.c[j]}`).join('\t') + '\t\t' + ks.map((k,i)=> `=${col(intRel(i)+1)}${r}*100/30\t${k.rf.c[j]}`).join('\t') + '\n'; });
+    const sm = c => '=' + [4,5,6,7,8,9].map(r=> col(c) + r).join('+');
+    t += 'Total\t' + ks.map((k,i)=> sm(lbRel(i)) + '\t' + sm(lbRel(i)+1)).join('\t') + '\t\t' + ks.map((k,i)=> sm(intRel(i)) + '\t' + sm(intRel(i)+1)).join('\t') + '\n';
+    return t;
+  }
+  let t = '\t' + st.ps.map((_,i)=> tit(i) + '\t').join('') + '\n';
   t += 'Pronomes\t' + st.ps.map(()=> 'LB\tINT').join('\t') + '\n';
-  P.forEach((pr,j)=>{ t += pr + '\t' + ks.map(k=> tipo === 'abs' ? `${k.lb.c[j]}\t${k.rf.c[j]}` : `${exhFmt(k.lb.pct[j])}\t${exhFmt(k.rf.pct[j])}`).join('\t') + '\n'; });
+  P.forEach((pr,j)=>{ t += pr + '\t' + ks.map(k=> `=${k.lb.c[j]}*100/10\t=${k.rf.c[j]}*100/30`).join('\t') + '\n'; });
   return t;
 }
 function exhFolhaHTML(){
