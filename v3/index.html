@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1F5C56">
+<title>Arquivo Vivo · V3 (protótipo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   DESIGN SYSTEM · tokens
+   ========================================================= */
+:root{
+  --bg:#F6F5F1; --surface:#FFFFFF; --surface-2:#FAF9F6; --line:#E7E4DD; --line-2:#D8D4CB;
+  --ink:#1A1E1D; --ink-2:#4A5250; --ink-3:#737A78;
+  --brand:#1F5C56; --brand-ink:#154A45; --brand-soft:#E7F0EE; --brand-line:#BCD5D0;
+  --urg:#B3412B; --urg-soft:#FBECE8; --warn:#8F6310; --warn-soft:#FAF1DE; --ok:#2C7349; --ok-soft:#E6F2EA;
+  --focus:0 0 0 3px rgba(31,92,86,.28);
+  --r-sm:8px; --r:12px; --r-lg:16px;
+  --sh-1:0 1px 2px rgba(20,30,28,.05); --sh-2:0 6px 20px -8px rgba(20,30,28,.18);
+  --serif:'Lora', Georgia, serif; --sans:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-12:12px; --fs-14:14px; --fs-16:16px; --fs-20:20px; --fs-26:26px; --fs-34:34px;
+  --nav-h:64px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#121615; --surface:#1A1F1E; --surface-2:#1E2423; --line:#2A3230; --line-2:#36403E;
+    --ink:#ECEFEE; --ink-2:#B9C2BF; --ink-3:#8C9693;
+    --brand:#6FB3A9; --brand-ink:#9ED0C8; --brand-soft:#1D2E2B; --brand-line:#2F4A46;
+    --urg:#F08A74; --urg-soft:#341F1A; --warn:#E3B45C; --warn-soft:#2F2716; --ok:#7CC79A; --ok-soft:#18291F;
+    --sh-1:none; --sh-2:0 8px 24px -10px rgba(0,0,0,.6); }
+}
+*{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--ink); font:400 var(--fs-16)/1.55 var(--sans); -webkit-font-smoothing:antialiased;}
+a{color:inherit}
+button{font:inherit; color:inherit}
+:focus-visible{outline:none; box-shadow:var(--focus); border-radius:var(--r-sm);}
+.sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+@media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+
+/* =========================================================
+   ESTRUTURA E NAVEGAÇÃO (sem sidebar)
+   ========================================================= */
+.topo{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:saturate(1.4) blur(10px); -webkit-backdrop-filter:saturate(1.4) blur(10px); border-bottom:1px solid var(--line);}
+.topo-in{max-width:1080px; margin:0 auto; height:60px; padding:0 20px; display:flex; align-items:center; gap:24px;}
+.marca{display:flex; align-items:center; gap:10px; text-decoration:none; font:700 19px/1 var(--serif); letter-spacing:-.01em; white-space:nowrap;}
+.marca-dot{width:10px; height:10px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 4px var(--brand-soft);}
+.marca small{font:600 10px/1 var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--brand); background:var(--brand-soft); padding:4px 6px; border-radius:6px;}
+.nav-top{display:flex; gap:2px; margin-left:auto;}
+.nav-top a{display:flex; align-items:center; gap:8px; height:40px; padding:0 12px; border-radius:var(--r-sm); text-decoration:none; color:var(--ink-2); font-weight:500; font-size:var(--fs-14);}
+.nav-top a:hover{background:var(--surface); color:var(--ink);}
+.nav-top a[aria-current="page"]{color:var(--brand-ink); background:var(--brand-soft);}
+.nav-top svg{width:18px; height:18px;}
+.btn-busca{display:flex; align-items:center; gap:8px; height:40px; padding:0 12px; border:1px solid var(--line); background:var(--surface); border-radius:var(--r-sm); color:var(--ink-3); font-size:var(--fs-14); cursor:pointer; min-width:44px; justify-content:center;}
+.btn-busca svg{width:17px; height:17px;}
+.nav-baixo{display:none;}
+main{max-width:1080px; margin:0 auto; padding:28px 20px 72px;}
+@media (max-width: 860px){
+  .nav-top{display:none;}
+  .topo-in{height:56px; padding:0 16px; justify-content:space-between;}
+  .btn-busca span{display:none;}
+  main{padding:20px 16px calc(var(--nav-h) + 32px + env(safe-area-inset-bottom));}
+  .nav-baixo{display:grid; grid-template-columns:repeat(5,1fr); position:fixed; left:0; right:0; bottom:0; z-index:30; height:calc(var(--nav-h) + env(safe-area-inset-bottom)); padding-bottom:env(safe-area-inset-bottom); background:color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-top:1px solid var(--line);}
+  .nav-baixo a{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; text-decoration:none; color:var(--ink-3); font-size:11px; font-weight:500;}
+  .nav-baixo a svg{width:22px; height:22px;}
+  .nav-baixo a[aria-current="page"]{color:var(--brand);}
+  .nav-baixo a[aria-current="page"] svg{stroke-width:2.2;}
+}
+
+/* =========================================================
+   COMPONENTES
+   ========================================================= */
+.eyebrow{font:600 var(--fs-12)/1 var(--sans); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3);}
+h1,h2,h3{margin:0; font-weight:700; letter-spacing:-.015em;}
+.h1{font:700 var(--fs-34)/1.12 var(--serif); letter-spacing:-.02em;}
+.h2{font:700 var(--fs-20)/1.25 var(--serif);}
+.h3{font:600 var(--fs-16)/1.35 var(--sans);}
+.muted{color:var(--ink-2);} .sutil{color:var(--ink-3); font-size:var(--fs-14);}
+@media (max-width: 600px){ .h1{font-size:var(--fs-26);} }
+
+.secao{margin-top:40px;}
+.secao-cab{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:14px;}
+.secao-cab a{font-size:var(--fs-14); font-weight:600; color:var(--brand); text-decoration:none;}
+.secao-cab a:hover{text-decoration:underline;}
+
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--sh-1);}
+.card-link{display:block; text-decoration:none; transition:border-color .18s, box-shadow .18s, transform .18s;}
+.card-link:hover{border-color:var(--line-2); box-shadow:var(--sh-2);}
+.card-link:active{transform:scale(.995);}
+.pad{padding:18px;} @media (min-width: 861px){ .pad{padding:22px;} }
+
+.grade{display:grid; gap:12px;}
+.g2{grid-template-columns:repeat(2, minmax(0,1fr));} .g3{grid-template-columns:repeat(3, minmax(0,1fr));} .g4{grid-template-columns:repeat(4, minmax(0,1fr));}
+@media (max-width: 860px){ .g3,.g4{grid-template-columns:repeat(2, minmax(0,1fr));} }
+@media (max-width: 560px){ .g2,.g3{grid-template-columns:1fr;} }
+
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 18px; border-radius:10px; border:1px solid transparent; font-weight:600; font-size:var(--fs-14); text-decoration:none; cursor:pointer; transition:background .15s, border-color .15s;}
+.btn svg{width:17px; height:17px;}
+.btn-pri{background:var(--brand); color:#fff;} .btn-pri:hover{background:var(--brand-ink);}
+@media (prefers-color-scheme: dark){ .btn-pri{color:#0F1716;} }
+.btn-sec{background:var(--surface); border-color:var(--line-2); color:var(--ink);} .btn-sec:hover{border-color:var(--ink-3);}
+.btn-txt{background:none; color:var(--brand); padding:0 6px;} .btn-txt:hover{text-decoration:underline;}
+.btn[disabled]{opacity:.45; cursor:not-allowed;}
+
+.chip{display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 10px; border-radius:999px; font-size:var(--fs-12); font-weight:600; background:var(--surface-2); color:var(--ink-2); border:1px solid var(--line); white-space:nowrap;}
+.chip-urg{background:var(--urg-soft); color:var(--urg); border-color:transparent;}
+.chip-warn{background:var(--warn-soft); color:var(--warn); border-color:transparent;}
+.chip-ok{background:var(--ok-soft); color:var(--ok); border-color:transparent;}
+.chip-brand{background:var(--brand-soft); color:var(--brand-ink); border-color:transparent;}
+.chip svg{width:13px; height:13px;}
+
+.vazio{border:1px dashed var(--line-2); border-radius:var(--r); padding:22px; color:var(--ink-2); font-size:var(--fs-14); background:var(--surface-2);}
+.vazio strong{display:block; color:var(--ink); font-size:var(--fs-16); margin-bottom:4px;}
+
+.lista{list-style:none; margin:0; padding:0;}
+.lista > li + li{border-top:1px solid var(--line);}
+.item{display:grid; grid-template-columns:1fr auto; align-items:center; gap:12px; min-height:56px; padding:12px 18px; text-decoration:none;}
+a.item:hover{background:var(--surface-2);}
+.item-t{font-weight:600; font-size:var(--fs-16); line-height:1.35;}
+.item-s{font-size:var(--fs-14); color:var(--ink-3); margin-top:2px;}
+.item-seta{color:var(--ink-3);} .item-seta svg{width:18px; height:18px; display:block;}
+
+.medidor{height:6px; border-radius:99px; background:var(--line); overflow:hidden;}
+.medidor > i{display:block; height:100%; border-radius:99px; background:var(--brand);}
+
+.abas{display:flex; gap:4px; border-bottom:1px solid var(--line); overflow-x:auto; scrollbar-width:none; margin:0 -16px; padding:0 16px;}
+.abas::-webkit-scrollbar{display:none;}
+.aba{flex:none; height:46px; padding:0 14px; border:none; background:none; color:var(--ink-3); font-weight:600; font-size:var(--fs-14); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px;}
+.aba[aria-selected="true"]{color:var(--brand-ink); border-bottom-color:var(--brand);}
+.aba:hover{color:var(--ink);}
+@media (min-width: 861px){ .abas{margin:0; padding:0;} }
+
+.trilha{display:flex; align-items:center; gap:6px; font-size:var(--fs-14); color:var(--ink-3); margin-bottom:14px;}
+.trilha a{color:var(--ink-3); text-decoration:none;} .trilha a:hover{color:var(--ink); text-decoration:underline;}
+
+/* =========================================================
+   INÍCIO
+   ========================================================= */
+.saud{display:flex; flex-direction:column; gap:6px;}
+.av{position:relative; overflow:hidden;}
+.av-top{display:flex; justify-content:space-between; gap:12px; align-items:flex-start;}
+.av-disc{font-size:var(--fs-14); color:var(--ink-3); font-weight:500;}
+.av-t{font:700 var(--fs-20)/1.25 var(--serif); margin:4px 0 2px;}
+.av-data{font-size:var(--fs-14); color:var(--ink-2);}
+.av-barra{margin:16px 0 14px;}
+.av-acoes{display:flex; gap:8px; flex-wrap:wrap;}
+.av.urg{border-color:color-mix(in srgb, var(--urg) 35%, var(--line));}
+.av.urg .medidor > i{background:var(--urg);}
+.av.warn .medidor > i{background:var(--warn);}
+.stat{padding:16px 18px;}
+.stat-n{font:700 28px/1.1 var(--sans); letter-spacing:-.02em; font-variant-numeric:tabular-nums;}
+.stat-l{font-size:var(--fs-14); color:var(--ink-2); margin-top:4px;}
+.stat-d{font-size:var(--fs-12); color:var(--ink-3); margin-top:6px;}
+.disc-card{padding:18px; display:flex; flex-direction:column; gap:10px; min-height:132px;}
+.disc-n{font:600 var(--fs-12)/1 var(--sans); color:var(--ink-3); letter-spacing:.06em;}
+.disc-nome{font:700 17px/1.3 var(--serif);}
+.disc-meta{margin-top:auto; display:flex; gap:6px; flex-wrap:wrap;}
+.upd{display:grid; grid-template-columns:72px 1fr; gap:12px; padding:14px 18px;}
+.upd-d{font-size:var(--fs-12); color:var(--ink-3); font-weight:600; padding-top:2px;}
+
+/* =========================================================
+   DISCIPLINA
+   ========================================================= */
+.dcab{display:flex; flex-direction:column; gap:12px; padding-bottom:20px;}
+.dcab-acoes{display:flex; gap:8px; flex-wrap:wrap;}
+.prova-faixa{display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:var(--r); background:var(--surface); border:1px solid var(--line);}
+.prova-faixa.urg{background:var(--urg-soft); border-color:transparent;}
+.prova-faixa .pf-t{font-weight:600;} .prova-faixa .pf-s{font-size:var(--fs-14); color:var(--ink-2);}
+.painel{padding-top:20px;}
+.grupo + .grupo{margin-top:28px;}
+.grupo-t{display:flex; align-items:baseline; gap:10px; margin-bottom:10px;}
+.tipo{display:inline-flex; width:32px; height:32px; border-radius:9px; align-items:center; justify-content:center; background:var(--brand-soft); color:var(--brand-ink); flex:none;}
+.tipo svg{width:17px; height:17px;}
+.item-ic{display:grid; grid-template-columns:auto 1fr auto; gap:14px;}
+.sim-hero{padding:20px; display:grid; gap:14px;}
+.partes{display:flex; gap:6px; flex-wrap:wrap;}
+
+/* =========================================================
+   SIMULADO (sem distrações)
+   ========================================================= */
+body.foco .topo, body.foco .nav-baixo{display:none;}
+body.foco main{padding-top:0; padding-bottom:40px; max-width:760px;}
+.foco-topo{position:sticky; top:0; z-index:10; background:var(--bg); padding:14px 0 12px; display:grid; grid-template-columns:44px 1fr auto; align-items:center; gap:12px;}
+.btn-ico{width:44px; height:44px; border-radius:10px; border:1px solid var(--line); background:var(--surface); display:grid; place-items:center; cursor:pointer; text-decoration:none;}
+.btn-ico svg{width:19px; height:19px;}
+.prog-t{font-size:var(--fs-14); font-weight:600; color:var(--ink-2); font-variant-numeric:tabular-nums; text-align:right;}
+.q-tema{margin-top:18px;}
+.q-enun{font:500 19px/1.55 var(--sans); margin:14px 0 20px; letter-spacing:-.005em;}
+@media (max-width:600px){ .q-enun{font-size:17px;} }
+.ops{display:grid; gap:10px;}
+.op{display:grid; grid-template-columns:32px 1fr 22px; align-items:center; gap:12px; text-align:left; width:100%; min-height:56px; padding:12px 14px; border-radius:var(--r); border:1.5px solid var(--line); background:var(--surface); cursor:pointer; font-size:var(--fs-16); line-height:1.45; transition:border-color .15s, background .15s;}
+.op:hover:not([disabled]){border-color:var(--brand-line);}
+.op-l{width:32px; height:32px; border-radius:8px; display:grid; place-items:center; font-weight:700; font-size:var(--fs-14); background:var(--surface-2); color:var(--ink-2); border:1px solid var(--line);}
+.op[aria-pressed="true"]{border-color:var(--brand); background:var(--brand-soft);}
+.op[aria-pressed="true"] .op-l{background:var(--brand); color:#fff; border-color:var(--brand);}
+.op.certa{border-color:var(--ok); background:var(--ok-soft);} .op.certa .op-l{background:var(--ok); color:#fff; border-color:var(--ok);}
+.op.errada{border-color:var(--urg); background:var(--urg-soft);} .op.errada .op-l{background:var(--urg); color:#fff; border-color:var(--urg);}
+.op[disabled]{cursor:default;}
+.op-st svg{width:20px; height:20px;}
+.fb{margin-top:16px; padding:14px 16px; border-radius:var(--r); font-size:15px; line-height:1.55;}
+.fb.ok{background:var(--ok-soft);} .fb.no{background:var(--urg-soft);}
+.fb b{display:block; margin-bottom:4px;}
+.q-rodape{display:flex; justify-content:space-between; gap:10px; margin-top:22px;}
+.pontos{display:flex; flex-wrap:wrap; gap:6px; margin-top:22px;}
+.ponto{width:34px; height:34px; border-radius:8px; border:1px solid var(--line); background:var(--surface); font-size:var(--fs-12); font-weight:600; color:var(--ink-3); cursor:pointer;}
+.ponto.resp{background:var(--brand-soft); color:var(--brand-ink); border-color:transparent;}
+.ponto.atual{border-color:var(--brand); color:var(--brand-ink);}
+.modo{display:grid; gap:10px;}
+.modo label{display:grid; grid-template-columns:22px 1fr; gap:12px; align-items:start; padding:14px 16px; border:1.5px solid var(--line); border-radius:var(--r); background:var(--surface); cursor:pointer;}
+.modo label:has(input:checked){border-color:var(--brand); background:var(--brand-soft);}
+.modo input{margin-top:3px; accent-color:var(--brand); width:18px; height:18px;}
+.parte-sel{display:flex; flex-wrap:wrap; gap:8px;}
+.parte-sel label{display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:0 14px; border-radius:999px; border:1.5px solid var(--line); background:var(--surface); font-size:var(--fs-14); font-weight:500; cursor:pointer;}
+.parte-sel label:has(input:checked){border-color:var(--brand); background:var(--brand-soft); color:var(--brand-ink);}
+.parte-sel input{position:absolute; opacity:0; pointer-events:none;}
+.parte-sel .n{color:var(--ink-3); font-variant-numeric:tabular-nums;}
+.res-n{font:700 56px/1 var(--sans); letter-spacing:-.03em; font-variant-numeric:tabular-nums;}
+.tema-linha{display:grid; grid-template-columns:minmax(0,1fr) 120px 52px; gap:12px; align-items:center; padding:10px 0;}
+.tema-linha + .tema-linha{border-top:1px solid var(--line);}
+.tema-linha .v{font-size:var(--fs-14); font-weight:600; text-align:right; font-variant-numeric:tabular-nums;}
+@media (max-width:560px){ .tema-linha{grid-template-columns:minmax(0,1fr) 72px 44px;} }
+details.rev{border-top:1px solid var(--line);}
+details.rev summary{list-style:none; cursor:pointer; padding:14px 0; display:grid; grid-template-columns:1fr 20px; gap:10px; font-size:15px;}
+details.rev summary::-webkit-details-marker{display:none;}
+details.rev .corpo{padding:0 0 16px; font-size:15px; color:var(--ink-2);}
+.aviso-prot{margin-top:28px; font-size:var(--fs-12); color:var(--ink-3); text-align:center;}
+.entrada{animation:entra .22s ease-out both;}
+@keyframes entra{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+</style>
+</head>
+<body>
+<a class="sr-only" href="#app">Pular para o conteúdo</a>
+<header class="topo">
+  <div class="topo-in">
+    <a class="marca" href="#inicio" aria-label="Arquivo Vivo, início"><span class="marca-dot" aria-hidden="true"></span>Arquivo Vivo <small>V3 protótipo</small></a>
+    <nav class="nav-top" aria-label="Navegação principal" data-nav></nav>
+    <a class="btn-busca" href="../index.html#viewEstudar" aria-label="Buscar no site atual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar</span></a>
+  </div>
+</header>
+<main id="app" tabindex="-1"></main>
+<nav class="nav-baixo" aria-label="Navegação principal" data-nav></nav>
+
+<script src="dados.js"></script>
+<script>
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const V2 = '../index.html';
+const HOJE = (()=>{ const d = new Date(); d.setHours(0,0,0,0); return d; })();
+const dataDe = iso => { const [a,m,d] = iso.split('-').map(Number); return new Date(a, m-1, d); };
+const diasAte = iso => Math.round((dataDe(iso) - HOJE) / 864e5);
+const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const fmtDia = iso => { const d = dataDe(iso); return `${d.getDate()} ${MESES[d.getMonth()]}`; };
+const quando = n => n === 0 ? 'hoje' : n === 1 ? 'amanhã' : n < 0 ? `há ${-n} ${-n === 1 ? 'dia' : 'dias'}` : `em ${n} dias`;
+const ler = k => { try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } };
+const disc = n => AV.disc.find(d => d.n === n);
+const ehProva = t => /prova/i.test(t.tarefa);
+
+const IC = {
+  inicio:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/>',
+  disc:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>',
+  cal:'<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  praticar:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/>',
+  mais:'<circle cx="5.5" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18.5" cy="12" r="1.3" fill="currentColor"/>',
+  seta:'<path d="m9 6 6 6-6 6"/>', fora:'<path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>', check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>', relogio:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  livro:'<path d="M12 6.5C10 5 7.5 4.5 4 4.5v14c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-14c-3.5 0-6 .5-8 2z"/><path d="M12 6.5v14"/>',
+  play:'<rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m10.5 9.5 4 2.5-4 2.5z" fill="currentColor"/>',
+  lista:'<path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/>',
+  alvo:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>',
+  pasta:'<path d="M3.5 7.5A2 2 0 0 1 5.5 5.5h4l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>',
+  revisar:'<path d="M4 12a8 8 0 1 1 2.3 5.7"/><path d="M4 18v-5h5"/>',
+  doc:'<path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10.5A.5.5 0 0 1 6.5 20V4a.5.5 0 0 1 .5-.5z"/><path d="M14 3.5V8h4M9.5 12.5h5M9.5 16h5"/>'
+};
+const ic = (n, cls='') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
+
+/* =========================================================
+   PROGRESSO REAL DO APARELHO (lê as chaves da V2, não grava nada)
+   ========================================================= */
+const P = {
+  nome(){ const m = ler('av-psiu'); return m && m.nome ? String(m.nome).split(' ')[0] : ''; },
+  erros(){ return Object.values(ler('av-erros') || {}); },
+  sims(){ return AV.sims.map(s => ({s, r: ler('av-simulado-' + s.id)})).filter(x => x.r); },
+  tools(){ const p = ler('av-progress'); return p && p.tools ? Object.entries(p.tools).filter(([,v]) => v && v.t > 0) : []; },
+  resumoPartes(){ let n = 0; Object.keys(AV.resumos).forEach(id => { const st = ler('av-resumo-' + id) || {}; Object.values(st).forEach(c => { if(c && typeof c === 'object') n += Object.keys(c).length; }); }); return n; },
+  ultimos(){ const u = ler('av-ultimo') || {}; return Object.entries(u).map(([d, it]) => ({d, it})).filter(x => x.it); }
+};
+const totalPartes = Object.values(AV.resumos).reduce((n, r) => n + r.caps.reduce((m, c) => m + c.etapas, 0), 0);
+
+/* =========================================================
+   NAVEGAÇÃO
+   ========================================================= */
+const NAV = [
+  {id:'inicio', t:'Início', ic:'inicio', href:'#inicio'},
+  {id:'disciplinas', t:'Disciplinas', ic:'disc', href:'#disciplinas'},
+  {id:'calendario', t:'Calendário', ic:'cal', href:'#calendario'},
+  {id:'praticar', t:'Praticar', ic:'praticar', href:'#praticar'},
+  {id:'mais', t:'Mais', ic:'mais', href:'#mais'}
+];
+function navRender(ativo){
+  document.querySelectorAll('[data-nav]').forEach(el => {
+    el.innerHTML = NAV.map(n => `<a href="${n.href}"${n.id === ativo ? ' aria-current="page"' : ''}>${ic(n.ic)}<span>${n.t}</span></a>`).join('');
+  });
+}
+
+/* =========================================================
+   TELA · INÍCIO
+   ========================================================= */
+function telaInicio(){
+  const h = new Date().getHours(); const cumprimento = h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
+  const nome = P.nome();
+  const dataLonga = new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'long'});
+
+  const prox = AV.tasks.filter(t => { const n = diasAte(t.prazo); return n >= 0 && n <= 14; }).sort((a,b) => a.prazo.localeCompare(b.prazo));
+  const provas = prox.filter(ehProva); const outros = prox.filter(t => !ehProva(t));
+  const cartaoProva = t => {
+    const n = diasAte(t.prazo); const d = disc(t.disc); const sim = AV.sims.find(s => s.disc === t.disc);
+    const nivel = n <= 2 ? 'urg' : n <= 6 ? 'warn' : '';
+    const chip = nivel === 'urg' ? 'chip-urg' : nivel === 'warn' ? 'chip-warn' : 'chip-brand';
+    return `<article class="card pad av ${nivel}">
+      <div class="av-top"><div><div class="av-disc">${esc(d ? d.name : t.materia)}</div><div class="av-t">${esc(t.tarefa)}</div><div class="av-data">${fmtDia(t.prazo)}</div></div>
+      <span class="chip ${chip}">${ic('relogio')}${quando(n)}</span></div>
+      <div class="medidor av-barra" role="img" aria-label="Faltam ${n} dias de 14"><i style="width:${Math.max(6, Math.round((1 - n/14) * 100))}%"></i></div>
+      <div class="av-acoes">${d ? `<a class="btn btn-sec" href="#disc-${d.n}">Abrir disciplina</a>` : ''}${sim ? `<a class="btn btn-pri" href="#simulado-${sim.id}">Fazer o simulado</a>` : ''}</div>
+    </article>`;
+  };
+
+  // continue de onde parou
+  const ult = P.ultimos().map(({d, it}) => {
+    const dd = disc(d); if(!dd) return '';
+    if(it.tipo === 'resumo' && AV.resumos[it.id]){ const r = AV.resumos[it.id]; const cap = r.caps[it.cap || 0];
+      return `<li><a class="item" href="${V2}#resumo-${it.id}"><div><div class="item-t">${esc(cap ? cap.aba : r.titulo)}</div><div class="item-s">Resumo · ${esc(dd.name)}</div></div><span class="item-seta">${ic('seta')}</span></a></li>`; }
+    if(it.tipo === 'tool'){ const t = AV.tools.find(x => x.id === it.id); if(!t) return '';
+      return `<li><a class="item" href="${V2}#exercicio-${t.id}"><div><div class="item-t">${esc(t.titulo)}</div><div class="item-s">Exercício · ${esc(dd.name)}</div></div><span class="item-seta">${ic('seta')}</span></a></li>`; }
+    return '';
+  }).filter(Boolean).slice(0, 3);
+
+  // para revisar: erros agrupados por origem
+  const grupos = {}; P.erros().forEach(e => { const k = (e.disc || '') + '|' + (e.origem || ''); (grupos[k] = grupos[k] || {disc:e.disc, origem:e.origem, ref:e.ref, tipo:e.tipo, n:0}).n += 1; });
+  const rev = Object.values(grupos).sort((a,b) => b.n - a.n).slice(0, 4);
+
+  // visão geral
+  const sims = P.sims(); const erros = P.erros().length; const tools = P.tools().length; const partes = P.resumoPartes();
+  const media = sims.length ? Math.round(sims.reduce((n, x) => n + (x.r.pct || 0), 0) / sims.length) : null;
+
+  return `<div class="entrada">
+    <section class="saud"><span class="eyebrow">${esc(dataLonga)}</span><h1 class="h1">${cumprimento}${nome ? ', ' + esc(nome) : ''}.</h1><p class="muted" style="margin:2px 0 0">Turma de Psicologia · 2º semestre de 2026</p></section>
+
+    <section class="secao" aria-labelledby="t-av"><div class="secao-cab"><h2 class="h2" id="t-av">Próximas avaliações</h2><a href="#calendario">Ver calendário</a></div>
+      ${provas.length ? `<div class="grade g2">${provas.map(cartaoProva).join('')}</div>` : `<div class="vazio"><strong>Nenhuma prova nos próximos 14 dias</strong>Quando uma prova se aproximar, ela aparece aqui com o simulado da disciplina.</div>`}
+      ${outros.length ? `<div class="card" style="margin-top:12px"><ul class="lista">${outros.map(t => { const n = diasAte(t.prazo); const d = disc(t.disc); return `<li><a class="item" href="${d ? '#disc-' + d.n : '#calendario'}"><div><div class="item-t">${esc(t.tarefa)}</div><div class="item-s">${esc(d ? d.name : t.materia)} · ${fmtDia(t.prazo)}</div></div><span class="chip ${n <= 2 ? 'chip-urg' : ''}">${quando(n)}</span></a></li>`; }).join('')}</ul></div>` : ''}
+    </section>
+
+    <section class="secao" aria-labelledby="t-cont"><div class="secao-cab"><h2 class="h2" id="t-cont">Continue de onde parou</h2></div>
+      ${ult.length ? `<div class="card"><ul class="lista">${ult.join('')}</ul></div>` : `<div class="vazio"><strong>Nada por aqui ainda</strong>Quando você abrir um resumo ou um exercício, ele aparece aqui para retomar.</div>`}
+    </section>
+
+    <section class="secao" aria-labelledby="t-rev"><div class="secao-cab"><h2 class="h2" id="t-rev">Para revisar</h2>${erros ? `<a href="${V2}#viewErros">Revisão dos erros</a>` : ''}</div>
+      ${rev.length ? `<div class="card"><ul class="lista">${rev.map(g => { const d = disc(g.disc); const link = g.tipo === 'simulado' ? '#simulado-' + g.ref : g.tipo === 'tool' ? V2 + '#exercicio-' + g.ref : V2 + '#resumo-' + g.ref;
+          return `<li><a class="item" href="${link}"><div><div class="item-t">${esc((g.origem || '').replace(/^[^·]+· /, ''))}</div><div class="item-s">${esc(d ? d.name : '')} · ${g.n} ${g.n === 1 ? 'questão errada' : 'questões erradas'}</div></div><span class="item-seta">${ic('seta')}</span></a></li>`; }).join('')}</ul></div>`
+        : `<div class="vazio"><strong>Nenhuma questão para revisar</strong>As questões que você errar em simulados, exercícios e resumos aparecem aqui, agrupadas por assunto.</div>`}
+    </section>
+
+    <section class="secao" aria-labelledby="t-vg"><div class="secao-cab"><h2 class="h2" id="t-vg">Visão geral</h2><span class="sutil">Dados deste aparelho</span></div>
+      <div class="grade g4">
+        <div class="card stat"><div class="stat-n">${sims.length}<span class="sutil"> de ${AV.sims.length}</span></div><div class="stat-l">Simulados feitos</div><div class="stat-d">${media != null ? `Média do melhor resultado: ${media}%` : 'Nenhum ainda'}</div></div>
+        <div class="card stat"><div class="stat-n">${partes}<span class="sutil"> de ${totalPartes}</span></div><div class="stat-l">Partes de resumo concluídas</div><div class="medidor" style="margin-top:10px"><i style="width:${Math.round(partes / totalPartes * 100)}%"></i></div></div>
+        <div class="card stat"><div class="stat-n">${tools}<span class="sutil"> de ${AV.tools.length}</span></div><div class="stat-l">Exercícios praticados</div><div class="medidor" style="margin-top:10px"><i style="width:${Math.round(tools / AV.tools.length * 100)}%"></i></div></div>
+        <div class="card stat"><div class="stat-n">${erros}</div><div class="stat-l">Questões para revisar</div><div class="stat-d">${erros ? 'Somem quando você acerta' : 'Tudo em dia'}</div></div>
+      </div>
+    </section>
+
+    <section class="secao" aria-labelledby="t-disc"><div class="secao-cab"><h2 class="h2" id="t-disc">Disciplinas</h2><a href="#disciplinas">Ver todas</a></div>
+      <div class="grade g3">${AV.disc.map(cartaoDisc).join('')}</div>
+    </section>
+
+    <section class="secao" aria-labelledby="t-upd"><div class="secao-cab"><h2 class="h2" id="t-upd">Atualizações</h2></div>
+      <div class="card"><ul class="lista">${AV.updates.map(u => `<li class="upd"><span class="upd-d">${fmtDia(u.date)}</span><div><div class="item-t" style="font-size:15px">${esc(u.disc)}</div><div class="item-s" style="color:var(--ink-2)">${esc(u.desc)}</div></div></li>`).join('')}</ul></div>
+    </section>
+    <p class="aviso-prot">Protótipo da V3 · o progresso é lido do site atual e nada é gravado aqui.</p>
+  </div>`;
+}
+function cartaoDisc(d){
+  const prova = AV.tasks.filter(t => t.disc === d.n && ehProva(t) && diasAte(t.prazo) >= 0).sort((a,b) => a.prazo.localeCompare(b.prazo))[0];
+  const sim = AV.sims.find(s => s.disc === d.n); const nRes = AV.study.filter(s => s.disc === d.n).length;
+  return `<a class="card card-link disc-card" href="#disc-${d.n}"><span class="disc-n">DISCIPLINA ${d.n}</span><span class="disc-nome">${esc(d.name)}</span>
+    <span class="disc-meta">${prova ? `<span class="chip ${diasAte(prova.prazo) <= 2 ? 'chip-urg' : 'chip-brand'}">${esc(prova.tarefa)} · ${quando(diasAte(prova.prazo))}</span>` : ''}${nRes ? `<span class="chip">${nRes} ${nRes === 1 ? 'resumo' : 'resumos'}</span>` : ''}${sim ? `<span class="chip">${sim.questoes.length} questões</span>` : ''}</span></a>`;
+}
+
+/* =========================================================
+   TELA · DISCIPLINAS, CALENDÁRIO, PRATICAR, MAIS
+   ========================================================= */
+function telaDisciplinas(){
+  return `<div class="entrada"><span class="eyebrow">2º semestre</span><h1 class="h1" style="margin-top:6px">Disciplinas</h1>
+    <div class="grade g3" style="margin-top:24px">${AV.disc.map(cartaoDisc).join('')}</div></div>`;
+}
+function telaCalendario(){
+  const fut = AV.tasks.filter(t => diasAte(t.prazo) >= 0).sort((a,b) => a.prazo.localeCompare(b.prazo));
+  const pas = AV.tasks.filter(t => diasAte(t.prazo) < 0).sort((a,b) => b.prazo.localeCompare(a.prazo));
+  const linha = t => { const n = diasAte(t.prazo); const d = disc(t.disc);
+    return `<li><a class="item" href="${d ? '#disc-' + d.n : '#calendario'}"><div><div class="item-t">${esc(t.tarefa)}</div><div class="item-s">${esc(d ? d.name : t.materia)} · ${fmtDia(t.prazo)}</div></div><span class="chip ${n < 0 ? '' : ehProva(t) ? (n <= 2 ? 'chip-urg' : 'chip-brand') : n <= 2 ? 'chip-warn' : ''}">${n < 0 ? 'passou' : quando(n)}</span></a></li>`; };
+  return `<div class="entrada"><h1 class="h1">Calendário</h1><p class="muted">Provas e entregas da turma, da mais próxima para a mais distante.</p>
+    <section class="secao"><div class="secao-cab"><h2 class="h2">Próximos</h2><a href="${V2}#calendario">Exportar para a agenda</a></div>${fut.length ? `<div class="card"><ul class="lista">${fut.map(linha).join('')}</ul></div>` : '<div class="vazio"><strong>Nenhum prazo à frente</strong></div>'}</section>
+    <section class="secao"><div class="secao-cab"><h2 class="h2">Cemitério das Tarefas</h2><span class="sutil">${pas.length} já passaram</span></div><div class="card"><ul class="lista">${pas.slice(0, 6).map(linha).join('')}</ul></div></section></div>`;
+}
+function telaPraticar(){
+  return `<div class="entrada"><h1 class="h1">Praticar</h1><p class="muted">Simulados no estilo vestibular, exercícios interativos e revisão do que você errou.</p>
+    <section class="secao"><div class="secao-cab"><h2 class="h2">Simulados da N2</h2></div><div class="grade g2">${AV.sims.map(s => { const d = disc(s.disc); const r = ler('av-simulado-' + s.id);
+      return `<a class="card card-link pad" href="#simulado-${s.id}" style="display:grid;gap:8px"><span class="av-disc">${esc(d ? d.name : '')}</span><span class="h3">${esc(s.titulo)}</span><span class="disc-meta"><span class="chip">${s.questoes.length} questões</span><span class="chip">${s.partes.length} partes</span>${r ? `<span class="chip chip-ok">${ic('check')}melhor: ${r.pct}%</span>` : ''}</span></a>`; }).join('')}</div></section>
+    <section class="secao"><div class="secao-cab"><h2 class="h2">Exercícios interativos</h2><a href="${V2}#viewFerramentas">Ver os ${AV.tools.length}</a></div><div class="vazio"><strong>Ainda na versão atual</strong>Os 40 exercícios entram na V3 na etapa 3, com o mesmo conteúdo.</div></section></div>`;
+}
+function telaMais(){
+  const it = (t, s, href) => `<li><a class="item" href="${href}"><div><div class="item-t">${t}</div><div class="item-s">${s}</div></div><span class="item-seta">${ic('seta')}</span></a></li>`;
+  return `<div class="entrada"><h1 class="h1">Mais</h1><p class="muted">Ferramentas e páginas da turma. No protótipo, elas abrem na versão atual.</p>
+    <div class="card" style="margin-top:20px"><ul class="lista">
+      ${it('Glossário e guias', '298 termos e 37 comparações', V2 + '#viewApoio')}
+      ${it('Sala de Projeção', 'Vídeos das disciplinas', V2 + '#viewVideos')}
+      ${it('Cursos extras', 'Cursos e certificados', V2 + '#viewCursos')}
+      ${it('Revisão dos erros', 'Todas as questões que você errou', V2 + '#viewErros')}
+      ${it('Instalar como app', 'Ícone na tela do celular', V2 + '#viewInstalar')}
+      ${it('Sobre o Arquivo Vivo', 'De aluno para aluno', V2 + '#viewSobre')}
+    </ul></div></div>`;
+}
+
+/* =========================================================
+   TELA · DISCIPLINA
+   ========================================================= */
+let abaDisc = 'estudar';
+function telaDisc(n){
+  const d = disc(n); if(!d) return telaDisciplinas();
+  const provas = AV.tasks.filter(t => t.disc === n && diasAte(t.prazo) >= 0).sort((a,b) => a.prazo.localeCompare(b.prazo));
+  const prova = provas.find(ehProva);
+  const res = AV.study.filter(s => s.disc === n); const sim = AV.sims.find(s => s.disc === n);
+  const tools = AV.tools.filter(t => t.disc === n); const rots = AV.roteiros.filter(r => r.disc === n);
+  const vids = (AV.videos[n] || []); const nGl = AV.glossarioPorDisc[n] || 0;
+  const errosDisc = P.erros().filter(e => e.disc === n).length;
+  const grupo = (icone, titulo, meta, corpo) => `<section class="grupo"><div class="grupo-t"><span class="tipo">${ic(icone)}</span><h2 class="h3">${titulo}</h2>${meta ? `<span class="sutil">${meta}</span>` : ''}</div>${corpo}</section>`;
+  const item = (t, s, href, fora) => `<li><a class="item" href="${href}"${fora ? ' target="_blank" rel="noopener"' : ''}><div><div class="item-t">${esc(t)}</div>${s ? `<div class="item-s">${esc(s)}</div>` : ''}</div><span class="item-seta">${ic(fora ? 'fora' : 'seta')}</span></a></li>`;
+
+  const resumosHTML = res.length ? `<div class="card"><ul class="lista">${res.flatMap(r => { const id = r.link.startsWith('#resumo-') ? r.link.slice(8) : null; const R = id && AV.resumos[id];
+      if(R && R.caps.length > 1) return R.caps.map((c, i) => item(c.aba, `${c.etapas} partes · abre no resumo`, `${V2}#resumo-${id}`));
+      return [item(r.titulo, r.subtitulo, r.link.startsWith('#') ? V2 + r.link : r.link, !r.link.startsWith('#'))]; }).join('')}</ul></div>` : '';
+  const abas = {
+    estudar: [
+      res.length ? grupo('livro', 'Resumos', `${res.length} ${res.length === 1 ? 'resumo' : 'resumos'}`, resumosHTML) : '',
+      rots.length ? grupo('doc', 'Estudo dirigido', '', `<div class="card"><ul class="lista">${rots.map(r => item(r.titulo, `${r.n} questões · ${r.sub || ''}`, `${V2}#disc-${n}`)).join('')}</ul></div>`) : '',
+      vids.length ? grupo('play', 'Vídeos', `${vids.length}`, `<div class="card"><ul class="lista">${vids.map(v => item(v.titulo, 'YouTube', 'https://www.youtube.com/watch?v=' + v.youtubeId, true)).join('')}</ul></div>`) : ''
+    ].join(''),
+    praticar: [
+      sim ? grupo('praticar', 'Simulado', '', `<div class="card sim-hero"><div><div class="h3">${esc(sim.titulo)}</div><p class="sutil" style="margin:4px 0 0">${esc(sim.desc)}</p></div><div class="partes">${sim.partes.map(p => `<span class="chip">${esc(p.t)} · ${p.n}</span>`).join('')}</div><div><a class="btn btn-pri" href="#simulado-${sim.id}">Começar o simulado</a></div></div>`) : '',
+      tools.length ? grupo('lista', 'Exercícios', `${tools.length}`, `<div class="card"><ul class="lista">${tools.map(t => item(t.titulo, t.tipo === 'quiz' ? 'Quiz' : 'Interativo', `${V2}#exercicio-${t.id}`)).join('')}</ul></div>`) : '',
+      grupo('revisar', 'Suas questões erradas', '', errosDisc ? `<div class="card"><ul class="lista">${item(`${errosDisc} ${errosDisc === 1 ? 'questão para revisar' : 'questões para revisar'}`, 'Refaça até acertar; acertou, sai da lista', V2 + '#viewErros')}</ul></div>` : `<div class="vazio"><strong>Nenhuma por enquanto</strong>As questões que você errar nesta disciplina aparecem aqui.</div>`)
+    ].join(''),
+    avaliacoes: [
+      grupo('cal', 'Próximas', '', provas.length ? `<div class="card"><ul class="lista">${provas.map(t => `<li><div class="item"><div><div class="item-t">${esc(t.tarefa)}</div><div class="item-s">${fmtDia(t.prazo)}</div></div><span class="chip ${diasAte(t.prazo) <= 2 ? 'chip-urg' : 'chip-brand'}">${quando(diasAte(t.prazo))}</span></div></li>`).join('')}</ul></div>` : `<div class="vazio"><strong>Nenhuma avaliação marcada</strong></div>`),
+      AV.exh && AV.exh.disc === n ? grupo('doc', 'Guias de trabalho', '', `<div class="card"><ul class="lista">${item(AV.exh.titulo, `${AV.exh.passos} passos · entrega ${fmtDia(AV.exh.entrega)}`, `${V2}#disc-${n}`)}</ul></div>`) : ''
+    ].join(''),
+    referencias: [
+      grupo('livro', 'Glossário da disciplina', `${nGl} termos`, `<div class="card"><ul class="lista">${item('Abrir o glossário', 'Termos e comparações desta disciplina', `${V2}#disc-${n}`)}</ul></div>`),
+      grupo('pasta', 'Material das aulas', '', `<div class="card"><ul class="lista">${item('Drive da disciplina', 'Slides, livros e textos', d.url, true)}${item('Resumão em PDF', 'Tudo da disciplina numa folha', `${V2}#disc-${n}`)}</ul></div>`)
+    ].join('')
+  };
+  const nomes = {estudar:'Estudar', praticar:'Praticar', avaliacoes:'Avaliações', referencias:'Referências'};
+  if(!abas[abaDisc]) abaDisc = 'estudar';
+  return `<div class="entrada">
+    <nav class="trilha" aria-label="Você está em"><a href="#disciplinas">Disciplinas</a><span aria-hidden="true">/</span><span>${esc(d.name)}</span></nav>
+    <header class="dcab"><span class="eyebrow">Disciplina ${d.n} · 2º semestre</span><h1 class="h1">${esc(d.name)}</h1>
+      ${prova ? `<div class="prova-faixa ${diasAte(prova.prazo) <= 2 ? 'urg' : ''}"><span class="tipo">${ic('relogio')}</span><div><div class="pf-t">${esc(prova.tarefa)} · ${quando(diasAte(prova.prazo))}</div><div class="pf-s">${fmtDia(prova.prazo)}${sim ? ' · simulado com ' + sim.questoes.length + ' questões' : ''}</div></div></div>` : ''}
+      <div class="dcab-acoes">${sim ? `<a class="btn btn-pri" href="#simulado-${sim.id}">Fazer o simulado</a>` : ''}<a class="btn btn-sec" href="${d.url}" target="_blank" rel="noopener">${ic('pasta')}Drive</a></div>
+    </header>
+    <div class="abas" role="tablist" aria-label="Seções da disciplina">${Object.keys(abas).filter(k => abas[k]).map(k => `<button class="aba" role="tab" id="aba-${k}" aria-selected="${k === abaDisc}" aria-controls="painel" data-aba="${k}">${nomes[k]}</button>`).join('')}</div>
+    <div class="painel" id="painel" role="tabpanel" aria-labelledby="aba-${abaDisc}">${abas[abaDisc]}</div>
+  </div>`;
+}
+
+/* =========================================================
+   TELA · SIMULADO (uma questão por vez)
+   ========================================================= */
+let SIM = null;
+const embaralhar = a => { const b = a.slice(); for(let i = b.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+function indicesParte(s, k){ let ini = 0; for(const p of s.partes){ if(p.k === k) return [...Array(p.n).keys()].map(i => i + ini); ini += p.n; } return [...s.questoes.keys()]; }
+function telaSimulado(id){
+  const s = AV.sims.find(x => x.id === id); if(!s) return telaPraticar();
+  const d = disc(s.disc);
+  if(!SIM || SIM.id !== id || SIM.fase === 'intro') SIM = {id, fase:'intro', parte:'tudo', modo:'treino'};
+  if(SIM.fase === 'intro') return `<div class="entrada">
+      <div class="foco-topo"><a class="btn-ico" href="#disc-${s.disc}" aria-label="Sair do simulado">${ic('x')}</a><span></span><span></span></div>
+      <span class="eyebrow">${esc(d ? d.name : '')}</span><h1 class="h1" style="margin:6px 0 8px">${esc(s.titulo)}</h1><p class="muted" style="margin:0 0 26px">${esc(s.desc)}</p>
+      <h2 class="h3" style="margin-bottom:10px">O que treinar</h2>
+      <div class="parte-sel" role="radiogroup" aria-label="Parte do simulado">
+        <label><input type="radio" name="parte" value="tudo" checked>Tudo <span class="n">${s.questoes.length}</span></label>
+        ${s.partes.map(p => `<label><input type="radio" name="parte" value="${p.k}">${esc(p.t)} <span class="n">${p.n}</span></label>`).join('')}
+      </div>
+      <h2 class="h3" style="margin:26px 0 10px">Como responder</h2>
+      <div class="modo">
+        <label><input type="radio" name="modo" value="treino" checked><span><b>Treino</b><br><span class="sutil">Mostra se acertou e a explicação a cada questão.</span></span></label>
+        <label><input type="radio" name="modo" value="prova"><span><b>Prova</b><br><span class="sutil">Responde tudo e vê o resultado só no fim, com revisão das erradas.</span></span></label>
+      </div>
+      <div style="margin-top:28px"><button class="btn btn-pri" data-sim="comecar" style="width:100%;max-width:320px">Começar</button></div>
+      <p class="aviso-prot" style="text-align:left">No protótipo, o resultado não é salvo.</p></div>`;
+  if(SIM.fase === 'q') return simQuestao(s);
+  return simResultado(s);
+}
+function simComecar(s){
+  const parte = (document.querySelector('input[name=parte]:checked') || {}).value || 'tudo';
+  const modo = (document.querySelector('input[name=modo]:checked') || {}).value || 'treino';
+  const fila = embaralhar(parte === 'tudo' ? [...s.questoes.keys()] : indicesParte(s, parte)).map(i => ({i, ordem: embaralhar([0,1,2,3,4].slice(0, s.questoes[i].o.length)), resp: null}));
+  SIM = {id:s.id, fase:'q', parte, modo, fila, atual:0, conferida:false};
+}
+function simQuestao(s){
+  const f = SIM.fila; const it = f[SIM.atual]; const q = s.questoes[it.i]; const total = f.length;
+  const conferir = SIM.modo === 'treino' && it.resp != null;
+  const op = (orig, pos) => {
+    let cls = ''; let st = '';
+    if(conferir){ if(orig === q.c){ cls = 'certa'; st = ic('check'); } else if(orig === it.resp){ cls = 'errada'; st = ic('x'); } }
+    return `<button class="op ${cls}" data-op="${orig}" aria-pressed="${it.resp === orig}"${conferir ? ' disabled' : ''}><span class="op-l">${'ABCDE'[pos]}</span><span>${esc(q.o[orig])}</span><span class="op-st">${st}</span></button>`;
+  };
+  const respondidas = f.filter(x => x.resp != null).length;
+  const certo = it.resp === q.c;
+  return `<div>
+    <div class="foco-topo"><button class="btn-ico" data-sim="sair" aria-label="Sair do simulado">${ic('x')}</button>
+      <div class="medidor" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${respondidas}" aria-label="Questões respondidas"><i style="width:${respondidas / total * 100}%"></i></div>
+      <span class="prog-t">${SIM.atual + 1} de ${total}</span></div>
+    <div class="entrada" key="${SIM.atual}">
+      <span class="chip chip-brand q-tema">${esc(q.tema)}</span>
+      <p class="q-enun">${q.p}</p>
+      <div class="ops" role="group" aria-label="Alternativas">${it.ordem.map(op).join('')}</div>
+      ${conferir ? `<div class="fb ${certo ? 'ok' : 'no'}" role="status"><b>${certo ? 'Certo.' : 'Não foi dessa vez.'}</b>${esc(q.w)}</div>` : ''}
+      <div class="q-rodape">
+        <button class="btn btn-sec" data-sim="ant"${SIM.atual === 0 ? ' disabled' : ''}>Anterior</button>
+        ${SIM.atual === total - 1 ? `<button class="btn btn-pri" data-sim="fim"${SIM.modo === 'treino' && it.resp == null ? ' disabled' : ''}>Ver resultado</button>` : `<button class="btn btn-pri" data-sim="prox"${SIM.modo === 'treino' && it.resp == null ? ' disabled' : ''}>Próxima</button>`}
+      </div>
+      ${SIM.modo === 'prova' ? `<div class="pontos" aria-label="Ir para a questão">${f.map((x, k) => `<button class="ponto${x.resp != null ? ' resp' : ''}${k === SIM.atual ? ' atual' : ''}" data-ir="${k}" aria-label="Questão ${k + 1}${x.resp != null ? ', respondida' : ''}">${k + 1}</button>`).join('')}</div>` : ''}
+    </div></div>`;
+}
+function simResultado(s){
+  const f = SIM.fila; const ac = f.filter(x => x.resp === s.questoes[x.i].c).length; const pct = Math.round(ac / f.length * 100);
+  const temas = {}; f.forEach(x => { const q = s.questoes[x.i]; const t = temas[q.tema] = temas[q.tema] || {a:0, n:0}; t.n++; if(x.resp === q.c) t.a++; });
+  const erradas = f.filter(x => x.resp !== s.questoes[x.i].c);
+  const frase = pct >= 80 ? 'Muito bom. Revise as poucas que errou e siga.' : pct >= 60 ? 'Bom caminho. Os temas abaixo mostram onde vale reforçar.' : 'Vale voltar ao resumo dos temas com menos acertos antes de tentar de novo.';
+  return `<div class="entrada">
+    <div class="foco-topo"><a class="btn-ico" href="#disc-${s.disc}" aria-label="Fechar">${ic('x')}</a><span></span><span></span></div>
+    <span class="eyebrow">Resultado · ${SIM.modo === 'prova' ? 'modo prova' : 'treino'}</span>
+    <div style="display:flex;align-items:baseline;gap:14px;margin:12px 0 6px"><span class="res-n">${pct}%</span><span class="muted">${ac} de ${f.length} certas</span></div>
+    <p class="muted" style="margin:0 0 28px">${frase}</p>
+    <section class="card pad"><h2 class="h3" style="margin-bottom:6px">Por tema</h2>
+      ${Object.entries(temas).sort((a,b) => a[1].a / a[1].n - b[1].a / b[1].n).map(([t, v]) => { const p = Math.round(v.a / v.n * 100); return `<div class="tema-linha"><span>${esc(t)}</span><div class="medidor" role="img" aria-label="${p}% de acerto"><i style="width:${p}%;background:${p < 50 ? 'var(--urg)' : p < 75 ? 'var(--warn)' : 'var(--ok)'}"></i></div><span class="v">${v.a}/${v.n}</span></div>`; }).join('')}
+    </section>
+    ${erradas.length ? `<section class="card pad" style="margin-top:12px"><h2 class="h3">Revise as que errou</h2>
+      ${erradas.map(x => { const q = s.questoes[x.i]; return `<details class="rev"><summary><span>${q.p.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '').slice(0, 120)}${q.p.length > 120 ? '…' : ''}</span><span class="item-seta">${ic('seta')}</span></summary><div class="corpo">${x.resp != null ? `<p style="margin:0 0 6px"><b>Sua resposta:</b> ${esc(q.o[x.resp])}</p>` : '<p style="margin:0 0 6px"><b>Sem resposta.</b></p>'}<p style="margin:0 0 6px;color:var(--ok)"><b>Certa:</b> ${esc(q.o[q.c])}</p><p style="margin:0">${esc(q.w)}</p></div></details>`; }).join('')}
+    </section>` : ''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:22px">${erradas.length ? `<button class="btn btn-pri" data-sim="refazer">Refazer as ${erradas.length} erradas</button>` : ''}<a class="btn btn-sec" href="#disc-${s.disc}">Voltar à disciplina</a></div>
+    <p class="aviso-prot">No protótipo, o resultado não é salvo.</p></div>`;
+}
+
+/* =========================================================
+   ROTEADOR
+   ========================================================= */
+function rotear(){
+  const h = location.hash.slice(1) || 'inicio';
+  let html, ativo = 'inicio', foco = false;
+  let m;
+  if((m = h.match(/^disc-(\d\d)$/))){ html = telaDisc(m[1]); ativo = 'disciplinas'; }
+  else if((m = h.match(/^simulado-([\w-]+)$/))){ html = telaSimulado(m[1]); ativo = 'praticar'; foco = true; }
+  else if(h === 'disciplinas'){ html = telaDisciplinas(); ativo = 'disciplinas'; }
+  else if(h === 'calendario'){ html = telaCalendario(); ativo = 'calendario'; }
+  else if(h === 'praticar'){ html = telaPraticar(); ativo = 'praticar'; }
+  else if(h === 'mais'){ html = telaMais(); ativo = 'mais'; }
+  else { html = telaInicio(); }
+  document.body.classList.toggle('foco', foco);
+  navRender(ativo);
+  $('#app').innerHTML = html;
+}
+function rerender(){ const y = scrollY; rotear(); scrollTo(0, y); }
+window.addEventListener('hashchange', () => { if(!/^#simulado-/.test(location.hash)) SIM = null; abaDisc = 'estudar'; rotear(); scrollTo(0, 0); });
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-aba]'); if(a){ abaDisc = a.dataset.aba; rerender(); document.getElementById('aba-' + abaDisc).focus(); return; }
+  const id = (location.hash.match(/^#simulado-([\w-]+)$/) || [])[1]; const s = id && AV.sims.find(x => x.id === id); if(!s) return;
+  const b = e.target.closest('[data-sim]');
+  if(b){ const acao = b.dataset.sim;
+    if(acao === 'comecar'){ simComecar(s); rotear(); scrollTo(0, 0); }
+    else if(acao === 'sair'){ if(confirm('Sair do simulado? As respostas desta tentativa se perdem.')){ SIM = null; location.hash = '#disc-' + s.disc; } }
+    else if(acao === 'prox'){ SIM.atual++; rotear(); scrollTo(0, 0); }
+    else if(acao === 'ant'){ SIM.atual--; rotear(); scrollTo(0, 0); }
+    else if(acao === 'fim'){ if(SIM.modo === 'prova'){ const falta = SIM.fila.filter(x => x.resp == null).length; if(falta && !confirm(`Ainda faltam ${falta} sem resposta. Ver o resultado mesmo assim?`)) return; } SIM.fase = 'res'; rotear(); scrollTo(0, 0); }
+    else if(acao === 'refazer'){ const err = SIM.fila.filter(x => x.resp !== s.questoes[x.i].c); SIM = {id:s.id, fase:'q', parte:SIM.parte, modo:SIM.modo, fila: embaralhar(err).map(x => ({i:x.i, ordem:embaralhar(x.ordem), resp:null})), atual:0}; rotear(); scrollTo(0, 0); }
+    return;
+  }
+  const o = e.target.closest('[data-op]'); if(o && SIM && SIM.fase === 'q'){ SIM.fila[SIM.atual].resp = +o.dataset.op; rerender(); return; }
+  const ir = e.target.closest('[data-ir]'); if(ir && SIM){ SIM.atual = +ir.dataset.ir; rotear(); scrollTo(0, 0); }
+});
+document.addEventListener('keydown', e => {
+  if(!SIM || SIM.fase !== 'q' || /input|textarea/i.test(e.target.tagName)) return;
+  const k = e.key.toUpperCase(); const idx = 'ABCDE'.indexOf(k);
+  const it = SIM.fila[SIM.atual]; const s = AV.sims.find(x => x.id === SIM.id);
+  if(idx >= 0 && idx < it.ordem.length && !(SIM.modo === 'treino' && it.resp != null)){ it.resp = it.ordem[idx]; rerender(); }
+  else if(e.key === 'ArrowRight' && SIM.atual < SIM.fila.length - 1 && !(SIM.modo === 'treino' && it.resp == null)){ SIM.atual++; rotear(); }
+  else if(e.key === 'ArrowLeft' && SIM.atual > 0){ SIM.atual--; rotear(); }
+});
+rotear();
+</script>
+</body>
+</html>
