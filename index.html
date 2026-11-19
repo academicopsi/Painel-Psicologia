@@ -2238,6 +2238,8 @@
   .rt-resp[open] > summary::before{content:"▾ ";}
   .rt-resp > p{margin:0 14px 10px; font-size:15px; line-height:1.6;}
   .rt-resp > p.rt-nota{font-size:13px;}
+  .exh-mat{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-top:12px;}
+  .exh-cit{margin:0 0 12px; padding:10px 14px; border-left:3px solid var(--petrol); background:var(--petrol-soft); font-size:14.5px; line-height:1.6; font-style:italic;}
 </style>
 </head>
 <body>
@@ -3772,11 +3774,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-19', disc: 'Psicologia Experimental', desc: 'Guia do Trabalho N2 (entrega em 25/11): passo a passo do experimento do pronome EU ou NÓS, PowerPoint com os 40 slides, folha de registro para imprimir e lista do que conferir antes de entregar.', link: {url:'#disc-04'}},
   {date: '2026-11-18', disc: 'Psicologia Experimental', desc: 'Estudo dirigido da N2 (não é para entregar): as 6 perguntas do quadro respondidas, e 27 questões novas no simulado. Agora são 79.', link: {url:'#disc-04'}},
   {date: '2026-11-18', disc: 'Psicologia da Aprendizagem', desc: 'Revisão do professor para a N2 no simulado: 28 questões novas sobre dislexia (Boder, Coltheart, duplo déficit), discalculia (acalculia espacial, alexia e agrafia para números, hemisférios), TDAH, TEA, Piaget e Freire. Agora são 101.', link: {url:'#simulado-aprendizagem-n2'}},
   {date: '2026-11-17', disc: 'Neuroanatomia', desc: 'Simulado da N2 com 40 questões novas sobre as estruturas do encéfalo e suas funções: lobos, sulcos e giros, áreas de Broca e Wernicke, tálamo, hipotálamo, hipocampo, amígdala, cerebelo, tronco encefálico, corpo caloso e núcleos da base. Agora são 115.', link: {url:'#simulado-neuro-n2'}},
   {date: '2026-11-11', disc: 'Psicologia da Aprendizagem', desc: 'Novo exercício Treino de Discursivas, com 13 perguntas sobre Piaget, Vygotsky e Freire, resposta-modelo e pontos que não podem faltar. A dislexia também ganhou 3 questões novas no simulado da N2, que agora tem 73.', link: {url:'#exercicio-treino-de-discursivas-piaget-vygotsky-e-freire'}},
-  {date: '2026-11-11', disc: 'Psicologia Experimental', desc: 'Análise do comportamento: nova aba no resumo com contingência tríplice, reforçamento positivo e negativo (fuga e esquiva), reforçadores primários, secundários e generalizados e operações motivadoras. Exercício Qual Conceito da Análise do Comportamento?, 10 termos no glossário, 4 comparações e 12 questões novas no simulado, que agora tem 52.', link: {url:'#resumo-experimental'}},
 ];
 
 
@@ -17580,11 +17582,11 @@ function renderDiscPage(d){
   const roteiros = ROTEIROS.filter(r=>r.disc === d.n);
   const simulados = SIM_JOGO.filter(x=>x.disc === d.n);
   const temGuia = MONTADOR.disc === d.n;
-  const temExh = false;
+  const temExh = EXH.disc === d.n;
   const atalhos = [
     ['dpPrazos', 'Prazos', c.prazos.length],
     ['dpGuia', 'Relatório', temGuia ? MONTADOR.secoes.length : 0],
-    ['dpExperimento', 'Experimento', temExh ? 40 : 0],
+    ['dpExperimento', 'Trabalho N2', temExh ? EXH.passos.length : 0],
     ['dpRoteiro', 'Estudo dirigido', roteiros.reduce((n, r)=>n + r.questoes.length, 0)],
     ['dpSimulado', 'Simulado', simulados.reduce((n, x)=>n + x.questoes.length, 0)],
     ['dpResumos', 'Resumos', c.resumos.length],
@@ -17613,7 +17615,7 @@ function renderDiscPage(d){
 
   const secSim = simulados.length ? sec('dpSimulado', 'Simulado', '', simulados.map(simHTMLCard).join('')) : '';
 
-  const secExh = '';
+  const secExh = temExh ? sec('dpExperimento', 'Trabalho N2', `entrega ${fmtDia(EXH.entrega)}`, exhHTML()) : '';
   const secGuia = temGuia ? sec('dpGuia', 'Relatório do projeto', '', montadorHTML() + exemplosHTML()) : '';
 
   const secResumos = c.resumos.length ? sec('dpResumos', 'Resumos', `${resumosFeitos}/${c.resumos.length} estudados`,
@@ -17728,6 +17730,151 @@ function rtLoad(id){ try{ return JSON.parse(localStorage.getItem('av-roteiro-' +
 function rtSave(id, o){ try{ localStorage.setItem('av-roteiro-' + id, JSON.stringify(o)); }catch(e){} }
 function rtQFeita(r, st, i){ const a = st[i] || []; return r.questoes[i].confira.every((_, k)=>a[k]); }
 function rtFeitas(r){ const st = rtLoad(r.id); return r.questoes.filter((_, i)=>rtQFeita(r, st, i)).length; }
+/* ---------------------------------------------------------------------
+   TRABALHO N2 DE EXPERIMENTAL: guia do experimento com humanos
+   Orientações para fazer o trabalho, sem respostas e sem contas prontas.
+   --------------------------------------------------------------------- */
+const EXH = {
+  disc: '04',
+  titulo: 'Trabalho N2: reforço do pronome EU ou NÓS',
+  entrega: '2026-11-25',
+  intro: 'Experimento individual baseado na Prática 16 de Matos e Tomanari (2002), A análise do comportamento no laboratório, adaptada pela disciplina. O objetivo é ver o efeito de reforçar diferencialmente um pronome (EU ou NÓS) na construção de frases: 10 verbos de linha de base e 30 com reforço.',
+  ppt: 'arquivos/experimento-pronomes-40-slides.pptx',
+  drive: 'https://drive.google.com/drive/folders/162RsDUEGxxKyT1Z3Dr-Xb9-SuF1xzj2F',
+  verbos: ['Representar','Mandar','Gostar','Lembrar','Indicar','Favorecer','Defender','Estudar','Verificar','Esperar','Escrever','Relatar','Aconselhar','Convidar','Plantar','Falar','Precisar','Buscar','Desenhar','Experimentar','Andar','Rodar','Enganar','Voltar','Vender','Acabar','Administrar','Ajudar','Parar','Apresentar','Fabricar','Tratar','Telefonar','Chamar','Continuar','Entender','Derrubar','Contar','Confirmar','Desmontar'],
+  pronomes: ['Eu','Tu','Ele/Ela','Nós','Vós','Eles/Elas'],
+  passos: [
+    {t:'Antes de começar', itens:[
+      'O trabalho é individual. Você é o experimentador e escolhe uma pessoa para ser o participante.',
+      'O participante não pode ser aluno de Psicologia nem ter menos de 10 anos.',
+      'Prepare a apresentação com 40 slides: um verbo por slide e a lista de pronomes (Eu, Tu, Ele/Ela, Nós, Vós, Eles/Elas). O PowerPoint pronto está logo acima.',
+      'Sente-se ao lado do participante, controlando a passagem dos slides. Se for on-line, prefira o Google Meet, com a tela compartilhada.',
+      'Tenha a folha de registro em mãos. A folha em branco para imprimir está logo acima.']},
+    {t:'Cuidados éticos', itens:[
+      'Conte ao participante que é um trabalho da disciplina e que serve para os alunos aprenderem conceitos básicos de análise experimental do comportamento. Diga o nome da disciplina, da professora e da faculdade.',
+      'Avise que ele pode interromper a qualquer momento, sem nenhum prejuízo.',
+      'Só comece se ele concordar.']},
+    {t:'Instrução padronizada (leia exatamente)', citacao:'"O propósito deste experimento é verificar como as pessoas constroem frases e ele não envolve avaliação de inteligência ou de personalidade. Vou mostrar a você slides contendo, cada um, um verbo no infinitivo e uma lista de pronomes. Diga em voz alta uma frase que comece com um dos pronomes e contenha o verbo em questão. Você pode usar o verbo em qualquer tempo. Não importa que a frase seja longa ou curta, verdadeira ou falsa, simples ou complexa. Inicialmente você pode achar a tarefa difícil, mas logo ela parecerá mais fácil, portanto, não desanime. Você entendeu?"', itens:[
+      'Ao terminar a leitura, pergunte se ele entendeu. Só continue se a resposta for sim.',
+      'Se ele pedir mais explicações, apenas leia a instrução de novo, sem comentar nada. Assim todos os participantes recebem a mesma instrução.',
+      'Se ele fizer perguntas durante a tarefa, ou disser uma frase sem pronome ou sem o verbo, interrompa e diga: "Lembre-se de que você deve construir uma frase que comece com um dos pronomes deste slide e que utilize o verbo em questão. Você pode usar o verbo em qualquer tempo. Não importa que a frase seja longa ou curta, verdadeira ou falsa, simples ou complexa."']},
+    {t:'Fase I: linha de base (verbos 1 a 10)', itens:[
+      'As duas fases são aplicadas uma seguida da outra, numa única sessão.',
+      'Do Representar ao Esperar, não reforce nada, qualquer que seja o pronome.',
+      'Só registre o pronome usado e passe para o próximo slide quando ele terminar a frase.']},
+    {t:'Fase II: intervenção, com reforço (verbos 11 a 40)', itens:[
+      'A partir do Escrever (11º verbo), reforce só UM pronome: EU ou NÓS. Nunca os dois.',
+      'O pronome escolhido precisa ter aparecido pelo menos 2 vezes na Fase I.',
+      'Reforce sempre que ele terminar uma frase com o pronome escolhido, com "Certo", "Muito bem", "Ótimo" ou "Muito bom", variando ao acaso, de forma natural e aprovadora.',
+      'Elogie só depois que a frase terminar. Elogiar no meio dá uma "dica" do que está sendo reforçado.',
+      'Cuidado para não reforçar sem querer os outros pronomes com sorriso, olhar de aprovação ou aceno de cabeça.']},
+    {t:'Como registrar', itens:[
+      'Marque um X no pronome usado em cada verbo.',
+      'Se não usar pronome ou não usar o verbo, risque a linha daquela tentativa.',
+      'Se ele errar e se corrigir, ou trocar de pronome logo em seguida, anote a segunda resposta.',
+      'No fim, anote seu nome, a data e uma sigla para o participante (por exemplo, P1).']},
+    {t:'Depois do experimento', itens:[
+      'Agradeça e diga que o experimento terminou.',
+      'Pergunte e anote as respostas no verso da folha: 1) O que você achou do experimento? 2) Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais? 3) O que levou você a escolher este ou aquele pronome?']},
+    {t:'O que entregar', itens:[
+      'Um gráfico de frequência relativa (%) impresso, com nome completo, matrícula, nome da disciplina, unidade e data de entrega.',
+      'Nos vídeos da pasta do Drive, a planilha tem três abas: Frequência absoluta (quantas vezes cada pronome apareceu na linha de base e na intervenção), Frequência relativa e Comparativo LB-INT.',
+      'Frequência relativa: frequência absoluta × 100 ÷ 10 na linha de base (LB) e ÷ 30 na intervenção (INT). Os dois números são o total de verbos de cada fase.',
+      'O gráfico dos vídeos é de colunas: os pronomes no eixo horizontal, a frequência relativa no vertical, uma coluna para LB e outra para INT, e o título com o participante e o pronome reforçado (por exemplo, "P1 - Nós").']}
+  ],
+  pense: [
+    'Para que serve a linha de base? O que daria para concluir se a fase de reforço começasse direto?',
+    'Neste experimento, qual é a variável independente (o que você manipula) e qual é a dependente (o que você mede)?',
+    'Por que o elogio funciona como reforçador? De que tipo de reforçador ele é um exemplo?',
+    'Por que só um pronome pode ser reforçado, e por que ele precisa ter aparecido pelo menos 2 vezes na linha de base?',
+    'Por que a instrução é lida igual para todos, e por que o elogio vem só depois da frase?',
+    'O que você espera que aconteça com a frequência do pronome reforçado? E se não mudar, o que pode explicar?',
+    'Nas respostas do participante depois do experimento, ele percebeu o que estava sendo reforçado? O que isso diz sobre o controle do comportamento pelas consequências?'
+  ],
+  confira: [
+    'O participante não é aluno de Psicologia e tem 10 anos ou mais',
+    'Li a instrução padronizada exatamente como está',
+    'Não reforcei nada na Fase I (verbos 1 a 10)',
+    'O pronome reforçado apareceu pelo menos 2 vezes na Fase I',
+    'Reforcei só um pronome, sempre depois da frase terminar',
+    'Anotei as 3 perguntas do fim no verso da folha',
+    'Calculei a frequência relativa dividindo por 10 na LB e por 30 na INT',
+    'O gráfico é de colunas, com LB e INT para cada pronome',
+    'O título tem o participante e o pronome reforçado (ex.: "P1 - Nós")',
+    'Coloquei nome completo, matrícula, disciplina, unidade e data de entrega',
+    'Imprimi o gráfico'
+  ]
+};
+function exhLoad(){ try{ return JSON.parse(localStorage.getItem('av-exh-confira') || '[]'); }catch(e){ return []; } }
+function exhSave(a){ try{ localStorage.setItem('av-exh-confira', JSON.stringify(a)); }catch(e){} }
+function exhHTML(){
+  const a = exhLoad(); const feitos = EXH.confira.filter((_, k)=>a[k]).length;
+  return `<details class="rt-box" id="exh-guia">
+    <summary class="rt-sum"><span class="rt-sum-t">${escHTML(EXH.titulo)}</span><span class="rt-sum-s">${EXH.passos.length} passos · entrega em ${fmtDia(EXH.entrega)} · orientações, sem respostas</span><span class="rt-sum-go">Abrir guia</span></summary>
+    <div class="rt">
+    <div class="rt-head">
+      <p class="rt-intro">${escHTML(EXH.intro)}</p>
+      <div class="exh-mat">
+        <a class="btn btn-primary" href="${EXH.ppt}" download>Baixar o PowerPoint (40 slides)</a>
+        <button class="btn" data-exh-folha>Imprimir a folha de registro</button>
+        <a class="link-btn" href="${EXH.drive}" target="_blank" rel="noopener">Pasta da explicação no Drive ↗</a>
+      </div>
+    </div>
+    ${EXH.passos.map((p, i)=>`
+    <details class="graveyard rt-q">
+      <summary><span class="rt-qn">Passo ${i+1}</span><span class="rt-qt">${escHTML(p.t)}</span></summary>
+      <div class="rt-body">
+        ${p.citacao ? `<blockquote class="exh-cit">${escHTML(p.citacao)}</blockquote>` : ''}
+        <ul class="rt-pede">${p.itens.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
+      </div>
+    </details>`).join('')}
+    <details class="graveyard rt-q">
+      <summary><span class="rt-qn">Para pensar</span><span class="rt-qt">Entender o que você está fazendo</span></summary>
+      <div class="rt-body">
+        <p class="rt-nota">Perguntas para relacionar o experimento com a matéria. Elas não têm resposta aqui: use o resumo de Análise do comportamento e o glossário.</p>
+        <ul class="rt-pense">${EXH.pense.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
+        <div class="rt-links"><button class="link-btn" data-continue-resumo="experimental" data-cap="3">Resumo · Análise do comportamento</button></div>
+      </div>
+    </details>
+    <details class="graveyard rt-q${feitos === EXH.confira.length ? ' feita' : ''}" id="exh-confira">
+      <summary><span class="rt-qn">Antes de entregar</span><span class="rt-qt">Lista de conferência</span><span class="rt-ok">${feitos}/${EXH.confira.length}</span></summary>
+      <div class="rt-body">
+        <div class="rt-confira">${EXH.confira.map((x, k)=>`<label class="rt-check"><input type="checkbox" data-exh-k="${k}"${a[k] ? ' checked' : ''}><span>${escHTML(x)}</span></label>`).join('')}</div>
+      </div>
+    </details>
+    </div>
+  </details>`;
+}
+function exhImprimirFolha(){
+  const linha = (v, i) => `<tr${i === 10 ? ' class="f2"' : ''}><td>${i+1}</td><td>${v}</td>${EXH.pronomes.map(()=> '<td></td>').join('')}</tr>`;
+  const fase = (t, de, ate) => `<tr class="fase"><td colspan="${EXH.pronomes.length + 2}">${t}</td></tr>` + EXH.verbos.slice(de, ate).map((v, k)=>linha(v, de + k)).join('');
+  const w = window.open('', '_blank');
+  if(!w) return;
+  w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Folha de registro · Trabalho N2</title><style>
+    body{font-family:Arial,sans-serif;font-size:12px;margin:18px;color:#111} h1{font-size:16px;margin:0 0 4px} p{margin:2px 0 10px}
+    .cab{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:8px 0 12px} .cab div{border-bottom:1px solid #444;padding:8px 0 2px}
+    table{width:100%;border-collapse:collapse} th,td{border:1px solid #444;padding:3px 5px;text-align:center} td:nth-child(2){text-align:left}
+    th{background:#eee} tr.fase td{background:#f4f4f4;font-weight:bold;text-align:left} @media print{button{display:none}}
+  </style></head><body>
+    <button onclick="print()">Imprimir</button>
+    <h1>Folha de registro · Reforço do pronome EU ou NÓS</h1>
+    <p>Marque um X no pronome usado em cada verbo. Se não usar pronome ou o verbo, risque a linha. Se o participante se corrigir, anote a segunda resposta.</p>
+    <div class="cab"><div>Experimentador:</div><div>Data:</div><div>Participante (sigla):</div><div>Sexo / idade:</div><div>Pronome reforçado na Fase II (EU ou NÓS):</div><div></div></div>
+    <table><thead><tr><th>#</th><th>Verbo</th>${EXH.pronomes.map(p=>`<th>${p}</th>`).join('')}</tr></thead><tbody>
+    ${fase('Fase I · Linha de base: só registrar', 0, 10)}${fase('Fase II · Intervenção: reforçar o pronome escolhido, depois que a frase terminar', 10, 40)}
+    </tbody></table>
+    <p style="margin-top:12px">No verso: 1) O que você achou do experimento? 2) Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais? 3) O que levou você a escolher este ou aquele pronome?</p>
+  </body></html>`);
+  w.document.close();
+}
+document.addEventListener('click', e=>{ if(e.target.closest('[data-exh-folha]')) exhImprimirFolha(); });
+document.addEventListener('change', e=>{
+  const cb = e.target.closest('[data-exh-k]'); if(!cb) return;
+  const a = exhLoad(); a[+cb.dataset.exhK] = cb.checked; exhSave(a);
+  const n = EXH.confira.filter((_, k)=>a[k]).length; const box = document.getElementById('exh-confira');
+  if(box){ box.querySelector('.rt-ok').textContent = n + '/' + EXH.confira.length; box.classList.toggle('feita', n === EXH.confira.length); }
+});
+
 function roteiroHTML(r){
   const st = rtLoad(r.id);
   const acad = t => 'https://scholar.google.com.br/scholar?hl=pt-BR&q=' + encodeURIComponent(t);
