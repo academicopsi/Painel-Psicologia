@@ -141,6 +141,12 @@
   .btn-ochre{background:var(--ochre); color:#fff; width:100%;}
   .btn[aria-disabled="true"]{opacity:.55; cursor:default;}
   .apoio-nota{margin-top:10px; font-family:var(--mono); font-size:12px; color:var(--ink-faint); text-align:center;}
+  .pix{background:var(--bg); border:1px dashed var(--ochre); border-radius:12px; padding:14px; text-align:center; margin:0 0 12px;}
+  .pix span{display:block;}
+  .pix-rot{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ochre);}
+  .pix-chave{font-family:var(--mono); font-size:22px; font-weight:500; letter-spacing:.04em; margin:4px 0 2px; user-select:all;}
+  .pix-nome{font-size:13px; color:var(--ink-soft);}
+  .apoio-passos{font-size:13px; color:var(--ink-faint); margin:12px 0 0 !important;}
   @media (max-width:860px){ .apoio{grid-template-columns:1fr; padding:26px;} }
   @media (max-width:860px){
     .hero .wrap{grid-template-columns:1fr; padding-top:44px; padding-bottom:48px;}
@@ -299,8 +305,8 @@
       <div>
         <div class="eyebrow">Apoie o Arquivo Vivo</div>
         <h2>Aberto para todos, <em>mantido por quem acredita.</em></h2>
-        <p>O Arquivo Vivo continua livre: ninguém precisa pagar para estudar. Quem quiser pode apoiar com uma contribuição mensal, de valor livre, e ajudar a manter a ferramenta atualizada a cada semestre.</p>
-        <p>O apoio é voluntário e pode ser cancelado quando quiser. Quem não apoia continua com acesso a tudo.</p>
+        <p>O Arquivo Vivo continua livre: ninguém precisa pagar para estudar. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês, e ajudar a manter a ferramenta atualizada a cada semestre.</p>
+        <p>O apoio é voluntário, sem assinatura nem cobrança automática. Quem não apoia continua com acesso a tudo.</p>
       </div>
       <div class="apoio-card">
         <h3>Quem apoia ganha</h3>
@@ -310,8 +316,14 @@
           <li>Acesso antecipado a simulados novos</li>
           <li>Voz na escolha das próximas novidades</li>
         </ul>
-        <span class="btn btn-ochre" aria-disabled="true">Apoiar · em breve</span>
-        <div class="apoio-nota">Sugestão: de R$ 10 a R$ 15 por mês</div>
+        <div class="pix">
+          <span class="pix-rot">Chave Pix (celular)</span>
+          <span class="pix-chave" id="pixChave">21969681745</span>
+          <span class="pix-nome">Thiago Monteiro de Oliveira</span>
+        </div>
+        <button class="btn btn-ochre" id="pixCopiar" type="button">Copiar chave Pix</button>
+        <div class="apoio-nota">Valor livre · sugestão de R$ 10 a R$ 15 por mês</div>
+        <p class="apoio-passos">No app do banco, escolha Pix → chave de celular e cole a chave. Para receber o selo de apoiador, use no site uma conta com o mesmo nome do Pix, ou avise o Thiago.</p>
       </div>
     </div>
   </section>
@@ -326,7 +338,7 @@
       <details><summary>Funciona no celular?</summary><p>Sim. Foi pensado primeiro para o celular, que é onde a maior parte da turma estuda.</p></details>
       <details><summary>Meu progresso fica salvo?</summary><p>Sim, no próprio aparelho: simulados feitos, resumos estudados e questões para revisar continuam lá quando você volta.</p></details>
       <details><summary>Substitui as aulas ou o material dos professores?</summary><p>Não. O Arquivo Vivo é uma ferramenta de apoio. O conteúdo das aulas sempre prevalece como referência final.</p></details>
-      <details><summary>Preciso pagar para usar?</summary><p>Não. Todo o conteúdo é aberto. O apoio é opcional, para quem quiser ajudar a manter o Arquivo Vivo.</p></details>
+      <details><summary>Preciso pagar para usar?</summary><p>Não. O apoio é opcional, por Pix e de valor livre, para quem quiser ajudar a manter o Arquivo Vivo.</p></details>
       <details><summary>Com que frequência é atualizado?</summary><p>Durante todo o semestre. Novos resumos, questões e prazos entram conforme as aulas avançam, e as novidades aparecem na página inicial.</p></details>
     </div>
   </section>
@@ -343,5 +355,12 @@
   <div class="wrap">Arquivo Vivo · criado e mantido por <b>Thiago Monteiro</b><br>Iniciativa independente, sem vínculo com a coordenação ou com a instituição.</div>
 </footer>
 
+<script>
+document.getElementById('pixCopiar').addEventListener('click', async e=>{
+  const b = e.currentTarget, chave = '21969681745';
+  try{ await navigator.clipboard.writeText(chave); }catch(_){ const t = document.createElement('textarea'); t.value = chave; document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); }catch(__){} t.remove(); }
+  b.textContent = 'Chave copiada ✓'; setTimeout(()=> b.textContent = 'Copiar chave Pix', 2500);
+});
+</script>
 </body>
 </html>
