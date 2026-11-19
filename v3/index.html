@@ -2429,6 +2429,38 @@
   .conta-topo b{display:block; font-size:16px;}
   .conta-topo span{display:block; font-size:13px; color:var(--ink-soft); word-break:break-all;}
   .conta-topo .conta-selo{margin-top:5px; display:inline-block;}
+
+  /* V3 · acessórios do Psiu */
+  .conta-psiu{display:flex; align-items:center; gap:12px; width:100%; font:inherit; text-align:left; background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:8px 12px; margin:0 0 14px; cursor:pointer; color:var(--ink);}
+  .conta-psiu:hover{border-color:var(--petrol-line);}
+  .conta-psiu svg{width:46px; height:46px; flex:none;}
+  .conta-psiu b{display:block; font-size:14.5px;}
+  .conta-psiu small{color:var(--ink-soft); font-size:12.5px;}
+  .conta-psiu::after{content:"→"; margin-left:auto; color:var(--petrol); font-weight:700;}
+  .ps-topo{display:flex; align-items:center; gap:14px; margin:0 0 6px;}
+  .ps-topo svg{width:84px; height:84px; background:var(--petrol-soft); border-radius:50%; padding:4px;}
+  .ps-topo .conta-btn{width:auto; margin:0;}
+  .ps-g{font-family:var(--serif, Georgia, serif); font-size:17px; font-weight:600; margin:18px 0 2px;}
+  .ps-gs{font-size:13px; color:var(--ink-soft); margin:0 0 10px;}
+  .ps-grade{display:grid; grid-template-columns:repeat(auto-fill, minmax(96px, 1fr)); gap:8px;}
+  .ps-item{font:inherit; display:flex; flex-direction:column; align-items:center; gap:2px; background:var(--bg); border:1.5px solid var(--rule); border-radius:12px; padding:8px 6px 9px; cursor:pointer; color:var(--ink); text-align:center; position:relative;}
+  .ps-item svg{width:64px; height:64px;}
+  .ps-item b{font-size:12px; line-height:1.25;}
+  .ps-item i{font-style:normal; font-size:11px; font-weight:700; color:var(--petrol);}
+  .ps-item em{font-style:normal; font-size:10.5px; line-height:1.3; color:var(--ink-faint);}
+  .ps-item small{font-size:10.5px; color:var(--ochre); font-weight:600;}
+  .ps-item.sel{border-color:var(--petrol); background:var(--petrol-soft);}
+  .ps-item.trancado svg{opacity:.38; filter:grayscale(.6);}
+  .ps-item.trancado{cursor:default;}
+  .ps-item:not(.trancado):hover{border-color:var(--petrol-line);}
+  .ps-item.chacoalha{animation:psChac .35s;}
+  @keyframes psChac{25%{transform:translateX(-4px)} 75%{transform:translateX(4px)}}
+  .ps-toast{position:fixed; left:50%; bottom:22px; transform:translate(-50%, 140%); z-index:4000; display:flex; align-items:center; gap:10px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; box-shadow:0 12px 30px rgba(0,0,0,.18); padding:8px 10px 8px 8px; transition:transform .35s ease; max-width:92vw;}
+  .ps-toast.in{transform:translate(-50%, 0);}
+  .ps-toast svg{width:48px; height:48px; flex:none; background:var(--petrol-soft); border-radius:50%;}
+  .ps-toast{line-height:1.3;} .ps-toast b{display:block; font-size:14px;}
+  .ps-toast span{font-size:13px; color:var(--ink-soft);}
+  .ps-toast button{font:inherit; font-size:13.5px; font-weight:600; background:var(--petrol); color:#fff; border:0; border-radius:8px; padding:8px 12px; cursor:pointer;}
 </style>
 </head>
 <body>
@@ -18441,7 +18473,7 @@ function abrirRoteiro(id, opts){
 function desempLer(){ try{ return JSON.parse(localStorage.getItem('av-desempenho')) || {sims:{}, hist:[]}; }catch(e){ return {sims:{}, hist:[]}; } }
 function desempSalvar(o){ try{ localStorage.setItem('av-desempenho', JSON.stringify(o)); }catch(e){} }
 function desempRegistrar(id, tema, certo){ const o = desempLer(); const s = o.sims[id] = o.sims[id] || {}; const t = s[tema || 'Geral'] = s[tema || 'Geral'] || {a:0, n:0}; t.n++; if(certo) t.a++; desempSalvar(o); }
-function desempPartida(id, pct, a, n){ const o = desempLer(); o.hist = (o.hist || []).concat({id, pct, a, n, t:Date.now()}).slice(-60); desempSalvar(o); }
+function desempPartida(id, pct, a, n, seq){ const o = desempLer(); o.hist = (o.hist || []).concat({id, pct, a, n, seq:seq || 0, t:Date.now()}).slice(-60); desempSalvar(o); }
 function simRec(id){ try{ return JSON.parse(localStorage.getItem('av-simulado-' + id)) || null; }catch(e){ return null; } }
 function simRecSalvar(id, o){ try{ localStorage.setItem('av-simulado-' + id, JSON.stringify(o)); }catch(e){} }
 const SIM_TEMPO = 60; // segundos por questão no modo com tempo
@@ -18597,7 +18629,9 @@ function simFinalizar(){
   e.seg = Math.round((Date.now() - e.t0) / 1000);
   const pct = Math.round(e.acertos / e.fila.length * 100);
   e.pct = pct;
-  desempPartida(e.sim.id, pct, e.acertos, e.fila.length);
+  if(window.avConquistaAntes) window.avConquistaAntes();
+  desempPartida(e.sim.id, pct, e.acertos, e.fila.length, e.maxSeq);
+  if(window.avConquistaDepois) setTimeout(window.avConquistaDepois, 600);
   const r = simRec(e.sim.id);
   e.recorde = false;
   if(e.fila.length >= 10 && (!r || e.pontos > r.pontos)){
@@ -20584,12 +20618,9 @@ document.addEventListener('click', e=>{
   var COM_ACESSORIO = ['parado', 'lado', 'pensando', 'ideia', 'comemorando', 'aplaudindo', 'acenando', 'sinapse', 'cafe', 'mensagem', 'celular', 'escuro', 'susto'];
   const NIVEIS = [{min:10, nome:'um cachecol'}, {min:30, nome:'uma medalha'}, {min:60, nome:'uma coroa de louros'}];
   function acessorios(){
-    const n = mem.acertos || 0; let s = '';
-    if(n >= 60) s += '<g fill="#639922" stroke="#3B6D11" stroke-width=".8"><ellipse cx="34" cy="34" rx="3" ry="6" transform="rotate(-40 34 34)"/><ellipse cx="40" cy="25" rx="3" ry="6" transform="rotate(-60 40 25)"/><ellipse cx="49" cy="19" rx="3" ry="6" transform="rotate(-80 49 19)"/><ellipse cx="86" cy="34" rx="3" ry="6" transform="rotate(40 86 34)"/><ellipse cx="80" cy="25" rx="3" ry="6" transform="rotate(60 80 25)"/><ellipse cx="71" cy="19" rx="3" ry="6" transform="rotate(80 71 19)"/></g>';
-    if(n >= 30) s += '<path d="M50 80 L60 96 L70 80" fill="none" stroke="#378ADD" stroke-width="4"/><circle cx="60" cy="100" r="7" fill="#FAC775" stroke="#BA7517" stroke-width="2"/>';
-    if(n >= 10) s += '<path d="M34 78 Q60 92 86 78 L86 86 Q60 100 34 86 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.5"/><path d="M44 83 L44 91 M56 87 L56 95 M68 87 L68 95 M78 83 L78 91" stroke="#FFFFFF" stroke-width="3" opacity=".8"/><path d="M76 88 L80 108 L88 106 L84 86 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.5"/>';
-    return s;
+    return (typeof window.avPsiuAccSVG === 'function') ? window.avPsiuAccSVG() : '';
   }
+  window.avPsiuRedesenhar = () => { try{ desenhar(reacaoAtual || 'parado'); }catch(e){} };
 
   // ---------- reações novas ----------
   Object.assign(REACOES, {
@@ -21138,6 +21169,7 @@ function desenharConta(m){
     <div class="conta-topo${apoiador ? ' apoia' : ''}"><span class="ct-av">${esc(iniciais(usuario))}</span><div><b>${esc(usuario.displayName || primeiroNome(usuario))}</b><span>${esc(usuario.email)}</span>${apoiador ? '<span class="conta-selo">★ Apoiador do Arquivo Vivo</span>' : ''}</div></div>
     <p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p>
     ${ehAdmin(usuario) ? '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>' : ''}
+    <button class="conta-psiu" data-psiu-vitrine>${window.avPsiuMini ? window.avPsiuMini() : ''}<span><b>Personalizar o Psiu</b><small>Acessórios para o seu Psiu</small></span></button>
     ${(apoiador || ehAdmin(usuario)) ? '<div class="conta-area"><b>Área do apoiador</b><div class="conta-area-bts"><button data-ben="desempenho">Seu desempenho</button><button data-ben="caderno">Caderno de revisão</button></div></div>' : ''}
     ${apoiador ? '' : '<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>Um Pix de valor livre ajuda a manter o site e libera o caderno de revisão e o seu desempenho.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>'}
     <button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
@@ -21354,6 +21386,120 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(e.target.closest('#benCorpo [data-apoio]')) fechar();
   });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') fechar(); });
+})();
+</script>
+<script>
+// ===== Acessórios do Psiu: 5 para todos, 20 para apoiadores, 5 por conquista =====
+(function(){
+  const flor = (x, y, cor) => { let p = ''; for(let i = 0; i < 5; i++){ const a = i * 72 * Math.PI / 180; p += `<circle cx="${(x + Math.cos(a) * 3.2).toFixed(1)}" cy="${(y + Math.sin(a) * 3.2).toFixed(1)}" r="2.6" fill="${cor}"/>`; } return p + `<circle cx="${x}" cy="${y}" r="2" fill="#FAC775"/>`; };
+  const brilho = (x, y, s) => `<path d="M${x} ${y - s} Q${x} ${y} ${x + s} ${y} Q${x} ${y} ${x} ${y + s} Q${x} ${y} ${x - s} ${y} Q${x} ${y} ${x} ${y - s} Z" fill="#FAC775" stroke="#BA7517" stroke-width="1"/>`;
+  const A = [
+    // ---------- básicos (todos) ----------
+    {id:'laco', nome:'Laço', grupo:'basico', svg:'<g transform="translate(80 22) rotate(15)"><path d="M0 0 L-11 -7 L-11 7 Z M0 0 L11 -7 L11 7 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.6" stroke-linejoin="round"/><circle r="3" fill="#C53B3A" stroke="#A32D2D" stroke-width="1.4"/></g>'},
+    {id:'bone', nome:'Boné', grupo:'basico', svg:'<path d="M70 28 Q96 25 107 30 Q97 35 70 33 Z" fill="#163F3B" stroke="#14211F" stroke-width="1.6"/><path d="M34 31 C33 11 87 11 86 31 Z" fill="#1F5C56" stroke="#14211F" stroke-width="1.8"/><circle cx="60" cy="14" r="2.4" fill="#163F3B"/>'},
+    {id:'cachecol', nome:'Cachecol', grupo:'basico', svg:'<path d="M34 78 Q60 92 86 78 L86 86 Q60 100 34 86 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.5"/><path d="M44 83 L44 91 M56 87 L56 95 M68 87 L68 95 M78 83 L78 91" stroke="#FFFFFF" stroke-width="3" opacity=".8"/><path d="M76 88 L80 108 L88 106 L84 86 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.5"/>'},
+    {id:'gravata', nome:'Gravata-borboleta', grupo:'basico', svg:'<g transform="translate(60 91)"><path d="M0 0 L-12 -7 L-12 7 Z M0 0 L12 -7 L12 7 Z" fill="#1F5C56" stroke="#14211F" stroke-width="1.6" stroke-linejoin="round"/><rect x="-3" y="-3.5" width="6" height="7" rx="1.5" fill="#163F3B"/></g>'},
+    {id:'bigode', nome:'Bigode', grupo:'basico', svg:'<path d="M60 66 C56 62 48 62 43 67 C48 66 52 69 56 68.5 C58 68 59 67.5 60 66.5 C61 67.5 62 68 64 68.5 C68 69 72 66 77 67 C72 62 64 62 60 66 Z" fill="#5A3A22" stroke="#3B2512" stroke-width="1"/>'},
+    // ---------- apoiadores ----------
+    {id:'coroa', nome:'Coroa', grupo:'apoio', svg:'<path d="M42 27 L40 8 L50 18 L60 4 L70 18 L80 8 L78 27 Z" fill="#FAC775" stroke="#BA7517" stroke-width="2" stroke-linejoin="round"/><circle cx="60" cy="19" r="2.6" fill="#E24B4A"/><circle cx="48" cy="22" r="1.9" fill="#378ADD"/><circle cx="72" cy="22" r="1.9" fill="#378ADD"/>'},
+    {id:'cartola', nome:'Cartola', grupo:'apoio', svg:'<path d="M46 25 L47 3 Q60 0 73 3 L74 25 Z" fill="#1B2422"/><rect x="46.5" y="17" width="27" height="5" fill="#A8455A"/><ellipse cx="60" cy="25.5" rx="27" ry="5" fill="#1B2422"/>'},
+    {id:'boina', nome:'Boina', grupo:'apoio', svg:'<path d="M30 29 C27 14 52 8 70 11 C89 14 93 26 85 30 C70 34 44 35 30 29 Z" fill="#A32D2D" stroke="#6E1D1D" stroke-width="1.8"/><path d="M58 9 L60 4" stroke="#6E1D1D" stroke-width="2.6" stroke-linecap="round"/>'},
+    {id:'fone', nome:'Fone de ouvido', grupo:'apoio', svg:'<path d="M22 54 C22 16 98 16 98 54" fill="none" stroke="#14211F" stroke-width="4" stroke-linecap="round"/><rect x="15" y="47" width="13" height="21" rx="5" fill="#1F5C56" stroke="#14211F" stroke-width="2"/><rect x="92" y="47" width="13" height="21" rx="5" fill="#1F5C56" stroke="#14211F" stroke-width="2"/>'},
+    {id:'gorro', nome:'Gorro de lã', grupo:'apoio', svg:'<path d="M34 32 C32 10 88 10 86 32 Z" fill="#B7791F" stroke="#854F0B" stroke-width="1.8"/><path d="M46 14 L46 30 M60 11 L60 30 M74 14 L74 30" stroke="#854F0B" stroke-width="1.2" opacity=".5"/><rect x="31" y="27" width="58" height="9" rx="4.5" fill="#E9C46A" stroke="#854F0B" stroke-width="1.8"/><circle cx="60" cy="9" r="5.5" fill="#FFFDF8" stroke="#854F0B" stroke-width="1.6"/>'},
+    {id:'praia', nome:'Chapéu de praia', grupo:'apoio', svg:'<ellipse cx="60" cy="27" rx="40" ry="7" fill="#E9C98A" stroke="#A9803C" stroke-width="1.8"/><path d="M42 27 C42 9 78 9 78 27 Z" fill="#E9C98A" stroke="#A9803C" stroke-width="1.8"/><path d="M42.4 21 C50 23.5 70 23.5 77.6 21 L78 26 C70 28 50 28 42 26 Z" fill="#1F5C56"/>'},
+    {id:'sol', nome:'Óculos escuros', grupo:'apoio', svg:'<path d="M38 56 Q48 50 58 56 L56 64 Q48 68 40 64 Z M62 56 Q72 50 82 56 L80 64 Q72 68 64 64 Z" fill="#14211F"/><path d="M58 57 L62 57" stroke="#14211F" stroke-width="2.4"/><path d="M42 57 L47 56 M66 57 L71 56" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round"/>'},
+    {id:'flores', nome:'Coroa de flores', grupo:'apoio', svg:'<path d="M34 32 Q46 18 60 19 Q74 18 86 32" fill="none" stroke="#639922" stroke-width="2"/>' + flor(36, 30, '#E8798C') + flor(47, 22, '#B8A1E3') + flor(60, 19, '#E8798C') + flor(73, 22, '#B8A1E3') + flor(84, 30, '#E8798C')},
+    {id:'antenas', nome:'Antenas', grupo:'apoio', svg:'<path d="M50 24 Q44 12 40 6 M70 24 Q76 12 80 6" fill="none" stroke="#14211F" stroke-width="2.2" stroke-linecap="round"/><circle cx="40" cy="6" r="4.2" fill="#E24B4A" stroke="#14211F" stroke-width="1.6"/><circle cx="80" cy="6" r="4.2" fill="#E24B4A" stroke="#14211F" stroke-width="1.6"/>'},
+    {id:'aureola', nome:'Auréola', grupo:'apoio', svg:'<ellipse cx="60" cy="11" rx="22" ry="5" fill="none" stroke="#FAC775" stroke-width="4"/><ellipse cx="60" cy="11" rx="24.5" ry="7" fill="none" stroke="#FAC775" stroke-width="1" opacity=".45"/>'},
+    {id:'mago', nome:'Chapéu de mago', grupo:'apoio', svg:'<path d="M37 30 L63 -1 L83 30 Z" fill="#5B3E8C" stroke="#3B2560" stroke-width="1.8" stroke-linejoin="round"/><ellipse cx="60" cy="30" rx="30" ry="5" fill="#5B3E8C" stroke="#3B2560" stroke-width="1.8"/><text x="54" y="22" font-size="9" fill="#FAC775">★</text><text x="64" y="13" font-size="6" fill="#FAC775">★</text>'},
+    {id:'pirata', nome:'Chapéu de pirata', grupo:'apoio', svg:'<path d="M26 30 Q60 -4 94 30 Q60 21 26 30 Z" fill="#1B2422" stroke="#000" stroke-width="1.2"/><circle cx="60" cy="16" r="4.2" fill="#fff"/><circle cx="58.4" cy="15.6" r="1" fill="#1B2422"/><circle cx="61.6" cy="15.6" r="1" fill="#1B2422"/><path d="M53 21 L67 25 M67 21 L53 25" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>'},
+    {id:'chef', nome:'Chapéu de chef', grupo:'apoio', svg:'<rect x="44" y="18" width="32" height="11" fill="#fff" stroke="#14211F" stroke-width="1.8"/><path d="M44 19 C33 18 33 3 46 6 C48 -2 72 -2 74 6 C87 3 87 18 76 19 Z" fill="#fff" stroke="#14211F" stroke-width="1.8"/>'},
+    {id:'gatinho', nome:'Orelhas de gatinho', grupo:'apoio', svg:'<path d="M34 33 L36 11 L52 24 Z M86 33 L84 11 L68 24 Z" fill="#1B2422" stroke="#14211F" stroke-width="1.6" stroke-linejoin="round"/><path d="M38.5 27 L39.5 17 L47 23.5 Z M81.5 27 L80.5 17 L73 23.5 Z" fill="#F4B9C1"/>'},
+    {id:'bandana', nome:'Bandana', grupo:'apoio', svg:'<path d="M24 40 C40 32 80 32 96 40 L95 48 C80 40 40 40 25 48 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.6"/><circle cx="40" cy="39" r="1.2" fill="#fff"/><circle cx="52" cy="37" r="1.2" fill="#fff"/><circle cx="68" cy="37" r="1.2" fill="#fff"/><circle cx="80" cy="39" r="1.2" fill="#fff"/><path d="M95 42 L107 36 L105 47 Z M95 45 L106 53 L99 55 Z" fill="#E24B4A" stroke="#A32D2D" stroke-width="1.4" stroke-linejoin="round"/>'},
+    {id:'cowboy', nome:'Chapéu de cowboy', grupo:'apoio', svg:'<path d="M40 31 C38 14 46 8 52 12 Q60 16 68 12 C74 8 82 14 80 31 Z" fill="#8A5A2B" stroke="#5E3B19" stroke-width="1.6"/><path d="M40.4 26 Q60 29 79.6 26 L80 30 Q60 33 40 30 Z" fill="#3B2512"/><path d="M16 27 Q24 35 60 33 Q96 35 104 27 Q94 38 60 38 Q26 38 16 27 Z" fill="#8A5A2B" stroke="#5E3B19" stroke-width="1.6"/>'},
+    {id:'cafe', nome:'Caneca de café', grupo:'apoio', svg:'<path d="M97 74 Q95 70 98 66 M103 74 Q101 70 104 66" stroke="#8D938B" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M109 82 Q116 82 116 88 Q116 94 109 94" fill="none" stroke="#14211F" stroke-width="2"/><rect x="91" y="77" width="19" height="21" rx="3" fill="#fff" stroke="#14211F" stroke-width="2"/><rect x="93" y="79.5" width="15" height="4.5" fill="#8A5A2B"/>'},
+    {id:'livro', nome:'Livro', grupo:'apoio', svg:'<g transform="rotate(-12 18 88)"><rect x="5" y="78" width="25" height="19" rx="2" fill="#1F5C56" stroke="#14211F" stroke-width="1.8"/><path d="M10 83 L26 83 M10 87 L22 87" stroke="#E2EAE0" stroke-width="1.6"/><rect x="28" y="79.5" width="3" height="16" fill="#FFFDF8"/></g>'},
+    {id:'lapis', nome:'Lápis na orelha', grupo:'apoio', svg:'<g transform="rotate(38 88 24)"><rect x="84" y="4" width="8" height="30" fill="#FAC775" stroke="#BA7517" stroke-width="1.4"/><path d="M84 34 L88 42 L92 34 Z" fill="#E9C98A" stroke="#BA7517" stroke-width="1.2"/><path d="M87 39.5 L88 42 L89 39.5 Z" fill="#14211F"/><rect x="84" y="0" width="8" height="5" fill="#E8798C" stroke="#A8455A" stroke-width="1.2"/></g>'},
+    {id:'brilho', nome:'Brilho', grupo:'apoio', svg:brilho(15, 24, 7) + brilho(105, 18, 6) + brilho(107, 68, 4.5) + brilho(12, 70, 4)},
+    // ---------- conquistas (simulados) ----------
+    {id:'capelo', nome:'Capelo de formatura', grupo:'conquista', regra:'Tire 80% ou mais em um simulado (10 questões ou mais)', svg:'<path d="M44 24 L44 31 Q60 37 76 31 L76 24" fill="#1B2422"/><path d="M30 18 L60 6 L90 18 L60 30 Z" fill="#1B2422" stroke="#000" stroke-width="1"/><path d="M60 18 L86 22 L86 33" stroke="#FAC775" stroke-width="1.6" fill="none"/><circle cx="86" cy="35" r="2.8" fill="#FAC775"/>'},
+    {id:'medalha', nome:'Medalha de ouro', grupo:'conquista', regra:'Acerte todas as questões de um simulado (10 ou mais)', svg:'<path d="M50 80 L60 96 L70 80" fill="none" stroke="#378ADD" stroke-width="4"/><circle cx="60" cy="100" r="7" fill="#FAC775" stroke="#BA7517" stroke-width="2"/><text x="60" y="103" text-anchor="middle" font-size="8" font-weight="700" fill="#854F0B">1</text>'},
+    {id:'louros', nome:'Coroa de louros', grupo:'conquista', regra:'Conclua simulados de 3 disciplinas diferentes', svg:'<g fill="#639922" stroke="#3B6D11" stroke-width=".8"><ellipse cx="34" cy="34" rx="3" ry="6" transform="rotate(-40 34 34)"/><ellipse cx="40" cy="25" rx="3" ry="6" transform="rotate(-60 40 25)"/><ellipse cx="49" cy="19" rx="3" ry="6" transform="rotate(-80 49 19)"/><ellipse cx="86" cy="34" rx="3" ry="6" transform="rotate(40 86 34)"/><ellipse cx="80" cy="25" rx="3" ry="6" transform="rotate(60 80 25)"/><ellipse cx="71" cy="19" rx="3" ry="6" transform="rotate(80 71 19)"/></g>'},
+    {id:'lupa', nome:'Lupa de pesquisador', grupo:'conquista', regra:'Responda 200 questões nos simulados', svg:'<g transform="rotate(-30 98 82)"><path d="M98 82 L98 102" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><circle cx="98" cy="72" r="10" fill="#E6F1FB" fill-opacity=".7" stroke="#14211F" stroke-width="2.4"/></g>'},
+    {id:'lampada', nome:'Lâmpada da ideia', grupo:'conquista', regra:'Acerte 10 questões seguidas em um simulado', svg:'<path d="M48 6 L44 3 M72 6 L76 3 M46 13 L40 13 M74 13 L80 13" stroke="#FAC775" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="11" r="7.5" fill="#FAC775" stroke="#BA7517" stroke-width="1.8"/><rect x="56" y="17.5" width="8" height="5" rx="1" fill="#8D938B"/>'}
+  ];
+  window.PSIU_ACC = A;
+
+  // ---------- quem pode usar o quê ----------
+  function progresso(){
+    const o = (typeof desempLer === 'function') ? desempLer() : {sims:{}, hist:[]};
+    const hist = o.hist || [];
+    const total = Object.values(o.sims || {}).reduce((n, s) => n + Object.values(s).reduce((m, t) => m + t.n, 0), 0);
+    const discs = new Set(hist.map(h => (SIM_JOGO.find(x => x.id === h.id) || {}).disc).filter(Boolean));
+    return {
+      capelo: {ok: hist.some(h => h.n >= 10 && h.pct >= 80), txt: (() => { const m = Math.max(0, ...hist.filter(h => h.n >= 10).map(h => h.pct)); return m ? `Seu melhor: ${m}%` : ''; })()},
+      medalha: {ok: hist.some(h => h.n >= 10 && h.pct === 100), txt: ''},
+      louros: {ok: discs.size >= 3, txt: `${Math.min(discs.size, 3)} de 3`},
+      lupa: {ok: total >= 200, txt: `${Math.min(total, 200)} de 200`},
+      lampada: {ok: hist.some(h => (h.seq || 0) >= 10), txt: (() => { const m = Math.max(0, ...hist.map(h => h.seq || 0)); return m ? `Sua melhor sequência: ${m}` : ''; })()}
+    };
+  }
+  function liberado(a, prog){
+    if(a.grupo === 'basico') return true;
+    if(a.grupo === 'apoio') return !!window.avApoiador;
+    return !!((prog || progresso())[a.id] || {}).ok;
+  }
+  const escolhido = () => { try{ return localStorage.getItem('av-psiu-acessorio') || ''; }catch(e){ return ''; } };
+  window.avPsiuAccSVG = () => { const a = A.find(x => x.id === escolhido()); return a && liberado(a) ? `<g class="psiu-acc">${a.svg}</g>` : ''; };
+  function vestir(id){ try{ if(id) localStorage.setItem('av-psiu-acessorio', id); else localStorage.removeItem('av-psiu-acessorio'); }catch(e){} if(window.avPsiuRedesenhar) window.avPsiuRedesenhar(); }
+  window.avPsiuVestir = vestir;
+  window.avConquistasLiberadas = () => { const p = progresso(); return A.filter(a => a.grupo === 'conquista' && p[a.id].ok).map(a => a.id); };
+
+  // ---------- vitrine ----------
+  const BASE = '<g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/><circle cx="48" cy="59" r="2.8" fill="#14211F"/><circle cx="72" cy="59" r="2.8" fill="#14211F"/><path d="M53 72 Q60 76 67 72" fill="none" stroke="#14211F" stroke-width="2.6" stroke-linecap="round"/>';
+  const mini = svg => `<svg viewBox="0 -4 120 124" aria-hidden="true">${BASE}${svg || ''}</svg>`;
+  window.avPsiuMini = () => { const a = A.find(x => x.id === escolhido()); return mini(a && liberado(a) ? a.svg : ''); };
+  function vitrine(){
+    const prog = progresso(), atual = escolhido();
+    const grupo = (g, tit, sub) => `<h3 class="ps-g">${tit}</h3><p class="ps-gs">${sub}</p><div class="ps-grade">${A.filter(a => a.grupo === g).map(a => {
+      const ok = liberado(a, prog), sel = atual === a.id;
+      const dica = a.grupo === 'apoio' ? 'Apoiador' : (a.regra || '');
+      const extra = a.grupo === 'conquista' && !ok && prog[a.id].txt ? `<small>${prog[a.id].txt}</small>` : '';
+      return `<button class="ps-item${ok ? '' : ' trancado'}${sel ? ' sel' : ''}" data-ps="${a.id}" ${ok ? '' : 'aria-disabled="true"'} title="${escHTML(a.nome)}">${mini(a.svg)}<b>${escHTML(a.nome)}</b>${ok ? (sel ? '<i>Vestindo</i>' : '') : `<em>🔒 ${escHTML(dica)}</em>${extra}`}</button>`;
+    }).join('')}</div>`;
+    const nOk = A.filter(a => liberado(a, prog)).length;
+    return `<div class="eyebrow apoio-eb">Psiu</div><h2>Personalizar o Psiu</h2><p class="conta-sub">Escolha um acessório e o Psiu do cantinho da tela já aparece com ele. Você tem ${nOk} de ${A.length} liberados.</p>
+      <div class="ps-topo">${mini(((A.find(x => x.id === atual) || {}).svg) || '')}<button class="conta-btn sec" data-ps="">Tirar acessório</button></div>
+      ${grupo('basico', 'Para todos', 'Liberados para todo mundo.')}
+      ${grupo('conquista', 'Conquistas', 'Liberados conforme você vai bem nos simulados.')}
+      ${grupo('apoio', 'Apoiadores', window.avApoiador ? 'Obrigado por apoiar o Arquivo Vivo!' : 'Liberados para quem apoia o Arquivo Vivo. <button class="link-btn sobre-apoio" data-apoio>Quero apoiar</button>')}`;
+  }
+  function abrirVitrine(){
+    const f = document.getElementById('benFundo'), c = document.getElementById('benCorpo'); if(!f) return;
+    const cf = document.getElementById('contaFundo'); if(cf) cf.hidden = true;
+    c.innerHTML = vitrine(); f.hidden = false;
+  }
+  document.addEventListener('click', e => {
+    if(e.target.closest('[data-psiu-vitrine]')){ abrirVitrine(); return; }
+    const b = e.target.closest('[data-ps]'); if(!b) return;
+    if(b.getAttribute('aria-disabled') === 'true'){ b.classList.add('chacoalha'); setTimeout(() => b.classList.remove('chacoalha'), 400); return; }
+    vestir(b.dataset.ps); document.getElementById('benCorpo').innerHTML = vitrine();
+  });
+
+  // ---------- aviso de conquista nova ----------
+  let antes = null;
+  window.avConquistaAntes = () => { antes = window.avConquistasLiberadas(); };
+  window.avConquistaDepois = () => {
+    if(!antes) return; const agora = window.avConquistasLiberadas(); const novas = agora.filter(id => !antes.includes(id)); antes = null;
+    if(!novas.length) return;
+    const a = A.find(x => x.id === novas[0]);
+    const t = document.createElement('div'); t.className = 'ps-toast';
+    t.innerHTML = `${mini(a.svg)}<div><b>Conquista desbloqueada!</b><span>${escHTML(a.nome)} para o Psiu</span></div><button data-ps-vestir="${a.id}">Vestir</button>`;
+    document.body.appendChild(t); requestAnimationFrame(() => t.classList.add('in'));
+    t.querySelector('button').onclick = () => { vestir(a.id); t.remove(); };
+    setTimeout(() => { t.classList.remove('in'); setTimeout(() => t.remove(), 400); }, 7000);
+  };
+  if(window.avPsiuRedesenhar) window.avPsiuRedesenhar();
 })();
 </script>
 </body>
