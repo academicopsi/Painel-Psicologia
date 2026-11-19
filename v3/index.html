@@ -20983,7 +20983,7 @@ document.addEventListener('click', e=>{
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
-import { getDatabase, ref, get, set, remove } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+import { getDatabase, ref, get as _get, set as _set_db, remove as _remove, goOnline, goOffline } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyDnLjcbrhVNQmSTcgY4jhyul3kUNs8v1lo",
@@ -20996,6 +20996,12 @@ const app = initializeApp({
 });
 const auth = getAuth(app); auth.languageCode = 'pt-BR';
 const db = getDatabase(app);
+// o plano grátis do Firebase aceita até 100 conexões ao mesmo tempo: o site só fica conectado enquanto lê ou grava, e desconecta logo depois
+let dbUso = 0, dbTimer = null;
+async function noBanco(fn){ clearTimeout(dbTimer); if(dbUso++ === 0) goOnline(db); try{ return await fn(); } finally { if(--dbUso === 0) dbTimer = setTimeout(() => goOffline(db), 4000); } }
+const get = r => noBanco(() => _get(r));
+const set = (r, v) => noBanco(() => _set_db(r, v));
+const remove = r => noBanco(() => _remove(r));
 const H = document.documentElement;
 const ADMIN = 'thiagodentalbeauty@gmail.com';
 const ehAdmin = u => !!(u && u.email && u.email.toLowerCase() === ADMIN);
