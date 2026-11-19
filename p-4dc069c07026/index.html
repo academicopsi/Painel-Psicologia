@@ -2392,6 +2392,62 @@ function exhGraficoModelo(p, titulo, temaNome){
   return g + '</svg>';
 }
 function exhTemaAtual(){ try{ return localStorage.getItem('av-exh-tema') || 'petroleo'; }catch(e){ return 'petroleo'; } }
+// Versão formatada (HTML) das tabelas para colar no Google Planilhas: cabeçalhos mesclados, cores e bordas.
+// Cada número vai com data-sheets-value (número de verdade, sem depender de vírgula ou ponto) e, na
+// Frequencia Relativa e nos totais, com data-sheets-formula (a fórmula fica na célula, como no vídeo).
+function exhTabelaRica(st, tipo){
+  const P = EXH.pronomes; const ks = st.ps.map(p=> exhCalc(p)); const n = st.ps.length; const tit = i => exhTitulo(st, i);
+  const fmt = v => (Math.round(v*10)/10).toLocaleString('pt-BR');
+  const C = (t, o)=> Object.assign({t: String(t)}, o || {});
+  const num = (v, o)=> C(Number.isInteger(v) ? v : fmt(v), Object.assign({n: v}, o || {}));
+  const SP = {sp:true}; const grid = [];
+  const soma = (k)=> ({f: '=SUM(R[-6]C[0]:R[-1]C[0])'});
+  if(tipo === 'abs'){
+    grid.push([C(''), C('Linha de Base', {span:n, h1:true}), ...Array(n-1).fill(null), SP, C('Intervenção', {span:n, h1:true}), ...Array(n-1).fill(null)]);
+    grid.push([C('Pronomes', {h:true}), ...st.ps.map((_,i)=> C(tit(i), {h:true})), SP, ...st.ps.map((_,i)=> C(tit(i), {h:true}))]);
+    P.forEach((pr,j)=> grid.push([C(pr, {nome:true}), ...ks.map(k=> num(k.lb.c[j])), SP, ...ks.map(k=> num(k.rf.c[j]))]));
+    grid.push([C('Total', {tot:true}), ...ks.map(k=> num(k.lb.c.reduce((a,b)=>a+b,0), Object.assign({tot:true}, soma()))), SP, ...ks.map(k=> num(k.rf.c.reduce((a,b)=>a+b,0), Object.assign({tot:true}, soma())))]);
+  } else if(tipo === 'rel'){
+    grid.push([C(''), C('Linha de Base', {span:2*n, h1:true}), ...Array(2*n-1).fill(null), SP, C('Intervenção', {span:2*n, h1:true}), ...Array(2*n-1).fill(null)]);
+    const par = ()=> [C('Freq.Relativa', {h:true}), C('Freq Abs', {h:true})];
+    grid.push([C(''), ...st.ps.flatMap(par), SP, ...st.ps.flatMap(par)]);
+    grid.push([C('Pronomes', {h:true}), ...st.ps.flatMap((_,i)=> [C(tit(i), {h:true, span:2}), null]), SP, ...st.ps.flatMap((_,i)=> [C(tit(i), {h:true, span:2}), null])]);
+    P.forEach((pr,j)=> grid.push([C(pr, {nome:true}),
+      ...ks.flatMap(k=> [num(k.lb.pct[j], {f:'=R[0]C[1]*100/10'}), num(k.lb.c[j])]), SP,
+      ...ks.flatMap(k=> [num(k.rf.pct[j], {f:'=R[0]C[1]*100/30'}), num(k.rf.c[j])])]));
+    const sm = a => a.reduce((x,y)=>x+y,0);
+    grid.push([C('Total', {tot:true}),
+      ...ks.flatMap(k=> [num(sm(k.lb.pct), Object.assign({tot:true}, soma())), num(sm(k.lb.c), Object.assign({tot:true}, soma()))]), SP,
+      ...ks.flatMap(k=> [num(sm(k.rf.pct), Object.assign({tot:true}, soma())), num(sm(k.rf.c), Object.assign({tot:true}, soma()))])]);
+  } else {
+    grid.push([C(''), ...st.ps.flatMap((_,i)=> [C(tit(i), {h:true, span:2}), null])]);
+    grid.push([C('Pronomes', {h:true}), ...st.ps.flatMap(()=> [C('LB', {h:true}), C('INT', {h:true})])]);
+    P.forEach((pr,j)=> grid.push([C(pr, {nome:true}), ...ks.flatMap(k=> [num(k.lb.pct[j]), num(k.rf.pct[j])])]));
+  }
+  const base = 'font-family:Arial,sans-serif;font-size:10pt;padding:4px 8px;vertical-align:middle;';
+  const bord = 'border:1px solid #c7d6d3;';
+  let h = '<google-sheets-html-origin><table style="border-collapse:collapse" xmlns="http://www.w3.org/1999/xhtml">';
+  grid.forEach(row=>{
+    h += '<tr>';
+    row.forEach(c=>{
+      if(c === null) return;
+      if(c.sp){ h += `<td style="${base}border:none;background:#ffffff"></td>`; return; }
+      if(c.t === '' && !c.h && !c.h1){ h += `<td style="${base}border:none;background:#ffffff"></td>`; return; }
+      let est = base + bord + `text-align:${c.nome || c.t === 'Pronomes' || c.t === 'Total' ? 'left' : 'center'};`;
+      if(c.h1) est += 'background:#14504a;color:#ffffff;font-weight:bold;';
+      else if(c.h) est += 'background:#e3efec;color:#14504a;font-weight:bold;';
+      else if(c.tot) est += 'background:#f3f6f5;font-weight:bold;border-top:2px solid #14504a;';
+      const attrs = [];
+      if(c.span > 1) attrs.push(`colspan="${c.span}"`);
+      if(c.n != null) attrs.push(`data-sheets-value='${JSON.stringify({1:3, 3:c.n})}'`);
+      else if(c.t) attrs.push(`data-sheets-value='${JSON.stringify({1:2, 2:c.t}).replace(/'/g,'&#39;')}'`);
+      if(c.f) attrs.push(`data-sheets-formula="${c.f}"`);
+      h += `<td ${attrs.join(' ')} style="${est}">${escHTML(c.t)}</td>`;
+    });
+    h += '</tr>';
+  });
+  return h + '</table></google-sheets-html-origin>';
+}
 function exhTSV(st, tipo){
   // Saída em fórmulas (=...), para dar certo em planilha com vírgula ou ponto decimal.
   const P = EXH.pronomes; const ks = st.ps.map(p=> exhCalc(p)); const n = st.ps.length;
@@ -2512,10 +2568,13 @@ document.getElementById('discPage').addEventListener('click', e=>{
     pa.r = {}; pa.alvo = null; pa.q = []; exhSave(st); exhRefazer(); return; }
   const cp = e.target.closest('[data-exh-copiar]');
   if(cp){
-    const st = exhLoad(); const tipo = cp.dataset.exhCopiar; const t = exhTSV(st, tipo === 'abs' ? 'abs' : 'rel');
+    const st = exhLoad(); const tipo = cp.dataset.exhCopiar; const t = exhTSV(st, tipo); const html = exhTabelaRica(st, tipo);
     const rot = cp.textContent;
     const ok = ()=>{ cp.textContent = 'Copiado ✓'; setTimeout(()=> cp.textContent = rot, 1800); };
-    if(navigator.clipboard) navigator.clipboard.writeText(t).then(ok, ()=> prompt('Copie a tabela:', t)); else prompt('Copie a tabela:', t);
+    const simples = ()=> navigator.clipboard.writeText(t).then(ok, ()=> prompt('Copie a tabela:', t));
+    if(navigator.clipboard && window.ClipboardItem){
+      navigator.clipboard.write([new ClipboardItem({'text/html': new Blob([html], {type:'text/html'}), 'text/plain': new Blob([t], {type:'text/plain'})})]).then(ok, simples);
+    } else if(navigator.clipboard) simples(); else prompt('Copie a tabela:', t);
     return;
   }
   if(e.target.closest('[data-exh-imprimir]')){
