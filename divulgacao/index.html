@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Arquivo Vivo · Ferramenta de estudo para Psicologia</title>
+<meta name="description" content="Resumos, exercícios, simulados e revisão dos erros, organizados por disciplina. Uma ferramenta de estudo feita por quem estuda Psicologia.">
+<link rel="icon" href="../icons/icon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F2EA; --paper:#FFFDF8; --paper-alt:#F0EADF;
+    --ink:#1B2422; --ink-soft:#5C6560; --ink-faint:#8D938B;
+    --petrol:#1F5C56; --petrol-dark:#163F3B; --petrol-soft:#E2EAE0; --petrol-line:#C3D1C0;
+    --ochre:#B7791F; --ochre-soft:#FBF1E1; --sage:#A9BBA4; --sand:#E8DCC6; --rule:#E5DDCE;
+    --serif:'Lora', Georgia, serif; --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:Inter, system-ui, sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px;}
+  h1,h2,h3{font-family:var(--serif); font-weight:600; letter-spacing:-0.015em; line-height:1.15; margin:0;}
+  h1 em, h2 em{font-style:italic; font-weight:500; color:var(--sage);}
+  h2 em{color:var(--petrol);}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--petrol);}
+  .num{font-family:var(--mono); color:var(--ochre); font-size:.6em; margin-right:8px; vertical-align:middle;}
+
+  /* topo */
+  .nav{position:sticky; top:0; z-index:5; background:rgba(246,242,234,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--rule);}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:62px;}
+  .logo{display:flex; align-items:center; gap:10px; text-decoration:none; font-family:var(--serif); font-weight:600; font-size:19px;}
+  .logo img{width:32px; height:32px; border-radius:8px;}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font:inherit; font-weight:600; font-size:15px; text-decoration:none; border-radius:10px; padding:13px 20px; border:1px solid transparent; cursor:pointer;}
+  .btn-primary{background:var(--petrol); color:#fff;}
+  .btn-primary:hover{background:var(--petrol-dark);}
+  .btn-light{background:#fff; color:var(--petrol-dark);}
+  .btn-ghost{background:transparent; color:#fff; border-color:rgba(255,255,255,.35);}
+  .btn-sm{padding:9px 14px; font-size:14px;}
+
+  /* hero */
+  .hero{background:radial-gradient(120% 90% at 85% 0%, #2B6F67 0%, var(--petrol-dark) 55%, #10302D 100%); color:#fff; border-radius:0 0 28px 28px; overflow:hidden;}
+  .hero .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; padding-top:64px; padding-bottom:64px;}
+  .hero .eyebrow{color:#BFD6CF;}
+  .hero h1{font-size:clamp(34px, 5.4vw, 56px); margin:14px 0 18px;}
+  .hero p.lead{font-size:18px; color:#D6E4E0; max-width:34em; margin:0 0 22px;}
+  .checks{list-style:none; padding:0; margin:0 0 28px; display:grid; gap:8px;}
+  .checks li{display:flex; gap:10px; align-items:flex-start; color:#E9F1EE; font-size:15.5px;}
+  .checks li::before{content:"✓"; flex:none; width:22px; height:22px; border-radius:50%; background:rgba(255,255,255,.14); color:#fff; font-size:13px; font-weight:700; display:grid; place-items:center; margin-top:1px;}
+  .ctas{display:flex; flex-wrap:wrap; gap:10px;}
+  .hero-note{margin-top:16px; font-family:var(--mono); font-size:12.5px; color:#A9C3BC;}
+
+  .phone{position:relative; width:min(300px, 78vw); margin:0 auto; aspect-ratio:390/844; border-radius:38px; background:#0E1A18; padding:10px; box-shadow:0 30px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.08) inset;}
+  .phone img{width:100%; height:100%; object-fit:cover; object-position:top; border-radius:29px; display:block; background:var(--bg);}
+  .phone::before{content:""; position:absolute; top:18px; left:50%; transform:translateX(-50%); width:10px; height:10px; border-radius:50%; background:#0E1A18; top:13px; box-shadow:0 0 0 3px rgba(14,26,24,.35); z-index:2;}
+  .phone.tilt{transform:rotate(2.5deg);}
+
+  section.block{padding:84px 0 0;}
+  .sec-head{max-width:640px; margin-bottom:34px;}
+  .sec-head h2{font-size:clamp(28px, 3.8vw, 40px); margin:10px 0 12px;}
+  .sec-head p{color:var(--ink-soft); font-size:17px; margin:0;}
+
+  /* problema */
+  .dores{display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;}
+  .dor{background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:20px 22px;}
+  .dor s{color:var(--ink-faint); text-decoration-color:var(--ochre); text-decoration-thickness:2px;}
+  .dor p{margin:8px 0 0; font-weight:600;}
+
+  /* etapas */
+  .etapas{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; counter-reset:et;}
+  .etapa{background:var(--paper); border:1px solid var(--rule); border-top:4px solid var(--petrol); border-radius:14px; padding:22px;}
+  .etapa:nth-child(2){border-top-color:var(--sage);}
+  .etapa:nth-child(3){border-top-color:#5B3E8C;}
+  .etapa:nth-child(4){border-top-color:var(--ochre);}
+  .etapa .eyebrow{display:block; margin-bottom:6px;}
+  .etapa h3{font-size:21px; margin-bottom:8px;}
+  .etapa p{margin:0; color:var(--ink-soft); font-size:15px;}
+
+  /* números */
+  .numeros{display:grid; grid-template-columns:repeat(3, 1fr); gap:0; background:var(--paper); border:1px solid var(--rule); border-radius:16px; overflow:hidden;}
+  .numero{padding:26px 24px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);}
+  .numero:nth-child(3n){border-right:0;}
+  .numero:nth-last-child(-n+3){border-bottom:0;}
+  .numero b{display:block; font-family:var(--serif); font-size:42px; font-weight:600; color:var(--petrol); line-height:1;}
+  .numero span{display:block; margin-top:8px; color:var(--ink-soft); font-size:15px;}
+  .fonte{margin-top:10px; font-family:var(--mono); font-size:12px; color:var(--ink-faint);}
+
+  /* recursos */
+  .recurso{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding:28px 0;}
+  .recurso + .recurso{border-top:1px solid var(--rule);}
+  .recurso.inv .rec-img{order:2;}
+  .recurso h3{font-size:clamp(24px, 3vw, 32px); margin:8px 0 12px;}
+  .recurso p{color:var(--ink-soft); font-size:16.5px; margin:0 0 14px;}
+  .recurso ul{margin:0; padding-left:20px; color:var(--ink);}
+  .recurso li{margin:4px 0;}
+  .psiu-box{width:min(260px, 70vw); margin:0 auto; aspect-ratio:1; border-radius:28px; background:var(--petrol-soft); display:grid; place-items:center; position:relative;}
+  .psiu-box svg{width:72%; height:72%;}
+  .balao{position:absolute; top:-14px; right:-18px; background:#fff; border:1px solid var(--rule); border-radius:14px 14px 14px 4px; padding:10px 14px; font-size:14px; font-weight:600; box-shadow:0 8px 20px rgba(40,36,26,.08); max-width:190px;}
+
+  /* autoria */
+  .autoria{background:var(--paper); border:1px solid var(--rule); border-radius:18px; padding:34px; display:grid; grid-template-columns:auto 1fr; gap:26px; align-items:center;}
+  .autoria .sig{width:72px; height:72px; border-radius:18px; background:var(--petrol); color:#fff; display:grid; place-items:center; font-family:var(--serif); font-size:30px;}
+  .autoria h3{font-size:24px; margin-bottom:8px;}
+  .autoria p{margin:0 0 8px; color:var(--ink-soft);}
+  .compromissos{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+  .compromissos span{font-size:13.5px; font-weight:600; color:var(--petrol); background:var(--petrol-soft); border-radius:999px; padding:5px 12px;}
+
+  /* faq */
+  .faq{display:grid; gap:10px; max-width:760px;}
+  .faq details{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:0 20px;}
+  .faq summary{cursor:pointer; list-style:none; padding:17px 0; font-weight:600; display:flex; justify-content:space-between; gap:12px;}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+"; font-family:var(--mono); color:var(--petrol); font-size:20px; line-height:1;}
+  .faq details[open] summary::after{content:"–";}
+  .faq details p{margin:0 0 18px; color:var(--ink-soft);}
+
+  /* fim */
+  .final{margin:84px 0 0; background:radial-gradient(120% 120% at 15% 0%, #2B6F67 0%, var(--petrol-dark) 60%); color:#fff; border-radius:24px; padding:52px 36px; text-align:center;}
+  .final h2{font-size:clamp(28px, 4vw, 42px); margin:10px 0 12px;}
+  .final h2 em{color:var(--sage);}
+  .final p{color:#D6E4E0; margin:0 auto 24px; max-width:32em;}
+  .final .eyebrow{color:#BFD6CF;}
+  footer{padding:40px 0 48px; color:var(--ink-faint); font-size:14px; text-align:center;}
+  footer b{color:var(--ink-soft);}
+
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr; padding-top:44px; padding-bottom:48px;}
+    .hero .phone{margin-top:8px; width:min(260px, 70vw);}
+    .etapas{grid-template-columns:repeat(2, 1fr);}
+    .recurso, .recurso.inv{grid-template-columns:1fr; gap:26px;}
+    .recurso.inv .rec-img{order:0;}
+    .numeros{grid-template-columns:repeat(2, 1fr);}
+    .numero:nth-child(3n){border-right:1px solid var(--rule);}
+    .numero:nth-child(2n){border-right:0;}
+    .numero:nth-last-child(-n+3){border-bottom:1px solid var(--rule);}
+    .numero:nth-last-child(-n+2){border-bottom:0;}
+    section.block{padding-top:64px;}
+  }
+  @media (max-width:560px){
+    .dores, .etapas{grid-template-columns:1fr;}
+    .autoria{grid-template-columns:1fr; padding:26px;}
+    .numero{padding:20px 18px;} .numero b{font-size:34px;}
+    .nav .btn-sm{padding:8px 12px;}
+    .final{padding:40px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="../"><img src="../icons/icon-192.png" alt="">Arquivo Vivo</a>
+    <a class="btn btn-primary btn-sm" href="../">Abrir a ferramenta</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Ferramenta de estudo para Psicologia</div>
+      <h1>Do resumo ao simulado, <em>com um caminho claro.</em></h1>
+      <p class="lead">O Arquivo Vivo organiza o semestre por disciplina e guia o estudo em etapas: entender a matéria, praticar, se testar no estilo da prova e revisar exatamente o que errou.</p>
+      <ul class="checks">
+        <li>Simulados com mais de 400 questões, separados por assunto</li>
+        <li>Revisão automática das questões que você errou</li>
+        <li>Funciona no celular e pode ser instalado como app</li>
+      </ul>
+      <div class="ctas">
+        <a class="btn btn-light" href="../">Começar a estudar</a>
+        <a class="btn btn-ghost" href="#como-funciona">Ver como funciona</a>
+      </div>
+      <div class="hero-note">Atualizado durante o semestre, acompanhando as aulas.</div>
+    </div>
+    <div class="phone tilt"><img src="img/inicio.jpg" alt="Tela inicial do Arquivo Vivo no celular"></div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <section class="block">
+    <div class="sec-head">
+      <div class="eyebrow">O problema</div>
+      <h2>O material existe. <em>O difícil é saber por onde começar.</em></h2>
+      <p>Slides em uma pasta, prazos em um grupo, exercícios em outro lugar. Na semana de prova, boa parte do tempo vai para procurar, não para estudar.</p>
+    </div>
+    <div class="dores">
+      <div class="dor"><s>Abrir cinco lugares diferentes para revisar uma matéria</s><p>Cada disciplina reúne resumos, exercícios, simulado e vídeos em uma página só.</p></div>
+      <div class="dor"><s>Ler o slide inteiro sem saber se aprendeu</s><p>Resumos em partes, com perguntas para se testar no fim de cada uma.</p></div>
+      <div class="dor"><s>Chegar na prova sem nunca ter treinado questões</s><p>Simulados no estilo da prova, com tempo, pontuação e explicação de cada resposta.</p></div>
+      <div class="dor"><s>Errar a mesma coisa duas vezes</s><p>As questões erradas vão para uma revisão própria e saem de lá quando você acerta.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="como-funciona">
+    <div class="sec-head">
+      <div class="eyebrow">Como funciona</div>
+      <h2>Quatro etapas, <em>em cada disciplina.</em></h2>
+      <p>Cada página de disciplina segue a mesma ordem. Você sempre sabe qual é o próximo passo.</p>
+    </div>
+    <div class="etapas">
+      <div class="etapa"><span class="eyebrow">01 · Estudar</span><h3>Resumos</h3><p>A matéria dividida em partes curtas, fiéis ao conteúdo das aulas, com perguntas para checar o que ficou.</p></div>
+      <div class="etapa"><span class="eyebrow">02 · Praticar</span><h3>Exercícios</h3><p>Quizzes rápidos e exercícios interativos: mapas, cortes e painéis para explorar cada assunto.</p></div>
+      <div class="etapa"><span class="eyebrow">03 · Testar</span><h3>Simulados</h3><p>Questões no estilo da prova, por assunto ou completas, com ou sem tempo e alternativas que mudam de ordem.</p></div>
+      <div class="etapa"><span class="eyebrow">04 · Revisar</span><h3>Revisão dos erros</h3><p>Só as questões que você errou, guardadas para treinar de novo até virarem acerto.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <div class="eyebrow">O que tem dentro</div>
+      <h2>Conteúdo de verdade, <em>não promessa.</em></h2>
+    </div>
+    <div class="numeros">
+      <div class="numero"><b>403</b><span>questões em 5 simulados</span></div>
+      <div class="numero"><b>40</b><span>exercícios e quizzes</span></div>
+      <div class="numero"><b>298</b><span>termos no glossário</span></div>
+      <div class="numero"><b>6</b><span>disciplinas organizadas</span></div>
+      <div class="numero"><b>11</b><span>vídeo-aulas selecionadas</span></div>
+      <div class="numero"><b>2</b><span>estudos dirigidos com respostas comentadas</span></div>
+    </div>
+    <div class="fonte">Números do 2º período de Psicologia, novembro de 2026.</div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <div class="eyebrow">Na prática</div>
+      <h2>Feito para usar <em>no dia a dia.</em></h2>
+    </div>
+
+    <div class="recurso">
+      <div class="rec-img"><div class="phone"><img src="img/simulado.jpg" alt="Tela de um simulado com escolha de assunto e tempo"></div></div>
+      <div>
+        <div class="eyebrow">Simulados</div>
+        <h3>Treine do jeito que a prova cobra</h3>
+        <p>Escolha o assunto ou faça tudo de uma vez. Cada questão traz a explicação da resposta, e as erradas ficam guardadas para revisar depois.</p>
+        <ul><li>Partes por assunto, como "Nervos cranianos" ou "SNA"</li><li>Modo com tempo e modo livre</li><li>Alternativas embaralhadas a cada tentativa</li></ul>
+      </div>
+    </div>
+
+    <div class="recurso inv">
+      <div class="rec-img"><div class="phone"><img src="img/disciplina.jpg" alt="Página de uma disciplina com resumos, exercícios e simulado"></div></div>
+      <div>
+        <div class="eyebrow">Páginas por disciplina</div>
+        <h3>Tudo de uma matéria em um só lugar</h3>
+        <p>Resumos, exercícios, simulado, vídeos, glossário e o próximo prazo da disciplina, na ordem em que faz sentido estudar.</p>
+        <ul><li>Progresso marcado no seu aparelho</li><li>Próximo prazo com atalho para a agenda do celular</li><li>Resumão em PDF para imprimir</li></ul>
+      </div>
+    </div>
+
+    <div class="recurso">
+      <div class="rec-img">
+        <div class="psiu-box">
+          <div class="balao">Psiu! A prova de Neuro é em 5 dias.</div>
+          <svg viewBox="13 12 94 94" aria-hidden="true"><g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/><circle cx="48" cy="58" r="2.8" fill="#14211F"/><circle cx="72" cy="58" r="2.8" fill="#14211F"/><path d="M50 69 Q60 81 70 69" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/><text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text></svg>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">Psiu</div>
+        <h3>Um colega de turma que sabe onde está tudo</h3>
+        <p>O Psiu responde dúvidas sobre o site, lembra os prazos e leva direto ao resumo, exercício ou simulado certo. Sem precisar procurar em menu nenhum.</p>
+        <ul><li>"Quando é a prova de Experimental?"</li><li>"Tem simulado de Neuro?"</li><li>"O que é reforço negativo?"</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="autoria">
+      <div class="sig">Ψ</div>
+      <div>
+        <div class="eyebrow">Feito por quem estuda</div>
+        <h3>Criado e mantido por Thiago Monteiro</h3>
+        <p>O Arquivo Vivo nasceu dentro da sala de aula, de aluno para aluno. Cada resumo, exercício e simulado é montado a partir do material das aulas e revisado ao longo do semestre.</p>
+        <div class="compromissos"><span>Fiel ao conteúdo das aulas</span><span>Divergências sinalizadas</span><span>Atualizado durante o semestre</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <div class="eyebrow">Perguntas frequentes</div>
+      <h2>Antes de começar</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Preciso instalar alguma coisa?</summary><p>Não. Ele abre direto no navegador. Se quiser, dá para instalar como app na tela inicial do celular, sem passar pela loja de aplicativos.</p></details>
+      <details><summary>Funciona no celular?</summary><p>Sim. Foi pensado primeiro para o celular, que é onde a maior parte da turma estuda.</p></details>
+      <details><summary>Meu progresso fica salvo?</summary><p>Sim, no próprio aparelho: simulados feitos, resumos estudados e questões para revisar continuam lá quando você volta.</p></details>
+      <details><summary>Substitui as aulas ou o material dos professores?</summary><p>Não. O Arquivo Vivo é uma ferramenta de apoio. O conteúdo das aulas sempre prevalece como referência final.</p></details>
+      <details><summary>Com que frequência é atualizado?</summary><p>Durante todo o semestre. Novos resumos, questões e prazos entram conforme as aulas avançam, e as novidades aparecem na página inicial.</p></details>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="eyebrow">Arquivo Vivo</div>
+    <h2>Menos tempo procurando, <em>mais tempo estudando.</em></h2>
+    <p>Abra a disciplina, siga as etapas e chegue na prova sabendo o que já domina e o que falta revisar.</p>
+    <a class="btn btn-light" href="../">Começar a estudar</a>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Arquivo Vivo · criado e mantido por <b>Thiago Monteiro</b><br>Iniciativa independente, sem vínculo com a coordenação ou com a instituição.</div>
+</footer>
+
+</body>
+</html>
