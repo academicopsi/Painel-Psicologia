@@ -2360,7 +2360,7 @@ const EXH_TEMAS = {
   grafite:   {LB:'#BFC5CC', INT:'#232A33', faixa:'#F2F3F5', serif:false}
 };
 function exhGraficoModelo(p, titulo, temaNome){
-  const tema = EXH_TEMAS[temaNome] || EXH_TEMAS[exhTemaAtual()] || EXH_TEMAS.editorial;
+  const tema = EXH_TEMAS[temaNome] || EXH_TEMAS[exhTemaAtual()] || EXH_TEMAS.petroleo;
   const k = exhCalc(p); const P = EXH.pronomes;
   const W = 680, H = 360, L = 46, R = 20, T = 96, B = 56, ph = H-T-B, pw = W-L-R;
   const mx = Math.max(10, ...k.lb.pct, ...k.rf.pct);
@@ -2391,7 +2391,7 @@ function exhGraficoModelo(p, titulo, temaNome){
   g += `<text x="${L+pw}" y="${H-12}" font-size="10" text-anchor="end" fill="${SUB}">Pronomes</text>`;
   return g + '</svg>';
 }
-function exhTemaAtual(){ try{ return localStorage.getItem('av-exh-tema') || 'editorial'; }catch(e){ return 'editorial'; } }
+function exhTemaAtual(){ try{ return localStorage.getItem('av-exh-tema') || 'petroleo'; }catch(e){ return 'petroleo'; } }
 function exhTSV(st, tipo){
   // Saída em fórmulas (=...), para dar certo em planilha com vírgula ou ponto decimal.
   const P = EXH.pronomes; const ks = st.ps.map(p=> exhCalc(p)); const n = st.ps.length;
