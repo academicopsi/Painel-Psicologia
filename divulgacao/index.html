@@ -126,6 +126,22 @@
   footer{padding:40px 0 48px; color:var(--ink-faint); font-size:14px; text-align:center;}
   footer b{color:var(--ink-soft);}
 
+
+  /* apoio */
+  .apoio{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:start; background:var(--ochre-soft); border:1px solid #EBD7B4; border-radius:18px; padding:34px;}
+  .apoio h2{font-size:clamp(26px, 3.4vw, 36px); margin:8px 0 12px;}
+  .apoio h2 em{color:var(--ochre);}
+  .apoio .eyebrow{color:var(--ochre);}
+  .apoio p{color:var(--ink-soft); margin:0 0 12px;}
+  .apoio-card{background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:22px;}
+  .apoio-card h3{font-size:19px; margin-bottom:10px;}
+  .apoio-card ul{list-style:none; padding:0; margin:0 0 18px; display:grid; gap:8px;}
+  .apoio-card li{display:flex; gap:10px; font-size:15px;}
+  .apoio-card li::before{content:"✓"; color:var(--ochre); font-weight:700;}
+  .btn-ochre{background:var(--ochre); color:#fff; width:100%;}
+  .btn[aria-disabled="true"]{opacity:.55; cursor:default;}
+  .apoio-nota{margin-top:10px; font-family:var(--mono); font-size:12px; color:var(--ink-faint); text-align:center;}
+  @media (max-width:860px){ .apoio{grid-template-columns:1fr; padding:26px;} }
   @media (max-width:860px){
     .hero .wrap{grid-template-columns:1fr; padding-top:44px; padding-bottom:48px;}
     .hero .phone{margin-top:8px; width:min(260px, 70vw);}
@@ -278,6 +294,28 @@
     </div>
   </section>
 
+  <section class="block" id="apoie">
+    <div class="apoio">
+      <div>
+        <div class="eyebrow">Apoie o Arquivo Vivo</div>
+        <h2>Aberto para todos, <em>mantido por quem acredita.</em></h2>
+        <p>O Arquivo Vivo continua livre: ninguém precisa pagar para estudar. Quem quiser pode apoiar com uma contribuição mensal, de valor livre, e ajudar a manter a ferramenta atualizada a cada semestre.</p>
+        <p>O apoio é voluntário e pode ser cancelado quando quiser. Quem não apoia continua com acesso a tudo.</p>
+      </div>
+      <div class="apoio-card">
+        <h3>Quem apoia ganha</h3>
+        <ul>
+          <li>Selo de apoiador no perfil</li>
+          <li>Nome na página de agradecimento, se quiser</li>
+          <li>Acesso antecipado a simulados novos</li>
+          <li>Voz na escolha das próximas novidades</li>
+        </ul>
+        <span class="btn btn-ochre" aria-disabled="true">Apoiar · em breve</span>
+        <div class="apoio-nota">Sugestão: de R$ 10 a R$ 15 por mês</div>
+      </div>
+    </div>
+  </section>
+
   <section class="block">
     <div class="sec-head">
       <div class="eyebrow">Perguntas frequentes</div>
@@ -288,6 +326,7 @@
       <details><summary>Funciona no celular?</summary><p>Sim. Foi pensado primeiro para o celular, que é onde a maior parte da turma estuda.</p></details>
       <details><summary>Meu progresso fica salvo?</summary><p>Sim, no próprio aparelho: simulados feitos, resumos estudados e questões para revisar continuam lá quando você volta.</p></details>
       <details><summary>Substitui as aulas ou o material dos professores?</summary><p>Não. O Arquivo Vivo é uma ferramenta de apoio. O conteúdo das aulas sempre prevalece como referência final.</p></details>
+      <details><summary>Preciso pagar para usar?</summary><p>Não. Todo o conteúdo é aberto. O apoio é opcional, para quem quiser ajudar a manter o Arquivo Vivo.</p></details>
       <details><summary>Com que frequência é atualizado?</summary><p>Durante todo o semestre. Novos resumos, questões e prazos entram conforme as aulas avançam, e as novidades aparecem na página inicial.</p></details>
     </div>
   </section>
