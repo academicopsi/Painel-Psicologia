@@ -21106,8 +21106,8 @@ function desenharConta(m){
     <div class="conta-info">${usuario.displayName ? esc(usuario.displayName) + '<br>' : ''}<b>${esc(usuario.email)}</b>${apoiador ? '<span class="conta-selo">Apoiador do Arquivo Vivo</span>' : ''}</div>
     <p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p>
     ${ehAdmin(usuario) ? '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>' : ''}
-    ${(apoiador || ehAdmin(usuario)) ? '<div class="conta-area"><b>Área do apoiador</b><div class="conta-area-bts"><button data-ben="desempenho">Seu desempenho</button><button data-ben="caderno">Caderno de revisão</button><button data-ben="mapa">Mapas mentais</button></div></div>' : ''}
-    ${apoiador ? '' : '<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>Um Pix de valor livre ajuda a manter o site e libera o caderno de revisão, o seu desempenho e os mapas mentais.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>'}
+    ${(apoiador || ehAdmin(usuario)) ? '<div class="conta-area"><b>Área do apoiador</b><div class="conta-area-bts"><button data-ben="desempenho">Seu desempenho</button><button data-ben="caderno">Caderno de revisão</button></div></div>' : ''}
+    ${apoiador ? '' : '<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>Um Pix de valor livre ajuda a manter o site e libera o caderno de revisão e o seu desempenho.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>'}
     <button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
   if(ehAdmin(usuario)) carregarPainel();
   document.getElementById('contaSair').onclick = async ()=>{ await enviar(); fundo.hidden = true; await signOut(auth); };
@@ -21135,8 +21135,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <p class="conta-sub">O site continua livre. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês. Sem assinatura nem cobrança automática.</p>
     <div class="ap-ben"><b>Quem apoia recebe</b>
       <ul><li><strong>Caderno de revisão em PDF</strong> por disciplina, para imprimir ou estudar sem internet</li>
-      <li><strong>Seu desempenho</strong>: acertos por tema em cada simulado</li>
-      <li><strong>Mapas mentais</strong> de uma página por disciplina</li></ul></div>
+      <li><strong>Seu desempenho</strong>: acertos por tema em cada simulado</li></ul></div>
     <div class="ap-valores" role="tablist" aria-label="Valor do apoio"><button type="button" data-v="10">R$ 10</button><button type="button" data-v="15">R$ 15</button><button type="button" data-v="None">Livre</button></div>
     <div class="ap-qr" id="apQr"></div>
     <p class="ap-leg" id="apLeg"></p>
@@ -21182,7 +21181,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     abrir(`<div class="eyebrow apoio-eb">Área do apoiador</div><h2>Exclusivo para apoiadores</h2><p class="conta-sub">Este material é liberado para quem apoia o Arquivo Vivo. Um Pix de valor livre já libera tudo.</p><button class="conta-btn ap-copiar" data-apoio>Quero apoiar</button>`);
   }
   function escolherDisc(tipo){
-    const tit = tipo === 'caderno' ? 'Caderno de revisão' : 'Mapas mentais';
+    const tit = 'Caderno de revisão';
     const sub = tipo === 'caderno' ? 'Escolha a disciplina. O caderno abre pronto para salvar em PDF ou imprimir.' : 'Escolha a disciplina para ver o mapa.';
     abrir(`<div class="eyebrow apoio-eb">Área do apoiador</div><h2>${tit}</h2><p class="conta-sub">${sub}</p>
       <div class="ben-escolha">${discsCom().map(d => { const rs = Object.values(RESUMOS).filter(r => r.disc === d.n); const nq = SIM_JOGO.filter(x => x.disc === d.n).reduce((n, x) => n + x.questoes.length, 0);
@@ -21287,8 +21286,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   function caderno(d){
     const letras = 'abcdefgh';
     const nome = window.avNome ? ' · ' + escHTML(window.avNome) : '';
-    let h = `<section class="cad-capa"><div class="pr-marca">Arquivo Vivo · Caderno de revisão</div><h1>${escHTML(d.name)}</h1><p>Resumos, mapa mental, glossário e questões comentadas${nome}</p><p>Gerado em ${new Date().toLocaleDateString('pt-BR')} · material de apoiador</p></section>`;
-    h += todosMapas(d).map(m => `<section class="pr-sec cad-mapa">${m.svg}</section>`).join('');
+    let h = `<section class="cad-capa"><div class="pr-marca">Arquivo Vivo · Caderno de revisão</div><h1>${escHTML(d.name)}</h1><p>Resumos, glossário e questões comentadas${nome}</p><p>Gerado em ${new Date().toLocaleDateString('pt-BR')} · material de apoiador</p></section>`;
     h += resumaoHTML(d, {estudo:false, prazos:false, links:false}).replace(/<header class="pr-head">[\s\S]*?<\/header>/, '').replace(/<footer[\s\S]*?<\/footer>/, '');
     const sims = SIM_JOGO.filter(x => x.disc === d.n);
     sims.forEach(sm => {
