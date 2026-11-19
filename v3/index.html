@@ -2408,6 +2408,11 @@
   #printArea .cad-q ol{margin:4px 0 4px 18px; padding:0;}
   #printArea .cad-q li.ok{font-weight:700;}
   #printArea .cad-q .cad-w{font-size:10pt; color:#333; background:#F3F6F5; border-left:3px solid #1F5C56; padding:4px 8px;}
+  .mm-abas{display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; margin:4px 0 8px;}
+  .mm-abas button{flex:none; font:inherit; font-size:13px; font-weight:600; border:1px solid var(--rule); background:var(--bg); color:var(--ink-soft); border-radius:999px; padding:6px 12px; cursor:pointer; white-space:nowrap;}
+  .mm-abas button[aria-selected="true"]{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  .mm-vista svg{min-width:760px !important;}
+  @media print{ body.imprimindo #printArea .mm-print, body.imprimindo #printArea .cad-mapa{page-break-after:always; page-break-inside:avoid;} body.imprimindo #printArea .mm-print svg, body.imprimindo #printArea .cad-mapa svg{max-height:180mm; width:100%;} }
 </style>
 </head>
 <body>
@@ -21209,53 +21214,67 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     abrir(h);
   }
 
-  // ---------- Mapa mental (SVG) ----------
-  function mapaDados(d){
-    const rs = Object.values(RESUMOS).filter(r => r.disc === d.n);
-    let ramos = [];
-    rs.forEach(r => r.caps.forEach(c => { const et = c.etapas.map(e => limpa(e.titulo)); const k = Math.min(5, et.length); const pick = []; for(let i = 0; i < k; i++) pick.push(et[Math.floor(i * et.length / k)]); ramos.push({t:limpa(c.titulo || c.aba || r.titulo), f:pick}); }));
-    if(!ramos.length){ const temas = {}; SIM_JOGO.filter(x => x.disc === d.n).forEach(x => x.questoes.forEach(q => { temas[q.tema] = 1; })); ramos = Object.keys(temas).map(t => ({t, f:[]})); }
-    return ramos;
+  // ---------- Mapas mentais (SVG): visão geral da disciplina + um mapa detalhado por tema ----------
+  const CORES = ['#1F5C56', '#B7791F', '#5B7F6E', '#7A4E8C', '#2F6F8F', '#A8455A', '#6B7A2E', '#8A5A2B'];
+  function termos(e){
+    const vistos = new Set(), out = [];
+    (e.pontos || []).forEach(pt => { (String(pt).match(/<strong>(.*?)<\/strong>/g) || []).forEach(m => { const t = limpa(m).replace(/[.:;,]+$/, ''); const k = t.toLowerCase(); const fraco = t.length < 16 && /^(por|de|da|do|das|dos|em|no|na|nos|nas|com|sem|e|o|a|os|as|mais|menos|para|ao|à|um|uma)\s/i.test(t);
+      if(t.length > 3 && t.length <= 48 && !fraco && !vistos.has(k)){ vistos.add(k); out.push(t); } }); });
+    if(!out.length && e.pontos && e.pontos[0]){ const t = limpa(e.pontos[0]); out.push(t.length > 60 ? t.slice(0, 58) + '…' : t); }
+    return out.slice(0, 5);
   }
-  function quebra(t, max){ const p = t.split(' '), l = []; let a = ''; p.forEach(w => { if((a + ' ' + w).trim().length > max){ if(a) l.push(a); a = w; } else a = (a + ' ' + w).trim(); }); if(a) l.push(a); if(l.length > 3){ l.length = 3; l[2] = l[2].replace(/\s*\S*$/, '') + '…'; } return l; }
-  function mapaSVG(d){
-    const ramos = mapaDados(d); const CORES = ['#1F5C56', '#B7791F', '#5B7F6E', '#7A4E8C', '#2F6F8F', '#A8455A', '#6B7A2E'];
-    const W = 1440, folhaH = 22, gapR = 26;
-    const lados = [[], []]; ramos.forEach((r, i) => lados[i % 2].push(Object.assign(r, {cor:CORES[i % CORES.length]})));
-    const alt = r => Math.max(60, r.f.length * folhaH + 20);
-    const H = Math.max(...lados.map(L => L.reduce((n, r) => n + alt(r) + gapR, 0))) + 60;
+  function capsDe(d){ const out = []; Object.values(RESUMOS).filter(r => r.disc === d.n).forEach(r => r.caps.forEach(c => out.push({t:limpa(c.titulo || c.aba || r.titulo), c}))); return out; }
+  function geral(d){
+    const caps = capsDe(d);
+    if(caps.length) return caps.map(x => ({t:x.t, f:x.c.etapas.map(e => limpa(e.titulo))}));
+    const temas = {}; SIM_JOGO.filter(x => x.disc === d.n).forEach(x => x.questoes.forEach(q => { (temas[q.tema] = temas[q.tema] || 0); temas[q.tema]++; }));
+    return Object.keys(temas).map(t => ({t, f:[]}));
+  }
+  function detalhe(cap){ return cap.c.etapas.map(e => ({t:limpa(e.titulo), f:termos(e)})); }
+  function quebra(t, max, n){ n = n || 3; const p = String(t).split(' '), l = []; let a = ''; p.forEach(w => { if((a + ' ' + w).trim().length > max){ if(a) l.push(a); a = w; } else a = (a + ' ' + w).trim(); }); if(a) l.push(a); if(l.length > n){ l.length = n; l[n - 1] = l[n - 1].replace(/\s*\S*$/, '') + '…'; } return l; }
+  function mapaSVG(centro, ramos, rotulo){
+    const W = 1500, folhaH = 21, gapR = 18;
+    const lados = [[], []]; ramos.forEach((r, i) => lados[i % 2].push(Object.assign({}, r, {cor:CORES[i % CORES.length]})));
+    const alt = r => Math.max(54, r.f.length * folhaH + 14, quebra(r.t, 24).length * 17 + 20);
+    const H = Math.max(420, Math.max(...lados.map(L => L.reduce((n, r) => n + alt(r) + gapR, 0))) + 70);
     const cx = W / 2, cy = H / 2;
-    let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">`;
     let corpo = '';
     lados.forEach((L, lado) => {
+      if(!L.length) return;
       const total = L.reduce((n, r) => n + alt(r) + gapR, 0) - gapR; let y = cy - total / 2;
-      const dir = lado === 0 ? 1 : -1, xr = cx + dir * 260, xf = cx + dir * 410;
+      const dir = lado === 0 ? 1 : -1, xr = cx + dir * 280, xf = cx + dir * 430;
       L.forEach(r => {
         const h = alt(r), my = y + h / 2;
-        corpo += `<path d="M${cx + dir * 110} ${cy} C ${cx + dir * 180} ${cy}, ${xr - dir * 100} ${my}, ${xr - dir * 95} ${my}" fill="none" stroke="${r.cor}" stroke-width="3" opacity=".8"/>`;
-        const linhas = quebra(r.t, 22), bw = 190, bh = 18 * linhas.length + 16, bx = xr - 95;
-        corpo += `<rect x="${bx}" y="${my - bh / 2}" width="${bw}" height="${bh}" rx="10" fill="${r.cor}"/>`;
-        linhas.forEach((l, i) => corpo += `<text x="${xr}" y="${my - bh / 2 + 22 + i * 18}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#fff">${escHTML(l)}</text>`);
+        corpo += `<path d="M${cx + dir * 120} ${cy} C ${cx + dir * 190} ${cy}, ${xr - dir * 110} ${my}, ${xr - dir * 100} ${my}" fill="none" stroke="${r.cor}" stroke-width="3" opacity=".75"/>`;
+        const linhas = quebra(r.t, 24), bh = 17 * linhas.length + 16;
+        corpo += `<rect x="${xr - 100}" y="${my - bh / 2}" width="200" height="${bh}" rx="10" fill="${r.cor}"/>`;
+        linhas.forEach((l, i) => corpo += `<text x="${xr}" y="${my - bh / 2 + 21 + i * 17}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#fff">${escHTML(l)}</text>`);
         r.f.forEach((f, i) => {
-          const fy = y + 10 + i * folhaH + folhaH / 2 + (h - 20 - r.f.length * folhaH) / 2;
-          const x0 = xr + dir * 95;
-          corpo += `<path d="M${x0} ${my} C ${x0 + dir * 30} ${my}, ${xf - dir * 40} ${fy}, ${xf - dir * 8} ${fy}" fill="none" stroke="${r.cor}" stroke-width="1.5" opacity=".55"/>`;
-          const txt = f.length > 46 ? f.slice(0, 44) + '…' : f;
-          corpo += `<circle cx="${xf - dir * 4}" cy="${fy}" r="3.5" fill="${r.cor}"/><text x="${xf + dir * 4}" y="${fy + 4.5}" text-anchor="${dir > 0 ? 'start' : 'end'}" font-size="13" fill="#1B2422">${escHTML(txt)}</text>`;
+          const fy = my - (r.f.length - 1) * folhaH / 2 + i * folhaH, x0 = xr + dir * 100;
+          corpo += `<path d="M${x0} ${my} C ${x0 + dir * 26} ${my}, ${xf - dir * 36} ${fy}, ${xf - dir * 8} ${fy}" fill="none" stroke="${r.cor}" stroke-width="1.4" opacity=".55"/>`;
+          const txt = f.length > 52 ? f.slice(0, 50) + '…' : f;
+          corpo += `<circle cx="${xf - dir * 4}" cy="${fy}" r="3.5" fill="${r.cor}"/><text x="${xf + dir * 5}" y="${fy + 4.5}" text-anchor="${dir > 0 ? 'start' : 'end'}" font-size="13" fill="#1B2422">${escHTML(txt)}</text>`;
         });
         y += h + gapR;
       });
     });
-    const cl = quebra(d.name, 16);
-    svg += corpo + `<ellipse cx="${cx}" cy="${cy}" rx="115" ry="${28 + cl.length * 12}" fill="#163F3B"/>` + cl.map((l, i) => `<text x="${cx}" y="${cy + 6 - (cl.length - 1) * 11 + i * 22}" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="19" font-weight="600" fill="#fff">${escHTML(l)}</text>`).join('');
-    svg += `<text x="${W - 14}" y="${H - 12}" text-anchor="end" font-size="11" fill="#8D938B">Arquivo Vivo · material de apoiador</text></svg>`;
-    return svg;
+    const cl = quebra(centro, 18, 4);
+    corpo += `<ellipse cx="${cx}" cy="${cy}" rx="125" ry="${26 + cl.length * 12}" fill="#163F3B"/>` + cl.map((l, i) => `<text x="${cx}" y="${cy + 7 - (cl.length - 1) * 11 + i * 22}" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="18" font-weight="600" fill="#fff">${escHTML(l)}</text>`).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif"><rect width="${W}" height="${H}" fill="#fff"/>${corpo}<text x="14" y="22" font-size="12" font-weight="700" fill="#1F5C56" letter-spacing="1">${escHTML((rotulo || '').toUpperCase())}</text><text x="${W - 14}" y="${H - 12}" text-anchor="end" font-size="11" fill="#8D938B">Arquivo Vivo · material de apoiador</text></svg>`;
   }
-  function mapa(d){
-    abrir(`<div class="eyebrow apoio-eb">Mapa mental</div><h2>${escHTML(d.name)}</h2><p class="conta-sub">Os temas da disciplina e as partes principais de cada um. No celular, arraste para os lados.</p>
-      <div class="mm-vista">${mapaSVG(d)}</div>
-      <div class="ben-acoes"><button class="conta-btn" data-ben-print-mapa="${d.n}">Salvar em PDF ou imprimir</button><button class="conta-btn sec" data-ben="mapa">Outra disciplina</button></div>`);
+  function todosMapas(d){
+    const lista = [{nome:'Visão geral', svg:mapaSVG(d.name, geral(d), 'Visão geral · ' + d.name)}];
+    capsDe(d).forEach((x, i) => lista.push({nome:x.t, svg:mapaSVG(x.t, detalhe(x), 'Tema ' + (i + 1) + ' · ' + d.name)}));
+    return lista;
   }
+  function mapa(d, i){
+    i = i || 0; const lista = todosMapas(d);
+    abrir(`<div class="eyebrow apoio-eb">Mapas mentais</div><h2>${escHTML(d.name)}</h2><p class="conta-sub">Uma visão geral da disciplina e um mapa detalhado para cada tema, com os conceitos-chave de cada parte. No celular, arraste para os lados.</p>
+      <div class="mm-abas">${lista.map((m, k) => `<button data-mm-d="${d.n}" data-mm-i="${k}" aria-selected="${k === i}">${k ? k + '. ' : ''}${escHTML(m.nome)}</button>`).join('')}</div>
+      <div class="mm-vista">${lista[i].svg}</div>
+      <div class="ben-acoes"><button class="conta-btn" data-ben-print-mapa="${d.n}">Salvar todos em PDF</button><button class="conta-btn sec" data-ben="mapa">Outra disciplina</button></div>`);
+  }
+  const mapasPrint = d => todosMapas(d).map(m => `<section class="pr-sec mm-print">${m.svg}</section>`).join('');
   function imprimir(html, titulo){
     let area = document.getElementById('printArea'); if(!area){ area = document.createElement('div'); area.id = 'printArea'; document.body.appendChild(area); }
     area.innerHTML = html; const antes = document.title; document.title = titulo;
@@ -21269,7 +21288,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const letras = 'abcdefgh';
     const nome = window.avNome ? ' · ' + escHTML(window.avNome) : '';
     let h = `<section class="cad-capa"><div class="pr-marca">Arquivo Vivo · Caderno de revisão</div><h1>${escHTML(d.name)}</h1><p>Resumos, mapa mental, glossário e questões comentadas${nome}</p><p>Gerado em ${new Date().toLocaleDateString('pt-BR')} · material de apoiador</p></section>`;
-    h += `<section class="pr-sec cad-mapa"><h2>Mapa mental</h2>${mapaSVG(d)}</section>`;
+    h += todosMapas(d).map(m => `<section class="pr-sec cad-mapa">${m.svg}</section>`).join('');
     h += resumaoHTML(d, {estudo:false, prazos:false, links:false}).replace(/<header class="pr-head">[\s\S]*?<\/header>/, '').replace(/<footer[\s\S]*?<\/footer>/, '');
     const sims = SIM_JOGO.filter(x => x.disc === d.n);
     sims.forEach(sm => {
@@ -21295,7 +21314,9 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const dd = e.target.closest('[data-ben-disc]');
     if(dd){ const d = DISC[2].find(x => x.n === dd.dataset.benDisc); if(dd.dataset.benTipo === 'caderno') caderno(d); else mapa(d); return; }
     const pm = e.target.closest('[data-ben-print-mapa]');
-    if(pm){ const d = DISC[2].find(x => x.n === pm.dataset.benPrintMapa); imprimir(`<section class="pr-sec mm-print"><h2>Mapa mental · ${escHTML(d.name)}</h2>${mapaSVG(d)}</section>`, `Mapa mental · ${d.name} · Arquivo Vivo`); return; }
+    if(pm){ const d = DISC[2].find(x => x.n === pm.dataset.benPrintMapa); imprimir(mapasPrint(d), `Mapas mentais · ${d.name} · Arquivo Vivo`); return; }
+    const mt = e.target.closest('[data-mm-i]');
+    if(mt){ mapa(DISC[2].find(x => x.n === mt.dataset.mmD), +mt.dataset.mmI); return; }
     const sm = e.target.closest('[data-ben-sim]');
     if(sm){ fechar(); location.hash = '#simulado-' + sm.dataset.benSim; return; }
     if(e.target.closest('[data-ben-fechar]') || e.target === fundo) fechar();
