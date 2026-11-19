@@ -2356,6 +2356,58 @@
   .conta-apoio span{display:block; color:var(--ink-soft); margin:3px 0 10px;}
   .conta-apoio .conta-btn{background:var(--ochre); margin:0;}
   .sobre-apoio{font:inherit; color:var(--petrol); text-decoration:underline; background:none; border:0; padding:0; cursor:pointer;}
+
+  /* V3 · benefícios de apoiador */
+  .conta-area{background:var(--petrol-soft); border-radius:10px; padding:12px 14px; margin:0 0 14px;}
+  .conta-area b{display:block; font-size:14px; margin-bottom:8px;}
+  .conta-area-bts{display:grid; gap:6px;}
+  .conta-area-bts button{font:inherit; font-size:14px; font-weight:600; text-align:left; border:1px solid var(--petrol-line); background:var(--paper); color:var(--petrol-dark); border-radius:8px; padding:10px 12px; cursor:pointer;}
+  .conta-area-bts button::after{content:" →"; float:right;}
+  .ben-caixa{max-width:680px !important;}
+  .ben-caixa h2{font-size:24px !important;}
+  .ben-escolha{display:grid; gap:8px; margin-top:6px;}
+  .ben-escolha button{font:inherit; text-align:left; border:1px solid var(--rule); background:var(--bg); border-radius:10px; padding:12px 14px; cursor:pointer; color:var(--ink);}
+  .ben-escolha button b{display:block; font-size:15px;}
+  .ben-escolha button span{font-size:13px; color:var(--ink-soft);}
+  .ben-escolha button:hover{border-color:var(--petrol-line);}
+  .de-vazio{background:var(--bg); border:1px dashed var(--rule); border-radius:10px; padding:16px; color:var(--ink-soft); font-size:14.5px;}
+  .de-resumo{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:0 0 16px;}
+  .de-resumo div{background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:10px 12px;}
+  .de-resumo b{display:block; font-family:var(--serif, Georgia, serif); font-size:24px; color:var(--petrol); line-height:1.1;}
+  .de-resumo span{font-size:12.5px; color:var(--ink-soft);}
+  .de-foco{background:var(--ochre-soft); border-radius:10px; padding:12px 14px; margin:0 0 16px; font-size:14px;}
+  .de-foco b{display:block; margin-bottom:4px;}
+  .de-foco ol{margin:0; padding-left:20px;}
+  .de-sim{border-top:1px solid var(--rule); padding-top:14px; margin-top:14px;}
+  .de-sim h3{font-family:var(--serif, Georgia, serif); font-size:17px; font-weight:600; margin:0 0 2px;}
+  .de-sim .de-sub{font-size:13px; color:var(--ink-soft); margin:0 0 10px;}
+  .de-tema{display:grid; grid-template-columns:minmax(0,1fr) 120px 42px; align-items:center; gap:10px; font-size:13.5px; padding:5px 0;}
+  .de-tema .bar{height:8px; border-radius:999px; background:var(--paper-alt); overflow:hidden;}
+  .de-tema .bar i{display:block; height:100%; border-radius:999px; background:var(--petrol);}
+  .de-tema.fraco .bar i{background:var(--ochre);}
+  .de-tema .pc{text-align:right; font-weight:700; font-variant-numeric:tabular-nums;}
+  .de-tema small{color:var(--ink-faint);}
+  .de-ir{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol); background:none; border:0; padding:6px 0 0; cursor:pointer;}
+  .de-hist{font-size:13.5px; color:var(--ink-soft); margin:8px 0 0; padding-left:18px;}
+  .mm-vista{background:#fff; border:1px solid var(--rule); border-radius:10px; overflow:auto; margin:6px 0 12px;}
+  .mm-vista svg{display:block; width:100%; min-width:640px; height:auto;}
+  .ben-acoes{display:flex; gap:8px; flex-wrap:wrap;}
+  .ben-acoes .conta-btn{width:auto; flex:1 1 160px; margin:0;}
+  @media print{
+    body.imprimindo #printArea .cad-capa{page-break-after:always; text-align:center; padding-top:30vh;}
+    @page paisagem{size:A4 landscape;}
+    body.imprimindo #printArea .cad-mapa, body.imprimindo #printArea .mm-print{page:paisagem;}
+    body.imprimindo #printArea .cad-mapa{page-break-after:always;}
+    body.imprimindo #printArea .cad-mapa svg{width:100%; height:auto;}
+    body.imprimindo #printArea .mm-print svg{width:100%; height:auto;}
+  }
+  #printArea .cad-capa .pr-marca{letter-spacing:.12em; text-transform:uppercase; font-size:10pt; color:#1F5C56;}
+  #printArea .cad-capa h1{font-family:'Lora', Georgia, serif; font-size:30pt; margin:10px 0 6px;}
+  #printArea .cad-capa p{color:#555;}
+  #printArea .cad-q{margin:0 0 12px; page-break-inside:avoid;}
+  #printArea .cad-q ol{margin:4px 0 4px 18px; padding:0;}
+  #printArea .cad-q li.ok{font-weight:700;}
+  #printArea .cad-q .cad-w{font-size:10pt; color:#333; background:#F3F6F5; border-left:3px solid #1F5C56; padding:4px 8px;}
 </style>
 </head>
 <body>
@@ -18365,6 +18417,10 @@ function abrirRoteiro(id, opts){
 
 
 // ===== Simulados: modo jogo (uma questão por tela, alternativas coloridas) =====
+function desempLer(){ try{ return JSON.parse(localStorage.getItem('av-desempenho')) || {sims:{}, hist:[]}; }catch(e){ return {sims:{}, hist:[]}; } }
+function desempSalvar(o){ try{ localStorage.setItem('av-desempenho', JSON.stringify(o)); }catch(e){} }
+function desempRegistrar(id, tema, certo){ const o = desempLer(); const s = o.sims[id] = o.sims[id] || {}; const t = s[tema || 'Geral'] = s[tema || 'Geral'] || {a:0, n:0}; t.n++; if(certo) t.a++; desempSalvar(o); }
+function desempPartida(id, pct, a, n){ const o = desempLer(); o.hist = (o.hist || []).concat({id, pct, a, n, t:Date.now()}).slice(-60); desempSalvar(o); }
 function simRec(id){ try{ return JSON.parse(localStorage.getItem('av-simulado-' + id)) || null; }catch(e){ return null; } }
 function simRecSalvar(id, o){ try{ localStorage.setItem('av-simulado-' + id, JSON.stringify(o)); }catch(e){} }
 const SIM_TEMPO = 60; // segundos por questão no modo com tempo
@@ -18481,6 +18537,7 @@ function simResponder(k){
     e.pontos += ganho;
   } else e.seq = 0;
   e.resp.push({i:item.i, k, certo, seg});
+  desempRegistrar(e.sim.id, q.tema, certo);
   errRegistrar({k:'s:' + e.sim.id + ':' + errHash(q.p), tipo:'simulado', ref:e.sim.id, disc:e.sim.disc, origem:'Simulado · ' + q.tema, q:q.p, ops:q.o, c:q.o[q.c], w:q.w}, certo);
 
   const ov = document.getElementById('simOverlay');
@@ -18519,6 +18576,7 @@ function simFinalizar(){
   e.seg = Math.round((Date.now() - e.t0) / 1000);
   const pct = Math.round(e.acertos / e.fila.length * 100);
   e.pct = pct;
+  desempPartida(e.sim.id, pct, e.acertos, e.fila.length);
   const r = simRec(e.sim.id);
   e.recorde = false;
   if(e.fila.length >= 10 && (!r || e.pontos > r.pontos)){
@@ -20908,6 +20966,7 @@ async function puxar(){
       _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
     }
     try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); apoiador = v === true || v === 'true' || v === 1; } }catch(e){ apoiador = false; }
+    window.avApoiador = apoiador || ehAdmin(usuario); window.avNome = usuario.displayName || '';
     carregando = false; await enviar();
     if(mudou){ location.reload(); }
   }catch(e){ carregando = false; console.warn('[conta] não carregou o progresso', e); }
@@ -21042,6 +21101,7 @@ function desenharConta(m){
     <div class="conta-info">${usuario.displayName ? esc(usuario.displayName) + '<br>' : ''}<b>${esc(usuario.email)}</b>${apoiador ? '<span class="conta-selo">Apoiador do Arquivo Vivo</span>' : ''}</div>
     <p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p>
     ${ehAdmin(usuario) ? '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>' : ''}
+    ${(apoiador || ehAdmin(usuario)) ? '<div class="conta-area"><b>Área do apoiador</b><div class="conta-area-bts"><button data-ben="desempenho">Seu desempenho</button><button data-ben="caderno">Caderno de revisão</button><button data-ben="mapa">Mapas mentais</button></div></div>' : ''}
     ${apoiador ? '' : '<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>Um Pix de valor livre ajuda a manter o site e libera o caderno de revisão, o seu desempenho e os mapas mentais.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>'}
     <button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
   if(ehAdmin(usuario)) carregarPainel();
@@ -21054,6 +21114,7 @@ document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && !fundo.hidden
 
 onAuthStateChanged(auth, u=>{
   usuario = u; liberado = false; apoiador = false; ultimaSync = +(localStorage.getItem('av-sync-ts') || 0) || null;
+  window.avApoiador = false;
   dot.hidden = !u; dot.textContent = ''; dot.classList.remove('conta-num');
   if(!u){ _rem.call(localStorage, 'av-acesso-ok'); aba = 'entrar'; portaoLogin(); return; }
   verificar(u);
@@ -21096,6 +21157,151 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     try{ await navigator.clipboard.writeText(t); }catch(_){ const x = document.createElement('textarea'); x.value = t; document.body.appendChild(x); x.select(); try{ document.execCommand('copy'); }catch(__){} x.remove(); }
     b.textContent = 'Copiado! Cole no app do banco ✓'; setTimeout(()=> b.textContent = 'Copiar Pix copia e cola', 3000);
   });
+})();
+</script>
+<div class="conta-fundo" id="benFundo" hidden>
+  <div class="conta-caixa ben-caixa" role="dialog" aria-modal="true">
+    <button class="conta-fechar" data-ben-fechar aria-label="Fechar">×</button>
+    <div id="benCorpo"></div>
+  </div>
+</div>
+<script>
+(function(){
+  const fundo = document.getElementById('benFundo'), corpo = document.getElementById('benCorpo');
+  const limpa = t => String(t || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  const nomeDisc = n => (DISC[2].find(d => d.n === n) || {}).name || '';
+  const discsCom = () => DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n));
+  function abrir(html){ const c = document.getElementById('contaFundo'); if(c) c.hidden = true; corpo.innerHTML = html; fundo.hidden = false; fundo.scrollTop = 0; }
+  function fechar(){ fundo.hidden = true; }
+  function bloqueado(){
+    abrir(`<div class="eyebrow apoio-eb">Área do apoiador</div><h2>Exclusivo para apoiadores</h2><p class="conta-sub">Este material é liberado para quem apoia o Arquivo Vivo. Um Pix de valor livre já libera tudo.</p><button class="conta-btn ap-copiar" data-apoio>Quero apoiar</button>`);
+  }
+  function escolherDisc(tipo){
+    const tit = tipo === 'caderno' ? 'Caderno de revisão' : 'Mapas mentais';
+    const sub = tipo === 'caderno' ? 'Escolha a disciplina. O caderno abre pronto para salvar em PDF ou imprimir.' : 'Escolha a disciplina para ver o mapa.';
+    abrir(`<div class="eyebrow apoio-eb">Área do apoiador</div><h2>${tit}</h2><p class="conta-sub">${sub}</p>
+      <div class="ben-escolha">${discsCom().map(d => { const rs = Object.values(RESUMOS).filter(r => r.disc === d.n); const nq = SIM_JOGO.filter(x => x.disc === d.n).reduce((n, x) => n + x.questoes.length, 0);
+        return `<button data-ben-disc="${d.n}" data-ben-tipo="${tipo}"><b>${escHTML(d.name)}</b><span>${rs.reduce((n, r) => n + r.caps.length, 0)} temas de resumo${nq ? ' · ' + nq + ' questões comentadas' : ''}</span></button>`; }).join('')}</div>`);
+  }
+
+  // ---------- Seu desempenho ----------
+  function desempenho(){
+    const o = desempLer(); const ids = Object.keys(o.sims || {});
+    const tot = ids.reduce((acc, id) => { Object.values(o.sims[id]).forEach(t => { acc.a += t.a; acc.n += t.n; }); return acc; }, {a:0, n:0});
+    let h = `<div class="eyebrow apoio-eb">Área do apoiador</div><h2>Seu desempenho</h2><p class="conta-sub">Acertos por tema em cada simulado, do tema mais fraco para o mais forte.</p>`;
+    if(!tot.n){ abrir(h + `<div class="de-vazio">Ainda não há respostas registradas. Faça um simulado (pode ser só uma parte) e volte aqui: cada questão respondida entra na conta do tema dela.</div>`); return; }
+    const temas = [];
+    ids.forEach(id => Object.entries(o.sims[id]).forEach(([tema, t]) => temas.push({id, tema, a:t.a, n:t.n, pc:Math.round(t.a / t.n * 100)})));
+    const fracos = temas.filter(t => t.n >= 3).sort((a, b) => a.pc - b.pc).slice(0, 3).filter(t => t.pc < 80);
+    h += `<div class="de-resumo"><div><b>${Math.round(tot.a / tot.n * 100)}%</b><span>de acertos no geral</span></div><div><b>${tot.n}</b><span>questões respondidas</span></div><div><b>${(o.hist || []).length}</b><span>simulados concluídos</span></div></div>`;
+    if(fracos.length) h += `<div class="de-foco"><b>Revise primeiro</b><ol>${fracos.map(t => { const s = SIM_JOGO.find(x => x.id === t.id); return `<li>${escHTML(t.tema)} <small>(${t.pc}% · ${s ? escHTML(nomeDisc(s.disc)) : ''})</small></li>`; }).join('')}</ol></div>`;
+    ids.forEach(id => {
+      const s = SIM_JOGO.find(x => x.id === id); if(!s) return;
+      const lista = temas.filter(t => t.id === id).sort((a, b) => a.pc - b.pc);
+      const a = lista.reduce((n, t) => n + t.a, 0), n = lista.reduce((n, t) => n + t.n, 0);
+      const hist = (o.hist || []).filter(x => x.id === id).slice(-5).reverse();
+      h += `<div class="de-sim"><h3>${escHTML(nomeDisc(s.disc))}</h3><p class="de-sub">${escHTML(s.titulo)} · ${Math.round(a / n * 100)}% em ${n} respostas</p>
+        ${lista.map(t => `<div class="de-tema${t.pc < 60 && t.n >= 3 ? ' fraco' : ''}"><span>${escHTML(t.tema)} <small>${t.a}/${t.n}</small></span><span class="bar"><i style="width:${t.pc}%"></i></span><span class="pc">${t.pc}%</span></div>`).join('')}
+        ${hist.length ? `<ul class="de-hist">${hist.map(x => `<li>${new Date(x.t).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}: ${x.a} de ${x.n} (${x.pct}%)</li>`).join('')}</ul>` : ''}
+        <button class="de-ir" data-ben-sim="${id}">Treinar este simulado →</button></div>`;
+    });
+    h += `<p class="conta-priv">Conta a partir de agora, neste aparelho e na sua conta. Respostas de antes desta função não entram.</p>`;
+    abrir(h);
+  }
+
+  // ---------- Mapa mental (SVG) ----------
+  function mapaDados(d){
+    const rs = Object.values(RESUMOS).filter(r => r.disc === d.n);
+    let ramos = [];
+    rs.forEach(r => r.caps.forEach(c => { const et = c.etapas.map(e => limpa(e.titulo)); const k = Math.min(5, et.length); const pick = []; for(let i = 0; i < k; i++) pick.push(et[Math.floor(i * et.length / k)]); ramos.push({t:limpa(c.titulo || c.aba || r.titulo), f:pick}); }));
+    if(!ramos.length){ const temas = {}; SIM_JOGO.filter(x => x.disc === d.n).forEach(x => x.questoes.forEach(q => { temas[q.tema] = 1; })); ramos = Object.keys(temas).map(t => ({t, f:[]})); }
+    return ramos;
+  }
+  function quebra(t, max){ const p = t.split(' '), l = []; let a = ''; p.forEach(w => { if((a + ' ' + w).trim().length > max){ if(a) l.push(a); a = w; } else a = (a + ' ' + w).trim(); }); if(a) l.push(a); if(l.length > 3){ l.length = 3; l[2] = l[2].replace(/\s*\S*$/, '') + '…'; } return l; }
+  function mapaSVG(d){
+    const ramos = mapaDados(d); const CORES = ['#1F5C56', '#B7791F', '#5B7F6E', '#7A4E8C', '#2F6F8F', '#A8455A', '#6B7A2E'];
+    const W = 1440, folhaH = 22, gapR = 26;
+    const lados = [[], []]; ramos.forEach((r, i) => lados[i % 2].push(Object.assign(r, {cor:CORES[i % CORES.length]})));
+    const alt = r => Math.max(60, r.f.length * folhaH + 20);
+    const H = Math.max(...lados.map(L => L.reduce((n, r) => n + alt(r) + gapR, 0))) + 60;
+    const cx = W / 2, cy = H / 2;
+    let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">`;
+    let corpo = '';
+    lados.forEach((L, lado) => {
+      const total = L.reduce((n, r) => n + alt(r) + gapR, 0) - gapR; let y = cy - total / 2;
+      const dir = lado === 0 ? 1 : -1, xr = cx + dir * 260, xf = cx + dir * 410;
+      L.forEach(r => {
+        const h = alt(r), my = y + h / 2;
+        corpo += `<path d="M${cx + dir * 110} ${cy} C ${cx + dir * 180} ${cy}, ${xr - dir * 100} ${my}, ${xr - dir * 95} ${my}" fill="none" stroke="${r.cor}" stroke-width="3" opacity=".8"/>`;
+        const linhas = quebra(r.t, 22), bw = 190, bh = 18 * linhas.length + 16, bx = xr - 95;
+        corpo += `<rect x="${bx}" y="${my - bh / 2}" width="${bw}" height="${bh}" rx="10" fill="${r.cor}"/>`;
+        linhas.forEach((l, i) => corpo += `<text x="${xr}" y="${my - bh / 2 + 22 + i * 18}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#fff">${escHTML(l)}</text>`);
+        r.f.forEach((f, i) => {
+          const fy = y + 10 + i * folhaH + folhaH / 2 + (h - 20 - r.f.length * folhaH) / 2;
+          const x0 = xr + dir * 95;
+          corpo += `<path d="M${x0} ${my} C ${x0 + dir * 30} ${my}, ${xf - dir * 40} ${fy}, ${xf - dir * 8} ${fy}" fill="none" stroke="${r.cor}" stroke-width="1.5" opacity=".55"/>`;
+          const txt = f.length > 46 ? f.slice(0, 44) + '…' : f;
+          corpo += `<circle cx="${xf - dir * 4}" cy="${fy}" r="3.5" fill="${r.cor}"/><text x="${xf + dir * 4}" y="${fy + 4.5}" text-anchor="${dir > 0 ? 'start' : 'end'}" font-size="13" fill="#1B2422">${escHTML(txt)}</text>`;
+        });
+        y += h + gapR;
+      });
+    });
+    const cl = quebra(d.name, 16);
+    svg += corpo + `<ellipse cx="${cx}" cy="${cy}" rx="115" ry="${28 + cl.length * 12}" fill="#163F3B"/>` + cl.map((l, i) => `<text x="${cx}" y="${cy + 6 - (cl.length - 1) * 11 + i * 22}" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="19" font-weight="600" fill="#fff">${escHTML(l)}</text>`).join('');
+    svg += `<text x="${W - 14}" y="${H - 12}" text-anchor="end" font-size="11" fill="#8D938B">Arquivo Vivo · material de apoiador</text></svg>`;
+    return svg;
+  }
+  function mapa(d){
+    abrir(`<div class="eyebrow apoio-eb">Mapa mental</div><h2>${escHTML(d.name)}</h2><p class="conta-sub">Os temas da disciplina e as partes principais de cada um. No celular, arraste para os lados.</p>
+      <div class="mm-vista">${mapaSVG(d)}</div>
+      <div class="ben-acoes"><button class="conta-btn" data-ben-print-mapa="${d.n}">Salvar em PDF ou imprimir</button><button class="conta-btn sec" data-ben="mapa">Outra disciplina</button></div>`);
+  }
+  function imprimir(html, titulo){
+    let area = document.getElementById('printArea'); if(!area){ area = document.createElement('div'); area.id = 'printArea'; document.body.appendChild(area); }
+    area.innerHTML = html; const antes = document.title; document.title = titulo;
+    fechar(); document.body.classList.add('imprimindo'); setTimeout(() => window.print(), 80);
+    const fim = () => { document.body.classList.remove('imprimindo'); document.title = antes; window.removeEventListener('afterprint', fim); };
+    window.addEventListener('afterprint', fim);
+  }
+
+  // ---------- Caderno de revisão ----------
+  function caderno(d){
+    const letras = 'abcdefgh';
+    const nome = window.avNome ? ' · ' + escHTML(window.avNome) : '';
+    let h = `<section class="cad-capa"><div class="pr-marca">Arquivo Vivo · Caderno de revisão</div><h1>${escHTML(d.name)}</h1><p>Resumos, mapa mental, glossário e questões comentadas${nome}</p><p>Gerado em ${new Date().toLocaleDateString('pt-BR')} · material de apoiador</p></section>`;
+    h += `<section class="pr-sec cad-mapa"><h2>Mapa mental</h2>${mapaSVG(d)}</section>`;
+    h += resumaoHTML(d, {estudo:false, prazos:false, links:false}).replace(/<header class="pr-head">[\s\S]*?<\/header>/, '').replace(/<footer[\s\S]*?<\/footer>/, '');
+    const sims = SIM_JOGO.filter(x => x.disc === d.n);
+    sims.forEach(sm => {
+      const porTema = {}; sm.questoes.forEach(q => (porTema[q.tema] = porTema[q.tema] || []).push(q));
+      let n = 0;
+      h += `<section class="pr-sec"><h2>Questões comentadas</h2><p class="pr-nota">${escHTML(sm.titulo)} · ${sm.questoes.length} questões, separadas por tema. A alternativa em negrito é a correta.</p>`;
+      Object.entries(porTema).forEach(([tema, qs]) => {
+        h += `<h3>${escHTML(tema)}</h3>`;
+        qs.forEach(q => { n++; h += `<div class="cad-q"><b>${n}.</b> ${q.p}<ol type="a">${q.o.map((op, i) => `<li${i === q.c ? ' class="ok"' : ''}>${op}</li>`).join('')}</ol>${q.w ? `<div class="cad-w">${q.w}</div>` : ''}</div>`; });
+      });
+      h += `</section>`;
+    });
+    ROTEIROS.filter(r => r.disc === d.n && r.questoes.some(q => q.resposta)).forEach(r => {
+      h += `<section class="pr-sec"><h2>${escHTML(r.titulo)}</h2>${r.questoes.map((q, i) => `<div class="cad-q"><b>${i + 1}. ${escHTML(limpa(q.tema))}</b><p>${q.pede || ''}</p>${q.resposta ? `<div class="cad-w">${q.resposta}</div>` : ''}</div>`).join('')}</section>`;
+    });
+    h += `<footer class="pr-foot">Material de apoiador do Arquivo Vivo. O conteúdo das aulas sempre prevalece como referência final.</footer>`;
+    imprimir(h, `Caderno de revisão · ${d.name} · Arquivo Vivo`);
+  }
+
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-ben]');
+    if(b){ if(!window.avApoiador){ bloqueado(); return; } const t = b.dataset.ben; if(t === 'desempenho') desempenho(); else escolherDisc(t); return; }
+    const dd = e.target.closest('[data-ben-disc]');
+    if(dd){ const d = DISC[2].find(x => x.n === dd.dataset.benDisc); if(dd.dataset.benTipo === 'caderno') caderno(d); else mapa(d); return; }
+    const pm = e.target.closest('[data-ben-print-mapa]');
+    if(pm){ const d = DISC[2].find(x => x.n === pm.dataset.benPrintMapa); imprimir(`<section class="pr-sec mm-print"><h2>Mapa mental · ${escHTML(d.name)}</h2>${mapaSVG(d)}</section>`, `Mapa mental · ${d.name} · Arquivo Vivo`); return; }
+    const sm = e.target.closest('[data-ben-sim]');
+    if(sm){ fechar(); location.hash = '#simulado-' + sm.dataset.benSim; return; }
+    if(e.target.closest('[data-ben-fechar]') || e.target === fundo) fechar();
+    if(e.target.closest('#benCorpo [data-apoio]')) fechar();
+  });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') fechar(); });
 })();
 </script>
 </body>
