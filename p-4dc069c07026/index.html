@@ -2328,6 +2328,49 @@ function exhComparativoHTML(st, tipo){
     <tr>${st.ps.map(()=>'<th>LB</th><th>INT</th>').join('')}</tr></thead>
     <tbody>${P.map((pr,j)=>`<tr><td>${pr}</td>${ks.map(k=>`<td${j === k.alvo ? ' class="exh-c-alvo"' : ''}>${val(k,'lb',j)}</td><td${j === k.alvo ? ' class="exh-c-alvo"' : ''}>${val(k,'rf',j)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
+// ---- Impressão no formato das 3 abas da planilha dos vídeos ----
+function exhAbsModeloHTML(st, idx){
+  const P = EXH.pronomes; const ks = idx.map(i=> exhCalc(st.ps[i])); const tt = idx.map(i=> escHTML(exhTitulo(st, i)));
+  const soma = a => a.reduce((x,y)=>x+y,0); const n = idx.length;
+  return `<table class="mt"><thead><tr><th></th><th colspan="${n}">Linha de Base</th><th class="sp"></th><th colspan="${n}">Intervenção</th></tr>
+    <tr><th>Pronomes</th>${tt.map(t=>`<th>${t}</th>`).join('')}<th class="sp"></th>${tt.map(t=>`<th>${t}</th>`).join('')}</tr></thead><tbody>
+    ${P.map((pr,j)=>`<tr><td>${pr}</td>${ks.map(k=>`<td>${k.lb.c[j]}</td>`).join('')}<td class="sp"></td>${ks.map(k=>`<td>${k.rf.c[j]}</td>`).join('')}</tr>`).join('')}
+    <tr class="tot"><td>Total</td>${ks.map(k=>`<td>${soma(k.lb.c)}</td>`).join('')}<td class="sp"></td>${ks.map(k=>`<td>${soma(k.rf.c)}</td>`).join('')}</tr></tbody></table>`;
+}
+function exhRelModeloHTML(st, idx){
+  const P = EXH.pronomes; const ks = idx.map(i=> exhCalc(st.ps[i])); const tt = idx.map(i=> escHTML(exhTitulo(st, i)));
+  const soma = a => a.reduce((x,y)=>x+y,0); const n = idx.length;
+  const par = '<th>Freq.Relativa</th><th>Freq Abs</th>';
+  return `<table class="mt"><thead><tr><th></th><th colspan="${2*n}">Linha de Base</th><th class="sp"></th><th colspan="${2*n}">Intervenção</th></tr>
+    <tr><th></th>${idx.map(()=>par).join('')}<th class="sp"></th>${idx.map(()=>par).join('')}</tr>
+    <tr><th>Pronomes</th>${tt.map(t=>`<th colspan="2">${t}</th>`).join('')}<th class="sp"></th>${tt.map(t=>`<th colspan="2">${t}</th>`).join('')}</tr></thead><tbody>
+    ${P.map((pr,j)=>`<tr><td>${pr}</td>${ks.map(k=>`<td>${exhFmt(k.lb.pct[j])}</td><td>${k.lb.c[j]}</td>`).join('')}<td class="sp"></td>${ks.map(k=>`<td>${exhFmt(k.rf.pct[j])}</td><td>${k.rf.c[j]}</td>`).join('')}</tr>`).join('')}
+    <tr class="tot"><td>Total</td>${ks.map(k=>`<td>${exhFmt(soma(k.lb.pct))}</td><td>${soma(k.lb.c)}</td>`).join('')}<td class="sp"></td>${ks.map(k=>`<td>${exhFmt(soma(k.rf.pct))}</td><td>${soma(k.rf.c)}</td>`).join('')}</tr></tbody></table>`;
+}
+function exhCompModeloHTML(st, idx){
+  const P = EXH.pronomes; const ks = idx.map(i=> exhCalc(st.ps[i])); const tt = idx.map(i=> escHTML(exhTitulo(st, i)));
+  return `<table class="mt"><thead><tr><th></th>${tt.map(t=>`<th colspan="2">${t}</th>`).join('')}</tr>
+    <tr><th>Pronomes</th>${idx.map(()=>'<th>LB</th><th>INT</th>').join('')}</tr></thead><tbody>
+    ${P.map((pr,j)=>`<tr><td>${pr}</td>${ks.map(k=>`<td>${exhFmt(k.lb.pct[j])}</td><td>${exhFmt(k.rf.pct[j])}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+// Gráfico no estilo do Google Planilhas dos vídeos: colunas LB (azul) e INT (vermelho), legenda no canto, eixo "Pronomes"
+function exhGraficoModelo(p, titulo){
+  const k = exhCalc(p); const P = EXH.pronomes;
+  const W = 620, H = 330, L = 48, R = 90, T = 52, B = 58, ph = H-T-B, pw = W-L-R;
+  const mx = Math.max(10, ...k.lb.pct, ...k.rf.pct); const top = Math.ceil(mx/10)*10;
+  const y = v => T + ph - v/top*ph; const gw = pw/P.length; const bw = Math.min(22, gw*0.28);
+  const AZ = '#4285F4', VM = '#EA4335';
+  let g = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="Arial, Helvetica, sans-serif"><rect width="${W}" height="${H}" fill="#fff"/>`;
+  g += `<text x="${L+pw/2}" y="30" font-size="18" text-anchor="middle" fill="#222">${escHTML(titulo)}</text>`;
+  for(let v=0; v<=top; v+=10){ g += `<line x1="${L}" x2="${L+pw}" y1="${y(v)}" y2="${y(v)}" stroke="${v ? '#e6e6e6' : '#999'}"/><text x="${L-8}" y="${y(v)+4}" font-size="11" text-anchor="end" fill="#444">${v}</text>`; }
+  P.forEach((pr,i)=>{ const cx = L + gw*(i+0.5);
+    g += `<rect x="${cx-bw-2}" y="${y(k.lb.pct[i])}" width="${bw}" height="${T+ph-y(k.lb.pct[i])}" fill="${AZ}"/><rect x="${cx+2}" y="${y(k.rf.pct[i])}" width="${bw}" height="${T+ph-y(k.rf.pct[i])}" fill="${VM}"/>`;
+    g += `<text x="${cx}" y="${T+ph+18}" font-size="11.5" text-anchor="middle" fill="#222">${pr}</text>`; });
+  g += `<text x="${L+pw/2}" y="${H-14}" font-size="12" text-anchor="middle" fill="#444">Pronomes</text>`;
+  g += `<rect x="${L+pw+16}" y="${T+4}" width="11" height="11" fill="${AZ}"/><text x="${L+pw+32}" y="${T+14}" font-size="12" fill="#222">LB</text>`;
+  g += `<rect x="${L+pw+16}" y="${T+24}" width="11" height="11" fill="${VM}"/><text x="${L+pw+32}" y="${T+34}" font-size="12" fill="#222">INT</text>`;
+  return g + '</svg>';
+}
 function exhTSV(st, tipo){
   // Saída em fórmulas (=...), para dar certo em planilha com vírgula ou ponto decimal.
   const P = EXH.pronomes; const ks = st.ps.map(p=> exhCalc(p)); const n = st.ps.length;
@@ -2405,7 +2448,7 @@ function exhFolhaHTML(){
     <h4 class="rt-h">Dados para o cabeçalho do gráfico</h4>
     <div class="exh-campos">${campo('nome','Nome completo')}${campo('mat','Matrícula')}${campo('disc','Disciplina','nome como aparece no seu portal')}${campo('uni','Unidade')}${campo('entrega','Data de entrega','dd/mm/aaaa')}</div>
     <div class="exh-acoes">
-      <button type="button" class="btn btn-primary" data-exh-imprimir>Imprimir os gráficos</button>
+      <button type="button" class="btn btn-primary" data-exh-imprimir>Imprimir as 3 abas e o gráfico</button>
       ${st.ps.length > 1 ? `<button type="button" class="link-btn exh-limpar" data-exh-remover>Remover ${escHTML(sigla)}</button>` : ''}
       <button type="button" class="link-btn exh-limpar" data-exh-limpar>Limpar a folha de ${escHTML(sigla)}</button>
     </div>
@@ -2462,16 +2505,19 @@ document.getElementById('discPage').addEventListener('click', e=>{
     if(inc.length && !confirm(`${inc.map(i=> exhSigla(st, i)).join(', ')} ainda não tem os 40 verbos registrados. Imprimir mesmo assim?`)) return;
     const linha = (r, v)=> `<tr><th>${r}</th><td>${escHTML(v || '')}</td></tr>`;
     const w = window.open('', '_blank'); if(!w){ alert('Libere as janelas pop-up deste site para imprimir.'); return; }
-    w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Comparativo LB-INT</title><style>
-      body{font-family:Arial,Helvetica,sans-serif; color:#111; margin:24px;} table.cab{border-collapse:collapse; margin-bottom:18px; font-size:13px;}
-      .cab th{text-align:left; padding:3px 12px 3px 0; font-weight:bold;} .cab td{padding:3px 0;} svg{width:100%; max-width:680px; display:block; margin:0 auto 10px;}
-      .g{break-inside:avoid; page-break-inside:avoid; margin-bottom:14px;}
-      table.exh-tab{border-collapse:collapse; font-size:12px; margin-top:12px;} .exh-tab th,.exh-tab td{border:1px solid #999; padding:4px 8px; text-align:center;} .exh-c-alvo{font-weight:bold;}
-      p{font-size:12px;} @page{margin:14mm;}</style></head><body>
+    w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Graficos - ${escHTML(f.nome || 'Trabalho N2')}</title><style>
+      body{font-family:Arial,Helvetica,sans-serif; color:#111; margin:24px;} table.cab{border-collapse:collapse; margin-bottom:16px; font-size:13px;}
+      .cab th{text-align:left; padding:3px 12px 3px 0; font-weight:bold;} .cab td{padding:3px 0;}
+      h2{font-size:14px; margin:18px 0 6px; padding-bottom:3px; border-bottom:1px solid #ccc;}
+      table.mt{border-collapse:collapse; font-size:11.5px;} .mt th,.mt td{border:1px solid #bbb; padding:3px 7px; text-align:center;} .mt th{background:#f3f3f3; font-weight:bold;}
+      .mt td:first-child{text-align:left;} .mt .sp{border:none; background:none; width:12px; padding:0;} .mt tr.tot td{font-weight:bold;}
+      .graf{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;} .graf svg{width:100%; max-width:620px; border:1px solid #ddd; break-inside:avoid; page-break-inside:avoid;}
+      .sec{break-inside:avoid; page-break-inside:avoid;} @page{margin:12mm;}</style></head><body>
       <table class="cab">${linha('Nome completo:', f.nome)}${linha('Matrícula:', f.mat)}${linha('Disciplina:', f.disc)}${linha('Unidade:', f.uni)}${linha('Data de entrega:', f.entrega)}</table>
-      ${idx.map(i=> `<div class="g">${exhGrafico(st.ps[i], exhSigla(st, i))}</div>`).join('')}
-      ${exhComparativoHTML({ps: idx.map(i=> st.ps[i]).map((p,j)=> Object.assign({}, p, {part: exhSigla(st, idx[j])}))}, 'rel')}
-      <p>LB: linha de base (verbos 1 a 10). INT: intervenção, com reforço (verbos 11 a 40). Frequência relativa = frequência absoluta × 100 ÷ 10 (LB) ou ÷ 30 (INT).</p>
+      <div class="sec"><h2>Frequencia Absoluta</h2>${exhAbsModeloHTML(st, idx)}</div>
+      <div class="sec"><h2>Frequencia Relativa</h2>${exhRelModeloHTML(st, idx)}</div>
+      <div class="sec"><h2>Comparativo LB-INT</h2>${exhCompModeloHTML(st, idx)}</div>
+      <div class="graf">${idx.map(i=> exhGraficoModelo(st.ps[i], exhTitulo(st, i))).join('')}</div>
       <script>window.onload = function(){ window.print(); };<\/script></body></html>`);
     w.document.close();
   }
