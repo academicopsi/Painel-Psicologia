@@ -2270,6 +2270,34 @@
   .dp-subh span{font-weight:400; color:var(--ink-soft); margin-left:6px;}
   .dp-prox{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 14px; margin-top:16px; padding:10px 12px; border:1px solid var(--rule); border-radius:6px; background:var(--paper); font-size:14px;}
   .dp-prox.urgente{border-color:var(--ochre);}
+
+  /* V3 · conta (login opcional, teste) */
+  #contaBtn{position:relative;}
+  .conta-dot{position:absolute; top:7px; right:7px; width:8px; height:8px; border-radius:50%; background:var(--petrol); box-shadow:0 0 0 2px var(--paper);}
+  .conta-fundo{position:fixed; inset:0; z-index:1000; background:rgba(20,33,31,.45); display:flex; align-items:flex-start; justify-content:center; padding:72px 16px 16px; overflow:auto;}
+  .conta-fundo[hidden]{display:none;}
+  .conta-caixa{width:100%; max-width:400px; background:var(--paper); color:var(--ink); border:1px solid var(--rule); border-radius:14px; box-shadow:0 20px 50px rgba(0,0,0,.18); padding:24px; position:relative;}
+  .conta-caixa h2{font-family:var(--serif, Georgia, serif); font-size:24px; font-weight:600; margin:2px 0 6px;}
+  .conta-caixa .conta-sub{color:var(--ink-soft); font-size:14.5px; margin:0 0 16px;}
+  .conta-fechar{position:absolute; top:10px; right:10px; width:36px; height:36px; border:0; background:transparent; color:var(--ink-soft); font-size:22px; cursor:pointer; border-radius:8px;}
+  .conta-abas{display:grid; grid-template-columns:1fr 1fr; gap:4px; background:var(--paper-alt); border-radius:10px; padding:4px; margin-bottom:16px;}
+  .conta-abas button{font:inherit; font-size:14px; font-weight:600; border:0; border-radius:8px; padding:9px; background:transparent; color:var(--ink-soft); cursor:pointer;}
+  .conta-abas button[aria-selected="true"]{background:var(--paper); color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  .conta-form label{display:block; font-size:13px; font-weight:600; margin:0 0 5px;}
+  .conta-form input{width:100%; font:inherit; font-size:16px; padding:11px 12px; border:1px solid var(--rule); border-radius:8px; background:var(--bg); color:var(--ink); margin-bottom:12px;}
+  .conta-form input:focus{outline:2px solid var(--petrol-line); border-color:var(--petrol);}
+  .conta-btn{width:100%; font:inherit; font-size:15px; font-weight:600; border:0; border-radius:10px; padding:12px; background:var(--petrol); color:#fff; cursor:pointer; margin-top:4px;}
+  .conta-btn.sec{background:transparent; color:var(--petrol); border:1px solid var(--petrol-line);}
+  .conta-btn[disabled]{opacity:.6; cursor:default;}
+  .conta-link{display:block; margin:12px auto 0; font:inherit; font-size:14px; color:var(--petrol); background:none; border:0; cursor:pointer; text-decoration:underline;}
+  .conta-msg{font-size:14px; border-radius:8px; padding:10px 12px; margin:0 0 12px;}
+  .conta-msg.erro{background:#F8E4DF; color:#8A2E1E;}
+  .conta-msg.ok{background:var(--petrol-soft); color:var(--petrol-dark);}
+  .conta-priv{font-size:12.5px; color:var(--ink-faint); margin:14px 0 0; line-height:1.5;}
+  .conta-info{background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:12px 14px; margin:0 0 14px; font-size:14.5px;}
+  .conta-info b{display:block; word-break:break-all;}
+  .conta-selo{display:inline-block; margin-top:8px; font-size:12.5px; font-weight:700; color:var(--ochre); background:var(--ochre-soft); border-radius:999px; padding:3px 10px;}
+  .conta-sync{font-size:13.5px; color:var(--ink-soft); margin:0 0 14px;}
 </style>
 </head>
 <body>
@@ -2324,6 +2352,7 @@
 
     <div class="nav-actions">
       <button class="icon-btn" id="searchBtn" data-open-search aria-label="Buscar no site" title="Buscar (atalho: /)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button class="icon-btn" id="contaBtn" aria-label="Entrar ou criar conta" title="Sua conta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="conta-dot" hidden></span></button>
       <button class="icon-btn" id="themeBtn" aria-label="Alternar modo escuro" title="Modo escuro"><span id="themeIcon" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span></button>
       <button class="icon-btn" id="shareBtn" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button>
       <button class="icon-btn nav-burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
@@ -20755,5 +20784,138 @@ document.addEventListener('click', e=>{
 })();
 </script>
 
+
+<div class="conta-fundo" id="contaFundo" hidden>
+  <div class="conta-caixa" role="dialog" aria-modal="true" aria-labelledby="contaTitulo">
+    <button class="conta-fechar" id="contaFechar" aria-label="Fechar">×</button>
+    <div id="contaCorpo"></div>
+  </div>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { getDatabase, ref, get, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyDnLjcbrhVNQmSTcgY4jhyul3kUNs8v1lo",
+  authDomain: "arquivo-vivo-psi.firebaseapp.com",
+  databaseURL: "https://arquivo-vivo-psi-default-rtdb.firebaseio.com",
+  projectId: "arquivo-vivo-psi",
+  storageBucket: "arquivo-vivo-psi.firebasestorage.app",
+  messagingSenderId: "740189425394",
+  appId: "1:740189425394:web:c81030ef5cc62b08418a6b"
+});
+const auth = getAuth(app); auth.languageCode = 'pt-BR';
+const db = getDatabase(app);
+
+const fundo = document.getElementById('contaFundo'), corpo = document.getElementById('contaCorpo');
+const dot = document.querySelector('#contaBtn .conta-dot');
+let usuario = null, apoiador = false, aba = 'entrar', ultimaSync = null, carregando = false;
+
+// ---- progresso: chaves av-* do aparelho <-> usuarios/{uid}/progresso ----
+const FORA = new Set(['av-sync-ts']);
+const ehDado = k => k && k.startsWith('av-') && !FORA.has(k);
+const cod = k => encodeURIComponent(k).replace(/\./g, '%2E');
+const dec = k => decodeURIComponent(k);
+function coletar(){ const o = {}; for(let i = 0; i < localStorage.length; i++){ const k = localStorage.key(i); if(ehDado(k)) o[cod(k)] = localStorage.getItem(k); } return o; }
+let timer = null;
+async function enviar(){
+  if(!usuario || carregando) return;
+  const ts = Date.now();
+  try{
+    await set(ref(db, 'usuarios/' + usuario.uid), { progresso: coletar(), atualizadoEm: ts, nome: usuario.displayName || '' });
+    _set.call(localStorage, 'av-sync-ts', String(ts)); ultimaSync = ts; if(!fundo.hidden) desenhar();
+  }catch(e){ console.warn('[conta] não sincronizou', e); }
+}
+const agendar = () => { clearTimeout(timer); timer = setTimeout(enviar, 2500); };
+const _set = Storage.prototype.setItem, _rem = Storage.prototype.removeItem;
+Storage.prototype.setItem = function(k, v){ _set.call(this, k, v); if(this === localStorage && ehDado(k)) agendar(); };
+Storage.prototype.removeItem = function(k){ _rem.call(this, k); if(this === localStorage && ehDado(k)) agendar(); };
+
+async function puxar(){
+  carregando = true;
+  try{
+    const snap = await get(ref(db, 'usuarios/' + usuario.uid));
+    const remoto = snap.val();
+    const localTs = +(localStorage.getItem('av-sync-ts') || 0);
+    let mudou = false;
+    if(remoto && remoto.progresso && (remoto.atualizadoEm || 0) > localTs){
+      Object.entries(remoto.progresso).forEach(([k, v])=>{ const kk = dec(k); if(localStorage.getItem(kk) !== v){ _set.call(localStorage, kk, v); mudou = true; } });
+      _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
+    }
+    try{ apoiador = (await get(ref(db, 'apoiadores/' + usuario.uid))).val() === true; }catch(e){ apoiador = false; }
+    carregando = false;
+    await enviar();
+    if(mudou){ sessionStorage.setItem('av-conta-recarregou', '1'); location.reload(); }
+  }catch(e){ carregando = false; console.warn('[conta] não carregou o progresso', e); }
+}
+
+// ---- interface ----
+const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ERROS = {
+  'auth/invalid-credential':'E-mail ou senha incorretos.', 'auth/wrong-password':'E-mail ou senha incorretos.', 'auth/user-not-found':'E-mail ou senha incorretos.',
+  'auth/email-already-in-use':'Já existe uma conta com este e-mail. Use a aba Entrar.', 'auth/weak-password':'A senha precisa ter pelo menos 6 caracteres.',
+  'auth/invalid-email':'Este e-mail não parece válido.', 'auth/missing-password':'Digite a senha.', 'auth/too-many-requests':'Muitas tentativas. Espere alguns minutos e tente de novo.',
+  'auth/network-request-failed':'Sem conexão. Verifique a internet e tente de novo.'
+};
+const erroTxt = e => ERROS[e && e.code] || 'Não deu certo agora. Tente de novo em instantes.';
+const quando = ts => { if(!ts) return 'ainda não sincronizado'; const m = Math.round((Date.now() - ts) / 60000); return m < 1 ? 'sincronizado agora' : m < 60 ? `sincronizado há ${m} min` : 'sincronizado em ' + new Date(ts).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}); };
+const PRIV = '<p class="conta-priv">A conta é opcional: o site funciona igual sem ela. Guardamos só o seu e-mail, o nome (se você informar) e o progresso de estudo, para levar de um aparelho para outro. Nada é compartilhado. Os dados ficam no Firebase, do Google, em servidores fora do Brasil. Para apagar sua conta, fale com o Thiago.</p>';
+
+function desenhar(msg){
+  const m = msg ? `<div class="conta-msg ${msg.tipo}">${esc(msg.t)}</div>` : '';
+  if(usuario){
+    corpo.innerHTML = `<h2 id="contaTitulo">Sua conta</h2>${m}
+      <div class="conta-info">${usuario.displayName ? esc(usuario.displayName) + '<br>' : ''}<b>${esc(usuario.email)}</b>${apoiador ? '<span class="conta-selo">Apoiador do Arquivo Vivo</span>' : ''}</div>
+      <p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p>
+      <button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
+    document.getElementById('contaSair').onclick = async ()=>{ await enviar(); await signOut(auth); desenhar({tipo:'ok', t:'Você saiu. O progresso continua salvo neste aparelho e na conta.'}); };
+    return;
+  }
+  if(aba === 'esqueci'){
+    corpo.innerHTML = `<h2 id="contaTitulo">Esqueci minha senha</h2><p class="conta-sub">Enviamos um link para você criar uma senha nova. Confira também a caixa de spam.</p>${m}
+      <form class="conta-form" id="contaForm"><label for="cEmail">E-mail</label><input id="cEmail" type="email" autocomplete="email" required>
+      <button class="conta-btn" type="submit">Enviar link</button></form><button class="conta-link" data-aba="entrar">Voltar para entrar</button>`;
+  } else {
+    const criar = aba === 'criar';
+    corpo.innerHTML = `<h2 id="contaTitulo">${criar ? 'Criar conta' : 'Entrar'}</h2>
+      <p class="conta-sub">Opcional. Com uma conta, seu progresso acompanha você em qualquer aparelho.</p>
+      <div class="conta-abas" role="tablist"><button role="tab" data-aba="entrar" aria-selected="${!criar}">Entrar</button><button role="tab" data-aba="criar" aria-selected="${criar}">Criar conta</button></div>${m}
+      <form class="conta-form" id="contaForm">
+        ${criar ? '<label for="cNome">Como quer ser chamado (opcional)</label><input id="cNome" type="text" autocomplete="given-name" maxlength="40">' : ''}
+        <label for="cEmail">E-mail</label><input id="cEmail" type="email" autocomplete="email" required>
+        <label for="cSenha">Senha${criar ? ' (mínimo de 6 caracteres)' : ''}</label><input id="cSenha" type="password" autocomplete="${criar ? 'new-password' : 'current-password'}" minlength="6" required>
+        <button class="conta-btn" type="submit">${criar ? 'Criar conta' : 'Entrar'}</button>
+      </form>
+      ${criar ? '' : '<button class="conta-link" data-aba="esqueci">Esqueci minha senha</button>'}${PRIV}`;
+  }
+  corpo.querySelectorAll('[data-aba]').forEach(b=> b.onclick = ()=>{ aba = b.dataset.aba; desenhar(); });
+  document.getElementById('contaForm').onsubmit = async ev=>{
+    ev.preventDefault(); const bt = ev.target.querySelector('button[type=submit]'); bt.disabled = true;
+    const email = document.getElementById('cEmail').value.trim(), senhaEl = document.getElementById('cSenha');
+    try{
+      if(aba === 'esqueci'){ await sendPasswordResetEmail(auth, email); aba = 'entrar'; desenhar({tipo:'ok', t:'Se existir uma conta com este e-mail, o link chega em alguns minutos.'}); return; }
+      if(aba === 'criar'){ const r = await createUserWithEmailAndPassword(auth, email, senhaEl.value); const nome = (document.getElementById('cNome').value || '').trim(); if(nome) await updateProfile(r.user, {displayName: nome}); }
+      else await signInWithEmailAndPassword(auth, email, senhaEl.value);
+    }catch(e){ bt.disabled = false; desenhar({tipo:'erro', t:erroTxt(e)}); const em = document.getElementById('cEmail'); if(em) em.value = email; }
+  };
+}
+function abrir(){ desenhar(); fundo.hidden = false; setTimeout(()=>{ const i = corpo.querySelector('input'); if(i) i.focus(); }, 50); }
+function fechar(){ fundo.hidden = true; }
+document.getElementById('contaBtn').addEventListener('click', abrir);
+document.getElementById('contaFechar').addEventListener('click', fechar);
+fundo.addEventListener('click', e=>{ if(e.target === fundo) fechar(); });
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && !fundo.hidden) fechar(); });
+
+onAuthStateChanged(auth, async u=>{
+  usuario = u; apoiador = false; ultimaSync = +(localStorage.getItem('av-sync-ts') || 0) || null;
+  dot.hidden = !u;
+  document.getElementById('contaBtn').title = u ? 'Sua conta (' + u.email + ')' : 'Entrar ou criar conta';
+  if(u){ await puxar(); if(!fundo.hidden) desenhar(sessionStorage.getItem('av-conta-recarregou') ? null : {tipo:'ok', t:'Pronto! Seu progresso agora fica salvo na conta.'}); }
+  else if(!fundo.hidden) desenhar();
+  sessionStorage.removeItem('av-conta-recarregou');
+});
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden' && usuario) enviar(); });
+</script>
 </body>
 </html>
