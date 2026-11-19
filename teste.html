@@ -17864,16 +17864,16 @@ function exhGraficoHTML(){
   const ex = {pron:['Eu','Tu','Ele/Ela','Nós','Vós','Eles/Elas'], lbA:[3,0,4,2,0,1], intA:[6,0,5,18,0,1]};
   const lbR = ex.lbA.map(n=>n*100/10), intR = ex.intA.map(n=>n*100/30);
   const fmt = n => String(Math.round(n*10)/10).replace('.', ',');
-  const W = 560, H = 250, x0 = 44, y0 = 200, top = 30, gw = (W - x0 - 10) / 6, bw = 18;
-  const y = v => y0 - (v/100)*(y0 - top);
+  const W = 560, H = 262, x0 = 44, y0 = 200, top = 30, gw = (W - x0 - 10) / 6, bw = 18;
+  const ymax = 70; const y = v => y0 - (v/ymax)*(y0 - top);
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="exh-svg" role="img" aria-label="Exemplo de gráfico de colunas: frequência relativa por pronome, linha de base e intervenção">`;
-  svg += `<text x="${W/2}" y="16" text-anchor="middle" class="t">P1 - Nós (exemplo)</text>`;
-  [0,20,40,60,80,100].forEach(v=>{ svg += `<line x1="${x0}" x2="${W-10}" y1="${y(v)}" y2="${y(v)}" class="g"/><text x="${x0-6}" y="${y(v)+4}" text-anchor="end" class="s">${v}</text>`; });
+  svg += `<text x="${W/2}" y="16" text-anchor="middle" class="t">P1 - Nós</text>`;
+  [0,10,20,30,40,50,60,70].forEach(v=>{ svg += `<line x1="${x0}" x2="${W-10}" y1="${y(v)}" y2="${y(v)}" class="g"/><text x="${x0-6}" y="${y(v)+4}" text-anchor="end" class="s">${v}</text>`; });
   ex.pron.forEach((p,i)=>{ const cx = x0 + gw*i + gw/2;
     svg += `<rect x="${cx-bw-1}" y="${y(lbR[i])}" width="${bw}" height="${y0-y(lbR[i])}" class="lb"/><rect x="${cx+1}" y="${y(intR[i])}" width="${bw}" height="${y0-y(intR[i])}" class="int"/>`;
     svg += `<text x="${cx}" y="${y0+16}" text-anchor="middle" class="s">${p}</text>`; });
-  svg += `<text x="12" y="${(y0+top)/2}" transform="rotate(-90 12 ${(y0+top)/2})" text-anchor="middle" class="s">Frequência relativa (%)</text>`;
-  svg += `<rect x="${W/2-70}" y="${H-18}" width="10" height="10" class="lb"/><text x="${W/2-55}" y="${H-9}" class="s">LB</text><rect x="${W/2+10}" y="${H-18}" width="10" height="10" class="int"/><text x="${W/2+25}" y="${H-9}" class="s">INT</text></svg>`;
+  svg += `<text x="${(x0+W-10)/2}" y="${H-8}" text-anchor="middle" class="s">Pronomes</text>`;
+  svg += `<rect x="${W-70}" y="28" width="10" height="10" class="lb"/><text x="${W-55}" y="37" class="s">LB</text><rect x="${W-70}" y="44" width="10" height="10" class="int"/><text x="${W-55}" y="53" class="s">INT</text></svg>`;
   const tab = `<div class="exh-tw"><table class="exh-t"><thead><tr><th>Pronomes</th><th>LB (abs.)</th><th>INT (abs.)</th><th>LB (%)</th><th>INT (%)</th></tr></thead><tbody>
     ${ex.pron.map((p,i)=>`<tr><td>${p}</td><td>${ex.lbA[i]}</td><td>${ex.intA[i]}</td><td>${fmt(lbR[i])}</td><td>${fmt(intR[i])}</td></tr>`).join('')}
     <tr class="tot"><td>Total</td><td>10</td><td>30</td><td>100</td><td>100</td></tr></tbody></table></div>`;
@@ -17881,14 +17881,14 @@ function exhGraficoHTML(){
   return `<details class="graveyard rt-q" id="exh-grafico">
       <summary><span class="rt-qn">Passo ${EXH.passos.length + 1}</span><span class="rt-qt">Montar a planilha e o gráfico</span></summary>
       <div class="rt-body">
-        <p class="rt-nota">Funciona no Excel e no Google Planilhas. Os números do exemplo são inventados: use os da sua folha de registro.</p>
-        ${passo(1, 'Conte os X da folha', '<p>Para cada pronome, conte quantos X ele teve na Fase I (verbos 1 a 10) e quantos teve na Fase II (verbos 11 a 40). Essa é a frequência absoluta. Sem tentativas anuladas, a soma dá 10 na Fase I e 30 na Fase II.</p>')}
-        ${passo(2, 'Aba "Frequência absoluta"', '<p>Crie uma planilha e renomeie a primeira aba (clique duplo no nome dela, embaixo). Na coluna A, escreva "Pronomes" e, embaixo, Eu, Tu, Ele/Ela, Nós, Vós, Eles/Elas e Total. Na coluna B, escreva "LB" e as contagens da Fase I. Na coluna C, escreva "INT" e as da Fase II. No Total, use <code>=SOMA(B2:B7)</code> e <code>=SOMA(C2:C7)</code>.</p>')}
-        ${passo(3, 'Aba "Frequência relativa"', '<p>Crie uma segunda aba com os mesmos pronomes. A conta transforma a contagem em porcentagem: frequência absoluta × 100 ÷ total de verbos da fase. Na célula B2, escreva <code>=\'Frequência absoluta\'!B2*100/10</code>. Na C2, <code>=\'Frequência absoluta\'!C2*100/30</code>. Selecione B2:C2 e arraste o quadradinho do canto até a linha de Eles/Elas. O Total de cada coluna precisa dar 100.</p>')}
-        ${passo(4, 'Aba "Comparativo LB-INT"', '<p>Crie uma terceira aba. Na linha 1, escreva o participante e o pronome reforçado, por exemplo "P1 - Nós". A partir da linha 2, coloque Pronomes, LB e INT, com os valores da aba de frequência relativa (sem o Total). É desta tabela que sai o gráfico.</p>')}
-        ${passo(5, 'Insira o gráfico de colunas', '<p>Selecione a tabela do comparativo, dos títulos até Eles/Elas, sem o Total. <b>Excel:</b> Inserir → Gráfico de Colunas → Colunas Agrupadas. <b>Google Planilhas:</b> Inserir → Gráfico e, no editor, em Tipo de gráfico, escolha Gráfico de colunas. Os pronomes ficam no eixo horizontal e aparecem duas colunas por pronome, uma de LB e outra de INT.</p>')}
-        ${passo(6, 'Arrume títulos e eixo', '<p>Título do gráfico: participante e pronome reforçado, como "P1 - Nós". Título do eixo vertical: "Frequência relativa (%)". Deixe o eixo vertical de 0 a 100. <b>Excel:</b> clique no gráfico, depois no + (Elementos do Gráfico) e marque Títulos dos Eixos. <b>Google Planilhas:</b> Editor de gráfico → Personalizar → Títulos de gráficos e eixos.</p>')}
-        ${passo(7, 'Cabeçalho e impressão', '<p>Acima do gráfico, escreva nome completo, matrícula, nome da disciplina, unidade e data de entrega. Imprima só essa parte, em uma página (no Excel, Arquivo → Imprimir → Ajustar planilha em uma página). Confira se as cores de LB e INT dão para diferenciar na impressão.</p>')}
+        <p class="rt-nota">Segue o modelo da planilha dos vídeos da professora, feita no Google Planilhas. Os números do exemplo são inventados: use os da sua folha de registro.</p>
+        ${passo(1, 'Conte os X da folha', '<p>Para cada pronome, conte quantos X ele teve na Fase I (verbos 1 a 10) e na Fase II (verbos 11 a 40). Essa é a frequência absoluta. Sem tentativas anuladas, a soma dá 10 na Fase I e 30 na Fase II.</p>')}
+        ${passo(2, 'Aba "Frequencia Absoluta"', '<p>No Google Planilhas, renomeie a primeira aba (clique duplo no nome dela, embaixo). Na linha 1, escreva "Linha de Base" em cima das colunas da Fase I e "Intervenção" em cima das da Fase II, com uma coluna vazia entre os dois blocos. Na linha 2, escreva "Pronomes" na coluna A e o participante com o pronome reforçado em cada coluna (ex.: "P1 - Nós"). Das linhas 3 a 8 vão Eu, Tu, Ele/Ela, Nós, Vós e Eles/Elas com as contagens, e na linha 9 o Total (10 na Linha de Base e 30 na Intervenção). Se aplicou com mais de uma pessoa, use uma coluna por participante em cada bloco.</p>')}
+        ${passo(3, 'Aba "Frequencia Relativa"', '<p>Crie a segunda aba. Em cada bloco, use duas colunas por participante: "Freq.Relativa" e, ao lado, "Freq Abs". Copie as contagens da aba anterior para as colunas Freq Abs. Na coluna Freq.Relativa, a fórmula pega o número ao lado: na Linha de Base, <code>=C4*100/10</code>. Na Intervenção, <code>=…*100/30</code>, com a célula da Freq Abs do lado. Arraste a fórmula até Eles/Elas. No Total, a relativa precisa dar 100.</p>')}
+        ${passo(4, 'Aba "Comparativo LB-INT"', '<p>Crie a terceira aba. Na linha 1, escreva o participante e o pronome (ex.: "P1 - Nós") em cima de duas colunas. Na linha 2, escreva "Pronomes", "LB" e "INT". Das linhas 3 a 8, coloque os valores da frequência relativa de cada pronome, sem o Total. É desta tabela que sai o gráfico.</p>')}
+        ${passo(5, 'Insira o gráfico de colunas', '<p>Selecione a tabela do comparativo, da linha 2 até Eles/Elas. Vá em Inserir → Gráfico e, no editor, em Tipo de gráfico, escolha Gráfico de colunas. Os pronomes ficam embaixo, com uma coluna de LB e uma de INT para cada um. No Excel, o caminho é Inserir → Gráfico de Colunas → Colunas Agrupadas.</p>')}
+        ${passo(6, 'Título, legenda e eixo', '<p>No modelo, o título do gráfico é o participante com o pronome (ex.: "P1 - Nós"), a legenda mostra LB e INT, e o eixo horizontal tem o título "Pronomes". No editor do gráfico: Personalizar → Títulos de gráficos e eixos. O eixo vertical pode ficar automático. Se aplicou com mais de uma pessoa, faça um gráfico por participante.</p>')}
+        ${passo(7, 'Cabeçalho e impressão', '<p>Coloque nome completo, matrícula, nome da disciplina, unidade e data de entrega junto do gráfico e imprima. Confira se as colunas de LB e INT ficam diferentes na impressão.</p>')}
         <h4 class="rt-h">Exemplo de como fica (números inventados)</h4>
         ${tab}
         <p class="rt-nota">Na tabela do exemplo: Nós na LB = 2 × 100 ÷ 10 = 20%. Nós na INT = 18 × 100 ÷ 30 = 60%.</p>
