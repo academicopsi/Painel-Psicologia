@@ -20859,7 +20859,7 @@ async function puxar(){
       Object.entries(remoto.progresso).forEach(([k, v])=>{ const kk = dec(k); if(localStorage.getItem(kk) !== v){ _set.call(localStorage, kk, v); mudou = true; } });
       _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
     }
-    try{ apoiador = (await get(ref(db, 'apoiadores/' + usuario.uid))).val() === true; }catch(e){ apoiador = false; }
+    try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); apoiador = v === true || v === 'true' || v === 1; } }catch(e){ apoiador = false; }
     carregando = false; await enviar();
     if(mudou){ location.reload(); }
   }catch(e){ carregando = false; console.warn('[conta] não carregou o progresso', e); }
@@ -20923,7 +20923,7 @@ function portaoAguardando(){
 }
 async function verificar(u, avisar){
   let ok = false;
-  try{ ok = (await get(ref(db, 'acesso/' + u.uid))).val() === true; }
+  try{ { const v = (await get(ref(db, 'acesso/' + u.uid))).val(); ok = v === true || v === 'true' || v === 1; } }
   catch(e){
     // sem internet: quem já foi liberado neste aparelho continua usando
     if(localStorage.getItem('av-acesso-ok') === u.uid){ liberado = true; abrirSite(); return; }
