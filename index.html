@@ -2240,6 +2240,17 @@
   .rt-resp > p.rt-nota{font-size:13px;}
   .exh-mat{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin-top:12px;}
   .exh-cit{margin:0 0 12px; padding:10px 14px; border-left:3px solid var(--petrol); background:var(--petrol-soft); font-size:14.5px; line-height:1.6; font-style:italic;}
+  .exh-g{display:grid; grid-template-columns:28px 1fr; gap:10px; margin:0 0 12px;}
+  .exh-gn{width:26px; height:26px; border-radius:50%; background:var(--petrol); color:#fff; display:grid; place-items:center; font-weight:700; font-size:13px;}
+  .exh-g p{margin:4px 0 0; font-size:14.5px; line-height:1.55;}
+  .exh-g code{font-family:'IBM Plex Mono',monospace; font-size:12.5px; background:var(--paper-alt); border:1px solid var(--rule); border-radius:4px; padding:1px 5px; word-break:break-all;}
+  .exh-tw{overflow-x:auto;}
+  .exh-t{border-collapse:collapse; font-size:13.5px; margin:4px 0 8px; min-width:100%;}
+  .exh-t th,.exh-t td{border:1px solid var(--rule); padding:5px 8px; text-align:center;}
+  .exh-t th{background:var(--paper-alt);} .exh-t td:first-child{text-align:left;} .exh-t tr.tot td{font-weight:700;}
+  .exh-svg{width:100%; max-width:560px; height:auto; display:block; margin:6px 0 10px;}
+  .exh-svg .t{font:700 14px Inter,sans-serif; fill:var(--ink);} .exh-svg .s{font:12px Inter,sans-serif; fill:var(--ink-soft);}
+  .exh-svg .g{stroke:var(--rule); stroke-width:1;} .exh-svg .lb{fill:#9BB9B3;} .exh-svg .int{fill:var(--petrol);}
 </style>
 </head>
 <body>
@@ -3774,11 +3785,11 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-19', disc: 'Psicologia Experimental', desc: 'Guia do Trabalho N2: novo passo 9 com o passo a passo da planilha e do gráfico, seguindo os vídeos da professora (abas, fórmulas e gráfico de colunas LB × INT).', link: {url:'#disc-04'}},
   {date: '2026-11-19', disc: 'Psicologia Experimental', desc: 'Guia do Trabalho N2 (entrega em 25/11): passo a passo do experimento do pronome EU ou NÓS, PowerPoint com os 40 slides, folha de registro para imprimir e lista do que conferir antes de entregar.', link: {url:'#disc-04'}},
   {date: '2026-11-18', disc: 'Psicologia Experimental', desc: 'Estudo dirigido da N2 (não é para entregar): as 6 perguntas do quadro respondidas, e 27 questões novas no simulado. Agora são 79.', link: {url:'#disc-04'}},
   {date: '2026-11-18', disc: 'Psicologia da Aprendizagem', desc: 'Revisão do professor para a N2 no simulado: 28 questões novas sobre dislexia (Boder, Coltheart, duplo déficit), discalculia (acalculia espacial, alexia e agrafia para números, hemisférios), TDAH, TEA, Piaget e Freire. Agora são 101.', link: {url:'#simulado-aprendizagem-n2'}},
   {date: '2026-11-17', disc: 'Neuroanatomia', desc: 'Simulado da N2 com 40 questões novas sobre as estruturas do encéfalo e suas funções: lobos, sulcos e giros, áreas de Broca e Wernicke, tálamo, hipotálamo, hipocampo, amígdala, cerebelo, tronco encefálico, corpo caloso e núcleos da base. Agora são 115.', link: {url:'#simulado-neuro-n2'}},
-  {date: '2026-11-11', disc: 'Psicologia da Aprendizagem', desc: 'Novo exercício Treino de Discursivas, com 13 perguntas sobre Piaget, Vygotsky e Freire, resposta-modelo e pontos que não podem faltar. A dislexia também ganhou 3 questões novas no simulado da N2, que agora tem 73.', link: {url:'#exercicio-treino-de-discursivas-piaget-vygotsky-e-freire'}},
 ];
 
 
@@ -17586,7 +17597,7 @@ function renderDiscPage(d){
   const atalhos = [
     ['dpPrazos', 'Prazos', c.prazos.length],
     ['dpGuia', 'Relatório', temGuia ? MONTADOR.secoes.length : 0],
-    ['dpExperimento', 'Trabalho N2', temExh ? EXH.passos.length : 0],
+    ['dpExperimento', 'Trabalho N2', temExh ? EXH.passos.length + 1 : 0],
     ['dpRoteiro', 'Estudo dirigido', roteiros.reduce((n, r)=>n + r.questoes.length, 0)],
     ['dpSimulado', 'Simulado', simulados.reduce((n, x)=>n + x.questoes.length, 0)],
     ['dpResumos', 'Resumos', c.resumos.length],
@@ -17781,7 +17792,7 @@ const EXH = {
       'Só um gráfico de frequência relativa (%) impresso, com nome completo, matrícula, nome da disciplina, unidade e data de entrega.',
       'Nos vídeos da pasta do Drive, a planilha tem três abas: Frequência absoluta (quantas vezes cada pronome apareceu na linha de base e na intervenção), Frequência relativa e Comparativo LB-INT.',
       'Pelos vídeos da pasta, a frequência relativa é a frequência absoluta × 100 ÷ 10 na linha de base (LB) e ÷ 30 na intervenção (INT), que são os totais de verbos de cada fase. As instruções escritas não explicam o que fazer com tentativas anuladas: se tiver alguma, confirme com a professora.',
-      'O gráfico dos vídeos é de colunas: os pronomes no eixo horizontal, a frequência relativa no vertical, uma coluna para LB e outra para INT, e o título com o participante e o pronome reforçado (por exemplo, "P1 - Nós").']}
+      'O gráfico dos vídeos é de colunas: os pronomes no eixo horizontal, a frequência relativa no vertical, uma coluna para LB e outra para INT, e o título com o participante e o pronome reforçado (por exemplo, "P1 - Nós"). O passo a passo para montar a planilha e o gráfico está no passo 9.']}
   ],
   pense: [
     'Para que serve a linha de base? O que daria para concluir se a fase de reforço começasse direto?',
@@ -17811,7 +17822,7 @@ function exhSave(a){ try{ localStorage.setItem('av-exh-confira', JSON.stringify(
 function exhHTML(){
   const a = exhLoad(); const feitos = EXH.confira.filter((_, k)=>a[k]).length;
   return `<details class="rt-box" id="exh-guia">
-    <summary class="rt-sum"><span class="rt-sum-t">${escHTML(EXH.titulo)}</span><span class="rt-sum-s">${EXH.passos.length} passos · entrega em ${fmtDia(EXH.entrega)} · orientações, sem respostas</span><span class="rt-sum-go">Abrir guia</span></summary>
+    <summary class="rt-sum"><span class="rt-sum-t">${escHTML(EXH.titulo)}</span><span class="rt-sum-s">${EXH.passos.length + 1} passos · entrega em ${fmtDia(EXH.entrega)} · orientações, sem respostas</span><span class="rt-sum-go">Abrir guia</span></summary>
     <div class="rt">
     <div class="rt-head">
       <p class="rt-intro">${escHTML(EXH.intro)}</p>
@@ -17829,6 +17840,7 @@ function exhHTML(){
         <ul class="rt-pede">${p.itens.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
       </div>
     </details>`).join('')}
+    ${exhGraficoHTML()}
     <details class="graveyard rt-q">
       <summary><span class="rt-qn">Para pensar</span><span class="rt-qt">Entender o que você está fazendo</span></summary>
       <div class="rt-body">
@@ -17846,6 +17858,45 @@ function exhHTML(){
     </div>
   </details>`;
 }
+function exhGraficoHTML(){
+  // exemplo com números inventados, só para mostrar o formato
+  const ex = {pron:['Eu','Tu','Ele/Ela','Nós','Vós','Eles/Elas'], lbA:[3,0,4,2,0,1], intA:[6,0,5,18,0,1]};
+  const lbR = ex.lbA.map(n=>n*100/10), intR = ex.intA.map(n=>n*100/30);
+  const fmt = n => String(Math.round(n*10)/10).replace('.', ',');
+  const W = 560, H = 262, x0 = 44, y0 = 200, top = 30, gw = (W - x0 - 10) / 6, bw = 18;
+  const ymax = 70; const y = v => y0 - (v/ymax)*(y0 - top);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" class="exh-svg" role="img" aria-label="Exemplo de gráfico de colunas: frequência relativa por pronome, linha de base e intervenção">`;
+  svg += `<text x="${W/2}" y="16" text-anchor="middle" class="t">P1 - Nós</text>`;
+  [0,10,20,30,40,50,60,70].forEach(v=>{ svg += `<line x1="${x0}" x2="${W-10}" y1="${y(v)}" y2="${y(v)}" class="g"/><text x="${x0-6}" y="${y(v)+4}" text-anchor="end" class="s">${v}</text>`; });
+  ex.pron.forEach((p,i)=>{ const cx = x0 + gw*i + gw/2;
+    svg += `<rect x="${cx-bw-1}" y="${y(lbR[i])}" width="${bw}" height="${y0-y(lbR[i])}" class="lb"/><rect x="${cx+1}" y="${y(intR[i])}" width="${bw}" height="${y0-y(intR[i])}" class="int"/>`;
+    svg += `<text x="${cx}" y="${y0+16}" text-anchor="middle" class="s">${p}</text>`; });
+  svg += `<text x="${(x0+W-10)/2}" y="${H-8}" text-anchor="middle" class="s">Pronomes</text>`;
+  svg += `<rect x="${W-70}" y="28" width="10" height="10" class="lb"/><text x="${W-55}" y="37" class="s">LB</text><rect x="${W-70}" y="44" width="10" height="10" class="int"/><text x="${W-55}" y="53" class="s">INT</text></svg>`;
+  const tab = `<div class="exh-tw"><table class="exh-t"><thead><tr><th>Pronomes</th><th>LB (abs.)</th><th>INT (abs.)</th><th>LB (%)</th><th>INT (%)</th></tr></thead><tbody>
+    ${ex.pron.map((p,i)=>`<tr><td>${p}</td><td>${ex.lbA[i]}</td><td>${ex.intA[i]}</td><td>${fmt(lbR[i])}</td><td>${fmt(intR[i])}</td></tr>`).join('')}
+    <tr class="tot"><td>Total</td><td>10</td><td>30</td><td>100</td><td>100</td></tr></tbody></table></div>`;
+  const passo = (n, t, corpo) => `<div class="exh-g"><span class="exh-gn">${n}</span><div><strong>${t}</strong>${corpo}</div></div>`;
+  return `<details class="graveyard rt-q" id="exh-grafico">
+      <summary><span class="rt-qn">Passo ${EXH.passos.length + 1}</span><span class="rt-qt">Montar a planilha e o gráfico</span></summary>
+      <div class="rt-body">
+        <p class="rt-nota">Segue o modelo da planilha dos vídeos da professora, feita no Google Planilhas. Os números do exemplo são inventados: use os da sua folha de registro.</p>
+        ${passo(1, 'Conte os X da folha', '<p>Para cada pronome, conte quantos X ele teve na Fase I (verbos 1 a 10) e na Fase II (verbos 11 a 40). Essa é a frequência absoluta. Sem tentativas anuladas, a soma dá 10 na Fase I e 30 na Fase II.</p>')}
+        ${passo(2, 'Aba "Frequencia Absoluta"', '<p>No Google Planilhas, renomeie a primeira aba (clique duplo no nome dela, embaixo). Na linha 1, escreva "Linha de Base" em cima das colunas da Fase I e "Intervenção" em cima das da Fase II, com uma coluna vazia entre os dois blocos. Na linha 2, escreva "Pronomes" na coluna A e o participante com o pronome reforçado em cada coluna (ex.: "P1 - Nós"). Das linhas 3 a 8 vão Eu, Tu, Ele/Ela, Nós, Vós e Eles/Elas com as contagens, e na linha 9 o Total, com <code>=SOMA(B3:B8)</code> (dá 10 na Linha de Base e 30 na Intervenção). Se aplicou com mais de uma pessoa, use uma coluna por participante em cada bloco.</p>')}
+        ${passo(3, 'Aba "Frequencia Relativa"', '<p>Crie a segunda aba. Em cada bloco, use duas colunas por participante: "Freq.Relativa" e, ao lado, "Freq Abs". Copie as contagens da aba anterior para as colunas Freq Abs. Na coluna Freq.Relativa, a fórmula pega o número ao lado: na Linha de Base, <code>=C4*100/10</code>. Na Intervenção, <code>=…*100/30</code>, com a célula da Freq Abs do lado. Arraste a fórmula até Eles/Elas. No Total, a relativa precisa dar 100.</p>')}
+        ${passo(4, 'Aba "Comparativo LB-INT"', '<p>Crie a terceira aba. Na linha 1, escreva o participante e o pronome (ex.: "P1 - Nós") em cima de duas colunas. Na linha 2, escreva "Pronomes", "LB" e "INT". Das linhas 3 a 8, coloque os valores da frequência relativa de cada pronome, sem o Total. É desta tabela que sai o gráfico.</p>')}
+        ${passo(5, 'Insira o gráfico de colunas', '<p>Selecione a tabela do comparativo, da linha 2 até Eles/Elas. Vá em Inserir → Gráfico e, no editor, em Tipo de gráfico, escolha Gráfico de colunas. Os pronomes ficam embaixo, com uma coluna de LB e uma de INT para cada um. No Excel, o caminho é Inserir → Gráfico de Colunas → Colunas Agrupadas.</p>')}
+        ${passo(6, 'Título, legenda e eixo', '<p>No modelo, o título do gráfico é o participante com o pronome (ex.: "P1 - Nós"), a legenda mostra LB e INT, e o eixo horizontal tem o título "Pronomes". No editor do gráfico: Personalizar → Títulos de gráficos e eixos. O eixo vertical pode ficar automático. Se aplicou com mais de uma pessoa, faça um gráfico por participante.</p>')}
+        ${passo(7, 'Cabeçalho e impressão', '<p>Coloque nome completo, matrícula, nome da disciplina, unidade e data de entrega junto do gráfico e imprima. Confira se as colunas de LB e INT ficam diferentes na impressão.</p>')}
+        <h4 class="rt-h">Exemplo de como fica (números inventados)</h4>
+        ${tab}
+        <p class="rt-nota">Na tabela do exemplo: Nós na LB = 2 × 100 ÷ 10 = 20%. Nós na INT = 18 × 100 ÷ 30 = 60%.</p>
+        ${svg}
+        <p class="rt-nota">Os vídeos da pasta do Drive mostram cada aba sendo montada.</p>
+      </div>
+    </details>`;
+}
+
 function exhImprimirFolha(){
   const linha = (v, i) => `<tr${i === 10 ? ' class="f2"' : ''}><td>${i+1}</td><td>${v}</td>${EXH.pronomes.map(()=> '<td></td>').join('')}</tr>`;
   const fase = (t, de, ate) => `<tr class="fase"><td colspan="${EXH.pronomes.length + 2}">${t}</td></tr>` + EXH.verbos.slice(de, ate).map((v, k)=>linha(v, de + k)).join('');
