@@ -2279,6 +2279,20 @@
   /* V3 · conta (login opcional, teste) */
   #contaBtn{position:relative;}
   .conta-dot{position:absolute; top:7px; right:7px; width:8px; height:8px; border-radius:50%; background:var(--petrol); box-shadow:0 0 0 2px var(--paper);}
+  #apoioFundo{z-index:10050 !important;}
+  .sim-apoio{font:inherit; font-size:14px; font-weight:600; color:#FAD9A1; background:rgba(255,255,255,.06); border:1px dashed rgba(250,217,161,.5); border-radius:12px; padding:12px 14px; cursor:pointer; line-height:1.45; margin-top:4px;}
+  .ah-card{display:flex; gap:16px; align-items:center; background:linear-gradient(135deg, var(--ochre-soft), var(--paper)); border:1px solid #EBD7B4; border-radius:16px; padding:18px 20px;}
+  .ah-arte{flex:none; position:relative; width:84px; height:84px;}
+  .ah-arte svg.ah-psiu{width:84px; height:84px;}
+  .ah-arte svg.ah-xic{position:absolute; right:-6px; bottom:-2px; width:38px; height:38px;}
+  .ah-txt h3{font-family:var(--serif, Georgia, serif); font-size:20px; margin:0 0 4px;}
+  .ah-txt p{margin:0 0 10px; font-size:14px; line-height:1.5; color:var(--ink-soft);}
+  .ah-bts{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center;}
+  .ah-bts .ah-sim{font:inherit; font-size:14px; font-weight:700; color:#fff; background:var(--ochre); border:0; border-radius:999px; padding:8px 16px; cursor:pointer;}
+  .ah-bts .ah-nao{font:inherit; font-size:13px; color:var(--ink-faint); background:none; border:0; cursor:pointer; padding:4px 0;}
+  .ah-card.obrigado{padding:12px 16px;}
+  .ah-card.obrigado p{margin:0;}
+  @media (max-width:520px){ .ah-card{align-items:flex-start;} .ah-arte, .ah-arte svg.ah-psiu{width:64px; height:64px;} .ah-arte svg.ah-xic{width:30px; height:30px;} }
   .conta-fundo{position:fixed; inset:0; z-index:1000; background:rgba(20,33,31,.45); display:flex; align-items:flex-start; justify-content:center; padding:72px 16px 16px; overflow:auto;}
   .conta-fundo[hidden]{display:none;}
   .conta-caixa{width:100%; max-width:400px; background:var(--paper); color:var(--ink); border:1px solid var(--rule); border-radius:14px; box-shadow:0 20px 50px rgba(0,0,0,.18); padding:24px; position:relative;}
@@ -2839,7 +2853,7 @@
     </div>
   </section>
 
-
+  <section class="home-section" id="apoioHome" hidden aria-label="Apoie o Arquivo Vivo"></section>
 
   <section class="home-section">
    <details class="feed-details" id="atualizacoes">
@@ -19042,6 +19056,7 @@ function simRender(){
           <button class="sim-sec" data-sim-denovo>Jogar de novo</button>
           <button class="sim-sec" data-sim-compartilhar>Compartilhar resultado</button>
         </div>
+        ${e.pct >= 70 && !(window.avApoiador || localStorage.getItem('av-apoiador-cache')) ? '<button class="sim-apoio" data-apoio>O site te ajudou a mandar bem? Que tal pagar um café para o Psiu e ajudar a manter tudo no ar →</button>' : ''}
         <div class="sim-cartao" hidden></div>
         <div class="sim-rev" hidden>${e.resp.map((x, n)=>{ const q = e.sim.questoes[x.i]; return `
           <div class="sim-rev-i ${x.certo ? 'ok' : 'no'}">
@@ -20163,7 +20178,7 @@ document.addEventListener('click', e=>{
     if(calmo.matches || document.body.classList.contains('bot-aberto')) return;
     const r = REACOES[nome]; if(!r) return;
     desenhar(nome);
-    if(comFala && r.falas) falar(nome === 'cafe' && new Date().getDay() === 1 ? 'Segunda-feira… cadê o café?' : um(r.falas), nome);
+    if(comFala && r.falas) falar(nome === 'cafe' && !(window.avApoiador || localStorage.getItem('av-apoiador-cache')) && Math.random() < .4 ? 'Esse café sai do apoio da turma. Ajuda?' : nome === 'cafe' && new Date().getDay() === 1 ? 'Segunda-feira… cadê o café?' : um(r.falas), nome);
     setTimeout(() => { if(reacaoAtual === nome) desenhar(poseBase()); }, DURACAO);
   }
   // datas especiais (Carnaval e Páscoa mudam de dia todo ano, então são calculados)
@@ -21300,7 +21315,7 @@ let usuario = null, liberado = false, apoiador = false, aba = 'entrar', ultimaSy
 // ---------- progresso: chaves av-* <-> usuarios/{uid} ----------
 const FORA = new Set(['av-sync-ts', 'av-acesso-ok']);
 const ehDado = k => k && k.startsWith('av-') && !FORA.has(k);
-const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva', 'av-foto']);
+const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva', 'av-foto', 'av-apoio-adiado']);
 const cod = k => encodeURIComponent(k).replace(/\./g, '%2E');
 const dec = k => decodeURIComponent(k);
 const _set = Storage.prototype.setItem, _rem = Storage.prototype.removeItem;
@@ -21517,7 +21532,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <button class="conta-fechar" data-apoio-fechar aria-label="Fechar">×</button>
     <div class="eyebrow apoio-eb">Apoie o Arquivo Vivo</div>
     <h2 id="apoioTitulo">Aberto para todos, mantido por quem acredita</h2>
-    <p class="conta-sub">O site continua livre. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês. Sem assinatura nem cobrança automática.</p>
+    <p class="conta-sub">O Arquivo Vivo é feito por um colega, sem anúncios e sem patrocínio. Manter tudo funcionando custa tempo, ferramentas e muito café do Psiu. O site continua livre: quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês, sem assinatura nem cobrança automática.</p>
     <div class="ap-ben"><b>Quem apoia recebe</b>
       <ul><li><strong>Plano de estudos</strong> automático, sugerido pelo site ou montado por você, com o que estudar em cada dia</li>
       <li><strong>Marca-texto e notas</strong> nos resumos</li>
@@ -22234,6 +22249,24 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       ${corpo}`;
   }
   window.avRenderHoje = renderHoje;
+  // ===== Apoio na home: um café para o Psiu =====
+  const XIC = '<svg class="ah-xic" viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8 q-3 4 0 8 M24 6 q-3 4 0 8 M32 8 q-3 4 0 8" stroke="#BA7517" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M8 20 h28 v12 a10 10 0 0 1 -10 10 h-8 a10 10 0 0 1 -10 -10 z" fill="#fff" stroke="#BA7517" stroke-width="2.5"/><path d="M36 23 h3 a5 5 0 0 1 0 10 h-4" fill="none" stroke="#BA7517" stroke-width="2.5"/><path d="M11 24 h22" stroke="#7A4A12" stroke-width="3"/></svg>';
+  function apoioHome(){
+    const el = document.getElementById('apoioHome'); if(!el) return;
+    if(!localStorage.getItem('av-acesso-ok')){ el.hidden = true; return; }
+    const apoia = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
+    const psiu = window.avPsiuMini ? window.avPsiuMini().replace('<svg', '<svg class="ah-psiu"') : '';
+    if(apoia){ el.hidden = false; el.innerHTML = `<div class="ah-card obrigado"><div class="ah-txt"><p><b>Obrigado por apoiar!</b> É o seu apoio que mantém o café do Psiu e o Arquivo Vivo no ar.</p></div></div>`; return; }
+    const ate = +(localStorage.getItem('av-apoio-adiado') || 0);
+    if(ate > Date.now()){ el.hidden = true; return; }
+    el.hidden = false;
+    el.innerHTML = `<div class="ah-card"><div class="ah-arte">${psiu}${XIC}</div><div class="ah-txt"><h3>Um café para o Psiu?</h3>
+      <p>O Arquivo Vivo é feito por um colega, sem anúncios. Manter tudo isso no ar tem custo. Se o site te ajudou neste semestre, que tal retribuir com um apoio do valor que quiser?</p>
+      <div class="ah-bts"><button class="ah-sim" data-apoio>Quero apoiar</button><button class="ah-nao" data-apoio-adiar>Agora não</button></div></div></div>`;
+  }
+  document.addEventListener('click', e => { if(e.target.closest('[data-apoio-adiar]')){ try{ localStorage.setItem('av-apoio-adiado', String(Date.now() + 21 * 864e5)); }catch(_){} apoioHome(); } });
+  document.addEventListener('av-apoio', apoioHome);
+  setTimeout(apoioHome, 0);
   const _sp = window.switchPage;
   if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewHoje') renderHoje(); return r; }; }
   const navHoje = () => { const b = document.getElementById('navHoje'); if(b) b.hidden = !localStorage.getItem('av-acesso-ok'); };
