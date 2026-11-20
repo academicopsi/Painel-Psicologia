@@ -2371,6 +2371,8 @@
   .pn-link{margin:6px 0 0 !important; padding:0;}
   .pn-ativar{margin:0;}
   .pn-erro{font-size:13px; color:#A32D2D; margin:8px 0 0;}
+  .off-aviso{position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); z-index:950; background:#1B2422; color:#fff; font-size:13px; line-height:1.45; border-radius:12px; padding:10px 14px; box-shadow:0 8px 24px rgba(0,0,0,.25); text-align:center;}
+  .off-aviso[hidden]{display:none;}
   .conta-google{display:flex; align-items:center; justify-content:center; gap:10px; width:100%; font:inherit; font-size:15px; font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--rule); border-radius:10px; padding:11px 14px; cursor:pointer; margin:4px 0 0;}
   .conta-google:disabled{opacity:.6;}
   body.dark .conta-google{background:#fff; color:#1f1f1f;}
@@ -21366,6 +21368,7 @@ async function enviar(){
   catch(e){ console.warn('[conta] não sincronizou', e); }
 }
 const agendar = () => { clearTimeout(timer); timer = setTimeout(enviar, 2500); };
+window.addEventListener('online', () => { if(usuario && liberado) agendar(); });
 Storage.prototype.setItem = function(k, v){ _set.call(this, k, v); if(this === localStorage && ehDado(k)) agendar(); };
 Storage.prototype.removeItem = function(k){ _rem.call(this, k); if(this === localStorage && ehDado(k)) agendar(); };
 async function puxar(){
@@ -22362,6 +22365,16 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       ${corpo}`;
   }
   window.avRenderHoje = renderHoje;
+  // ===== Funcionar sem internet: registra o service worker e avisa quando está offline =====
+  if('serviceWorker' in navigator){
+    const raiz = location.pathname.replace(/(v3\/)?(index\.html)?$/, '');
+    window.addEventListener('load', () => { navigator.serviceWorker.register(raiz + 'firebase-messaging-sw.js', {scope: raiz}).catch(() => {}); });
+  }
+  const offAviso = document.createElement('div'); offAviso.className = 'off-aviso'; offAviso.hidden = true;
+  offAviso.textContent = 'Sem internet: você está usando a cópia guardada no aparelho. O progresso é enviado quando a conexão voltar.';
+  document.body.appendChild(offAviso);
+  const offAtualizar = () => { offAviso.hidden = navigator.onLine; };
+  window.addEventListener('online', offAtualizar); window.addEventListener('offline', offAtualizar); offAtualizar();
   // ===== Apoio na home: um café para o Psiu =====
   const XIC = '<svg class="ah-xic" viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8 q-3 4 0 8 M24 6 q-3 4 0 8 M32 8 q-3 4 0 8" stroke="#BA7517" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M8 20 h28 v12 a10 10 0 0 1 -10 10 h-8 a10 10 0 0 1 -10 -10 z" fill="#fff" stroke="#BA7517" stroke-width="2.5"/><path d="M36 23 h3 a5 5 0 0 1 0 10 h-4" fill="none" stroke="#BA7517" stroke-width="2.5"/><path d="M11 24 h22" stroke="#7A4A12" stroke-width="3"/></svg>';
   function apoioHome(){
