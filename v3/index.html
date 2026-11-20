@@ -2345,6 +2345,9 @@
   .cf-img img{width:100%; height:100%; object-fit:cover;}
   .cf-bts{display:flex; flex-wrap:wrap; gap:4px 14px; margin-top:2px;}
   .cf-bts .conta-link{margin:0; padding:2px 0; cursor:pointer;}
+  .adm-tags i.av{background:var(--ochre-soft); color:var(--ochre);}
+  .ap-aviso{margin-top:12px;}
+  .ap-ok{font-size:14px; font-weight:600; color:var(--petrol-dark); background:var(--petrol-soft); border-radius:10px; padding:10px 12px; margin:12px 0 0;}
   .conta-google{display:flex; align-items:center; justify-content:center; gap:10px; width:100%; font:inherit; font-size:15px; font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--rule); border-radius:10px; padding:11px 14px; cursor:pointer; margin:4px 0 0;}
   .conta-google:disabled{opacity:.6;}
   body.dark .conta-google{background:#fff; color:#1f1f1f;}
@@ -21325,7 +21328,7 @@ let usuario = null, liberado = false, apoiador = false, aba = 'entrar', ultimaSy
 // ---------- progresso: chaves av-* <-> usuarios/{uid} ----------
 const FORA = new Set(['av-sync-ts', 'av-acesso-ok']);
 const ehDado = k => k && k.startsWith('av-') && !FORA.has(k);
-const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva', 'av-foto', 'av-apoio-adiado']);
+const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva', 'av-foto', 'av-apoio-adiado', 'av-apoio-avisado', 'av-adm-ign']);
 const cod = k => encodeURIComponent(k).replace(/\./g, '%2E');
 const dec = k => decodeURIComponent(k);
 const _set = Storage.prototype.setItem, _rem = Storage.prototype.removeItem;
@@ -21458,12 +21461,13 @@ let admFiltro = 'aguardando', admDados = null;
 async function lerTudo(){
   const [pe, ac, ap] = await Promise.all(['pedidos', 'acesso', 'apoiadores'].map(c => get(ref(db, c)).then(x => x.val() || {})));
   const sim = v => v === true || v === 'true' || v === 1;
-  return Object.entries(pe).map(([uid, d]) => ({ uid, email: d.email || '', nome: d.nome || '', em: d.em || 0, ok: sim(ac[uid]), apoia: sim(ap[uid]) }))
+  let ign = {}; try{ ign = JSON.parse(localStorage.getItem('av-adm-ign') || '{}'); }catch(_){}
+  return Object.entries(pe).map(([uid, d]) => ({ uid, email: d.email || '', nome: d.nome || '', em: d.em || 0, ok: sim(ac[uid]), apoia: sim(ap[uid]), aviso: d.apoio && d.apoio.em && ign[uid] !== d.apoio.em && !sim(ap[uid]) ? d.apoio : null }))
     .concat(Object.keys(ac).filter(uid => !pe[uid]).map(uid => ({ uid, email: '', nome: '(sem cadastro de pedido)', em: 0, ok: sim(ac[uid]), apoia: sim(ap[uid]) })))
     .sort((a, b) => b.em - a.em);
 }
 async function contarPendentes(){
-  try{ const t = await lerTudo(); const n = t.filter(x => !x.ok).length; dot.hidden = !n; dot.textContent = n ? String(n) : ''; dot.classList.toggle('conta-num', n > 0); }catch(e){}
+  try{ const t = await lerTudo(); const n = t.filter(x => !x.ok || x.aviso).length; dot.hidden = !n; dot.textContent = n ? String(n) : ''; dot.classList.toggle('conta-num', n > 0); }catch(e){}
 }
 async function carregarPainel(){
   const box = document.getElementById('adm'); if(!box) return;
@@ -21474,20 +21478,20 @@ async function carregarPainel(){
 }
 function desenharPainel(){
   const box = document.getElementById('adm'); if(!box || !admDados) return;
-  const nAg = admDados.filter(x => !x.ok).length, nOk = admDados.filter(x => x.ok).length;
-  const rot = {aguardando:`Aguardando (${nAg})`, liberados:`Liberados (${nOk})`, todos:`Todos (${admDados.length})`};
+  const nAg = admDados.filter(x => !x.ok).length, nOk = admDados.filter(x => x.ok).length, nAp = admDados.filter(x => x.aviso).length;
+  const rot = {aguardando:`Aguardando (${nAg})`, apoio:`Apoio avisado (${nAp})`, liberados:`Liberados (${nOk})`, todos:`Todos (${admDados.length})`};
   box.querySelectorAll('[data-f]').forEach(b => { b.textContent = rot[b.dataset.f]; b.setAttribute('aria-selected', b.dataset.f === admFiltro); });
-  const lista = admDados.filter(x => admFiltro === 'todos' || (admFiltro === 'liberados' ? x.ok : !x.ok));
+  const lista = admDados.filter(x => admFiltro === 'todos' || (admFiltro === 'apoio' ? x.aviso : admFiltro === 'liberados' ? x.ok : !x.ok));
   const dia = ts => ts ? new Date(ts).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : '';
   document.getElementById('admLista').innerHTML = lista.length ? lista.map(x => `
     <div class="adm-item" data-uid="${esc(x.uid)}">
       <div class="adm-quem"><b>${esc(x.nome || 'Sem nome')}</b><span>${esc(x.email)}${x.em ? ' · pediu em ' + dia(x.em) : ''}</span>
-        <span class="adm-tags">${x.ok ? '<i class="ok">Liberado</i>' : '<i class="ag">Aguardando</i>'}${x.apoia ? '<i class="ap">Apoiador</i>' : ''}</span></div>
+        <span class="adm-tags">${x.ok ? '<i class="ok">Liberado</i>' : '<i class="ag">Aguardando</i>'}${x.apoia ? '<i class="ap">Apoiador</i>' : ''}${x.aviso ? `<i class="av">Avisou Pix${x.aviso.valor && x.aviso.valor !== 'livre' ? ' de R$ ' + esc(x.aviso.valor) : ''} em ${dia(x.aviso.em)}</i>` : ''}</span></div>
       <div class="adm-acoes">
         ${x.ok ? '<button class="adm-b sec" data-acao="bloquear">Bloquear</button>' : '<button class="adm-b" data-acao="liberar">Liberar</button>'}
-        <button class="adm-b sec" data-acao="${x.apoia ? 'tirar-apoio' : 'apoio'}">${x.apoia ? 'Tirar apoiador' : 'Apoiador'}</button>
+        ${x.aviso ? '<button class="adm-b" data-acao="apoio">Confirmar apoiador</button><button class="adm-b sec" data-acao="ignorar">Não encontrei o Pix</button>' : `<button class="adm-b sec" data-acao="${x.apoia ? 'tirar-apoio' : 'apoio'}">${x.apoia ? 'Tirar apoiador' : 'Apoiador'}</button>`}
       </div>
-    </div>`).join('') : `<p class="conta-sub">${admFiltro === 'aguardando' ? 'Ninguém aguardando liberação.' : 'Nada por aqui.'}</p>`;
+    </div>`).join('') : `<p class="conta-sub">${admFiltro === 'aguardando' ? 'Ninguém aguardando liberação.' : admFiltro === 'apoio' ? 'Nenhum aviso de apoio para conferir.' : 'Nada por aqui.'}</p>`;
   document.querySelectorAll('#admLista [data-acao]').forEach(b => b.onclick = async () => {
     const uid = b.closest('[data-uid]').dataset.uid, a = b.dataset.acao; b.disabled = true;
     try{
@@ -21495,8 +21499,9 @@ function desenharPainel(){
       if(a === 'bloquear') await remove(ref(db, 'acesso/' + uid));
       if(a === 'apoio') await set(ref(db, 'apoiadores/' + uid), true);
       if(a === 'tirar-apoio') await remove(ref(db, 'apoiadores/' + uid));
+      if(a === 'ignorar'){ const x0 = admDados.find(y => y.uid === uid); let ign = {}; try{ ign = JSON.parse(localStorage.getItem('av-adm-ign') || '{}'); }catch(_){} ign[uid] = x0.aviso.em; localStorage.setItem('av-adm-ign', JSON.stringify(ign)); x0.aviso = null; }
       const x = admDados.find(y => y.uid === uid);
-      if(a === 'liberar') x.ok = true; if(a === 'bloquear') x.ok = false; if(a === 'apoio') x.apoia = true; if(a === 'tirar-apoio') x.apoia = false;
+      if(a === 'liberar') x.ok = true; if(a === 'bloquear') x.ok = false; if(a === 'apoio'){ x.apoia = true; x.aviso = null; } if(a === 'tirar-apoio') x.apoia = false;
       desenharPainel(); contarPendentes();
     }catch(e){ b.disabled = false; alert('Não deu certo. Confira a internet e tente de novo.'); }
   });
@@ -21517,7 +21522,7 @@ function desenharConta(m){
     ? `<p class="conta-sub">Obrigado por apoiar o Arquivo Vivo! Estes são os seus recursos.</p><div class="conta-area"><div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>`
     : `<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>O site continua aberto para todos. Um Pix de valor livre ajuda a manter o projeto e libera os recursos abaixo.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>
        <div class="conta-area bloqueada"><b>Recursos do apoiador</b><small>Toque em um item para ver uma prévia com os seus dados.</small><div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>`;
-  if(contaAba === 'acessos') h += '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>';
+  if(contaAba === 'acessos') h += '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="apoio">Apoio avisado</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>';
   corpo.innerHTML = h;
   corpo.querySelectorAll('[data-conta-aba]').forEach(b => b.onclick = () => { contaAba = b.dataset.contaAba; desenharConta(); });
   if(contaAba === 'acessos') carregarPainel();
@@ -21525,6 +21530,7 @@ function desenharConta(m){
 }
 window.avAbrirConta = aba => { contaAba = aba || ((ehAdmin(usuario) && dot.textContent) ? 'acessos' : 'conta'); desenharConta(); fundo.hidden = false; };
 window.avEhAdmin = () => ehAdmin(usuario);
+window.avAvisarApoio = async valor => { if(!usuario) throw new Error('sem conta'); await set(ref(db, 'pedidos/' + usuario.uid + '/apoio'), {valor: String(valor), em: Date.now()}); };
 window.avPendentes = () => dot.textContent || '';
 document.getElementById('contaBtn').addEventListener('click', ()=>{ if(usuario && liberado && typeof switchPage === 'function'){ switchPage('viewHoje'); window.scrollTo({top:0}); } else window.avAbrirConta(); });
 document.getElementById('contaFechar').addEventListener('click', ()=> fundo.hidden = true);
@@ -21558,7 +21564,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <div class="ap-qr" id="apQr"></div>
     <p class="ap-leg" id="apLeg"></p>
     <button class="conta-btn ap-copiar" id="apCopiar" type="button">Copiar Pix copia e cola</button>
-    <p class="conta-priv">No celular, copie e cole no app do banco em Pix → Copia e cola. Ou use a chave de celular <b>21969681745</b> (Thiago Monteiro de Oliveira). Depois do Pix, avise o Thiago com o e-mail da sua conta no site para liberar os materiais de apoiador.</p>
+    <p class="conta-priv">No celular, copie e cole no app do banco em Pix → Copia e cola. Ou use a chave de celular <b>21969681745</b> (Thiago Monteiro de Oliveira).</p>
+    <div class="ap-aviso" id="apAviso"><button class="conta-btn sec" id="apJaFiz" type="button">Já fiz o Pix</button><p class="conta-priv">Toque depois de pagar. O aviso chega para quem cuida do site, e os recursos de apoiador aparecem na sua conta assim que o Pix for conferido.</p></div>
   </div>
 </div>
 <script>
@@ -21570,10 +21577,23 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     fundo.querySelectorAll('.ap-valores button').forEach(b=> b.setAttribute('aria-selected', b.dataset.v === v)); }
   fundo.querySelectorAll('.ap-valores button').forEach(b=> b.addEventListener('click', ()=> mostrar(b.dataset.v)));
   document.addEventListener('click', e=>{
-    if(e.target.closest('[data-apoio]')){ const c = document.getElementById('contaFundo'); if(c) c.hidden = true; mostrar(atual); fundo.hidden = false; }
+    if(e.target.closest('[data-apoio]')){ const c = document.getElementById('contaFundo'); if(c) c.hidden = true; mostrar(atual); avisoEstado(); fundo.hidden = false; }
     if(e.target.closest('[data-apoio-fechar]') || e.target === fundo) fundo.hidden = true;
   });
   document.addEventListener('keydown', e=>{ if(e.key === 'Escape') fundo.hidden = true; });
+  function avisoEstado(){
+    const box = document.getElementById('apAviso'); if(!box) return;
+    if(window.avApoiador){ box.innerHTML = '<p class="ap-ok">Você já é apoiador. Obrigado!</p>'; return; }
+    let t = 0; try{ t = +(localStorage.getItem('av-apoio-avisado') || 0); }catch(_){}
+    if(t) box.innerHTML = `<p class="ap-ok">Aviso enviado em ${new Date(t).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}. Assim que o Pix for conferido, os recursos de apoiador aparecem na sua conta. Obrigado!</p>`;
+  }
+  document.addEventListener('click', async e => {
+    const b = e.target.closest('#apJaFiz'); if(!b) return;
+    if(!window.avAvisarApoio){ alert('Entre na sua conta para avisar.'); return; }
+    b.disabled = true; b.textContent = 'Enviando…';
+    try{ await window.avAvisarApoio(atual === 'None' ? 'livre' : atual); try{ localStorage.setItem('av-apoio-avisado', String(Date.now())); }catch(_){} avisoEstado(); }
+    catch(_){ b.disabled = false; b.textContent = 'Já fiz o Pix'; alert('Não deu certo agora. Confira a internet e tente de novo.'); }
+  });
   document.getElementById('apCopiar').addEventListener('click', async e=>{
     const b = e.currentTarget, t = PIX[atual].p;
     try{ await navigator.clipboard.writeText(t); }catch(_){ const x = document.createElement('textarea'); x.value = t; document.body.appendChild(x); x.select(); try{ document.execCommand('copy'); }catch(__){} x.remove(); }
