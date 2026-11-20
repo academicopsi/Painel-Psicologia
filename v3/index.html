@@ -2473,6 +2473,87 @@
   .ps-fala input{width:20px; height:20px; margin-top:2px; accent-color:var(--petrol); flex:none;}
   .ps-fala b{display:block; font-size:14.5px;}
   .ps-fala small{color:var(--ink-soft); font-size:13px;}
+
+  /* V3 · área do apoiador (nova) */
+  .conta-area small{display:block; font-size:12.5px; color:var(--ink-soft); margin:-4px 0 8px;}
+  .conta-area-bts button{display:flex; align-items:center; gap:8px;}
+  .conta-area-bts button span{flex:1; min-width:0;}
+  .conta-area-bts button b{display:block; font-size:14px;}
+  .conta-area-bts button small{display:block; margin:1px 0 0; font-weight:400; font-size:12px; color:var(--ink-soft);}
+  .conta-area.bloqueada{background:var(--paper-alt);}
+  .ben-previa{position:relative;}
+  .conta-fechar{z-index:3;}
+  .ben-previa-conteudo{max-height:340px; overflow:hidden; pointer-events:none; user-select:none; -webkit-mask-image:linear-gradient(#000 35%, rgba(0,0,0,.25) 70%, transparent); mask-image:linear-gradient(#000 35%, rgba(0,0,0,.25) 70%, transparent); filter:blur(.2px);}
+  .ben-previa-conteudo > *:nth-child(n+6){filter:blur(3px);}
+  .ben-previa-cta{position:relative; margin-top:-40px; background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:16px; text-align:center; box-shadow:0 -10px 30px var(--paper);}
+  .ben-previa-cta b{display:block; font-family:var(--serif, Georgia, serif); font-size:18px; margin-bottom:6px;}
+  .ben-previa-cta p{font-size:13.5px; color:var(--ink-soft); margin:0 0 12px;}
+  .ben-pdf-previa{background:#fff; border:1px solid var(--rule); border-radius:8px; padding:14px; font-size:13px; color:#1B2422;}
+  .pl-cfg{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; margin:0 0 12px; font-size:14px;}
+  .pl-cfg select{font:inherit; font-size:14px; padding:6px 8px; border:1px solid var(--rule); border-radius:8px; background:var(--bg); color:var(--ink); margin-left:6px;}
+  .pl-dias{display:flex; gap:4px;}
+  .pl-dias button{width:32px; height:32px; border-radius:50%; border:1px solid var(--rule); background:var(--bg); font:inherit; font-size:13px; font-weight:700; color:var(--ink-soft); cursor:pointer;}
+  .pl-dias button[aria-pressed="true"]{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  .pl-provas{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 6px;}
+  .pl-provas span{font-size:12.5px; background:var(--ochre-soft); color:var(--ink); border-radius:999px; padding:4px 10px;}
+  .pl-dia{border-top:1px solid var(--rule); padding-top:10px; margin-top:12px;}
+  .pl-dia h3{font-family:var(--serif, Georgia, serif); font-size:16px; font-weight:600; margin:0 0 8px; display:flex; justify-content:space-between; align-items:baseline;}
+  .pl-dia h3 small{font-family:inherit; font-size:12px; color:var(--ink-faint);}
+  .pl-item{display:flex; gap:10px; align-items:flex-start; background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:9px 10px; margin:0 0 6px;}
+  .pl-item.vesp{border-color:var(--ochre);}
+  .pl-item input{width:19px; height:19px; margin-top:2px; accent-color:var(--petrol); flex:none;}
+  .pl-item button{flex:1; text-align:left; font:inherit; background:none; border:0; padding:0; cursor:pointer; color:var(--ink);}
+  .pl-item b{display:block; font-size:14px;}
+  .pl-item span{font-size:12.5px; color:var(--ink-soft);}
+  .pl-item.feito b{text-decoration:line-through; color:var(--ink-faint);}
+  .pl-aviso{font-size:13.5px; background:var(--ochre-soft); border-radius:8px; padding:10px 12px; margin-top:12px;}
+  .sn-card{display:flex; justify-content:center; margin:6px 0 12px;}
+  .sn-card svg{width:100%; max-width:300px; height:auto; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.18);}
+  .rs-ferr{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:14px 0 6px;}
+  .rs-ferr > button, .rs-voz button{font:inherit; font-size:13.5px; font-weight:600; border:1px solid var(--petrol-line); background:var(--paper); color:var(--petrol-dark); border-radius:999px; padding:7px 13px; cursor:pointer;}
+  .rs-ferr > button[aria-pressed="true"]{background:#FBE7A1; border-color:#E0B840; color:#5C4300;}
+  .rs-ferr-dica{font-size:12px; color:var(--ink-faint);}
+  .rs-voz{display:flex; gap:6px;}
+  .rs-voz[hidden]{display:none;}
+  .rs-step.lendo{outline:2px solid var(--petrol-line); outline-offset:6px; border-radius:6px;}
+  #resumoPage.modo-marca .rs-step ul > li{cursor:pointer;}
+  #resumoPage.modo-marca .rs-step ul > li:hover{background:rgba(251,231,161,.35);}
+  .rs-step li.marcado, .nt-item mark{background:linear-gradient(transparent 12%, #FBE7A1 12%, #FBE7A1 88%, transparent 88%); color:inherit;}
+  .rs-nota{margin:8px 0 0;}
+  .rs-nota button{font:inherit; font-size:12.5px; font-weight:600; color:var(--petrol); background:none; border:0; padding:4px 0; cursor:pointer; margin-right:10px;}
+  .rs-nota textarea{width:100%; font:inherit; font-size:14.5px; border:1px solid var(--rule); border-radius:8px; padding:8px 10px; background:var(--bg); color:var(--ink);}
+  .nt-txt{background:var(--ochre-soft); border-left:3px solid var(--ochre); border-radius:4px; padding:7px 10px; font-size:14px; margin:4px 0; white-space:pre-wrap;}
+  .nt-item{border:1px solid var(--rule); border-radius:10px; padding:10px 12px; margin:0 0 8px; font-size:14px; background:var(--bg);}
+  .nt-item ul{margin:6px 0; padding-left:18px;}
+  /* simulado em PDF */
+  #printArea .sp-folha{font-family:Inter, Arial, sans-serif; color:#1B2422;}
+  #printArea .sp-cab{display:flex; justify-content:space-between; gap:20px; align-items:flex-end; border-bottom:2.5px solid #1F5C56; padding-bottom:10px; margin-bottom:12px;}
+  #printArea .sp-marca{font-size:9pt; letter-spacing:.14em; text-transform:uppercase; color:#1F5C56; font-weight:700;}
+  #printArea .sp-cab h1{font-family:'Lora', Georgia, serif; font-size:22pt; margin:2px 0;}
+  #printArea .sp-cab p{margin:0; color:#5C6560; font-size:10pt;}
+  #printArea .sp-campos{display:grid; gap:6px; font-size:10pt; min-width:220px;}
+  #printArea .sp-campos span{display:flex; gap:6px; align-items:flex-end;}
+  #printArea .sp-campos i{flex:1; border-bottom:1px solid #8D938B; height:14px;}
+  #printArea .sp-campos i.curto{flex:0 0 40px;}
+  #printArea .sp-instr{font-size:9.5pt; color:#5C6560; background:#F3F6F5; border-radius:6px; padding:6px 10px; margin:0 0 14px;}
+  #printArea .sp-qs{padding-left:22px; margin:0;}
+  #printArea .sp-q{margin:0 0 12px; page-break-inside:avoid; font-size:10.5pt;}
+  #printArea .sp-q::marker{font-weight:700; color:#1F5C56;}
+  #printArea .sp-ops{list-style:none; padding:0; margin:6px 0 0;}
+  #printArea .sp-ops li{display:flex; gap:8px; align-items:flex-start; margin:3px 0; counter-increment:op;}
+  #printArea .sp-ops{counter-reset:op;}
+  #printArea .sp-bola{flex:none; width:15px; height:15px; border:1.3px solid #5C6560; border-radius:50%; font-size:8pt; line-height:13px; text-align:center; margin-top:1px;}
+  #printArea .sp-bola::before{content:counter(op, lower-alpha);}
+  #printArea .sp-gab{page-break-before:always;}
+  #printArea .sp-grade{display:grid; grid-template-columns:repeat(10, 1fr); gap:4px; margin:0 0 16px;}
+  #printArea .sp-grade span{border:1px solid #C3D1C0; border-radius:4px; text-align:center; font-size:10pt; padding:3px 0;}
+  #printArea .sp-grade b{display:block; font-size:8pt; color:#8D938B;}
+  #printArea .sp-coment{font-size:9.5pt; padding-left:20px;}
+  #printArea .sp-coment li{margin:0 0 7px; page-break-inside:avoid;}
+  #printArea .sp-coment div{color:#5C6560;}
+  #printArea .sp-rod{font-size:8.5pt; color:#8D938B; margin-top:12px;}
+  .ben-pdf-previa .sp-cab{display:flex; justify-content:space-between; gap:12px; border-bottom:2px solid #1F5C56; margin-bottom:8px;}
+  .ben-pdf-previa .sp-ops{list-style:none; padding:0;}
 </style>
 </head>
 <body>
@@ -19539,6 +19620,7 @@ function renderResumo(){
     <p class="rs-foot">${r.fonte} O conteúdo das aulas sempre prevalece como referência final.</p>`;
   rsProgresso();
   rsRenderQuiz();
+  if(window.avResumoExtras) window.avResumoExtras(resumoAtual, capResumo);
 }
 function rsProgresso(){
   const r = RESUMOS[resumoAtual], c = r.caps[capResumo];
@@ -21028,7 +21110,7 @@ let usuario = null, liberado = false, apoiador = false, aba = 'entrar', ultimaSy
 // ---------- progresso: chaves av-* <-> usuarios/{uid} ----------
 const FORA = new Set(['av-sync-ts', 'av-acesso-ok']);
 const ehDado = k => k && k.startsWith('av-') && !FORA.has(k);
-const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo']);
+const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano']);
 const cod = k => encodeURIComponent(k).replace(/\./g, '%2E');
 const dec = k => decodeURIComponent(k);
 const _set = Storage.prototype.setItem, _rem = Storage.prototype.removeItem;
@@ -21192,8 +21274,8 @@ function desenharConta(m){
     <p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p>
     ${ehAdmin(usuario) ? '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>' : ''}
     <button class="conta-psiu" data-psiu-vitrine>${window.avPsiuMini ? window.avPsiuMini() : ''}<span><b>Personalizar o Psiu</b><small>Acessórios para o seu Psiu</small></span></button>
-    ${apoiador ? '<div class="conta-area"><b>Área do apoiador</b><div class="conta-area-bts"><button data-ben="desempenho">Seu desempenho</button><button data-ben="caderno">Caderno de revisão</button></div></div>' : ''}
-    ${apoiador ? '' : '<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>Um Pix de valor livre ajuda a manter o site e libera o caderno de revisão e o seu desempenho.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>'}
+    <div class="conta-area${apoiador ? '' : ' bloqueada'}"><b>Área do apoiador</b>${apoiador ? '' : '<small>Toque em um item para ver uma prévia com os seus dados.</small>'}<div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>
+    ${apoiador ? '' : '<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>Um Pix de valor livre ajuda a manter o site e libera a área do apoiador: plano de estudos, ouvir os resumos, simulado em PDF e mais.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>'}
     <button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
   if(ehAdmin(usuario)) carregarPainel();
   document.getElementById('contaSair').onclick = async ()=>{ await enviar(); fundo.hidden = true; await signOut(auth); };
@@ -21221,8 +21303,11 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <h2 id="apoioTitulo">Aberto para todos, mantido por quem acredita</h2>
     <p class="conta-sub">O site continua livre. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês. Sem assinatura nem cobrança automática.</p>
     <div class="ap-ben"><b>Quem apoia recebe</b>
-      <ul><li><strong>Caderno de revisão em PDF</strong> por disciplina, para imprimir ou estudar sem internet</li>
-      <li><strong>Seu desempenho</strong>: acertos por tema em cada simulado</li></ul></div>
+      <ul><li><strong>Plano de estudos</strong> automático até cada prova</li>
+      <li><strong>Ouvir o resumo</strong> em voz alta, com marca-texto e notas</li>
+      <li><strong>Caderno de revisão</strong> e <strong>simulado em PDF</strong> para imprimir</li>
+      <li><strong>Seu desempenho</strong> e <strong>seu semestre em números</strong></li>
+      <li>Acessórios, cores e fundos especiais para o Psiu</li></ul></div>
     <div class="ap-valores" role="tablist" aria-label="Valor do apoio"><button type="button" data-v="10">R$ 10</button><button type="button" data-v="15">R$ 15</button><button type="button" data-v="None">Livre</button></div>
     <div class="ap-qr" id="apQr"></div>
     <p class="ap-leg" id="apLeg"></p>
@@ -21261,26 +21346,43 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   const fundo = document.getElementById('benFundo'), corpo = document.getElementById('benCorpo');
   const limpa = t => String(t || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
   const nomeDisc = n => (DISC[2].find(d => d.n === n) || {}).name || '';
+  const ehApoio = () => !!window.avApoiador;
+  const lerJ = (k, pad) => { try{ return JSON.parse(localStorage.getItem(k)) || pad; }catch(e){ return pad; } };
+  const gravarJ = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+  const hojeISO = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const dataBR = (iso, op) => new Date(iso + 'T12:00:00').toLocaleDateString('pt-BR', op || {day:'2-digit', month:'2-digit'});
   const discsCom = () => DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n));
-  function abrir(html){ const c = document.getElementById('contaFundo'); if(c) c.hidden = true; corpo.innerHTML = html; fundo.hidden = false; fundo.scrollTop = 0; }
-  function fechar(){ fundo.hidden = true; }
-  function bloqueado(){
-    abrir(`<div class="eyebrow apoio-eb">Área do apoiador</div><h2>Exclusivo para apoiadores</h2><p class="conta-sub">Este material é liberado para quem apoia o Arquivo Vivo. Um Pix de valor livre já libera tudo.</p><button class="conta-btn ap-copiar" data-apoio>Quero apoiar</button>`);
+  const EB = t => `<div class="eyebrow apoio-eb">${t}</div>`;
+
+  function abrir(html, previa){
+    const c = document.getElementById('contaFundo'); if(c) c.hidden = true;
+    corpo.innerHTML = previa ? `<div class="ben-previa"><div class="ben-previa-conteudo" aria-hidden="true">${html}</div>
+      <div class="ben-previa-cta"><b>Disponível para quem apoia o Arquivo Vivo</b><p>Esta é uma prévia com os seus próprios dados. Apoiando com um Pix de valor livre, você libera este e os outros recursos da área do apoiador.</p><button class="conta-btn ap-copiar" data-apoio>Apoiar o Arquivo Vivo</button></div></div>` : html;
+    fundo.hidden = false; fundo.scrollTop = 0;
   }
-  function escolherDisc(tipo){
-    const tit = 'Caderno de revisão';
-    const sub = tipo === 'caderno' ? 'Escolha a disciplina. O caderno abre pronto para salvar em PDF ou imprimir.' : 'Escolha a disciplina para ver o mapa.';
-    abrir(`<div class="eyebrow apoio-eb">Área do apoiador</div><h2>${tit}</h2><p class="conta-sub">${sub}</p>
-      <div class="ben-escolha">${discsCom().map(d => { const rs = Object.values(RESUMOS).filter(r => r.disc === d.n); const nq = SIM_JOGO.filter(x => x.disc === d.n).reduce((n, x) => n + x.questoes.length, 0);
-        return `<button data-ben-disc="${d.n}" data-ben-tipo="${tipo}"><b>${escHTML(d.name)}</b><span>${rs.reduce((n, r) => n + r.caps.length, 0)} temas de resumo${nq ? ' · ' + nq + ' questões comentadas' : ''}</span></button>`; }).join('')}</div>`);
+  function fechar(){ fundo.hidden = true; if(window.speechSynthesis) speechSynthesis.cancel(); }
+  function imprimir(html, titulo){
+    let area = document.getElementById('printArea'); if(!area){ area = document.createElement('div'); area.id = 'printArea'; document.body.appendChild(area); }
+    area.innerHTML = html; const antes = document.title; document.title = titulo;
+    fechar(); document.body.classList.add('imprimindo'); setTimeout(() => window.print(), 80);
+    const fim = () => { document.body.classList.remove('imprimindo'); document.title = antes; window.removeEventListener('afterprint', fim); };
+    window.addEventListener('afterprint', fim);
   }
 
-  // ---------- Seu desempenho ----------
-  function desempenho(){
+  // ================= tempo de estudo (para o "Seu semestre em números") =================
+  let ultimaAcao = Date.now(), acumulado = 0;
+  ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(ev => window.addEventListener(ev, () => { ultimaAcao = Date.now(); }, {passive:true}));
+  setInterval(() => { if(document.visibilityState === 'visible' && Date.now() - ultimaAcao < 90000 && !document.documentElement.classList.contains('portao')) acumulado += 15; }, 15000);
+  function gravarTempo(){ if(!acumulado) return; const t = lerJ('av-tempo', {total:0, dias:{}}); t.total = (t.total || 0) + acumulado; t.dias = t.dias || {}; t.dias[hojeISO()] = (t.dias[hojeISO()] || 0) + acumulado; acumulado = 0; gravarJ('av-tempo', t); }
+  setInterval(gravarTempo, 120000);
+  document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'hidden') gravarTempo(); });
+
+  // ================= Seu desempenho =================
+  function desempenhoHTML(){
     const o = desempLer(); const ids = Object.keys(o.sims || {});
     const tot = ids.reduce((acc, id) => { Object.values(o.sims[id]).forEach(t => { acc.a += t.a; acc.n += t.n; }); return acc; }, {a:0, n:0});
-    let h = `<div class="eyebrow apoio-eb">Área do apoiador</div><h2>Seu desempenho</h2><p class="conta-sub">Acertos por tema em cada simulado, do tema mais fraco para o mais forte.</p>`;
-    if(!tot.n){ abrir(h + `<div class="de-vazio">Ainda não há respostas registradas. Faça um simulado (pode ser só uma parte) e volte aqui: cada questão respondida entra na conta do tema dela.</div>`); return; }
+    let h = EB('Área do apoiador') + `<h2>Seu desempenho</h2><p class="conta-sub">Acertos por tema em cada simulado, do tema mais fraco para o mais forte.</p>`;
+    if(!tot.n) return h + `<div class="de-vazio">Ainda não há respostas registradas. Faça um simulado (pode ser só uma parte) e volte aqui: cada questão respondida entra na conta do tema dela.</div>`;
     const temas = [];
     ids.forEach(id => Object.entries(o.sims[id]).forEach(([tema, t]) => temas.push({id, tema, a:t.a, n:t.n, pc:Math.round(t.a / t.n * 100)})));
     const fracos = temas.filter(t => t.n >= 3).sort((a, b) => a.pc - b.pc).slice(0, 3).filter(t => t.pc < 80);
@@ -21296,118 +21398,283 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         ${hist.length ? `<ul class="de-hist">${hist.map(x => `<li>${new Date(x.t).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}: ${x.a} de ${x.n} (${x.pct}%)</li>`).join('')}</ul>` : ''}
         <button class="de-ir" data-ben-sim="${id}">Treinar este simulado →</button></div>`;
     });
-    h += `<p class="conta-priv">Conta a partir de agora, neste aparelho e na sua conta. Respostas de antes desta função não entram.</p>`;
-    abrir(h);
+    return h + `<p class="conta-priv">Conta as respostas dadas desde que esta função entrou no site.</p>`;
   }
 
-  // ---------- Mapas mentais (SVG): visão geral da disciplina + um mapa detalhado por tema ----------
-  const CORES = ['#1F5C56', '#B7791F', '#5B7F6E', '#7A4E8C', '#2F6F8F', '#A8455A', '#6B7A2E', '#8A5A2B'];
-  function termos(e){
-    const vistos = new Set(), out = [];
-    (e.pontos || []).forEach(pt => { (String(pt).match(/<strong>(.*?)<\/strong>/g) || []).forEach(m => { const t = limpa(m).replace(/[.:;,]+$/, ''); const k = t.toLowerCase(); const fraco = t.length < 16 && /^(por|de|da|do|das|dos|em|no|na|nos|nas|com|sem|e|o|a|os|as|mais|menos|para|ao|à|um|uma)\s/i.test(t);
-      if(t.length > 3 && t.length <= 48 && !fraco && !vistos.has(k)){ vistos.add(k); out.push(t); } }); });
-    if(!out.length && e.pontos && e.pontos[0]){ const t = limpa(e.pontos[0]); out.push(t.length > 60 ? t.slice(0, 58) + '…' : t); }
-    return out.slice(0, 5);
+  // ================= Plano de estudos automático =================
+  function provasFuturas(){
+    const hoje = hojeISO();
+    return TASKS.filter(t => /^prova/i.test(t.tarefa) && t.prazo >= hoje).map(t => ({data:t.prazo, disc:(DISC[2].find(d => d.name === t.materia || d.name.startsWith(t.materia) || t.materia.startsWith(d.name)) || {}).n, materia:t.materia})).filter(p => p.disc).sort((a, b) => a.data.localeCompare(b.data));
   }
-  function capsDe(d){ const out = []; Object.values(RESUMOS).filter(r => r.disc === d.n).forEach(r => r.caps.forEach(c => out.push({t:limpa(c.titulo || c.aba || r.titulo), c}))); return out; }
-  function geral(d){
-    const caps = capsDe(d);
-    if(caps.length) return caps.map(x => ({t:x.t, f:x.c.etapas.map(e => limpa(e.titulo))}));
-    const temas = {}; SIM_JOGO.filter(x => x.disc === d.n).forEach(x => x.questoes.forEach(q => { (temas[q.tema] = temas[q.tema] || 0); temas[q.tema]++; }));
-    return Object.keys(temas).map(t => ({t, f:[]}));
+  function pctParte(sim, parte){
+    const o = desempLer(); const s = (o.sims || {})[sim.id] || {};
+    let ini = 0; for(const p of sim.partes){ if(p === parte) break; ini += p.n; }
+    const temas = new Set(sim.questoes.slice(ini, ini + parte.n).map(q => q.tema));
+    let a = 0, n = 0; temas.forEach(t => { if(s[t]){ a += s[t].a; n += s[t].n; } });
+    return n >= 3 ? Math.round(a / n * 100) : null;
   }
-  function detalhe(cap){ return cap.c.etapas.map(e => ({t:limpa(e.titulo), f:termos(e)})); }
-  function quebra(t, max, n){ n = n || 3; const p = String(t).split(' '), l = []; let a = ''; p.forEach(w => { if((a + ' ' + w).trim().length > max){ if(a) l.push(a); a = w; } else a = (a + ' ' + w).trim(); }); if(a) l.push(a); if(l.length > n){ l.length = n; l[n - 1] = l[n - 1].replace(/\s*\S*$/, '') + '…'; } return l; }
-  function mapaSVG(centro, ramos, rotulo){
-    const W = 1500, folhaH = 21, gapR = 18;
-    const lados = [[], []]; ramos.forEach((r, i) => lados[i % 2].push(Object.assign({}, r, {cor:CORES[i % CORES.length]})));
-    const alt = r => Math.max(54, r.f.length * folhaH + 14, quebra(r.t, 24).length * 17 + 20);
-    const H = Math.max(420, Math.max(...lados.map(L => L.reduce((n, r) => n + alt(r) + gapR, 0))) + 70);
-    const cx = W / 2, cy = H / 2;
-    let corpo = '';
-    lados.forEach((L, lado) => {
-      if(!L.length) return;
-      const total = L.reduce((n, r) => n + alt(r) + gapR, 0) - gapR; let y = cy - total / 2;
-      const dir = lado === 0 ? 1 : -1, xr = cx + dir * 280, xf = cx + dir * 430;
-      L.forEach(r => {
-        const h = alt(r), my = y + h / 2;
-        corpo += `<path d="M${cx + dir * 120} ${cy} C ${cx + dir * 190} ${cy}, ${xr - dir * 110} ${my}, ${xr - dir * 100} ${my}" fill="none" stroke="${r.cor}" stroke-width="3" opacity=".75"/>`;
-        const linhas = quebra(r.t, 24), bh = 17 * linhas.length + 16;
-        corpo += `<rect x="${xr - 100}" y="${my - bh / 2}" width="200" height="${bh}" rx="10" fill="${r.cor}"/>`;
-        linhas.forEach((l, i) => corpo += `<text x="${xr}" y="${my - bh / 2 + 21 + i * 17}" text-anchor="middle" font-size="13.5" font-weight="700" fill="#fff">${escHTML(l)}</text>`);
-        r.f.forEach((f, i) => {
-          const fy = my - (r.f.length - 1) * folhaH / 2 + i * folhaH, x0 = xr + dir * 100;
-          corpo += `<path d="M${x0} ${my} C ${x0 + dir * 26} ${my}, ${xf - dir * 36} ${fy}, ${xf - dir * 8} ${fy}" fill="none" stroke="${r.cor}" stroke-width="1.4" opacity=".55"/>`;
-          const txt = f.length > 52 ? f.slice(0, 50) + '…' : f;
-          corpo += `<circle cx="${xf - dir * 4}" cy="${fy}" r="3.5" fill="${r.cor}"/><text x="${xf + dir * 5}" y="${fy + 4.5}" text-anchor="${dir > 0 ? 'start' : 'end'}" font-size="13" fill="#1B2422">${escHTML(txt)}</text>`;
-        });
-        y += h + gapR;
-      });
+  function tarefasDe(disc){
+    const out = [];
+    Object.entries(RESUMOS).filter(([, r]) => r.disc === disc).forEach(([id, r]) => r.caps.forEach((c, ci) => {
+      const st = (rsEstado(id)[c.id]) || {}; const feitas = Object.keys(st).length;
+      if(feitas < c.etapas.length) out.push({k:`r:${id}:${c.id}`, tipo:'resumo', id, cap:ci, t:'Ler o resumo: ' + limpa(c.titulo || c.aba), min:Math.min(30, 8 + 2 * (c.etapas.length - feitas))});
+    }));
+    SIM_JOGO.filter(x => x.disc === disc).forEach(sim => {
+      (sim.partes || []).map(p => ({p, pc:pctParte(sim, p)})).filter(x => x.pc === null || x.pc < 85).sort((a, b) => (a.pc ?? 60) - (b.pc ?? 60))
+        .forEach(({p, pc}) => out.push({k:`s:${sim.id}:${p.k}`, tipo:'simulado', id:sim.id, t:`Simulado: ${p.t}${pc !== null ? ` (você está com ${pc}%)` : ''}`, min:Math.max(10, Math.min(25, Math.round(p.n * 1.2)))}));
     });
-    const cl = quebra(centro, 18, 4);
-    corpo += `<ellipse cx="${cx}" cy="${cy}" rx="125" ry="${26 + cl.length * 12}" fill="#163F3B"/>` + cl.map((l, i) => `<text x="${cx}" y="${cy + 7 - (cl.length - 1) * 11 + i * 22}" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="18" font-weight="600" fill="#fff">${escHTML(l)}</text>`).join('');
-    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif"><rect width="${W}" height="${H}" fill="#fff"/>${corpo}<text x="14" y="22" font-size="12" font-weight="700" fill="#1F5C56" letter-spacing="1">${escHTML((rotulo || '').toUpperCase())}</text><text x="${W - 14}" y="${H - 12}" text-anchor="end" font-size="11" fill="#8D938B">Arquivo Vivo · material de apoiador</text></svg>`;
+    const nErr = errLista(disc).length; if(nErr) out.push({k:`e:${disc}`, tipo:'erros', disc, t:`Revisar ${nErr} ${nErr === 1 ? 'questão errada' : 'questões erradas'}`, min:Math.min(25, 5 + nErr)});
+    return out;
   }
-  function todosMapas(d){
-    const lista = [{nome:'Visão geral', svg:mapaSVG(d.name, geral(d), 'Visão geral · ' + d.name)}];
-    capsDe(d).forEach((x, i) => lista.push({nome:x.t, svg:mapaSVG(x.t, detalhe(x), 'Tema ' + (i + 1) + ' · ' + d.name)}));
-    return lista;
+  function montarPlano(cfg){
+    const provas = provasFuturas(); if(!provas.length) return {dias:[], provas, sobra:0};
+    const fila = {}; provas.forEach(p => { fila[p.data + p.disc] = tarefasDe(p.disc); });
+    const dias = [], hoje = new Date(hojeISO() + 'T12:00:00'), ultima = new Date(provas[provas.length - 1].data + 'T12:00:00');
+    for(let d = new Date(hoje); d < ultima; d.setDate(d.getDate() + 1)){
+      const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      if(!cfg.dias.includes(d.getDay())) continue;
+      const dia = {iso, itens:[], min:0};
+      const vespera = provas.filter(p => { const v = new Date(p.data + 'T12:00:00'); v.setDate(v.getDate() - 1); return v.toDateString() === d.toDateString(); });
+      vespera.forEach(p => { dia.itens.push({k:`f:${p.disc}:${p.data}`, tipo:'simulado', id:(SIM_JOGO.find(x => x.disc === p.disc) || {}).id, t:`Véspera de ${nomeDisc(p.disc)}: simulado completo`, min:30, vesp:true}); dia.min += 30; });
+      // revezamento entre as provas ainda por vir, para nenhuma disciplina ficar de fora
+      let avancou = true;
+      while(avancou){
+        avancou = false;
+        for(const p of provas){
+          if(p.data <= iso) continue;
+          const q = fila[p.data + p.disc];
+          if(q.length && dia.min + q[0].min <= cfg.min + 5){ const t = q.shift(); t.disc = p.disc; dia.itens.push(t); dia.min += t.min; avancou = true; }
+        }
+      }
+      if(dia.itens.length) dias.push(dia);
+    }
+    const sobra = Object.values(fila).reduce((n, q) => n + q.length, 0);
+    return {dias, provas, sobra};
   }
-  function mapa(d, i){
-    i = i || 0; const lista = todosMapas(d);
-    abrir(`<div class="eyebrow apoio-eb">Mapas mentais</div><h2>${escHTML(d.name)}</h2><p class="conta-sub">Uma visão geral da disciplina e um mapa detalhado para cada tema, com os conceitos-chave de cada parte. No celular, arraste para os lados.</p>
-      <div class="mm-abas">${lista.map((m, k) => `<button data-mm-d="${d.n}" data-mm-i="${k}" aria-selected="${k === i}">${k ? k + '. ' : ''}${escHTML(m.nome)}</button>`).join('')}</div>
-      <div class="mm-vista">${lista[i].svg}</div>
-      <div class="ben-acoes"><button class="conta-btn" data-ben-print-mapa="${d.n}">Salvar todos em PDF</button><button class="conta-btn sec" data-ben="mapa">Outra disciplina</button></div>`);
-  }
-  const mapasPrint = d => todosMapas(d).map(m => `<section class="pr-sec mm-print">${m.svg}</section>`).join('');
-  function imprimir(html, titulo){
-    let area = document.getElementById('printArea'); if(!area){ area = document.createElement('div'); area.id = 'printArea'; document.body.appendChild(area); }
-    area.innerHTML = html; const antes = document.title; document.title = titulo;
-    fechar(); document.body.classList.add('imprimindo'); setTimeout(() => window.print(), 80);
-    const fim = () => { document.body.classList.remove('imprimindo'); document.title = antes; window.removeEventListener('afterprint', fim); };
-    window.addEventListener('afterprint', fim);
+  function planoCfg(){ return Object.assign({min:45, dias:[0, 1, 2, 3, 4, 5, 6], feitos:{}}, lerJ('av-plano', {})); }
+  function planoHTML(){
+    const cfg = planoCfg(), pl = montarPlano(cfg);
+    let h = EB('Área do apoiador') + `<h2>Plano de estudos</h2><p class="conta-sub">Montado sozinho a partir das próximas provas, do que você já estudou e dos temas em que mais erra. Ele se atualiza conforme você avança.</p>
+      <div class="pl-cfg"><label>Tempo por dia <select data-pl-min>${[20, 30, 45, 60, 90, 120].map(m => `<option value="${m}"${cfg.min === m ? ' selected' : ''}>${m < 60 ? m + ' min' : (m / 60) + (m === 90 ? 'h30' : 'h').replace('1.5h30', '1h30')}</option>`).join('')}</select></label>
+      <div class="pl-dias">${['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((l, i) => `<button data-pl-dia="${i}" aria-pressed="${cfg.dias.includes(i)}" title="${['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'][i]}">${l}</button>`).join('')}</div></div>`;
+    if(!pl.provas.length) return h + `<div class="de-vazio">Não há provas marcadas no calendário do site agora. Quando as próximas provas entrarem em Prazos, o plano aparece aqui.</div>`;
+    h += `<div class="pl-provas">${pl.provas.map(p => `<span>${escHTML(nomeDisc(p.disc))} <b>${dataBR(p.data)}</b></span>`).join('')}</div>`;
+    if(!pl.dias.length) h += `<div class="de-vazio">Não sobrou nenhum dia antes da próxima prova. Use o simulado e a revisão dos erros para a reta final.</div>`;
+    const hoje = hojeISO(), amanha = (() => { const d = new Date(); d.setDate(d.getDate() + 1); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); })();
+    h += pl.dias.map(d => `<div class="pl-dia"><h3>${d.iso === hoje ? 'Hoje' : d.iso === amanha ? 'Amanhã' : (t => t.charAt(0).toUpperCase() + t.slice(1))(dataBR(d.iso, {weekday:'long', day:'2-digit', month:'2-digit'}))}<small>${d.min} min</small></h3>
+      ${d.itens.map(t => `<div class="pl-item${cfg.feitos[t.k] ? ' feito' : ''}${t.vesp ? ' vesp' : ''}"><input type="checkbox" data-pl-feito="${escHTML(t.k)}"${cfg.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-pl-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap, disc:t.disc}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`).join('')}</div>`).join('');
+    if(pl.sobra) h += `<p class="pl-aviso">Ficaram ${pl.sobra} atividades de fora por falta de tempo. Aumente o tempo por dia ou marque mais dias para caber tudo.</p>`;
+    return h;
   }
 
-  // ---------- Caderno de revisão ----------
-  function caderno(d){
-    const letras = 'abcdefgh';
+  // ================= Seu semestre em números =================
+  function numeros(){
+    const o = desempLer(), hist = o.hist || [];
+    let a = 0, n = 0; const temas = [];
+    Object.entries(o.sims || {}).forEach(([id, s]) => Object.entries(s).forEach(([t, v]) => { a += v.a; n += v.n; temas.push({t, pc:v.n ? v.a / v.n : 0, n:v.n}); }));
+    const fortes = temas.filter(t => t.n >= 4).sort((x, y) => y.pc - x.pc);
+    let partes = 0; Object.keys(localStorage).filter(k => k.startsWith('av-resumo-')).forEach(k => { Object.values(lerJ(k, {})).forEach(c => { partes += Object.keys(c || {}).length; }); });
+    const tempo = lerJ('av-tempo', {total:0, dias:{}}); const seg = (tempo.total || 0) + acumulado;
+    const conq = window.avConquistasLiberadas ? window.avConquistasLiberadas().length : 0;
+    return {seg, horas:Math.round(seg / 360) / 10, dias:Object.keys(tempo.dias || {}).length, n, pct:n ? Math.round(a / n * 100) : 0, sims:hist.length, melhor:hist.length ? Math.max(...hist.map(h => h.pct)) : 0,
+      forte:fortes[0] ? fortes[0].t : '', partes, conq, seq:hist.length ? Math.max(...hist.map(h => h.seq || 0)) : 0};
+  }
+  function semestreSVG(x){
+    const nome = window.avNome ? window.avNome.split(' ')[0] : '';
+    const W = 540, H = 960;
+    const bloco = (y, num, rot, cor) => `<text x="60" y="${y}" font-family="Georgia, serif" font-size="66" font-weight="700" fill="${cor || '#FFFDF8'}">${escHTML(String(num))}</text><text x="62" y="${y + 34}" font-family="Arial, sans-serif" font-size="21" fill="#BFD6CF">${escHTML(rot)}</text>`;
+    const psiu = window.avPsiuMini ? window.avPsiuMini().replace('<svg ', '<svg x="368" y="56" width="128" height="134" ') : '';
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
+      <defs><radialGradient id="snFundo" cx=".85" cy="0" r="1.2"><stop offset="0" stop-color="#2B6F67"/><stop offset=".6" stop-color="#163F3B"/><stop offset="1" stop-color="#0F2B28"/></radialGradient></defs>
+      <rect width="${W}" height="${H}" fill="url(#snFundo)"/>
+      <text x="60" y="96" font-family="Arial, sans-serif" font-size="18" letter-spacing="3" fill="#BFD6CF">ARQUIVO VIVO · 2026.2</text>
+      <text x="60" y="150" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#FFFDF8">${nome ? escHTML(nome) + ',' : 'Seu'}</text>
+      <text x="60" y="196" font-family="Georgia, serif" font-size="40" font-style="italic" fill="#A9BBA4">${nome ? 'seu semestre' : 'semestre'} em números</text>
+      ${psiu}
+      <line x1="60" y1="236" x2="480" y2="236" stroke="#2F6F66" stroke-width="2"/>
+      ${x.seg < 3600 ? bloco(318, Math.round(x.seg / 60), Math.round(x.seg / 60) === 1 ? 'minuto estudando no site' : 'minutos estudando no site') : bloco(318, x.horas.toString().replace('.', ','), x.horas === 1 ? 'hora estudando no site' : 'horas estudando no site')}
+      ${bloco(430, x.n, 'questões respondidas')}
+      ${bloco(542, x.pct + '%', 'de acertos', '#F2C95B')}
+      ${bloco(654, x.partes, 'partes de resumo estudadas')}
+      <text x="60" y="752" font-family="Arial, sans-serif" font-size="21" fill="#BFD6CF">Tema mais forte</text>
+      <text x="60" y="790" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#FFFDF8">${escHTML((x.forte || 'em construção').slice(0, 26))}</text>
+      <text x="60" y="846" font-family="Arial, sans-serif" font-size="20" fill="#BFD6CF">${x.sims} ${x.sims === 1 ? 'simulado' : 'simulados'} · melhor nota ${x.melhor}% · ${x.conq} ${x.conq === 1 ? 'conquista' : 'conquistas'}</text>
+      <text x="60" y="910" font-family="Arial, sans-serif" font-size="17" fill="#7FA59D">academicopsi.github.io/Painel-Psicologia</text>
+    </svg>`;
+  }
+  function semestreHTML(){
+    const x = numeros();
+    return EB('Área do apoiador') + `<h2>Seu semestre em números</h2><p class="conta-sub">Um resumo do seu semestre no Arquivo Vivo, no formato de story, para guardar ou compartilhar.</p>
+      <div class="sn-card">${semestreSVG(x)}</div>
+      <div class="ben-acoes"><button class="conta-btn" data-sn-salvar>Salvar imagem</button><button class="conta-btn sec" data-sn-comp>Compartilhar</button></div>
+      <p class="conta-priv">As horas contam o tempo com o site aberto e em uso, desde que esta função entrou no ar.</p>`;
+  }
+  function semestrePNG(){
+    return new Promise(res => {
+      const img = new Image(); const svg = semestreSVG(numeros());
+      img.onload = () => { const c = document.createElement('canvas'); c.width = 1080; c.height = 1920; const g = c.getContext('2d'); g.drawImage(img, 0, 0, 1080, 1920); c.toBlob(b => res(b), 'image/png'); };
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    });
+  }
+
+  // ================= Simulado em PDF =================
+  function escolherSimPDF(disc){
+    const sims = SIM_JOGO.filter(x => x.disc === disc);
+    return EB('Área do apoiador') + `<h2>Simulado em PDF</h2><p class="conta-sub">${escHTML(nomeDisc(disc))}: escolha o que vai para o papel. O gabarito sai numa folha separada, no fim.</p>
+      <div class="ben-escolha">${sims.map(sm => `<button data-spdf='${JSON.stringify({id:sm.id, modo:'sorteio'})}'><b>Prova sorteada · 20 questões</b><span>Questões de todos os temas, como numa prova real</span></button>
+        <button data-spdf='${JSON.stringify({id:sm.id, modo:'tudo'})}'><b>Simulado completo · ${sm.questoes.length} questões</b><span>${escHTML(sm.titulo)}</span></button>
+        ${(sm.partes || []).map(p => `<button data-spdf='${JSON.stringify({id:sm.id, modo:'parte', k:p.k})}'><b>${escHTML(p.t)}</b><span>${p.n} questões</span></button>`).join('')}`).join('')}</div>`;
+  }
+  function simuladoPDF(op, previa){
+    const sm = SIM_JOGO.find(x => x.id === op.id); if(!sm) return '';
+    let qs = sm.questoes.slice(), titulo = sm.titulo;
+    if(op.modo === 'parte'){ let ini = 0; for(const p of sm.partes){ if(p.k === op.k){ qs = sm.questoes.slice(ini, ini + p.n); titulo += ' · ' + p.t; break; } ini += p.n; } }
+    if(op.modo === 'sorteio'){ qs = qs.map(q => [Math.random(), q]).sort((a, b) => a[0] - b[0]).slice(0, 20).map(x => x[1]); titulo += ' · prova sorteada'; }
+    const L = 'abcdefgh';
+    const prova = `<section class="sp-folha"><header class="sp-cab"><div><div class="sp-marca">Arquivo Vivo · Simulado</div><h1>${escHTML(nomeDisc(sm.disc))}</h1><p>${escHTML(titulo)} · ${qs.length} questões</p></div>
+      <div class="sp-campos"><span>Nome <i></i></span><span>Data <i></i></span><span>Acertos <i class="curto"></i> / ${qs.length}</span></div></header>
+      <p class="sp-instr">Marque uma alternativa por questão. Faça sem consultar o material e confira no gabarito, na última folha.</p>
+      <ol class="sp-qs">${qs.map(q => `<li class="sp-q"><div class="sp-enun">${q.p}</div><ol class="sp-ops" type="a">${q.o.map(o => `<li><span class="sp-bola"></span>${o}</li>`).join('')}</ol></li>`).join('')}</ol></section>`;
+    if(previa) return prova;
+    const gab = `<section class="sp-folha sp-gab"><header class="sp-cab"><div><div class="sp-marca">Gabarito comentado</div><h1>${escHTML(nomeDisc(sm.disc))}</h1><p>${escHTML(titulo)}</p></div></header>
+      <div class="sp-grade">${qs.map((q, i) => `<span><b>${i + 1}</b>${L[q.c]}</span>`).join('')}</div>
+      <ol class="sp-coment">${qs.map(q => `<li><b>${L[q.c]})</b> ${q.o[q.c]}${q.w ? `<div>${q.w}</div>` : ''}</li>`).join('')}</ol>
+      <p class="sp-rod">Material de apoiador do Arquivo Vivo. O conteúdo das aulas sempre prevalece como referência final.</p></section>`;
+    return prova + gab;
+  }
+
+  // ================= Caderno de revisão =================
+  function cadernoHTML(d){
     const nome = window.avNome ? ' · ' + escHTML(window.avNome) : '';
     let h = `<section class="cad-capa"><div class="pr-marca">Arquivo Vivo · Caderno de revisão</div><h1>${escHTML(d.name)}</h1><p>Resumos, glossário e questões comentadas${nome}</p><p>Gerado em ${new Date().toLocaleDateString('pt-BR')} · material de apoiador</p></section>`;
     h += resumaoHTML(d, {estudo:false, prazos:false, links:false}).replace(/<header class="pr-head">[\s\S]*?<\/header>/, '').replace(/<footer[\s\S]*?<\/footer>/, '');
-    const sims = SIM_JOGO.filter(x => x.disc === d.n);
-    sims.forEach(sm => {
+    const notas = notasDe(d.n); if(notas) h += `<section class="pr-sec"><h2>Minhas anotações</h2>${notas}</section>`;
+    SIM_JOGO.filter(x => x.disc === d.n).forEach(sm => {
       const porTema = {}; sm.questoes.forEach(q => (porTema[q.tema] = porTema[q.tema] || []).push(q));
       let n = 0;
       h += `<section class="pr-sec"><h2>Questões comentadas</h2><p class="pr-nota">${escHTML(sm.titulo)} · ${sm.questoes.length} questões, separadas por tema. A alternativa em negrito é a correta.</p>`;
-      Object.entries(porTema).forEach(([tema, qs]) => {
-        h += `<h3>${escHTML(tema)}</h3>`;
-        qs.forEach(q => { n++; h += `<div class="cad-q"><b>${n}.</b> ${q.p}<ol type="a">${q.o.map((op, i) => `<li${i === q.c ? ' class="ok"' : ''}>${op}</li>`).join('')}</ol>${q.w ? `<div class="cad-w">${q.w}</div>` : ''}</div>`; });
-      });
+      Object.entries(porTema).forEach(([tema, qs]) => { h += `<h3>${escHTML(tema)}</h3>`; qs.forEach(q => { n++; h += `<div class="cad-q"><b>${n}.</b> ${q.p}<ol type="a">${q.o.map((op, i) => `<li${i === q.c ? ' class="ok"' : ''}>${op}</li>`).join('')}</ol>${q.w ? `<div class="cad-w">${q.w}</div>` : ''}</div>`; }); });
       h += `</section>`;
     });
     ROTEIROS.filter(r => r.disc === d.n && r.questoes.some(q => q.resposta)).forEach(r => {
       h += `<section class="pr-sec"><h2>${escHTML(r.titulo)}</h2>${r.questoes.map((q, i) => `<div class="cad-q"><b>${i + 1}. ${escHTML(limpa(q.tema))}</b><p>${q.pede || ''}</p>${q.resposta ? `<div class="cad-w">${q.resposta}</div>` : ''}</div>`).join('')}</section>`;
     });
-    h += `<footer class="pr-foot">Material de apoiador do Arquivo Vivo. O conteúdo das aulas sempre prevalece como referência final.</footer>`;
-    imprimir(h, `Caderno de revisão · ${d.name} · Arquivo Vivo`);
+    return h + `<footer class="pr-foot">Material de apoiador do Arquivo Vivo. O conteúdo das aulas sempre prevalece como referência final.</footer>`;
   }
 
+  // ================= Anotações e marca-texto nos resumos =================
+  const notasLer = () => lerJ('av-notas', {});
+  const notasGravar = o => gravarJ('av-notas', o);
+  function notaDe(rid, cid, i){ const o = notasLer(); return ((o[rid] || {})[cid] || {})[i] || {m:[], n:''}; }
+  function notaPor(rid, cid, i, fn){ const o = notasLer(); o[rid] = o[rid] || {}; o[rid][cid] = o[rid][cid] || {}; const x = o[rid][cid][i] || {m:[], n:''}; fn(x); if(!x.m.length && !x.n) delete o[rid][cid][i]; else o[rid][cid][i] = x; notasGravar(o); }
+  function notasDe(disc){
+    const o = notasLer(); let h = '';
+    Object.entries(RESUMOS).filter(([, r]) => r.disc === disc).forEach(([rid, r]) => r.caps.forEach(c => {
+      const n = (o[rid] || {})[c.id]; if(!n) return;
+      Object.entries(n).forEach(([i, x]) => { const e = c.etapas[i]; if(!e) return;
+        const marc = (x.m || []).map(j => e.pontos[j]).filter(Boolean);
+        h += `<div class="nt-item"><b>${escHTML(limpa(c.titulo || c.aba))} · ${escHTML(limpa(e.titulo))}</b>${marc.length ? `<ul>${marc.map(p => `<li><mark>${p}</mark></li>`).join('')}</ul>` : ''}${x.n ? `<p class="nt-txt">${escHTML(x.n)}</p>` : ''}</div>`; });
+    }));
+    return h;
+  }
+  function anotacoesHTML(){
+    const blocos = discsCom().map(d => { const h = notasDe(d.n); return h ? `<h3 class="ps-g">${escHTML(d.name)}</h3>${h}` : ''; }).join('');
+    return EB('Área do apoiador') + `<h2>Minhas anotações</h2><p class="conta-sub">Os trechos que você marcou e as notas que escreveu nos resumos. Para marcar, abra um resumo e use os botões Marca-texto e Nota.</p>` + (blocos || '<div class="de-vazio">Você ainda não marcou nada. Abra um resumo, toque em Marca-texto e depois toque nos pontos que quer destacar.</div>');
+  }
+  let modoMarca = false, falando = null;
+  window.avResumoExtras = function(rid, ci){
+    const el = document.getElementById('resumoPage'); if(!el) return;
+    const r = RESUMOS[rid], c = r.caps[ci]; const ap = ehApoio();
+    const barra = document.createElement('div'); barra.className = 'rs-ferr';
+    barra.innerHTML = `<button data-rs-ouvir>${ap ? '' : '🔒 '}🔊 Ouvir</button><button data-rs-marca aria-pressed="${modoMarca && ap}">${ap ? '' : '🔒 '}🖍 Marca-texto</button>${ap ? '' : '<span class="rs-ferr-dica">Recursos do apoiador</span>'}<div class="rs-voz" hidden><button data-rs-pausa>Pausar</button><button data-rs-vel>1x</button><button data-rs-parar>Parar</button></div>`;
+    const prog = el.querySelector('.rs-progress'); if(prog) prog.after(barra);
+    el.classList.toggle('modo-marca', modoMarca && ap);
+    if(!ap) return;
+    el.querySelectorAll('.rs-step').forEach(st => {
+      const i = st.dataset.i, x = notaDe(rid, c.id, i);
+      st.querySelectorAll('ul > li').forEach((li, j) => { li.dataset.j = j; if((x.m || []).includes(j)) li.classList.add('marcado'); });
+      const nb = document.createElement('div'); nb.className = 'rs-nota';
+      nb.innerHTML = x.n ? `<p class="nt-txt">${escHTML(x.n)}</p><button data-rs-nota="${i}">Editar nota</button>` : `<button data-rs-nota="${i}">✎ Nota</button>`;
+      st.appendChild(nb);
+    });
+  };
+  function textoParaFala(st){ return limpa(st.querySelector('h3').innerHTML) + '. ' + [...st.querySelectorAll('ul > li')].map(li => limpa(li.innerHTML)).join(' '); }
+  let vel = 1;
+  function ouvir(){
+    if(!('speechSynthesis' in window)){ alert('Este navegador não tem leitura em voz alta.'); return; }
+    const el = document.getElementById('resumoPage'); const passos = [...el.querySelectorAll('.rs-step')];
+    if(!passos.length) return;
+    speechSynthesis.cancel(); let k = 0; const voz = speechSynthesis.getVoices().find(v => /pt[-_]BR/i.test(v.lang)) || speechSynthesis.getVoices().find(v => /^pt/i.test(v.lang));
+    el.querySelector('.rs-voz').hidden = false; falando = true;
+    const prox = () => {
+      el.querySelectorAll('.rs-step.lendo').forEach(x => x.classList.remove('lendo'));
+      if(k >= passos.length || !falando){ el.querySelector('.rs-voz').hidden = true; falando = null; return; }
+      const st = passos[k++]; st.classList.add('lendo'); st.scrollIntoView({behavior:'smooth', block:'center'});
+      const u = new SpeechSynthesisUtterance(textoParaFala(st)); u.lang = 'pt-BR'; if(voz) u.voice = voz; u.rate = vel; u.onend = prox; u.onerror = () => { falando = null; };
+      speechSynthesis.speak(u);
+    };
+    prox();
+  }
+
+  // ================= abrir cada benefício =================
+  const BEN = {
+    desempenho: {t:'Seu desempenho', d:'Acertos por tema e o que revisar primeiro', html:desempenhoHTML},
+    plano: {t:'Plano de estudos', d:'Cronograma automático até cada prova', html:planoHTML},
+    semestre: {t:'Seu semestre em números', d:'Seu resumo do semestre, em formato de story', html:semestreHTML},
+    caderno: {t:'Caderno de revisão', d:'Resumos, glossário e questões comentadas em PDF', disc:true},
+    simpdf: {t:'Simulado em PDF', d:'Prova para imprimir, com gabarito separado', disc:true},
+    notas: {t:'Minhas anotações', d:'Trechos marcados e notas dos resumos', html:anotacoesHTML}
+  };
+  window.avBeneficiosLista = () => Object.entries(BEN).map(([k, b]) => `<button data-ben="${k}"><span><b>${ehApoio() ? '' : '🔒 '}${b.t}</b><small>${b.d}</small></span></button>`).join('');
+  function escolherDisc(tipo){
+    const b = BEN[tipo];
+    abrir(EB('Área do apoiador') + `<h2>${b.t}</h2><p class="conta-sub">Escolha a disciplina.</p><div class="ben-escolha">${discsCom().filter(d => tipo !== 'simpdf' || SIM_JOGO.some(x => x.disc === d.n)).map(d => `<button data-ben-disc="${d.n}" data-ben-tipo="${tipo}"><b>${escHTML(d.name)}</b></button>`).join('')}</div>`);
+  }
+  window.avAbrirBeneficio = k => { const b = BEN[k]; if(!b) return; if(b.disc) escolherDisc(k); else abrir(b.html(), !ehApoio()); };
+
   document.addEventListener('click', e => {
-    const b = e.target.closest('[data-ben]');
-    if(b){ if(!window.avApoiador){ bloqueado(); return; } const t = b.dataset.ben; if(t === 'desempenho') desempenho(); else escolherDisc(t); return; }
+    const b = e.target.closest('[data-ben]'); if(b){ window.avAbrirBeneficio(b.dataset.ben); return; }
     const dd = e.target.closest('[data-ben-disc]');
-    if(dd){ const d = DISC[2].find(x => x.n === dd.dataset.benDisc); if(dd.dataset.benTipo === 'caderno') caderno(d); else mapa(d); return; }
-    const pm = e.target.closest('[data-ben-print-mapa]');
-    if(pm){ const d = DISC[2].find(x => x.n === pm.dataset.benPrintMapa); imprimir(mapasPrint(d), `Mapas mentais · ${d.name} · Arquivo Vivo`); return; }
-    const mt = e.target.closest('[data-mm-i]');
-    if(mt){ mapa(DISC[2].find(x => x.n === mt.dataset.mmD), +mt.dataset.mmI); return; }
-    const sm = e.target.closest('[data-ben-sim]');
-    if(sm){ fechar(); location.hash = '#simulado-' + sm.dataset.benSim; return; }
+    if(dd){ const d = DISC[2].find(x => x.n === dd.dataset.benDisc);
+      if(dd.dataset.benTipo === 'caderno'){ if(ehApoio()) imprimir(cadernoHTML(d), `Caderno de revisão · ${d.name} · Arquivo Vivo`); else abrir(EB('Prévia') + `<div class="ben-pdf-previa">${cadernoHTML(d)}</div>`, true); }
+      else abrir(escolherSimPDF(d.n));
+      return; }
+    const sp = e.target.closest('[data-spdf]');
+    if(sp){ const op = JSON.parse(sp.dataset.spdf); if(ehApoio()) imprimir(simuladoPDF(op), 'Simulado · ' + nomeDisc((SIM_JOGO.find(x => x.id === op.id) || {}).disc) + ' · Arquivo Vivo'); else abrir(EB('Prévia') + `<div class="ben-pdf-previa">${simuladoPDF(op, true)}</div>`, true); return; }
+    const sm = e.target.closest('[data-ben-sim]'); if(sm){ fechar(); location.hash = '#simulado-' + sm.dataset.benSim; return; }
+    // plano
+    const pd = e.target.closest('[data-pl-dia]'); if(pd){ const c = planoCfg(); const i = +pd.dataset.plDia; c.dias = c.dias.includes(i) ? c.dias.filter(x => x !== i) : c.dias.concat(i); gravarJ('av-plano', c); abrir(planoHTML()); return; }
+    const pi = e.target.closest('[data-pl-ir]'); if(pi){ const t = JSON.parse(pi.dataset.plIr); fechar();
+      if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
+    // semestre
+    if(e.target.closest('[data-sn-salvar]')){ semestrePNG().then(bl => { const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = 'meu-semestre-arquivo-vivo.png'; a.click(); }); return; }
+    if(e.target.closest('[data-sn-comp]')){ semestrePNG().then(async bl => { const f = new File([bl], 'meu-semestre-arquivo-vivo.png', {type:'image/png'}); if(navigator.canShare && navigator.canShare({files:[f]})){ try{ await navigator.share({files:[f], title:'Meu semestre no Arquivo Vivo'}); }catch(_){} } else { const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = f.name; a.click(); } }); return; }
+    // resumo: ouvir, marcar, nota
+    if(e.target.closest('[data-rs-ouvir]')){ if(!ehApoio()) return abrir(previaFerramenta('ouvir'), true); ouvir(); return; }
+    if(e.target.closest('[data-rs-pausa]')){ const bt = e.target.closest('[data-rs-pausa]'); if(speechSynthesis.paused){ speechSynthesis.resume(); bt.textContent = 'Pausar'; } else { speechSynthesis.pause(); bt.textContent = 'Continuar'; } return; }
+    if(e.target.closest('[data-rs-vel]')){ const bt = e.target.closest('[data-rs-vel]'); vel = vel === 1 ? 1.25 : vel === 1.25 ? 1.5 : 1; bt.textContent = String(vel).replace('.', ',') + 'x'; return; }
+    if(e.target.closest('[data-rs-parar]')){ falando = false; speechSynthesis.cancel(); document.querySelectorAll('.rs-step.lendo').forEach(x => x.classList.remove('lendo')); const v = document.querySelector('.rs-voz'); if(v) v.hidden = true; return; }
+    if(e.target.closest('[data-rs-marca]')){ if(!ehApoio()) return abrir(previaFerramenta('marca'), true); modoMarca = !modoMarca; const el = document.getElementById('resumoPage'); el.classList.toggle('modo-marca', modoMarca); e.target.closest('[data-rs-marca]').setAttribute('aria-pressed', modoMarca); return; }
+    const li = e.target.closest('#resumoPage.modo-marca .rs-step ul > li');
+    if(li && !e.target.closest('a,button')){ const st = li.closest('.rs-step'); const j = +li.dataset.j; notaPor(resumoAtual, RESUMOS[resumoAtual].caps[capResumo].id, st.dataset.i, x => { x.m = x.m || []; x.m = x.m.includes(j) ? x.m.filter(y => y !== j) : x.m.concat(j); }); li.classList.toggle('marcado'); return; }
+    const nb = e.target.closest('[data-rs-nota]');
+    if(nb){ const i = nb.dataset.rsNota, box = nb.closest('.rs-nota'); const x = notaDe(resumoAtual, RESUMOS[resumoAtual].caps[capResumo].id, i);
+      box.innerHTML = `<textarea rows="3" placeholder="Escreva sua nota sobre esta parte…">${escHTML(x.n || '')}</textarea><div><button data-rs-nota-ok="${i}">Salvar</button><button data-rs-nota-x>Cancelar</button></div>`; box.querySelector('textarea').focus(); return; }
+    const ok = e.target.closest('[data-rs-nota-ok]');
+    if(ok){ const i = ok.dataset.rsNotaOk, box = ok.closest('.rs-nota'); const txt = box.querySelector('textarea').value.trim(); notaPor(resumoAtual, RESUMOS[resumoAtual].caps[capResumo].id, i, x => { x.n = txt; });
+      box.innerHTML = txt ? `<p class="nt-txt">${escHTML(txt)}</p><button data-rs-nota="${i}">Editar nota</button>` : `<button data-rs-nota="${i}">✎ Nota</button>`; return; }
+    if(e.target.closest('[data-rs-nota-x]')){ const box = e.target.closest('.rs-nota'); const i = box.closest('.rs-step').dataset.i; const x = notaDe(resumoAtual, RESUMOS[resumoAtual].caps[capResumo].id, i);
+      box.innerHTML = x.n ? `<p class="nt-txt">${escHTML(x.n)}</p><button data-rs-nota="${i}">Editar nota</button>` : `<button data-rs-nota="${i}">✎ Nota</button>`; return; }
     if(e.target.closest('[data-ben-fechar]') || e.target === fundo) fechar();
     if(e.target.closest('#benCorpo [data-apoio]')) fechar();
   });
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') fechar(); });
+  document.addEventListener('change', e => { const m = e.target.closest('[data-pl-min]'); if(m){ const c = planoCfg(); c.min = +m.value; gravarJ('av-plano', c); abrir(planoHTML()); }
+    const f = e.target.closest('[data-pl-feito]'); if(f){ const c = planoCfg(); if(f.checked) c.feitos[f.dataset.plFeito] = 1; else delete c.feitos[f.dataset.plFeito]; gravarJ('av-plano', c); f.closest('.pl-item').classList.toggle('feito', f.checked); } });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fechar(); });
+  function previaFerramenta(qual){
+    if(qual === 'ouvir') return EB('Recurso do apoiador') + `<h2>Ouvir o resumo</h2><p class="conta-sub">O site lê o resumo em voz alta, parte por parte, destacando o trecho que está sendo lido. Dá para pausar e acelerar para 1,25x ou 1,5x. Bom para revisar no ônibus ou longe da tela.</p><div class="rs-ferr" style="pointer-events:none"><button>🔊 Ouvir</button><div class="rs-voz"><button>Pausar</button><button>1,25x</button><button>Parar</button></div></div>`;
+    return EB('Recurso do apoiador') + `<h2>Marca-texto e notas</h2><p class="conta-sub">Toque nos pontos do resumo para destacar e escreva notas em cada parte. Fica tudo salvo na sua conta e entra no seu caderno de revisão.</p><div class="rs-step" style="pointer-events:none"><h3>Exemplo</h3><ul><li class="marcado">Um ponto importante destacado com o marca-texto.</li><li>Um ponto comum, sem destaque.</li></ul><div class="rs-nota"><p class="nt-txt">Minha nota: isso caiu na N1!</p></div></div>`;
+  }
 })();
 </script>
 <script>
