@@ -63,16 +63,21 @@ if(modo === 'aviso'){
   let p = { titulo: process.env.TITULO, mensagem: process.env.MENSAGEM, link: process.env.LINK, publico: process.env.PUBLICO || 'todos' };
   if(arq){ p = Object.assign({publico:'todos'}, JSON.parse(fs.readFileSync(arq, 'utf8'))); }
   if(!p.mensagem){ console.log('Sem mensagem.'); process.exit(0); }
-  await enviar(await destinos('avisos', p.publico), p.titulo || 'Arquivo Vivo', p.mensagem, p.link, p.tag);
+  await enviar(await destinos('avisos', p.publico), p.titulo || 'Psiu!', p.mensagem, p.link, p.tag);
 } else {
   const amanha = isoBR(1), em3 = isoBR(3);
   const lista = prazos().filter(t => t.prazo === amanha || (t.prazo === em3 && /prova/i.test(t.tarefa)));
   if(!lista.length){ console.log('Nenhum prazo para lembrar hoje.'); process.exit(0); }
   const dest = await destinos('provas', 'todos');
+  const um = a => a[Math.floor(Math.random() * a.length)];
   for(const t of lista){
-    const quando = t.prazo === amanha ? 'Amanhã' : 'Em 3 dias';
-    const prova = /prova/i.test(t.tarefa);
-    await enviar(dest, `${quando}: ${t.tarefa}`, `${t.materia}. ${prova ? 'Que tal um simulado ou uma revisão dos erros hoje?' : 'Não deixe para a última hora.'}`, BASE, 'prazo-' + t.prazo);
+    const prova = /prova/i.test(t.tarefa), amanhaJa = t.prazo === amanha;
+    const titulo = `Psiu! ${amanhaJa ? 'Amanhã' : 'Em 3 dias'}: ${t.tarefa} de ${t.materia}`;
+    const corpo = prova
+      ? (amanhaJa ? um(['Um simulado hoje e você chega tranquilo. Já deixei o café pronto.', 'Bora revisar os erros? Eu seguro o cronômetro.', 'Respira, revisa o resumo e dorme cedo. Eu acredito em você!'])
+                  : um(['Ainda dá tempo de estudar com calma. Que tal começar pelo resumo hoje?', 'Três dias: um resumo por dia e um simulado no fim. Topa?']))
+      : (amanhaJa ? um(['Já está pronto? Se faltar algo, ainda dá tempo hoje.', 'Não deixa para a madrugada, hein. Eu cochilo e você não!']) : 'Começar hoje deixa tudo mais leve. Bora?');
+    await enviar(dest, titulo, corpo, BASE, 'prazo-' + t.prazo + '-' + t.materia);
   }
 }
 process.exit(0);
