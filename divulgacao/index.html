@@ -200,6 +200,24 @@
     .poder{padding:14px 16px; border-radius:14px;}
     .poder p{font-size:14px;}
   }
+  button.psiu-box{border:0; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent;}
+  .psiu-vivo{overflow:visible;}
+  .pv-corpo{animation:pvFlutua 3.2s ease-in-out infinite; transform-origin:60px 90px;}
+  .pv-pupilas{animation:pvPisca 4.6s infinite; transform-box:fill-box; transform-origin:center;}
+  .falando .pv-boca{animation:pvFala .22s ease-in-out infinite alternate; transform-box:fill-box; transform-origin:center top;}
+  .balao{transition:opacity .2s, transform .2s;}
+  .balao.troca{opacity:0; transform:translateY(4px) scale(.96);}
+  .psiu-box.pula .pv-corpo{animation:pvPula .5s ease-out;}
+  @keyframes pvFlutua{0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-5px) rotate(2deg)}}
+  @keyframes pvPisca{0%,92%,100%{transform:scaleY(1)} 95%{transform:scaleY(.1)}}
+  @keyframes pvFala{from{transform:scaleY(1)} to{transform:scaleY(.45)}}
+  @keyframes pvPula{0%{transform:translateY(0)} 35%{transform:translateY(-14px) rotate(-6deg)} 70%{transform:translateY(0) rotate(4deg)} 100%{transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){ .pv-corpo, .pv-pupilas, .falando .pv-boca{animation:none;} }
+  .final-psiu{display:flex; flex-direction:column; align-items:center; gap:6px; margin:0 0 14px;}
+  .final-psiu svg{width:84px; height:84px;}
+  .final-balao{max-width:230px; text-align:center; background:#fff; color:#1B2422; font-size:13.5px; font-weight:600; border-radius:14px 14px 14px 4px; padding:7px 12px; box-shadow:0 6px 16px rgba(0,0,0,.18); animation:pvBalao 3.2s ease-in-out infinite;}
+  @keyframes pvBalao{0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)}}
+  @media (prefers-reduced-motion: reduce){ .final-balao{animation:none;} }
 </style>
 </head>
 <body>
@@ -270,10 +288,10 @@
 
   <section class="block psiu-sec" id="psiu">
     <div class="psiu-topo">
-      <div class="psiu-box">
-        <div class="balao">Psiu! A prova de Neuro é em 5 dias.</div>
-        <svg viewBox="13 12 94 94" aria-hidden="true"><g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/><circle cx="48" cy="58" r="2.8" fill="#14211F"/><circle cx="72" cy="58" r="2.8" fill="#14211F"/><path d="M50 69 Q60 81 70 69" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/><text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text></svg>
-      </div>
+      <button class="psiu-box" id="psiuToque" type="button" aria-label="Tocar no Psiu para ele falar outra coisa">
+        <div class="balao" id="psiuFala" aria-live="polite">Psiu! A prova de Neuro é em 5 dias.</div>
+        <svg class="psiu-vivo" viewBox="13 12 94 94" aria-hidden="true"><g class="pv-corpo"><g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/><g class="pv-pupilas"><circle cx="48" cy="58" r="2.8" fill="#14211F"/><circle cx="72" cy="58" r="2.8" fill="#14211F"/></g><path class="pv-boca" d="M50 69 Q60 81 70 69" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/></g><text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text></svg>
+      </button>
       <div>
         <div class="eyebrow">Conheça o Psiu</div>
         <h2>Um colega de turma <em>que mora no site.</em></h2>
@@ -337,6 +355,7 @@
   </section>
 
   <section class="final">
+    <div class="final-psiu"><span class="final-balao">Te espero lá dentro. Já deixei o café pronto!</span><svg class="psiu-vivo" viewBox="13 12 94 94" aria-hidden="true"><g class="pv-corpo"><g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/><g class="pv-pupilas"><circle cx="48" cy="58" r="2.8" fill="#14211F"/><circle cx="72" cy="58" r="2.8" fill="#14211F"/></g><path class="pv-boca" d="M50 69 Q60 81 70 69" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/></g></svg></div>
     <div class="eyebrow">Arquivo Vivo</div>
     <h2>Menos tempo procurando, <em>mais tempo estudando.</em></h2>
     <p>Abra a disciplina, siga as etapas e chegue na prova sabendo o que já domina e o que falta revisar.</p>
@@ -368,6 +387,39 @@ document.getElementById('pixCopiar').addEventListener('click', async e=>{
   try{ await navigator.clipboard.writeText(txt); }catch(_){ const t = document.createElement('textarea'); t.value = txt; document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); }catch(__){} t.remove(); }
   b.textContent = 'Copiado! Cole no app do banco ✓'; setTimeout(()=> b.textContent = 'Copiar Pix copia e cola', 3000);
 });
+
+// o Psiu da apresentação: fala frases que se revezam e responde ao toque
+(function(){
+  const fala = document.getElementById('psiuFala'), box = document.getElementById('psiuToque'); if(!fala || !box) return;
+  const FRASES = [
+    'Psiu! A prova de Neuro é em 5 dias.',
+    'Já tomei três cafés hoje. E você, já estudou?',
+    'Reforço negativo não é castigo, viu? Eu explico.',
+    'Dizem que eu cochilo na aula. Mentira, eu sou o cérebro da turma.',
+    'Piaget diria que você está em desequilíbrio. Bora estudar?',
+    'Não sou terapeuta, mas lembro de todas as suas provas.',
+    'Cria a conta que eu te mostro onde está tudo.',
+    'Simulado com tempo? Eu seguro o cronômetro.',
+    'Me faz cócegas não… brincadeira, pode tocar de novo.'
+  ];
+  const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let i = 0, digitando = null, timer = null;
+  function dizer(txt){
+    clearInterval(digitando); fala.classList.add('troca');
+    setTimeout(() => {
+      fala.classList.remove('troca');
+      if(calmo){ fala.textContent = txt; return; }
+      let n = 0; fala.textContent = ''; box.classList.add('falando');
+      digitando = setInterval(() => { n++; fala.textContent = txt.slice(0, n); if(n >= txt.length){ clearInterval(digitando); box.classList.remove('falando'); } }, 28);
+    }, 200);
+  }
+  function proxima(){ i = (i + 1) % FRASES.length; dizer(FRASES[i]); }
+  function ciclo(){ clearInterval(timer); timer = setInterval(proxima, 5200); }
+  box.addEventListener('click', () => { box.classList.remove('pula'); void box.offsetWidth; box.classList.add('pula'); proxima(); ciclo(); });
+  // só começa a falar quando o bloco aparece na tela
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ dizer(FRASES[0]); ciclo(); } else clearInterval(timer); }), {threshold:.4});
+  io.observe(box);
+})();
 </script>
 </body>
 </html>
