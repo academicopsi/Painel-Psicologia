@@ -2619,6 +2619,12 @@
   .ds-chips .falta{background:var(--ochre-soft); color:#854F0B;}
   .ds-modelo{background:var(--petrol-soft); border-radius:10px; padding:10px 12px; margin:14px 0 4px; font-size:14.5px;}
   .ds-cta{width:100%;}
+
+  .hj-topo{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+  .hj-inicio{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:7px 14px; cursor:pointer;}
+  .hj-inicio:hover{border-color:var(--petrol);}
+  .hj-fim-btn{display:block; width:100%; margin:18px 0 0; font:inherit; font-size:15px; font-weight:600; color:var(--petrol-dark); background:var(--paper); border:1.5px solid var(--petrol-line); border-radius:12px; padding:14px; cursor:pointer;}
+  .hj-fim-btn:hover{border-color:var(--petrol);}
 </style>
 </head>
 <body>
@@ -2631,7 +2637,7 @@
     </button>
 
     <nav class="nav-menu" id="navMenu" aria-label="Navegação principal">
-      <button class="nav-link" data-page="viewHoje" data-nav="viewHoje">Hoje</button>
+      <button class="nav-link" data-page="viewHoje" data-nav="viewHoje" id="navHoje" hidden>Hoje</button>
       <button class="nav-link" data-scroll="top" data-nav="top">Início</button>
       <button class="nav-link nav-drive" data-scroll="disciplinas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Drive</button>
       <div class="nav-group">
@@ -21207,11 +21213,15 @@ async function puxar(){
     }
     try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); apoiador = v === true || v === 'true' || v === 1; } }catch(e){ apoiador = false; }
     window.avApoiador = apoiador; window.avNome = usuario.displayName || '';
+    try{ if(apoiador) localStorage.setItem('av-apoiador-cache', '1'); else localStorage.removeItem('av-apoiador-cache'); }catch(e){}
+    { const hh = location.hash.replace('#', ''); const vh = document.getElementById('viewHoje');
+      if(apoiador && (!hh || hh === 'top') && !window.__hojeAuto){ window.__hojeAuto = true; switchPage('viewHoje', {fromHistory:true}); }
+      if(!apoiador && vh && vh.style.display !== 'none') switchPage('top', {fromHistory:true}); }
     document.dispatchEvent(new Event('av-apoio'));
     pintarBotao();
     carregando = false; await enviar();
     // recarrega no máximo uma vez por sessão, para não entrar em ciclo quando a conta está aberta em outro aparelho
-    if(mudou && !sessionStorage.getItem('av-sync-recarregou')){ sessionStorage.setItem('av-sync-recarregou', '1'); sessionStorage.removeItem('av-hoje'); location.reload(); }
+    if(mudou && !sessionStorage.getItem('av-sync-recarregou')){ sessionStorage.setItem('av-sync-recarregou', '1'); location.reload(); }
   }catch(e){ carregando = false; console.warn('[conta] não carregou o progresso', e); }
 }
 
@@ -21260,7 +21270,7 @@ function ligarForm(box, redesenhar){
 
 // ---------- portão ----------
 function fecharSite(){ H.classList.add('portao'); }
-function abrirSite(){ H.classList.remove('portao'); const h = location.hash.replace('#', ''); if((!h || h === 'top') && !sessionStorage.getItem('av-hoje')){ sessionStorage.setItem('av-hoje', '1'); setTimeout(() => { if(typeof switchPage === 'function') switchPage('viewHoje'); }, 50); } }
+function abrirSite(){ H.classList.remove('portao'); }
 function portaoLogin(m){ fecharSite(); portao.innerHTML = formHTML(m); ligarForm(portao, portaoLogin); }
 function portaoAguardando(){
   fecharSite();
@@ -21381,7 +21391,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <h2 id="apoioTitulo">Aberto para todos, mantido por quem acredita</h2>
     <p class="conta-sub">O site continua livre. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês. Sem assinatura nem cobrança automática.</p>
     <div class="ap-ben"><b>Quem apoia recebe</b>
-      <ul><li><strong>Plano de estudos</strong> automático até cada prova</li>
+      <ul><li><strong>Plano de estudos</strong> automático e a <strong>tela Hoje</strong>, com o que estudar no dia</li>
       <li><strong>Marca-texto e notas</strong> nos resumos</li>
       <li><strong>Caderno de revisão</strong> e <strong>simulado em PDF</strong> para imprimir</li>
       <li><strong>Seu desempenho</strong> e <strong>seu semestre em números</strong></li>
@@ -21697,7 +21707,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   // ================= abrir cada benefício =================
   const BEN = {
     desempenho: {t:'Seu desempenho', d:'Acertos por tema e o que revisar primeiro', html:desempenhoHTML},
-    plano: {t:'Plano de estudos', d:'Cronograma automático até cada prova', html:planoHTML},
+    plano: {t:'Plano de estudos', d:'Cronograma até cada prova e a tela Hoje', html:planoHTML},
     semestre: {t:'Seu semestre em números', d:'Seu resumo do semestre, em formato de story', html:semestreHTML},
     caderno: {t:'Caderno de revisão', d:'Resumos, glossário e questões comentadas em PDF', disc:true},
     simpdf: {t:'Simulado em PDF', d:'Prova para imprimir, com gabarito separado', disc:true},
@@ -21982,6 +21992,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   }
   function renderHoje(){
     const el = document.getElementById('hojePage'); if(!el) return;
+    if(!window.avApoiador && !localStorage.getItem('av-apoiador-cache')){ if(window.avAbrirBeneficio){ switchPage('top', {fromHistory:true}); window.avAbrirBeneficio('plano'); } return; }
     const agora = new Date(), h = agora.getHours();
     const saud = h < 5 ? 'Boa noite' : h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
     const nome = (window.avNome || '').split(' ')[0];
@@ -22009,7 +22020,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const nErr = errLista('todas').length;
     const nDisc = DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n)).length;
     el.innerHTML = `
-      <header class="hj-head"><div class="eyebrow">${SEM[agora.getDay()]}, ${agora.getDate()} de ${MESES[agora.getMonth()]}</div>
+      <header class="hj-head"><div class="hj-topo"><div class="eyebrow">${SEM[agora.getDay()]}, ${agora.getDate()} de ${MESES[agora.getMonth()]}</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
         <h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${chip}</header>
       ${plano}
       <div class="hj-grid">
@@ -22020,12 +22031,14 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       <section class="hj-card"><div class="hj-card-top"><h2>Próximos dias</h2><button class="hj-link" data-page="viewPrazos">Ver todos</button></div>
         ${prazos.slice(0, 5).map(t => `<div class="hj-prazo${dias(t.prazo) <= 2 ? ' perto' : ''}"><span class="hj-dia">${dias(t.prazo) === 0 ? 'Hoje' : dias(t.prazo) === 1 ? 'Amanhã' : SEMC[new Date(t.prazo + 'T12:00:00').getDay()] + ' ' + Number(t.prazo.slice(8))}</span><span><b>${escHTML(limpa(t.tarefa).slice(0, 70))}</b><small>${escHTML(t.materia)}</small></span></div>`).join('') || '<p class="hj-vazio">Nenhum prazo marcado.</p>'}</section>
       <div class="hj-psiu">${window.avPsiuMini ? window.avPsiuMini() : ''}<p><b>Psiu:</b> ${escHTML(dicaPsiu())}</p></div>
-      <div class="hj-fim"><button class="hj-link" data-scroll="top" data-nav="top">Ir para o início completo →</button></div>`;
+      <button class="hj-fim-btn" data-page="top">Ver o início completo, com todas as disciplinas →</button>`;
   }
   window.avRenderHoje = renderHoje;
   const _sp = window.switchPage;
   if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewHoje') renderHoje(); return r; }; }
-  document.addEventListener('av-apoio', () => { const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); });
+  const navHoje = () => { const b = document.getElementById('navHoje'); if(b) b.hidden = !(window.avApoiador || localStorage.getItem('av-apoiador-cache')); };
+  navHoje();
+  document.addEventListener('av-apoio', () => { navHoje(); const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); });
 
   // ================= Treino de discursiva =================
   const PARADAS = new Set('atribui atribuir tende tender julgar julga grande grandes pequeno pequena proprio propria forma formas parte partes maior menor diferente diferentes sempre nunca outro inicio final ocorre ocorrer acontece permite permitir passa passar torna tornar fica ficar deixa deixar dizer exemplo principal principais importante quanto tanto bastante varios varias certo certa coisa coisas vezes poder pode podem tambem para pelos pelas pela pelo como quando porque sobre entre ainda mesmo tambem muito pouco mais menos esse essa esses essas este esta estes estas isso isto aquele aquela onde qual quais cada outro outra outros outras seus suas sendo pode podem deve devem fazer feito ser sao estar esta estao tem tendo havia quanto depois antes durante assim apenas segundo junto todos todas toda todo nossa nosso numa num algum alguma'.split(' '));
@@ -22101,6 +22114,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   document.addEventListener('change', e => { const f = e.target.closest('[data-hj-feito]'); if(f && window.avPlanoMarcar){ window.avPlanoMarcar(f.dataset.hjFeito, f.checked); renderHoje(); } });
   document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fundo.hidden = true; });
   // a página pode ter aberto antes deste script carregar
+  // primeira tela: quem já tem acesso liberado neste aparelho abre no Hoje assim que o site carrega
+  if(!location.hash.replace('#', '') && localStorage.getItem('av-acesso-ok') && localStorage.getItem('av-apoiador-cache') && !window.__hojeAuto){ window.__hojeAuto = true; switchPage('viewHoje', {fromHistory:true}); }
   setTimeout(() => { const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); if(/^#disc-/.test(location.hash) && !document.getElementById('dpDiscursiva') && typeof routeFromHash === 'function') routeFromHash(); }, 0);
 })();
 </script>
