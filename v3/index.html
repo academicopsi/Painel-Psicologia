@@ -21028,6 +21028,7 @@ let usuario = null, liberado = false, apoiador = false, aba = 'entrar', ultimaSy
 // ---------- progresso: chaves av-* <-> usuarios/{uid} ----------
 const FORA = new Set(['av-sync-ts', 'av-acesso-ok']);
 const ehDado = k => k && k.startsWith('av-') && !FORA.has(k);
+const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo']);
 const cod = k => encodeURIComponent(k).replace(/\./g, '%2E');
 const dec = k => decodeURIComponent(k);
 const _set = Storage.prototype.setItem, _rem = Storage.prototype.removeItem;
@@ -21048,7 +21049,7 @@ async function puxar(){
     const remoto = (await get(ref(db, 'usuarios/' + usuario.uid))).val();
     const localTs = +(localStorage.getItem('av-sync-ts') || 0); let mudou = false;
     if(remoto && remoto.progresso && (remoto.atualizadoEm || 0) > localTs){
-      Object.entries(remoto.progresso).forEach(([k, v])=>{ const kk = dec(k); if(localStorage.getItem(kk) !== v){ _set.call(localStorage, kk, v); mudou = true; } });
+      Object.entries(remoto.progresso).forEach(([k, v])=>{ const kk = dec(k); if(localStorage.getItem(kk) !== v){ _set.call(localStorage, kk, v); if(!VOLATEIS.has(kk)) mudou = true; } });
       _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
     }
     try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); apoiador = v === true || v === 'true' || v === 1; } }catch(e){ apoiador = false; }
@@ -21056,7 +21057,8 @@ async function puxar(){
     document.dispatchEvent(new Event('av-apoio'));
     pintarBotao();
     carregando = false; await enviar();
-    if(mudou){ location.reload(); }
+    // recarrega no máximo uma vez por sessão, para não entrar em ciclo quando a conta está aberta em outro aparelho
+    if(mudou && !sessionStorage.getItem('av-sync-recarregou')){ sessionStorage.setItem('av-sync-recarregou', '1'); location.reload(); }
   }catch(e){ carregando = false; console.warn('[conta] não carregou o progresso', e); }
 }
 
