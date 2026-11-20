@@ -2580,7 +2580,7 @@
   .hj-item.feito b{text-decoration:line-through; color:var(--ink-faint);}
   .hj-link{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol); background:none; border:0; padding:6px 0 0; cursor:pointer;}
   .hj-vazio{font-size:14px; color:var(--ink-soft); margin:4px 0;}
-  .hj-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:10px; margin:16px 0 0;}
+  .hj-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0 0;}
   .hj-mini{font:inherit; text-align:left; background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:12px 14px; cursor:pointer; color:var(--ink); display:flex; flex-direction:column; gap:2px;}
   div.hj-mini{padding:0; border:0; background:none;}
   div.hj-mini .dp-continue{height:100%; margin:0;}
@@ -2619,6 +2619,26 @@
   .ds-chips .falta{background:var(--ochre-soft); color:#854F0B;}
   .ds-modelo{background:var(--petrol-soft); border-radius:10px; padding:10px 12px; margin:14px 0 4px; font-size:14.5px;}
   .ds-cta{width:100%;}
+  .ds-tipo{display:inline-block; font-size:11.5px; font-weight:700; border-radius:999px; padding:2px 8px; margin-right:6px; background:var(--petrol-soft); color:var(--petrol-dark);}
+  .ds-tipo.caso{background:var(--ochre-soft); color:var(--ochre);}
+  .ds-caso{background:var(--bg); border-left:3px solid var(--ochre); border-radius:6px; padding:10px 12px; margin:10px 0 0; font-size:14.5px; line-height:1.55;}
+  .ds-dica{font-size:12.5px; color:var(--ink-faint); margin:6px 0 0;}
+  .ds-crit{display:flex; flex-direction:column; gap:6px;}
+  .ds-crit label{display:flex; gap:10px; align-items:flex-start; background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:9px 10px; font-size:14px; cursor:pointer;}
+  .ds-crit input{width:19px; height:19px; margin-top:1px; accent-color:var(--petrol); flex:none;}
+  .ds-crit label:has(input:checked){border-color:var(--petrol); background:var(--petrol-soft);}
+  .ds-crit-lista, .ds-faltou{margin:0; padding-left:20px; font-size:14px; line-height:1.5;}
+  .ds-crit-lista li, .ds-faltou li{margin:0 0 6px;}
+  .ds-faltou small{display:block; font-size:12px; color:var(--ink-faint);}
+  details.ds-modelo summary{font-weight:700; cursor:pointer; font-size:14px;}
+  details.ds-modelo p{margin:8px 0 0; line-height:1.6;}
+  .ds-grupo{border-top:1px solid var(--rule); padding:10px 0;}
+  .ds-grupo p{margin:0 0 6px; font-weight:600; font-size:14px;}
+  .ds-grupo button{font:inherit; background:none; border:0; padding:0; margin:0 6px 6px 0; cursor:pointer;}
+  .ds-grupo .ds-tipo{font-size:13px; padding:7px 13px; margin:0;}
+  .ds-rev button{font:inherit; background:var(--bg); border:1px solid var(--rule); border-radius:999px; padding:5px 10px; margin:0 6px 6px 0; cursor:pointer;}
+  .ds-rev button{font-size:13.5px; font-weight:600; color:var(--petrol-dark);}
+  .ds-mais{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol); background:none; border:0; padding:8px 0 0; cursor:pointer;}
 
   .hj-topo{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin:0 0 14px;}
   .hj-topo .eyebrow{margin:0;}
@@ -17997,7 +18017,7 @@ function renderDiscPage(d){
   ].filter(a=>a[2] > 0);
 
   const ETAPA = {dpResumos:'Estudar', dpPratica:'Praticar', dpSimulado:'Testar', dpDiscursiva:'Testar', dpRoteiro:'Revisar', dpExperimento:'Trabalho', dpGuia:'Trabalho', dpVideos:'Assistir'};
-  const DESC = {dpResumos:'A matéria em partes, para ler antes de tudo.', dpPratica:'Exercícios curtos por assunto, para fixar.', dpSimulado:'Questões no estilo da prova, para se testar.', dpDiscursiva:'Escreva a resposta e veja quais conceitos-chave você usou e quais faltaram.', dpRoteiro:'O estudo dirigido do professor, com respostas para conferir.', dpExperimento:'Passo a passo do trabalho, sem respostas prontas.', dpGuia:'Guia para montar o relatório do projeto.', dpVideos:'Aulas em vídeo para reforçar.'};
+  const DESC = {dpResumos:'A matéria em partes, para ler antes de tudo.', dpPratica:'Exercícios curtos por assunto, para fixar.', dpSimulado:'Questões no estilo da prova, para se testar.', dpDiscursiva:'Perguntas de prova e estudos de caso. Escreva, corrija pelos critérios e compare com a resposta modelo.', dpRoteiro:'O estudo dirigido do professor, com respostas para conferir.', dpExperimento:'Passo a passo do trabalho, sem respostas prontas.', dpGuia:'Guia para montar o relatório do projeto.', dpVideos:'Aulas em vídeo para reforçar.'};
   const sec = (id, titulo, meta, corpo) => `<section class="dp-section" id="${id}">
     ${ETAPA[id] ? `<div class="dp-etapa">${ETAPA[id]}</div>` : ''}
     <div class="dp-sec-head"><h2>${titulo}</h2>${meta ? `<span class="dp-count">${meta}</span>` : ''}</div>
@@ -18020,7 +18040,7 @@ function renderDiscPage(d){
 
   const secSim = simulados.length ? sec('dpSimulado', 'Simulado', '', simulados.map(simHTMLCard).join('')) : '';
   const nDs = window.avDiscursivaContar ? window.avDiscursivaContar(d.n) : 0;
-  const secDs = nDs ? sec('dpDiscursiva', 'Treino de discursiva', `${nDs} perguntas`, `<button class="dp-continue ds-cta" data-ds-disc="${d.n}"><span class="dp-cont-lbl">5 perguntas sorteadas</span><span class="dp-cont-t">Escreva a resposta e confira os conceitos</span><span class="dp-cont-go">Começar →</span></button>`) : '';
+  const secDs = nDs ? sec('dpDiscursiva', 'Treino de discursiva', `${nDs} perguntas`, `<button class="dp-continue ds-cta" data-ds-disc="${d.n}"><span class="dp-cont-lbl">Treino sorteado</span><span class="dp-cont-t">Integradoras e estudos de caso, corrigidos por critérios</span><span class="dp-cont-go">Começar →</span></button><button class="ds-mais" data-ds-menu="${d.n}">Escolher uma pergunta específica</button>`) : '';
 
   const secExh = temExh ? sec('dpExperimento', 'Trabalho N2', `entrega ${fmtDia(EXH.entrega)}`, exhHTML()) : '';
   const secGuia = temGuia ? sec('dpGuia', 'Relatório do projeto', '', montadorHTML() + exemplosHTML()) : '';
@@ -21196,7 +21216,7 @@ let usuario = null, liberado = false, apoiador = false, aba = 'entrar', ultimaSy
 // ---------- progresso: chaves av-* <-> usuarios/{uid} ----------
 const FORA = new Set(['av-sync-ts', 'av-acesso-ok']);
 const ehDado = k => k && k.startsWith('av-') && !FORA.has(k);
-const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano']);
+const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva']);
 const cod = k => encodeURIComponent(k).replace(/\./g, '%2E');
 const dec = k => decodeURIComponent(k);
 const _set = Storage.prototype.setItem, _rem = Storage.prototype.removeItem;
@@ -22065,9 +22085,6 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       plano = `<section class="hj-card"><div class="hj-card-top"><h2>Para hoje</h2><span>Sugestões a partir das suas provas</span></div>${modoBtns}
         ${sg.length ? sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('') : '<p class="hj-vazio">Nenhuma prova à vista. Aproveite para revisar com calma ou descansar.</p>'}</section>`;
     }
-    const ult = (typeof ultimoLer === 'function') ? ultimoLer() : {};
-    const ultDisc = Object.keys(ult || {}).sort((a, b) => ((ult[b] || {}).t || 0) - ((ult[a] || {}).t || 0))[0];
-    const cont = ultDisc && typeof continuarHTML === 'function' ? continuarHTML(DISC[2].find(d => d.n === ultDisc)) : '';
     const nErr = errLista('todas').length;
     const nDisc = DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n)).length;
     el.innerHTML = `
@@ -22075,13 +22092,11 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         <h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${chip}</header>
       ${plano}
       <div class="hj-grid">
-        ${cont ? `<div class="hj-mini">${cont}</div>` : ''}
         <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${nErr ? nErr + (nErr === 1 ? ' questão' : ' questões') : 'Tudo em dia'}</b><small>${nErr ? 'Treine até virar acerto' : 'Nenhum erro guardado'}</small></button>
         <button class="hj-mini hj-ds" data-ds-escolher><span>Treino de discursiva</span><b>Escreva e confira</b><small>${nDisc} disciplinas</small></button>
       </div>
       <section class="hj-card"><div class="hj-card-top"><h2>Próximos dias</h2><button class="hj-link" data-page="viewPrazos">Ver todos</button></div>
         ${prazos.slice(0, 5).map(t => `<div class="hj-prazo${dias(t.prazo) <= 2 ? ' perto' : ''}"><span class="hj-dia">${dias(t.prazo) === 0 ? 'Hoje' : dias(t.prazo) === 1 ? 'Amanhã' : SEMC[new Date(t.prazo + 'T12:00:00').getDay()] + ' ' + Number(t.prazo.slice(8))}</span><span><b>${escHTML(limpa(t.tarefa).slice(0, 70))}</b><small>${escHTML(t.materia)}</small></span></div>`).join('') || '<p class="hj-vazio">Nenhum prazo marcado.</p>'}</section>
-      <div class="hj-psiu">${window.avPsiuMini ? window.avPsiuMini() : ''}<p><b>Psiu:</b> ${escHTML(dicaPsiu())}</p></div>
       <button class="hj-fim-btn" data-page="top">Ver o início completo, com todas as disciplinas →</button>`;
   }
   window.avRenderHoje = renderHoje;
@@ -22106,57 +22121,446 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     Object.entries(RESUMOS).filter(([, r]) => r.disc === disc).forEach(([id, r]) => r.caps.forEach(c => c.etapas.forEach(e => { if(e.q && e.a && limpa(e.a).length >= 45) out.push({q:e.q, a:e.a, tema:limpa(c.titulo || c.aba)}); })));
     return out;
   }
+  var DISCURSIVAS = [
+// ===== 05 Desenvolvimento Adulto e Idoso =====
+{id:'id-apo-1', disc:'05', rid:'idoso-n2', cap:'aposentadoria', tipo:'int', tema:'Aposentadoria e novos ciclos de vida',
+ q:'Explique por que a aposentadoria pode ser vivida tanto como ganho quanto como perda, relacionando com o papel do trabalho na identidade. Depois, descreva como os Programas de Preparação para a Aposentadoria (PPA) e o psicólogo podem atuar.',
+ crit:['Explicou o trabalho como central na identidade: renda, inserção social, reconhecimento e pertencimento.',
+  'Apresentou o lado positivo (descanso, família, lazer, saúde) e o negativo (perda de status, de vínculos e de renda, preconceito, tempo vazio).',
+  'Descreveu o PPA: preparo com pelo menos 1 ano de antecedência (Estatuto do Idoso) e os pilares psicológico, de atividades futuras e financeiro.',
+  'Descreveu o papel do psicólogo: refletir sobre a trajetória, reconstruir a identidade social, apoiar a família e atuar de forma preventiva.'],
+ modelo:'O trabalho ocupa lugar central na construção da identidade: além de gerar renda, insere a pessoa no meio social e atende a necessidades de reconhecimento e pertencimento. Por isso, a aposentadoria tem significados diversos. Para uns, é o momento esperado de colher os anos de dedicação, com mais tempo para família, lazer e saúde. Para outros, é perda: de status, de vínculos, de renda, somada ao preconceito de ser "inútil" e à ansiedade diante do tempo vazio. Os Programas de Preparação para a Aposentadoria, previstos no Estatuto do Idoso com pelo menos um ano de antecedência, buscam uma aposentadoria saudável a partir de três pilares: psicológico, atividades futuras (perfil, habilidades, preferências) e financeiro. O psicólogo ajuda a pessoa a refletir sobre a trajetória e a nova fase, a reconstruir a identidade social, orienta o planejamento, apoia a família e resgata laços afetivos, de forma preventiva, e não só tratando sintomas depois.'},
+{id:'id-apo-2', disc:'05', rid:'idoso-n2', cap:'aposentadoria', tipo:'caso', tema:'Aposentadoria e novos ciclos de vida',
+ caso:'Seu Jorge, 66 anos, trabalhou 38 anos como contador na mesma empresa e se aposentou há seis meses. Diz que "virou um inútil", passa o dia vendo TV, se afastou dos ex-colegas e briga com a esposa por qualquer coisa. Ela conta que ele sempre gostou de ensinar matemática aos sobrinhos e de cuidar da horta.',
+ q:'Analise o caso à luz de Erikson e dos modelos de envelhecimento bem-sucedido e proponha caminhos de atuação para o psicólogo.',
+ crit:['Identificou a perda de identidade, de vínculos e de status ligada ao fim do trabalho.',
+  'Relacionou com integridade × desespero (Erikson): o risco de sentir a vida como desperdiçada.',
+  'Aplicou ao caso ao menos um modelo de envelhecimento (atividade, continuidade, otimização seletiva com compensação ou seletividade socioemocional).',
+  'Propôs atuação: reconstruir a identidade social, novos ciclos (voluntariado, trabalho parcial, lazer sério) e apoio à família.'],
+ modelo:'O caso mostra o lado negativo da aposentadoria: com o fim do trabalho, que era central na identidade de Seu Jorge, vieram a perda de status e de vínculos e o sentimento de inutilidade, além do tempo vazio, que aparece na TV o dia todo e nos conflitos em casa. Pela perspectiva de Erikson, ele está diante do último estágio psicossocial, integridade × desespero: se não conseguir ressignificar a própria história, pode sentir que a vida foi desperdiçada. O modelo da continuidade sugere manter padrões e a identidade de antes adaptando-os: ensinar matemática e cuidar da horta são atividades que já fazem sentido para ele. A otimização seletiva com compensação (Baltes) também ajuda a escolher o que importa e investir nisso. O psicólogo pode ajudá-lo a refletir sobre a trajetória e reconstruir a identidade social, estimular novos ciclos, como voluntariado, aulas de reforço ou um lazer sério, e apoiar a esposa, resgatando os laços afetivos do casal.'},
+{id:'id-neu-1', disc:'05', rid:'idoso-n2', cap:'neuropatologicos', tipo:'int', tema:'Quadros neuropatológicos',
+ q:'Por que é difícil diferenciar o envelhecimento normal da demência inicial? Explique o que é pseudodemência e quais recursos ajudam nessa diferenciação.',
+ crit:['Explicou que, no envelhecimento normal, declinam a memória operacional e a secundária, enquanto a primária e a terciária se preservam, padrão parecido com o início da doença de Alzheimer.',
+  'Mencionou que não há marcador biológico seguro e que os testes podem dar falso-positivo ou falso-negativo.',
+  'Definiu pseudodemência: quadro que parece demência, mas tem outra causa (depressão, ansiedade), e pode melhorar quando a causa é tratada.',
+  'Citou recursos: testes mais discriminativos, neuroimagem, avaliação ampla com o nível prévio e reavaliação em 4 a 6 meses.'],
+ modelo:'O envelhecimento cerebral traz alterações parecidas com as da doença de Alzheimer. No idoso normal, declinam mais a memória operacional e a secundária (recente), enquanto a primária (imediata) e a terciária (remota) ficam preservadas, padrão semelhante ao das fases iniciais da doença. Além disso, ainda não existe marcador biológico seguro, e os testes podem dar falso-positivo ou falso-negativo. Há também a pseudodemência: um quadro que parece demência, mas tem outra causa, como depressão ou ansiedade; tratada a causa, o desempenho cognitivo pode melhorar, por isso não se deve rotular demência cedo demais. Para diferenciar, usam-se testes mais discriminativos (evocação tardia de lista de palavras, memória lógica, pensamento categórico, destreza visuoespacial, Teste de Nomeação de Boston) e a neuroimagem, em que atrofia ou hipoperfusão entorrinal-hipocampal ou temporoparietal sugerem Alzheimer, embora possam faltar no início. O caminho é uma avaliação neuropsicológica e comportamental ampla, considerando o nível prévio de funcionamento, exames e, se preciso, reavaliação em 4 a 6 meses.'},
+{id:'id-neu-2', disc:'05', rid:'idoso-n2', cap:'neuropatologicos', tipo:'caso', tema:'Quadros neuropatológicos',
+ caso:'Dona Lúcia, 72 anos, cuida sozinha do marido, de 78, que teve um AVC há dois anos e depende dela para quase tudo. Ela deixou de ir ao grupo da igreja, não vai mais às próprias consultas e diz que está "no limite".',
+ q:'Analise a situação com base no estudo sobre idosos que cuidam de idosos e indique o que a equipe de saúde deveria considerar.',
+ crit:['Identificou a dupla vulnerabilidade: o próprio envelhecimento somado à sobrecarga do cuidado.',
+  'Apontou os efeitos descritos: negligenciar a própria saúde, perder relações sociais e sofrer impacto financeiro.',
+  'Citou o resultado central do estudo: sobrecarga alta (Zarit ≥ 29) aumentou em 11,4 vezes a chance de pior qualidade de vida.',
+  'Concluiu que os aspectos emocionais do cuidador devem ser alvo de intervenção da equipe de saúde.'],
+ modelo:'Dona Lúcia vive a dupla vulnerabilidade descrita no estudo: soma o próprio envelhecimento à sobrecarga de cuidar do marido. Os sinais do caso coincidem com os achados: ela negligencia a própria saúde ao deixar as consultas e perde relações sociais ao sair do grupo da igreja. No estudo com 75 cuidadores com 60 anos ou mais, avaliados pela escala CASP-19 e pelo Inventário de Sobrecarga de Zarit, quem tinha sobrecarga alta (Zarit ≥ 29) teve 11,4 vezes mais chance de pior qualidade de vida, enquanto idade e sexo do cuidador, tipo de doença e grau de dependência de quem recebe o cuidado não influenciaram. Ou seja, o ponto central é a sobrecarga. A equipe de saúde deveria avaliar essa sobrecarga e tratar os aspectos emocionais da cuidadora como alvo de intervenção, e não olhar só para o paciente com AVC.'},
+{id:'id-psi-1', disc:'05', rid:'idoso-n2', cap:'psicopatologicos', tipo:'int', tema:'Quadros psicopatológicos',
+ q:'Por que a depressão no idoso costuma passar despercebida? Explique também os fatores de risco e de proteção e o papel das escalas de rastreio.',
+ crit:['Afirmou que a depressão não faz parte do envelhecimento normal, embora seja frequente (cerca de 40% dos casos não são reconhecidos).',
+  'Explicou os motivos: a visão errônea de que é natural da idade, sintomas somáticos que mascaram o quadro e a confusão com tristeza adaptativa ou perda funcional.',
+  'Citou fatores de risco (isolamento, perdas, doenças, incapacidade, queda de renda) e de proteção (atividade física, religiosidade, autonomia, boas relações, objetivos de vida).',
+  'Mencionou o rastreio na atenção primária, como a GDS (Escala de Depressão Geriátrica).'],
+ modelo:'A depressão é o principal transtorno psiquiátrico em idosos. Não faz parte do envelhecimento normal, mas é comum: chega a 22% entre hospitalizados ou institucionalizados, e estima-se que em 40% dos casos não seja reconhecida. Um motivo é a visão errônea de que ela é consequência natural da idade. Outro é que os sintomas somáticos relatados pelos idosos mascaram o quadro e se confundem com doenças físicas e perda funcional, além de ser difícil separar a depressão clínica de uma tristeza leve e adaptativa. São fatores de risco o isolamento e a perda de vínculos, as doenças e a dor, a incapacidade funcional, as perdas (viuvez, amigos) e a aposentadoria com queda de renda; são fatores de proteção a atividade física, a religiosidade, o otimismo, a autonomia, as boas relações e os objetivos de vida. Escalas de rastreio como a GDS ajudam a atenção primária a reconhecer o quadro a tempo.'},
+{id:'id-psi-2', disc:'05', rid:'idoso-n2', cap:'psicopatologicos', tipo:'caso', tema:'Quadros psicopatológicos',
+ caso:'Seu Antônio, 81 anos, ficou viúvo há um ano e mora sozinho. Na unidade de saúde, queixa-se de dor nas costas, insônia e cansaço, diz que "não serve para mais nada" e que "já viveu o que tinha que viver". A família acha que é "coisa da idade".',
+ q:'Analise o caso, destacando os sinais que merecem atenção, e explique por que a leitura da família é um problema.',
+ crit:['Identificou os fatores de risco presentes: viuvez, morar sozinho, idade avançada, dor.',
+  'Reconheceu que os sintomas físicos (dor, insônia, cansaço) podem mascarar um quadro depressivo.',
+  'Tratou as falas de inutilidade e desesperança como sinais de alerta, que muitas vezes não são reconhecidos a tempo.',
+  'Explicou que "coisa da idade" reproduz a visão errônea de que a depressão é normal na velhice e propôs rastreio e cuidado.'],
+ modelo:'O caso reúne vários fatores de risco para depressão no idoso: a viuvez recente, o isolamento de quem mora sozinho, a idade acima de 80 anos e a dor. As queixas de dor, insônia e cansaço podem ser sintomas somáticos que mascaram o quadro, o que torna o reconhecimento mais difícil. As falas de que "não serve para mais nada" e de que "já viveu o que tinha que viver" expressam sentimento de inutilidade e desesperança, sinais que merecem atenção imediata porque muitas vezes não são reconhecidos a tempo. A leitura da família reproduz a visão errônea de que a depressão é parte normal do envelhecimento, justamente um dos motivos pelos quais ela passa despercebida e causa sofrimento desnecessário. O caminho é o rastreio na atenção primária, com instrumentos como a GDS, e o encaminhamento para avaliação e cuidado, fortalecendo a rede de apoio dele.'},
+{id:'id-lut-1', disc:'05', rid:'idoso-n2', cap:'luto', tipo:'int', tema:'Enfrentamento do luto e da morte',
+ q:'Explique as três dimensões da morte e compare os estágios de Kübler-Ross com o que as pesquisas mostram sobre as formas de viver o luto.',
+ crit:['Explicou as três dimensões: biológica, social e psicológica.',
+  'Listou os estágios de Kübler-Ross: negação, raiva, barganha, depressão e aceitação.',
+  'Apresentou as críticas: não há ordem fixa, as reações vão e voltam e nem todos passam por todas.',
+  'Descreveu os padrões encontrados nas pesquisas (resiliência, recuperação gradual, luto prolongado) e citou o luto antecipatório.'],
+ modelo:'A morte tem três dimensões: a biológica, que é a cessação das funções vitais; a social, que envolve rituais, costumes e o lugar do morto na comunidade; e a psicológica, que diz respeito a como a pessoa encara a própria morte e como os próximos vivem a perda. A partir de pacientes terminais, Kübler-Ross descreveu cinco estágios: negação, raiva, barganha, depressão e aceitação. O modelo é criticado porque as reações não seguem uma ordem fixa, podem ir e voltar, e nem todos passam por todas; serve para entender reações possíveis, não como roteiro obrigatório. O modelo clássico do trabalho de luto também fala em fases (choque, preocupação com a lembrança, resolução), mas as pesquisas mostram padrões diferentes: muitas pessoas são resilientes, outras se recuperam aos poucos e algumas têm luto prolongado. Há ainda o luto antecipatório, que começa antes da morte, diante de uma doença grave.'},
+{id:'id-lut-2', disc:'05', rid:'idoso-n2', cap:'luto', tipo:'caso', tema:'Enfrentamento do luto e da morte',
+ caso:'Dona Ivone, 86 anos, frequenta um centro de convivência. Diz que não tem medo de morrer e brinca que "vai viver até os 110", mas, quando um amigo do grupo morre, passa dias calada. Conta sempre com as mesmas palavras a morte do filho, há 25 anos.',
+ q:'Analise o caso com base no estudo fenomenológico com longevos, apoiado em Heidegger.',
+ crit:['Identificou o discurso ambíguo: diz não temer a morte, mas reage a ela.',
+  'Relacionou "vou viver até os 110" à inautenticidade (impessoalidade): fugir da morte, vendo-a como algo dos outros.',
+  'Relacionou a reação à morte do amigo à percepção da própria finitude, que aproxima da autenticidade.',
+  'Reconheceu o luto não elaborado e concluiu que o idoso oscila entre os dois modos, conforme o momento e a história.'],
+ modelo:'Dona Ivone apresenta o discurso ambíguo encontrado no estudo com pessoas de 80 a 90 anos: afirma não temer a morte, mas a morte de um amigo a abala por dias. Na leitura de Heidegger, a brincadeira de viver até os 110 expressa o modo inautêntico ou impessoal, em que a pessoa foge da morte, tratando-a como algo dos outros e se ocupando do cotidiano. Já a morte de alguém próximo faz perceber a própria finitude e abre espaço para o modo autêntico, que é assumir a morte como possibilidade própria, algo que costuma surgir em momentos de sofrimento. A forma como conta a morte do filho, sempre do mesmo jeito depois de 25 anos, é sinal de um luto não elaborado. O estudo conclui que o idoso oscila entre esses modos conforme o momento e a sua história, e os autores defendem ações educativas contra o estereótipo de que envelhecer é caminhar ao lado da morte.'},
+
+// ===== 02 Neuroanatomia Humana =====
+{id:'ne-org-1', disc:'02', rid:'medula-sna', cap:'organizacao', tipo:'int', tema:'Organização do sistema nervoso',
+ q:'Descreva a organização do sistema nervoso em central e periférico, explique as funções básicas do sistema nervoso e diferencie a divisão segmentar da suprassegmentar.',
+ crit:['Descreveu o SNC (encéfalo: cérebro, cerebelo e tronco encefálico com mesencéfalo, ponte e bulbo; e medula espinal) e o SNP (nervos cranianos, nervos espinais e gânglios).',
+  'Explicou as funções: receber informações (sensorial), integrá-las e comandar respostas (motor).',
+  'Definiu a parte segmentar: medula e tronco encefálico, ligados diretamente aos nervos.',
+  'Definiu a parte suprassegmentar: cérebro e cerebelo, que ficam acima e não se ligam diretamente aos nervos.'],
+ modelo:'O sistema nervoso central é formado pelo encéfalo e pela medula espinal. O encéfalo inclui o cérebro, o cerebelo e o tronco encefálico, que tem, de cima para baixo, mesencéfalo, ponte e bulbo. O sistema nervoso periférico é formado pelos nervos cranianos, pelos nervos espinais e pelos gânglios. Funcionalmente, o sistema nervoso detecta e recebe informações (sistema sensorial), integra e processa essas informações e comanda respostas adequadas (sistema motor): um estímulo na pele sobe por uma fibra aferente até o SNC, e o comando desce por uma fibra eferente até o músculo. Há ainda a divisão segmentar e suprassegmentar. A parte segmentar é a que se liga diretamente aos nervos, segmento por segmento: a medula espinal e o tronco encefálico. A suprassegmentar fica acima e não se liga diretamente aos nervos: o cérebro e o cerebelo.'},
+{id:'ne-org-2', disc:'02', rid:'medula-sna', cap:'organizacao', tipo:'caso', tema:'Neurônio e sinapses',
+ caso:'Ao arrumar o jardim, Marina encosta a mão num cacto e a retira imediatamente.',
+ q:'Explique o caminho da informação nessa situação, do estímulo até a resposta, e descreva como a informação passa de um neurônio para outro numa sinapse química.',
+ crit:['Descreveu a fibra aferente (SNP) levando o estímulo da pele até o SNC.',
+  'Descreveu a fibra eferente levando o comando do SNC até o músculo.',
+  'Explicou a sinapse química: vesículas, liberação de neuromediadores na fenda e ação em receptores pós-sinápticos.',
+  'Diferenciou receptores ionotrópicos (canal iônico, resposta imediata) de metabotrópicos (proteína G, resposta lenta e duradoura).'],
+ modelo:'O estímulo na pele é detectado e conduzido por uma fibra aferente, do sistema nervoso periférico, até o sistema nervoso central. Ali a informação é integrada, e o comando motor desce por uma fibra eferente até o músculo, que se contrai e retira a mão: é o caminho do reflexo mostrado na aula. Ao longo desse caminho, a informação passa de uma célula a outra por sinapses; no músculo, pela junção neuromuscular. Na sinapse química, o neurônio pré-sináptico guarda os neuromediadores em vesículas sinápticas e os libera na fenda sináptica; eles se ligam a receptores da célula pós-sináptica. Se o receptor for ionotrópico, ele é um canal iônico controlado por ligante: abre quando o neurotransmissor se liga, e o potencial de membrana muda na hora. Se for metabotrópico, está associado à proteína G, que age de forma indireta, com resposta mais lenta e duradoura.'},
+{id:'ne-med-1', disc:'02', rid:'medula-sna', cap:'medula2', tipo:'int', tema:'Medula espinhal',
+ q:'Descreva a organização interna da medula espinhal e explique como o nervo espinhal se forma a partir das raízes dorsal e ventral.',
+ crit:['Explicou que a substância cinzenta (corpos de neurônios, em forma de H, com cornos ou colunas) fica por dentro e a branca (tractos, em funículos) fica por fora.',
+  'Descreveu a raiz dorsal como sensitiva, com o gânglio sensitivo, entrando pelo sulco lateral posterior.',
+  'Descreveu a raiz ventral como motora, saindo pelo sulco lateral anterior.',
+  'Explicou que as raízes se unem no nervo espinhal, que por isso é misto, e citou os 31 pares.'],
+ modelo:'Em corte, a medula tem a substância cinzenta por dentro, formada pelos corpos dos neurônios e com forma de H. Os braços do H são os cornos ou colunas anteriores e posteriores, e na região torácica e lombar alta (T1 a L2) aparece a coluna lateral, com neurônios do simpático. No centro fica o canal central. A substância branca fica por fora, formada pelos axônios organizados em tractos, que se agrupam nos funículos anterior, lateral e posterior. Dos sulcos laterais saem filamentos radiculares: pelo sulco lateral posterior entra a raiz dorsal, sensitiva, onde fica o gânglio com os corpos dos neurônios sensitivos; pelo sulco lateral anterior sai a raiz ventral, motora. As duas raízes se unem e formam o nervo espinhal, que por isso é misto. São 31 pares: 8 cervicais, 12 torácicos, 5 lombares, 5 sacrais e 1 coccígeo.'},
+{id:'ne-med-2', disc:'02', rid:'medula-sna', cap:'medula2', tipo:'caso', tema:'Meninges e anestesia',
+ caso:'Uma gestante vai fazer uma cesárea com raquianestesia. Ela pergunta, preocupada, se a agulha nas costas pode atingir a medula.',
+ q:'Explique o procedimento e responda à dúvida dela usando as meninges, os espaços e a anatomia da parte final da medula.',
+ crit:['Citou as meninges (dura-máter, aracnoide, pia-máter) e os espaços (epidural, subdural, subaracnóideo), com o líquor no subaracnóideo.',
+  'Explicou que, na raquianestesia, a agulha atravessa a dura e a aracnoide e o anestésico vai ao espaço subaracnóideo, diferente da peridural.',
+  'Explicou que, no adulto, a medula termina por volta de L2, no cone medular, e abaixo dela ficam a cauda equina e o filamento terminal.',
+  'Concluiu que, feita abaixo de L2, a agulha não atinge a medula.'],
+ modelo:'A medula é envolvida por três meninges: de fora para dentro, dura-máter, aracnoide e pia-máter. Entre elas há espaços: o epidural, por fora da dura, o subdural e o subaracnóideo, onde circula o líquor. Na raquianestesia, a agulha atravessa a dura-máter e a aracnoide, e o anestésico vai ao espaço subaracnóideo, misturado ao líquor, com efeito rápido. Na peridural, ao contrário, ele fica no espaço epidural, sem atingir o líquor. Quanto à dúvida da gestante: no adulto, a medula termina por volta da segunda vértebra lombar (L2), no cone medular. Abaixo dele, o canal contém apenas a cauda equina, formada pelas raízes lombares e sacrais, e o filamento terminal. Como a raquianestesia é feita abaixo de L2, a agulha não atinge a medula.'},
+{id:'ne-sna-1', disc:'02', rid:'medula-sna', cap:'sna', tipo:'int', tema:'Sistema nervoso autônomo',
+ q:'Compare as divisões simpática e parassimpática do sistema nervoso autônomo quanto à origem, à posição dos gânglios, ao tamanho das fibras e aos neurotransmissores.',
+ crit:['Explicou a origem: simpático toracolombar e parassimpático craniossacral (nervos III, VII, IX e X e medula sacral).',
+  'Comparou os gânglios: simpáticos longe dos órgãos (paravertebrais e pré-vertebrais), parassimpáticos perto ou na parede deles.',
+  'Comparou as fibras: no simpático, pré-ganglionar curta e pós-ganglionar longa; no parassimpático, o inverso.',
+  'Explicou os neurotransmissores: pré-ganglionares colinérgicos; pós parassimpático colinérgico (muscarínico); pós simpático noradrenérgico, com a exceção das glândulas sudoríparas.'],
+ modelo:'As duas divisões são vias de dois neurônios, um pré-ganglionar com corpo no SNC e um pós-ganglionar com corpo num gânglio. No simpático, os pré-ganglionares ficam nos segmentos torácicos e lombares altos da medula: é a divisão toracolombar. No parassimpático, ficam no tronco encefálico, saindo pelos nervos III, VII, IX e X, e na medula sacral: é a divisão craniossacral. Os gânglios simpáticos ficam nas cadeias paravertebrais ou nos gânglios pré-vertebrais, longe dos órgãos, por isso a fibra pré-ganglionar é curta e a pós-ganglionar é longa; os parassimpáticos ficam perto ou na parede dos órgãos, com pré-ganglionar longa e pós-ganglionar curta. Todos os pré-ganglionares são colinérgicos e agem em receptores nicotínicos. O pós-ganglionar parassimpático também é colinérgico, em receptores muscarínicos; o pós-ganglionar simpático é principalmente noradrenérgico, exceto os que inervam as glândulas sudoríparas. As duas divisões trabalham de forma coordenada para manter a homeostase, às vezes de forma sinérgica, às vezes recíproca.'},
+{id:'ne-sna-2', disc:'02', rid:'medula-sna', cap:'sna', tipo:'caso', tema:'Sistema nervoso autônomo',
+ caso:'Ana está atravessando a rua quando um carro freia bruscamente a poucos metros dela. Nos segundos seguintes, sente o coração disparar, a respiração acelerar e as mãos suarem.',
+ q:'Explique o que acontece no organismo de Ana do ponto de vista do sistema nervoso autônomo.',
+ crit:['Identificou a ativação intensa do simpático, a reação de luta ou fuga.',
+  'Descreveu efeitos: aumento da frequência cardíaca e da pressão, dilatação de brônquios e pupilas, inibição da digestão, mais glicose disponível, sangue desviado para os músculos.',
+  'Explicou o papel da medula da suprarrenal: recebe fibra pré-ganglionar e libera adrenalina no sangue.',
+  'Explicou o suor pela exceção colinérgica das fibras simpáticas para as glândulas sudoríparas.'],
+ modelo:'A ameaça ativa intensamente o sistema nervoso simpático, na reação de luta ou fuga. A frequência cardíaca e a pressão aumentam, os brônquios e as pupilas dilatam, a motilidade e as secreções intestinais são inibidas, o metabolismo da glicose aumenta e os vasos das vísceras se contraem enquanto os dos músculos esqueléticos se dilatam, preparando o corpo para agir. A medula da suprarrenal, que recebe fibra pré-ganglionar simpática e funciona como um gânglio, libera adrenalina direto no sangue, ampliando esses efeitos. O suor nas mãos também é simpático, mas é uma exceção: as fibras pós-ganglionares simpáticas que inervam as glândulas sudoríparas são colinérgicas, e não noradrenérgicas. Passado o susto, o equilíbrio entre simpático e parassimpático, que muitas vezes agem de forma recíproca, contribui para a volta à homeostase.'},
+{id:'ne-ner-1', disc:'02', rid:'medula-sna', cap:'nervos', tipo:'int', tema:'Nervos cranianos',
+ q:'Explique como os nervos cranianos são numerados e classificados quanto ao tipo de fibra e indique quais levam fibras parassimpáticas e para onde.',
+ crit:['Explicou que são 12 pares, numerados de I a XII pela origem aparente, de cima para baixo (I no telencéfalo, II no diencéfalo, os demais no tronco).',
+  'Classificou: sensitivos (I, II, VIII), motores (III, IV, VI, XI, XII) e mistos (V, VII, IX, X).',
+  'Indicou os parassimpáticos: III (pupila e lente), VII (lacrimal e salivares), IX (parótida) e X (coração e vísceras).',
+  'Mencionou que I e II são, tecnicamente, prolongamentos do SNC.'],
+ modelo:'Os nervos cranianos são os 12 pares que se conectam ao encéfalo, numerados em algarismos romanos de I a XII pela ordem da origem aparente, no sentido de cima para baixo: o olfatório (I) se liga ao telencéfalo, o óptico (II) ao diencéfalo e os outros dez ao tronco encefálico. Os pares I e II, embora chamados de nervos, são tecnicamente prolongamentos do sistema nervoso central. Quanto às fibras, são só sensitivos o I, o II e o VIII (vestibulococlear); motores o III, IV, VI, XI e XII; e mistos o V (trigêmeo), VII (facial), IX (glossofaríngeo) e X (vago). Quatro deles levam fibras parassimpáticas, formando a parte craniana da divisão craniossacral: o III para o esfíncter da pupila e o músculo ciliar, o VII para as glândulas lacrimal e salivares, o IX para a parótida e o X para o coração e as vísceras torácicas e abdominais.'},
+{id:'ne-ner-2', disc:'02', rid:'medula-sna', cap:'nervos', tipo:'caso', tema:'Nervos cranianos',
+ caso:'Carlos acordou com um lado do rosto "caído": não consegue fechar bem o olho nem sorrir desse lado. Também percebe que o gosto dos alimentos está diferente.',
+ q:'Qual nervo craniano está envolvido? Justifique pelas funções e pelo trajeto desse nervo e explique por que não se trata do trigêmeo.',
+ crit:['Identificou o nervo facial (VII) e a paralisia facial periférica, como a paralisia de Bell.',
+  'Relacionou os sintomas às funções: mímica facial e gustação dos 2/3 anteriores da língua (corda do tímpano).',
+  'Descreveu o trajeto: sulco bulbo-pontino, meato acústico interno, canal facial, forame estilomastóideo e parótida.',
+  'Diferenciou do trigêmeo, responsável pela sensibilidade da face e pelos músculos da mastigação, não pela mímica.'],
+ modelo:'O quadro indica lesão do nervo facial (VII), numa paralisia facial periférica, como a paralisia de Bell, que paralisa um lado do rosto. O facial é misto: sua raiz motora comanda a mímica facial, o que explica a dificuldade de fechar o olho e sorrir; e o nervo intermédio leva a gustação dos dois terços anteriores da língua, pela corda do tímpano, o que explica a alteração do gosto. Ele também tem fibras parassimpáticas para as glândulas lacrimal, submandibular e sublingual. Sai do sulco bulbo-pontino, entra no meato acústico interno junto com o VIII, percorre o canal facial no osso temporal, deixa o crânio pelo forame estilomastóideo e atravessa a parótida até os músculos da face. Não se trata do trigêmeo porque este leva a sensibilidade da face (tato, dor, temperatura) e inerva os músculos da mastigação; seu problema mais comum é a nevralgia, com crises de dor intensa, e não a paralisia da mímica.'},
+
+// ===== 04 Psicologia Experimental =====
+{id:'ex-cie-1', disc:'04', rid:'experimental', cap:'ciencia', tipo:'int', tema:'Ciência e intuição',
+ q:'Diferencie o conhecimento baseado na intuição do conhecimento científico e explique o que é a Psicologia Experimental e quais são suas frentes de pesquisa.',
+ crit:['Explicou a intuição (Cozby): aceitar sem questionar o próprio julgamento ou um único relato, com vieses que levam a erros de causa e efeito.',
+  'Explicou o que a ciência tem de diferente: regras objetivas que permitem refutar ou replicar, com empirismo e atitude cética.',
+  'Definiu a Psicologia Experimental: abordagem empírica, observação sistemática, experimentação controlada e mensuração de variáveis para relações causais.',
+  'Citou as três frentes: pesquisa básica, eficácia de medicamentos e eficácia de intervenções psicoterapêuticas.'],
+ modelo:'Para Cozby, quem se baseia na intuição aceita sem questionar o próprio julgamento ou um único relato de experiência. A intuição percebe conexões de forma imediata, sem comprovação, e é atravessada por vieses da percepção que levam a conclusões erradas sobre causa e efeito: experiência não substitui evidência. O método científico, ao contrário, tem um conjunto objetivo de regras para coletar, avaliar e relatar informações, o que permite que outras pessoas refutem ou repliquem as ideias. Suas duas marcas são a abordagem empírica, em que o conhecimento vem da observação e da experimentação, e a atitude cética, que exige provas e não aceita crenças só porque estão estabelecidas. A Psicologia Experimental investiga o comportamento e os processos mentais com essa abordagem, usando observação sistemática, experimentação controlada e mensuração de variáveis para testar hipóteses e estabelecer relações causais. Atua em três frentes: pesquisa básica, eficácia de medicamentos (como a fluoxetina no nado forçado em ratos) e eficácia de intervenções psicoterapêuticas.'},
+{id:'ex-cie-2', disc:'04', rid:'experimental', cap:'ciencia', tipo:'caso', tema:'Ciência e intuição',
+ caso:'Um perfil com muitos seguidores afirma que "escrever um diário de gratidão toda noite cura a ansiedade". Como prova, mostra dezenas de depoimentos de seguidores que dizem ter melhorado.',
+ q:'Analise essa afirmação com base na aula sobre ciência e intuição e proponha como ela poderia ser testada.',
+ crit:['Argumentou que relatos e experiências não substituem evidência e podem conter vieses de causa e efeito.',
+  'Aplicou a atitude cética: exigir provas e não aceitar a afirmação por popularidade.',
+  'Propôs um teste com hipótese, VI (diário ou não) e VD (uma medida de ansiedade), com grupos comparáveis.',
+  'Mencionou a importância da replicação e de o psicólogo decidir com base em pesquisas.'],
+ modelo:'A afirmação se apoia na intuição e em relatos, e não em evidência. Como lembra Cozby, aceitar um relato de experiência sem questionar leva a conclusões erradas de causa e efeito: os seguidores que melhoraram podem ter melhorado por outros motivos, e quem não melhorou provavelmente não mandou depoimento. A atitude cética pede que se exija prova e se examine a questão por outras perspectivas, sem aceitar a ideia por ser popular. Para testar, seria preciso formular uma hipótese (o diário reduz a ansiedade), definir a variável independente, escrever ou não o diário, e a variável dependente, uma medida de ansiedade aplicada antes e depois, comparando grupos parecidos em condições controladas. Os resultados precisariam ser replicados por outros pesquisadores. Isso importa porque o psicólogo decide intervenções com base em pesquisas e precisa saber julgar se uma evidência serve para o seu caso.'},
+{id:'ex-pes-1', disc:'04', rid:'experimental', cap:'pesquisa', tipo:'int', tema:'Conceitos básicos em pesquisa',
+ q:'Descreva as etapas do método científico e explique a diferença entre pesquisa básica e aplicada e entre pesquisa qualitativa e quantitativa.',
+ crit:['Descreveu as etapas: observação, pergunta, hipótese, experimentação, análise, conclusão e teoria.',
+  'Diferenciou pesquisa básica (conhecimento pelo conhecimento) de aplicada (solução de problemas específicos).',
+  'Diferenciou pesquisa qualitativa (significados, interpretação) de quantitativa (resultados numéricos, relações entre variáveis) e citou a mista.',
+  'Explicou que o que separa ciência de opinião é a forma de construir e testar as explicações.'],
+ modelo:'O método científico organiza como a observação será feita. Começa pela observação do fenômeno, passa pela formulação de uma pergunta clara e investigável e de uma hipótese, que é uma explicação provisória. Segue com a experimentação ou testagem controlada, a análise dos resultados em tabelas e gráficos e a conclusão sobre se a hipótese foi confirmada ou refutada. Uma explicação consolidada por várias evidências se torna teoria científica. É essa forma de construir e testar explicações que diferencia a ciência da opinião. Quanto à finalidade, a pesquisa básica busca ampliar o conhecimento sem aplicação prevista, o conhecimento pelo conhecimento, enquanto a aplicada busca resolver problemas específicos observados. Quanto à abordagem, a qualitativa procura compreender o significado que as pessoas dão ao fenômeno, com certo grau de interpretação do pesquisador; a quantitativa analisa resultados numéricos e as relações entre variáveis; e a mista usa as duas, reunindo mais informações.'},
+{id:'ex-pes-2', disc:'04', rid:'experimental', cap:'pesquisa', tipo:'caso', tema:'Conceitos básicos em pesquisa',
+ caso:'Um professor percebeu que os alunos que tomam café antes da aula tiram notas melhores e quer saber se o café melhora o desempenho.',
+ q:'Transforme essa observação numa pesquisa: formule a pergunta, a hipótese e o objetivo geral, identifique a VI e a VD e aponte os cuidados para a conclusão ser confiável.',
+ crit:['Formulou uma pergunta investigável e uma hipótese como resposta provisória.',
+  'Identificou a VI (consumo de café, manipulado) e a VD (desempenho medido, como a nota).',
+  'Apresentou um objetivo geral (e, se possível, específicos).',
+  'Apontou cuidados: número de alunos, grupos parecidos, sono e outros fatores, forma de medir e replicação.'],
+ modelo:'A pergunta de pesquisa poderia ser: tomar café antes da aula melhora o desempenho dos alunos numa avaliação? A hipótese, como resposta provisória, seria que os alunos que tomam café têm desempenho maior do que os que não tomam. O objetivo geral seria verificar o efeito do café sobre o desempenho; objetivos específicos poderiam ser comparar as notas dos grupos e verificar se o efeito muda conforme a quantidade. A variável independente é o consumo de café, que o pesquisador manipula (dar café a um grupo e não ao outro), e a variável dependente é o desempenho, medido pela nota. Para a conclusão ser confiável, é preciso observar um número suficiente de alunos, formar grupos parecidos, controlar outros fatores, como quanto cada um dormiu, definir bem como o desempenho será medido e repetir o estudo, para que outra pessoa encontre o mesmo resultado.'},
+{id:'ex-sel-1', disc:'04', rid:'experimental', cap:'selecao', tipo:'int', tema:'Seleção pelas consequências',
+ q:'Explique o modelo de seleção pelas consequências de Skinner, relacionando-o com a seleção natural de Darwin, e descreva os três níveis de seleção.',
+ crit:['Explicou a passagem de um modelo mecanicista para um modelo inspirado na biologia, com variação e seleção.',
+  'Descreveu a filogenia: comportamentos da espécie, respondentes, controlados por estímulos antecedentes.',
+  'Descreveu a ontogenia: comportamento operante, selecionado pelas consequências durante a vida do indivíduo.',
+  'Descreveu a cultura: comportamento verbal e práticas culturais mantidas ao longo de gerações.'],
+ modelo:'O pensamento de Skinner passou de um modelo influenciado pela física, mecanicista, para um modelo influenciado pela biologia, a evolução por seleção natural. Como na teoria de Darwin, há variação entre os indivíduos e seleção das variações favoráveis num ambiente específico; evoluir não é melhorar, e dizer que o ambiente selecionou uma característica é dizer que ela se tornou mais frequente. Para Skinner, a seleção natural é só o primeiro nível. Na filogenia, selecionam-se comportamentos característicos da espécie, os respondentes, controlados por estímulos antecedentes. Na ontogenia, o comportamento passa a ser sensível às consequências, que o fortalecem ou enfraquecem: é o condicionamento operante, que seleciona variações durante a vida do indivíduo e monta o seu repertório. Na cultura, o controle operante da musculatura vocal tornou possível a linguagem, e práticas culturais passam a ser selecionadas e mantidas ao longo de gerações.'},
+{id:'ex-sel-2', disc:'04', rid:'experimental', cap:'selecao', tipo:'caso', tema:'Seleção pelas consequências',
+ caso:'(1) Um bebê começa a sugar quando algo toca seus lábios. (2) Uma criança percebe que, quando pede "por favor", ganha o brinquedo, e passa a pedir sempre assim. (3) Numa comunidade, há gerações as famílias se reúnem numa festa depois da colheita.',
+ q:'Classifique cada comportamento num nível de seleção pelas consequências, justifique e explique a analogia entre a seleção operante e a seleção natural.',
+ crit:['Classificou a sucção como filogenética, um respondente controlado pelo estímulo antecedente e comum à espécie.',
+  'Classificou o "por favor" como ontogenético: operante, mantido pela consequência durante a vida da criança.',
+  'Classificou a festa como cultural: prática mantida e transmitida ao longo de gerações.',
+  'Explicou a analogia: a seleção natural seleciona variações ao longo de milhares de anos; a operante, durante a vida do indivíduo.'],
+ modelo:'A sucção do bebê é um comportamento selecionado no nível filogenético: é característico da espécie, produto da seleção natural, e respondente, porque é controlado pelo estímulo antecedente, o toque nos lábios. Diante dele, a chance de ocorrer é perto de 100%. O pedido com "por favor" é ontogenético: é um comportamento operante, que se tornou mais frequente porque foi seguido de uma consequência, ganhar o brinquedo, durante a vida daquela criança. A festa da colheita é cultural: uma prática selecionada e mantida pelo grupo ao longo de muitas gerações, possível graças ao comportamento verbal. A analogia de Skinner é direta: a seleção natural seleciona variações favoráveis ao longo de milhares de anos, e a seleção operante seleciona variações do comportamento ao longo da vida de um indivíduo, pelas consequências que produzem.'},
+{id:'ex-ref-1', disc:'04', rid:'experimental', cap:'reforcamento', tipo:'int', tema:'Contingência e reforçamento',
+ q:'Explique a contingência tríplice e diferencie reforçamento positivo de negativo (incluindo fuga e esquiva) e reforçadores primários, condicionados e generalizados.',
+ crit:['Descreveu a contingência tríplice (Sᵈ, resposta e consequência) com um exemplo.',
+  'Diferenciou reforço positivo (acréscimo de estímulo) de negativo (retirada de aversivo), lembrando que os dois aumentam a frequência e que negativo não é punição.',
+  'Diferenciou fuga (o aversivo já está presente) de esquiva (o aversivo é evitado).',
+  'Diferenciou reforçadores primários, condicionados e generalizados, com exemplos.'],
+ modelo:'A contingência tríplice descreve a relação ambiente, organismo e ambiente: um estímulo discriminativo (Sᵈ) sinaliza que a resposta tem chance de ser reforçada, a resposta é emitida e uma consequência acontece no ambiente. Por exemplo: o celular toca (Sᵈ), a pessoa atende (resposta) e fala com quem ligou (consequência). Reforçamento é o aumento ou a manutenção da frequência de uma resposta. No positivo, isso ocorre pelo acréscimo de um estímulo reforçador, como a nota boa depois de estudar; no negativo, pela retirada de um estímulo aversivo. Negativo não significa ruim nem punição: significa que algo foi retirado. O reforço negativo pode ocorrer por fuga, quando o aversivo já está presente e a resposta o remove, ou por esquiva, quando a resposta evita que ele apareça. Reforçadores primários, como água e comida, têm efeito inato; os condicionados adquirem função reforçadora por pareamento com um primário, como o clique do adestrador; e os generalizados, como o dinheiro e a atenção, foram pareados com muitos reforçadores e funcionam independentemente da privação do momento.'},
+{id:'ex-ref-2', disc:'04', rid:'experimental', cap:'reforcamento', tipo:'caso', tema:'Contingência e reforçamento',
+ caso:'Sempre que percebe que o professor vai chamá-lo para apresentar, Pedro pede para ir ao banheiro, e não é chamado. Em casa, ele só lava a louça quando a mãe promete dinheiro, e aceita mesmo logo depois de almoçar.',
+ q:'Analise os comportamentos de Pedro usando contingência tríplice, reforçamento negativo, reforçadores generalizados e operações motivadoras.',
+ crit:['Descreveu a contingência do banheiro: Sᵈ (sinal de que será chamado), resposta (pedir para sair) e consequência (não apresentar).',
+  'Classificou como esquiva: reforço negativo que evita o aversivo e aumenta a frequência da resposta.',
+  'Identificou o dinheiro como reforçador generalizado.',
+  'Explicou que o dinheiro sofre pouco efeito de saciação e diferenciou operação motivadora de Sᵈ.'],
+ modelo:'No primeiro comportamento, o sinal de que o professor vai chamá-lo funciona como estímulo discriminativo, a resposta é pedir para ir ao banheiro e a consequência é não ter de apresentar. Como a resposta impede que o aversivo apareça, trata-se de esquiva, uma forma de reforçamento negativo: algo aversivo deixa de ocorrer, e por isso a frequência da resposta aumenta, o que explica por que Pedro repete o comportamento. No segundo, o dinheiro é um reforçador generalizado, pois foi pareado com muitos reforçadores diferentes. Por isso funciona mesmo logo depois do almoço: operações motivadoras abolidoras, como a saciação, diminuem o valor de reforçadores específicos, como a comida, mas os generalizados sofrem pouco esse efeito. A promessa da mãe sinaliza que o reforço está disponível, ou seja, funciona como Sᵈ; já a operação motivadora seria aquilo que altera o quanto o reforçador vale naquele momento.'},
+
+// ===== 03 Psicologia da Aprendizagem =====
+{id:'ap-pia-1', disc:'03', rid:'piaget', cap:'piaget', tipo:'int', tema:'Piaget',
+ q:'Explique os conceitos de assimilação, acomodação e equilibração majorante e por que eles são o núcleo da teoria de Piaget, mais do que os períodos de desenvolvimento.',
+ crit:['Definiu assimilação: incorporar a realidade aos esquemas que já existem, sem modificar a mente.',
+  'Definiu acomodação: reestruturar e construir novos esquemas quando a assimilação falha; é por ela que ocorre o desenvolvimento.',
+  'Explicou a equilibração majorante: equilíbrio, desequilíbrio, acomodação e um novo equilíbrio mais amplo.',
+  'Diferenciou o mais famoso (os períodos) do mais importante (o "núcleo duro" construtivista).'],
+ modelo:'Na assimilação, o organismo incorpora a realidade aos esquemas que já tem, impondo-se ao meio, e a mente não se modifica; os esquemas podem até deformar a realidade, como a criança que brinca com um pau dizendo que é um cavalo. Quando os esquemas não conseguem assimilar uma situação, a mente se reestrutura e constrói novos esquemas: é a acomodação, e é por ela que ocorre o desenvolvimento cognitivo. Por isso, para Piaget, só há aprendizagem quando o esquema de assimilação sofre acomodação. O equilíbrio entre os dois processos é a adaptação, e a equilibração majorante descreve o ciclo: um equilíbrio inicial é rompido por uma experiência nova, o desequilíbrio leva à acomodação e surge um novo equilíbrio, mais amplo que o anterior. Os quatro períodos são a parte mais famosa da teoria, mas esses conceitos são o mais importante, o núcleo duro do construtivismo piagetiano, porque explicam como o conhecimento é construído na interação com o meio.'},
+{id:'ap-pia-2', disc:'03', rid:'piaget', cap:'piaget', tipo:'caso', tema:'Piaget',
+ caso:'Uma professora do 1º ano quer ensinar que 4 + 3 = 7 e 7 − 3 = 4 são "a mesma conta ao contrário". Uma aluna de 6 anos, diante de dois copos com a mesma quantidade de água, diz que o copo mais alto tem mais.',
+ q:'Com base em Piaget, analise o que a resposta da aluna indica e como a professora deveria conduzir o ensino.',
+ crit:['Identificou o período pré-operacional: fixação no aspecto mais chamativo, sem conservação.',
+  'Explicou que o conteúdo exige reversibilidade, própria do período operacional-concreto.',
+  'Afirmou que ensinar é provocar desequilíbrio compatível com o período de desenvolvimento do aluno.',
+  'Propôs o ensino reversível (Kubli), com passos intermediários e métodos ativos, nem diretivo nem não diretivo.'],
+ modelo:'A resposta da aluna é típica do período pré-operacional, de 2 a 7 anos: ela se fixa no aspecto mais chamativo da situação, a altura do copo, e ainda não compreende a conservação. Seu pensamento também não é reversível, ou seja, ela não consegue percorrer um caminho mental e voltar ao ponto de partida. Ocorre que perceber que 7 − 3 = 4 é a operação inversa de 4 + 3 = 7 exige justamente reversibilidade, característica do período operacional-concreto. O erro comum que Piaget aponta é ensinar conteúdos que exigem conservação e reversibilidade a crianças que ainda não têm essas noções. Para Piaget, ensinar é provocar desequilíbrio, mas compatível com o período do aluno. A professora pode usar o ensino reversível de Kubli: relacionar os esquemas espontâneos da criança com o que quer ensinar, com passos intermediários e materiais concretos, e métodos ativos, em que ela manipula, junta e separa objetos, sem dar a resposta pronta nem deixar a criança sem direção.'},
+{id:'ap-vyg-1', disc:'03', rid:'aprendizagem-4-6', cap:'vygotsky', tipo:'int', tema:'Vygotsky',
+ q:'Explique a lei da dupla formação e a Zona de Desenvolvimento Proximal, relacionando-as com o papel do ensino para Vygotsky.',
+ crit:['Explicou a origem social dos processos mentais superiores e a mediação por instrumentos e signos.',
+  'Descreveu a dupla formação: toda função aparece primeiro no nível social (interpessoal) e depois no individual (intrapessoal), por internalização.',
+  'Definiu a ZDP: distância entre o nível real (sozinho) e o potencial (com ajuda de alguém mais capaz).',
+  'Explicou que a aprendizagem puxa o desenvolvimento e que o ensino é troca de significados dentro da ZDP.'],
+ modelo:'Para Vygotsky, os processos mentais superiores têm origem social e só podem ser compreendidos pelos instrumentos e signos que os mediam. Não é o desenvolvimento cognitivo que permite socializar, mas a socialização que desenvolve os processos mentais. Isso aparece na lei da dupla formação: toda função surge duas vezes, primeiro no nível social, entre pessoas, e depois no nível individual, dentro da pessoa, pela internalização de instrumentos e signos criados pela cultura. A Zona de Desenvolvimento Proximal é a distância entre o nível real, o que a pessoa faz sozinha, e o nível potencial, o que faz com a ajuda de um adulto ou colega mais capaz; abrange funções ainda em maturação. Por isso a aprendizagem é condição para o desenvolvimento, e o bom ensino está à frente dele: ensinar o que o aluno já alcançou não é efetivo. O ensino se consuma quando professor e aluno compartilham significados, numa interação dentro da ZDP.'},
+{id:'ap-vyg-2', disc:'03', rid:'aprendizagem-4-6', cap:'vygotsky', tipo:'caso', tema:'Vygotsky',
+ caso:'Lucas, 8 anos, não consegue montar sozinho um quebra-cabeça de 100 peças. Com uma colega que vai sugerindo "começa pelas bordas" e "separa por cor", ele consegue. Enquanto monta, fala baixinho: "agora as azuis...".',
+ q:'Analise a situação com os conceitos de Vygotsky.',
+ crit:['Identificou o nível real (não consegue sozinho) e o potencial (consegue com a colega), ou seja, a ZDP.',
+  'Destacou a interação social com um colega mais capaz e a mediação pelos signos da fala.',
+  'Interpretou a fala baixinha como fala egocêntrica que regula a própria ação, a caminho da fala interna.',
+  'Aplicou a dupla formação: as estratégias, primeiro sociais, podem ser internalizadas e usadas sozinho depois.'],
+ modelo:'O caso ilustra a Zona de Desenvolvimento Proximal: sozinho, Lucas não monta o quebra-cabeça (nível real), mas com a ajuda de uma colega mais capaz consegue (nível potencial). A ajuda acontece pela interação social e é mediada por signos, as instruções verbais da colega. A fala baixinha de Lucas é a fala egocêntrica, que, para Vygotsky, não é pensamento egocêntrico, mas a criança usando a linguagem para regular a própria ação; ela é uma etapa entre a fala social e a fala interna. Pela lei da dupla formação, as estratégias de começar pelas bordas e separar por cor aparecem primeiro no plano interpessoal, entre os dois, e tendem a ser internalizadas, passando ao plano intrapessoal. Quando isso acontecer, Lucas fará sozinho o que hoje faz com ajuda: a aprendizagem dentro da ZDP terá puxado o desenvolvimento.'},
+{id:'ap-fre-1', disc:'03', rid:'aprendizagem-4-6', cap:'freire', tipo:'int', tema:'Paulo Freire',
+ q:'Compare a educação bancária com a educação dialógica e problematizadora de Paulo Freire.',
+ crit:['Descreveu a educação bancária: depositar conhecimentos, educador sujeito e educando objeto, memorização.',
+  'Explicou as consequências: anula a criticidade, adapta e torna passivo, o que serve aos opressores.',
+  'Descreveu a educação dialógica: o diálogo como essência, educar com o educando, pedagogia da pergunta.',
+  'Explicou que a educação é diretiva, mas não autoritária, e diferenciou consciência ingênua de crítica.'],
+ modelo:'Na educação bancária, educar é depositar conhecimentos: o saber é doado por quem se julga sábio. O educador é o sujeito, que sabe, fala e escolhe; o educando é objeto, que escuta, segue e se acomoda, e estudar vira memorizar sem significado. Quanto mais os alunos arquivam os depósitos, menos desenvolvem a consciência crítica que os faria transformar o mundo; a educação os deixa passivos e adaptados, o que satisfaz os interesses dos opressores e reforça a consciência ingênua, que aceita a realidade como imutável. Na educação dialógica e problematizadora, o diálogo é a essência da educação como prática da liberdade: não se educa para nem sobre o educando, mas com ele, numa pedagogia da pergunta. O conteúdo é a devolução organizada do que o povo entregou de forma desestruturada, a partir dos temas geradores. O educador continua diretivo, mas não autoritário: reconhece os saberes do educando e o ajuda a superar a ingenuidade, desenvolvendo uma consciência crítica, que vê a realidade como mutável e aceita revisões.'},
+{id:'ap-fre-2', disc:'03', rid:'aprendizagem-4-6', cap:'freire', tipo:'caso', tema:'Paulo Freire',
+ caso:'Numa turma de alfabetização de adultos que trabalham na construção civil, o professor usa uma cartilha com frases como "Vovô viu a uva". Os alunos faltam muito e dizem que aquilo "não é para eles".',
+ q:'Analise essa prática e proponha outra com base em Paulo Freire.',
+ crit:['Identificou traços da educação bancária: conteúdo pronto, distante da realidade dos educandos.',
+  'Propôs investigar o universo dos alunos para escolher palavras geradoras (riqueza fonética, dificuldades e aspecto pragmático).',
+  'Propôs temas geradores e problematização a partir da vida deles (por exemplo, trabalho e salário).',
+  'Destacou o diálogo, o reconhecimento dos saberes dos educandos e o desenvolvimento da consciência crítica.'],
+ modelo:'A cartilha representa a educação bancária: o conteúdo chega pronto, sem relação com a vida dos educandos, que são tratados como recipientes. Por isso os alunos não se reconhecem nele e se afastam. Freire propõe começar pela investigação do universo dos educandos, num processo que já é dialógico: investigação, tematização e problematização. Na alfabetização, buscam-se palavras geradoras do cotidiano deles, escolhidas pela riqueza fonética, pelas dificuldades fonéticas e pelo aspecto pragmático; para trabalhadores da construção, poderiam ser palavras ligadas à obra e ao trabalho. Dessas palavras surgem temas geradores, como trabalho, salário e classes sociais, que são devolvidos à turma como problema para discutir, e não como aula expositiva. O professor continua dirigindo o trabalho, mas reconhece que os alunos têm saberes e aprende com eles, de modo que ler a palavra seja também ler o mundo e desenvolver a consciência crítica.'},
+{id:'ap-dis-1', disc:'03', rid:'aprendizagem-4-6', cap:'dislexia', tipo:'int', tema:'Dislexia',
+ q:'Defina dislexia, comparando a visão do DSM-IV com a do DSM-5, e explique as hipóteses sobre por que ela acontece.',
+ crit:['Definiu: transtorno específico, de origem neurobiológica, com dificuldade de reconhecer palavras, fluência, soletração e decodificação.',
+  'Comparou o DSM-IV (comprometimento da leitura que interfere no desempenho escolar) com o DSM-5 (transtorno do neurodesenvolvimento, por fatores genéticos, epigenéticos e ambientais).',
+  'Mencionou inteligência na média ou acima e visão e audição adequadas.',
+  'Explicou as hipóteses: déficit fonológico, déficit de nomeação rápida, duplo déficit e déficit perceptivo visual, além do peso genético.'],
+ modelo:'Segundo a Associação Internacional de Dislexia, a dislexia é um transtorno específico de aprendizagem, de origem neurobiológica, marcado por dificuldades no reconhecimento de palavras, na fluência, na soletração e na decodificação, ligadas a um déficit fonológico. O DSM-IV a descrevia como comprometimento acentuado no reconhecimento de palavras e na compreensão da leitura, quando interfere de forma significativa no desempenho escolar. O DSM-5 passou a tratá-la como transtorno do neurodesenvolvimento, resultante da interação de fatores genéticos, epigenéticos e ambientais. As crianças com dislexia têm inteligência na média ou acima, visão e audição adequadas e oportunidades de aprendizagem. Entre as explicações estão o déficit fonológico, a falha no processamento dos fonemas; o déficit na nomeação rápida de letras, números e objetos; o duplo déficit, que junta os dois nas formas mais graves; e o déficit perceptivo visual, com escrita em espelho. O componente genético é forte: a dislexia é herdada em cerca de metade dos casos.'},
+{id:'ap-dis-2', disc:'03', rid:'aprendizagem-4-6', cap:'dislexia', tipo:'caso', tema:'Dislexia',
+ caso:'Rafael, 7 anos, é curioso e vai bem nas atividades orais, mas lê devagar, troca e omite letras e escreve algumas letras espelhadas. O pai conta que também teve muita dificuldade para ler na escola.',
+ q:'Quais aspectos do caso são compatíveis com o que a aula descreve sobre dislexia e o que precisaria ser avaliado antes de qualquer conclusão?',
+ crit:['Relacionou os sinais à descrição da aula: leitura lenta, omissões e substituições, espelhamento, idade em que o quadro fica evidente.',
+  'Relacionou a história do pai ao componente genético (herança em cerca de 50% dos casos).',
+  'Apontou o que avaliar: inteligência, visão e audição, oportunidades e qualidade do ensino.',
+  'Destacou a importância da identificação precoce e do apoio adequado.'],
+ modelo:'Vários aspectos coincidem com a descrição da aula: a leitura lenta e vacilante, as omissões e substituições, a escrita espelhada e a idade de Rafael, já que o quadro costuma ficar mais evidente entre 6 e 7 anos, em crianças com boa inteligência, o que combina com o bom desempenho oral. A dificuldade do pai também é relevante, pois a dislexia é herdada em cerca de metade dos casos, e de 35% a 40% dos parentes de primeiro grau são afetados. Ainda assim, os sinais não bastam para concluir. É preciso verificar se o potencial intelectual está na média ou acima (por exemplo, pelo WISC), se visão e audição estão adequadas e se a criança teve oportunidades adequadas de aprendizagem, para afastar outras explicações. A avaliação também ajuda a entender qual via está mais comprometida. A identificação precoce, com apoio adequado, reduz o impacto escolar e social.'},
+{id:'ap-cal-1', disc:'03', rid:'aprendizagem-7-9', cap:'discalculia', tipo:'int', tema:'Discalculia',
+ q:'Diferencie discalculia do desenvolvimento de acalculia e explique por que fazer contas é uma função cerebral complexa, usando o modelo do triplo código.',
+ crit:['Definiu a discalculia do desenvolvimento: dificuldade na aritmética básica apesar de inteligência normal, escola adequada e motivação.',
+  'Definiu a acalculia: perda da capacidade de calcular depois de lesão cerebral.',
+  'Explicou as funções envolvidas numa conta: processamento numérico, discriminação visuoespacial, memória e atenção.',
+  'Descreveu o triplo código: representação verbal e visual, transcodificação e associação verbal fixa (tabuada).'],
+ modelo:'A discalculia do desenvolvimento é uma dificuldade específica de aprender aritmética básica (somar, subtrair, multiplicar, dividir) que não se explica por deficiência intelectual, escolarização inadequada ou falta de motivação; atinge de 3% a 6% das crianças em idade escolar. A acalculia, descrita por Henschen, é diferente: é a perda da capacidade de calcular depois de uma lesão cerebral. Fazer uma conta simples ativa vários mecanismos ao mesmo tempo: o processamento da informação numérica (perceber, reconhecer e produzir números e relacioná-los a símbolos), a discriminação visuoespacial, essencial para organizar multiplicações e divisões no papel, e a memória e a atenção. O modelo do triplo código mostra que os números são manipulados de três formas: a representação verbal ("trinta e sete") ou visual (37), o processo de transcodificação de um código para outro e a associação verbal fixa, como a tabuada decorada como sequência de palavras.'},
+{id:'ap-cal-2', disc:'03', rid:'aprendizagem-7-9', cap:'discalculia', tipo:'caso', tema:'Discalculia',
+ caso:'Bia, 9 anos, lê bem e reconhece todos os números escritos, mas não consegue dizer qual de dois grupos pequenos tem mais objetos sem contar um a um e se perde ao armar contas de multiplicar no papel.',
+ q:'Analise o caso usando o conceito de subitizing e as diferenças entre comprometimento do hemisfério direito e do esquerdo, e indique uma estratégia de reabilitação compatível.',
+ crit:['Explicou o subitizing (reconhecer pequenas quantidades sem contar, até cerca de 4) e que aos 6 anos ele já deveria estar desenvolvido.',
+  'Relacionou o caso ao padrão do hemisfério direito: reconhece os símbolos, mas tem dificuldade de conceituar quantidades.',
+  'Relacionou a dificuldade de organizar a conta no papel ao aspecto visuoespacial.',
+  'Propôs estratégia compatível: gráficos e treino de orientação espacial, com participação do professor.'],
+ modelo:'Bia tem dificuldade de reconhecer pequenas quantidades sem contar, o que indica falha no subitizing, a capacidade de perceber na hora quantos elementos há num grupo pequeno, em média até quatro. Aos 6 anos, a criança já deveria ter essa habilidade, que é fundamental para a aquisição dos conceitos numéricos. Como ela lê bem e reconhece os símbolos numéricos, mas tem dificuldade com a ideia de quantidade, o quadro se aproxima do padrão descrito para o hemisfério direito, que não conceitua quantidades mas reconhece os símbolos. No comprometimento do esquerdo seria o contrário, com dificuldade de reconhecer e produzir os símbolos, muitas vezes associada à dislexia. A dificuldade de armar a multiplicação no papel reforça o componente visuoespacial. Uma estratégia compatível é usar gráficos e treino de orientação espacial, e os melhores resultados aparecem com participação direta do professor.'},
+{id:'ap-tda-1', disc:'03', rid:'aprendizagem-7-9', cap:'tdah', tipo:'int', tema:'TDAH',
+ q:'Explique como é feita a avaliação do TDAH e por que nenhum teste isolado pode fechar o diagnóstico.',
+ crit:['Afirmou que o diagnóstico é clínico e comportamental, sem marcador biológico.',
+  'Descreveu a anamnese: queixa, tempo de evolução e presença dos sintomas em mais de um ambiente.',
+  'Citou os recursos: histórias clínica e familiar, cadernos e provas, exame neurológico evolutivo, escalas (Conners, SNAP-IV, CBCL) e avaliações complementares.',
+  'Explicou que não se diagnostica pelo "teste" do remédio e mencionou as apresentações do DSM-5 e a exigência de prejuízo.'],
+ modelo:'O diagnóstico do TDAH é clínico e comportamental, porque não existe marcador biológico. Começa pela anamnese, que investiga a queixa, o tempo de evolução e se os sintomas aparecem em mais de um ambiente, como escola e casa. Inclui a história clínica, com prematuridade, traumatismos e síndromes, a história familiar e a observação de cadernos e provas. Também podem ser usados o exame neurológico evolutivo, escalas como Conners, SNAP-IV e CBCL e, se preciso, avaliações psicológica, psicopedagógica, visual e auditiva. Pelo DSM-5, o quadro pode ter apresentação combinada, predominantemente desatenta ou predominantemente hiperativa/impulsiva, com gravidade leve, moderada ou grave, e os sintomas precisam causar prejuízo acadêmico, social ou nas relações. Como é uma síndrome heterogênea, nenhum teste isolado fecha o diagnóstico, e ele não pode ser feito pelo "teste" do remédio.'},
+{id:'ap-tda-2', disc:'03', rid:'aprendizagem-7-9', cap:'tdah', tipo:'caso', tema:'TDAH',
+ caso:'A escola de Mateus, 8 anos, diz que ele "não para quieto" e pede aos pais um laudo de TDAH. Em casa, os pais não notam nada diferente do comportamento de outras crianças. Um parente sugere "dar o remédio para ver se resolve".',
+ q:'Analise o pedido da escola e a sugestão do parente à luz do que a aula descreve sobre a avaliação do TDAH.',
+ crit:['Lembrou que os sintomas precisam aparecer em diferentes ambientes, com prejuízo, e que o relato da casa diverge do da escola.',
+  'Afirmou que o diagnóstico é clínico, sem marcador biológico, e depende de avaliação completa.',
+  'Criticou o "teste" do remédio, que não pode ser usado para diagnosticar.',
+  'Apontou outros fatores a investigar, como dificuldades de aprendizagem e o contexto.'],
+ modelo:'O pedido da escola não basta para concluir nada. Pela descrição da aula, os sintomas precisam aparecer em diferentes ambientes e causar prejuízo, e no caso de Mateus há uma divergência importante: em casa, os pais não percebem nada fora do comum. O diagnóstico é clínico e comportamental, sem marcador biológico, e exige uma avaliação completa: anamnese, histórias clínica e familiar, observação de cadernos e provas, escalas respondidas por pais e professores e, se preciso, outras avaliações. A sugestão do parente é inadequada, porque o diagnóstico não pode ser feito pelo "teste" do remédio, e uma eventual melhora não confirmaria nada. Também vale investigar outros fatores, como dificuldades de aprendizagem, que andam junto com o TDAH mas são diferentes dele, e as condições do ambiente escolar e familiar.'},
+{id:'ap-tea-1', disc:'03', rid:'aprendizagem-7-9', cap:'tea', tipo:'int', tema:'TEA',
+ q:'Explique por que o TEA passou a ser compreendido como um transtorno de base biológica e descreva os fatores genéticos e ambientais envolvidos.',
+ crit:['Descreveu a mudança histórica: da ideia de pais pouco responsivos (anos 1940 e 1950) para a base cerebral (anos 1960 em diante, Gillberg).',
+  'Citou evidências genéticas: risco maior em irmãos, gêmeos (cerca de 50% genético), muitos genes e síndromes associadas.',
+  'Citou fatores ambientais pré-natais e perinatais (idade dos pais, valproato, prematuridade, baixo peso).',
+  'Apresentou a síntese: vulnerabilidade genética mais gatilhos ambientais, alterações cerebrais como consequência e causa exata ainda desconhecida.'],
+ modelo:'Nos anos 1940 e 1950, o autismo era visto como transtorno psicológico causado por pais emocionalmente pouco responsivos. A partir dos anos 1960 surgiram evidências de que se tratava de um transtorno cerebral, e em 1990 Gillberg afirmou que o autismo é uma disfunção orgânica. Hoje o TEA é entendido como um conjunto de transtornos do neurodesenvolvimento complexos e de etiologia multifatorial. Do lado genético, o risco em irmãos é 15 a 20 vezes maior que na população, estudos com gêmeos indicam cerca de 50% de peso genético, mais de 100 genes já foram associados e cerca de 10% dos casos têm síndrome genética, como X frágil. Do lado ambiental, pesam fatores pré-natais, como idade materna e paterna avançadas, diabetes gestacional e uso de valproato, e perinatais, como prematuridade e peso abaixo de 1.500 g. A síntese atual é que vulnerabilidade genética e gatilhos ambientais desencadeiam um processo anormal, iniciado em geral na primeira metade da gestação; as alterações cerebrais seriam consequência desse processo, e a causa exata ainda não é conhecida.'},
+{id:'ap-tea-2', disc:'03', rid:'aprendizagem-7-9', cap:'tea', tipo:'caso', tema:'TEA',
+ caso:'A mãe de um menino com TEA leu na internet que o autismo do filho teria sido causado pela "frieza" dela com o bebê e está se sentindo culpada.',
+ q:'Como você explicaria a ela, com base na aula, o que se sabe hoje sobre a origem do TEA?',
+ crit:['Explicou que a ideia de pais pouco responsivos é uma teoria antiga, já superada.',
+  'Explicou a base biológica e multifatorial: genes e fatores ambientais, sobretudo da gestação e do parto.',
+  'Explicou que o processo começa cedo, em geral na primeira metade da gestação, e que as alterações cerebrais são consequência dele.',
+  'Deixou claro que a causa exata ainda não é conhecida e que não há base para a culpa materna.'],
+ modelo:'A ideia que ela leu corresponde a uma teoria dos anos 1940 e 1950, que via o autismo como resultado de pais emocionalmente pouco responsivos. Essa visão foi superada: desde os anos 1960 se acumulam evidências de que o TEA tem base cerebral, e hoje ele é entendido como um transtorno do neurodesenvolvimento de origem multifatorial. Há um peso genético importante, mostrado pelo risco maior entre irmãos e pelos estudos com gêmeos, e fatores ambientais ligados sobretudo à gestação e ao parto. A explicação mais aceita é que uma vulnerabilidade genética, somada a gatilhos ambientais, desencadeia um desvio na formação do cérebro que começa em geral na primeira metade da gestação, muito antes de qualquer interação afetiva com o bebê. A causa exata ainda não é conhecida, mas não há base no que se sabe hoje para atribuir o autismo à forma como ela tratou o filho.'},
+
+// ===== 01 Bases Biológicas =====
+{id:'bb-emb-1', disc:'01', rid:'embriologia', cap:'embrio', tipo:'int', tema:'Da fertilização à 2ª semana',
+ q:'Descreva o caminho do zigoto até a implantação, explicando clivagem, mórula, blastocisto e o papel do trofoblasto.',
+ crit:['Explicou a fertilização na ampola, formando o zigoto totipotente.',
+  'Descreveu a clivagem (blastômeros cada vez menores, dentro da zona pelúcida) e a mórula, com embrioblasto e trofoblasto.',
+  'Descreveu o blastocisto: cavidade blastocística, trofoblasto (placenta) e embrioblasto (embrião).',
+  'Explicou a implantação: citotrofoblasto e sinciciotrofoblasto, enzimas, invasão do endométrio e produção de hCG.'],
+ modelo:'A fertilização acontece em geral na ampola da tuba uterina e forma o zigoto, uma célula totipotente com cromossomos da mãe e do pai. Começa então a clivagem: divisões mitóticas repetidas que aumentam o número de células, os blastômeros, que ficam menores a cada divisão, sem que o tamanho total aumente, ainda dentro da zona pelúcida. Com oito células ocorre a compactação, e a mórula, com 12 a 32 blastômeros, já tem células internas, o embrioblasto, e uma camada externa, o trofoblasto. No útero, o fluido forma a cavidade blastocística, e surge o blastocisto: o trofoblasto dará origem à placenta, e o embrioblasto, ao embrião. O blastocisto se fixa ao endométrio, e o trofoblasto se divide em citotrofoblasto, interno, e sinciciotrofoblasto, externo e multinucleado, que produz enzimas, invade o endométrio e fabrica a hCG, detectada pelos testes de gravidez no fim da segunda semana.'},
+{id:'bb-emb-2', disc:'01', rid:'embriologia', cap:'embrio', tipo:'caso', tema:'Gravidez ectópica e FIV',
+ caso:'Uma mulher com as tubas uterinas parcialmente obstruídas descobre que está grávida e sente dor abdominal. O médico investiga se a gestação está no lugar certo.',
+ q:'Explique onde a implantação costuma ocorrer, o que é a gravidez ectópica e por que a obstrução das tubas aumenta esse risco. Cite também uma técnica que poderia ajudar esse casal numa próxima gestação.',
+ crit:['Indicou o local habitual: parte superior do corpo do útero, um pouco mais na parede posterior.',
+  'Definiu gravidez ectópica como implantação fora do útero, em 95% a 98% dos casos na tuba (ampola e istmo).',
+  'Explicou que a obstrução atrasa ou impede o transporte do zigoto até o útero.',
+  'Citou a fertilização in vitro (FIV), indicada para tubas bloqueadas.'],
+ modelo:'O blastocisto costuma se implantar na parte superior do corpo do útero, um pouco mais na parede posterior. A gravidez ectópica é a implantação fora do útero; entre 95% e 98% delas acontecem na tuba uterina, principalmente na ampola e no istmo. A causa costuma ser algo que atrasa ou impede o transporte do zigoto até o útero, como uma tuba parcialmente bloqueada: o embrião chega ao estágio de implantação ainda na tuba e se fixa ali. Por isso a obstrução aumenta o risco. A gravidez tubária tem os sinais habituais de gravidez, mas pode causar dor abdominal, como no caso. Para uma próxima gestação, a fertilização in vitro é uma alternativa: os ovócitos são fertilizados em laboratório e os embriões são transferidos diretamente para o útero, o que contorna as tubas, e por isso a técnica é indicada para infertilidade por tubas bloqueadas.'},
+{id:'bb-dna-1', disc:'01', rid:'embriologia', cap:'dna', tipo:'int', tema:'Estrutura do DNA',
+ q:'Descreva a estrutura do DNA (nucleotídeos, pareamento de bases e dupla fita antiparalela) e diferencie as ligações fosfodiéster das pontes de hidrogênio.',
+ crit:['Descreveu o nucleotídeo: base nitrogenada, desoxirribose e fosfato, com a informação na ordem das bases.',
+  'Explicou o pareamento: A com T (2 pontes) e C com G (3 pontes), sempre uma purina com uma pirimidina.',
+  'Explicou a dupla fita antiparalela (5′→3′ e 3′→5′) com o esqueleto açúcar-fosfato por fora.',
+  'Diferenciou as ligações fosfodiéster (covalentes, fortes, ao longo da fita) das pontes de hidrogênio (fracas, entre as fitas, permitem abri-las).'],
+ modelo:'O DNA é um polímero de nucleotídeos, e cada nucleotídeo tem uma base nitrogenada, um açúcar de cinco carbonos, a desoxirribose, e um fosfato. Açúcar e fosfato se repetem; o que muda é a base, e a informação genética está na ordem das bases. São quatro: adenina e guanina, as purinas, e timina e citosina, as pirimidinas. A pareia com T por duas pontes de hidrogênio, e C pareia com G por três, sempre uma purina com uma pirimidina; por isso as fitas são complementares. Ao longo de cada fita, o fosfato liga o carbono 5′ de um nucleotídeo ao 3′ do seguinte por ligações fosfodiéster, covalentes e fortes, que formam o esqueleto açúcar-fosfato, por fora da molécula. As duas fitas correm em sentidos opostos, uma de 5′ para 3′ e a outra de 3′ para 5′, e se enrolam em dupla-hélice, unidas por pontes de hidrogênio entre as bases. Essas pontes são fracas, o que permite abrir a dupla fita para a replicação e a transcrição sem romper o esqueleto.'},
+{id:'bb-dna-2', disc:'01', rid:'embriologia', cap:'dna', tipo:'caso', tema:'Estrutura do DNA',
+ caso:'Um laboratório analisou dois fragmentos de DNA de fita dupla com o mesmo tamanho. No fragmento X, 30% das bases são adenina. O fragmento Y tem mais pares C–G do que o X.',
+ q:'Calcule a porcentagem das outras bases no fragmento X, explique o raciocínio e diga qual fragmento precisa de mais calor para se desnaturar, justificando.',
+ crit:['Calculou corretamente: T = 30%, C = 20% e G = 20%.',
+  'Justificou pelo pareamento A–T e C–G (regra de Chargaff: %A = %T e %C = %G).',
+  'Concluiu que o fragmento Y precisa de mais calor.',
+  'Justificou: C–G tem 3 pontes de hidrogênio e A–T tem 2, e a desnaturação rompe só as pontes de hidrogênio.'],
+ modelo:'No DNA de fita dupla, cada adenina está pareada com uma timina e cada citosina com uma guanina, por isso %A = %T e %C = %G, como mostrou Chargaff. Se X tem 30% de adenina, tem também 30% de timina, o que soma 60%. Sobram 40% para C e G, que se dividem igualmente: 20% de citosina e 20% de guanina. Quanto à desnaturação, o aquecimento rompe as pontes de hidrogênio entre as bases e separa as fitas, enquanto as ligações fosfodiéster continuam intactas. Como o par C–G tem três pontes de hidrogênio e o par A–T tem duas, quanto mais pares C–G, mais energia é necessária para separar as fitas. Logo, o fragmento Y, com mais pares C–G, precisa de mais calor para se desnaturar, como no exemplo da aula, em que a sequência com mais C–G desnaturou a 61 °C e a outra a 53 °C.'},
+{id:'bb-tra-1', disc:'01', rid:'embriologia', cap:'traducao', tipo:'int', tema:'Tradução',
+ q:'Explique as etapas da tradução e o papel do RNA mensageiro, do RNA transportador e do ribossomo.',
+ crit:['Explicou o RNAm, lido em códons no sentido 5′→3′, e o RNAt, que traz o aminoácido e tem o anticódon complementar.',
+  'Descreveu o ribossomo (subunidades; 80S em eucariotos, 70S em procariotos).',
+  'Descreveu a iniciação: AUG e metionina, com Shine-Dalgarno em procariotos e cap 5′ em eucariotos.',
+  'Descreveu o alongamento (sítios P e A, ligação peptídica) e a terminação nos códons de parada (UAA, UAG, UGA).'],
+ modelo:'A tradução decodifica o RNA mensageiro e usa sua informação para formar uma cadeia de aminoácidos. O RNAm traz as instruções em códons, grupos de três nucleotídeos, lidos no sentido 5′ para 3′. O RNA transportador leva os aminoácidos até o ribossomo e tem um anticódon, complementar ao códon. O ribossomo, com uma subunidade maior e uma menor (80S em eucariotos e 70S em procariotos), é o local da síntese. Na iniciação, em procariotos, o ribossomo se liga ao RNAm na sequência de Shine-Dalgarno; em eucariotos, a subunidade menor reconhece o cap 5′ e percorre o RNAm até o AUG, códon de início, que codifica metionina. No alongamento, o primeiro RNAt ocupa o sítio P, o seguinte entra no sítio A, os aminoácidos se unem por ligação peptídica e o ribossomo avança um códon, repetindo o ciclo. Na terminação, ao chegar a um códon de parada (UAA, UAG ou UGA), o polipeptídeo é liberado e as subunidades se separam.'},
+{id:'bb-tra-2', disc:'01', rid:'embriologia', cap:'traducao', tipo:'caso', tema:'Tradução',
+ caso:'Um ribossomo vai traduzir o RNAm 5′ AU AUG UCA UUA GCA CUC UUU UGA CAU AGC 3′. Dados: AUG = metionina; UCA = serina; UUA e CUC = leucina; GCA = alanina; UUU = fenilalanina; UGA = parada.',
+ q:'Explique onde a tradução começa e termina, quantos aminoácidos a proteína terá e por que esse exemplo mostra que o código genético é degenerado, mas sem ambiguidade.',
+ crit:['Indicou o início no primeiro AUG (metionina), com o "AU" anterior não traduzido.',
+  'Indicou o fim no UGA, códon de parada, sem traduzir o que vem depois.',
+  'Concluiu que a proteína terá 6 aminoácidos: Met-Ser-Leu-Ala-Leu-Phe.',
+  'Explicou degenerado (UUA e CUC codificam leucina) e sem ambiguidade (cada códon corresponde a um único aminoácido).'],
+ modelo:'O RNAm é lido no sentido 5′ para 3′, em trincas, e a tradução começa no primeiro AUG, o códon de início, que codifica metionina; o "AU" antes dele não é traduzido. A partir daí, os códons são lidos em sequência: UCA (serina), UUA (leucina), GCA (alanina), CUC (leucina) e UUU (fenilalanina). Ao chegar ao UGA, um códon de parada, o polipeptídeo é liberado, e o que vem depois não é traduzido. A proteína terá, portanto, seis aminoácidos: metionina, serina, leucina, alanina, leucina e fenilalanina. O exemplo mostra que o código é degenerado, porque dois códons diferentes, UUA e CUC, codificam o mesmo aminoácido, a leucina. Ao mesmo tempo, ele é sem ambiguidade: cada códon corresponde a um único aminoácido, e UUA nunca codifica outra coisa além de leucina.'},
+];
+
   let ds = null;
   const fundo = document.getElementById('dsFundo'), corpo = document.getElementById('dsCorpo');
   function abrirDs(html){ const c = document.getElementById('contaFundo'); if(c) c.hidden = true; corpo.innerHTML = html; fundo.hidden = false; fundo.scrollTop = 0; }
+  const DSQ = (typeof DISCURSIVAS !== 'undefined') ? DISCURSIVAS : [];
+  const dsDe = disc => DSQ.filter(q => q.disc === disc);
+  const dsLer = () => { try{ return Object.assign({c:{}, hist:[]}, JSON.parse(localStorage.getItem('av-discursiva') || '{}')); }catch(e){ return {c:{}, hist:[]}; } };
+  const dsGravar = o => { try{ localStorage.setItem('av-discursiva', JSON.stringify(o)); }catch(e){} };
+  const tipoNome = t => t === 'caso' ? 'Estudo de caso' : 'Pergunta integradora';
+  const embaralha = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
   function escolher(){
-    abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>Escolha a disciplina</h2><p class="conta-sub">Você escreve a resposta, o site confere quais conceitos-chave você usou e mostra a resposta modelo.</p>
-      <div class="ben-escolha">${DISC[2].map(d => { const n = perguntasDe(d.n).length; return n ? `<button data-ds-disc="${d.n}"><b>${escHTML(d.name)}</b><span>${n} perguntas</span></button>` : ''; }).join('')}</div>`);
+    const o = dsLer();
+    abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>Escolha a disciplina</h2><p class="conta-sub">Perguntas no formato de prova e estudos de caso. Você escreve, corrige a própria resposta pelos critérios, como um professor, e compara com a resposta modelo.</p>
+      <div class="ben-escolha">${DISC[2].map(d => { const n = dsDe(d.n).length; return n ? `<button data-ds-menu="${d.n}"><b>${escHTML(d.name)}</b><span>${n} perguntas</span></button>` : ''; }).join('')}</div>
+      ${o.hist.length ? '<div class="ben-acoes"><button class="conta-btn sec" data-ds-hist>Ver seu histórico</button></div>' : ''}`);
   }
-  function iniciar(disc){
-    const todas = perguntasDe(disc).map(x => [Math.random(), x]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
-    ds = {disc, qs:todas.slice(0, 5), i:0, notas:[]};
+  function menu(disc){
+    const qs = dsDe(disc), temas = [...new Set(qs.map(q => q.tema))];
+    abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>${escHTML(nomeDisc(disc))}</h2>
+      <button class="dp-continue ds-cta" data-ds-disc="${disc}"><span class="dp-cont-lbl">Treino sorteado</span><span class="dp-cont-t">${Math.min(4, qs.length)} perguntas: integradoras e casos misturados</span><span class="dp-cont-go">Começar →</span></button>
+      <p class="ds-rot" style="margin-top:16px">Ou escolha uma pergunta</p>
+      ${temas.map(t => `<div class="ds-grupo"><p>${escHTML(t)}</p>${qs.filter(q => q.tema === t).map(q => `<button data-ds-uma="${q.id}"><span class="ds-tipo ${q.tipo}">${tipoNome(q.tipo)}</span></button>`).join('')}</div>`).join('')}
+      <div class="ben-acoes"><button class="conta-btn sec" data-ds-escolher>Outra disciplina</button></div>`);
+  }
+  function iniciar(disc, uma){
+    let qs;
+    if(uma) qs = DSQ.filter(q => q.id === uma);
+    else { const ints = embaralha(dsDe(disc).filter(q => q.tipo === 'int')), casos = embaralha(dsDe(disc).filter(q => q.tipo === 'caso'));
+      qs = []; while(qs.length < 4 && (ints.length || casos.length)){ if(casos.length) qs.push(casos.shift()); if(qs.length < 4 && ints.length) qs.push(ints.shift()); }
+      qs = embaralha(qs); }
+    ds = {disc:disc || qs[0].disc, qs, i:0, notas:[], faltas:[]};
     pergunta();
   }
+  function cabeca(q){ return `<div class="eyebrow">${escHTML(nomeDisc(ds.disc))} · ${ds.i + 1} de ${ds.qs.length}</div><p class="ds-tema"><span class="ds-tipo ${q.tipo}">${tipoNome(q.tipo)}</span> ${escHTML(q.tema)}</p>${q.caso ? `<div class="ds-caso">${escHTML(q.caso)}</div>` : ''}<h2 class="ds-q">${escHTML(q.q)}</h2>`; }
   function pergunta(){
     const q = ds.qs[ds.i];
-    abrirDs(`<div class="eyebrow">${escHTML(nomeDisc(ds.disc))} · ${ds.i + 1} de ${ds.qs.length}</div><p class="ds-tema">${escHTML(q.tema)}</p><h2 class="ds-q">${q.q}</h2>
-      <textarea class="ds-txt" id="dsTxt" rows="6" placeholder="Escreva sua resposta como escreveria na prova…"></textarea>
-      <p class="ds-erro" id="dsErro" hidden>Escreva sua resposta antes de conferir.</p>
-      <div class="ben-acoes"><button class="conta-btn" data-ds-conferir>Conferir</button><button class="conta-btn sec" data-ds-pular>Ver a resposta sem escrever</button></div>`);
-    setTimeout(() => { const t = document.getElementById('dsTxt'); if(t) t.focus(); }, 60);
+    abrirDs(cabeca(q) + `<textarea class="ds-txt" id="dsTxt" rows="8" placeholder="Escreva como escreveria na prova: defina, relacione e exemplifique…"></textarea>
+      <p class="ds-dica">Dica: uma boa resposta costuma ter de 5 a 10 linhas e passar por ${q.crit.length} pontos.</p>
+      <p class="ds-erro" id="dsErro" hidden>Escreva sua resposta antes de corrigir.</p>
+      <div class="ben-acoes"><button class="conta-btn" data-ds-conferir>Corrigir</button><button class="conta-btn sec" data-ds-pular>Ver a resposta sem escrever</button></div>`);
   }
   function conferir(pulou){
     const q = ds.qs[ds.i]; const txt = pulou ? '' : document.getElementById('dsTxt').value.trim();
     if(!pulou && txt.length < 3){ document.getElementById('dsErro').hidden = false; return; }
-    const cs = conceitos(q.a), alvo = semAcento(txt);
-    const tem = cs.filter(c => alvo.includes(c.raiz)), falta = cs.filter(c => !alvo.includes(c.raiz));
-    const pc = cs.length ? Math.round(tem.length / cs.length * 100) : 0;
-    if(!pulou) ds.notas.push(pc);
-    const ultima = ds.i === ds.qs.length - 1;
-    abrirDs(`<div class="eyebrow">${escHTML(nomeDisc(ds.disc))} · ${ds.i + 1} de ${ds.qs.length}</div><h2 class="ds-q">${q.q}</h2>
-      ${pulou ? '' : `<div class="ds-sua"><span>Sua resposta</span><p>${escHTML(txt)}</p></div>
-      <div class="ds-placar"><b>${pc}%</b><span>dos conceitos-chave aparecem na sua resposta</span></div>
-      ${tem.length ? `<p class="ds-rot">Você usou</p><div class="ds-chips">${tem.map(c => `<span class="ok">${escHTML(c.w)}</span>`).join('')}</div>` : ''}
-      ${falta.length ? `<p class="ds-rot">Faltou mencionar</p><div class="ds-chips">${falta.map(c => `<span class="falta">${escHTML(c.w)}</span>`).join('')}</div>` : ''}`}
-      <div class="ds-modelo"><span>Resposta modelo</span><p>${q.a}</p></div>
-      <p class="conta-priv">A conferência procura as palavras-chave da resposta modelo. Sinônimos e outras formas de dizer podem não ser reconhecidos: compare com a resposta modelo.</p>
-      <div class="ben-acoes"><button class="conta-btn" data-ds-prox>${ultima ? 'Ver resultado' : 'Próxima pergunta'}</button></div>`);
+    ds.pulou = pulou;
+    abrirDs(cabeca(q) + (pulou ? '' : `<div class="ds-sua"><span>Sua resposta</span><p>${escHTML(txt)}</p></div>`) +
+      (pulou ? `<p class="ds-rot">O que a resposta precisa ter</p><ol class="ds-crit-lista">${q.crit.map(c => `<li>${escHTML(c)}</li>`).join('')}</ol>`
+        : `<p class="ds-rot">Corrija como um professor: marque o que a sua resposta contém</p><div class="ds-crit">${q.crit.map((c, j) => `<label><input type="checkbox" data-ds-c="${j}"><span>${escHTML(c)}</span></label>`).join('')}</div>`) +
+      `<details class="ds-modelo"${pulou ? ' open' : ''}><summary>Resposta modelo</summary><p>${escHTML(q.modelo)}</p></details>
+      <p class="conta-priv">Feita a partir dos resumos do site, que seguem o material de aula. Compare com o que o professor cobra.</p>
+      <div class="ben-acoes"><button class="conta-btn" data-ds-prox>${ds.i === ds.qs.length - 1 ? 'Ver resultado' : 'Próxima pergunta'}</button></div>`);
   }
+  function registrar(){
+    const q = ds.qs[ds.i]; if(ds.pulou) return;
+    const marc = [...document.querySelectorAll('[data-ds-c]')].map(x => x.checked);
+    const o = dsLer(); const c = o.c[q.id] = o.c[q.id] || q.crit.map(() => [0, 0]);
+    marc.forEach((m, j) => { if(!c[j]) c[j] = [0, 0]; c[j][1]++; if(m) c[j][0]++; else ds.faltas.push({q, j}); });
+    dsGravar(o);
+    ds.notas.push(Math.round(marc.filter(Boolean).length / marc.length * 100));
+  }
+  function capIdx(rid, cap){ const r = RESUMOS[rid]; return r ? Math.max(0, r.caps.findIndex(c => c.id === cap)) : 0; }
   function fim(){
     const media = ds.notas.length ? Math.round(ds.notas.reduce((a, b) => a + b, 0) / ds.notas.length) : null;
-    abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>${media === null ? 'Treino concluído' : media >= 70 ? 'Mandou bem!' : media >= 40 ? 'Bom caminho' : 'Vale revisar'}</h2>
-      ${media === null ? '<p class="conta-sub">Você viu as respostas modelo. Na próxima, tente escrever antes de conferir.</p>' : `<div class="ds-placar"><b>${media}%</b><span>dos conceitos-chave, em média, nas ${ds.notas.length} respostas que você escreveu</span></div>`}
-      <div class="ben-acoes"><button class="conta-btn" data-ds-disc="${ds.disc}">Treinar de novo</button><button class="conta-btn sec" data-ds-escolher>Outra disciplina</button></div>`);
+    if(media !== null){ const o = dsLer(); o.hist.push({disc:ds.disc, pct:media, n:ds.notas.length, t:Date.now()}); o.hist = o.hist.slice(-60); dsGravar(o); }
+    const caps = [...new Map(ds.faltas.map(f => [f.q.rid + '|' + f.q.cap, f.q])).values()];
+    abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>${media === null ? 'Treino concluído' : media >= 75 ? 'Mandou bem!' : media >= 50 ? 'Bom caminho' : 'Vale revisar'}</h2>
+      ${media === null ? '<p class="conta-sub">Você viu as respostas modelo. Na próxima, tente escrever antes de corrigir: é escrevendo que se treina para a prova.</p>' : `<div class="ds-placar"><b>${media}%</b><span>dos critérios cumpridos, em média, nas ${ds.notas.length} ${ds.notas.length === 1 ? 'resposta' : 'respostas'} que você escreveu</span></div>`}
+      ${ds.faltas.length ? `<p class="ds-rot">O que ficou faltando</p><ul class="ds-faltou">${ds.faltas.map(f => `<li>${escHTML(f.q.crit[f.j])}</li>`).join('')}</ul>
+        <p class="ds-rot">Revisar no resumo</p><div class="ds-rev">${caps.map(q => `<button data-ds-resumo="${q.rid}|${q.cap}">${escHTML(q.tema)} →</button>`).join('')}</div>` : ''}
+      <div class="ben-acoes"><button class="conta-btn" data-ds-disc="${ds.disc}">Treinar de novo</button><button class="conta-btn sec" data-ds-menu="${ds.disc}">Escolher pergunta</button><button class="conta-btn sec" data-ds-hist>Seu histórico</button></div>`);
   }
-  window.avDiscursivaContar = disc => perguntasDe(disc).length;
+  function historico(){
+    const o = dsLer();
+    let h = `<div class="eyebrow">Treino de discursiva</div><h2>Seu histórico</h2>`;
+    const discs = DISC[2].filter(d => o.hist.some(x => x.disc === d.n) || dsDe(d.n).some(q => o.c[q.id]));
+    if(!discs.length) h += '<p class="conta-sub">Faça um treino escrevendo as respostas para começar seu histórico.</p>';
+    discs.forEach(d => {
+      const hs = o.hist.filter(x => x.disc === d.n).slice(-5);
+      const fr = [];
+      dsDe(d.n).forEach(q => (o.c[q.id] || []).forEach(([ok, n], j) => { if(n && ok < n) fr.push({q, j, pc:Math.round(ok / n * 100), n}); }));
+      fr.sort((a, b) => a.pc - b.pc || b.n - a.n);
+      h += `<div class="de-sim"><h3>${escHTML(d.name)}</h3>${hs.length ? `<p class="de-sub">Últimos treinos: ${hs.map(x => x.pct + '%').join(' · ')}</p>` : ''}
+        ${fr.length ? `<p class="ds-rot">O que você mais esquece</p><ul class="ds-faltou">${fr.slice(0, 5).map(f => `<li>${escHTML(f.q.crit[f.j])} <small>${escHTML(f.q.tema)} · cumpriu ${f.pc}%</small></li>`).join('')}</ul>` : '<p class="de-sub">Nenhum critério esquecido até agora.</p>'}
+        <button class="de-ir" data-ds-disc="${d.n}">Treinar ${escHTML(d.name)} →</button></div>`;
+    });
+    abrirDs(h + '<div class="ben-acoes"><button class="conta-btn sec" data-ds-escolher>Voltar</button></div>');
+  }
+  window.avDiscursivaContar = disc => dsDe(disc).length;
 
   document.addEventListener('click', e => {
     if(e.target.closest('[data-ds-escolher]')){ escolher(); return; }
+    const mn = e.target.closest('[data-ds-menu]'); if(mn){ menu(mn.dataset.dsMenu); return; }
+    const um = e.target.closest('[data-ds-uma]'); if(um){ iniciar(null, um.dataset.dsUma); return; }
     const dd = e.target.closest('[data-ds-disc]'); if(dd){ iniciar(dd.dataset.dsDisc); return; }
+    if(e.target.closest('[data-ds-hist]')){ historico(); return; }
+    const rr = e.target.closest('[data-ds-resumo]'); if(rr){ const [rid, cap] = rr.dataset.dsResumo.split('|'); fundo.hidden = true; openResumo(rid, {cap:capIdx(rid, cap)}); return; }
     if(e.target.closest('[data-ds-conferir]')){ conferir(false); return; }
     if(e.target.closest('[data-ds-pular]')){ conferir(true); return; }
-    if(e.target.closest('[data-ds-prox]')){ if(ds.i < ds.qs.length - 1){ ds.i++; pergunta(); } else fim(); return; }
+    if(e.target.closest('[data-ds-prox]')){ registrar(); if(ds.i < ds.qs.length - 1){ ds.i++; pergunta(); } else fim(); return; }
     if(e.target.closest('[data-ds-fechar]') || e.target === fundo){ fundo.hidden = true; return; }
     const hm = e.target.closest('[data-hj-modo]'); if(hm){ window.avPlanoModo(hm.dataset.hjModo); renderHoje(); return; }
     const he = e.target.closest('[data-hj-esc]'); if(he){ const [iso, n] = he.dataset.hjEsc.split('|'); window.avPlanoEscolher(iso, n); renderHoje(); return; }
