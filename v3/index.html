@@ -2554,6 +2554,11 @@
   #printArea .sp-rod{font-size:8.5pt; color:#8D938B; margin-top:12px;}
   .ben-pdf-previa .sp-cab{display:flex; justify-content:space-between; gap:12px; border-bottom:2px solid #1F5C56; margin-bottom:8px;}
   .ben-pdf-previa .sp-ops{list-style:none; padding:0;}
+
+  .conta-abas-top{display:flex; gap:4px; border-bottom:1px solid var(--rule); margin:0 0 14px; overflow-x:auto;}
+  .conta-abas-top button{font:inherit; font-size:14px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-bottom:2.5px solid transparent; padding:8px 10px 9px; cursor:pointer; white-space:nowrap; margin-bottom:-1px;}
+  .conta-abas-top button[aria-selected="true"]{color:var(--petrol-dark); border-bottom-color:var(--petrol);}
+  .conta-abas-top i{font-style:normal; font-size:11px; background:var(--ochre); color:#fff; border-radius:999px; padding:1px 6px; margin-left:2px;}
 </style>
 </head>
 <body>
@@ -21267,20 +21272,27 @@ function desenharPainel(){
 }
 
 // ---------- janela "Sua conta" (botão no topo) ----------
+let contaAba = 'conta';
 function desenharConta(m){
   if(!usuario){ corpo.innerHTML = '<h2 id="contaTitulo">Sua conta</h2><p class="conta-sub">Você não está conectado.</p>'; return; }
-  corpo.innerHTML = `<h2 id="contaTitulo">Sua conta</h2>${msgHTML(m)}
+  const abas = [['conta', 'Conta'], ['psiu', 'Psiu'], ['apoio', 'Apoiador']].concat(ehAdmin(usuario) ? [['acessos', 'Acessos']] : []);
+  if(!abas.some(a => a[0] === contaAba)) contaAba = 'conta';
+  let h = `<h2 id="contaTitulo">Sua conta</h2>${msgHTML(m)}
     <div class="conta-topo${apoiador ? ' apoia' : ''}"><span class="ct-av">${esc(iniciais(usuario))}</span><div><b>${esc(usuario.displayName || primeiroNome(usuario))}</b><span>${esc(usuario.email)}</span>${apoiador ? '<span class="conta-selo">★ Apoiador do Arquivo Vivo</span>' : ''}</div></div>
-    <p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p>
-    ${ehAdmin(usuario) ? '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>' : ''}
-    <button class="conta-psiu" data-psiu-vitrine>${window.avPsiuMini ? window.avPsiuMini() : ''}<span><b>Personalizar o Psiu</b><small>Acessórios para o seu Psiu</small></span></button>
-    <div class="conta-area${apoiador ? '' : ' bloqueada'}"><b>Área do apoiador</b>${apoiador ? '' : '<small>Toque em um item para ver uma prévia com os seus dados.</small>'}<div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>
-    ${apoiador ? '' : '<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>Um Pix de valor livre ajuda a manter o site e libera a área do apoiador: plano de estudos, ouvir os resumos, simulado em PDF e mais.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>'}
-    <button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
-  if(ehAdmin(usuario)) carregarPainel();
-  document.getElementById('contaSair').onclick = async ()=>{ await enviar(); fundo.hidden = true; await signOut(auth); };
+    <div class="conta-abas-top" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-conta-aba="${k}" aria-selected="${contaAba === k}">${t}${k === 'acessos' && dot.textContent ? ` <i>${dot.textContent}</i>` : ''}</button>`).join('')}</div>`;
+  if(contaAba === 'conta') h += `<p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p><button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
+  if(contaAba === 'psiu') h += `<button class="conta-psiu" data-psiu-vitrine>${window.avPsiuMini ? window.avPsiuMini() : ''}<span><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e o que ele comenta</small></span></button>`;
+  if(contaAba === 'apoio') h += apoiador
+    ? `<p class="conta-sub">Obrigado por apoiar o Arquivo Vivo! Estes são os seus recursos.</p><div class="conta-area"><div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>`
+    : `<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>O site continua aberto para todos. Um Pix de valor livre ajuda a manter o projeto e libera os recursos abaixo.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>
+       <div class="conta-area bloqueada"><b>Recursos do apoiador</b><small>Toque em um item para ver uma prévia com os seus dados.</small><div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>`;
+  if(contaAba === 'acessos') h += '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>';
+  corpo.innerHTML = h;
+  corpo.querySelectorAll('[data-conta-aba]').forEach(b => b.onclick = () => { contaAba = b.dataset.contaAba; desenharConta(); });
+  if(contaAba === 'acessos') carregarPainel();
+  const sair = document.getElementById('contaSair'); if(sair) sair.onclick = async ()=>{ await enviar(); fundo.hidden = true; await signOut(auth); };
 }
-document.getElementById('contaBtn').addEventListener('click', ()=>{ desenharConta(); fundo.hidden = false; });
+document.getElementById('contaBtn').addEventListener('click', ()=>{ contaAba = (ehAdmin(usuario) && dot.textContent) ? 'acessos' : 'conta'; desenharConta(); fundo.hidden = false; });
 document.getElementById('contaFechar').addEventListener('click', ()=> fundo.hidden = true);
 fundo.addEventListener('click', e=>{ if(e.target === fundo) fundo.hidden = true; });
 document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && !fundo.hidden) fundo.hidden = true; });
@@ -21304,7 +21316,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <p class="conta-sub">O site continua livre. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês. Sem assinatura nem cobrança automática.</p>
     <div class="ap-ben"><b>Quem apoia recebe</b>
       <ul><li><strong>Plano de estudos</strong> automático até cada prova</li>
-      <li><strong>Ouvir o resumo</strong> em voz alta, com marca-texto e notas</li>
+      <li><strong>Marca-texto e notas</strong> nos resumos</li>
       <li><strong>Caderno de revisão</strong> e <strong>simulado em PDF</strong> para imprimir</li>
       <li><strong>Seu desempenho</strong> e <strong>seu semestre em números</strong></li>
       <li>Acessórios, cores e fundos especiais para o Psiu</li></ul></div>
@@ -21585,11 +21597,11 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   window.avResumoExtras = function(rid, ci){
     const el = document.getElementById('resumoPage'); if(!el) return;
     const r = RESUMOS[rid], c = r.caps[ci]; const ap = ehApoio();
+    if(!ap){ el.classList.remove('modo-marca'); return; }
     const barra = document.createElement('div'); barra.className = 'rs-ferr';
-    barra.innerHTML = `<button data-rs-ouvir>${ap ? '' : '🔒 '}🔊 Ouvir</button><button data-rs-marca aria-pressed="${modoMarca && ap}">${ap ? '' : '🔒 '}🖍 Marca-texto</button>${ap ? '' : '<span class="rs-ferr-dica">Recursos do apoiador</span>'}<div class="rs-voz" hidden><button data-rs-pausa>Pausar</button><button data-rs-vel>1x</button><button data-rs-parar>Parar</button></div>`;
+    barra.innerHTML = `<button data-rs-marca aria-pressed="${modoMarca}">🖍 Marca-texto</button><span class="rs-ferr-dica">${modoMarca ? 'Toque nos pontos para destacar' : ''}</span>`;
     const prog = el.querySelector('.rs-progress'); if(prog) prog.after(barra);
-    el.classList.toggle('modo-marca', modoMarca && ap);
-    if(!ap) return;
+    el.classList.toggle('modo-marca', modoMarca);
     el.querySelectorAll('.rs-step').forEach(st => {
       const i = st.dataset.i, x = notaDe(rid, c.id, i);
       st.querySelectorAll('ul > li').forEach((li, j) => { li.dataset.j = j; if((x.m || []).includes(j)) li.classList.add('marcado'); });
@@ -21654,7 +21666,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(e.target.closest('[data-rs-pausa]')){ const bt = e.target.closest('[data-rs-pausa]'); if(speechSynthesis.paused){ speechSynthesis.resume(); bt.textContent = 'Pausar'; } else { speechSynthesis.pause(); bt.textContent = 'Continuar'; } return; }
     if(e.target.closest('[data-rs-vel]')){ const bt = e.target.closest('[data-rs-vel]'); vel = vel === 1 ? 1.25 : vel === 1.25 ? 1.5 : 1; bt.textContent = String(vel).replace('.', ',') + 'x'; return; }
     if(e.target.closest('[data-rs-parar]')){ falando = false; speechSynthesis.cancel(); document.querySelectorAll('.rs-step.lendo').forEach(x => x.classList.remove('lendo')); const v = document.querySelector('.rs-voz'); if(v) v.hidden = true; return; }
-    if(e.target.closest('[data-rs-marca]')){ if(!ehApoio()) return abrir(previaFerramenta('marca'), true); modoMarca = !modoMarca; const el = document.getElementById('resumoPage'); el.classList.toggle('modo-marca', modoMarca); e.target.closest('[data-rs-marca]').setAttribute('aria-pressed', modoMarca); return; }
+    if(e.target.closest('[data-rs-marca]')){ if(!ehApoio()) return abrir(previaFerramenta('marca'), true); modoMarca = !modoMarca; const el = document.getElementById('resumoPage'); el.classList.toggle('modo-marca', modoMarca); e.target.closest('[data-rs-marca]').setAttribute('aria-pressed', modoMarca); const dc = el.querySelector('.rs-ferr-dica'); if(dc) dc.textContent = modoMarca ? 'Toque nos pontos para destacar' : ''; return; }
     const li = e.target.closest('#resumoPage.modo-marca .rs-step ul > li');
     if(li && !e.target.closest('a,button')){ const st = li.closest('.rs-step'); const j = +li.dataset.j; notaPor(resumoAtual, RESUMOS[resumoAtual].caps[capResumo].id, st.dataset.i, x => { x.m = x.m || []; x.m = x.m.includes(j) ? x.m.filter(y => y !== j) : x.m.concat(j); }); li.classList.toggle('marcado'); return; }
     const nb = e.target.closest('[data-rs-nota]');
