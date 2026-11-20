@@ -2652,6 +2652,24 @@
 
   .hj-topo{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin:0 0 14px;}
   .hj-topo .eyebrow{margin:0;}
+  .ma-ola{display:flex; align-items:center; gap:12px; margin:0 0 8px;}
+  .ma-ola h1{margin:0 !important;}
+  .ma-psiu{flex:none; width:56px; height:56px; display:block;}
+  .ma-psiu svg{width:100%; height:100%;}
+  .ma-selo{display:inline-block; font-size:12px; font-weight:700; color:var(--ochre); margin-top:2px;}
+  .ma-disc{border-top:1px solid var(--rule); padding:10px 0;}
+  .ma-disc:first-of-type{border-top:0;}
+  .ma-disc-nome{font:inherit; font-weight:700; font-size:14.5px; background:none; border:0; padding:0; color:var(--ink); cursor:pointer; text-align:left;}
+  .ma-bar{height:5px; background:var(--rule); border-radius:3px; margin:7px 0 6px; overflow:hidden;}
+  .ma-bar i{display:block; height:100%; background:var(--petrol);}
+  .ma-bits{display:flex; flex-wrap:wrap; gap:4px 12px; font-size:12.5px; color:var(--ink-soft);}
+  .ma-bits button{font:inherit; font-size:12.5px; font-weight:600; color:var(--ochre); background:none; border:0; padding:0; cursor:pointer;}
+  .ma-conta{display:flex; flex-direction:column;}
+  .ma-conta button{display:flex; flex-direction:column; gap:1px; text-align:left; font:inherit; background:none; border:0; border-top:1px solid var(--rule); padding:10px 0; cursor:pointer; color:var(--ink);}
+  .ma-conta button:first-child{border-top:0;}
+  .ma-conta b{font-size:14.5px;}
+  .ma-conta small{font-size:12.5px; color:var(--ink-soft);}
+  .ma-pend{font-style:normal; font-size:11.5px; background:#A32D2D; color:#fff; border-radius:999px; padding:1px 7px; margin-left:4px;}
   .hj-topo > *{height:32px; box-sizing:border-box;}
   .hj-inicio{display:inline-flex; align-items:center; font:inherit; font-size:12.5px; font-weight:600; line-height:normal; letter-spacing:.02em; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:5px 12px; cursor:pointer;}
   .pl-modo{display:inline-flex; background:var(--bg); border:1px solid var(--rule); border-radius:999px; padding:3px; margin:0 0 12px;}
@@ -2676,7 +2694,7 @@
     </button>
 
     <nav class="nav-menu" id="navMenu" aria-label="Navegação principal">
-      <button class="nav-link" data-page="viewHoje" data-nav="viewHoje" id="navHoje" hidden>Hoje</button>
+      <button class="nav-link" data-page="viewHoje" data-nav="viewHoje" id="navHoje" hidden>Minha área</button>
       <button class="nav-link" data-scroll="top" data-nav="top">Início</button>
       <button class="nav-link nav-drive" data-scroll="disciplinas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Drive</button>
       <div class="nav-group">
@@ -14695,9 +14713,10 @@ if(document.body.classList.contains('dark')){
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
 // endereços amigáveis para compartilhar (os antigos #viewX continuam funcionando)
-const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'hoje'};
+const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'minha-area'};
 const SLUG_PAGE = Object.fromEntries(Object.entries(PAGE_SLUG).map(([k, v])=>[v, k]));
 SLUG_PAGE['simulados'] = 'viewSimulados';
+SLUG_PAGE['hoje'] = 'viewHoje';
 const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros', 'viewHoje'];
 let currentPage = 'top';
 
@@ -21251,11 +21270,8 @@ async function puxar(){
       _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
     }
     try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); apoiador = v === true || v === 'true' || v === 1; } }catch(e){ apoiador = false; }
-    window.avApoiador = apoiador; window.avNome = usuario.displayName || '';
+    window.avApoiador = apoiador; window.avNome = usuario.displayName || ''; window.avEmail = usuario.email || '';
     try{ if(apoiador) localStorage.setItem('av-apoiador-cache', '1'); else localStorage.removeItem('av-apoiador-cache'); }catch(e){}
-    { const hh = location.hash.replace('#', ''); const vh = document.getElementById('viewHoje');
-      if(apoiador && (!hh || hh === 'top') && !window.__hojeAuto){ window.__hojeAuto = true; switchPage('viewHoje', {fromHistory:true}); }
-      if(!apoiador && vh && vh.style.display !== 'none') switchPage('top', {fromHistory:true}); }
     document.dispatchEvent(new Event('av-apoio'));
     pintarBotao();
     carregando = false; await enviar();
@@ -21422,7 +21438,10 @@ function desenharConta(m){
   if(contaAba === 'acessos') carregarPainel();
   const sair = document.getElementById('contaSair'); if(sair) sair.onclick = async ()=>{ await enviar(); fundo.hidden = true; await signOut(auth); };
 }
-document.getElementById('contaBtn').addEventListener('click', ()=>{ contaAba = (ehAdmin(usuario) && dot.textContent) ? 'acessos' : 'conta'; desenharConta(); fundo.hidden = false; });
+window.avAbrirConta = aba => { contaAba = aba || ((ehAdmin(usuario) && dot.textContent) ? 'acessos' : 'conta'); desenharConta(); fundo.hidden = false; };
+window.avEhAdmin = () => ehAdmin(usuario);
+window.avPendentes = () => dot.textContent || '';
+document.getElementById('contaBtn').addEventListener('click', ()=>{ if(usuario && liberado && typeof switchPage === 'function'){ switchPage('viewHoje'); window.scrollTo({top:0}); } else window.avAbrirConta(); });
 document.getElementById('contaFechar').addEventListener('click', ()=> fundo.hidden = true);
 fundo.addEventListener('click', e=>{ if(e.target === fundo) fundo.hidden = true; });
 document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && !fundo.hidden) fundo.hidden = true; });
@@ -21445,7 +21464,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <h2 id="apoioTitulo">Aberto para todos, mantido por quem acredita</h2>
     <p class="conta-sub">O site continua livre. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês. Sem assinatura nem cobrança automática.</p>
     <div class="ap-ben"><b>Quem apoia recebe</b>
-      <ul><li><strong>Plano de estudos</strong> automático e a <strong>tela Hoje</strong>, com o que estudar no dia</li>
+      <ul><li><strong>Plano de estudos</strong> automático, sugerido pelo site ou montado por você, com o que estudar em cada dia</li>
       <li><strong>Marca-texto e notas</strong> nos resumos</li>
       <li><strong>Caderno de revisão</strong> e <strong>simulado em PDF</strong> para imprimir</li>
       <li><strong>Seu desempenho</strong> e <strong>seu semestre em números</strong></li>
@@ -21792,7 +21811,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   // ================= abrir cada benefício =================
   const BEN = {
     desempenho: {t:'Seu desempenho', d:'Acertos por tema e o que revisar primeiro', html:desempenhoHTML},
-    plano: {t:'Plano de estudos', d:'Cronograma até cada prova e a tela Hoje', html:planoHTML},
+    plano: {t:'Plano de estudos', d:'Sugerido pelo site ou montado por você', html:planoHTML},
     semestre: {t:'Seu semestre em números', d:'Seu resumo do semestre, em formato de story', html:semestreHTML},
     caderno: {t:'Caderno de revisão', d:'Resumos, glossário e questões comentadas em PDF', disc:true},
     simpdf: {t:'Simulado em PDF', d:'Prova para imprimir, com gabarito separado', disc:true},
@@ -22077,9 +22096,18 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(temas.length) return 'Você está indo bem nos simulados. Mantém o ritmo que a prova vem aí!';
     return 'Faça um simulado, nem que seja uma parte, para eu descobrir seus pontos fortes e fracos.';
   }
+  function progressoDisc(d){
+    let caps = 0, lidos = 0;
+    Object.entries(RESUMOS).filter(([, r]) => r.disc === d.n).forEach(([id, r]) => { const st = rsEstado(id); r.caps.forEach(c => { caps++; if(Object.keys(st[c.id] || {}).length >= c.etapas.length) lidos++; }); });
+    const sims = SIM_JOGO.filter(x => x.disc === d.n).map(x => x.id);
+    const hist = (((typeof desempLer === 'function') ? desempLer() : {}).hist || []).filter(x => sims.includes(x.id));
+    const melhor = hist.length ? Math.max(...hist.map(x => x.pct)) : null;
+    let dsh = []; try{ dsh = (JSON.parse(localStorage.getItem('av-discursiva') || '{}').hist || []).filter(x => x.disc === d.n); }catch(e){}
+    return {caps, lidos, temSim:sims.length > 0, melhor, nSim:hist.length, err:errLista(d.n).length, ds:dsh.length ? dsh[dsh.length - 1].pct : null};
+  }
   function renderHoje(){
     const el = document.getElementById('hojePage'); if(!el) return;
-    if(!window.avApoiador && !localStorage.getItem('av-apoiador-cache')){ if(window.avAbrirBeneficio){ switchPage('top', {fromHistory:true}); window.avAbrirBeneficio('plano'); } return; }
+    const apoia = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
     const agora = new Date(), h = agora.getHours();
     const saud = h < 5 ? 'Boa noite' : h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
     const nome = (window.avNome || '').split(' ')[0];
@@ -22089,44 +22117,53 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const mesmas = prova ? prazos.filter(t => /^prova/i.test(t.tarefa) && t.prazo === prova.prazo).map(t => curto(t.materia)) : [];
     const quando = dp === 0 ? 'hoje' : dp === 1 ? 'amanhã' : 'em ' + dp + ' dias';
     const chip = prova ? `<span class="hj-chip">${mesmas.length > 1 ? 'Provas de ' + escHTML(mesmas.join(' e ')) : 'Prova de ' + escHTML(mesmas[0])} ${quando}</span>` : '';
+    // plano (apoiador) ou sugestões (todos)
     let plano = '';
-    const pl = window.avApoiador && window.avPlanoDoDia ? window.avPlanoDoDia() : null;
-    const modoBtns = pl ? `<div class="pl-modo"><button data-hj-modo="auto" aria-pressed="${pl.modo !== 'meu'}">Sugerido pelo site</button><button data-hj-modo="meu" aria-pressed="${pl.modo === 'meu'}">Montado por mim</button></div>` : '';
-    if(pl && pl.modo === 'meu'){
+    const pl = apoia && window.avPlanoDoDia ? window.avPlanoDoDia() : null;
+    const itemHTML = t => `<div class="hj-item${pl.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-hj-feito="${escHTML(t.k)}"${pl.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-hj-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`;
+    if(pl){
       const feitos = pl.itens.filter(t => pl.feitos[t.k]).length, min = pl.itens.reduce((n, t) => n + t.min, 0);
-      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Seu plano de hoje</h2>${pl.itens.length ? `<span>${feitos} de ${pl.itens.length} · ${min} min</span>` : ''}</div>${modoBtns}
-        <p class="pl-pergunta">O que você vai estudar hoje?</p>${pl.chips(hojeISO())}
-        ${pl.itens.length ? `<div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>` : ''}
-        ${pl.itens.map(t => `<div class="hj-item${pl.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-hj-feito="${escHTML(t.k)}"${pl.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-hj-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`).join('')}
-        ${pl.discs.length && !pl.itens.length ? '<p class="hj-vazio">Nada pendente nessas disciplinas. Tudo em dia!</p>' : ''}
-        <button class="hj-link" data-ben="plano">Planejar a semana</button></section>`;
-    } else if(pl && pl.itens.length){
-      const feitos = pl.itens.filter(t => pl.feitos[t.k]).length, min = pl.itens.reduce((n, t) => n + t.min, 0);
-      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Seu plano de hoje</h2><span>${feitos} de ${pl.itens.length} · ${min} min</span></div>${modoBtns}<div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>
-        ${pl.itens.map(t => `<div class="hj-item${pl.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-hj-feito="${escHTML(t.k)}"${pl.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-hj-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`).join('')}
-        <button class="hj-link" data-ben="plano">Ver o plano completo</button></section>`;
+      const modoBtns = `<div class="pl-modo"><button data-hj-modo="auto" aria-pressed="${pl.modo !== 'meu'}">Sugerido pelo site</button><button data-hj-modo="meu" aria-pressed="${pl.modo === 'meu'}">Montado por mim</button></div>`;
+      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Plano de hoje</h2>${pl.itens.length ? `<span>${feitos} de ${pl.itens.length} · ${min} min</span>` : ''}</div>${modoBtns}
+        ${pl.modo === 'meu' ? `<p class="pl-pergunta">O que você vai estudar hoje?</p>${pl.chips(hojeISO())}` : ''}
+        ${pl.itens.length ? `<div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>` + pl.itens.map(itemHTML).join('') : pl.modo === 'meu' ? (pl.discs.length ? '<p class="hj-vazio">Nada pendente nessas disciplinas. Tudo em dia!</p>' : '') : '<p class="hj-vazio">Nada planejado para hoje. Aproveite para revisar com calma ou descansar.</p>'}
+        <button class="hj-link" data-ben="plano">${pl.modo === 'meu' ? 'Planejar a semana' : 'Ver o plano completo'}</button></section>`;
     } else {
       const sg = sugestoes();
-      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Para hoje</h2><span>Sugestões a partir das suas provas</span></div>${modoBtns}
-        ${sg.length ? sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('') : '<p class="hj-vazio">Nenhuma prova à vista. Aproveite para revisar com calma ou descansar.</p>'}</section>`;
+      if(sg.length) plano = `<section class="hj-card"><div class="hj-card-top"><h2>Sugestões para hoje</h2></div>
+        ${sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('')}</section>`;
     }
-    const nErr = errLista('todas').length;
-    const nDisc = DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n)).length;
+    // progresso por disciplina
+    const linhas = DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n)).map(d => {
+      const p = progressoDisc(d);
+      const bits = [p.caps ? `Resumos ${p.lidos}/${p.caps}` : '', p.temSim ? (p.melhor !== null ? `Simulado ${p.melhor}%` : 'Simulado não feito') : '', p.ds !== null ? `Discursiva ${p.ds}%` : ''].filter(Boolean);
+      return `<div class="ma-disc"><button class="ma-disc-nome" data-ma-disc="${d.n}">${escHTML(d.name)}</button>
+        <div class="ma-bar"><i style="width:${p.caps ? Math.round(p.lidos / p.caps * 100) : 0}%"></i></div>
+        <div class="ma-bits">${bits.map(b => `<span>${b}</span>`).join('')}${p.err ? `<button data-hj-erros="${d.n}">${p.err} ${p.err === 1 ? 'erro' : 'erros'} para revisar</button>` : ''}</div></div>`;
+    }).join('');
+    const admin = window.avEhAdmin && window.avEhAdmin(), pend = window.avPendentes ? window.avPendentes() : '';
     el.innerHTML = `
-      <header class="hj-head"><div class="hj-topo"><div class="eyebrow">${SEM[agora.getDay()]}, ${agora.getDate()} de ${MESES[agora.getMonth()]}</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
-        <h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${chip}</header>
+      <header class="hj-head"><div class="hj-topo"><div class="eyebrow">Minha área</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
+        <div class="ma-ola">${window.avPsiuMini ? `<span class="ma-psiu">${window.avPsiuMini()}</span>` : ''}<div><h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${apoia ? '<span class="ma-selo">★ Apoiador</span>' : ''}</div></div>${chip}</header>
       ${plano}
+      <section class="hj-card"><div class="hj-card-top"><h2>Meu progresso</h2></div>${linhas}</section>
       <div class="hj-grid">
-        ${nErr ? `<div class="hj-mini hj-rev hj-rev-lista"><span>Revisão dos erros</span>${DISC[2].map(d => ({d, n:errLista(d.n).length})).filter(x => x.n).sort((a, b) => b.n - a.n).map(x => `<button data-hj-erros="${x.d.n}"><b>${escHTML(curto(x.d.name))}</b><em>${x.n}</em></button>`).join('')}</div>`
-          : `<button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>Tudo em dia</b><small>Nenhum erro guardado</small></button>`}
-        <button class="hj-mini hj-ds" data-ds-escolher><span>Treino de discursiva</span><b>Escreva e confira</b><small>${nDisc} disciplinas</small></button>
+        <button class="hj-mini hj-ds" data-ds-escolher><span>Treino de discursiva</span><b>Escreva e corrija</b><small>Perguntas de prova e casos</small></button>
+        <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${errLista('todas').length || 'Tudo em dia'}</b><small>${errLista('todas').length ? 'questões, todas as disciplinas' : 'Nenhum erro guardado'}</small></button>
       </div>
-      <button class="hj-fim-btn" data-page="top">Ver o início completo, com todas as disciplinas →</button>`;
+      ${apoia && window.avBeneficiosLista ? `<section class="hj-card"><div class="hj-card-top"><h2>Ferramentas de apoiador</h2></div><div class="conta-area-bts ma-ben">${window.avBeneficiosLista()}</div></section>` : ''}
+      <section class="hj-card"><div class="hj-card-top"><h2>Conta</h2></div>
+        <div class="ma-conta">
+          <button data-ma-conta="conta"><b>Meus dados</b><small>${escHTML(window.avEmail || 'E-mail, sincronização e sair')}</small></button>
+          <button data-ma-conta="psiu"><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e comentários</small></button>
+          <button data-ma-conta="apoio"><b>${apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo'}</b><small>${apoia ? 'Obrigado por apoiar!' : 'Contribuição voluntária, com extras'}</small></button>
+          ${admin ? `<button data-ma-conta="acessos"><b>Acessos da turma${pend ? ` <i class="ma-pend">${pend}</i>` : ''}</b><small>Liberar, bloquear e marcar apoiadores</small></button>` : ''}
+        </div></section>`;
   }
   window.avRenderHoje = renderHoje;
   const _sp = window.switchPage;
   if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewHoje') renderHoje(); return r; }; }
-  const navHoje = () => { const b = document.getElementById('navHoje'); if(b) b.hidden = !(window.avApoiador || localStorage.getItem('av-apoiador-cache')); };
+  const navHoje = () => { const b = document.getElementById('navHoje'); if(b) b.hidden = !localStorage.getItem('av-acesso-ok'); };
   navHoje();
   document.addEventListener('av-apoio', () => { navHoje(); const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); });
 
@@ -22588,6 +22625,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(e.target.closest('[data-ds-fechar]') || e.target === fundo){ fundo.hidden = true; return; }
     const hm = e.target.closest('[data-hj-modo]'); if(hm){ window.avPlanoModo(hm.dataset.hjModo); renderHoje(); return; }
     const he = e.target.closest('[data-hj-esc]'); if(he){ const [iso, n] = he.dataset.hjEsc.split('|'); window.avPlanoEscolher(iso, n); renderHoje(); return; }
+    const md = e.target.closest('[data-ma-disc]'); if(md){ location.hash = '#disc-' + md.dataset.maDisc; return; }
+    const mc = e.target.closest('[data-ma-conta]'); if(mc){ if(window.avAbrirConta) window.avAbrirConta(mc.dataset.maConta); return; }
     const he2 = e.target.closest('[data-hj-erros]'); if(he2){ switchPage('viewErros', {errDisc:he2.dataset.hjErros}); return; }
     const ir = e.target.closest('[data-hj-ir]');
     if(ir){ const t = JSON.parse(ir.dataset.hjIr); if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap || 0}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
@@ -22597,7 +22636,6 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fundo.hidden = true; });
   // a página pode ter aberto antes deste script carregar
   // primeira tela: quem já tem acesso liberado neste aparelho abre no Hoje assim que o site carrega
-  if(!location.hash.replace('#', '') && localStorage.getItem('av-acesso-ok') && localStorage.getItem('av-apoiador-cache') && !window.__hojeAuto){ window.__hojeAuto = true; switchPage('viewHoje', {fromHistory:true}); }
   setTimeout(() => { const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); if(/^#disc-/.test(location.hash) && !document.getElementById('dpDiscursiva') && typeof routeFromHash === 'function') routeFromHash(); }, 0);
 })();
 </script>
