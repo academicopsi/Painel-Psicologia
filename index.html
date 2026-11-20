@@ -2231,6 +2231,15 @@
     .exh-anul::after{content:"⊘"; font-size:15px;}
     .exh-folha tr.exh-fase td{font-size:11.5px;}
   }
+  .rt-pista{margin:6px 0 4px; border:1px dashed var(--rule); border-radius:10px; padding:8px 12px;}
+  .rt-pista > summary{cursor:pointer; font-weight:700; font-size:14px; color:var(--petrol);}
+  .rt-pista .rt-pense{margin:8px 0 2px;}
+  .rt-txt{width:100%; font:inherit; font-size:15px; line-height:1.5; border:1px solid var(--rule); border-radius:10px; padding:10px 12px; background:var(--paper); color:var(--ink); resize:vertical;}
+  .rt-acoes{display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; margin:10px 0 4px;}
+  .rt-aviso{font-size:13px; color:#A32D2D; margin:4px 0 0;}
+  .rt-sua{border-left:3px solid var(--rule); background:var(--bg); padding:8px 12px; border-radius:0 8px 8px 0; font-size:14.5px; white-space:pre-wrap;}
+  .rt-sua p{margin:0;}
+  .rt-revela .link-btn{margin-top:8px;}
   .rt-resp{margin:0 0 6px; border-left:3px solid var(--petrol); background:var(--petrol-soft); padding:10px 0 2px;}
   .rt-resp > summary{cursor:pointer; padding:11px 14px; font-weight:700; color:var(--petrol); list-style:none;}
   .rt-resp > summary::-webkit-details-marker{display:none;}
@@ -18193,6 +18202,26 @@ document.querySelectorAll('#viewFerramentas details[id^="tool-"] .correct-btn').
 // ===== Estudo dirigido: roteiros de busca (página da disciplina) =====
 function rtLoad(id){ try{ return JSON.parse(localStorage.getItem('av-roteiro-' + id)) || {}; }catch(e){ return {}; } }
 function rtSave(id, o){ try{ localStorage.setItem('av-roteiro-' + id, JSON.stringify(o)); }catch(e){} }
+// tentativa antes da resposta: o que a pessoa escreveu e se já viu a resposta
+function rtVisLoad(id){ try{ return JSON.parse(localStorage.getItem('av-roteiro-tenta-' + id)) || {}; }catch(e){ return {}; } }
+function rtVisto(id, i){ return rtVisLoad(id)[i] || {}; }
+function rtVisSave(id, i, x){ const o = rtVisLoad(id); o[i] = Object.assign(o[i] || {}, x); try{ localStorage.setItem('av-roteiro-tenta-' + id, JSON.stringify(o)); }catch(e){} }
+document.addEventListener('input', e=>{ const t = e.target.closest('[data-rt-txt]'); if(!t) return; const box = t.closest('[data-rt-id]'); rtVisSave(box.dataset.rtId, t.dataset.rtTxt, {t: t.value});
+  const av = t.closest('.rt-tenta').querySelector('.rt-aviso'); if(av) av.hidden = true; });
+document.addEventListener('click', e=>{
+  const b = e.target.closest('[data-rt-ver], [data-rt-refazer]'); if(!b) return;
+  const box = b.closest('[data-rt-id]'), qd = b.closest('[data-rt-q]'), id = box.dataset.rtId, i = qd.dataset.rtQ;
+  if(b.dataset.rtRefazer !== undefined){ rtVisSave(id, i, {v: 0}); }
+  else {
+    const txt = qd.querySelector('[data-rt-txt]').value.trim();
+    if(!b.dataset.rtSem && txt.length < 10){ qd.querySelector('.rt-aviso').hidden = false; return; }
+    rtVisSave(id, i, {v: 1, t: b.dataset.rtSem ? '' : txt});
+  }
+  const r = ROTEIROS.find(x=>x.id === id); if(!r) return;
+  const aberto = box.open; const tmp = document.createElement('div'); tmp.innerHTML = roteiroHTML(r);
+  const novo = tmp.querySelector(`[data-rt-q="${i}"]`); novo.open = true; qd.replaceWith(novo); box.open = aberto;
+  if(b.dataset.rtRefazer === undefined) novo.querySelector('.rt-revela').scrollIntoView({behavior:'smooth', block:'start'});
+});
 function rtQFeita(r, st, i){ const a = st[i] || []; return r.questoes[i].confira.every((_, k)=>a[k]); }
 function rtFeitas(r){ const st = rtLoad(r.id); return r.questoes.filter((_, i)=>rtQFeita(r, st, i)).length; }
 /* ---------------------------------------------------------------------
@@ -18399,11 +18428,23 @@ function roteiroHTML(r){
       <summary><span class="rt-qn">Questão ${i+1}</span><span class="rt-qt">${escHTML(q.tema)}</span><span class="rt-ok">${feita ? '✓ Conferida' : ''}</span></summary>
       <div class="rt-body">
         <p class="rt-caso">${escHTML(q.caso)}</p>
-        ${q.resposta ? `<h4 class="rt-h">Resposta</h4><div class="rt-resp">${q.resposta.map(p=>`<p>${escHTML(p)}</p>`).join('')}</div>` : ''}
         <h4 class="rt-h">O que a questão pede</h4>
         <ol class="rt-pede">${q.pede.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ol>
-        <h4 class="rt-h">Perguntas norteadoras</h4>
-        <ul class="rt-pense">${q.pense.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>
+        ${q.resposta ? `<details class="rt-pista"><summary>Precisa de uma pista? Perguntas norteadoras</summary><ul class="rt-pense">${q.pense.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul></details>
+        ${(() => { const v = rtVisto(r.id, i); return `<div class="rt-tenta" data-rt-tenta="${i}"${v.v ? ' hidden' : ''}>
+          <h4 class="rt-h">Sua resposta</h4>
+          <p class="rt-nota">Tente responder antes de ver a resposta: é o esforço de lembrar que fixa o conteúdo. Escrever em tópicos já vale.</p>
+          <textarea class="rt-txt" rows="6" data-rt-txt="${i}" placeholder="Escreva aqui o que você lembra…">${escHTML(v.t || '')}</textarea>
+          <div class="rt-acoes"><button class="btn btn-primary btn-sm" data-rt-ver="${i}">Conferir com a resposta</button><button class="link-btn" data-rt-ver="${i}" data-rt-sem="1">Ver a resposta sem escrever</button></div>
+          <p class="rt-aviso" hidden>Escreva pelo menos uma frase antes de conferir, ou use "Ver a resposta sem escrever".</p>
+        </div>
+        <div class="rt-revela" data-rt-revela="${i}"${v.v ? '' : ' hidden'}>
+          ${v.t ? `<h4 class="rt-h">Você escreveu</h4><div class="rt-sua"><p>${escHTML(v.t)}</p></div>` : ''}
+          <h4 class="rt-h">Resposta</h4><div class="rt-resp">${q.resposta.map(p=>`<p>${escHTML(p)}</p>`).join('')}</div>
+          <button class="link-btn" data-rt-refazer="${i}">Tentar de novo</button>
+        </div>`; })()}` : `<h4 class="rt-h">Perguntas norteadoras</h4>
+        <ul class="rt-pense">${q.pense.map(x=>`<li>${escHTML(x)}</li>`).join('')}</ul>`}
+        <div class="rt-depois"${q.resposta && !rtVisto(r.id, i).v ? ' hidden' : ''}>
         <h4 class="rt-h">Termos de busca</h4>
         <p class="rt-nota">Cada termo abre a busca no Google Acadêmico; "SciELO" abre a mesma busca no SciELO. Artigos de outras áreas, como enfermagem e ensino de ciências, ajudam a entender o conceito; na resposta, priorize fontes de psicologia e educação e cite o autor original.</p>
         <div class="rt-termos">${q.busque.map(t=>`<span class="rt-termo"><a href="${acad(t)}" target="_blank" rel="noopener">${escHTML(t)}</a><a class="rt-scielo" href="${scielo(t)}" target="_blank" rel="noopener">SciELO</a></span>`).join('')}</div>
@@ -18421,6 +18462,7 @@ function roteiroHTML(r){
           : `<p class="rt-nota">${escHTML(q.semSite || '')}</p>`}
         <h4 class="rt-h">${r.estudo ? 'Já sei' : 'Lista de conferência'}</h4>
         <div class="rt-confira">${q.confira.map((x, k)=>`<label class="rt-check"><input type="checkbox" data-rt-k="${k}"${a[k] ? ' checked' : ''}><span>${escHTML(x)}</span></label>`).join('')}</div>
+        </div>
 
       </div>
     </details>`; }).join('')}
