@@ -2313,6 +2313,15 @@
   .portao-marca{display:flex; align-items:center; gap:10px; font-family:var(--serif, Georgia, serif); font-size:21px; font-weight:600; margin:0 0 22px; justify-content:center;}
   .portao-marca img{width:36px; height:36px; border-radius:9px;}
   .portao-caixa .conta-caixa{box-shadow:0 12px 40px rgba(20,33,31,.08);}
+  .cb-av.cb-foto{padding:0; overflow:visible;}
+  .cb-av img{width:100%; height:100%; border-radius:50%; object-fit:cover; display:block;}
+  .conta-foto{display:flex; gap:12px; align-items:center; margin:0 0 12px; padding:0 0 12px; border-bottom:1px solid var(--rule);}
+  .cf-img{flex:none; width:56px; height:56px; border-radius:50%; background:var(--petrol); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; overflow:hidden;}
+  .ct-av{overflow:hidden;}
+  .ct-av img{width:100%; height:100%; object-fit:cover; display:block;}
+  .cf-img img{width:100%; height:100%; object-fit:cover;}
+  .cf-bts{display:flex; flex-wrap:wrap; gap:4px 14px; margin-top:2px;}
+  .cf-bts .conta-link{margin:0; padding:2px 0; cursor:pointer;}
   .conta-google{display:flex; align-items:center; justify-content:center; gap:10px; width:100%; font:inherit; font-size:15px; font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--rule); border-radius:10px; padding:11px 14px; cursor:pointer; margin:4px 0 0;}
   .conta-google:disabled{opacity:.6;}
   body.dark .conta-google{background:#fff; color:#1f1f1f;}
@@ -21243,6 +21252,33 @@ const ehAdmin = u => !!(u && u.email && u.email.toLowerCase() === ADMIN);
 const iniciais = u => { const n = (u && (u.displayName || u.email) || '?').trim(); const p = n.split(/[\s@._-]+/).filter(Boolean); return ((p[0] || '?')[0] + (u && u.displayName && p[1] ? p[1][0] : '')).toUpperCase(); };
 const primeiroNome = u => (u && u.displayName ? u.displayName.trim().split(/\s+/)[0] : (u && u.email || '').split('@')[0]);
 let contaIconeOriginal = null;
+function fotoAtual(){ const f = localStorage.getItem('av-foto') || ''; if(f === 'google') return (usuario && usuario.photoURL) || ''; return f; }
+function reduzirFoto(arq){
+  return new Promise((ok, erro) => {
+    const url = URL.createObjectURL(arq), img = new Image();
+    img.onload = () => { const lado = Math.min(img.width, img.height), cv = document.createElement('canvas'); cv.width = cv.height = 160;
+      cv.getContext('2d').drawImage(img, (img.width - lado) / 2, (img.height - lado) / 2, lado, lado, 0, 0, 160, 160);
+      URL.revokeObjectURL(url); ok(cv.toDataURL('image/jpeg', 0.82)); };
+    img.onerror = () => { URL.revokeObjectURL(url); erro(); };
+    img.src = url;
+  });
+}
+function fotoHTML(){
+  const f = fotoAtual(), g = usuario && usuario.photoURL;
+  return `<div class="conta-foto"><span class="cf-img">${f ? `<img src="${esc(f)}" alt="Sua foto" referrerpolicy="no-referrer">` : esc(iniciais(usuario))}</span>
+    <div><b>Foto do perfil</b><div class="cf-bts"><label class="conta-link">Escolher foto<input type="file" accept="image/*" data-foto-arq hidden></label>${g && localStorage.getItem('av-foto') !== 'google' ? '<button class="conta-link" data-foto-google>Usar a do Google</button>' : ''}${f ? '<button class="conta-link" data-foto-tirar>Remover</button>' : ''}</div></div></div>`;
+}
+document.addEventListener('change', async e => {
+  const inp = e.target.closest('[data-foto-arq]'); if(!inp || !inp.files[0]) return;
+  try{ localStorage.setItem('av-foto', await reduzirFoto(inp.files[0])); }catch(_){ alert('Não deu para usar essa imagem. Tente outra.'); return; }
+  pintarBotao(); if(!fundo.hidden) desenharConta(); if(window.avRenderHoje && document.getElementById('viewHoje').style.display !== 'none') window.avRenderHoje();
+});
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-foto-google]'), t = e.target.closest('[data-foto-tirar]'); if(!g && !t) return;
+  if(g) localStorage.setItem('av-foto', 'google'); else localStorage.removeItem('av-foto');
+  pintarBotao(); if(!fundo.hidden) desenharConta(); if(window.avRenderHoje && document.getElementById('viewHoje').style.display !== 'none') window.avRenderHoje();
+});
+window.avFotoHTML = () => usuario ? fotoHTML() : '';
 function pintarBotao(){
   const b = document.getElementById('contaBtn'); if(!b) return;
   if(contaIconeOriginal === null) contaIconeOriginal = b.querySelector('svg') ? b.querySelector('svg').outerHTML : '';
@@ -21250,7 +21286,8 @@ function pintarBotao(){
   if(!usuario){ b.classList.remove('conta-on', 'apoia'); b.innerHTML = contaIconeOriginal; b.appendChild(dotEl); b.setAttribute('aria-label', 'Entrar ou criar conta'); return; }
   const ap = apoiador || ehAdmin(usuario);
   b.classList.add('conta-on'); b.classList.toggle('apoia', !!apoiador);
-  b.innerHTML = `<span class="cb-av">${esc(iniciais(usuario))}${apoiador ? '<span class="cb-estrela">★</span>' : ''}</span><span class="cb-nome">${esc(primeiroNome(usuario))}</span>`;
+  const foto = fotoAtual();
+  b.innerHTML = `<span class="cb-av${foto ? ' cb-foto' : ''}">${foto ? `<img src="${esc(foto)}" alt="" referrerpolicy="no-referrer">` : esc(iniciais(usuario))}${apoiador ? '<span class="cb-estrela">★</span>' : ''}</span><span class="cb-nome">${esc(primeiroNome(usuario))}</span>`;
   b.appendChild(dotEl);
   b.setAttribute('aria-label', 'Sua conta' + (apoiador ? ' (apoiador)' : ''));
   b.title = 'Sua conta · ' + usuario.email;
@@ -21263,7 +21300,7 @@ let usuario = null, liberado = false, apoiador = false, aba = 'entrar', ultimaSy
 // ---------- progresso: chaves av-* <-> usuarios/{uid} ----------
 const FORA = new Set(['av-sync-ts', 'av-acesso-ok']);
 const ehDado = k => k && k.startsWith('av-') && !FORA.has(k);
-const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva']);
+const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva', 'av-foto']);
 const cod = k => encodeURIComponent(k).replace(/\./g, '%2E');
 const dec = k => decodeURIComponent(k);
 const _set = Storage.prototype.setItem, _rem = Storage.prototype.removeItem;
@@ -21442,9 +21479,9 @@ function desenharConta(m){
   const abas = [['conta', 'Conta'], ['psiu', 'Psiu'], ['apoio', 'Apoiador']].concat(ehAdmin(usuario) ? [['acessos', 'Acessos']] : []);
   if(!abas.some(a => a[0] === contaAba)) contaAba = 'conta';
   let h = `<h2 id="contaTitulo">Sua conta</h2>${msgHTML(m)}
-    <div class="conta-topo${apoiador ? ' apoia' : ''}"><span class="ct-av">${esc(iniciais(usuario))}</span><div><b>${esc(usuario.displayName || primeiroNome(usuario))}</b><span>${esc(usuario.email)}</span>${apoiador ? '<span class="conta-selo">★ Apoiador do Arquivo Vivo</span>' : ''}</div></div>
+    <div class="conta-topo${apoiador ? ' apoia' : ''}"><span class="ct-av">${fotoAtual() ? `<img src="${esc(fotoAtual())}" alt="" referrerpolicy="no-referrer">` : esc(iniciais(usuario))}</span><div><b>${esc(usuario.displayName || primeiroNome(usuario))}</b><span>${esc(usuario.email)}</span>${apoiador ? '<span class="conta-selo">★ Apoiador do Arquivo Vivo</span>' : ''}</div></div>
     <div class="conta-abas-top" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-conta-aba="${k}" aria-selected="${contaAba === k}">${t}${k === 'acessos' && dot.textContent ? ` <i>${dot.textContent}</i>` : ''}</button>`).join('')}</div>`;
-  if(contaAba === 'conta') h += `<p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p><button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
+  if(contaAba === 'conta') h += fotoHTML() + `<p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p><button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
   if(contaAba === 'psiu') h += `<button class="conta-psiu" data-psiu-vitrine>${window.avPsiuMini ? window.avPsiuMini() : ''}<span><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e o que ele comenta</small></span></button>`;
   if(contaAba === 'apoio') h += apoiador
     ? `<p class="conta-sub">Obrigado por apoiar o Arquivo Vivo! Estes são os seus recursos.</p><div class="conta-area"><div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>`
@@ -22184,7 +22221,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${nErr || 'Tudo em dia'}</b><small>${nErr ? (nErr === 1 ? 'questão para revisar' : 'questões para revisar') : 'Nenhum erro guardado'}</small></button></div>`;
     if(maAba === 'progresso') corpo = `<section class="hj-card">${linhas}</section>`;
     if(maAba === 'ferramentas') corpo = `<section class="hj-card"><div class="conta-area-bts ma-ben">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></section>`;
-    if(maAba === 'conta') corpo = `<section class="hj-card"><div class="ma-conta">
+    if(maAba === 'conta') corpo = `<section class="hj-card">${window.avFotoHTML ? window.avFotoHTML() : ''}<div class="ma-conta">
           <button data-ma-conta="conta"><b>Meus dados</b><small>${escHTML(window.avEmail || 'E-mail, sincronização e sair')}</small></button>
           <button data-ma-conta="psiu"><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e comentários</small></button>
           <button data-ma-conta="apoio"><b>${apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo'}</b><small>${apoia ? 'Obrigado por apoiar!' : 'Contribuição voluntária, com extras'}</small></button>
