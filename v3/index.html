@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light" />
 <title>V3 (teste) · Arquivo Vivo - De aluno para aluno</title>
-<link rel="manifest" href="../manifest.webmanifest">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="../icons/icon-180.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../icons/icon-32.png">
 <meta name="theme-color" content="#FFFFFF">
@@ -2362,6 +2362,15 @@
   .ap-aviso{margin-top:12px;}
   .ap-recusa{font-size:14px; color:#7A4A12; background:var(--ochre-soft); border-radius:10px; padding:10px 12px; margin:12px 0 10px; line-height:1.5;}
   .ap-ok{font-size:14px; font-weight:600; color:var(--petrol-dark); background:var(--petrol-soft); border-radius:10px; padding:10px 12px; margin:12px 0 0;}
+  .pn{margin:0 0 12px; padding:0 0 12px; border-bottom:1px solid var(--rule);}
+  .pn > b{font-size:14.5px;}
+  .pn-txt{font-size:13.5px; color:var(--ink-soft); margin:4px 0 8px; line-height:1.5;}
+  .pn-ok{color:var(--petrol-dark); font-weight:600;}
+  .pn-op{display:flex; gap:10px; align-items:center; font-size:14px; padding:4px 0;}
+  .pn-op input{width:18px; height:18px; accent-color:var(--petrol);}
+  .pn-link{margin:6px 0 0 !important; padding:0;}
+  .pn-ativar{margin:0;}
+  .pn-erro{font-size:13px; color:#A32D2D; margin:8px 0 0;}
   .conta-google{display:flex; align-items:center; justify-content:center; gap:10px; width:100%; font:inherit; font-size:15px; font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--rule); border-radius:10px; padding:11px 14px; cursor:pointer; margin:4px 0 0;}
   .conta-google:disabled{opacity:.6;}
   body.dark .conta-google{background:#fff; color:#1f1f1f;}
@@ -21369,6 +21378,7 @@ async function puxar(){
       _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
     }
     try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); apoiador = v === true || v === 'true' || v === 1; window.avApoioRecusado = (v && typeof v === 'object' && v.recusado) || 0; } }catch(e){ apoiador = false; }
+    await lerPush();
     window.avApoiador = apoiador; window.avNome = usuario.displayName || ''; window.avEmail = usuario.email || '';
     try{ if(apoiador) localStorage.setItem('av-apoiador-cache', '1'); else localStorage.removeItem('av-apoiador-cache'); }catch(e){}
     document.dispatchEvent(new Event('av-apoio'));
@@ -21477,7 +21487,7 @@ let admFiltro = 'aguardando', admDados = null;
 async function lerTudo(){
   const [pe, ac, ap] = await Promise.all(['pedidos', 'acesso', 'apoiadores'].map(c => get(ref(db, c)).then(x => x.val() || {})));
   const sim = v => v === true || v === 'true' || v === 1;
-  return Object.entries(pe).map(([uid, d]) => ({ uid, email: d.email || '', nome: d.nome || '', em: d.em || 0, ok: sim(ac[uid]), apoia: sim(ap[uid]), aviso: d.apoio && d.apoio.em && !sim(ap[uid]) && !(ap[uid] && (ap[uid].recusado === d.apoio.em || (ap[uid].removido || 0) > d.apoio.em)) ? d.apoio : null }))
+  return Object.entries(pe).filter(([, d]) => d && (d.email || d.nome)).map(([uid, d]) => ({ uid, email: d.email || '', nome: d.nome || '', em: d.em || 0, ok: sim(ac[uid]), apoia: sim(ap[uid]), aviso: d.apoio && d.apoio.em && !sim(ap[uid]) && !(ap[uid] && (ap[uid].recusado === d.apoio.em || (ap[uid].removido || 0) > d.apoio.em)) ? d.apoio : null }))
     .concat(Object.keys(ac).filter(uid => !pe[uid]).map(uid => ({ uid, email: '', nome: '(sem cadastro de pedido)', em: 0, ok: sim(ac[uid]), apoia: sim(ap[uid]) })))
     .sort((a, b) => b.em - a.em);
 }
@@ -21545,6 +21555,56 @@ function desenharConta(m){
 }
 window.avAbrirConta = aba => { contaAba = aba || ((ehAdmin(usuario) && dot.textContent) ? 'acessos' : 'conta'); desenharConta(); fundo.hidden = false; };
 window.avEhAdmin = () => ehAdmin(usuario);
+// ---------- notificações (Firebase Cloud Messaging) ----------
+const VAPID = '';
+const raizSite = location.pathname.replace(/(v3\/)?(index\.html)?$/, '');
+let pushInfo = null;
+const pushSuporte = () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+const ehIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+const instalado = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+async function lerPush(){ try{ pushInfo = (await get(ref(db, 'pedidos/' + usuario.uid + '/push'))).val(); }catch(_){ pushInfo = null; } }
+async function ativarPush(){
+  if(await Notification.requestPermission() !== 'granted') throw {code:'negado'};
+  const reg = await navigator.serviceWorker.register(raizSite + 'firebase-messaging-sw.js', {scope: raizSite});
+  await navigator.serviceWorker.ready;
+  const { getMessaging, getToken } = await import('https://www.gstatic.com/firebasejs/13.4.0/firebase-messaging.js');
+  const token = await getToken(getMessaging(app), {vapidKey: VAPID, serviceWorkerRegistration: reg});
+  pushInfo = {token, email: usuario.email || '', provas: pushInfo ? pushInfo.provas !== false : true, avisos: pushInfo ? pushInfo.avisos !== false : true, em: Date.now()};
+  await set(ref(db, 'pedidos/' + usuario.uid + '/push'), pushInfo);
+}
+window.avPushHTML = () => {
+  if(!usuario) return '';
+  let corpo;
+  if(!VAPID) corpo = '<p class="pn-txt">Em configuração. Logo dá para ativar aqui.</p>';
+  else if(ehIOS && !instalado()) corpo = '<p class="pn-txt">No iPhone, as notificações só funcionam com o site instalado na tela inicial. Instale e abra por lá para ativar.</p><button class="conta-link pn-link" data-page="viewInstalar">Como instalar</button>';
+  else if(!pushSuporte()) corpo = '<p class="pn-txt">Este navegador não recebe notificações. No Android, use o Chrome.</p>';
+  else if(Notification.permission === 'denied') corpo = '<p class="pn-txt">As notificações estão bloqueadas neste aparelho. Libere nas configurações do navegador para o site e volte aqui.</p>';
+  else if(pushInfo && pushInfo.token && Notification.permission === 'granted') corpo = `<p class="pn-txt pn-ok">Ativadas neste aparelho.</p>
+      <label class="pn-op"><input type="checkbox" data-pn-pref="provas"${pushInfo.provas !== false ? ' checked' : ''}><span>Lembretes de provas e entregas</span></label>
+      <label class="pn-op"><input type="checkbox" data-pn-pref="avisos"${pushInfo.avisos !== false ? ' checked' : ''}><span>Avisos da turma</span></label>
+      <button class="conta-link pn-link" data-pn-desativar>Desativar</button>`;
+  else corpo = '<p class="pn-txt">Receba no celular os lembretes de provas e os avisos da turma, mesmo com o site fechado.</p><button class="conta-btn pn-ativar" data-pn-ativar>Ativar notificações</button>';
+  return `<div class="pn"><b>Notificações</b>${corpo}<p class="pn-erro" hidden></p></div>`;
+};
+const pushRedesenhar = () => { if(window.avRenderHoje && document.getElementById('viewHoje').style.display !== 'none') window.avRenderHoje(); };
+document.addEventListener('click', async e => {
+  const at = e.target.closest('[data-pn-ativar]'), de = e.target.closest('[data-pn-desativar]'); if(!at && !de) return;
+  const box = e.target.closest('.pn'), er = box && box.querySelector('.pn-erro');
+  try{
+    if(at){ at.disabled = true; at.textContent = 'Ativando…'; await ativarPush(); }
+    else { await remove(ref(db, 'pedidos/' + usuario.uid + '/push')); pushInfo = null; }
+    pushRedesenhar();
+  }catch(err){
+    if(at){ at.disabled = false; at.textContent = 'Ativar notificações'; }
+    if(er){ er.hidden = false; er.textContent = err && err.code === 'negado' ? 'Você não permitiu as notificações. Se mudar de ideia, libere nas configurações do navegador.' : 'Não deu para ativar agora. Tente de novo em instantes.'; }
+    console.warn('[push]', err);
+  }
+});
+document.addEventListener('change', async e => {
+  const c = e.target.closest('[data-pn-pref]'); if(!c || !pushInfo) return;
+  pushInfo[c.dataset.pnPref] = c.checked;
+  try{ await set(ref(db, 'pedidos/' + usuario.uid + '/push/' + c.dataset.pnPref), c.checked); }catch(_){ c.checked = !c.checked; }
+});
 window.avAvisarApoio = async valor => { if(!usuario) throw new Error('sem conta'); const em = Date.now(); await set(ref(db, 'pedidos/' + usuario.uid + '/apoio'), {valor: String(valor), em}); return em; };
 window.avPendentes = () => dot.textContent || '';
 document.getElementById('contaBtn').addEventListener('click', ()=>{ if(usuario && liberado && typeof switchPage === 'function'){ switchPage('viewHoje'); window.scrollTo({top:0}); } else window.avAbrirConta(); });
@@ -22289,7 +22349,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${nErr || 'Tudo em dia'}</b><small>${nErr ? (nErr === 1 ? 'questão para revisar' : 'questões para revisar') : 'Nenhum erro guardado'}</small></button></div>`;
     if(maAba === 'progresso') corpo = `<section class="hj-card">${linhas}</section>`;
     if(maAba === 'ferramentas') corpo = `<section class="hj-card"><div class="conta-area-bts ma-ben">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></section>`;
-    if(maAba === 'conta') corpo = `<section class="hj-card">${window.avFotoHTML ? window.avFotoHTML() : ''}<div class="ma-conta">
+    if(maAba === 'conta') corpo = `<section class="hj-card">${window.avFotoHTML ? window.avFotoHTML() : ''}${window.avPushHTML ? window.avPushHTML() : ''}<div class="ma-conta">
           <button data-ma-conta="conta"><b>Meus dados</b><small>${escHTML(window.avEmail || 'E-mail, sincronização e sair')}</small></button>
           <button data-ma-conta="psiu"><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e comentários</small></button>
           <button data-ma-conta="apoio"><b>${apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo'}</b><small>${apoia ? 'Obrigado por apoiar!' : 'Contribuição voluntária, com extras'}</small></button>

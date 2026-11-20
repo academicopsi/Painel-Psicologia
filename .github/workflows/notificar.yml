@@ -1,0 +1,39 @@
+name: Notificações
+
+on:
+  push:
+    branches: [main]
+    paths: ['notificacoes/*.json']
+  schedule:
+    - cron: '7 21 * * *'   # todo dia às 18h07 (Brasília): lembretes de prazos
+  workflow_dispatch:
+    inputs:
+      titulo:   { description: 'Título', required: false, default: 'Arquivo Vivo' }
+      mensagem: { description: 'Mensagem', required: true }
+      publico:  { description: 'todos ou admin (só você, para teste)', required: false, default: 'todos' }
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 2 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm install --no-save firebase-admin@12
+      - name: Enviar
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          TITULO: ${{ github.event.inputs.titulo }}
+          MENSAGEM: ${{ github.event.inputs.mensagem }}
+          PUBLICO: ${{ github.event.inputs.publico }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            MODO=lembretes node .github/scripts/notificar.mjs
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            for f in $(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- 'notificacoes/*.json'); do
+              MODO=aviso ARQUIVO="$f" node .github/scripts/notificar.mjs
+            done
+          else
+            MODO=aviso node .github/scripts/notificar.mjs
+          fi
