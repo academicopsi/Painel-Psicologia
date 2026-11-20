@@ -3785,6 +3785,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-20', disc: 'Neuroanatomia Humana', desc: '16 casos clínicos comentados no simulado (parte Casos clínicos), cada um com a explicação neuroanatômica e a conexão com a Psicologia. E uma aba nova no resumo: Do sintoma à estrutura. Agora são 131 questões.', link: {url:'#simulado-neuro-n2'}},
   {date: '2026-11-19', disc: 'Psicologia Experimental', desc: 'Guia do Trabalho N2: novo passo 9 com o passo a passo da planilha e do gráfico, seguindo os vídeos da professora (abas, fórmulas e gráfico de colunas LB × INT).', link: {url:'#disc-04'}},
   {date: '2026-11-19', disc: 'Psicologia Experimental', desc: 'Guia do Trabalho N2 (entrega em 25/11): passo a passo do experimento do pronome EU ou NÓS, PowerPoint com os 40 slides, folha de registro para imprimir e lista do que conferir antes de entregar.', link: {url:'#disc-04'}},
   {date: '2026-11-18', disc: 'Psicologia Experimental', desc: 'Estudo dirigido da N2 (não é para entregar): as 6 perguntas do quadro respondidas, e 27 questões novas no simulado. Agora são 79.', link: {url:'#disc-04'}},
@@ -6331,8 +6332,8 @@ SIM_JOGO.push({
   id: 'neuro-n2',
   disc: '02',
   titulo: 'Simulado N2: medula, SNA, nervos cranianos e encéfalo',
-  desc: '115 questões no estilo vestibular: medula espinhal e meninges, sistema nervoso autônomo, nervos cranianos, revisão de organização do sistema nervoso e sinapses, e estruturas do encéfalo e suas funções.',
-  partes: [{k:'medula', t:'Medula e meninges', n:20}, {k:'sna', t:'SNA', n:20}, {k:'nervos', t:'Nervos cranianos', n:20}, {k:'org', t:'Revisão: SN e sinapses', n:15}, {k:'estruturas', t:'Estruturas e funções', n:40}],
+  desc: '131 questões no estilo vestibular: medula espinhal e meninges, sistema nervoso autônomo, nervos cranianos, revisão de organização do sistema nervoso e sinapses, estruturas do encéfalo e suas funções, e 16 casos clínicos comentados.',
+  partes: [{k:'medula', t:'Medula e meninges', n:20}, {k:'sna', t:'SNA', n:20}, {k:'nervos', t:'Nervos cranianos', n:20}, {k:'org', t:'Revisão: SN e sinapses', n:15}, {k:'estruturas', t:'Estruturas e funções', n:40}, {k:'casos', t:'Casos clínicos', n:16}],
   questoes: [
   {tema:"Medula", p:"Sobre a localização da medula espinhal no adulto, é correto afirmar que ela",
    o:["ocupa todo o canal vertebral, do forame magno até a ponta do cóccix.",
@@ -7251,7 +7252,71 @@ SIM_JOGO.push({
       "apenas I, III e IV.",
       "apenas II e IV.",
       "apenas III."],
-   c:1, w:"As quatro estão certas. É o mapa básico dos lobos."}
+   c:1, w:"As quatro estão certas. É o mapa básico dos lobos."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 1.</i> Uma estudante de 21 anos teve encefalite há alguns meses. Conversa normalmente e mantém conhecimentos antigos, mas tem dificuldade para formar novas lembranças. Precisa anotar repetidamente compromissos e conteúdos recém-estudados.<br><br>Qual estrutura está mais diretamente relacionada à consolidação de novas memórias declarativas?",
+   o:["Giro pré-central, ligado à execução motora.", "Hipocampo, na região temporal medial.", "Colículo inferior, ligado ao processamento auditivo.", "Bulbo, ligado à regulação cardiorrespiratória.", "Corno anterior, ligado à motricidade somática."],
+   c:1, w:"O hipocampo e as estruturas temporais mediais participam da formação e da consolidação de novas memórias declarativas. Lesões podem dificultar a aprendizagem de informações novas, mesmo com linguagem e motricidade preservadas. A investigação pode incluir ressonância e avaliação neuropsicológica. <b>Na Psicologia:</b> Investigar o impacto na aprendizagem, na autonomia, na rotina e no sofrimento emocional. O relato isolado não confirma a causa: é preciso avaliação clínica integrada."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 2.</i> Após um traumatismo cranioencefálico, um homem de 34 anos passa a interromper conversas, fazer comentários socialmente inadequados e tomar decisões impulsivas. A memória autobiográfica e o reconhecimento de objetos estão relativamente preservados, mas a família relata mudança de comportamento.<br><br>Qual região está mais associada às alterações de planejamento, julgamento e controle inibitório?",
+   o:["Córtex pré-frontal.", "Córtex visual primário occipital.", "Núcleo coclear.", "Corno posterior da medula.", "Gânglio da raiz dorsal."],
+   c:0, w:"O córtex pré-frontal participa do planejamento, da tomada de decisão, da flexibilidade cognitiva, do julgamento e da inibição de respostas. Lesões podem modificar a regulação emocional e o comportamento social. A tomografia é usada na fase aguda; ressonância e avaliação neuropsicológica caracterizam as sequelas. <b>Na Psicologia:</b> Evitar interpretar a mudança como falta de vontade ou traço moral. Avaliar o funcionamento anterior, o contexto, o perfil cognitivo e o impacto na família."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 3.</i> Paula, 59 anos, tem início súbito de fala fluente, porém com frases pouco compreensíveis. Parece não entender comandos simples e não percebe que suas respostas não correspondem às perguntas. A força dos membros está preservada.<br><br>Uma lesão em qual região é mais compatível com prejuízo predominante da compreensão da linguagem?",
+   o:["Giro pré-central do hemisfério esquerdo.", "Porção posterior do giro temporal superior dominante.", "Vermis do cerebelo, na linha média.", "Hipotálamo anterior, na base do encéfalo, junto ao quiasma óptico.", "Corno anterior da substância cinzenta da medula cervical."],
+   c:1, w:"A região temporal posterior do hemisfério dominante, tradicionalmente associada à área de Wernicke, participa da compreensão da linguagem. O quadro sugere afasia fluente com prejuízo de compreensão. Início súbito exige investigação urgente de AVC, com neuroimagem e avaliação neurológica. <b>Na Psicologia:</b> Fala fluente nem sempre significa comunicação eficaz. Adaptar a linguagem, usar frases simples e verificar a compreensão sem constranger o paciente."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 4.</i> Um paciente de 66 anos tem fraqueza súbita no braço e na perna direitos. A avaliação sugere lesão no hemisfério cerebral esquerdo, numa região cortical que participa da execução dos movimentos voluntários.<br><br>Qual estrutura contém o córtex motor primário?",
+   o:["Giro pós-central.", "Giro pré-central.", "Giro para-hipocampal.", "Córtex occipital medial.", "Giro temporal inferior."],
+   c:1, w:"O giro pré-central, no lobo frontal, contém o córtex motor primário. Suas projeções controlam os movimentos voluntários, predominantemente do lado oposto: por isso uma lesão à esquerda causa fraqueza à direita. Início súbito exige investigação emergencial de AVC. O giro pós-central é sensitivo. <b>Na Psicologia:</b> A alteração motora pode trazer perda de autonomia, medo e frustração. Considerar também possíveis alterações de linguagem, cognição e humor."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 5.</i> Kleula, após um AVE, relata alterações na percepção de estímulos sensitivos do lado direito do corpo. A equipe identifica lesão numa estrutura profunda que funciona como estação de retransmissão e integração de grande parte das informações sensitivas para o córtex.<br><br>Qual estrutura está descrita?",
+   o:["Tálamo.", "Hipófise.", "Cerebelo.", "Corpo caloso.", "Substância negra."],
+   c:0, w:"O tálamo retransmite e modula grande parte das informações sensitivas que seguem para o córtex, além de participar de circuitos motores, da atenção e da consciência. A maioria das modalidades sensitivas passa por núcleos talâmicos antes de chegar às áreas corticais. <b>Na Psicologia:</b> Alterações sensoriais podem repercutir na percepção corporal, na atenção e na experiência emocional. Comparar o relato da pessoa com o exame neurológico."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 6.</i> Depois de um acidente de carro, Bruna passa a ter dificuldade para dormir a semana toda, episódios de fome intensa e dificuldade de regular a temperatura do corpo. A região afetada integra respostas autonômicas e endócrinas.<br><br>Qual estrutura está mais diretamente relacionada a essas funções?",
+   o:["Hipotálamo.", "Lobo occipital.", "Núcleo caudado isoladamente.", "Ponte exclusivamente motora.", "Gânglio sensitivo espinal."],
+   c:0, w:"O hipotálamo participa da regulação da temperatura, da fome, da sede, dos ritmos circadianos, das respostas autonômicas e do controle neuroendócrino, por sua ligação com a hipófise. A investigação pode incluir ressonância e exames hormonais. <b>Na Psicologia:</b> Sono, apetite e regulação fisiológica influenciam humor, atenção e comportamento. Não atribuir toda alteração a fatores emocionais sem considerar causas neurológicas ou endócrinas."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 7.</i> Luiz, 47 anos, usa medicamentos que não soube informar quais são. Apresenta marcha com base alargada, dificuldade para fazer movimentos alternados rápidos e tremor que piora quando tenta alcançar um objeto. A força muscular está relativamente preservada.<br><br>Qual estrutura é mais compatível com o conjunto de sinais?",
+   o:["Cerebelo.", "Hipocampo.", "Amígdala.", "Córtex auditivo primário.", "Corno posterior da medula."],
+   c:0, w:"O cerebelo contribui para coordenação, equilíbrio, precisão, temporização e aprendizagem motora. Lesões podem causar ataxia, dismetria, tremor de intenção e disdiadococinesia (dificuldade com movimentos alternados rápidos). <b>Na Psicologia:</b> A dificuldade de coordenação pode limitar atividades diárias e a participação social. Avaliar repercussões emocionais e estratégias de adaptação junto com a reabilitação."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 8.</i> Luana, após um trauma, tem uma lesão encefálica e dificuldade para orientar rapidamente os olhos e a cabeça em direção a um estímulo visual inesperado. A equipe considera comprometimento de estruturas do teto do mesencéfalo envolvidas em reflexos de orientação visual.<br><br>Qual estrutura está mais diretamente relacionada a essa função?",
+   o:["Colículos superiores.", "Colículos inferiores.", "Núcleos grácil e cuneiforme.", "Núcleo ambíguo.", "Corno anterior."],
+   c:0, w:"Os colículos superiores, no teto do mesencéfalo, participam dos reflexos de orientação visual e da coordenação dos movimentos dos olhos e da cabeça em direção a estímulos. Os colículos inferiores estão mais ligados às vias auditivas. <b>Na Psicologia:</b> A orientação visual integra percepção, atenção e comportamento. Alterações podem afetar a segurança, a exploração do ambiente e o desempenho em tarefas."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 9.</i> Janilda, 70 anos, relata lentidão para iniciar movimentos, rigidez e tremor de repouso, além de menos interesse pelas atividades e alterações do sono. A avaliação considera uma doença ligada à perda progressiva de neurônios dopaminérgicos.<br><br>Qual estrutura apresenta degeneração dopaminérgica característica na doença de Parkinson?",
+   o:["Substância negra pars compacta.", "Núcleo geniculado lateral do tálamo.", "Hipocampo posterior.", "Colículo inferior.", "Núcleo do trato solitário."],
+   c:0, w:"Na doença de Parkinson há perda de neurônios dopaminérgicos da substância negra pars compacta, o que altera os circuitos dos núcleos da base e contribui para bradicinesia, rigidez e tremor de repouso. O diagnóstico é predominantemente clínico. <b>Na Psicologia:</b> Depressão, ansiedade, apatia, alterações do sono e mudanças cognitivas podem acompanhar a doença. Diferenciar manifestações da doença de efeitos de medicamentos."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 10.</i> Após lesão nos dois lados de uma estrutura do sistema límbico, uma paciente passa a reconhecer muito menos os sinais de ameaça, e as respostas de medo em certas situações diminuem. Movimentos e compreensão da linguagem estão preservados.<br><br>Qual estrutura está mais diretamente associada ao processamento da relevância emocional e às respostas de medo?",
+   o:["Amígdala.", "Giro pré-central.", "Núcleo rubro.", "Córtex visual primário.", "Núcleo grácil."],
+   c:0, w:"A amígdala participa do processamento de estímulos emocionalmente relevantes, da aprendizagem associativa e das respostas de medo e ameaça. Ela trabalha em circuito com hipotálamo, tronco encefálico, hipocampo e córtex pré-frontal: emoções resultam de redes, e não de uma estrutura isolada. <b>Na Psicologia:</b> O caso permite discutir as bases neurais das emoções sem reduzi-las a um único centro. Contexto, aprendizagem, cognição e ambiente também influenciam as respostas emocionais."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 11.</i> Um paciente tem dor em faixa e alteração da sensibilidade num território específico da pele. A investigação sugere comprometimento de neurônios sensitivos cujos corpos celulares ficam numa dilatação da raiz posterior do nervo espinal.<br><br>Como se chama essa estrutura?",
+   o:["Gânglio da raiz dorsal.", "Gânglio simpático cervical superior.", "Corno anterior da medula.", "Núcleo caudado.", "Plexo coroide."],
+   c:0, w:"O gânglio da raiz dorsal (gânglio espinal) contém os corpos celulares dos neurônios sensitivos pseudounipolares. Seus prolongamentos periféricos recebem informações dos receptores, e os centrais entram na medula pela raiz dorsal. A raiz ventral leva as fibras motoras. <b>Na Psicologia:</b> Dor persistente pode alterar sono, humor, atenção e participação social. Avaliar o impacto funcional sem reduzir a dor a uma causa só emocional."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 12.</i> Antes de apresentar um seminário, um estudante percebe taquicardia, suor, pupilas dilatadas, sensação de alerta e vontade de correr. Ele apresenta o trabalho e, depois, em repouso, essas manifestações diminuem aos poucos.<br><br>Qual divisão do sistema nervoso autônomo está predominantemente associada à resposta inicial?",
+   o:["Parassimpático, responsável pela luta ou fuga.", "Simpático, que mobiliza o corpo diante de desafios.", "Somático, que controla diretamente coração e glândulas.", "Entérico, que coordena a resposta das pupilas.", "Piramidal, que regula a secreção da suprarrenal."],
+   c:1, w:"A ativação simpática participa da resposta de alerta: aumenta a frequência e a força cardíacas, favorece o suor e a dilatação da pupila e mobiliza energia. A medula da suprarrenal pode liberar catecolaminas sob estímulo simpático. O parassimpático participa do repouso e da digestão. <b>Na Psicologia:</b> Sinais autonômicos podem acompanhar a ansiedade, mas não definem sozinhos um transtorno. Avaliar frequência, intensidade, duração, prejuízo e contexto."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 13.</i> Pedro, 14 anos, chega ao neurologista após 3 dias de visão dupla horizontal. No exame, o olho esquerdo tem dificuldade de abdução, ou seja, de se mover lateralmente para fora. Não há perda de sensibilidade facial nem dor.<br><br>Qual nervo craniano está mais diretamente relacionado à abdução do olho?",
+   o:["Nervo oculomotor (III).", "Nervo troclear (IV).", "Nervo abducente (VI).", "Nervo trigêmeo (V).", "Nervo facial (VII)."],
+   c:2, w:"O nervo abducente inerva o músculo reto lateral, responsável pela abdução do olho. Sua lesão limita o movimento lateral e causa visão dupla (diplopia) horizontal. A avaliação inclui o exame dos pares cranianos e a investigação da causa. <b>Na Psicologia:</b> Alterações visuais podem provocar insegurança e dificuldade de leitura. A comunicação e as tarefas devem considerar o desconforto visual e a necessidade de avaliação clínica."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 14.</i> Talita procura o neurologista com episódios de perda visual, formigamento nos braços e pernas e fraqueza em momentos diferentes. A ressonância mostra lesões em várias regiões do sistema nervoso central, sugestivas de processo desmielinizante.<br><br>Qual célula da glia forma a mielina no sistema nervoso central?",
+   o:["Célula de Schwann.", "Oligodendrócito.", "Astrócito.", "Micróglia.", "Célula ependimária."],
+   c:1, w:"Os oligodendrócitos formam a mielina no SNC, e uma única célula pode mielinizar trechos de vários axônios. No SNP, a mielina é feita pelas células de Schwann. A mielina permite a condução saltatória entre os nodos de Ranvier. <b>Na Psicologia:</b> A desmielinização pode afetar funções motoras, sensitivas, visuais e cognitivas. Fadiga, alterações de humor e dificuldades de atenção podem interferir na qualidade de vida."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 15.</i> Pablo, 23 anos, chega à emergência com AVC na porção inferior do tronco encefálico. Evolui com alterações do padrão respiratório, da pressão arterial e da frequência cardíaca. A região afetada contém centros essenciais para a regulação cardiorrespiratória.<br><br>Qual região está mais diretamente relacionada a esses mecanismos vitais?",
+   o:["Mesencéfalo, especialmente os colículos superiores.", "Ponte, apenas por controlar a audição.", "Bulbo, com circuitos cardiovasculares e respiratórios.", "Cerebelo, que controla diretamente a pressão arterial.", "Tálamo, que abrigaria os centros respiratórios primários do encéfalo."],
+   c:2, w:"O bulbo (medula oblonga) contém redes envolvidas no controle da respiração e na regulação cardiovascular, incluindo ajustes autonômicos. Lesões nessa região podem comprometer funções vitais e são emergência médica. <b>Na Psicologia:</b> O caso mostra a relação entre estruturas encefálicas e a manutenção da vida. Em situações graves, a prioridade é estabilizar; o acompanhamento psicológico apoia paciente e família quando for possível."},
+
+  {tema:"Casos clínicos", p:"<i>Caso 16.</i> Um homem de 61 anos, após um AVC, tem fala lenta, pouco fluente e com esforço. Ele compreende comandos simples e complexos, reconhece objetos e fica frustrado por não conseguir formar frases completas.<br><br>Qual região é mais provavelmente afetada?",
+   o:["Giro frontal inferior dominante (área de Broca).", "Porção posterior do giro temporal superior dominante.", "Córtex visual primário do lobo occipital.", "Giro pós-central do lobo parietal.", "Núcleo ventral posterolateral do tálamo."],
+   c:0, w:"A afasia não fluente, com fala trabalhosa e compreensão relativamente preservada, sugere comprometimento da rede frontal do hemisfério dominante ligada ao planejamento e à produção da linguagem (área de Broca). Compare com o caso 3: na área de Wernicke, a fala é fluente, mas a compreensão falha. <b>Na Psicologia:</b> A dificuldade de expressão pode gerar sofrimento, retraimento e perda de autonomia. Dar tempo para a resposta, fazer perguntas objetivas e oferecer recursos alternativos de comunicação, sem infantilizar o paciente."}
   ]
 });
 
@@ -12568,7 +12633,7 @@ const RESUMOS = {
     "eyebrow": "Neuroanatomia · Prof. Alexandre Sancho",
     "titulo": "Neuroanatomia: organização do SN, medula, SNA e nervos cranianos",
     "lead": "Revisão da organização do sistema nervoso e das sinapses, medula espinhal, sistema nervoso autônomo e nervos cranianos, uma aula por aba. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
-    "fonte": "Resumo feito a partir dos slides de Neuroanatomia: revisão (organização do sistema nervoso e sinapses), \"Medula espinhal e envoltórios\", \"Sistema nervoso autônomo\" e \"Nervos cranianos\". Na aba de nervos cranianos, a origem do oculomotor segue o pedúnculo cerebral (no slide aparece \"pedúnculo cerebelar\", um erro de digitação), e a raiz espinhal do acessório segue Machado (primeiros segmentos cervicais). A aba de revisão (organização do sistema nervoso, neurônio e sinapses) foi feita a partir dos slides de revisão de Neuroanatomia; a divisão segmentar e suprassegmentar segue a definição clássica de Machado.",
+    "fonte": "Resumo feito a partir dos slides de Neuroanatomia: revisão (organização do sistema nervoso e sinapses), \"Medula espinhal e envoltórios\", \"Sistema nervoso autônomo\" e \"Nervos cranianos\". Na aba de nervos cranianos, a origem do oculomotor segue o pedúnculo cerebral (no slide aparece \"pedúnculo cerebelar\", um erro de digitação), e a raiz espinhal do acessório segue Machado (primeiros segmentos cervicais). A aba de revisão (organização do sistema nervoso, neurônio e sinapses) foi feita a partir dos slides de revisão de Neuroanatomia; a divisão segmentar e suprassegmentar segue a definição clássica de Machado. A aba \"Do sintoma à estrutura\" vem da síntese do material de casos clínicos para discussão; os 16 casos estão no simulado.",
     "caps": [
       {
         "id": "organizacao",
@@ -14002,6 +14067,102 @@ const RESUMOS = {
             ],
             "c": 2,
             "w": "Os três passam pela fissura orbital superior."
+          }
+        ]
+      },
+      {
+        "id": "casos",
+        "aba": "Do sintoma à estrutura",
+        "titulo": "Do sintoma à estrutura: casos clínicos",
+        "intro": "A síntese da aula de casos clínicos: qual estrutura explica cada sinal. Para treinar, os 16 casos estão no simulado de Neuro, na parte Casos clínicos.",
+        "etapas": [
+          {
+            "fase": "Síntese",
+            "when": "Córtex e límbico",
+            "titulo": "Córtex e sistema límbico",
+            "pontos": [
+              "<strong>Pré-frontal:</strong> funções executivas e controle inibitório: planejamento, julgamento e freio da impulsividade.",
+              "<strong>Hipocampo (temporal medial):</strong> formação de novas memórias declarativas. A pessoa lembra do antigo, mas não grava o novo.",
+              "<strong>Temporal posterior dominante (área de Wernicke):</strong> compreensão da linguagem. Na lesão, a fala sai fluente, mas sem sentido, e a pessoa não entende o que ouve.",
+              "<strong>Giro frontal inferior dominante (área de Broca):</strong> produção da fala. Na lesão, a fala é lenta e com esforço, mas a compreensão se preserva.",
+              "<strong>Giro pré-central:</strong> córtex motor primário. Controla o lado oposto do corpo: lesão à esquerda enfraquece o lado direito.",
+              "<strong>Amígdala:</strong> relevância emocional e respostas de medo, sempre em rede com hipotálamo, hipocampo e pré-frontal."
+            ],
+            "q": "Um paciente fala com fluência, mas não entende o que ouve. Que região está mais provavelmente afetada?",
+            "a": "A porção posterior do giro temporal superior do hemisfério dominante, associada à área de Wernicke."
+          },
+          {
+            "when": "Diencéfalo, tronco e cerebelo",
+            "titulo": "Tálamo, hipotálamo, tronco e cerebelo",
+            "pontos": [
+              "<strong>Tálamo:</strong> estação de retransmissão e integração da maior parte das informações sensitivas a caminho do córtex.",
+              "<strong>Hipotálamo:</strong> homeostase: sono, fome, sede, temperatura, respostas autonômicas e controle endócrino pela hipófise.",
+              "<strong>Mesencéfalo:</strong> colículos superiores na orientação visual dos olhos e da cabeça; colículos inferiores nas vias auditivas; substância negra, que perde neurônios dopaminérgicos na doença de Parkinson.",
+              "<strong>Ponte:</strong> conexões e funções integrativas.",
+              "<strong>Bulbo:</strong> circuitos de controle cardiorrespiratório. Lesão ali é emergência.",
+              "<strong>Cerebelo:</strong> coordenação e equilíbrio. Lesão causa marcha de base alargada, dismetria e tremor de intenção."
+            ],
+            "q": "Na doença de Parkinson, qual estrutura perde neurônios dopaminérgicos?",
+            "a": "A substância negra pars compacta, no mesencéfalo."
+          },
+          {
+            "when": "Medula, nervos e SNA",
+            "titulo": "Medula, nervos e sistema autônomo",
+            "pontos": [
+              "<strong>Gânglio da raiz dorsal:</strong> corpos celulares dos neurônios sensitivos.",
+              "<strong>Raiz dorsal:</strong> entrada sensitiva. <strong>Raiz ventral:</strong> saída motora.",
+              "<strong>Mielina:</strong> permite a condução saltatória. No SNC é feita pelos oligodendrócitos; no SNP, pelas células de Schwann.",
+              "<strong>Nervo abducente (VI):</strong> leva o olho para fora (músculo reto lateral). Lesão causa visão dupla horizontal.",
+              "<strong>Simpático:</strong> resposta de alerta (taquicardia, suor, pupila dilatada). <strong>Parassimpático:</strong> repouso e digestão."
+            ],
+            "q": "Que célula forma a mielina no sistema nervoso central?",
+            "a": "O oligodendrócito. No sistema nervoso periférico, é a célula de Schwann."
+          }
+        ],
+        "quiz": [
+          {
+            "p": "Fala lenta e com esforço, com compreensão preservada, sugere lesão em qual região?",
+            "o": [
+              "Área de Wernicke",
+              "Área de Broca",
+              "Cerebelo",
+              "Tálamo"
+            ],
+            "c": 1,
+            "w": "Na área de Broca, a produção da fala falha, mas a compreensão se mantém. Na de Wernicke é o contrário."
+          },
+          {
+            "p": "Fome intensa, sono desregulado e problemas de temperatura apontam para qual estrutura?",
+            "o": [
+              "Hipotálamo",
+              "Hipocampo",
+              "Bulbo",
+              "Amígdala"
+            ],
+            "c": 0,
+            "w": "O hipotálamo regula a homeostase: sono, fome, sede e temperatura."
+          },
+          {
+            "p": "Marcha de base alargada e tremor que piora ao alcançar um objeto lembram lesão de qual estrutura?",
+            "o": [
+              "Córtex pré-frontal",
+              "Substância negra",
+              "Cerebelo",
+              "Gânglio da raiz dorsal"
+            ],
+            "c": 2,
+            "w": "Ataxia e tremor de intenção são sinais clássicos de lesão do cerebelo."
+          },
+          {
+            "p": "Os colículos superiores participam de qual função?",
+            "o": [
+              "Audição",
+              "Orientação visual dos olhos e da cabeça",
+              "Controle cardiorrespiratório",
+              "Formação de memórias"
+            ],
+            "c": 1,
+            "w": "Os colículos superiores cuidam dos reflexos de orientação visual; os inferiores, das vias auditivas."
           }
         ]
       }
