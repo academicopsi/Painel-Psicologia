@@ -22101,8 +22101,6 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
           : `<button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>Tudo em dia</b><small>Nenhum erro guardado</small></button>`}
         <button class="hj-mini hj-ds" data-ds-escolher><span>Treino de discursiva</span><b>Escreva e confira</b><small>${nDisc} disciplinas</small></button>
       </div>
-      <section class="hj-card"><div class="hj-card-top"><h2>Próximos dias</h2><button class="hj-link" data-page="viewPrazos">Ver todos</button></div>
-        ${prazos.slice(0, 5).map(t => `<div class="hj-prazo${dias(t.prazo) <= 2 ? ' perto' : ''}"><span class="hj-dia">${dias(t.prazo) === 0 ? 'Hoje' : dias(t.prazo) === 1 ? 'Amanhã' : SEMC[new Date(t.prazo + 'T12:00:00').getDay()] + ' ' + Number(t.prazo.slice(8))}</span><span><b>${escHTML(limpa(t.tarefa).slice(0, 70))}</b><small>${escHTML(t.materia)}</small></span></div>`).join('') || '<p class="hj-vazio">Nenhum prazo marcado.</p>'}</section>
       <button class="hj-fim-btn" data-page="top">Ver o início completo, com todas as disciplinas →</button>`;
   }
   window.avRenderHoje = renderHoje;
