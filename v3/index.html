@@ -2347,6 +2347,7 @@
   .cf-bts .conta-link{margin:0; padding:2px 0; cursor:pointer;}
   .adm-tags i.av{background:var(--ochre-soft); color:var(--ochre);}
   .ap-aviso{margin-top:12px;}
+  .ap-recusa{font-size:14px; color:#7A4A12; background:var(--ochre-soft); border-radius:10px; padding:10px 12px; margin:12px 0 10px; line-height:1.5;}
   .ap-ok{font-size:14px; font-weight:600; color:var(--petrol-dark); background:var(--petrol-soft); border-radius:10px; padding:10px 12px; margin:12px 0 0;}
   .conta-google{display:flex; align-items:center; justify-content:center; gap:10px; width:100%; font:inherit; font-size:15px; font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--rule); border-radius:10px; padding:11px 14px; cursor:pointer; margin:4px 0 0;}
   .conta-google:disabled{opacity:.6;}
@@ -21328,7 +21329,7 @@ let usuario = null, liberado = false, apoiador = false, aba = 'entrar', ultimaSy
 // ---------- progresso: chaves av-* <-> usuarios/{uid} ----------
 const FORA = new Set(['av-sync-ts', 'av-acesso-ok']);
 const ehDado = k => k && k.startsWith('av-') && !FORA.has(k);
-const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva', 'av-foto', 'av-apoio-adiado', 'av-apoio-avisado', 'av-adm-ign']);
+const VOLATEIS = new Set(['av-psiu', 'av-ultimo', 'av-psiu-acessorio', 'av-psiu-estilo', 'av-tempo', 'av-plano', 'av-discursiva', 'av-foto', 'av-apoio-adiado', 'av-apoio-avisado']);
 const cod = k => encodeURIComponent(k).replace(/\./g, '%2E');
 const dec = k => decodeURIComponent(k);
 const _set = Storage.prototype.setItem, _rem = Storage.prototype.removeItem;
@@ -21352,7 +21353,7 @@ async function puxar(){
       Object.entries(remoto.progresso).forEach(([k, v])=>{ const kk = dec(k); if(localStorage.getItem(kk) !== v){ _set.call(localStorage, kk, v); if(!VOLATEIS.has(kk)) mudou = true; } });
       _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
     }
-    try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); apoiador = v === true || v === 'true' || v === 1; } }catch(e){ apoiador = false; }
+    try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); apoiador = v === true || v === 'true' || v === 1; window.avApoioRecusado = (v && typeof v === 'object' && v.recusado) || 0; } }catch(e){ apoiador = false; }
     window.avApoiador = apoiador; window.avNome = usuario.displayName || ''; window.avEmail = usuario.email || '';
     try{ if(apoiador) localStorage.setItem('av-apoiador-cache', '1'); else localStorage.removeItem('av-apoiador-cache'); }catch(e){}
     document.dispatchEvent(new Event('av-apoio'));
@@ -21461,8 +21462,7 @@ let admFiltro = 'aguardando', admDados = null;
 async function lerTudo(){
   const [pe, ac, ap] = await Promise.all(['pedidos', 'acesso', 'apoiadores'].map(c => get(ref(db, c)).then(x => x.val() || {})));
   const sim = v => v === true || v === 'true' || v === 1;
-  let ign = {}; try{ ign = JSON.parse(localStorage.getItem('av-adm-ign') || '{}'); }catch(_){}
-  return Object.entries(pe).map(([uid, d]) => ({ uid, email: d.email || '', nome: d.nome || '', em: d.em || 0, ok: sim(ac[uid]), apoia: sim(ap[uid]), aviso: d.apoio && d.apoio.em && ign[uid] !== d.apoio.em && !sim(ap[uid]) ? d.apoio : null }))
+  return Object.entries(pe).map(([uid, d]) => ({ uid, email: d.email || '', nome: d.nome || '', em: d.em || 0, ok: sim(ac[uid]), apoia: sim(ap[uid]), aviso: d.apoio && d.apoio.em && !sim(ap[uid]) && !(ap[uid] && (ap[uid].recusado === d.apoio.em || (ap[uid].removido || 0) > d.apoio.em)) ? d.apoio : null }))
     .concat(Object.keys(ac).filter(uid => !pe[uid]).map(uid => ({ uid, email: '', nome: '(sem cadastro de pedido)', em: 0, ok: sim(ac[uid]), apoia: sim(ap[uid]) })))
     .sort((a, b) => b.em - a.em);
 }
@@ -21498,8 +21498,8 @@ function desenharPainel(){
       if(a === 'liberar') await set(ref(db, 'acesso/' + uid), true);
       if(a === 'bloquear') await remove(ref(db, 'acesso/' + uid));
       if(a === 'apoio') await set(ref(db, 'apoiadores/' + uid), true);
-      if(a === 'tirar-apoio') await remove(ref(db, 'apoiadores/' + uid));
-      if(a === 'ignorar'){ const x0 = admDados.find(y => y.uid === uid); let ign = {}; try{ ign = JSON.parse(localStorage.getItem('av-adm-ign') || '{}'); }catch(_){} ign[uid] = x0.aviso.em; localStorage.setItem('av-adm-ign', JSON.stringify(ign)); x0.aviso = null; }
+      if(a === 'tirar-apoio') await set(ref(db, 'apoiadores/' + uid), {removido: Date.now()});
+      if(a === 'ignorar'){ const x0 = admDados.find(y => y.uid === uid); await set(ref(db, 'apoiadores/' + uid), {recusado: x0.aviso.em}); x0.aviso = null; }
       const x = admDados.find(y => y.uid === uid);
       if(a === 'liberar') x.ok = true; if(a === 'bloquear') x.ok = false; if(a === 'apoio'){ x.apoia = true; x.aviso = null; } if(a === 'tirar-apoio') x.apoia = false;
       desenharPainel(); contarPendentes();
@@ -21530,7 +21530,7 @@ function desenharConta(m){
 }
 window.avAbrirConta = aba => { contaAba = aba || ((ehAdmin(usuario) && dot.textContent) ? 'acessos' : 'conta'); desenharConta(); fundo.hidden = false; };
 window.avEhAdmin = () => ehAdmin(usuario);
-window.avAvisarApoio = async valor => { if(!usuario) throw new Error('sem conta'); await set(ref(db, 'pedidos/' + usuario.uid + '/apoio'), {valor: String(valor), em: Date.now()}); };
+window.avAvisarApoio = async valor => { if(!usuario) throw new Error('sem conta'); const em = Date.now(); await set(ref(db, 'pedidos/' + usuario.uid + '/apoio'), {valor: String(valor), em}); return em; };
 window.avPendentes = () => dot.textContent || '';
 document.getElementById('contaBtn').addEventListener('click', ()=>{ if(usuario && liberado && typeof switchPage === 'function'){ switchPage('viewHoje'); window.scrollTo({top:0}); } else window.avAbrirConta(); });
 document.getElementById('contaFechar').addEventListener('click', ()=> fundo.hidden = true);
@@ -21585,14 +21585,17 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const box = document.getElementById('apAviso'); if(!box) return;
     if(window.avApoiador){ box.innerHTML = '<p class="ap-ok">Você já é apoiador. Obrigado!</p>'; return; }
     let t = 0; try{ t = +(localStorage.getItem('av-apoio-avisado') || 0); }catch(_){}
+    const btn = '<button class="conta-btn sec" id="apJaFiz" type="button">Já fiz o Pix</button>';
+    if(t && window.avApoioRecusado === t){ box.innerHTML = `<p class="ap-recusa">Ainda não encontramos o seu Pix. Se você já pagou, confira se foi para a chave certa e toque em avisar de novo. Se ficou alguma dúvida, é só chamar no grupo da turma.</p>${btn.replace('Já fiz o Pix', 'Avisar de novo')}`; return; }
+    if(!t){ box.innerHTML = btn + '<p class="conta-priv">Toque depois de pagar. O aviso chega para quem cuida do site, e os recursos de apoiador aparecem na sua conta assim que o Pix for conferido.</p>'; return; }
     if(t) box.innerHTML = `<p class="ap-ok">Aviso enviado em ${new Date(t).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}. Assim que o Pix for conferido, os recursos de apoiador aparecem na sua conta. Obrigado!</p>`;
   }
   document.addEventListener('click', async e => {
     const b = e.target.closest('#apJaFiz'); if(!b) return;
     if(!window.avAvisarApoio){ alert('Entre na sua conta para avisar.'); return; }
     b.disabled = true; b.textContent = 'Enviando…';
-    try{ await window.avAvisarApoio(atual === 'None' ? 'livre' : atual); try{ localStorage.setItem('av-apoio-avisado', String(Date.now())); }catch(_){} avisoEstado(); }
-    catch(_){ b.disabled = false; b.textContent = 'Já fiz o Pix'; alert('Não deu certo agora. Confira a internet e tente de novo.'); }
+    try{ const em = await window.avAvisarApoio(atual === 'None' ? 'livre' : atual); window.avApoioRecusado = 0; try{ localStorage.setItem('av-apoio-avisado', String(em)); }catch(_){} avisoEstado(); }
+    catch(_){ b.disabled = false; b.textContent = 'Tentar de novo'; alert('Não deu certo agora. Confira a internet e tente de novo.'); }
   });
   document.getElementById('apCopiar').addEventListener('click', async e=>{
     const b = e.currentTarget, t = PIX[atual].p;
