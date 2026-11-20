@@ -178,6 +178,19 @@
   }
   .final-entrar{margin:14px 0 0; font-size:15px; opacity:.85;}
   .final-entrar a{color:inherit; font-weight:700;}
+  .nav-dir{display:flex; align-items:center; gap:16px;}
+  .nav-apoio{font-weight:600; font-size:15px; color:var(--ochre, #BA7517); text-decoration:none;}
+  .psiu-sec{background:var(--petrol-soft); border-radius:28px; padding:36px 28px; margin-top:24px;}
+  .psiu-topo{display:grid; grid-template-columns:260px 1fr; gap:40px; align-items:center;}
+  .psiu-sec .psiu-box{background:var(--paper);}
+  .psiu-sec h2{margin:8px 0 12px;}
+  .psiu-lead{font-size:17px; color:var(--ink-soft); margin:0;}
+  .poderes{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:28px;}
+  .poder{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px;}
+  .poder b{font-size:16.5px;}
+  .poder p{margin:6px 0 0; font-size:14.5px; color:var(--ink-soft); line-height:1.5;}
+  @media (max-width:760px){ .psiu-topo{grid-template-columns:1fr; gap:20px;} .poderes{grid-template-columns:1fr 1fr;} .psiu-sec{padding:26px 18px; border-radius:22px;} }
+  @media (max-width:480px){ .poderes{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -185,7 +198,7 @@
 <header class="nav">
   <div class="wrap">
     <a class="logo" href="#"><img src="../icons/icon-192.png" alt="">Arquivo Vivo</a>
-    <a class="btn btn-primary btn-sm" data-site="#entrar" href="../#entrar">Entrar</a>
+    <span class="nav-dir"><a class="nav-apoio" href="#apoie">Apoiar</a><a class="btn btn-primary btn-sm" data-site="#entrar" href="../#entrar">Entrar</a></span>
   </div>
 </header>
 
@@ -198,7 +211,7 @@
       <ul class="checks">
         <li>Simulados com mais de 400 questões, separados por assunto</li>
         <li>Revisão automática das questões que você errou</li>
-        <li>Funciona no celular e pode ser instalado como app</li>
+        <li>O Psiu, um colega virtual que tira dúvidas e lembra os prazos</li>
       </ul>
       <div class="ctas">
         <a class="btn btn-light" data-site="#criar" href="../#criar">Criar minha conta</a>
@@ -212,6 +225,28 @@
 
 <main class="wrap">
 
+
+  <section class="block psiu-sec" id="psiu">
+    <div class="psiu-topo">
+      <div class="psiu-box">
+        <div class="balao">Psiu! A prova de Neuro é em 5 dias.</div>
+        <svg viewBox="13 12 94 94" aria-hidden="true"><g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/><circle cx="48" cy="58" r="2.8" fill="#14211F"/><circle cx="72" cy="58" r="2.8" fill="#14211F"/><path d="M50 69 Q60 81 70 69" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/><text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text></svg>
+      </div>
+      <div>
+        <div class="eyebrow">Conheça o Psiu</div>
+        <h2>Um colega de turma <em>que mora no site.</em></h2>
+        <p class="psiu-lead">O Psiu fica no cantinho da tela e acompanha o seu estudo. Pergunte do jeito que você falaria com um colega: ele responde, lembra o que importa e leva você direto ao lugar certo.</p>
+      </div>
+    </div>
+    <div class="poderes">
+      <div class="poder"><b>Tira dúvidas</b><p>"Quando é a prova de Experimental?" "O que é reforço negativo?" Ele responde com o que está no site.</p></div>
+      <div class="poder"><b>Lembra o que importa</b><p>Avisa quando uma prova ou entrega está chegando, sem você precisar abrir o calendário.</p></div>
+      <div class="poder"><b>Leva ao conteúdo certo</b><p>Pede um simulado de Neuro ou o resumo de Piaget e ele abre na hora.</p></div>
+      <div class="poder"><b>Testa você</b><p>Um desafio rápido de 3 perguntas do glossário, para revisar entre uma aula e outra.</p></div>
+      <div class="poder"><b>Estuda junto</b><p>Modo foco com tempo marcado: ele lê enquanto você estuda e toma um café na pausa.</p></div>
+      <div class="poder"><b>Tem a cara da turma</b><p>Cochila de madrugada, chega atrasado na aula das sete, comemora quando você acerta. E você escolhe acessórios, cores e fundo.</p></div>
+    </div>
+  </section>
 
   <section class="block" id="como-funciona">
     <div class="sec-head">
@@ -243,25 +278,40 @@
     <div class="fonte">Números do 2º período de Psicologia, novembro de 2026.</div>
   </section>
 
-  <section class="block">
 
-    <div class="recurso">
-      <div class="rec-img">
-        <div class="psiu-box">
-          <div class="balao">Psiu! A prova de Neuro é em 5 dias.</div>
-          <svg viewBox="13 12 94 94" aria-hidden="true"><g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g><circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/><circle cx="48" cy="58" r="2.8" fill="#14211F"/><circle cx="72" cy="58" r="2.8" fill="#14211F"/><path d="M50 69 Q60 81 70 69" fill="none" stroke="#14211F" stroke-width="2.8" stroke-linecap="round"/><text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text></svg>
-        </div>
-      </div>
+
+
+  <section class="block" id="apoie">
+    <div class="apoio">
       <div>
-        <div class="eyebrow">Psiu</div>
-        <h3>Um colega de turma que sabe onde está tudo</h3>
-        <p>O Psiu responde dúvidas sobre o site, lembra os prazos e leva direto ao resumo, exercício ou simulado certo. Sem precisar procurar em menu nenhum.</p>
-        <ul><li>"Quando é a prova de Experimental?"</li><li>"Tem simulado de Neuro?"</li><li>"O que é reforço negativo?"</li></ul>
+        <div class="eyebrow">Apoie o Arquivo Vivo</div>
+        <h2>Aberto para todos, <em>mantido por quem acredita.</em></h2>
+        <p>O Arquivo Vivo continua livre: ninguém precisa pagar para estudar. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês, e ajudar a manter a ferramenta atualizada a cada semestre.</p>
+        <p>O apoio é voluntário, sem assinatura nem cobrança automática. Quem não apoia continua com acesso a tudo.</p>
+        <h3 class="apoio-h3">Quem apoia recebe</h3>
+        <ul class="apoio-lista">
+          <li><b>Plano de estudos</b><span>Sugerido pelo site ou montado por você, até cada prova.</span></li>
+          <li><b>Marca-texto e notas nos resumos</b><span>Salvos na sua conta.</span></li>
+          <li><b>Resumão completo e simulado em PDF</b><span>Com questões comentadas, estudo dirigido e suas anotações.</span></li>
+          <li><b>Seu desempenho e seu semestre em números</b><span>O que revisar primeiro e um story do semestre.</span></li>
+          <li><b>Psiu especial</b><span>Acessórios, cores e fundos exclusivos.</span></li>
+        </ul>
+        <p class="apoio-como">Depois do Pix, avise o Thiago com o e-mail da sua conta no site. Os materiais de apoiador ficam liberados na sua conta.</p>
+      </div>
+      <div class="apoio-card">
+        <h3>Apoie com Pix</h3>
+        <div class="pix-valores" role="tablist" aria-label="Valor do apoio">
+          <button type="button" data-v="10" aria-selected="false">R$ 10</button>
+          <button type="button" data-v="15" aria-selected="true">R$ 15</button>
+          <button type="button" data-v="None" aria-selected="false">Livre</button>
+        </div>
+        <div class="pix-qr" id="pixQr" aria-label="QR Code Pix"></div>
+        <p class="pix-legenda" id="pixLegenda"></p>
+        <button class="btn btn-ochre" id="pixCopiar" type="button">Copiar Pix copia e cola</button>
+        <p class="apoio-passos">No celular, toque em copiar e cole no app do banco em Pix → Copia e cola. No computador, aponte a câmera do celular para o QR Code. Ou use a chave de celular <b>21969681745</b> (Thiago Monteiro de Oliveira).</p>
       </div>
     </div>
   </section>
-
-
 
   <section class="block">
     <div class="sec-head">
@@ -283,37 +333,6 @@
     <p>Abra a disciplina, siga as etapas e chegue na prova sabendo o que já domina e o que falta revisar.</p>
     <a class="btn btn-light" data-site="#criar" href="../#criar">Criar minha conta</a>
     <p class="final-entrar">Já tem conta? <a data-site="#entrar" href="../#entrar">Entrar</a></p>
-  </section>
-  <section class="block" id="apoie">
-    <div class="apoio">
-      <div>
-        <div class="eyebrow">Apoie o Arquivo Vivo</div>
-        <h2>Aberto para todos, <em>mantido por quem acredita.</em></h2>
-        <p>O Arquivo Vivo continua livre: ninguém precisa pagar para estudar. Quem quiser pode apoiar com um Pix de valor livre, uma vez ou todo mês, e ajudar a manter a ferramenta atualizada a cada semestre.</p>
-        <p>O apoio é voluntário, sem assinatura nem cobrança automática. Quem não apoia continua com acesso a tudo.</p>
-        <h3 class="apoio-h3">Quem apoia recebe</h3>
-        <ul class="apoio-lista">
-          <li><b>Plano de estudos</b><span>Um cronograma até cada prova, montado com o que você já estudou e os temas em que mais erra. Você pode seguir o plano sugerido ou montar o seu, escolhendo as disciplinas de cada dia.</span></li>
-          <li><b>Marca-texto e notas nos resumos</b><span>Destaque os trechos importantes e escreva notas em cada parte. Fica tudo salvo na sua conta e pode entrar no resumão em PDF.</span></li>
-          <li><b>Resumão completo e simulado em PDF</b><span>O resumão em PDF ganha o Teste-se com respostas, as questões comentadas, o estudo dirigido e as suas anotações, e as provas saem com gabarito em folha separada.</span></li>
-          <li><b>Seu desempenho e seu semestre em números</b><span>Acertos por tema, o que revisar primeiro e um resumo do semestre em formato de story.</span></li>
-          <li><b>Psiu especial</b><span>Acessórios, cores e fundos exclusivos para o seu Psiu.</span></li>
-        </ul>
-        <p class="apoio-como">Depois do Pix, avise o Thiago com o e-mail da sua conta no site. Os materiais de apoiador ficam liberados na sua conta.</p>
-      </div>
-      <div class="apoio-card">
-        <h3>Apoie com Pix</h3>
-        <div class="pix-valores" role="tablist" aria-label="Valor do apoio">
-          <button type="button" data-v="10" aria-selected="false">R$ 10</button>
-          <button type="button" data-v="15" aria-selected="true">R$ 15</button>
-          <button type="button" data-v="None" aria-selected="false">Livre</button>
-        </div>
-        <div class="pix-qr" id="pixQr" aria-label="QR Code Pix"></div>
-        <p class="pix-legenda" id="pixLegenda"></p>
-        <button class="btn btn-ochre" id="pixCopiar" type="button">Copiar Pix copia e cola</button>
-        <p class="apoio-passos">No celular, toque em copiar e cole no app do banco em Pix → Copia e cola. No computador, aponte a câmera do celular para o QR Code. Ou use a chave de celular <b>21969681745</b> (Thiago Monteiro de Oliveira).</p>
-      </div>
-    </div>
   </section>
 </main>
 
