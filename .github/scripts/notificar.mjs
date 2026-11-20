@@ -16,6 +16,8 @@ const BASE = process.env.SITE_URL || 'https://academicopsi.github.io/Painel-Psic
 
 async function destinos(tipo, publico){
   const pe = (await db.ref('pedidos').get()).val() || {};
+  const comPush = Object.values(pe).filter(p => p && p.push && p.push.token);
+  console.log(`::notice::Aparelhos com notificações ativadas: ${comPush.length} (e-mails: ${comPush.map(p => (p.push.email || p.email || '?').replace(/(.).*@/, '$1***@')).join(', ') || 'nenhum'})`);
   const out = [];
   for(const [uid, p] of Object.entries(pe)){
     const pu = p && p.push; if(!pu || !pu.token) continue;
@@ -28,7 +30,7 @@ async function destinos(tipo, publico){
 }
 
 async function enviar(lista, titulo, mensagem, link, tag){
-  if(!lista.length){ console.log('Ninguém para receber.'); return; }
+  if(!lista.length){ console.log('::notice::Ninguém para receber (nenhum aparelho ativado para este público).'); return; }
   const msgs = lista.map(d => ({ token: d.token,
     notification: { title: titulo, body: mensagem },
     data: { titulo, mensagem, link: link || BASE, tag: tag || '' },
@@ -39,12 +41,12 @@ async function enviar(lista, titulo, mensagem, link, tag){
     await Promise.all(r.responses.map(async (x, j) => {
       if(x.success){ ok++; return; }
       const cod = x.error && x.error.code;
-      console.log('Falhou:', cod);
+      console.log('::warning::Falhou: ' + cod + ' ' + ((x.error && x.error.message) || ''));
       if(cod === 'messaging/registration-token-not-registered' || cod === 'messaging/invalid-registration-token'){
         await db.ref('pedidos/' + lista[i + j].uid + '/push').remove();
       }
     }));
-    console.log(`Enviadas ${ok} de ${msgs.length}.`);
+    console.log(`::notice::Enviadas ${ok} de ${msgs.length}.`);
   }
 }
 
