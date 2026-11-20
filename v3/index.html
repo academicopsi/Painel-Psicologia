@@ -2654,9 +2654,13 @@
   .hj-topo .eyebrow{margin:0;}
   .ma-ola{display:flex; align-items:center; gap:12px; margin:0 0 8px;}
   .ma-ola h1{margin:0 !important;}
-  .ma-psiu{flex:none; width:56px; height:56px; display:block;}
+  .ma-psiu{flex:none; width:46px; height:46px; display:block;}
+  .ma-ola h1{font-size:28px !important;}
   .ma-psiu svg{width:100%; height:100%;}
   .ma-selo{display:inline-block; font-size:12px; font-weight:700; color:var(--ochre); margin-top:2px;}
+  .ma-abas{display:flex; gap:4px; background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:4px; margin:16px 0 0; overflow-x:auto;}
+  .ma-abas button{flex:1; white-space:nowrap; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-radius:9px; padding:8px 10px; cursor:pointer;}
+  .ma-abas button[aria-selected="true"]{background:var(--petrol); color:#fff;}
   .ma-disc{border-top:1px solid var(--rule); padding:10px 0;}
   .ma-disc:first-of-type{border-top:0;}
   .ma-disc-nome{font:inherit; font-weight:700; font-size:14.5px; background:none; border:0; padding:0; color:var(--ink); cursor:pointer; text-align:left;}
@@ -22105,6 +22109,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     let dsh = []; try{ dsh = (JSON.parse(localStorage.getItem('av-discursiva') || '{}').hist || []).filter(x => x.disc === d.n); }catch(e){}
     return {caps, lidos, temSim:sims.length > 0, melhor, nSim:hist.length, err:errLista(d.n).length, ds:dsh.length ? dsh[dsh.length - 1].pct : null};
   }
+  let maAba = 'hoje';
   function renderHoje(){
     const el = document.getElementById('hojePage'); if(!el) return;
     const apoia = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
@@ -22142,23 +22147,26 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         <div class="ma-bits">${bits.map(b => `<span>${b}</span>`).join('')}${p.err ? `<button data-hj-erros="${d.n}">${p.err} ${p.err === 1 ? 'erro' : 'erros'} para revisar</button>` : ''}</div></div>`;
     }).join('');
     const admin = window.avEhAdmin && window.avEhAdmin(), pend = window.avPendentes ? window.avPendentes() : '';
-    el.innerHTML = `
-      <header class="hj-head"><div class="hj-topo"><div class="eyebrow">Minha área</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
-        <div class="ma-ola">${window.avPsiuMini ? `<span class="ma-psiu">${window.avPsiuMini()}</span>` : ''}<div><h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${apoia ? '<span class="ma-selo">★ Apoiador</span>' : ''}</div></div>${chip}</header>
-      ${plano}
-      <section class="hj-card"><div class="hj-card-top"><h2>Meu progresso</h2></div>${linhas}</section>
-      <div class="hj-grid">
+    const nErr = errLista('todas').length;
+    const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso']].concat(apoia ? [['ferramentas', 'Ferramentas']] : []).concat([['conta', 'Conta' + (admin && pend ? ` <i class="ma-pend">${pend}</i>` : '')]]);
+    if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
+    let corpo = '';
+    if(maAba === 'hoje') corpo = (plano || '') + `<div class="hj-grid">
         <button class="hj-mini hj-ds" data-ds-escolher><span>Treino de discursiva</span><b>Escreva e corrija</b><small>Perguntas de prova e casos</small></button>
-        <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${errLista('todas').length || 'Tudo em dia'}</b><small>${errLista('todas').length ? 'questões, todas as disciplinas' : 'Nenhum erro guardado'}</small></button>
-      </div>
-      ${apoia && window.avBeneficiosLista ? `<section class="hj-card"><div class="hj-card-top"><h2>Ferramentas de apoiador</h2></div><div class="conta-area-bts ma-ben">${window.avBeneficiosLista()}</div></section>` : ''}
-      <section class="hj-card"><div class="hj-card-top"><h2>Conta</h2></div>
-        <div class="ma-conta">
+        <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${nErr || 'Tudo em dia'}</b><small>${nErr ? (nErr === 1 ? 'questão para revisar' : 'questões para revisar') : 'Nenhum erro guardado'}</small></button></div>`;
+    if(maAba === 'progresso') corpo = `<section class="hj-card">${linhas}</section>`;
+    if(maAba === 'ferramentas') corpo = `<section class="hj-card"><div class="conta-area-bts ma-ben">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></section>`;
+    if(maAba === 'conta') corpo = `<section class="hj-card"><div class="ma-conta">
           <button data-ma-conta="conta"><b>Meus dados</b><small>${escHTML(window.avEmail || 'E-mail, sincronização e sair')}</small></button>
           <button data-ma-conta="psiu"><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e comentários</small></button>
           <button data-ma-conta="apoio"><b>${apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo'}</b><small>${apoia ? 'Obrigado por apoiar!' : 'Contribuição voluntária, com extras'}</small></button>
           ${admin ? `<button data-ma-conta="acessos"><b>Acessos da turma${pend ? ` <i class="ma-pend">${pend}</i>` : ''}</b><small>Liberar, bloquear e marcar apoiadores</small></button>` : ''}
         </div></section>`;
+    el.innerHTML = `
+      <header class="hj-head"><div class="hj-topo"><div class="eyebrow">Minha área</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
+        <div class="ma-ola">${window.avPsiuMini ? `<span class="ma-psiu">${window.avPsiuMini()}</span>` : ''}<div><h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${apoia ? '<span class="ma-selo">★ Apoiador</span>' : ''}</div></div>${chip}</header>
+      <div class="ma-abas" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-ma-aba="${k}" aria-selected="${maAba === k}">${t}</button>`).join('')}</div>
+      ${corpo}`;
   }
   window.avRenderHoje = renderHoje;
   const _sp = window.switchPage;
@@ -22625,6 +22633,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(e.target.closest('[data-ds-fechar]') || e.target === fundo){ fundo.hidden = true; return; }
     const hm = e.target.closest('[data-hj-modo]'); if(hm){ window.avPlanoModo(hm.dataset.hjModo); renderHoje(); return; }
     const he = e.target.closest('[data-hj-esc]'); if(he){ const [iso, n] = he.dataset.hjEsc.split('|'); window.avPlanoEscolher(iso, n); renderHoje(); return; }
+    const ma = e.target.closest('[data-ma-aba]'); if(ma){ maAba = ma.dataset.maAba; renderHoje(); return; }
     const md = e.target.closest('[data-ma-disc]'); if(md){ location.hash = '#disc-' + md.dataset.maDisc; return; }
     const mc = e.target.closest('[data-ma-conta]'); if(mc){ if(window.avAbrirConta) window.avAbrirConta(mc.dataset.maConta); return; }
     const he2 = e.target.closest('[data-hj-erros]'); if(he2){ switchPage('viewErros', {errDisc:he2.dataset.hjErros}); return; }
