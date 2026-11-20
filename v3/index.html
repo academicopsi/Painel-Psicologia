@@ -21211,7 +21211,7 @@ async function puxar(){
     pintarBotao();
     carregando = false; await enviar();
     // recarrega no máximo uma vez por sessão, para não entrar em ciclo quando a conta está aberta em outro aparelho
-    if(mudou && !sessionStorage.getItem('av-sync-recarregou')){ sessionStorage.setItem('av-sync-recarregou', '1'); location.reload(); }
+    if(mudou && !sessionStorage.getItem('av-sync-recarregou')){ sessionStorage.setItem('av-sync-recarregou', '1'); sessionStorage.removeItem('av-hoje'); location.reload(); }
   }catch(e){ carregando = false; console.warn('[conta] não carregou o progresso', e); }
 }
 
