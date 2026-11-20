@@ -22074,9 +22074,11 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
 })();
 </script>
 <script>
-// ===== Acessórios do Psiu: 5 para todos, 20 para apoiadores, 5 por conquista =====
+// ===== Acessórios do Psiu: 5 para todos, 27 para apoiadores, 13 por conquista =====
 (function(){
   const flor = (x, y, cor) => { let p = ''; for(let i = 0; i < 5; i++){ const a = i * 72 * Math.PI / 180; p += `<circle cx="${(x + Math.cos(a) * 3.2).toFixed(1)}" cy="${(y + Math.sin(a) * 3.2).toFixed(1)}" r="2.6" fill="${cor}"/>`; } return p + `<circle cx="${x}" cy="${y}" r="2" fill="#FAC775"/>`; };
+  const coracao = (x, y, k, c) => `<path d="M${x} ${y + 7 * k} C${x - 12 * k} ${y - k} ${x - 6 * k} ${y - 11 * k} ${x} ${y - 4 * k} C${x + 6 * k} ${y - 11 * k} ${x + 12 * k} ${y - k} ${x} ${y + 7 * k} Z" fill="${c}" stroke="#A32D2D" stroke-width="1.2" stroke-linejoin="round"/>`;
+  const perolas = () => { let p = ''; for(let i = 0; i <= 12; i++){ const t = i / 12, x = (1 - t) * (1 - t) * 34 + 2 * (1 - t) * t * 60 + t * t * 86, y = (1 - t) * (1 - t) * 79 + 2 * (1 - t) * t * 101 + t * t * 79; p += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.7" fill="#FFFDF8" stroke="#B4B2A9" stroke-width=".9"/>`; } return p; };
   const brilho = (x, y, s) => `<path d="M${x} ${y - s} Q${x} ${y} ${x + s} ${y} Q${x} ${y} ${x} ${y + s} Q${x} ${y} ${x - s} ${y} Q${x} ${y} ${x} ${y - s} Z" fill="#FAC775" stroke="#BA7517" stroke-width="1"/>`;
   const A = [
     // ---------- básicos (todos) ----------
@@ -22106,12 +22108,28 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     {id:'livro', slot:'mao', nome:'Livro', grupo:'apoio', svg:'<g transform="rotate(-12 18 88)"><rect x="5" y="78" width="25" height="19" rx="2" fill="#1F5C56" stroke="#14211F" stroke-width="1.8"/><path d="M10 83 L26 83 M10 87 L22 87" stroke="#E2EAE0" stroke-width="1.6"/><rect x="28" y="79.5" width="3" height="16" fill="#FFFDF8"/></g>'},
     {id:'lapis', slot:'mao', nome:'Lápis na orelha', grupo:'apoio', svg:'<g transform="rotate(38 88 24)"><rect x="84" y="4" width="8" height="30" fill="#FAC775" stroke="#BA7517" stroke-width="1.4"/><path d="M84 34 L88 42 L92 34 Z" fill="#E9C98A" stroke="#BA7517" stroke-width="1.2"/><path d="M87 39.5 L88 42 L89 39.5 Z" fill="#14211F"/><rect x="84" y="0" width="8" height="5" fill="#E8798C" stroke="#A8455A" stroke-width="1.2"/></g>'},
     {id:'brilho', slot:'efeito', nome:'Brilho', grupo:'apoio', svg:brilho(15, 24, 7) + brilho(105, 18, 6) + brilho(107, 68, 4.5) + brilho(12, 70, 4)},
+    {id:'unicornio', slot:'cabeca', nome:'Chifre de unicórnio', grupo:'apoio', svg:'<path d="M55 23 L60 -2 L65 23 Z" fill="#F6D77A" stroke="#BA7517" stroke-width="1.6" stroke-linejoin="round"/><path d="M56 17 L64 14.5 M57.5 10 L62.6 8" stroke="#BA7517" stroke-width="1.3" stroke-linecap="round"/>' + flor(48, 25, '#E8798C') + flor(72, 25, '#B8A1E3')},
+    {id:'festa', slot:'cabeca', nome:'Chapéu de festa', grupo:'apoio', svg:'<g transform="rotate(12 62 24)"><path d="M48 27 L62 -3 L76 27 Z" fill="#7F77DD" stroke="#3C3489" stroke-width="1.6" stroke-linejoin="round"/><path d="M52.5 17 L71.5 17 M56 9.5 L68 9.5" stroke="#FAC775" stroke-width="2.4"/><circle cx="62" cy="-4" r="3.6" fill="#E24B4A" stroke="#A32D2D" stroke-width="1"/></g>'},
+    {id:'coracoes-oculos', slot:'rosto', nome:'Óculos de coração', grupo:'apoio', svg:coracao(48, 58, 1.05, '#E24B4A') + coracao(72, 58, 1.05, '#E24B4A') + '<path d="M58 56 Q60 54 62 56" fill="none" stroke="#A32D2D" stroke-width="2"/>'},
+    {id:'perolas', slot:'pescoco', nome:'Colar de pérolas', grupo:'apoio', svg:perolas()},
+    {id:'cracha', slot:'pescoco', nome:'Crachá de psicólogo', grupo:'apoio', svg:'<path d="M44 79 L56 97 M76 79 L64 97" stroke="#1F5C56" stroke-width="2.6" stroke-linecap="round"/><rect x="50" y="95" width="20" height="16" rx="2.5" fill="#FFFDF8" stroke="#14211F" stroke-width="1.5"/><text x="60" y="107.5" text-anchor="middle" font-size="10" fill="#1F5C56" font-family="Georgia,serif">Ψ</text>'},
+    {id:'prancheta', slot:'mao', nome:'Prancheta', grupo:'apoio', svg:'<g transform="rotate(-10 18 90)"><rect x="6" y="76" width="24" height="30" rx="2" fill="#B5814A" stroke="#6E4A22" stroke-width="1.6"/><rect x="9" y="81" width="18" height="22" fill="#FFFDF8"/><rect x="13" y="73.5" width="10" height="5" rx="1.5" fill="#8D938B" stroke="#5F5E5A" stroke-width=".8"/><path d="M12 87 L24 87 M12 91 L24 91 M12 95 L20 95" stroke="#8D938B" stroke-width="1.3"/></g>'},
+    {id:'coracoes', slot:'efeito', nome:'Corações', grupo:'apoio', svg:coracao(14, 30, .8, '#E8798C') + coracao(106, 22, .7, '#E8798C') + coracao(108, 62, .5, '#F4B9C1') + coracao(12, 66, .45, '#F4B9C1')},
     // ---------- conquistas (simulados) ----------
     {id:'capelo', slot:'cabeca', nome:'Capelo de formatura', grupo:'conquista', regra:'Tire 80% ou mais em um simulado (10 questões ou mais)', svg:'<path d="M44 24 L44 31 Q60 37 76 31 L76 24" fill="#1B2422"/><path d="M30 18 L60 6 L90 18 L60 30 Z" fill="#1B2422" stroke="#000" stroke-width="1"/><path d="M60 18 L86 22 L86 33" stroke="#FAC775" stroke-width="1.6" fill="none"/><circle cx="86" cy="35" r="2.8" fill="#FAC775"/>'},
     {id:'medalha', slot:'pescoco', nome:'Medalha de ouro', grupo:'conquista', regra:'Acerte todas as questões de um simulado (10 ou mais)', svg:'<path d="M50 80 L60 96 L70 80" fill="none" stroke="#378ADD" stroke-width="4"/><circle cx="60" cy="100" r="7" fill="#FAC775" stroke="#BA7517" stroke-width="2"/><text x="60" y="103" text-anchor="middle" font-size="8" font-weight="700" fill="#854F0B">1</text>'},
     {id:'louros', slot:'cabeca', nome:'Coroa de louros', grupo:'conquista', regra:'Conclua simulados de 3 disciplinas diferentes', svg:'<g fill="#639922" stroke="#3B6D11" stroke-width=".8"><ellipse cx="34" cy="34" rx="3" ry="6" transform="rotate(-40 34 34)"/><ellipse cx="40" cy="25" rx="3" ry="6" transform="rotate(-60 40 25)"/><ellipse cx="49" cy="19" rx="3" ry="6" transform="rotate(-80 49 19)"/><ellipse cx="86" cy="34" rx="3" ry="6" transform="rotate(40 86 34)"/><ellipse cx="80" cy="25" rx="3" ry="6" transform="rotate(60 80 25)"/><ellipse cx="71" cy="19" rx="3" ry="6" transform="rotate(80 71 19)"/></g>'},
     {id:'lupa', slot:'mao', nome:'Lupa de pesquisador', grupo:'conquista', regra:'Responda 200 questões nos simulados', svg:'<g transform="rotate(-30 98 82)"><path d="M98 82 L98 102" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><circle cx="98" cy="72" r="10" fill="#E6F1FB" fill-opacity=".7" stroke="#14211F" stroke-width="2.4"/></g>'},
-    {id:'lampada', slot:'efeito', nome:'Lâmpada da ideia', grupo:'conquista', regra:'Acerte 10 questões seguidas em um simulado', svg:'<path d="M48 6 L44 3 M72 6 L76 3 M46 13 L40 13 M74 13 L80 13" stroke="#FAC775" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="11" r="7.5" fill="#FAC775" stroke="#BA7517" stroke-width="1.8"/><rect x="56" y="17.5" width="8" height="5" rx="1" fill="#8D938B"/>'}
+    {id:'lampada', slot:'efeito', nome:'Lâmpada da ideia', grupo:'conquista', regra:'Acerte 10 questões seguidas em um simulado', svg:'<path d="M48 6 L44 3 M72 6 L76 3 M46 13 L40 13 M74 13 L80 13" stroke="#FAC775" stroke-width="2" stroke-linecap="round"/><circle cx="60" cy="11" r="7.5" fill="#FAC775" stroke="#BA7517" stroke-width="1.8"/><rect x="56" y="17.5" width="8" height="5" rx="1" fill="#8D938B"/>'},
+    // ---------- conquistas (estudo no site) ----------
+    {id:'monoculo', slot:'rosto', nome:'Monóculo', grupo:'conquista', regra:'Conclua todos os resumos de uma disciplina', svg:'<circle cx="72" cy="58" r="11" fill="none" stroke="#BA7517" stroke-width="2.6"/><path d="M83 60 Q90 72 85 86" fill="none" stroke="#BA7517" stroke-width="1.3" stroke-dasharray="2 1.6"/>'},
+    {id:'pena', slot:'mao', nome:'Pena de escrever', grupo:'conquista', regra:'Escreva 10 respostas no treino de discursiva', svg:'<g transform="rotate(22 100 90)"><path d="M100 106 C95 92 97 74 109 62 C111 76 107 94 100 106 Z" fill="#FFFDF8" stroke="#14211F" stroke-width="1.6"/><path d="M100 106 L105 72 M102 92 L106 86 M103 84 L107 79" stroke="#8D938B" stroke-width="1"/><path d="M98.6 104 L100 110 L101.6 104 Z" fill="#14211F"/></g>'},
+    {id:'diploma', slot:'mao', nome:'Diploma', grupo:'conquista', regra:'Cumpra 75% dos critérios num treino de discursiva com 3 respostas ou mais', svg:'<g transform="rotate(-20 18 90)"><rect x="4" y="85" width="30" height="10" rx="5" fill="#FFFDF8" stroke="#14211F" stroke-width="1.6"/><ellipse cx="5" cy="90" rx="2.6" ry="5" fill="#F0E4CF" stroke="#14211F" stroke-width="1.2"/><rect x="17" y="84.6" width="4" height="10.8" fill="#E24B4A"/><path d="M19 95 L16 101 M19 95 L22 101" stroke="#E24B4A" stroke-width="2" stroke-linecap="round"/></g>'},
+    {id:'foguinho', slot:'efeito', nome:'Foguinho de constância', grupo:'conquista', regra:'Estude no site em 7 dias diferentes', svg:'<path d="M100 31 C91 23 97 12 101 5 C102 13 110 16 108 27 C107 33 102 35 100 31 Z" fill="#F08A3A" stroke="#C2410C" stroke-width="1.4" stroke-linejoin="round"/><path d="M102 30 C99 26 100 21 102 17 C103 22 105 24 104.4 27.5 Z" fill="#FAC775"/>'},
+    {id:'ampulheta', slot:'mao', nome:'Ampulheta', grupo:'conquista', regra:'Some 10 horas de estudo no site', svg:'<g transform="translate(17 88) rotate(-8)"><rect x="-9" y="-14" width="18" height="3.4" rx="1.2" fill="#8A5A2B"/><rect x="-9" y="10.6" width="18" height="3.4" rx="1.2" fill="#8A5A2B"/><path d="M-6.5 -10.6 L6.5 -10.6 L1.2 0 L6.5 10.6 L-6.5 10.6 L-1.2 0 Z" fill="#E6F1FB" stroke="#14211F" stroke-width="1.4" stroke-linejoin="round"/><path d="M-3.6 -7.6 L3.6 -7.6 L0 -1.4 Z M-4.6 9.6 L4.6 9.6 L0 4.4 Z" fill="#FAC775"/></g>'},
+    {id:'estrela', slot:'efeito', nome:'Estrela de ouro', grupo:'conquista', regra:'Conclua um simulado em cada disciplina que tem simulado', svg:'<path d="M16 5 L19.6 12.6 L27.6 13.6 L21.7 19.2 L23.2 27.2 L16 23.3 L8.8 27.2 L10.3 19.2 L4.4 13.6 L12.4 12.6 Z" fill="#FAC775" stroke="#BA7517" stroke-width="1.6" stroke-linejoin="round"/>' + brilho(106, 16, 4) + brilho(28, 4, 3)},
+    {id:'trofeu', slot:'mao', nome:'Troféu', grupo:'conquista', regra:'Conclua 20 simulados (qualquer tamanho)', svg:'<g transform="translate(103 88)"><path d="M-8 -13 L8 -13 L7 -2 Q0 6 -7 -2 Z" fill="#FAC775" stroke="#BA7517" stroke-width="1.6" stroke-linejoin="round"/><path d="M-8 -10.5 Q-14.5 -10.5 -12.5 -4 Q-10.5 0 -6.5 -1.2 M8 -10.5 Q14.5 -10.5 12.5 -4 Q10.5 0 6.5 -1.2" fill="none" stroke="#BA7517" stroke-width="1.6"/><rect x="-2" y="3" width="4" height="6" fill="#BA7517"/><rect x="-7.5" y="9" width="15" height="4.4" rx="1.2" fill="#8A5A2B"/></g>'},
+    {id:'touca', slot:'cabeca', nome:'Touca de dormir', grupo:'conquista', regra:'Termine um simulado depois das 23h', svg:'<path d="M34 31 C33 12 72 3 90 19 C98 26 102 35 104 44 C96 37 91 32 86 31 Z" fill="#378ADD" stroke="#1F4E86" stroke-width="1.6" stroke-linejoin="round"/><circle cx="52" cy="17" r="1.6" fill="#FAC775"/><circle cx="70" cy="12" r="1.3" fill="#FAC775"/><circle cx="84" cy="22" r="1.4" fill="#FAC775"/><rect x="31" y="26.5" width="58" height="8.5" rx="4.2" fill="#FFFDF8" stroke="#B4B2A9" stroke-width="1.2"/><circle cx="104" cy="45" r="4.6" fill="#FFFDF8" stroke="#B4B2A9" stroke-width="1.2"/>'},
   ];
   window.PSIU_ACC = A;
 
@@ -22121,12 +22139,27 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const hist = o.hist || [];
     const total = Object.values(o.sims || {}).reduce((n, s) => n + Object.values(s).reduce((m, t) => m + t.n, 0), 0);
     const discs = new Set(hist.map(h => (SIM_JOGO.find(x => x.id === h.id) || {}).disc).filter(Boolean));
+    const discsSim = new Set(SIM_JOGO.map(x => x.disc));
+    let dsHist = []; try{ dsHist = JSON.parse(localStorage.getItem('av-discursiva') || '{}').hist || []; }catch(e){}
+    const dsN = dsHist.reduce((n, h) => n + (h.n || 0), 0);
+    let tempo = {total:0, dias:{}}; try{ tempo = Object.assign(tempo, JSON.parse(localStorage.getItem('av-tempo') || '{}')); }catch(e){}
+    const diasEst = Object.values(tempo.dias || {}).filter(v => v >= 60).length, horas = (tempo.total || 0) / 3600;
     return {
       capelo: {ok: hist.some(h => h.n >= 10 && h.pct >= 80), txt: (() => { const m = Math.max(0, ...hist.filter(h => h.n >= 10).map(h => h.pct)); return m ? `Seu melhor: ${m}%` : ''; })()},
       medalha: {ok: hist.some(h => h.n >= 10 && h.pct === 100), txt: ''},
       louros: {ok: discs.size >= 3, txt: `${Math.min(discs.size, 3)} de 3`},
       lupa: {ok: total >= 200, txt: `${Math.min(total, 200)} de 200`},
-      lampada: {ok: hist.some(h => (h.seq || 0) >= 10), txt: (() => { const m = Math.max(0, ...hist.map(h => h.seq || 0)); return m ? `Sua melhor sequência: ${m}` : ''; })()}
+      lampada: {ok: hist.some(h => (h.seq || 0) >= 10), txt: (() => { const m = Math.max(0, ...hist.map(h => h.seq || 0)); return m ? `Sua melhor sequência: ${m}` : ''; })()},
+      monoculo: (() => { let melhor = 0; const discsR = [...new Set(Object.values(RESUMOS).map(r => r.disc))];
+        const ok = discsR.some(dn => { let tot = 0, feitos = 0; Object.entries(RESUMOS).filter(([, r]) => r.disc === dn).forEach(([id, r]) => { const st = (typeof rsEstado === 'function') ? rsEstado(id) : {}; r.caps.forEach(c => { tot++; if(Object.keys(st[c.id] || {}).length >= c.etapas.length) feitos++; }); }); melhor = Math.max(melhor, tot ? Math.round(feitos / tot * 100) : 0); return tot && feitos === tot; });
+        return {ok, txt: melhor ? `Sua disciplina mais adiantada: ${melhor}%` : ''}; })(),
+      pena: {ok: dsN >= 10, txt: `${Math.min(dsN, 10)} de 10`},
+      diploma: {ok: dsHist.some(h => h.n >= 3 && h.pct >= 75), txt: (() => { const m = Math.max(0, ...dsHist.filter(h => h.n >= 3).map(h => h.pct)); return m ? `Seu melhor: ${m}%` : ''; })()},
+      foguinho: {ok: diasEst >= 7, txt: `${Math.min(diasEst, 7)} de 7 dias`},
+      ampulheta: {ok: horas >= 10, txt: `${Math.min(Math.floor(horas * 10) / 10, 10).toLocaleString('pt-BR')} de 10 horas`},
+      estrela: {ok: discsSim.size > 0 && [...discsSim].every(dn => discs.has(dn)), txt: `${[...discsSim].filter(dn => discs.has(dn)).length} de ${discsSim.size}`},
+      trofeu: {ok: hist.length >= 20, txt: `${Math.min(hist.length, 20)} de 20`},
+      touca: {ok: hist.some(h => h.t && (new Date(h.t).getHours() >= 23 || new Date(h.t).getHours() < 4)), txt: ''}
     };
   }
   function liberado(a, prog){
