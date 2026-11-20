@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script>try{ if(!localStorage.getItem('av-acesso-ok')) document.documentElement.classList.add('portao'); }catch(e){ document.documentElement.classList.add('portao'); }</script>
+<script>try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classList.add('portao');
+  // quem não está logado vê primeiro a apresentação; os botões dela voltam com #entrar ou #criar
+  if(!/^#(entrar|criar)$/.test(location.hash)){ try{ sessionStorage.setItem('av-destino', location.hash || ''); }catch(_){}
+    var p = location.pathname, v3 = /\/v3\/(index\.html)?$/.test(p); location.replace(p.replace(/(v3\/)?(index\.html)?$/, '') + 'divulgacao/' + (v3 ? '?de=v3' : '')); } } }catch(e){ document.documentElement.classList.add('portao'); }</script>
 <meta name="robots" content="noindex, nofollow"><meta http-equiv="Cache-Control" content="no-cache">
 <meta charset="UTF-8" />
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -2330,6 +2333,7 @@
   html.portao #portao{display:flex; position:fixed; inset:0; z-index:3000; background:var(--bg); overflow:auto; align-items:flex-start; justify-content:center; padding:48px 16px 32px;}
   .portao-caixa{width:100%; max-width:420px;}
   .portao-marca{display:flex; align-items:center; gap:10px; font-family:var(--serif, Georgia, serif); font-size:21px; font-weight:600; margin:0 0 22px; justify-content:center;}
+  .portao-voltar{display:block; text-align:center; margin:16px 0 0; font-size:14px; font-weight:600; color:var(--petrol);}
   .portao-marca img{width:36px; height:36px; border-radius:9px;}
   .portao-caixa .conta-caixa{box-shadow:0 12px 40px rgba(20,33,31,.08);}
   .cb-av.cb-foto{padding:0; overflow:visible;}
@@ -21235,6 +21239,7 @@ document.addEventListener('click', e=>{
   <div class="portao-caixa">
     <div class="portao-marca"><img src="../icons/icon-192.png" alt="">Arquivo Vivo</div>
     <div class="conta-caixa" id="portaoCorpo"><div class="portao-carregando">Verificando acesso…</div></div>
+    <a class="portao-voltar" id="portaoVoltar" href="../divulgacao/">← Conhecer o Arquivo Vivo</a>
     <div class="portao-rodape">Criado e mantido por Thiago Monteiro</div>
   </div>
 </div>
@@ -21415,7 +21420,12 @@ function ligarForm(box, redesenhar){
 
 // ---------- portão ----------
 function fecharSite(){ H.classList.add('portao'); }
-function abrirSite(){ H.classList.remove('portao'); }
+(function(){ const a = document.getElementById('portaoVoltar'); if(a){ const p = location.pathname, v3 = /\/v3\/(index\.html)?$/.test(p); a.href = p.replace(/(v3\/)?(index\.html)?$/, '') + 'divulgacao/' + (v3 ? '?de=v3' : ''); } })();
+function abrirSite(){
+  H.classList.remove('portao');
+  if(/^#(entrar|criar)$/.test(location.hash)){ let d = ''; try{ d = sessionStorage.getItem('av-destino') || ''; sessionStorage.removeItem('av-destino'); }catch(_){}
+    history.replaceState(null, '', location.pathname + location.search + d); if(d && typeof routeFromHash === 'function') routeFromHash(); }
+}
 function portaoLogin(m){ fecharSite(); portao.innerHTML = formHTML(m); ligarForm(portao, portaoLogin); }
 function portaoAguardando(){
   fecharSite();
@@ -21526,7 +21536,7 @@ onAuthStateChanged(auth, u=>{
   window.avApoiador = false; document.dispatchEvent(new Event('av-apoio'));
   dot.hidden = true; dot.textContent = ''; dot.classList.remove('conta-num');
   pintarBotao();
-  if(!u){ _rem.call(localStorage, 'av-acesso-ok'); aba = 'entrar'; portaoLogin(); return; }
+  if(!u){ _rem.call(localStorage, 'av-acesso-ok'); aba = location.hash === '#criar' ? 'criar' : 'entrar'; portaoLogin(); return; }
   verificar(u);
 });
 document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden' && usuario) enviar(); });
