@@ -2559,6 +2559,66 @@
   .conta-abas-top button{font:inherit; font-size:14px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-bottom:2.5px solid transparent; padding:8px 10px 9px; cursor:pointer; white-space:nowrap; margin-bottom:-1px;}
   .conta-abas-top button[aria-selected="true"]{color:var(--petrol-dark); border-bottom-color:var(--petrol);}
   .conta-abas-top i{font-style:normal; font-size:11px; background:var(--ochre); color:#fff; border-radius:999px; padding:1px 6px; margin-left:2px;}
+
+  /* V3 · tela Hoje */
+  .hj-page{max-width:680px; margin:0 auto; padding:28px 0 40px;}
+  .hj-head h1{font-family:var(--serif, Georgia, serif); font-size:34px; font-weight:600; margin:6px 0 10px; letter-spacing:-.01em;}
+  .hj-chip{display:inline-block; background:var(--ochre-soft); color:var(--ochre); font-weight:700; font-size:13px; border-radius:999px; padding:5px 12px;}
+  .hj-card{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:14px 16px; margin:16px 0 0;}
+  .hj-card-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin:0 0 8px;}
+  .hj-card-top h2{font-family:var(--serif, Georgia, serif); font-size:19px; font-weight:600; margin:0;}
+  .hj-card-top > span{font-size:12.5px; color:var(--ink-soft);}
+  .hj-bar{height:5px; background:var(--paper-alt); border-radius:999px; overflow:hidden; margin:0 0 8px;}
+  .hj-bar i{display:block; height:100%; background:var(--petrol); border-radius:999px;}
+  .hj-item{display:flex; gap:10px; align-items:flex-start; padding:9px 0; border-top:1px solid var(--rule);}
+  .hj-item:first-of-type{border-top:0;}
+  .hj-item input{width:19px; height:19px; margin-top:2px; accent-color:var(--petrol); flex:none;}
+  .hj-ponto{width:8px; height:8px; border-radius:50%; background:var(--petrol); margin-top:7px; flex:none;}
+  .hj-item button{flex:1; text-align:left; font:inherit; background:none; border:0; padding:0; cursor:pointer; color:var(--ink);}
+  .hj-item b{display:block; font-size:14.5px;}
+  .hj-item span{font-size:12.5px; color:var(--ink-soft);}
+  .hj-item.feito b{text-decoration:line-through; color:var(--ink-faint);}
+  .hj-link{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol); background:none; border:0; padding:6px 0 0; cursor:pointer;}
+  .hj-vazio{font-size:14px; color:var(--ink-soft); margin:4px 0;}
+  .hj-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:10px; margin:16px 0 0;}
+  .hj-mini{font:inherit; text-align:left; background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:12px 14px; cursor:pointer; color:var(--ink); display:flex; flex-direction:column; gap:2px;}
+  div.hj-mini{padding:0; border:0; background:none;}
+  div.hj-mini .dp-continue{height:100%; margin:0;}
+  .hj-mini > span{font-size:12px; color:var(--ink-soft);}
+  .hj-mini > b{font-size:15px;}
+  .hj-mini > small{font-size:12.5px; color:var(--ink-soft);}
+  .hj-rev{background:var(--ochre-soft); border-color:#EBD7B4;}
+  .hj-ds{background:var(--petrol-soft); border-color:var(--petrol-line);}
+  .hj-prazo{display:flex; gap:12px; align-items:baseline; padding:7px 0; border-top:1px solid var(--rule); font-size:14px;}
+  .hj-prazo:first-of-type{border-top:0;}
+  .hj-dia{width:64px; flex:none; font-family:var(--mono, monospace); font-size:12.5px; color:var(--ink-soft);}
+  .hj-prazo.perto .hj-dia{color:var(--ochre); font-weight:700;}
+  .hj-prazo b{display:block; font-weight:600;}
+  .hj-prazo small{color:var(--ink-soft); font-size:12.5px;}
+  .hj-psiu{display:flex; gap:12px; align-items:center; margin:16px 0 0; padding:10px 14px; border:1px dashed var(--rule); border-radius:12px;}
+  .hj-psiu svg{width:48px; height:48px; flex:none;}
+  .hj-psiu p{margin:0; font-size:14px; color:var(--ink-soft);}
+  .hj-psiu b{color:var(--ink);}
+  .hj-fim{text-align:center; margin:18px 0 0;}
+  /* treino de discursiva */
+  .ds-caixa{max-width:560px !important;}
+  .ds-tema{font-size:12.5px; color:var(--ink-soft); margin:6px 0 0;}
+  .ds-q{font-family:var(--serif, Georgia, serif); font-size:20px !important; line-height:1.35; margin:6px 0 12px;}
+  .ds-txt{width:100%; font:inherit; font-size:15px; border:1px solid var(--rule); border-radius:10px; padding:10px 12px; background:var(--bg); color:var(--ink); resize:vertical;}
+  .ds-erro{color:#A32D2D; font-size:13px; margin:6px 0 0;}
+  .ds-sua{background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:10px 12px; margin:0 0 12px; font-size:14px;}
+  .ds-sua span, .ds-modelo span{font-size:12px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em;}
+  .ds-sua p, .ds-modelo p{margin:4px 0 0; white-space:pre-wrap;}
+  .ds-placar{display:flex; align-items:center; gap:12px; margin:0 0 10px;}
+  .ds-placar b{font-family:var(--serif, Georgia, serif); font-size:34px; color:var(--petrol); line-height:1;}
+  .ds-placar span{font-size:13.5px; color:var(--ink-soft);}
+  .ds-rot{font-size:13px; font-weight:600; margin:8px 0 6px;}
+  .ds-chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .ds-chips span{font-size:13px; border-radius:999px; padding:4px 10px;}
+  .ds-chips .ok{background:var(--petrol-soft); color:var(--petrol-dark);}
+  .ds-chips .falta{background:var(--ochre-soft); color:#854F0B;}
+  .ds-modelo{background:var(--petrol-soft); border-radius:10px; padding:10px 12px; margin:14px 0 4px; font-size:14.5px;}
+  .ds-cta{width:100%;}
 </style>
 </head>
 <body>
@@ -2571,6 +2631,7 @@
     </button>
 
     <nav class="nav-menu" id="navMenu" aria-label="Navegação principal">
+      <button class="nav-link" data-page="viewHoje" data-nav="viewHoje">Hoje</button>
       <button class="nav-link" data-scroll="top" data-nav="top">Início</button>
       <button class="nav-link nav-drive" data-scroll="disciplinas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Drive</button>
       <div class="nav-group">
@@ -2793,6 +2854,8 @@
 </div>
 
 <!-- ============ PÁGINA: SOBRE O SITE ============ -->
+<div class="wrap" id="viewHoje" style="display:none;"><div id="hojePage" class="hj-page"></div></div>
+
 <div class="wrap" id="viewErros" style="display:none;">
   <button class="back-link" id="backFromErros">← Voltar ao Arquivo Vivo</button>
   <header>
@@ -14587,10 +14650,10 @@ if(document.body.classList.contains('dark')){
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
 // endereços amigáveis para compartilhar (os antigos #viewX continuam funcionando)
-const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros'};
+const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'hoje'};
 const SLUG_PAGE = Object.fromEntries(Object.entries(PAGE_SLUG).map(([k, v])=>[v, k]));
 SLUG_PAGE['simulados'] = 'viewSimulados';
-const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros'];
+const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros', 'viewHoje'];
 let currentPage = 'top';
 
 function closeMenus(){
@@ -17910,6 +17973,7 @@ function renderDiscPage(d){
     ['dpResumos', 'Resumos', c.resumos.length],
     ['dpPratica', 'Exercícios', c.exercicios.length],
     ['dpSimulado', 'Simulado', simulados.reduce((n, x)=>n + x.questoes.length, 0)],
+    ['dpDiscursiva', 'Discursiva', window.avDiscursivaContar ? window.avDiscursivaContar(d.n) : 0],
     ['dpRoteiro', 'Estudo dirigido', roteiros.reduce((n, r)=>n + r.questoes.length, 0)],
     ['dpExperimento', 'Trabalho N2', temExh ? EXH.passos.length + 1 : 0],
     ['dpGuia', 'Relatório', temGuia ? MONTADOR.secoes.length : 0],
@@ -17917,8 +17981,8 @@ function renderDiscPage(d){
     ['dpGlossario', 'Glossário', c.termos.length],
   ].filter(a=>a[2] > 0);
 
-  const ETAPA = {dpResumos:'Estudar', dpPratica:'Praticar', dpSimulado:'Testar', dpRoteiro:'Revisar', dpExperimento:'Trabalho', dpGuia:'Trabalho', dpVideos:'Assistir'};
-  const DESC = {dpResumos:'A matéria em partes, para ler antes de tudo.', dpPratica:'Exercícios curtos por assunto, para fixar.', dpSimulado:'Questões no estilo da prova, para se testar.', dpRoteiro:'O estudo dirigido do professor, com respostas para conferir.', dpExperimento:'Passo a passo do trabalho, sem respostas prontas.', dpGuia:'Guia para montar o relatório do projeto.', dpVideos:'Aulas em vídeo para reforçar.'};
+  const ETAPA = {dpResumos:'Estudar', dpPratica:'Praticar', dpSimulado:'Testar', dpDiscursiva:'Testar', dpRoteiro:'Revisar', dpExperimento:'Trabalho', dpGuia:'Trabalho', dpVideos:'Assistir'};
+  const DESC = {dpResumos:'A matéria em partes, para ler antes de tudo.', dpPratica:'Exercícios curtos por assunto, para fixar.', dpSimulado:'Questões no estilo da prova, para se testar.', dpDiscursiva:'Escreva a resposta e veja quais conceitos-chave você usou e quais faltaram.', dpRoteiro:'O estudo dirigido do professor, com respostas para conferir.', dpExperimento:'Passo a passo do trabalho, sem respostas prontas.', dpGuia:'Guia para montar o relatório do projeto.', dpVideos:'Aulas em vídeo para reforçar.'};
   const sec = (id, titulo, meta, corpo) => `<section class="dp-section" id="${id}">
     ${ETAPA[id] ? `<div class="dp-etapa">${ETAPA[id]}</div>` : ''}
     <div class="dp-sec-head"><h2>${titulo}</h2>${meta ? `<span class="dp-count">${meta}</span>` : ''}</div>
@@ -17940,6 +18004,8 @@ function renderDiscPage(d){
     roteiros.map(roteiroHTML).join('')) : '';
 
   const secSim = simulados.length ? sec('dpSimulado', 'Simulado', '', simulados.map(simHTMLCard).join('')) : '';
+  const nDs = window.avDiscursivaContar ? window.avDiscursivaContar(d.n) : 0;
+  const secDs = nDs ? sec('dpDiscursiva', 'Treino de discursiva', `${nDs} perguntas`, `<button class="dp-continue ds-cta" data-ds-disc="${d.n}"><span class="dp-cont-lbl">5 perguntas sorteadas</span><span class="dp-cont-t">Escreva a resposta e confira os conceitos</span><span class="dp-cont-go">Começar →</span></button>`) : '';
 
   const secExh = temExh ? sec('dpExperimento', 'Trabalho N2', `entrega ${fmtDia(EXH.entrega)}`, exhHTML()) : '';
   const secGuia = temGuia ? sec('dpGuia', 'Relatório do projeto', '', montadorHTML() + exemplosHTML()) : '';
@@ -17994,7 +18060,7 @@ function renderDiscPage(d){
     </header>
     ${continuarHTML(d)}
     ${errAvisoDisc(d)}
-    ${secResumos}${secEx}${secSim}${secRoteiro}${secExh}${secGuia}${secVid}${secGl}
+    ${secResumos}${secEx}${secSim}${secDs}${secRoteiro}${secExh}${secGuia}${secVid}${secGl}
     ${!temGuia && !temExh && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
   `;
 }
@@ -19533,7 +19599,7 @@ function irParaHash(h){
 
 // último item estudado/praticado por disciplina (salvo no aparelho)
 function ultimoLer(){ try{ return JSON.parse(localStorage.getItem('av-ultimo')) || {}; }catch(e){ return {}; } }
-function ultimoSalvar(disc, item){ if(!disc) return; const u = ultimoLer(); u[disc] = item; try{ localStorage.setItem('av-ultimo', JSON.stringify(u)); }catch(e){} }
+function ultimoSalvar(disc, item){ if(!disc) return; const u = ultimoLer(); u[disc] = Object.assign({}, item, {t:Date.now()}); try{ localStorage.setItem('av-ultimo', JSON.stringify(u)); }catch(e){} }
 function rsEstado(id){ try{ return JSON.parse(localStorage.getItem('av-resumo-' + id)) || {}; }catch(e){ return {}; } }
 function rsSalvar(id, st){ try{ localStorage.setItem('av-resumo-' + id, JSON.stringify(st)); }catch(e){} }
 
@@ -21194,7 +21260,7 @@ function ligarForm(box, redesenhar){
 
 // ---------- portão ----------
 function fecharSite(){ H.classList.add('portao'); }
-function abrirSite(){ H.classList.remove('portao'); }
+function abrirSite(){ H.classList.remove('portao'); const h = location.hash.replace('#', ''); if((!h || h === 'top') && !sessionStorage.getItem('av-hoje')){ sessionStorage.setItem('av-hoje', '1'); setTimeout(() => { if(typeof switchPage === 'function') switchPage('viewHoje'); }, 50); } }
 function portaoLogin(m){ fecharSite(); portao.innerHTML = formHTML(m); ligarForm(portao, portaoLogin); }
 function portaoAguardando(){
   fecharSite();
@@ -21642,6 +21708,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const b = BEN[tipo];
     abrir(EB('Área do apoiador') + `<h2>${b.t}</h2><p class="conta-sub">Escolha a disciplina.</p><div class="ben-escolha">${discsCom().filter(d => tipo !== 'simpdf' || SIM_JOGO.some(x => x.disc === d.n)).map(d => `<button data-ben-disc="${d.n}" data-ben-tipo="${tipo}"><b>${escHTML(d.name)}</b></button>`).join('')}</div>`);
   }
+  window.avPlanoDoDia = () => { const c = planoCfg(), pl = montarPlano(c), d = pl.dias.find(x => x.iso === hojeISO()); return {itens:d ? d.itens : [], provas:pl.provas, feitos:c.feitos}; };
+  window.avPlanoMarcar = (k, v) => { const c = planoCfg(); if(v) c.feitos[k] = 1; else delete c.feitos[k]; gravarJ('av-plano', c); };
   window.avAbrirBeneficio = k => { const b = BEN[k]; if(!b) return; if(b.disc) escolherDisc(k); else abrir(b.html(), !ehApoio()); };
 
   document.addEventListener('click', e => {
@@ -21869,6 +21937,171 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     setTimeout(() => { t.classList.remove('in'); setTimeout(() => t.remove(), 400); }, 7000);
   };
   if(window.avPsiuRedesenhar) window.avPsiuRedesenhar();
+})();
+</script>
+<div class="conta-fundo" id="dsFundo" hidden>
+  <div class="conta-caixa ds-caixa" role="dialog" aria-modal="true" aria-label="Treino de discursiva">
+    <button class="conta-fechar" data-ds-fechar aria-label="Fechar">×</button>
+    <div id="dsCorpo"></div>
+  </div>
+</div>
+<script>
+(function(){
+  const limpa = t => String(t || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  const semAcento = t => limpa(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const nomeDisc = n => (DISC[2].find(d => d.n === n) || {}).name || '';
+  const hojeISO = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const lerJ = (k, pad) => { try{ return JSON.parse(localStorage.getItem(k)) || pad; }catch(e){ return pad; } };
+  const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+  const SEM = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+  const SEMC = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  const curto = m => /idoso/i.test(m) ? 'Idoso' : /neuro/i.test(m) ? 'Neuro' : /experimental/i.test(m) ? 'Experimental' : /aprendizagem/i.test(m) ? 'Aprendizagem' : /bases|biol/i.test(m) ? 'Bases' : /extens/i.test(m) ? 'Extensão' : m.split(' ')[0];
+  const dias = iso => Math.round((new Date(iso + 'T12:00:00') - new Date(hojeISO() + 'T12:00:00')) / 864e5);
+  const discDaMateria = m => (DISC[2].find(d => d.name === m || d.name.startsWith(m) || m.startsWith(d.name)) || {}).n;
+
+  // ================= Tela Hoje =================
+  function proximosPrazos(){ const h = hojeISO(); return TASKS.filter(t => t.prazo >= h).sort((a, b) => a.prazo.localeCompare(b.prazo)); }
+  function sugestoes(){
+    const out = [];
+    const ult = (typeof ultimoLer === 'function') ? ultimoLer() : {};
+    const prova = proximosPrazos().find(t => /^prova/i.test(t.tarefa) && discDaMateria(t.materia));
+    if(prova){ const d = discDaMateria(prova.materia); const sm = SIM_JOGO.find(x => x.disc === d);
+      if(sm) out.push({t:`Simulado de ${nomeDisc(d)}`, s:`A prova é ${dias(prova.prazo) === 0 ? 'hoje' : dias(prova.prazo) === 1 ? 'amanhã' : 'em ' + dias(prova.prazo) + ' dias'}`, ir:{tipo:'simulado', id:sm.id}}); }
+    const nErr = errLista('todas').length; if(nErr) out.push({t:`Revisar ${nErr} ${nErr === 1 ? 'questão errada' : 'questões erradas'}`, s:'Só o que você errou nos simulados', ir:{tipo:'erros'}});
+    if(prova){ const d = discDaMateria(prova.materia); const r = Object.entries(RESUMOS).find(([id, r]) => r.disc === d && r.caps.some(c => Object.keys((rsEstado(id)[c.id]) || {}).length < c.etapas.length));
+      if(r) out.push({t:`Resumo: ${limpa(r[1].titulo)}`, s:`${nomeDisc(d)} · partes ainda não estudadas`, ir:{tipo:'resumo', id:r[0]}}); }
+    return out.slice(0, 3);
+  }
+  function dicaPsiu(){
+    const o = (typeof desempLer === 'function') ? desempLer() : {sims:{}};
+    const temas = []; Object.values(o.sims || {}).forEach(s => Object.entries(s).forEach(([t, v]) => { if(v.n >= 3) temas.push({t, pc:Math.round(v.a / v.n * 100)}); }));
+    temas.sort((a, b) => a.pc - b.pc);
+    if(temas[0] && temas[0].pc < 70) return `${temas[0].t} é o seu tema mais fraco agora (${temas[0].pc}%). Que tal treinar ele hoje?`;
+    if(temas.length) return 'Você está indo bem nos simulados. Mantém o ritmo que a prova vem aí!';
+    return 'Faça um simulado, nem que seja uma parte, para eu descobrir seus pontos fortes e fracos.';
+  }
+  function renderHoje(){
+    const el = document.getElementById('hojePage'); if(!el) return;
+    const agora = new Date(), h = agora.getHours();
+    const saud = h < 5 ? 'Boa noite' : h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
+    const nome = (window.avNome || '').split(' ')[0];
+    const prazos = proximosPrazos();
+    const prova = prazos.find(t => /^prova/i.test(t.tarefa));
+    const dp = prova ? dias(prova.prazo) : null;
+    const mesmas = prova ? prazos.filter(t => /^prova/i.test(t.tarefa) && t.prazo === prova.prazo).map(t => curto(t.materia)) : [];
+    const quando = dp === 0 ? 'hoje' : dp === 1 ? 'amanhã' : 'em ' + dp + ' dias';
+    const chip = prova ? `<span class="hj-chip">${mesmas.length > 1 ? 'Provas de ' + escHTML(mesmas.join(' e ')) : 'Prova de ' + escHTML(mesmas[0])} ${quando}</span>` : '';
+    let plano = '';
+    const pl = window.avApoiador && window.avPlanoDoDia ? window.avPlanoDoDia() : null;
+    if(pl && pl.itens.length){
+      const feitos = pl.itens.filter(t => pl.feitos[t.k]).length, min = pl.itens.reduce((n, t) => n + t.min, 0);
+      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Seu plano de hoje</h2><span>${feitos} de ${pl.itens.length} · ${min} min</span></div><div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>
+        ${pl.itens.map(t => `<div class="hj-item${pl.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-hj-feito="${escHTML(t.k)}"${pl.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-hj-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`).join('')}
+        <button class="hj-link" data-ben="plano">Ver o plano completo</button></section>`;
+    } else {
+      const sg = sugestoes();
+      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Para hoje</h2><span>Sugestões a partir das suas provas</span></div>
+        ${sg.length ? sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('') : '<p class="hj-vazio">Nenhuma prova à vista. Aproveite para revisar com calma ou descansar.</p>'}</section>`;
+    }
+    const ult = (typeof ultimoLer === 'function') ? ultimoLer() : {};
+    const ultDisc = Object.keys(ult || {}).sort((a, b) => ((ult[b] || {}).t || 0) - ((ult[a] || {}).t || 0))[0];
+    const cont = ultDisc && typeof continuarHTML === 'function' ? continuarHTML(DISC[2].find(d => d.n === ultDisc)) : '';
+    const nErr = errLista('todas').length;
+    const nDisc = DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n)).length;
+    el.innerHTML = `
+      <header class="hj-head"><div class="eyebrow">${SEM[agora.getDay()]}, ${agora.getDate()} de ${MESES[agora.getMonth()]}</div>
+        <h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${chip}</header>
+      ${plano}
+      <div class="hj-grid">
+        ${cont ? `<div class="hj-mini">${cont}</div>` : ''}
+        <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${nErr ? nErr + (nErr === 1 ? ' questão' : ' questões') : 'Tudo em dia'}</b><small>${nErr ? 'Treine até virar acerto' : 'Nenhum erro guardado'}</small></button>
+        <button class="hj-mini hj-ds" data-ds-escolher><span>Treino de discursiva</span><b>Escreva e confira</b><small>${nDisc} disciplinas</small></button>
+      </div>
+      <section class="hj-card"><div class="hj-card-top"><h2>Próximos dias</h2><button class="hj-link" data-page="viewPrazos">Ver todos</button></div>
+        ${prazos.slice(0, 5).map(t => `<div class="hj-prazo${dias(t.prazo) <= 2 ? ' perto' : ''}"><span class="hj-dia">${dias(t.prazo) === 0 ? 'Hoje' : dias(t.prazo) === 1 ? 'Amanhã' : SEMC[new Date(t.prazo + 'T12:00:00').getDay()] + ' ' + Number(t.prazo.slice(8))}</span><span><b>${escHTML(limpa(t.tarefa).slice(0, 70))}</b><small>${escHTML(t.materia)}</small></span></div>`).join('') || '<p class="hj-vazio">Nenhum prazo marcado.</p>'}</section>
+      <div class="hj-psiu">${window.avPsiuMini ? window.avPsiuMini() : ''}<p><b>Psiu:</b> ${escHTML(dicaPsiu())}</p></div>
+      <div class="hj-fim"><button class="hj-link" data-scroll="top" data-nav="top">Ir para o início completo →</button></div>`;
+  }
+  window.avRenderHoje = renderHoje;
+  const _sp = window.switchPage;
+  if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewHoje') renderHoje(); return r; }; }
+  document.addEventListener('av-apoio', () => { const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); });
+
+  // ================= Treino de discursiva =================
+  const PARADAS = new Set('atribui atribuir tende tender julgar julga grande grandes pequeno pequena proprio propria forma formas parte partes maior menor diferente diferentes sempre nunca outro inicio final ocorre ocorrer acontece permite permitir passa passar torna tornar fica ficar deixa deixar dizer exemplo principal principais importante quanto tanto bastante varios varias certo certa coisa coisas vezes poder pode podem tambem para pelos pelas pela pelo como quando porque sobre entre ainda mesmo tambem muito pouco mais menos esse essa esses essas este esta estes estas isso isto aquele aquela onde qual quais cada outro outra outros outras seus suas sendo pode podem deve devem fazer feito ser sao estar esta estao tem tendo havia quanto depois antes durante assim apenas segundo junto todos todas toda todo nossa nosso numa num algum alguma'.split(' '));
+  function conceitos(resp){
+    const palavras = limpa(resp).replace(/[.,;:()"!?“”]/g, ' ').split(/\s+/);
+    const out = [], vistos = new Set();
+    const fraca = n => n.length < 6 || PARADAS.has(n) || /(ar|er|ir|ndo|mente)$/.test(n) && n.length < 10;
+    palavras.forEach(p => { const n = semAcento(p); if(fraca(n)) return; const raiz = n.slice(0, Math.min(6, n.length - 1)); if(vistos.has(raiz)) return; vistos.add(raiz); out.push({w:p.replace(/^[^\wÀ-ú]+|[^\wÀ-ú]+$/g, ''), raiz}); });
+    if(out.length < 2) palavras.forEach(p => { const n = semAcento(p); if(n.length < 5 || PARADAS.has(n)) return; const raiz = n.slice(0, Math.min(6, n.length - 1)); if(vistos.has(raiz)) return; vistos.add(raiz); out.push({w:p.replace(/^[^\wÀ-ú]+|[^\wÀ-ú]+$/g, ''), raiz}); });
+    return out.slice(0, 6);
+  }
+  function perguntasDe(disc){
+    const out = [];
+    Object.entries(RESUMOS).filter(([, r]) => r.disc === disc).forEach(([id, r]) => r.caps.forEach(c => c.etapas.forEach(e => { if(e.q && e.a && limpa(e.a).length >= 45) out.push({q:e.q, a:e.a, tema:limpa(c.titulo || c.aba)}); })));
+    return out;
+  }
+  let ds = null;
+  const fundo = document.getElementById('dsFundo'), corpo = document.getElementById('dsCorpo');
+  function abrirDs(html){ const c = document.getElementById('contaFundo'); if(c) c.hidden = true; corpo.innerHTML = html; fundo.hidden = false; fundo.scrollTop = 0; }
+  function escolher(){
+    abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>Escolha a disciplina</h2><p class="conta-sub">Você escreve a resposta, o site confere quais conceitos-chave você usou e mostra a resposta modelo.</p>
+      <div class="ben-escolha">${DISC[2].map(d => { const n = perguntasDe(d.n).length; return n ? `<button data-ds-disc="${d.n}"><b>${escHTML(d.name)}</b><span>${n} perguntas</span></button>` : ''; }).join('')}</div>`);
+  }
+  function iniciar(disc){
+    const todas = perguntasDe(disc).map(x => [Math.random(), x]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+    ds = {disc, qs:todas.slice(0, 5), i:0, notas:[]};
+    pergunta();
+  }
+  function pergunta(){
+    const q = ds.qs[ds.i];
+    abrirDs(`<div class="eyebrow">${escHTML(nomeDisc(ds.disc))} · ${ds.i + 1} de ${ds.qs.length}</div><p class="ds-tema">${escHTML(q.tema)}</p><h2 class="ds-q">${q.q}</h2>
+      <textarea class="ds-txt" id="dsTxt" rows="6" placeholder="Escreva sua resposta como escreveria na prova…"></textarea>
+      <p class="ds-erro" id="dsErro" hidden>Escreva sua resposta antes de conferir.</p>
+      <div class="ben-acoes"><button class="conta-btn" data-ds-conferir>Conferir</button><button class="conta-btn sec" data-ds-pular>Ver a resposta sem escrever</button></div>`);
+    setTimeout(() => { const t = document.getElementById('dsTxt'); if(t) t.focus(); }, 60);
+  }
+  function conferir(pulou){
+    const q = ds.qs[ds.i]; const txt = pulou ? '' : document.getElementById('dsTxt').value.trim();
+    if(!pulou && txt.length < 3){ document.getElementById('dsErro').hidden = false; return; }
+    const cs = conceitos(q.a), alvo = semAcento(txt);
+    const tem = cs.filter(c => alvo.includes(c.raiz)), falta = cs.filter(c => !alvo.includes(c.raiz));
+    const pc = cs.length ? Math.round(tem.length / cs.length * 100) : 0;
+    if(!pulou) ds.notas.push(pc);
+    const ultima = ds.i === ds.qs.length - 1;
+    abrirDs(`<div class="eyebrow">${escHTML(nomeDisc(ds.disc))} · ${ds.i + 1} de ${ds.qs.length}</div><h2 class="ds-q">${q.q}</h2>
+      ${pulou ? '' : `<div class="ds-sua"><span>Sua resposta</span><p>${escHTML(txt)}</p></div>
+      <div class="ds-placar"><b>${pc}%</b><span>dos conceitos-chave aparecem na sua resposta</span></div>
+      ${tem.length ? `<p class="ds-rot">Você usou</p><div class="ds-chips">${tem.map(c => `<span class="ok">${escHTML(c.w)}</span>`).join('')}</div>` : ''}
+      ${falta.length ? `<p class="ds-rot">Faltou mencionar</p><div class="ds-chips">${falta.map(c => `<span class="falta">${escHTML(c.w)}</span>`).join('')}</div>` : ''}`}
+      <div class="ds-modelo"><span>Resposta modelo</span><p>${q.a}</p></div>
+      <p class="conta-priv">A conferência procura as palavras-chave da resposta modelo. Sinônimos e outras formas de dizer podem não ser reconhecidos: compare com a resposta modelo.</p>
+      <div class="ben-acoes"><button class="conta-btn" data-ds-prox>${ultima ? 'Ver resultado' : 'Próxima pergunta'}</button></div>`);
+  }
+  function fim(){
+    const media = ds.notas.length ? Math.round(ds.notas.reduce((a, b) => a + b, 0) / ds.notas.length) : null;
+    abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>${media === null ? 'Treino concluído' : media >= 70 ? 'Mandou bem!' : media >= 40 ? 'Bom caminho' : 'Vale revisar'}</h2>
+      ${media === null ? '<p class="conta-sub">Você viu as respostas modelo. Na próxima, tente escrever antes de conferir.</p>' : `<div class="ds-placar"><b>${media}%</b><span>dos conceitos-chave, em média, nas ${ds.notas.length} respostas que você escreveu</span></div>`}
+      <div class="ben-acoes"><button class="conta-btn" data-ds-disc="${ds.disc}">Treinar de novo</button><button class="conta-btn sec" data-ds-escolher>Outra disciplina</button></div>`);
+  }
+  window.avDiscursivaContar = disc => perguntasDe(disc).length;
+
+  document.addEventListener('click', e => {
+    if(e.target.closest('[data-ds-escolher]')){ escolher(); return; }
+    const dd = e.target.closest('[data-ds-disc]'); if(dd){ iniciar(dd.dataset.dsDisc); return; }
+    if(e.target.closest('[data-ds-conferir]')){ conferir(false); return; }
+    if(e.target.closest('[data-ds-pular]')){ conferir(true); return; }
+    if(e.target.closest('[data-ds-prox]')){ if(ds.i < ds.qs.length - 1){ ds.i++; pergunta(); } else fim(); return; }
+    if(e.target.closest('[data-ds-fechar]') || e.target === fundo){ fundo.hidden = true; return; }
+    const ir = e.target.closest('[data-hj-ir]');
+    if(ir){ const t = JSON.parse(ir.dataset.hjIr); if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap || 0}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
+  });
+  document.addEventListener('input', e => { if(e.target.id === 'dsTxt'){ const er = document.getElementById('dsErro'); if(er) er.hidden = true; } });
+  document.addEventListener('change', e => { const f = e.target.closest('[data-hj-feito]'); if(f && window.avPlanoMarcar){ window.avPlanoMarcar(f.dataset.hjFeito, f.checked); renderHoje(); } });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fundo.hidden = true; });
+  // a página pode ter aberto antes deste script carregar
+  setTimeout(() => { const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); if(/^#disc-/.test(location.hash) && !document.getElementById('dpDiscursiva') && typeof routeFromHash === 'function') routeFromHash(); }, 0);
 })();
 </script>
 </body>
