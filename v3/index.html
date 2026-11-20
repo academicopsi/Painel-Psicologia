@@ -21642,7 +21642,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const meu = cfg.modo === 'meu';
     let h = EB('Área do apoiador') + `<h2>Plano de estudos</h2><div class="pl-modo"><button data-pl-modo="auto" aria-pressed="${!meu}">Sugerido pelo site</button><button data-pl-modo="meu" aria-pressed="${meu}">Montado por mim</button></div>
       <p class="conta-sub">${meu ? 'Escolha as disciplinas que você vai estudar em cada dia. O site preenche com o que ainda falta nelas: resumos não lidos, partes do simulado e questões erradas.' : 'Montado sozinho a partir das próximas provas, do que você já estudou e dos temas em que mais erra. Ele se atualiza conforme você avança.'}</p>
-      <div class="pl-cfg"><label>Tempo por dia <select data-pl-min>${[20, 30, 45, 60, 90, 120].map(m => `<option value="${m}"${cfg.min === m ? ' selected' : ''}>${m < 60 ? m + ' min' : (m / 60) + (m === 90 ? 'h30' : 'h').replace('1.5h30', '1h30')}</option>`).join('')}</select></label>
+      <div class="pl-cfg"><label>Tempo por dia <select data-pl-min>${[20, 30, 45, 60, 90, 120].map(m => `<option value="${m}"${cfg.min === m ? ' selected' : ''}>${{20:'20 min', 30:'30 min', 45:'45 min', 60:'1h', 90:'1h30', 120:'2h'}[m]}</option>`).join('')}</select></label>
       <div class="pl-dias">${['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((l, i) => `<button data-pl-dia="${i}" aria-pressed="${cfg.dias.includes(i)}" title="${['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'][i]}">${l}</button>`).join('')}</div></div>`;
     if(meu) return h + planoMeuHTML(cfg);
     if(!pl.provas.length) return h + `<div class="de-vazio">Não há provas marcadas no calendário do site agora. Quando as próximas provas entrarem em Prazos, o plano aparece aqui.</div>`;
