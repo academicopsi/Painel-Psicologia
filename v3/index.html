@@ -2588,6 +2588,11 @@
   .hj-mini > b{font-size:15px;}
   .hj-mini > small{font-size:12.5px; color:var(--ink-soft);}
   .hj-rev{background:var(--ochre-soft); border-color:#EBD7B4;}
+  div.hj-rev-lista{background:var(--ochre-soft); border:1px solid #EBD7B4; padding:12px 14px 8px; cursor:default;}
+  .hj-rev-lista button{display:flex; justify-content:space-between; align-items:center; width:100%; font:inherit; background:none; border:0; border-top:1px solid #EBD7B4; padding:7px 0; cursor:pointer; color:var(--ink); text-align:left;}
+  .hj-rev-lista button:first-of-type{border-top:0;}
+  .hj-rev-lista b{font-size:14px;}
+  .hj-rev-lista em{font-style:normal; font-size:12.5px; font-weight:700; color:var(--ochre); background:var(--paper); border-radius:999px; padding:1px 8px;}
   .hj-ds{background:var(--petrol-soft); border-color:var(--petrol-line);}
   .hj-prazo{display:flex; gap:12px; align-items:baseline; padding:7px 0; border-top:1px solid var(--rule); font-size:14px;}
   .hj-prazo:first-of-type{border-top:0;}
@@ -22092,7 +22097,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         <h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${chip}</header>
       ${plano}
       <div class="hj-grid">
-        <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${nErr ? nErr + (nErr === 1 ? ' questão' : ' questões') : 'Tudo em dia'}</b><small>${nErr ? 'Treine até virar acerto' : 'Nenhum erro guardado'}</small></button>
+        ${nErr ? `<div class="hj-mini hj-rev hj-rev-lista"><span>Revisão dos erros</span>${DISC[2].map(d => ({d, n:errLista(d.n).length})).filter(x => x.n).sort((a, b) => b.n - a.n).map(x => `<button data-hj-erros="${x.d.n}"><b>${escHTML(curto(x.d.name))}</b><em>${x.n}</em></button>`).join('')}</div>`
+          : `<button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>Tudo em dia</b><small>Nenhum erro guardado</small></button>`}
         <button class="hj-mini hj-ds" data-ds-escolher><span>Treino de discursiva</span><b>Escreva e confira</b><small>${nDisc} disciplinas</small></button>
       </div>
       <section class="hj-card"><div class="hj-card-top"><h2>Próximos dias</h2><button class="hj-link" data-page="viewPrazos">Ver todos</button></div>
@@ -22564,6 +22570,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(e.target.closest('[data-ds-fechar]') || e.target === fundo){ fundo.hidden = true; return; }
     const hm = e.target.closest('[data-hj-modo]'); if(hm){ window.avPlanoModo(hm.dataset.hjModo); renderHoje(); return; }
     const he = e.target.closest('[data-hj-esc]'); if(he){ const [iso, n] = he.dataset.hjEsc.split('|'); window.avPlanoEscolher(iso, n); renderHoje(); return; }
+    const he2 = e.target.closest('[data-hj-erros]'); if(he2){ switchPage('viewErros', {errDisc:he2.dataset.hjErros}); return; }
     const ir = e.target.closest('[data-hj-ir]');
     if(ir){ const t = JSON.parse(ir.dataset.hjIr); if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap || 0}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
   });
