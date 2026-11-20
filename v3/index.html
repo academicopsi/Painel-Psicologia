@@ -2620,8 +2620,17 @@
   .ds-modelo{background:var(--petrol-soft); border-radius:10px; padding:10px 12px; margin:14px 0 4px; font-size:14.5px;}
   .ds-cta{width:100%;}
 
-  .hj-topo{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
-  .hj-inicio{font:inherit; font-size:13.5px; font-weight:600; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:7px 14px; cursor:pointer;}
+  .hj-topo{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin:0 0 14px;}
+  .hj-topo .eyebrow{margin:0;}
+  .hj-topo > *{height:32px; box-sizing:border-box;}
+  .hj-inicio{display:inline-flex; align-items:center; font:inherit; font-size:12.5px; font-weight:600; line-height:normal; letter-spacing:.02em; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:5px 12px; cursor:pointer;}
+  .pl-modo{display:inline-flex; background:var(--bg); border:1px solid var(--rule); border-radius:999px; padding:3px; margin:0 0 12px;}
+  .pl-modo button{font:inherit; font-size:13px; font-weight:600; border:0; background:none; color:var(--ink-soft); padding:6px 12px; border-radius:999px; cursor:pointer;}
+  .pl-modo button[aria-pressed="true"]{background:var(--petrol); color:#fff;}
+  .pl-chips{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px;}
+  .pl-chips button{font:inherit; font-size:12.5px; font-weight:600; border:1px solid var(--rule); background:var(--bg); color:var(--ink-soft); padding:5px 10px; border-radius:999px; cursor:pointer;}
+  .pl-chips button[aria-pressed="true"]{background:var(--petrol-soft); border-color:var(--petrol); color:var(--petrol-dark);}
+  .pl-pergunta{font-size:13.5px; color:var(--ink-soft); margin:2px 0 8px;}
   .hj-inicio:hover{border-color:var(--petrol);}
   .hj-fim-btn{display:block; width:100%; margin:18px 0 0; font:inherit; font-size:15px; font-weight:600; color:var(--petrol-dark); background:var(--paper); border:1.5px solid var(--petrol-line); border-radius:12px; padding:14px; cursor:pointer;}
   .hj-fim-btn:hover{border-color:var(--petrol);}
@@ -21539,12 +21548,35 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const sobra = Object.values(fila).reduce((n, q) => n + q.length, 0);
     return {dias, provas, sobra};
   }
-  function planoCfg(){ return Object.assign({min:45, dias:[0, 1, 2, 3, 4, 5, 6], feitos:{}}, lerJ('av-plano', {})); }
+  function planoCfg(){ return Object.assign({min:45, dias:[0, 1, 2, 3, 4, 5, 6], feitos:{}, modo:'auto', escolhas:{}}, lerJ('av-plano', {})); }
+  const isoDe = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  const discsPlano = () => DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n));
+  // plano montado pelo aluno: ele escolhe as disciplinas de cada dia e o site preenche com o que falta estudar nelas
+  function montarMeu(cfg){
+    const hoje = hojeISO(), fila = {}, dias = [];
+    Object.keys(cfg.escolhas).forEach(k => { if(k < hoje) delete cfg.escolhas[k]; });
+    for(let i = 0, d = new Date(hoje + 'T12:00:00'); dias.length < 7 && i < 21; i++, d.setDate(d.getDate() + 1)){
+      if(i > 0 && !cfg.dias.includes(d.getDay())) continue;
+      const iso = isoDe(d), discs = cfg.escolhas[iso] || [], dia = {iso, discs, itens:[], min:0};
+      discs.forEach(n => { if(!fila[n]) fila[n] = tarefasDe(n); });
+      let avancou = true;
+      while(avancou){ avancou = false;
+        for(const n of discs){ const q = fila[n]; if(q.length && (dia.min === 0 || dia.min + q[0].min <= cfg.min + 5)){ const t = q.shift(); t.disc = n; dia.itens.push(t); dia.min += t.min; avancou = true; } } }
+      dias.push(dia);
+    }
+    return {dias, provas:provasFuturas(), sobra:0};
+  }
+  function chipsDia(iso, discs, attr){ return `<div class="pl-chips">${discsPlano().map(d => `<button ${attr}="${iso}|${d.n}" aria-pressed="${discs.includes(d.n)}">${escHTML(d.name)}</button>`).join('')}</div>`; }
+  window.avPlanoEscolher = (iso, n) => { const c = planoCfg(); const a = c.escolhas[iso] || []; c.escolhas[iso] = a.includes(n) ? a.filter(x => x !== n) : a.concat(n); if(!c.escolhas[iso].length) delete c.escolhas[iso]; gravarJ('av-plano', c); };
+  window.avPlanoModo = m => { const c = planoCfg(); c.modo = m; gravarJ('av-plano', c); };
   function planoHTML(){
     const cfg = planoCfg(), pl = montarPlano(cfg);
-    let h = EB('Área do apoiador') + `<h2>Plano de estudos</h2><p class="conta-sub">Montado sozinho a partir das próximas provas, do que você já estudou e dos temas em que mais erra. Ele se atualiza conforme você avança.</p>
+    const meu = cfg.modo === 'meu';
+    let h = EB('Área do apoiador') + `<h2>Plano de estudos</h2><div class="pl-modo"><button data-pl-modo="auto" aria-pressed="${!meu}">Sugerido pelo site</button><button data-pl-modo="meu" aria-pressed="${meu}">Montado por mim</button></div>
+      <p class="conta-sub">${meu ? 'Escolha as disciplinas que você vai estudar em cada dia. O site preenche com o que ainda falta nelas: resumos não lidos, partes do simulado e questões erradas.' : 'Montado sozinho a partir das próximas provas, do que você já estudou e dos temas em que mais erra. Ele se atualiza conforme você avança.'}</p>
       <div class="pl-cfg"><label>Tempo por dia <select data-pl-min>${[20, 30, 45, 60, 90, 120].map(m => `<option value="${m}"${cfg.min === m ? ' selected' : ''}>${m < 60 ? m + ' min' : (m / 60) + (m === 90 ? 'h30' : 'h').replace('1.5h30', '1h30')}</option>`).join('')}</select></label>
       <div class="pl-dias">${['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((l, i) => `<button data-pl-dia="${i}" aria-pressed="${cfg.dias.includes(i)}" title="${['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'][i]}">${l}</button>`).join('')}</div></div>`;
+    if(meu) return h + planoMeuHTML(cfg);
     if(!pl.provas.length) return h + `<div class="de-vazio">Não há provas marcadas no calendário do site agora. Quando as próximas provas entrarem em Prazos, o plano aparece aqui.</div>`;
     h += `<div class="pl-provas">${pl.provas.map(p => `<span>${escHTML(nomeDisc(p.disc))} <b>${dataBR(p.data)}</b></span>`).join('')}</div>`;
     if(!pl.dias.length) h += `<div class="de-vazio">Não sobrou nenhum dia antes da próxima prova. Use o simulado e a revisão dos erros para a reta final.</div>`;
@@ -21553,6 +21585,14 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       ${d.itens.map(t => `<div class="pl-item${cfg.feitos[t.k] ? ' feito' : ''}${t.vesp ? ' vesp' : ''}"><input type="checkbox" data-pl-feito="${escHTML(t.k)}"${cfg.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-pl-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap, disc:t.disc}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`).join('')}</div>`).join('');
     if(pl.sobra) h += `<p class="pl-aviso">Ficaram ${pl.sobra} atividades de fora por falta de tempo. Aumente o tempo por dia ou marque mais dias para caber tudo.</p>`;
     return h;
+  }
+
+  function planoMeuHTML(cfg){
+    const pl = montarMeu(cfg), hoje = hojeISO(), amanha = (() => { const d = new Date(); d.setDate(d.getDate() + 1); return isoDe(d); })();
+    const item = t => `<div class="pl-item${cfg.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-pl-feito="${escHTML(t.k)}"${cfg.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-pl-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap, disc:t.disc}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`;
+    let h = pl.provas.length ? `<div class="pl-provas">${pl.provas.map(p => `<span>${escHTML(nomeDisc(p.disc))} <b>${dataBR(p.data)}</b></span>`).join('')}</div>` : '';
+    return h + pl.dias.map(d => `<div class="pl-dia"><h3>${d.iso === hoje ? 'Hoje' : d.iso === amanha ? 'Amanhã' : (t => t.charAt(0).toUpperCase() + t.slice(1))(dataBR(d.iso, {weekday:'long', day:'2-digit', month:'2-digit'}))}<small>${d.min ? d.min + ' min' : ''}</small></h3>
+      ${chipsDia(d.iso, d.discs, 'data-pl-esc')}${d.itens.map(item).join('')}${d.discs.length && !d.itens.length ? '<p class="pl-pergunta">Nada pendente nessas disciplinas. Tudo em dia!</p>' : ''}</div>`).join('');
   }
 
   // ================= Seu semestre em números =================
@@ -21718,7 +21758,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const b = BEN[tipo];
     abrir(EB('Área do apoiador') + `<h2>${b.t}</h2><p class="conta-sub">Escolha a disciplina.</p><div class="ben-escolha">${discsCom().filter(d => tipo !== 'simpdf' || SIM_JOGO.some(x => x.disc === d.n)).map(d => `<button data-ben-disc="${d.n}" data-ben-tipo="${tipo}"><b>${escHTML(d.name)}</b></button>`).join('')}</div>`);
   }
-  window.avPlanoDoDia = () => { const c = planoCfg(), pl = montarPlano(c), d = pl.dias.find(x => x.iso === hojeISO()); return {itens:d ? d.itens : [], provas:pl.provas, feitos:c.feitos}; };
+  window.avPlanoDoDia = () => { const c = planoCfg(), pl = c.modo === 'meu' ? montarMeu(c) : montarPlano(c), d = pl.dias.find(x => x.iso === hojeISO()); return {itens:d ? d.itens : [], provas:pl.provas, feitos:c.feitos, modo:c.modo, discs:d && d.discs ? d.discs : [], chips:iso => chipsDia(iso, (c.escolhas[iso] || []), 'data-hj-esc')}; };
   window.avPlanoMarcar = (k, v) => { const c = planoCfg(); if(v) c.feitos[k] = 1; else delete c.feitos[k]; gravarJ('av-plano', c); };
   window.avAbrirBeneficio = k => { const b = BEN[k]; if(!b) return; if(b.disc) escolherDisc(k); else abrir(b.html(), !ehApoio()); };
 
@@ -21733,6 +21773,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(sp){ const op = JSON.parse(sp.dataset.spdf); if(ehApoio()) imprimir(simuladoPDF(op), 'Simulado · ' + nomeDisc((SIM_JOGO.find(x => x.id === op.id) || {}).disc) + ' · Arquivo Vivo'); else abrir(EB('Prévia') + `<div class="ben-pdf-previa">${simuladoPDF(op, true)}</div>`, true); return; }
     const sm = e.target.closest('[data-ben-sim]'); if(sm){ fechar(); location.hash = '#simulado-' + sm.dataset.benSim; return; }
     // plano
+    const pm = e.target.closest('[data-pl-modo]'); if(pm){ window.avPlanoModo(pm.dataset.plModo); abrir(planoHTML()); if(window.avRenderHoje) window.avRenderHoje(); return; }
+    const pe = e.target.closest('[data-pl-esc]'); if(pe){ const [iso, n] = pe.dataset.plEsc.split('|'); window.avPlanoEscolher(iso, n); const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; if(window.avRenderHoje) window.avRenderHoje(); return; }
     const pd = e.target.closest('[data-pl-dia]'); if(pd){ const c = planoCfg(); const i = +pd.dataset.plDia; c.dias = c.dias.includes(i) ? c.dias.filter(x => x !== i) : c.dias.concat(i); gravarJ('av-plano', c); abrir(planoHTML()); return; }
     const pi = e.target.closest('[data-pl-ir]'); if(pi){ const t = JSON.parse(pi.dataset.plIr); fechar();
       if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
@@ -22004,14 +22046,23 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const chip = prova ? `<span class="hj-chip">${mesmas.length > 1 ? 'Provas de ' + escHTML(mesmas.join(' e ')) : 'Prova de ' + escHTML(mesmas[0])} ${quando}</span>` : '';
     let plano = '';
     const pl = window.avApoiador && window.avPlanoDoDia ? window.avPlanoDoDia() : null;
-    if(pl && pl.itens.length){
+    const modoBtns = pl ? `<div class="pl-modo"><button data-hj-modo="auto" aria-pressed="${pl.modo !== 'meu'}">Sugerido pelo site</button><button data-hj-modo="meu" aria-pressed="${pl.modo === 'meu'}">Montado por mim</button></div>` : '';
+    if(pl && pl.modo === 'meu'){
       const feitos = pl.itens.filter(t => pl.feitos[t.k]).length, min = pl.itens.reduce((n, t) => n + t.min, 0);
-      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Seu plano de hoje</h2><span>${feitos} de ${pl.itens.length} · ${min} min</span></div><div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>
+      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Seu plano de hoje</h2>${pl.itens.length ? `<span>${feitos} de ${pl.itens.length} · ${min} min</span>` : ''}</div>${modoBtns}
+        <p class="pl-pergunta">O que você vai estudar hoje?</p>${pl.chips(hojeISO())}
+        ${pl.itens.length ? `<div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>` : ''}
+        ${pl.itens.map(t => `<div class="hj-item${pl.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-hj-feito="${escHTML(t.k)}"${pl.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-hj-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`).join('')}
+        ${pl.discs.length && !pl.itens.length ? '<p class="hj-vazio">Nada pendente nessas disciplinas. Tudo em dia!</p>' : ''}
+        <button class="hj-link" data-ben="plano">Planejar a semana</button></section>`;
+    } else if(pl && pl.itens.length){
+      const feitos = pl.itens.filter(t => pl.feitos[t.k]).length, min = pl.itens.reduce((n, t) => n + t.min, 0);
+      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Seu plano de hoje</h2><span>${feitos} de ${pl.itens.length} · ${min} min</span></div>${modoBtns}<div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>
         ${pl.itens.map(t => `<div class="hj-item${pl.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-hj-feito="${escHTML(t.k)}"${pl.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-hj-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`).join('')}
         <button class="hj-link" data-ben="plano">Ver o plano completo</button></section>`;
     } else {
       const sg = sugestoes();
-      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Para hoje</h2><span>Sugestões a partir das suas provas</span></div>
+      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Para hoje</h2><span>Sugestões a partir das suas provas</span></div>${modoBtns}
         ${sg.length ? sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('') : '<p class="hj-vazio">Nenhuma prova à vista. Aproveite para revisar com calma ou descansar.</p>'}</section>`;
     }
     const ult = (typeof ultimoLer === 'function') ? ultimoLer() : {};
@@ -22107,6 +22158,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(e.target.closest('[data-ds-pular]')){ conferir(true); return; }
     if(e.target.closest('[data-ds-prox]')){ if(ds.i < ds.qs.length - 1){ ds.i++; pergunta(); } else fim(); return; }
     if(e.target.closest('[data-ds-fechar]') || e.target === fundo){ fundo.hidden = true; return; }
+    const hm = e.target.closest('[data-hj-modo]'); if(hm){ window.avPlanoModo(hm.dataset.hjModo); renderHoje(); return; }
+    const he = e.target.closest('[data-hj-esc]'); if(he){ const [iso, n] = he.dataset.hjEsc.split('|'); window.avPlanoEscolher(iso, n); renderHoje(); return; }
     const ir = e.target.closest('[data-hj-ir]');
     if(ir){ const t = JSON.parse(ir.dataset.hjIr); if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap || 0}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
   });
