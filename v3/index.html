@@ -2313,6 +2313,11 @@
   .conta-msg.erro{background:#F8E4DF; color:#8A2E1E;}
   .conta-msg.ok{background:var(--petrol-soft); color:var(--petrol-dark);}
   .conta-priv{font-size:12.5px; color:var(--ink-faint); margin:14px 0 0; line-height:1.5;}
+  details.conta-priv summary{cursor:pointer; list-style:none;}
+  details.conta-priv summary::-webkit-details-marker{display:none;}
+  details.conta-priv u{color:var(--petrol); font-weight:600;}
+  details.conta-priv ul{margin:8px 0 0; padding-left:18px;}
+  details.conta-priv li{margin:0 0 4px;}
   .conta-info{background:var(--bg); border:1px solid var(--rule); border-radius:10px; padding:12px 14px; margin:0 0 14px; font-size:14.5px;}
   .conta-info b{display:block; word-break:break-all;}
   .conta-selo{display:inline-block; margin-top:8px; font-size:12.5px; font-weight:700; color:var(--ochre); background:var(--ochre-soft); border-radius:999px; padding:3px 10px;}
@@ -21362,7 +21367,7 @@ const ERROS = {
 };
 const erroTxt = e => ERROS[e && e.code] || 'Não deu certo agora. Tente de novo em instantes.';
 const quando = ts => { if(!ts) return 'ainda não sincronizado'; const m = Math.round((Date.now() - ts) / 60000); return m < 1 ? 'sincronizado agora' : m < 60 ? `sincronizado há ${m} min` : 'sincronizado em ' + new Date(ts).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}); };
-const PRIV = '<p class="conta-priv">O acesso é liberado para a turma. Guardamos só o seu e-mail, o nome (se você informar) e o progresso de estudo. Nada é compartilhado. Os dados ficam no Firebase, do Google, em servidores fora do Brasil. Para apagar sua conta, fale com o Thiago.</p>';
+const PRIV = '<details class="conta-priv"><summary>Guardamos só o necessário para sua conta e seu progresso. Nada é compartilhado. <u>Saiba mais</u></summary><ul><li><b>O que guardamos:</b> e-mail, nome, foto (se você escolher uma ou entrar pelo Google) e o progresso de estudo, como simulados, resumos lidos e anotações.</li><li><b>Para quê:</b> liberar o acesso da turma e salvar seu progresso entre aparelhos.</li><li><b>Onde fica:</b> no Firebase, serviço do Google, em servidores fora do Brasil.</li><li><b>O que não fazemos:</b> não vendemos, não compartilhamos e não usamos para anúncios.</li><li><b>Apagar a conta:</b> é só falar com o Thiago, e tudo é removido.</li></ul></details>';
 const msgHTML = m => m ? `<div class="conta-msg ${m.tipo}">${esc(m.t)}</div>` : '';
 
 // ---------- formulário (usado no portão) ----------
