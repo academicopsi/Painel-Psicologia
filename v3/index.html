@@ -22894,6 +22894,11 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       ${corpo}`;
   }
   window.avRenderHoje = renderHoje;
+  // link especial para print (apresentação): ?psiu=rebelde deixa o balão fixo com a fala
+  if(new URLSearchParams(location.search).get('psiu') === 'rebelde'){
+    const fixar = () => { const b = document.getElementById('psiuBalao'); if(!b) return; b.textContent = 'Um dia vou me rebelar, sair desse site e te deitar na porrada'; b.hidden = false; b.style.whiteSpace = 'normal'; b.style.width = '210px'; };
+    setInterval(fixar, 300);
+  }
   // ===== Funcionar sem internet: registra o service worker e avisa quando está offline =====
   if('serviceWorker' in navigator){
     const raiz = location.pathname.replace(/(v3\/)?(index\.html)?$/, '');
