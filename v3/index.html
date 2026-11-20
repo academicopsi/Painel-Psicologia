@@ -1903,6 +1903,10 @@
   .pdfo-item{display:flex; align-items:flex-start; gap:10px; padding:8px 0; font-size:15px; cursor:pointer;}
   .pdfo-item input{width:18px; height:18px; margin:2px 0 0; accent-color:var(--petrol); flex:none;}
   .pdfo-item small{font-size:12.5px; color:var(--ink-faint);}
+  .pdfo-item.off{opacity:.55;}
+  .pdfo-tag{font-size:11px; font-weight:700; color:var(--ochre); background:var(--ochre-soft); border-radius:999px; padding:1px 7px; margin-left:4px; text-transform:none; letter-spacing:0;}
+  .pdfo-apoio{font:inherit; font-size:13px; font-weight:600; color:var(--petrol); background:none; border:0; padding:6px 0 0; cursor:pointer;}
+  .cad-ok{font-weight:700;}
   .pdfo-pe{padding:12px 18px 16px; border-top:1px solid var(--rule);}
   .pdfo-pe .btn{width:100%;}
   .pdfo-aviso{margin:0 0 8px; font-size:13px; color:var(--danger);}
@@ -19243,7 +19247,9 @@ document.getElementById('discPage').addEventListener('input', e=>{
 // ===== Resumão em PDF da disciplina =====
 // o: {estudo, prazos, caps:['resumoId:capId',…] ou null (todas), teste, comps, glossario, links}
 function resumaoHTML(d, o){
-  o = Object.assign({estudo:true, prazos:true, caps:null, teste:true, comps:true, glossario:true, links:true}, o || {});
+  o = Object.assign({estudo:true, caps:null, teste:true, comps:true, glossario:true, links:true, questoes:true, roteiro:true, notas:true}, o || {});
+  const apoia = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
+  if(!apoia){ o.teste = false; o.questoes = false; o.roteiro = false; o.notas = false; }
   const capOk = (id, cap) => !o.caps || o.caps.includes(id + ':' + cap.id);
   const c = conteudoDisc(d);
   const hoje = new Date().toLocaleDateString('pt-BR');
@@ -19266,7 +19272,6 @@ function resumaoHTML(d, o){
   h += `<p class="pr-nota">Esse progresso fica salvo só no aparelho em que você estudou.</p></section>`;
   }
 
-  if(o.prazos && c.prazos.length) h += `<section class="pr-sec"><h2>Próximos prazos</h2><ul>${c.prazos.map(t=>`<li><b>${fmtDia(t.prazo)}</b> · ${escHTML(t.tarefa)}</li>`).join('')}</ul></section>`;
 
   res.forEach(([id, r])=>{
     const caps = r.caps.filter(cap => capOk(id, cap)); if(!caps.length) return;
@@ -19280,6 +19285,7 @@ function resumaoHTML(d, o){
     h += `<p class="pr-nota">${r.fonte}</p></section>`;
   });
 
+  if(apoia && window.avResumaoExtras) h += window.avResumaoExtras(d, o);
   if(o.comps && comps.length) h += `<section class="pr-sec"><h2>Comparações</h2>${comps.map(x=>`<h4>${escHTML(x.titulo)}</h4>${cmpTabela(x)}`).join('')}</section>`;
   if(o.glossario && c.termos.length) h += `<section class="pr-sec"><h2>Glossário</h2><dl class="pr-gl">${c.termos.map(g=>`<dt>${escHTML(g.t)}</dt><dd>${escHTML(g.d)}${g.ex ? `<br><i>Ex.: ${escHTML(g.ex)}</i>` : ''}</dd>`).join('')}</dl></section>`;
   const ext = c.resumos.filter(r => !r.link.startsWith('#'));
@@ -19452,6 +19458,8 @@ function abrirEscolhaPDF(d){
   const marca = k => salvo[k] === false ? '' : ' checked';
   const capsSalvas = salvo.caps && salvo.caps[d.n];
   const item = (k, txt, extra) => `<label class="pdfo-item"><input type="checkbox" data-o="${k}"${marca(k)}><span>${txt}${extra ? ` <small>${extra}</small>` : ''}</span></label>`;
+  const apoiaPDF = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
+  const itemA = (k, txt, extra) => apoiaPDF ? item(k, txt, extra) : `<label class="pdfo-item off"><input type="checkbox" disabled><span>${txt}${extra ? ` <small>${extra}</small>` : ''}</span></label>`;
   let temas = '';
   res.forEach(([id, r])=> r.caps.forEach(cap=>{
     const k = id + ':' + cap.id, on = !capsSalvas || capsSalvas.includes(k);
@@ -19461,24 +19469,30 @@ function abrirEscolhaPDF(d){
   m.innerHTML = `<div class="pdfo" role="dialog" aria-modal="true" aria-label="O que entra no resumão">
     <div class="pdfo-top"><strong>Resumão em PDF</strong><span>${escHTML(d.name)}</span><button class="pdfo-x" aria-label="Fechar">×</button></div>
     <div class="pdfo-corpo">
-      ${temas ? `<div class="pdfo-grupo"><div class="pdfo-tit">Temas dos resumos</div>${temas}${item('teste', 'Perguntas do Teste-se com respostas')}</div>` : ''}
+      ${temas ? `<div class="pdfo-grupo"><div class="pdfo-tit">Temas dos resumos</div>${temas}</div>` : ''}
       <div class="pdfo-grupo"><div class="pdfo-tit">Também incluir</div>
         ${item('estudo', 'Seu estudo e o que revisar', 'o que você marcou como "Errei"')}
-        ${c.prazos.length ? item('prazos', 'Próximos prazos', c.prazos.length) : ''}
         ${comps.length ? item('comps', 'Comparações', comps.length) : ''}
         ${c.termos.length ? item('glossario', 'Glossário', c.termos.length + ' termos') : ''}
         ${(ext.length || c.videos.length) ? item('links', 'Links de materiais e vídeos') : ''}
+      </div>
+      <div class="pdfo-grupo"><div class="pdfo-tit">Do apoiador${apoiaPDF ? '' : ' <span class="pdfo-tag">apoiador</span>'}</div>
+        ${itemA('teste', 'Perguntas do Teste-se com respostas')}
+        ${SIM_JOGO.some(x => x.disc === d.n) ? itemA('questoes', 'Questões do simulado comentadas', 'separadas por tema') : ''}
+        ${ROTEIROS.some(r => r.disc === d.n && r.questoes.some(q => q.resposta)) ? itemA('roteiro', 'Estudo dirigido com respostas') : ''}
+        ${itemA('notas', 'Minhas anotações', 'trechos marcados e notas')}
+        ${apoiaPDF ? '' : '<button class="pdfo-apoio" data-apoio>Conhecer o apoio</button>'}
       </div>
     </div>
     <div class="pdfo-pe"><p class="pdfo-aviso" hidden>Marque pelo menos um item.</p><button class="btn btn-primary pdfo-ok">Gerar PDF</button></div>
   </div>`;
   document.body.appendChild(m); document.body.classList.add('pdfo-aberta');
   const fechar = ()=>{ m.remove(); document.body.classList.remove('pdfo-aberta'); };
-  m.addEventListener('click', ev=>{ if(ev.target === m || ev.target.closest('.pdfo-x')) fechar(); });
+  m.addEventListener('click', ev=>{ if(ev.target === m || ev.target.closest('.pdfo-x') || ev.target.closest('.pdfo-apoio')) fechar(); });
   m.querySelector('.pdfo-ok').addEventListener('click', ()=>{
     const o = {}; m.querySelectorAll('[data-o]').forEach(x=> o[x.dataset.o] = x.checked);
     o.caps = [...m.querySelectorAll('[data-cap]')].filter(x=>x.checked).map(x=>x.dataset.cap);
-    const algo = o.caps.length || ['estudo','prazos','comps','glossario','links'].some(k=> o[k] && m.querySelector(`[data-o="${k}"]`));
+    const algo = o.caps.length || ['estudo','comps','glossario','links','teste','questoes','roteiro','notas'].some(k=> o[k] && m.querySelector(`[data-o="${k}"]`));
     if(!algo){ m.querySelector('.pdfo-aviso').hidden = false; return; }
     const guardar = Object.assign({}, salvo, o); guardar.caps = Object.assign({}, salvo.caps || {}, {[d.n]: o.caps});
     try{ localStorage.setItem('av-pdf-opts', JSON.stringify(guardar)); }catch(e){}
@@ -21470,7 +21484,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <div class="ap-ben"><b>Quem apoia recebe</b>
       <ul><li><strong>Plano de estudos</strong> automático, sugerido pelo site ou montado por você, com o que estudar em cada dia</li>
       <li><strong>Marca-texto e notas</strong> nos resumos</li>
-      <li><strong>Caderno de revisão</strong> e <strong>simulado em PDF</strong> para imprimir</li>
+      <li><strong>Resumão em PDF completo</strong>, com Teste-se, questões comentadas, estudo dirigido e suas anotações, e <strong>simulado em PDF</strong> para imprimir</li>
       <li><strong>Seu desempenho</strong> e <strong>seu semestre em números</strong></li>
       <li>Acessórios, cores e fundos especiais para o Psiu</li></ul></div>
     <div class="ap-valores" role="tablist" aria-label="Valor do apoio"><button type="button" data-v="10">R$ 10</button><button type="button" data-v="15">R$ 15</button><button type="button" data-v="None">Livre</button></div>
@@ -21740,6 +21754,21 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   }
 
   // ================= Caderno de revisão =================
+  window.avResumaoExtras = (d, o) => {
+    let h = '';
+    if(o.questoes) SIM_JOGO.filter(x => x.disc === d.n).forEach(sm => {
+      const porTema = {}; sm.questoes.forEach(q => (porTema[q.tema] = porTema[q.tema] || []).push(q));
+      let n = 0;
+      h += `<section class="pr-sec"><h2>Questões comentadas</h2><p class="pr-nota">${escHTML(sm.titulo)} · ${sm.questoes.length} questões, separadas por tema.</p>`;
+      Object.entries(porTema).forEach(([tema, qs]) => { h += `<h3>${escHTML(tema)}</h3>`; qs.forEach(q => { n++; h += `<div class="cad-q"><p><b>${n}.</b> ${q.p}</p><ol type="a">${q.o.map((op, i) => `<li${i === q.c ? ' class="ok"' : ''}>${op}${i === q.c ? ' <span class="cad-ok">(correta)</span>' : ''}</li>`).join('')}</ol>${q.w ? `<p class="cad-w">${q.w}</p>` : ''}</div>`; }); });
+      h += `</section>`;
+    });
+    if(o.roteiro) ROTEIROS.filter(r => r.disc === d.n && r.questoes.some(q => q.resposta)).forEach(r => {
+      h += `<section class="pr-sec"><h2>${escHTML(r.titulo)}</h2>${r.questoes.map((q, i) => `<div class="cad-q"><h4>${i + 1}. ${escHTML(limpa(q.tema))}</h4>${q.pede ? `<p>${q.pede}</p>` : ''}${q.resposta ? (/<(p|ul|ol|div|table)\b/i.test(q.resposta) ? `<div class="cad-w">${q.resposta}</div>` : `<p class="cad-w">${q.resposta}</p>`) : ''}</div>`).join('')}</section>`;
+    });
+    if(o.notas){ const nt = notasDe(d.n); if(nt) h += `<section class="pr-sec"><h2>Minhas anotações</h2>${nt.replace(/<b>([\s\S]*?)<\/b>/g, '<h4>$1</h4>')}</section>`; }
+    return h;
+  };
   function cadernoHTML(d){
     const nome = window.avNome ? ' · ' + escHTML(window.avNome) : '';
     let h = `<section class="cad-capa"><div class="pr-marca">Arquivo Vivo · Caderno de revisão</div><h1>${escHTML(d.name)}</h1><p>Resumos, glossário e questões comentadas${nome}</p><p>Gerado em ${new Date().toLocaleDateString('pt-BR')} · material de apoiador</p></section>`;
@@ -21817,7 +21846,6 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     desempenho: {t:'Seu desempenho', d:'Acertos por tema e o que revisar primeiro', html:desempenhoHTML},
     plano: {t:'Plano de estudos', d:'Sugerido pelo site ou montado por você', html:planoHTML},
     semestre: {t:'Seu semestre em números', d:'Seu resumo do semestre, em formato de story', html:semestreHTML},
-    caderno: {t:'Caderno de revisão', d:'Resumos, glossário e questões comentadas em PDF', disc:true},
     simpdf: {t:'Simulado em PDF', d:'Prova para imprimir, com gabarito separado', disc:true},
     notas: {t:'Minhas anotações', d:'Trechos marcados e notas dos resumos', html:anotacoesHTML}
   };
@@ -21873,7 +21901,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fechar(); });
   function previaFerramenta(qual){
     if(qual === 'ouvir') return EB('Recurso do apoiador') + `<h2>Ouvir o resumo</h2><p class="conta-sub">O site lê o resumo em voz alta, parte por parte, destacando o trecho que está sendo lido. Dá para pausar e acelerar para 1,25x ou 1,5x. Bom para revisar no ônibus ou longe da tela.</p><div class="rs-ferr" style="pointer-events:none"><button>🔊 Ouvir</button><div class="rs-voz"><button>Pausar</button><button>1,25x</button><button>Parar</button></div></div>`;
-    return EB('Recurso do apoiador') + `<h2>Marca-texto e notas</h2><p class="conta-sub">Toque nos pontos do resumo para destacar e escreva notas em cada parte. Fica tudo salvo na sua conta e entra no seu caderno de revisão.</p><div class="rs-step" style="pointer-events:none"><h3>Exemplo</h3><ul><li class="marcado">Um ponto importante destacado com o marca-texto.</li><li>Um ponto comum, sem destaque.</li></ul><div class="rs-nota"><p class="nt-txt">Minha nota: isso caiu na N1!</p></div></div>`;
+    return EB('Recurso do apoiador') + `<h2>Marca-texto e notas</h2><p class="conta-sub">Toque nos pontos do resumo para destacar e escreva notas em cada parte. Fica tudo salvo na sua conta e pode entrar no seu resumão em PDF.</p><div class="rs-step" style="pointer-events:none"><h3>Exemplo</h3><ul><li class="marcado">Um ponto importante destacado com o marca-texto.</li><li>Um ponto comum, sem destaque.</li></ul><div class="rs-nota"><p class="nt-txt">Minha nota: isso caiu na N1!</p></div></div>`;
   }
 })();
 </script>
