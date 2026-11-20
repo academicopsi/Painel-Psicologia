@@ -2309,6 +2309,11 @@
   .portao-marca{display:flex; align-items:center; gap:10px; font-family:var(--serif, Georgia, serif); font-size:21px; font-weight:600; margin:0 0 22px; justify-content:center;}
   .portao-marca img{width:36px; height:36px; border-radius:9px;}
   .portao-caixa .conta-caixa{box-shadow:0 12px 40px rgba(20,33,31,.08);}
+  .conta-google{display:flex; align-items:center; justify-content:center; gap:10px; width:100%; font:inherit; font-size:15px; font-weight:600; color:var(--ink); background:#fff; border:1px solid var(--rule); border-radius:10px; padding:11px 14px; cursor:pointer; margin:4px 0 0;}
+  .conta-google:disabled{opacity:.6;}
+  body.dark .conta-google{background:#fff; color:#1f1f1f;}
+  .conta-ou{display:flex; align-items:center; gap:10px; font-size:12.5px; color:var(--ink-faint); margin:14px 0 4px;}
+  .conta-ou::before, .conta-ou::after{content:''; flex:1; height:1px; background:var(--rule);}
   .portao-carregando{text-align:center; color:var(--ink-soft); padding:30px 0;}
   .portao-rodape{text-align:center; font-size:12.5px; color:var(--ink-faint); margin-top:18px;}
 
@@ -21175,7 +21180,7 @@ document.addEventListener('click', e=>{
 </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 import { getDatabase, ref, get as _get, set as _set_db, remove as _remove, goOnline, goOffline } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
 const app = initializeApp({
@@ -21265,7 +21270,9 @@ const ERROS = {
   'auth/invalid-credential':'E-mail ou senha incorretos.', 'auth/wrong-password':'E-mail ou senha incorretos.', 'auth/user-not-found':'E-mail ou senha incorretos.',
   'auth/email-already-in-use':'Já existe uma conta com este e-mail. Use a aba Entrar.', 'auth/weak-password':'A senha precisa ter pelo menos 6 caracteres.',
   'auth/invalid-email':'Este e-mail não parece válido.', 'auth/missing-password':'Digite a senha.', 'auth/too-many-requests':'Muitas tentativas. Espere alguns minutos e tente de novo.',
-  'auth/network-request-failed':'Sem conexão. Verifique a internet e tente de novo.'
+  'auth/network-request-failed':'Sem conexão. Verifique a internet e tente de novo.',
+  'auth/account-exists-with-different-credential':'Este e-mail já tem conta com outra forma de entrar. Use e-mail e senha.',
+  'auth/unauthorized-domain':'O login com Google ainda não está liberado para este endereço.'
 };
 const erroTxt = e => ERROS[e && e.code] || 'Não deu certo agora. Tente de novo em instantes.';
 const quando = ts => { if(!ts) return 'ainda não sincronizado'; const m = Math.round((Date.now() - ts) / 60000); return m < 1 ? 'sincronizado agora' : m < 60 ? `sincronizado há ${m} min` : 'sincronizado em ' + new Date(ts).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}); };
@@ -21281,6 +21288,8 @@ function formHTML(m){
   return `<h2>${criar ? 'Criar conta' : 'Entrar'}</h2>
     <p class="conta-sub">${criar ? 'Depois de criar a conta, o acesso é liberado pelo Thiago.' : 'Acesso restrito à turma. Entre com a sua conta.'}</p>
     <div class="conta-abas" role="tablist"><button role="tab" data-aba="entrar" aria-selected="${!criar}">Entrar</button><button role="tab" data-aba="criar" aria-selected="${criar}">Criar conta</button></div>${msgHTML(m)}
+    <button class="conta-google" type="button" data-google><svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>${criar ? 'Criar conta com Google' : 'Entrar com Google'}</button>
+    <div class="conta-ou"><span>ou com e-mail e senha</span></div>
     <form class="conta-form" data-form>
       ${criar ? '<label for="cNome">Nome</label><input id="cNome" type="text" autocomplete="name" maxlength="60" required>' : ''}
       <label for="cEmail">E-mail</label><input id="cEmail" type="email" autocomplete="email" required>
@@ -21290,6 +21299,17 @@ function formHTML(m){
 }
 function ligarForm(box, redesenhar){
   box.querySelectorAll('[data-aba]').forEach(b=> b.onclick = ()=>{ aba = b.dataset.aba; redesenhar(); });
+  const g = box.querySelector('[data-google]');
+  if(g) g.onclick = async ()=>{
+    g.disabled = true; const prov = new GoogleAuthProvider(); prov.setCustomParameters({prompt:'select_account'});
+    try{ await signInWithPopup(auth, prov); }
+    catch(e){
+      if(e && (e.code === 'auth/popup-blocked' || e.code === 'auth/operation-not-supported-in-this-environment')){ try{ await signInWithRedirect(auth, prov); return; }catch(e2){ e = e2; } }
+      g.disabled = false;
+      if(e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) return;
+      redesenhar({tipo:'erro', t:erroTxt(e)});
+    }
+  };
   const f = box.querySelector('[data-form]'); if(!f) return;
   f.onsubmit = async ev=>{
     ev.preventDefault(); const bt = f.querySelector('button[type=submit]'); bt.disabled = true;
