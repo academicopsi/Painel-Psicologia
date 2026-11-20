@@ -4290,6 +4290,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides das aulas no resumo e no simulado: história da aposentadoria, fatores de ajuste, como funciona um PPA, memória e linguagem no envelhecimento, diagnóstico diferencial, cuidados paliativos, eutanásia e diretivas antecipadas. 20 questões novas no simulado (agora são 63).', link: {url:'#simulado-idoso-n2'}},
   {date: '2026-11-20', disc: 'Neuroanatomia Humana', desc: '16 casos clínicos comentados no simulado (parte Casos clínicos), cada um com a explicação neuroanatômica e a conexão com a Psicologia. E uma aba nova no resumo: Do sintoma à estrutura. Agora são 131 questões.', link: {url:'#simulado-neuro-n2'}},
   {date: '2026-11-19', disc: 'Psicologia Experimental', desc: 'Guia do Trabalho N2: novo passo 9 com o passo a passo da planilha e do gráfico, seguindo os vídeos da professora (abas, fórmulas e gráfico de colunas LB × INT).', link: {url:'#disc-04'}},
   {date: '2026-11-19', disc: 'Psicologia Experimental', desc: 'Guia do Trabalho N2 (entrega em 25/11): passo a passo do experimento do pronome EU ou NÓS, PowerPoint com os 40 slides, folha de registro para imprimir e lista do que conferir antes de entregar.', link: {url:'#disc-04'}},
@@ -6483,8 +6484,8 @@ SIM_JOGO.push({
   id: 'idoso-n2',
   disc: '05',
   titulo: 'Simulado N2: velhice',
-  desc: '43 questões no estilo vestibular: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos, luto e morte e depressão no idoso.',
-  partes: [{k:'apos', t:'Aposentadoria', n:10}, {k:'neuro', t:'Neuropatológicos', n:10}, {k:'psico', t:'Psicopatológicos', n:10}, {k:'luto', t:'Luto e morte', n:10}, {k:'depressao', t:'Depressão no idoso', n:3}],
+  desc: '63 questões no estilo vestibular: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos, luto e morte, depressão no idoso e os slides das aulas.',
+  partes: [{k:'apos', t:'Aposentadoria', n:10}, {k:'neuro', t:'Neuropatológicos', n:10}, {k:'psico', t:'Psicopatológicos', n:10}, {k:'luto', t:'Luto e morte', n:10}, {k:'depressao', t:'Depressão no idoso', n:3}, {k:'aulas', t:'Slides das aulas', n:20}],
   questoes: [
   {tema:"Aposentadoria", p:"Segundo Silva e Carvalho (2019), a aposentadoria pode ter implicações psicossociais importantes. A principal razão apontada pelos autores é que",
    o:["a aposentadoria sempre causa depressão, em qualquer pessoa.",
@@ -6829,6 +6830,86 @@ SIM_JOGO.push({
       "redução da ansiedade e da irritabilidade com o passar dos anos de vida.",
       "ausência de qualquer efeito sobre o cotidiano da pessoa idosa."],
    c:1, w:"O slide descreve sensação de inutilidade, insuficiência, ansiedade e irritabilidade, que podem levar a falta de motivação, distanciamento da família, limitação física, impotência, falta de autonomia e mais dependência emocional e financeira."},
+
+  {tema:"Aula · Aposentadoria", p:"Segundo a aula, a aposentadoria começou a se firmar nos países industrializados",
+   o:["na Idade Média, com as corporações de ofício.", "no fim do século XIX e início do século XX.", "logo após a Segunda Guerra, só na Europa.", "no século XVIII, com a Revolução Francesa.", "nos anos 2000, com as reformas da previdência."],
+   c:1, w:"A aposentadoria se firmou entre o fim do século XIX e o início do XX. Nos EUA, a Previdência Social dos anos 1930 e os planos das empresas permitiram aposentadorias com segurança financeira, e a aposentadoria obrigatória aos 65 anos ficou quase universal."},
+
+  {tema:"Aula · Aposentadoria", p:"Entre os fatores relevantes para o ajuste à aposentadoria apresentados na aula, NÃO está",
+   o:["a saúde e a condição financeira da pessoa.", "o estresse vivido no emprego antes de se aposentar.", "a qualidade do casamento e os dependentes.", "a idade média dos colegas que ficaram na empresa.", "o planejamento feito para a aposentadoria."],
+   c:3, w:"A aula cita atributos individuais (saúde, finanças), variáveis do trabalho anterior (estresse), variáveis familiares (casamento, dependentes), o planejamento da transição e as atividades depois (trabalho temporário, voluntariado)."},
+
+  {tema:"Aula · Aposentadoria", p:"Para Scortegagna e Oliveira (2012), diante da queda de renda e do preconceito, muitos aposentados",
+   o:["negam a velhice e a idade, por medo de rejeição.", "buscam imediatamente outro emprego de tempo integral.", "passam a valorizar ainda mais o trabalho que fizeram a vida toda.", "rompem os laços com a família para viver sozinhos.", "procuram o PPA da empresa depois de se aposentar."],
+   c:0, w:"Como a sociedade valoriza o trabalho, o aposentado é visto como inútil e incapaz. Por receio de não ser aceito, ele muitas vezes nega a velhice e a idade para continuar em grupos sociais."},
+
+  {tema:"Aula · Aposentadoria", p:"Pelo art. 28 do Estatuto do Idoso, a preparação dos trabalhadores para a aposentadoria deve ter antecedência mínima de",
+   o:["3 meses.", "6 meses.", "1 ano.", "2 anos.", "5 anos."],
+   c:2, w:"O art. 28, II, prevê programas de preparação com antecedência mínima de 1 ano, com estímulo a novos projetos sociais e esclarecimento sobre direitos sociais e de cidadania."},
+
+  {tema:"Aula · Aposentadoria", p:"Segundo a aula, um PPA típico",
+   o:["é feito em uma única palestra, pelo médico do trabalho.", "tem encontros em grupo, coordenados pelo RH, com 40 a 60 horas.", "é obrigatório para as empresas, com multa para quem não oferece.", "acontece depois da aposentadoria, na casa do aposentado.", "é conduzido só pelo psicólogo, em atendimento individual."],
+   c:1, w:"O PPA tem vários encontros, geralmente em grupo, coordenação do RH, equipe multidisciplinar e duração de cerca de 40 a 60 horas, variando entre empresas."},
+
+  {tema:"Aula · Aposentadoria", p:"Pensar no próprio perfil, nas habilidades e nas preferências para decidir o que fazer depois de se aposentar corresponde, no PPA, ao pilar",
+   o:["psicológico, de preparo emocional.", "das atividades futuras.", "financeiro, de controle de gastos.", "jurídico, de direitos trabalhistas.", "médico, de exames periódicos."],
+   c:1, w:"Os três pilares do PPA são o psicológico (preparar-se para a nova realidade), as atividades futuras (perfil, habilidades, preferências) e o financeiro (planejar gastos e expectativa de vida)."},
+
+  {tema:"Aula · Aposentadoria", p:"Pinto e Alves (2014) observaram que, nas empresas, o psicólogo",
+   o:["coordena sozinho todos os programas de aposentadoria.", "fica restrito a recrutamento, seleção e avaliação.", "é obrigado por lei a acompanhar cada pré-aposentado.", "já domina os PPAs desde a graduação.", "atua só depois que o funcionário se aposenta."],
+   c:1, w:"O estudo mostrou psicólogos voltados a recrutamento, seleção e avaliação, com conhecimento superficial sobre PPA. Os autores propõem incluir o tema na graduação em Psicologia."},
+
+  {tema:"Aula · Aposentadoria", p:"Segundo a aula, uma das contribuições do psicólogo ao pré-aposentado é",
+   o:["calcular o valor do benefício previdenciário.", "escolher no lugar dele o que fazer depois.", "ajudar a pessoa e a família a resgatar laços afetivos.", "convencer a pessoa a adiar a aposentadoria o máximo possível.", "substituir o RH na coordenação do programa."],
+   c:2, w:"O psicólogo orienta o planejamento, ajuda a resgatar laços afetivos distanciados pelo tempo dedicado ao trabalho, a descobrir novas habilidades e a reconstruir a identidade social."},
+
+  {tema:"Aula · Quadros neurológicos", p:"Segundo a aula, a partir dos 60 anos o processo de atrofia cerebral",
+   o:["para de acontecer, se a pessoa estiver saudável.", "se acelera, e na doença de Alzheimer é mais acentuado.", "só aparece em quem já tem demência diagnosticada.", "atinge apenas o cerebelo e o tronco encefálico, poupando o córtex.", "se reverte com o treino de memória."],
+   c:1, w:"A atrofia cerebral se acelera a partir dos 60 anos; na doença de Alzheimer, as alterações são mais acentuadas já nas fases iniciais."},
+
+  {tema:"Aula · Quadros neurológicos", p:"No envelhecimento normal, as dificuldades de memória são maiores na memória",
+   o:["semântica do que na episódica.", "episódica do que na semântica.", "procedural do que em qualquer outra.", "semântica e na sintaxe, igualmente.", "de vocabulário do que na episódica."],
+   c:1, w:"Segundo a aula, a memória episódica (acontecimentos) sofre mais que a semântica (conhecimentos gerais)."},
+
+  {tema:"Aula · Quadros neurológicos", p:"Sobre a linguagem no envelhecimento normal, a aula afirma que",
+   o:["o vocabulário encolhe muito depois dos 60 anos.", "a sintaxe é a primeira função a se perder.", "mantém vocabulário e sintaxe; piora a lembrança de palavras.", "a compreensão de frases simples deixa de existir depois dos 70 anos.", "a fala fica igual à da afasia de Wernicke."],
+   c:2, w:"O vocabulário e o processamento sintático ficam relativamente intactos; o que se altera é a lembrança de palavras."},
+
+  {tema:"Aula · Quadros neurológicos", p:"Na histopatologia do envelhecimento, a aula destaca que",
+   o:["qualquer alteração encontrada confirma demência.", "a simples presença de alterações nem sempre prediz deterioração.", "os limites entre normal e patológico são sempre nítidos.", "a idade não precisa ser considerada no diagnóstico.", "só a localização das lesões importa para fechar o diagnóstico final."],
+   c:1, w:"Os limites entre normal e patológico são imprecisos, por isso há critérios consensuais por idade. O diagnóstico considera gravidade, localização, lesões prévias e história de outras doenças."},
+
+  {tema:"Aula · Quadros neurológicos", p:"Entre as etapas do diagnóstico diferencial apresentadas na aula, NÃO está",
+   o:["a anamnese cuidadosa.", "o exame físico e neurológico.", "fechar o diagnóstico numa só consulta, sem reavaliar.", "a avaliação neuropsicológica e psíquico-comportamental.", "os exames de imagem neurológica."],
+   c:2, w:"As etapas são anamnese, exame físico e neurológico, avaliação neuropsicológica e psíquico-comportamental, exames de imagem e acompanhamento longitudinal, ou seja, reavaliar ao longo do tempo."},
+
+  {tema:"Aula · Luto e morte", p:"Segundo a aula, nas diferentes culturas diante da morte,",
+   o:["os rituais e os sentimentos diante da morte são idênticos em todo lugar.", "não existem pontos em comum entre os povos.", "pesar, raiva e medo aparecem, com formas aceitas de expressá-los.", "só as culturas religiosas vivem o luto.", "a morte tem o mesmo significado para todas as gerações."],
+   c:2, w:"O contexto da morte é cultural e histórico, mas pesar, raiva e medo são transculturais, e a maioria das culturas tem maneiras socialmente aceitas de expressá-los no luto e nos rituais."},
+
+  {tema:"Aula · Luto e morte", p:"Quando a morte se torna iminente, segundo Vail et al. (2010), as pessoas tendem a",
+   o:["abandonar as crenças religiosas que tinham.", "se apegar mais à sua visão de mundo cultural e religiosa.", "evitar qualquer conversa sobre o pós-vida.", "perder o interesse por cuidar da própria saúde e da alimentação.", "rejeitar os rituais da própria cultura."],
+   c:1, w:"Há maior adesão à visão de mundo cultural e religiosa, com crença mais forte no pós-vida, o que oferece conforto psicológico."},
+
+  {tema:"Aula · Luto e morte", p:"A frase \"Se pelo menos eu puder viver até minha filha casar, não vou pedir mais nada\" ilustra, no modelo de Kübler-Ross, o estágio de",
+   o:["negação.", "raiva.", "barganha.", "depressão.", "aceitação."],
+   c:2, w:"Barganha é a tentativa de negociar mais tempo. Kübler-Ross descreveu os estágios a partir de conversas com cerca de 500 pacientes terminais, e o modelo é criticado porque nem todos passam por todos nem na mesma ordem."},
+
+  {tema:"Aula · Luto e morte", p:"Suspender ou interromper um tratamento que prolongaria a vida de um paciente terminal, como um suporte de vida, é chamado de",
+   o:["eutanásia ativa.", "eutanásia passiva.", "cuidado paliativo.", "diretiva antecipada.", "procuração indeterminada."],
+   c:1, w:"Na eutanásia passiva suspende-se o tratamento; na ativa há uma ação direta e deliberada para abreviar a vida, que em geral é ilegal."},
+
+  {tema:"Aula · Luto e morte", p:"O documento que indica outra pessoa para tomar decisões caso o autor fique incapacitado é",
+   o:["o testamento de bens.", "a diretiva antecipada de cuidados paliativos.", "a procuração com vigência indeterminada.", "o atestado de óbito.", "o termo de eutanásia ativa."],
+   c:2, w:"A diretiva antecipada (testamento em vida) traz as instruções da própria pessoa; a procuração com vigência indeterminada nomeia alguém para decidir por ela."},
+
+  {tema:"Aula · Luto e morte", p:"Segundo a aula, o objetivo dos cuidados paliativos é",
+   o:["curar a doença ou reverter o seu curso.", "acelerar a morte para reduzir o sofrimento.", "aliviar dor e sintomas e preservar a qualidade de vida.", "manter o paciente vivo a qualquer custo, com todos os aparelhos.", "substituir o acompanhamento da família."],
+   c:2, w:"Os cuidados paliativos incluem alívio da dor e do sofrimento, controle dos sintomas e do estresse e preservação da qualidade de vida; o objetivo não é curar."},
+
+  {tema:"Aula · Luto e morte", p:"Sobre o suicídio na velhice, a aula destaca que",
+   o:["as estatísticas são completas e exatas.", "os familiares raramente sofrem com culpa.", "os números provavelmente subestimam os casos reais.", "as taxas são iguais entre homens e mulheres desde sempre.", "o tema não tem relação com o luto da família."],
+   c:2, w:"Muitos casos não são notificados ou são registrados como acidentes. Os familiares costumam viver culpa, vergonha, rejeição e isolamento por não terem identificado os sinais."}
 
   ]
 });
@@ -10376,7 +10457,7 @@ const RESUMOS = {
     "eyebrow": "Desenvolvimento Adulto e Idoso · Prova N2",
     "titulo": "Velhice: aposentadoria, quadros clínicos e luto",
     "lead": "Os quatro temas da N2, um por aba: aposentadoria e novos ciclos, quadros neuropatológicos, quadros psicopatológicos e luto e morte. Cada aba termina com perguntas de revisão (\"Teste-se\") e quiz.",
-    "fonte": "Resumo feito a partir das leituras do plano da disciplina: Silva e Carvalho (2019), Damasceno (1999), Oliveira et al. (2018), Souza et al. (2023), Borim et al. (2013), Resende et al. (2011) e Menezes e Lopes (2014). As partes de Papalia e Martorell (2021) seguem os conceitos centrais dos capítulos indicados; confira os detalhes no livro.",
+    "fonte": "Resumo feito a partir das leituras do plano da disciplina: Silva e Carvalho (2019), Damasceno (1999), Oliveira et al. (2018), Souza et al. (2023), Borim et al. (2013), Resende et al. (2011) e Menezes e Lopes (2014). As partes de Papalia e Martorell (2021) seguem os conceitos centrais dos capítulos indicados; confira os detalhes no livro. Também foram incorporados os slides das aulas: \"Trabalho e Aposentadoria\", \"Quadros neuropatológicos\" e \"Enfrentamento do luto e morte\" (marcados como \"Da aula\").",
     "caps": [
       {
         "id": "aposentadoria",
@@ -10384,6 +10465,18 @@ const RESUMOS = {
         "titulo": "Aposentadoria e novos ciclos de vida",
         "intro": "O lugar do trabalho na identidade, o que muda ao se aposentar e como a vida adulta tardia se reorganiza.",
         "etapas": [
+          {
+            "fase": "Da aula",
+            "when": "Um pouco de história",
+            "titulo": "Como a aposentadoria surgiu",
+            "pontos": [
+              "A aposentadoria começou a se firmar em países industrializados no <strong>fim do século XIX e início do século XX</strong>.",
+              "Nos Estados Unidos, a criação da <strong>Previdência Social nos anos 1930</strong>, somada a planos de aposentadoria das empresas, permitiu que muitos trabalhadores idosos se aposentassem com segurança financeira.",
+              "Com o tempo, a <strong>aposentadoria obrigatória aos 65 anos</strong> tornou-se quase universal (Papalia e Martorell, 2021, nos slides da aula)."
+            ],
+            "q": "Quando a aposentadoria começou a se firmar nos países industrializados?",
+            "a": "No fim do século XIX e no início do século XX."
+          },
           {
             "fase": "Trabalho e identidade",
             "when": "Silva e Carvalho, 2019",
@@ -10403,10 +10496,24 @@ const RESUMOS = {
               "Afastamento do trabalho e, com ele, de parte das <strong>relações sociais</strong>.",
               "Tem significados diversos: para uns é o momento esperado de \"colher\" os anos de dedicação; para outros, perda.",
               "<strong>Lado positivo:</strong> descanso, mais tempo para família, lazer e saúde, nova vida social.",
-              "<strong>Lado negativo:</strong> perda de status e de vínculos, queda de renda, preconceito (\"inútil\"), ansiedade com o tempo vazio, dificuldade de largar a rotina."
+              "<strong>Lado negativo:</strong> perda de status e de vínculos, queda de renda, preconceito (\"inútil\"), ansiedade com o tempo vazio, dificuldade de largar a rotina.",
+              "Scortegagna e Oliveira (2012): por causa da queda de renda e do preconceito (\"inútil e incapaz\"), muitos aposentados <strong>negam a velhice</strong> e até a idade, por medo de não serem aceitos nos grupos sociais."
             ],
             "q": "Cite dois ganhos e duas perdas possíveis da aposentadoria.",
             "a": "Ganhos: descanso, tempo para família, lazer e saúde. Perdas: status, vínculos do trabalho, renda, rotina; risco de ansiedade e preconceito."
+          },
+          {
+            "when": "Ajuste",
+            "titulo": "O que ajuda a se ajustar",
+            "pontos": [
+              "<strong>Atributos individuais:</strong> saúde e condição financeira.",
+              "<strong>Trabalho antes da aposentadoria:</strong> por exemplo, o estresse no emprego.",
+              "<strong>Família:</strong> qualidade do casamento e dependentes.",
+              "<strong>A transição em si:</strong> principalmente o planejamento para a aposentadoria.",
+              "<strong>Atividades depois:</strong> emprego temporário e trabalho voluntário."
+            ],
+            "q": "Cite três fatores relevantes para o ajuste à aposentadoria.",
+            "a": "Atributos individuais (saúde, finanças), variáveis do trabalho anterior (estresse), variáveis familiares (casamento, dependentes), o planejamento da transição e as atividades depois (trabalho temporário, voluntariado)."
           },
           {
             "when": "Silva e Carvalho, 2019",
@@ -10415,10 +10522,23 @@ const RESUMOS = {
               "Surgem no Brasil por volta de <strong>1980</strong>. O <strong>Estatuto do Idoso</strong> prevê preparar o trabalhador com pelo menos <strong>1 ano</strong> de antecedência.",
               "Objetivo: uma aposentadoria mais saudável, olhando para o aspecto biopsicossocial.",
               "Três pilares: <strong>psicológico</strong>, <strong>atividades futuras</strong> (perfil, habilidades, preferências) e <strong>financeiro</strong>.",
-              "Problema: sem punição para quem não cumpre, <strong>a maioria das empresas não oferece</strong> o programa."
+              "Problema: sem punição para quem não cumpre, <strong>a maioria das empresas não oferece</strong> o programa.",
+              "Estatuto do Idoso, <strong>art. 28, II</strong>: o Poder Público cria e estimula a preparação dos trabalhadores para a aposentadoria, com antecedência mínima de 1 ano, por meio de novos projetos sociais e de esclarecimento sobre direitos sociais e de cidadania."
             ],
             "q": "Quais são os três pilares de um PPA?",
             "a": "Psicológico, atividades futuras e financeiro."
+          },
+          {
+            "when": "Na prática",
+            "titulo": "Como um PPA funciona",
+            "pontos": [
+              "Dantas e Oliveira (2014): o PPA trabalha o desenvolvimento <strong>biológico, psicológico e social</strong> diante da aposentadoria, com indicação de trabalho <strong>multidisciplinar</strong>.",
+              "É composto de vários <strong>encontros, geralmente em grupo</strong>, sob coordenação do <strong>RH</strong> da empresa.",
+              "Dura em torno de <strong>40 a 60 horas</strong>; a distribuição desse tempo varia de empresa para empresa.",
+              "Privilegia o respeito ao ser humano e a qualidade de vida, e é uma ação prévia de custo efetivo para apoiar o papel social do idoso."
+            ],
+            "q": "Como costuma ser organizado um PPA?",
+            "a": "Em encontros, geralmente em grupo, coordenados pelo RH, com equipe multidisciplinar e duração de cerca de 40 a 60 horas."
           },
           {
             "when": "Silva e Carvalho, 2019",
@@ -10426,10 +10546,22 @@ const RESUMOS = {
             "pontos": [
               "Ajudar a pessoa a refletir sobre a trajetória e a nova fase e a <strong>reconstruir a identidade social</strong>.",
               "Orientar sobre o planejamento, apoiar a família e resgatar laços afetivos.",
-              "Atuar de forma <strong>preventiva</strong>, e não só tratando sintomas depois."
+              "Atuar de forma <strong>preventiva</strong>, e não só tratando sintomas depois.",
+              "Também pode: ajudar a descobrir <strong>novas habilidades</strong>, mostrar outras formas de vida, incentivar a criatividade e a autovalorização, e ajudar a compreender os aspectos positivos e negativos de se aposentar."
             ],
             "q": "Que tipo de atuação o artigo defende para o psicólogo na aposentadoria?",
             "a": "Preventiva: preparar antes, ajudando a reconstruir a identidade, planejar e fortalecer vínculos."
+          },
+          {
+            "when": "Entretanto",
+            "titulo": "Por que o psicólogo ainda fica de fora",
+            "pontos": [
+              "Pinto e Alves (2014): nas empresas, o psicólogo costuma ficar restrito a <strong>recrutamento, seleção e avaliação de desempenho</strong>, pouco envolvido com a aposentadoria.",
+              "As organizações pareceram pouco familiarizadas com os PPAs, e os psicólogos tinham conhecimento superficial, vindo da graduação. Os autores propõem <strong>incluir o PPA na formação</strong> em Psicologia.",
+              "Kawano et al. (2012): muitos problemas do aposentado vêm da <strong>perda da identidade</strong> que o trabalho dava, e o PPA também melhora a imagem da empresa diante dos funcionários e da sociedade."
+            ],
+            "q": "Segundo Pinto e Alves (2014), a que costuma se limitar o psicólogo nas empresas?",
+            "a": "A recrutamento, seleção e avaliação de desempenho, com pouco envolvimento na preparação para a aposentadoria."
           },
           {
             "fase": "Vida adulta tardia (Papalia)",
@@ -10544,6 +10676,17 @@ const RESUMOS = {
         "intro": "Onde termina o envelhecimento normal e começa a doença, e o que acontece com quem cuida.",
         "etapas": [
           {
+            "fase": "Da aula",
+            "when": "Contexto",
+            "titulo": "Mais idosos, mais quadros neurológicos",
+            "pontos": [
+              "O envelhecimento da população aumenta o número de pessoas com <strong>doenças neurológicas</strong>, como demências e AVC, com perdas físicas e cognitivas.",
+              "A partir dos <strong>60 anos</strong> o processo de <strong>atrofia cerebral</strong> se acelera; na doença de Alzheimer, essas alterações são mais acentuadas já nas fases iniciais."
+            ],
+            "q": "O que acontece com a atrofia cerebral a partir dos 60 anos?",
+            "a": "Ela se acelera; na doença de Alzheimer, as alterações são mais acentuadas desde as fases iniciais."
+          },
+          {
             "fase": "Normal × patológico",
             "when": "Damasceno, 1999",
             "titulo": "Um limite difícil",
@@ -10567,6 +10710,16 @@ const RESUMOS = {
             "a": "A memória operacional e a memória secundária (recente); a primária (imediata) e a terciária (remota) se preservam mais."
           },
           {
+            "when": "Memória e linguagem",
+            "titulo": "Episódica, semântica e palavras",
+            "pontos": [
+              "No envelhecimento, as dificuldades são maiores na <strong>memória episódica</strong> (acontecimentos vividos) do que na <strong>semântica</strong> (conhecimentos gerais).",
+              "O <strong>vocabulário</strong> e o <strong>processamento sintático</strong> ficam relativamente intactos; o que se altera é a <strong>lembrança de palavras</strong>."
+            ],
+            "q": "No envelhecimento normal, qual memória sofre mais: a episódica ou a semântica?",
+            "a": "A episódica. A semântica, o vocabulário e a sintaxe ficam relativamente preservados."
+          },
+          {
             "when": "Damasceno, 1999",
             "titulo": "Pseudodemência",
             "pontos": [
@@ -10587,6 +10740,18 @@ const RESUMOS = {
             ],
             "q": "O que fazer quando a avaliação inicial é inconclusiva?",
             "a": "Reavaliar depois de 4 a 6 meses para ver se os achados se mantêm."
+          },
+          {
+            "when": "No tecido e na clínica",
+            "titulo": "Normal ou patológico",
+            "pontos": [
+              "Na <strong>histopatologia</strong>, os limites entre normal e patológico também são imprecisos, por isso são necessários critérios consensuais que levem em conta a idade.",
+              "A simples presença das alterações <strong>nem sempre prediz deterioração</strong> neuropsicológica.",
+              "O diagnóstico considera a <strong>gravidade</strong>, a <strong>localização</strong> das alterações, as <strong>lesões prévias</strong> e a <strong>história</strong> de outras doenças.",
+              "Etapas do diagnóstico diferencial, segundo a aula: <strong>anamnese cuidadosa</strong>; <strong>exame físico e neurológico</strong>; <strong>avaliação neuropsicológica e psíquico-comportamental</strong> abrangente; <strong>exames de imagem</strong>; e <strong>acompanhamento longitudinal</strong>."
+            ],
+            "q": "Quais são as etapas do diagnóstico diferencial apresentadas na aula?",
+            "a": "Anamnese cuidadosa, exame físico e neurológico, avaliação neuropsicológica e psíquico-comportamental, exames de imagem e acompanhamento longitudinal."
           },
           {
             "fase": "Quem cuida",
@@ -10930,12 +11095,26 @@ const RESUMOS = {
             "a": "Biológica, social e psicológica."
           },
           {
+            "when": "Cultura",
+            "titulo": "Cultura e religião diante da morte",
+            "pontos": [
+              "Morte e perda são universais, mas o <strong>contexto é cultural e histórico</strong>: um idoso japonês budista, que aprendeu a aceitar o inevitável, pode encará-la diferente de um jovem norte-americano criado para dirigir o próprio destino.",
+              "Ainda assim, há pontos comuns: <strong>pesar, raiva e medo</strong> aparecem em todas as culturas, cada uma com maneiras socialmente aceitas de expressá-los no luto e nos rituais.",
+              "Os idosos podem ter sentimentos confusos: alguns desistem de metas, outros se esforçam mais, adotam hábitos saudáveis ou usam a religião para aliviar a ansiedade.",
+              "Diante da morte iminente, as pessoas tendem a se apegar mais à sua <strong>visão de mundo cultural e religiosa</strong> (Vail et al., 2010), o que oferece conforto psicológico."
+            ],
+            "q": "O que costuma acontecer com as crenças religiosas quando a morte se torna iminente?",
+            "a": "As pessoas tendem a recorrer mais a elas e a acreditar com mais força no pós-vida, o que traz conforto psicológico."
+          },
+          {
             "when": "Papalia e Martorell",
             "titulo": "Os estágios de Kübler-Ross",
             "pontos": [
               "A partir de pacientes terminais, Kübler-Ross descreveu: <strong>negação, raiva, barganha, depressão e aceitação</strong>.",
               "Críticas: as reações <strong>não seguem uma ordem fixa</strong>, podem ir e voltar, e nem todos passam por todas.",
-              "Serve para entender reações possíveis, e não como roteiro obrigatório."
+              "Serve para entender reações possíveis, e não como roteiro obrigatório.",
+              "Ela conversou com cerca de <strong>500 pacientes terminais</strong> e notou que a maioria queria falar abertamente e já sabia que a morte estava próxima.",
+              "Frases típicas: negação (\"Isso não pode estar acontecendo comigo!\"), raiva (\"Por que eu?\"), barganha (\"Se eu puder viver até minha filha casar, não peço mais nada\")."
             ],
             "q": "Qual é a principal crítica ao modelo de Kübler-Ross?",
             "a": "As reações não seguem uma sequência fixa e universal; podem se misturar, voltar ou nem acontecer."
@@ -10962,6 +11141,31 @@ const RESUMOS = {
             ],
             "q": "Qual é o objetivo dos cuidados paliativos?",
             "a": "Aliviar dor e sofrimento e garantir qualidade de vida até o fim, apoiando também a família."
+          },
+          {
+            "when": "Fim da vida",
+            "titulo": "Paliativos, eutanásia e diretivas",
+            "pontos": [
+              "<strong>Cuidados paliativos:</strong> alívio da dor e do sofrimento, controle dos sintomas, alívio do estresse e qualidade de vida. O objetivo <strong>não é curar</strong> nem reverter a doença.",
+              "<strong>Eutanásia</strong> (\"boa morte\"): pôr fim ao sofrimento ou permitir uma morte digna. Ponto central: se atende a um pedido explícito da pessoa.",
+              "<strong>Passiva:</strong> suspender ou interromper um tratamento que prolongaria a vida (remédios, suporte, sondas). <strong>Ativa:</strong> ação direta e deliberada para abreviar a vida; em geral é ilegal.",
+              "<strong>Diretiva antecipada (testamento em vida):</strong> documento em que a pessoa, ainda lúcida, diz quando e como interromper tratamentos ineficazes.",
+              "<strong>Procuração com vigência indeterminada:</strong> indica outra pessoa para decidir caso o autor fique incapacitado."
+            ],
+            "q": "Qual a diferença entre eutanásia passiva e ativa?",
+            "a": "Na passiva, suspende-se um tratamento que prolongaria a vida; na ativa, há uma ação direta e deliberada para abreviá-la, em geral ilegal."
+          },
+          {
+            "when": "Um tema delicado",
+            "titulo": "Suicídio na velhice",
+            "pontos": [
+              "A aula traz o dado de que, em 2016, cerca de <strong>40% dos suicídios</strong> foram de pessoas idosas (dado de Papalia e Martorell).",
+              "As estatísticas provavelmente <strong>subestimam</strong> os casos: muitos não são notificados ou são registrados como acidentes.",
+              "Historicamente, as taxas são maiores entre os homens, mas essa diferença vem diminuindo.",
+              "Os familiares costumam viver um luto ainda mais difícil, com <strong>culpa, vergonha, rejeição e isolamento</strong>, por não terem identificado os sinais."
+            ],
+            "q": "Por que as estatísticas de suicídio na velhice provavelmente subestimam os casos?",
+            "a": "Porque muitos casos não são notificados ou acabam registrados como acidentes."
           },
           {
             "fase": "Idosos longevos (80+)",
