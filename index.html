@@ -3785,6 +3785,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Estudo dirigido da N2 com as 7 perguntas respondidas: memória no envelhecimento, PPA, Kübler-Ross, suicídio na velhice, eutanásia, cuidados paliativos e diagnóstico diferencial.', link: {url:'#disc-05'}},
   {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides das aulas no resumo e no simulado: história da aposentadoria, fatores de ajuste, como funciona um PPA, memória e linguagem no envelhecimento, diagnóstico diferencial, cuidados paliativos, eutanásia e diretivas antecipadas. 20 questões novas no simulado (agora são 63).', link: {url:'#simulado-idoso-n2'}},
   {date: '2026-11-20', disc: 'Neuroanatomia Humana', desc: '16 casos clínicos comentados no simulado (parte Casos clínicos), cada um com a explicação neuroanatômica e a conexão com a Psicologia. E uma aba nova no resumo: Do sintoma à estrutura. Agora são 131 questões.', link: {url:'#simulado-neuro-n2'}},
   {date: '2026-11-19', disc: 'Psicologia Experimental', desc: 'Guia do Trabalho N2: novo passo 9 com o passo a passo da planilha e do gráfico, seguindo os vídeos da professora (abas, fórmulas e gráfico de colunas LB × INT).', link: {url:'#disc-04'}},
@@ -7740,6 +7741,94 @@ const ROTEIROS = [
           'Na pesquisa, o risco é tomar coincidência ou correlação por causa: concluir que a VI produziu o efeito sem controlar outras variáveis, sem replicar e sem manipular a VI. Isso gera conclusões falsas, resultados que não se repetem e intervenções que não funcionam. Ex. da aula 2: concluir que café melhora as notas sem saber quantos alunos foram observados, como o desempenho foi medido e se os grupos eram parecidos.',
           'No dia a dia, o risco é criar crenças e explicações falsas: superstições (a camisa "da sorte"), rótulos sobre pessoas ("ele faz isso porque é preguiçoso") e decisões baseadas em coincidências. Skinner (1948) mostrou isso com pombos: a comida vinha em intervalos fixos, independentemente do que faziam, mas cada um passou a repetir o que estava fazendo quando a comida chegou. A contiguidade acidental bastou para manter um comportamento sem contingência real.'
         ]
+      }
+    ]
+  },
+  {
+    id: 'idoso-ed-n2',
+    disc: '05',
+    titulo: 'Estudo dirigido (N2): velhice',
+    sub: 'As 7 perguntas com respostas',
+    estudo: true,
+    intro: "As 7 perguntas do estudo dirigido de Desenvolvimento Adulto e Idoso para a N2. Cada questão traz a resposta, o que a pergunta cobra e onde aprofundar. Se for para entregar, use as respostas para conferir e escreva com as suas palavras.",
+    dicas: ["Tente responder de cabeça antes de ler a resposta.", "Nas perguntas de dissertar, defina o conceito, explique e dê um exemplo.", "Use os autores da aula: Papalia e Martorell, Kübler-Ross, Damasceno e o Estatuto do Idoso."],
+    questoes: [
+      {
+        tema: "Memória no envelhecimento",
+        caso: "Quais dificuldades relacionadas à memória do idoso podemos citar?",
+        pede: ["Citar as dificuldades de memória do envelhecimento normal", "Indicar o que fica mais preservado"],
+        pense: ["Que tipos de memória declinam mais com a idade? E quais se mantêm?", "A memória episódica e a semântica sofrem da mesma forma?", "O que acontece com o vocabulário e com a lembrança de palavras?", "Por que esse padrão complica diferenciar o envelhecimento normal da demência inicial?"],
+        busque: ["memória no envelhecimento normal", "memória episódica e semântica idoso", "envelhecimento cerebral normal e patológico"],
+        fontes: [{"tipo": "Artigo", "ref": "DAMASCENO, Benito P. Envelhecimento cerebral: o problema dos limites entre o normal e o patológico. Arquivos de Neuro-Psiquiatria, v. 57, n. 1, 1999.", "onde": "Texto base de Quadros neuropatológicos: memória no envelhecimento, pseudodemência e diagnóstico diferencial."}, {"tipo": "Livro", "ref": "PAPALIA, Diane; MARTORELL, Gabriela. Desenvolvimento humano. 14. ed. Porto Alegre: AMGH, 2021.", "onde": "Capítulos da vida adulta tardia: desenvolvimento psicossocial (trabalho e aposentadoria) e o capítulo sobre morte, luto e perda."}],
+        noSite: [{"t": "Resumo · Quadros neuropatológicos", "resumo": "idoso-n2", "cap": 1}],
+        confira: ["Citei o declínio da memória operacional e da recente (secundária)", "Disse que a memória imediata e a remota ficam mais preservadas", "Diferenciei memória episódica de semântica", "Mencionei a lembrança de palavras, com vocabulário e sintaxe preservados"],
+        resposta: ["No envelhecimento normal, declinam mais a memória operacional (a de trabalho, que segura e manipula a informação no momento) e a memória recente ou secundária, que guarda o que acabou de ser aprendido. A memória imediata (primária) e a remota (terciária) ficam mais preservadas.", "As dificuldades são maiores na memória episódica, que guarda acontecimentos vividos, do que na semântica, que guarda conhecimentos gerais. O vocabulário e o processamento sintático ficam relativamente intactos; o que se altera é a lembrança de palavras.", "A partir dos 60 anos a atrofia cerebral se acelera. O detalhe que complica: esse padrão de memória é parecido com o das fases iniciais da doença de Alzheimer, por isso diferenciar a velhice normal da demência inicial exige avaliação cuidadosa."]
+      },
+      {
+        tema: "Aposentadoria · o PPA",
+        caso: "Disserte sobre o Programa de Preparação para a Aposentadoria (PPA) e a importância dele na manutenção da identidade e na prevenção da queda da autoestima do idoso.",
+        pede: ["Explicar o que é o PPA e como funciona", "Relacionar o PPA à identidade construída pelo trabalho", "Explicar como ele protege a autoestima"],
+        pense: ["Por que o trabalho é tão importante para a identidade?", "O que a pessoa perde ao se aposentar, além do salário?", "O que diz o Estatuto do Idoso sobre a preparação para a aposentadoria?", "Quais são os três pilares do PPA? Como cada um ajuda?", "Onde entra o psicólogo?"],
+        busque: ["programa de preparação para aposentadoria", "aposentadoria identidade autoestima", "PPA psicólogo organizacional"],
+        fontes: [{"tipo": "Artigo", "ref": "CARVALHO, E.; SILVA, T. Aposentadoria: fase de transformações psicossociais. Revista Uningá, v. 56, n. S1, p. 56-67, 2019.", "onde": "Base dos slides de Trabalho e Aposentadoria, com o PPA e o papel do psicólogo."}, {"tipo": "Livro", "ref": "PAPALIA, Diane; MARTORELL, Gabriela. Desenvolvimento humano. 14. ed. Porto Alegre: AMGH, 2021.", "onde": "Capítulos da vida adulta tardia: desenvolvimento psicossocial (trabalho e aposentadoria) e o capítulo sobre morte, luto e perda."}],
+        noSite: [{"t": "Resumo · Aposentadoria e novos ciclos de vida", "resumo": "idoso-n2", "cap": 0}],
+        confira: ["Expliquei o papel do trabalho na identidade (renda e inserção social)", "Citei o Estatuto do Idoso (art. 28, mínimo de 1 ano antes)", "Descrevi os três pilares e o formato do PPA", "Liguei o PPA à reconstrução da identidade e à autoestima", "Falei do papel do psicólogo e da baixa oferta nas empresas"],
+        resposta: ["O trabalho ocupa papel central na identidade: além da renda, insere a pessoa no meio social e traz reconhecimento e pertencimento. Por isso a aposentadoria pode gerar conflitos psicossociais: some a identidade social ligada ao trabalho, a renda pode cair e há o preconceito de que o aposentado é \"inútil e incapaz\", o que fere a autoestima e leva alguns a negar a velhice (Scortegagna e Oliveira, 2012).", "O PPA é o programa que prepara o trabalhador para essa transição. O Estatuto do Idoso (art. 28, II) prevê a preparação com antecedência mínima de 1 ano, com estímulo a novos projetos sociais e esclarecimento sobre direitos. Na prática, são encontros em grupo, coordenados pelo RH, com equipe multidisciplinar, em cerca de 40 a 60 horas, trabalhando os aspectos biológicos, psicológicos e sociais.", "Ele se apoia em três pilares: o psicológico (preparar-se para a nova realidade), as atividades futuras (pensar no perfil, nas habilidades e nas preferências para decidir o que fazer depois) e o financeiro (planejar os gastos). Ao antecipar a perda e construir novos projetos, o PPA ajuda a reconstruir a identidade social em vez de deixá-la desaparecer com o crachá, o que protege a autoestima e favorece uma aposentadoria mais saudável.", "O psicólogo pode orientar o planejamento, ajudar a descobrir novas habilidades, resgatar laços familiares distanciados pelo trabalho e mostrar os aspectos positivos e negativos da aposentadoria. Ainda assim, muitas empresas não oferecem o programa, e os psicólogos organizacionais costumam ficar restritos a recrutamento e seleção (Pinto e Alves, 2014)."]
+      },
+      {
+        tema: "Luto · os estágios de Kübler-Ross",
+        caso: "Ao atuar com doentes terminais, Elisabeth Kübler-Ross teorizou cinco estágios na relação com a morte. Disserte sobre eles e a crítica feita por autores contemporâneos.",
+        pede: ["Apresentar os cinco estágios", "Explicar cada um, de preferência com um exemplo", "Apresentar a crítica contemporânea"],
+        pense: ["Como Kübler-Ross chegou aos estágios?", "Que frase poderia ilustrar cada estágio?", "Todo mundo passa pelos cinco? Na mesma ordem?", "Para que o modelo ainda serve?"],
+        busque: ["estágios de Kübler-Ross", "Kübler-Ross críticas modelo", "sobre a morte e o morrer"],
+        fontes: [{"tipo": "Livro", "ref": "PAPALIA, Diane; MARTORELL, Gabriela. Desenvolvimento humano. 14. ed. Porto Alegre: AMGH, 2021.", "onde": "Capítulos da vida adulta tardia: desenvolvimento psicossocial (trabalho e aposentadoria) e o capítulo sobre morte, luto e perda."}, {"tipo": "Livro", "ref": "KÜBLER-ROSS, Elisabeth. Sobre a morte e o morrer. São Paulo: Martins Fontes.", "onde": "Obra original em que a autora descreve os estágios a partir das conversas com pacientes."}],
+        noSite: [{"t": "Resumo · Enfrentamento do luto e da morte", "resumo": "idoso-n2", "cap": 3}],
+        confira: ["Citei os cinco estágios na ordem do modelo", "Expliquei cada um", "Citei a origem (cerca de 500 pacientes terminais)", "Apresentei a crítica: sem ordem fixa, oscilação, nem todos passam"],
+        resposta: ["A partir de conversas com cerca de 500 pacientes terminais, Kübler-Ross percebeu que a maioria queria falar abertamente da própria condição e já sabia que a morte estava próxima. Ela descreveu cinco estágios:", "1. Negação (\"Isso não pode estar acontecendo comigo!\"): a pessoa recusa a notícia. 2. Raiva (\"Por que eu?\"): revolta contra a situação, a equipe ou a família. 3. Barganha (\"Se eu puder viver até minha filha casar, não peço mais nada\"): tentativa de negociar mais tempo. 4. Depressão: tristeza diante das perdas que já aconteceram e das que virão. 5. Aceitação: a pessoa encara a morte com mais serenidade.", "A crítica dos autores contemporâneos é que o modelo não funciona como sequência obrigatória. Embora essas emoções sejam comuns, nem todos passam pelos cinco estágios, e não necessariamente na mesma ordem: a pessoa pode oscilar entre raiva e depressão ou sentir as duas ao mesmo tempo. Hoje o modelo serve para reconhecer reações possíveis, e não como roteiro a ser cumprido."]
+      },
+      {
+        tema: "Suicídio na velhice",
+        caso: "Apesar de ser um tabu, o suicídio em idosos representou, em 2016, cerca de 40% dos casos registrados. Todavia, esse número pode ser ainda maior. Por quê?",
+        pede: ["Explicar por que os números provavelmente subestimam a realidade"],
+        pense: ["Todo suicídio chega a ser notificado como suicídio?", "Como algumas dessas mortes acabam registradas?", "Que papel o tabu tem na notificação?"],
+        busque: ["suicídio idosos subnotificação", "suicídio na velhice"],
+        fontes: [{"tipo": "Livro", "ref": "PAPALIA, Diane; MARTORELL, Gabriela. Desenvolvimento humano. 14. ed. Porto Alegre: AMGH, 2021.", "onde": "Capítulos da vida adulta tardia: desenvolvimento psicossocial (trabalho e aposentadoria) e o capítulo sobre morte, luto e perda."}],
+        noSite: [{"t": "Resumo · Enfrentamento do luto e da morte", "resumo": "idoso-n2", "cap": 3}],
+        confira: ["Expliquei a subnotificação", "Citei mortes registradas como acidentes", "Relacionei com o tabu"],
+        resposta: ["Porque as estatísticas provavelmente subestimam os casos. Muitos suicídios não são notificados, e outros não são reconhecidos como tais: acabam registrados como acidentes, por exemplo de automóvel ou com medicamentos.", "O próprio tabu contribui: famílias e serviços podem evitar o registro, e os sinais muitas vezes passam despercebidos. Na velhice, isso se soma à depressão pouco reconhecida, já que falas de inutilidade e desesperança costumam ser tratadas como \"coisa da idade\".", "A aula também lembra que os familiares de quem tirou a própria vida costumam viver um luto mais difícil, com culpa, vergonha, rejeição e isolamento."]
+      },
+      {
+        tema: "Eutanásia · passiva e ativa",
+        caso: "O que significa eutanásia? Qual a diferença entre a eutanásia passiva e a ativa?",
+        pede: ["Definir eutanásia", "Diferenciar a passiva da ativa"],
+        pense: ["O que quer dizer a palavra eutanásia?", "Qual a importância do pedido da própria pessoa?", "Suspender um tratamento é o mesmo que agir para abreviar a vida?"],
+        busque: ["eutanásia passiva e ativa", "diretivas antecipadas de vontade"],
+        fontes: [{"tipo": "Livro", "ref": "PAPALIA, Diane; MARTORELL, Gabriela. Desenvolvimento humano. 14. ed. Porto Alegre: AMGH, 2021.", "onde": "Capítulos da vida adulta tardia: desenvolvimento psicossocial (trabalho e aposentadoria) e o capítulo sobre morte, luto e perda."}],
+        noSite: [{"t": "Resumo · Enfrentamento do luto e da morte", "resumo": "idoso-n2", "cap": 3}],
+        confira: ["Defini eutanásia como \"boa morte\"", "Destaquei o pedido explícito da pessoa", "Diferenciei passiva (suspender tratamento) de ativa (ação direta)", "Mencionei que a ativa em geral é ilegal"],
+        resposta: ["Eutanásia significa \"boa morte\". Tem como objetivo pôr fim ao sofrimento ou permitir que um doente terminal morra com dignidade. Uma questão central é se ela atende a uma solicitação direta, um desejo explícito, da pessoa que vai morrer.", "Na eutanásia passiva, suspende-se ou interrompe-se um tratamento que poderia prolongar a vida do paciente terminal, como medicação, aparelhos de suporte à vida ou sondas de nutrição. Na eutanásia ativa, há uma ação direta e deliberada para abreviar a vida; ela é às vezes chamada de \"morte por misericórdia\" e, em geral, é ilegal.", "Ligada a isso está a diretiva antecipada (testamento em vida), em que a pessoa, ainda lúcida, registra quando e como interromper tratamentos ineficazes, e a procuração com vigência indeterminada, que indica alguém para decidir se ela ficar incapacitada."]
+      },
+      {
+        tema: "Cuidados paliativos",
+        caso: "O que são cuidados paliativos?",
+        pede: ["Definir cuidados paliativos", "Dizer o que eles buscam e o que não buscam"],
+        pense: ["Qual é o foco: a doença ou a pessoa?", "Cuidados paliativos tentam curar?", "O que é a assistência ao doente terminal (hospice)?"],
+        busque: ["cuidados paliativos definição", "hospice cuidados paliativos"],
+        fontes: [{"tipo": "Livro", "ref": "PAPALIA, Diane; MARTORELL, Gabriela. Desenvolvimento humano. 14. ed. Porto Alegre: AMGH, 2021.", "onde": "Capítulos da vida adulta tardia: desenvolvimento psicossocial (trabalho e aposentadoria) e o capítulo sobre morte, luto e perda."}],
+        noSite: [{"t": "Resumo · Enfrentamento do luto e da morte", "resumo": "idoso-n2", "cap": 3}],
+        confira: ["Citei alívio da dor, dos sintomas e do estresse", "Citei a qualidade de vida", "Disse que o objetivo não é curar", "Mencionei o apoio à família"],
+        resposta: ["Cuidados paliativos são os cuidados oferecidos a quem tem uma doença sem perspectiva de cura, como na assistência ao doente terminal. Incluem o alívio da dor e do sofrimento, o controle dos sintomas, o alívio do estresse e a tentativa de preservar uma qualidade de vida satisfatória até o fim, com apoio também à família.", "O objetivo não é curar nem reverter o curso da doença, e sim cuidar da pessoa. Eles fazem parte do movimento por um morrer mais humano, que encara a morte com mais honestidade."]
+      },
+      {
+        tema: "Diagnóstico diferencial",
+        caso: "Disserte sobre a importância do diagnóstico diferencial.",
+        pede: ["Explicar por que diferenciar envelhecimento normal, demência e pseudodemência", "Apresentar as etapas do diagnóstico diferencial"],
+        pense: ["Por que é difícil separar o envelhecimento normal da doença de Alzheimer inicial?", "O que é pseudodemência? Por que ela importa?", "A presença de alterações no cérebro basta para diagnosticar?", "Quais etapas a aula propõe?"],
+        busque: ["diagnóstico diferencial demência pseudodemência", "envelhecimento normal e Alzheimer inicial"],
+        fontes: [{"tipo": "Artigo", "ref": "DAMASCENO, Benito P. Envelhecimento cerebral: o problema dos limites entre o normal e o patológico. Arquivos de Neuro-Psiquiatria, v. 57, n. 1, 1999.", "onde": "Texto base de Quadros neuropatológicos: memória no envelhecimento, pseudodemência e diagnóstico diferencial."}, {"tipo": "Livro", "ref": "PAPALIA, Diane; MARTORELL, Gabriela. Desenvolvimento humano. 14. ed. Porto Alegre: AMGH, 2021.", "onde": "Capítulos da vida adulta tardia: desenvolvimento psicossocial (trabalho e aposentadoria) e o capítulo sobre morte, luto e perda."}],
+        noSite: [{"t": "Resumo · Quadros neuropatológicos", "resumo": "idoso-n2", "cap": 1}],
+        confira: ["Expliquei a semelhança entre o envelhecimento normal e o Alzheimer inicial", "Falei da ausência de marcador biológico seguro", "Expliquei a pseudodemência e o risco de rotular cedo", "Citei as cinco etapas, incluindo o acompanhamento longitudinal"],
+        resposta: ["O diagnóstico diferencial é importante porque o envelhecimento normal se parece com as fases iniciais da doença de Alzheimer: os dois mostram declínio da memória operacional e recente. Não existe marcador biológico seguro, os testes podem dar falso-positivo ou falso-negativo e, no tecido cerebral, os limites entre normal e patológico também são imprecisos: a simples presença de alterações nem sempre prediz deterioração.", "Há ainda a pseudodemência: um quadro que parece demência, mas tem outra causa, como depressão ou ansiedade. Tratada a causa, a cognição pode melhorar. Rotular demência cedo demais leva a tratamentos errados, ao estigma e ao abandono de uma condição que tinha tratamento.", "Por isso a aula propõe etapas: anamnese cuidadosa, exame físico e neurológico, avaliação neuropsicológica e psíquico-comportamental abrangente (considerando o nível de funcionamento anterior), exames de imagem e acompanhamento longitudinal, reavaliando a pessoa ao longo do tempo, por exemplo em 4 a 6 meses."]
       }
     ]
   }
