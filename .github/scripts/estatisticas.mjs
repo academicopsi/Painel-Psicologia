@@ -53,7 +53,7 @@ const dias = []; for(let i = 13; i >= 0; i--){ const d = diasAtras(i); dias.push
 const contaDias = n => { const s = new Set(); for(let i = 0; i < n; i++){ const d = diasAtras(i); if(porDia[d]) porDia[d].forEach(x => s.add(x)); } return s.size; };
 const saida = {
   em: Date.now(),
-  contas: { liberadas: Object.values(ac).filter(sim).length, apoiadores: Object.values(ap).filter(sim).length, comProgresso },
+  contas: { liberadas: Object.values(ac).filter(sim).length, apoiadores: Object.values(ap).filter(v => (sim(v) ? new Date('2026-12-20T23:59:59-03:00').getTime() : (v && typeof v === 'object' && +v.ate) || 0) > Date.now()).length, comProgresso },
   ativos: { d1: contaDias(2), d7: contaDias(7) },
   dias,
   simulados: Object.entries(simAgg).filter(([, a]) => a.pessoas.size >= MIN).map(([id, a]) => ({id, pessoas: a.pessoas.size, media: Math.round(a.soma / a.pessoas.size)})).sort((x, y) => x.media - y.media),
