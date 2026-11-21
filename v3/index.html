@@ -3515,7 +3515,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="tool-disclaimer">Os dois sistemas interagem o tempo todo; cada situação foi escrita para destacar o sistema predominante.</div>
       </div>
     </details>
-    <details class="graveyard">
+    <details class="graveyard" style="display:none">
       <summary>Corte da Medula</summary>
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Corte transversal da medula espinhal. Toque num número, escolha o nome da estrutura e clique em "Corrigir". As estruturas que você acertar ficam verdes e mostram a função.</div>
@@ -3606,7 +3606,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="tool-disclaimer">Esquema redesenhado a partir do slide "Representação esquemática do sistema nervoso autônomo" (aula de SNA). Desenho simplificado, fora de escala.</div>
       </div>
     </details>
-      <details class="graveyard">
+      <details class="graveyard" style="display:none">
       <summary>Qual Classe de Neuromediador?</summary>
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Leia o neuromediador e indique a classe a que ele pertence, como na tabela do slide de sinapse química.</div>
@@ -3667,7 +3667,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         </div>
       </div>
     </details>
-    <details class="graveyard">
+    <details class="graveyard" style="display:none">
       <summary>Qual Período? (Piaget)</summary>
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Leia a situação e identifique o período do desenvolvimento cognitivo que ela ilustra, segundo Piaget.</div>
@@ -3742,7 +3742,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="tool-disclaimer">Exercício de reconhecimento de conceitos, sem finalidade de avaliar pessoas reais.</div>
       </div>
     </details>
-    <details class="graveyard">
+    <details class="graveyard" style="display:none">
       <summary>Linha do Tempo da Dislexia</summary>
       <div class="tool-card" style="margin-top:12px;">
         <div class="sub">Os marcos históricos da dislexia estão embaralhados. Use as setas para colocar do mais antigo ao mais recente e clique em "Corrigir": os anos aparecem depois.</div>
@@ -4332,7 +4332,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-21', disc: '1º semestre', desc: '22 exercícios interativos novos no 1º semestre: linhas do tempo, monte o esquema do condicionamento, leis da Gestalt em figuras, laboratório de psicofísica (Weber e método dos limites), monte H0 e H1, régua das idades, monte a ZDP, desmonte a obra (Vigotski), decifre o Mito da Caverna e outros.', link: {url:'#exercicios'}},
+  {date: '2026-11-21', disc: '1º semestre', desc: 'Exercícios interativos novos no 1º semestre: monte o esquema do condicionamento, leis da Gestalt em figuras, o caminho da memória, régua das idades, monte a ZDP, desmonte a obra (Vigotski), linha do tempo da filosofia e outros.', link: {url:'#exercicios'}},
   {date: '2026-11-21', disc: '1º semestre', desc: 'O 1º semestre ganhou conteúdo no mesmo padrão do 2º: 16 resumos (50 abas, cada tópico com Teste-se, e 297 perguntas de quiz), 249 questões de simulado, 35 discursivas, 2 estudos dirigidos, glossário com 208 termos, 21 comparações, ferramentas de exercício e um laboratório de Estatística. Na Minha área, escolha o seu semestre.', link: {url:'#disc-11'}},
   {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Estudo dirigido da N2 com as 7 perguntas respondidas: memória no envelhecimento, PPA, Kübler-Ross, suicídio na velhice, eutanásia, cuidados paliativos e diagnóstico diferencial.', link: {url:'#disc-05'}},
   {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides das aulas no resumo e no simulado: história da aposentadoria, fatores de ajuste, como funciona um PPA, memória e linguagem no envelhecimento, diagnóstico diferencial, cuidados paliativos, eutanásia e diretivas antecipadas. 20 questões novas no simulado (agora são 63).', link: {url:'#simulado-idoso-n2'}},
@@ -15095,7 +15095,7 @@ function renderFeed(items){
   }).join('');
 }
 
-const P1_VERSAO = '6';
+const P1_VERSAO = '7';
 function DISC_TODAS(){ return DISC[2].concat(DISC[1]); }
 // semestre do aluno (escolhido na Minha área): as listas do site mostram só as disciplinas dele
 function avSemestre(){ try{ return localStorage.getItem('av-semestre') === '1' ? '1' : '2'; }catch(e){ return '2'; } }
