@@ -1130,6 +1130,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   /* nav: disciplinas */
   .ni-icon.ni-num{font-size:12px; font-weight:800;}
   .nav-dd-disc{min-width:320px;}
+  .nav-dd-disc .nav-p1{border-top:1px solid var(--line, #E2E0D8); margin-top:4px; padding-top:10px;}
 
   /* busca */
   .hero-search{
@@ -2776,6 +2777,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .hj-inicio:hover{border-color:var(--petrol);}
   .hj-fim-btn{display:block; width:100%; margin:18px 0 0; font:inherit; font-size:15px; font-weight:600; color:var(--petrol-dark); background:var(--paper); border:1.5px solid var(--petrol-line); border-radius:12px; padding:14px; cursor:pointer;}
   .hj-fim-btn:hover{border-color:var(--petrol);}
+  .p1-carregando{position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:10060; display:flex; align-items:center; gap:10px; background:#14211F; color:#fff; font-size:14px; padding:11px 18px; border-radius:999px; box-shadow:0 8px 24px rgba(0,0,0,.18); max-width:calc(100vw - 32px);}
+  .p1-carregando.erro{background:#A32D2D;}
+  .p1-bolinha{width:10px; height:10px; border-radius:50%; background:#F4B9C1; animation:p1pulso .9s ease-in-out infinite alternate;}
+  @keyframes p1pulso{from{transform:scale(.6); opacity:.5} to{transform:scale(1.15); opacity:1}}
 </style>
 </head>
 <body>
@@ -2795,7 +2800,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <button class="nav-link nav-trigger" aria-expanded="false">Disciplinas <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="nav-group-label">Disciplinas</div>
         <div class="nav-dropdown nav-dd-disc">
-          <button class="nav-item" data-open-disc="01"><span class="ni-icon ni-num">01</span><span class="ni-text"><strong>Bases Biológicas</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="02"><span class="ni-icon ni-num">02</span><span class="ni-text"><strong>Neuroanatomia Humana</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="03"><span class="ni-icon ni-num">03</span><span class="ni-text"><strong>Psicologia da Aprendizagem</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="04"><span class="ni-icon ni-num">04</span><span class="ni-text"><strong>Psicologia Experimental</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="05"><span class="ni-icon ni-num">05</span><span class="ni-text"><strong>Desenvolvimento Adulto e Idoso</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="06"><span class="ni-icon ni-num">06</span><span class="ni-text"><strong>Projeto de Extensão</strong><small>Drive, prazos, resumos e exercícios</small></span></button>
+          <button class="nav-item" data-open-disc="01"><span class="ni-icon ni-num">01</span><span class="ni-text"><strong>Bases Biológicas</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="02"><span class="ni-icon ni-num">02</span><span class="ni-text"><strong>Neuroanatomia Humana</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="03"><span class="ni-icon ni-num">03</span><span class="ni-text"><strong>Psicologia da Aprendizagem</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="04"><span class="ni-icon ni-num">04</span><span class="ni-text"><strong>Psicologia Experimental</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="05"><span class="ni-icon ni-num">05</span><span class="ni-text"><strong>Desenvolvimento Adulto e Idoso</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item" data-open-disc="06"><span class="ni-icon ni-num">06</span><span class="ni-text"><strong>Projeto de Extensão</strong><small>Drive, prazos, resumos e exercícios</small></span></button><button class="nav-item nav-p1" data-p1-grade><span class="ni-icon ni-num">1º</span><span class="ni-text"><strong>1º período</strong><small>Estatística, Fenômenos, Introdução, Desenvolvimento, Artes e Filosofia</small></span></button>
         </div>
       </div>
       <div class="nav-group">
@@ -4331,17 +4336,19 @@ const UPDATES = [
 /* ---------------------------------------------------------------------
    3. DISCIPLINAS E PASTAS DO DRIVE
    1 = primeiro semestre, 2 = segundo semestre (o atual).
+   As disciplinas do 1º semestre usam os números 11 a 16 (rot é o número mostrado na tela);
+   o conteúdo delas fica em conteudo/1-periodo.js e só é baixado quando alguém entra no 1º período.
    As disciplinas do semestre 2 ganham página própria (#disc-01 etc.).
    Formato: {n:'07', name:'Nome da disciplina', url:'link da pasta no Drive'},
    --------------------------------------------------------------------- */
 const DISC = {
   1: [
-    {n:'01', name:'Estatística Aplicada à Psicologia', url:'https://drive.google.com/drive/folders/1kiPG5CsHaQoyuZJE5xRM2pBNUKdLSLux'},
-    {n:'02', name:'Fenômenos e Processos Psicológicos Básicos', url:'https://drive.google.com/drive/folders/1VmaCFELi-RJfb3OqolN60dfzZtuv7yWz'},
-    {n:'03', name:'Introdução à Psicologia', url:'https://drive.google.com/drive/folders/1ySZ8RMbnr7oI2xUlypekVrB_EzjONQZZ'},
-    {n:'04', name:'Psicologia do Desenvolvimento: Infância e Adolescência', url:'https://drive.google.com/drive/folders/1DgQKq_NNPJKkNV5q9iTj4LWtT6vXJMRH'},
-    {n:'05', name:'Psicologia e Artes', url:'https://drive.google.com/drive/folders/1dDbvtliXGNopD4z9O1GpJQOSyUMcAwn3'},
-    {n:'06', name:'Filosofia', url:'https://drive.google.com/drive/folders/1IfblTgec1PL0lWiEE3M13Uiu6sDallsk'},
+    {n:'11', rot:'01', name:'Estatística Aplicada à Psicologia', url:'https://drive.google.com/drive/folders/1kiPG5CsHaQoyuZJE5xRM2pBNUKdLSLux'},
+    {n:'12', rot:'02', name:'Fenômenos e Processos Psicológicos Básicos', url:'https://drive.google.com/drive/folders/1VmaCFELi-RJfb3OqolN60dfzZtuv7yWz'},
+    {n:'13', rot:'03', name:'Introdução à Psicologia', url:'https://drive.google.com/drive/folders/1ySZ8RMbnr7oI2xUlypekVrB_EzjONQZZ'},
+    {n:'14', rot:'04', name:'Psicologia do Desenvolvimento: Infância e Adolescência', url:'https://drive.google.com/drive/folders/1DgQKq_NNPJKkNV5q9iTj4LWtT6vXJMRH'},
+    {n:'15', rot:'05', name:'Psicologia e Artes', url:'https://drive.google.com/drive/folders/1dDbvtliXGNopD4z9O1GpJQOSyUMcAwn3'},
+    {n:'16', rot:'06', name:'Filosofia', url:'https://drive.google.com/drive/folders/1IfblTgec1PL0lWiEE3M13Uiu6sDallsk'},
   ],
   2: [
     {n:'01', name:'Bases Biológicas', url:'https://drive.google.com/drive/folders/1T5BqXrKGFw5VIOx7K01GJJ6iAWehyb2i'},
@@ -15014,16 +15021,16 @@ function renderGrid(sem){
   const grid = document.getElementById('grid');
   grid.innerHTML = DISC[sem].map(d=>`<div class="card" data-d="${d.n}" data-search="${d.name.toLowerCase()}">
       <div class="card-top">
-        <span class="idx">${d.n}</span>
+        <span class="idx">${d.rot || d.n}</span>
         <span class="drive-tag">
           <svg class="drive-icon" width="30" height="30" viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 8H6l-4-8Z" fill="none"/><path d="M8.5 3 3 12.5 6 18 11.5 8.5Z" fill="#4285F4"/><path d="M15.5 3 21 12.5 18 18h-6.5L17 8.5Z" fill="#34A853"/><path d="M6 18h12l-2.5-4.5h-7Z" fill="#FBBC05"/></svg>
           <span>Google Drive</span>
         </span>
       </div>
-      ${String(sem) === '2' ? `<button class="name name-link" data-open-disc="${d.n}">${d.name}</button>` : `<span class="name">${d.name}</span>`}<span class="drive-folders">Livros · Slides · Extras</span>
+      <button class="name name-link" data-open-disc="${d.n}">${d.name}</button><span class="drive-folders">Livros · Slides · Extras</span>
       <div class="card-actions">
         <a class="card-drive" href="${d.url}" target="_blank" rel="noopener">Abrir Drive ↗</a>
-        ${String(sem) === '2' ? `<button class="card-disc" data-open-disc="${d.n}">Ver disciplina →</button>` : ''}
+        <button class="card-disc" data-open-disc="${d.n}">Ver disciplina →</button>
       </div>
     </div>`).join('');
 }
@@ -15073,6 +15080,8 @@ function renderFeed(items){
   }).join('');
 }
 
+const P1_VERSAO = '1';
+function DISC_TODAS(){ return DISC[2].concat(DISC[1]); }
 const ALL_DISC = [...DISC[1].map(d=>({...d, sem:'1º sem.'})), ...DISC[2].map(d=>({...d, sem:'2º sem.'}))];
 
 renderFeed(UPDATES);
@@ -15360,8 +15369,49 @@ document.getElementById('navBurger').addEventListener('click', ()=>{
 });
 
 // Abrir direto numa página pelo endereço (ex.: link antigo tarefas.html → index.html#viewPrazos)
+// ===== Semestres anteriores: o conteúdo do 1º período fica em conteudo/1-periodo.js e só é baixado quando alguém entra nele =====
+let p1Promessa = null;
+function carregarP1(){
+  if(window.avP1Pronto) return Promise.resolve();
+  if(p1Promessa) return p1Promessa;
+  const aviso = document.createElement('div'); aviso.className = 'p1-carregando'; aviso.setAttribute('role', 'status');
+  aviso.innerHTML = '<span class="p1-bolinha"></span>Psiu está buscando o 1º período…';
+  const mostrar = setTimeout(()=> document.body.appendChild(aviso), 250);
+  p1Promessa = new Promise((ok, erro)=>{
+    const sc = document.createElement('script');
+    sc.src = 'conteudo/1-periodo.js?v=' + P1_VERSAO;
+    sc.onload = ()=>{ clearTimeout(mostrar); aviso.remove(); if(window.avP1Pronto) ok(); else { p1Promessa = null; erro(new Error('conteúdo incompleto')); } };
+    sc.onerror = ()=>{ clearTimeout(mostrar); p1Promessa = null; sc.remove();
+      aviso.innerHTML = 'Não consegui baixar o 1º período. Confira a internet e tente de novo.'; aviso.classList.add('erro'); if(!aviso.isConnected) document.body.appendChild(aviso);
+      setTimeout(()=> aviso.remove(), 4000); erro(new Error('falha ao baixar')); };
+    document.head.appendChild(sc);
+  });
+  return p1Promessa;
+}
+window.carregarP1 = carregarP1;
+// recebe o conteúdo do arquivo do semestre e junta ao do site
+window.avP1Instalar = function(c){
+  if(window.avP1Pronto) return;
+  (c.study || []).forEach(x => STUDY.push(x));
+  Object.assign(RESUMOS, c.resumos || {});
+  (c.simulados || []).forEach(x => SIM_JOGO.push(x));
+  (c.roteiros || []).forEach(x => ROTEIROS.push(x));
+  (c.glossario || []).forEach(x => GLOSSARIO.push(x));
+  if(window.avDiscursivasAdd) window.avDiscursivasAdd(c.discursivas || []);
+  window.avP1Secoes = c.secoes || {};
+  window.avP1Pronto = true;
+  try{ localStorage.setItem('av-p1', '1'); }catch(e){}
+  if(typeof c.depois === 'function'){ try{ c.depois(); }catch(e){ console.error(e); } }
+  if(typeof renderSimulados === 'function') renderSimulados();
+  if(window.avBuscaRefazer) window.avBuscaRefazer();
+  document.dispatchEvent(new Event('av-p1'));
+};
+// quem já usou o 1º período recebe o conteúdo em segundo plano (revisão dos erros, discursiva e progresso dependem dele)
+try{ if(localStorage.getItem('av-p1')) setTimeout(()=> carregarP1().catch(()=>{}), 1500); }catch(e){}
+
 function routeFromHash(){
   const h = decodeURIComponent(location.hash.slice(1));
+  if(!window.avP1Pronto && /^(?:(?:simulado|roteiro|resumo)-p1-|disc-1\d$)/.test(h)){ carregarP1().then(routeFromHash, ()=> switchPage('top', {fromHistory:true})); return; }
   const ms = h.match(/^simulado-([\w-]+)$/);
   if(ms){ const sx = SIM_JOGO.find(x=>x.id === ms[1]); if(sx){ setTimeout(()=>{ if(!(simEst && simEst.sim.id === sx.id)){ openDisc(sx.disc, {fromHistory:true}); simAbrir(sx.id); } }, 0); return; } }
   if(simEst) simFechar();
@@ -17713,11 +17763,11 @@ document.getElementById('gmCorrigirBtn').addEventListener('click', ()=>{
 // --- Página Modo prova (simulados do site) ---
 function renderSimulados(){
   const el = document.getElementById('simuladosLista'); if(!el) return;
-  el.innerHTML = DISC[2].map(d=>{
+  el.innerHTML = DISC_TODAS().map(d=>{
     const sims = SIM_JOGO.filter(x=>x.disc === d.n);
     if(!sims.length) return '';
     return `<div class="mpg-disc">
-      <div class="mpg-disc-t"><span>${d.n}</span>${escHTML(d.name)}</div>
+      <div class="mpg-disc-t"><span>${d.rot || d.n}</span>${escHTML(d.name)}</div>
       <div class="mpg-cards">${sims.map(simHTMLCard).join('')}</div>
     </div>`;
   }).join('');
@@ -18319,7 +18369,7 @@ document.querySelectorAll('.extras-index [data-goto]').forEach(b=>{
 function normTxt(t){ return String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); }
 function discOf(nome){
   const n = normTxt(nome);
-  return DISC[2].find(d => (DISC_ALIASES[d.n] || [d.name]).some(a => normTxt(a) === n)) || null;
+  return DISC_TODAS().find(d => (DISC_ALIASES[d.n] || [d.name]).some(a => normTxt(a) === n)) || null;
 }
 // disciplinas citadas dentro de um texto (ex.: simulado geral que lista várias matérias)
 function discsInText(txt){
@@ -18432,7 +18482,7 @@ function navigateTo(l){
   if(!l) return;
   if(l.url && l.url.startsWith('#')){ irParaHash(l.url); return; }
   if(l.url){ window.open(l.url, '_blank', 'noopener'); return; }
-  if(l.drive){ const d = DISC[2].find(x=>x.n===l.drive) || DISC[1].find(x=>x.n===l.drive); if(d) window.open(d.url, '_blank', 'noopener'); return; }
+  if(l.drive){ const d = DISC_TODAS().find(x=>x.n===l.drive) || DISC[1].find(x=>x.n===l.drive); if(d) window.open(d.url, '_blank', 'noopener'); return; }
   if(l.disc){ openDisc(l.disc); return; }
   if(l.scroll){ scrollToSection(l.scroll); return; }
   if(l.page){
@@ -18491,7 +18541,7 @@ document.addEventListener('click', e=>{
   if(!b) return;
   if(b.dataset.ics === 'todos') baixarICS(TASKS, 'prazos-arquivo-vivo.ics');
   else {
-    const d = DISC[2].find(x=>x.n===b.dataset.ics);
+    const d = DISC_TODAS().find(x=>x.n===b.dataset.ics);
     baixarICS(tarefasDaDisc(d), `prazos-${slugify(d.name)}.ics`);
   }
 });
@@ -18583,6 +18633,7 @@ function renderDiscPage(d){
   const temExh = EXH.disc === d.n;
   const atalhos = [
     ['dpResumos', 'Resumos', c.resumos.length],
+    ['dpLab', ((window.avP1Secoes || {})[d.n] || {}).atalho || 'Laboratório', (window.avP1Secoes || {})[d.n] ? 1 : 0],
     ['dpPratica', 'Exercícios', c.exercicios.length],
     ['dpSimulado', 'Simulado', simulados.reduce((n, x)=>n + x.questoes.length, 0)],
     ['dpDiscursiva', 'Discursiva', window.avDiscursivaContar ? window.avDiscursivaContar(d.n) : 0],
@@ -18593,7 +18644,7 @@ function renderDiscPage(d){
     ['dpGlossario', 'Glossário', c.termos.length],
   ].filter(a=>a[2] > 0);
 
-  const ETAPA = {dpResumos:'Estudar', dpPratica:'Praticar', dpSimulado:'Testar', dpDiscursiva:'Testar', dpRoteiro:'Revisar', dpExperimento:'Trabalho', dpGuia:'Trabalho', dpVideos:'Assistir'};
+  const ETAPA = {dpLab:'Praticar', dpResumos:'Estudar', dpPratica:'Praticar', dpSimulado:'Testar', dpDiscursiva:'Testar', dpRoteiro:'Revisar', dpExperimento:'Trabalho', dpGuia:'Trabalho', dpVideos:'Assistir'};
   const DESC = {dpResumos:'A matéria em partes, para ler antes de tudo.', dpPratica:'Exercícios curtos por assunto, para fixar.', dpSimulado:'Questões no estilo da prova, para se testar.', dpDiscursiva:'Perguntas de prova e estudos de caso. Escreva, corrija pelos critérios e compare com a resposta modelo.', dpRoteiro:'O estudo dirigido do professor, com respostas para conferir.', dpExperimento:'Passo a passo do trabalho, sem respostas prontas.', dpGuia:'Guia para montar o relatório do projeto.', dpVideos:'Aulas em vídeo para reforçar.'};
   const sec = (id, titulo, meta, corpo) => `<section class="dp-section" id="${id}">
     ${ETAPA[id] ? `<div class="dp-etapa">${ETAPA[id]}</div>` : ''}
@@ -18661,7 +18712,7 @@ function renderDiscPage(d){
 
   el.innerHTML = `
     <header class="dp-header" data-d="${d.n}">
-      <div class="eyebrow">Disciplina ${d.n} · 2º semestre</div>
+      <div class="eyebrow">Disciplina ${d.rot || d.n} · ${DISC[1].includes(d) ? '1º período' : '2º semestre'}</div>
       <h1>${escHTML(d.name)}</h1>
       <div class="dp-actions">
         <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">Abrir Drive ↗</a>
@@ -18674,8 +18725,8 @@ function renderDiscPage(d){
     </header>
     ${continuarHTML(d)}
     ${errAvisoDisc(d)}
-    ${secResumos}${secEx}${secSim}${secDs}${secRoteiro}${secExh}${secGuia}${secVid}${secGl}
-    ${!temGuia && !temExh && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
+    ${secResumos}${(()=>{ const x = (window.avP1Secoes || {})[d.n]; return x ? sec('dpLab', x.titulo, x.meta || '', x.html()) : ''; })()}${secEx}${secSim}${secDs}${secRoteiro}${secExh}${secGuia}${secVid}${secGl}
+    ${!(window.avP1Secoes || {})[d.n] && !temGuia && !temExh && !c.prazos.length && !c.resumos.length && !c.exercicios.length && !c.videos.length && !c.termos.length ? '<p class="dp-note">Por enquanto, esta disciplina só tem a pasta do Drive.</p>' : ''}
   `;
 }
 document.getElementById('discPage').addEventListener('click', e=>{
@@ -18687,8 +18738,9 @@ document.getElementById('discPage').addEventListener('click', e=>{
 let discAtual = null;
 function openDisc(n, opts){
   opts = opts || {};
-  const d = DISC[2].find(x=>x.n===n);
+  const d = DISC_TODAS().find(x=>x.n===n);
   if(!d){ switchPage('top', opts); return; }
+  if(DISC[1].includes(d) && !window.avP1Pronto){ carregarP1().then(()=> openDisc(n, opts), ()=>{}); return; }
   discAtual = n;
   renderDiscPage(d);
   switchPage('viewDisc', {fromHistory:true});
@@ -18697,6 +18749,7 @@ function openDisc(n, opts){
   if(!opts.fromHistory && location.hash !== '#disc-' + n) history.pushState({disc:n}, '', '#disc-' + n);
 }
 document.addEventListener('click', e=>{
+  if(e.target.closest('[data-p1-grade]')){ closeMenus(); switchPage('top'); setTimeout(()=>{ document.querySelector('.tab[data-sem="1"]')?.click(); document.getElementById('disciplinas')?.scrollIntoView({behavior:'smooth', block:'start'}); }, 60); return; }
   const od = e.target.closest('[data-open-disc]');
   if(od){ openDisc(od.dataset.openDisc); return; }
   const tg = e.target.closest('[data-tool-go]');
@@ -18725,7 +18778,7 @@ function refreshProgressViews(){
   renderStudy();
   paintToolBadges();
   renderModoProva();
-  if(currentPage === 'viewDisc' && discAtual) renderDiscPage(DISC[2].find(x=>x.n===discAtual));
+  if(currentPage === 'viewDisc' && discAtual) renderDiscPage(DISC_TODAS().find(x=>x.n===discAtual));
 }
 document.querySelectorAll('#viewFerramentas details[id^="tool-"] .correct-btn').forEach(btn=>{
   btn.addEventListener('click', ()=> setTimeout(()=>{ if(currentPage === 'viewDisc') refreshProgressViews(); }, 120));
@@ -19263,7 +19316,7 @@ document.getElementById('discPage').addEventListener('click', e=>{
   }
   if(e.target.closest('[data-mt-limpar]')){
     if(!confirm('Apagar todo o rascunho do relatório deste aparelho?')) return;
-    mtSave({}); renderDiscPage(DISC[2].find(x=>x.n === discAtual)); document.getElementById('mt-' + MONTADOR.id)?.setAttribute('open', '');
+    mtSave({}); renderDiscPage(DISC_TODAS().find(x=>x.n === discAtual)); document.getElementById('mt-' + MONTADOR.id)?.setAttribute('open', '');
   }
 });
 document.getElementById('discPage').addEventListener('toggle', e=>{
@@ -19347,7 +19400,7 @@ function simFechar(){
   document.documentElement.classList.remove('sim-aberto');
   const id = simEst && simEst.sim.id; const disc = simEst && simEst.sim.disc;
   simEst = null;
-  if(currentPage === 'viewDisc' && discAtual === disc) renderDiscPage(DISC[2].find(x=>x.n === disc));
+  if(currentPage === 'viewDisc' && discAtual === disc) renderDiscPage(DISC_TODAS().find(x=>x.n === disc));
   if(currentPage === 'viewSimulados') renderSimulados();
   return id;
 }
@@ -19478,7 +19531,7 @@ async function simCartaoGerar(){
   x.fillStyle = '#1F5C56'; x.fillRect(0, 0, W, 300);
   x.fillStyle = '#CFE3DA'; x.font = `700 30px ${SANS}`; x.textAlign = 'left'; x.fillText('ARQUIVO VIVO · SIMULADO', 80, 96);
   x.fillStyle = '#FFFFFF'; x.font = `600 52px ${SERIF}`;
-  const disc = (DISC[2].find(d => d.n === e.sim.disc) || {}).name || '';
+  const disc = (DISC_TODAS().find(d => d.n === e.sim.disc) || {}).name || '';
   const parte = e.parte && e.parte !== 'tudo' ? ((e.sim.partes || []).find(p => p.k === e.parte) || {}).t : '';
   let y = 170; simCartaoQuebra(x, e.sim.titulo, W - 160).slice(0, 2).forEach(l => { x.fillText(l, 80, y); y += 64; });
   x.fillStyle = '#CFE3DA'; x.font = `500 30px ${SANS}`; x.fillText(disc + (parte ? ' · ' + parte : ''), 80, Math.min(y + 4, 286));
@@ -19552,7 +19605,7 @@ function simRender(){
     const r = simRec(e.sim.id);
     ov.innerHTML = `${topo('')}
       <div class="sim-ini">
-        <div class="sim-ini-eyebrow">Simulado · ${escHTML((DISC[2].find(x=>x.n === e.sim.disc) || {}).name || '')}</div>
+        <div class="sim-ini-eyebrow">Simulado · ${escHTML((DISC_TODAS().find(x=>x.n === e.sim.disc) || {}).name || '')}</div>
         <h2>${escHTML(e.sim.titulo)}</h2>
         <p>${escHTML(e.sim.desc)}</p>
         ${r ? `<div class="sim-ini-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
@@ -19704,7 +19757,7 @@ function renderErros(){
       <div class="er-acoes"><button class="btn btn-primary" data-page="viewFerramentas">Ir para os exercícios</button><button class="btn" data-page="viewEstudar">Ir para os resumos</button></div></div>`;
     return;
   }
-  const discs = DISC[2].map(d=>({d, n: todos.filter(x=>x.disc === d.n).length})).filter(x=>x.n);
+  const discs = DISC_TODAS().map(d=>({d, n: todos.filter(x=>x.disc === d.n).length})).filter(x=>x.n);
   if(errEstado.disc !== 'todas' && !discs.some(x=>x.d.n === errEstado.disc)) errEstado.disc = 'todas';
   const lista = errLista(errEstado.disc);
   box.innerHTML = `
@@ -19716,7 +19769,7 @@ function renderErros(){
       <button class="btn btn-primary" data-er-treinar>Revisar ${lista.length} ${lista.length === 1 ? 'questão' : 'questões'}</button>
       <button class="link-btn" data-er-limpar>Limpar a lista</button>
     </div>
-    <div class="er-lista">${lista.map(x=>{ const d = DISC[2].find(z=>z.n === x.disc); return `
+    <div class="er-lista">${lista.map(x=>{ const d = DISC_TODAS().find(z=>z.n === x.disc); return `
       <div class="er-item" data-d="${x.disc || ''}">
         <div class="er-meta">${d ? escHTML(d.name) + ' · ' : ''}${escHTML(x.origem)}</div>
         <div class="er-q">${x.q}</div>
@@ -20000,7 +20053,7 @@ const appInstalado = ()=> window.navigator.standalone === true || (window.matchM
 (function(){
   const qs = new URLSearchParams(location.search);
   const n = qs.get('resumao'); if(!n) return;
-  const d = DISC[2].find(x=>x.n===n); if(!d) return;
+  const d = DISC_TODAS().find(x=>x.n===n); if(!d) return;
   // o app instalado guarda o progresso separado do Safari: ele vem junto no endereço
   try{
     const dados = JSON.parse(decodeURIComponent(escape(atob(qs.get('dados') || ''))));
@@ -20078,7 +20131,7 @@ function abrirEscolhaPDF(d){
 }
 document.addEventListener('click', e=>{
   const b = e.target.closest('[data-pdf]'); if(!b) return;
-  const d = DISC[2].find(x=>x.n===b.dataset.pdf); if(!d) return;
+  const d = DISC_TODAS().find(x=>x.n===b.dataset.pdf); if(!d) return;
   abrirEscolhaPDF(d);
 });
 
@@ -20102,16 +20155,16 @@ const PAGINAS_BUSCA = [
 function indiceBusca(){
   const it = [];
   DISC[2].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'2º semestre · tudo da disciplina', x:(DISC_ALIASES[d.n]||[]).join(' '), l:{disc:d.n}}));
-  DISC[1].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'1º semestre · pasta no Drive', l:{url:d.url}}));
+  DISC[1].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'1º período · resumos, simulado e Drive', l:{disc:d.n}}));
   PAGINAS_BUSCA.forEach(p=> it.push({g:'Páginas', t:p.t, s:p.s, l:p.l}));
   TASKS.filter(t=>t.prazo && diasAte(t.prazo) >= 0).forEach(t=> it.push({g:'Prazos', t:`${t.materia}: ${t.tarefa}`, s:`até ${fmtDia(t.prazo)} · ${quandoTxt(diasAte(t.prazo))}`, l:{page:'viewPrazos', target:'calendario'}}));
   STUDY.forEach(s=> it.push({g:'Resumos', t:s.titulo, s:s.materia, x:s.desc, l:{url:s.link}}));
   TOOL_LIST.forEach(t=> it.push({g:'Exercícios', t:t.titulo, s:t.discNome, l:{page:'viewFerramentas', target:t.id}}));
-  Object.entries(VIDEOS).forEach(([n, vs])=> vs.forEach(v=>{ const d = DISC[2].find(x=>x.n===n); it.push({g:'Vídeos', t:v.titulo, s:d ? d.name : '', l:{disc:n}}); }));
+  Object.entries(VIDEOS).forEach(([n, vs])=> vs.forEach(v=>{ const d = DISC_TODAS().find(x=>x.n===n); it.push({g:'Vídeos', t:v.titulo, s:d ? d.name : '', l:{disc:n}}); }));
   GLOSSARIO.forEach(g=> it.push({g:'Glossário', t:g.t, s:g.disc, x:g.d, l:{page:'viewApoio', target:'glossario', term:g.t}}));
   COURSES.forEach(c=> it.push({g:'Cursos extras', t:c.nome, s:c.nota || 'Curso', l:{url:c.link}}));
   // V3: simulados e cada parte deles
-  SIM_JOGO.forEach(s=>{ const d = DISC[2].find(x=>x.n===s.disc);
+  SIM_JOGO.forEach(s=>{ const d = DISC_TODAS().find(x=>x.n===s.disc);
     it.push({g:'Simulados', t:s.titulo, s:`${d ? d.name + ' · ' : ''}${s.questoes.length} questões`, x:s.partes.map(p=>p.t).join(' '), l:{url:'#simulado-' + s.id}});
     s.partes.forEach(p=> it.push({g:'Simulados', t:`${p.t}`, s:`Parte do simulado · ${d ? d.name + ' · ' : ''}${p.n} questões`, x:s.questoes.filter(q=>q.tema===p.t).slice(0,3).map(q=>q.p.replace(/<[^>]+>/g,' ')).join(' '), l:{url:'#simulado-' + s.id}})); });
   // V3: abas e partes dos resumos (abre direto na aba)
@@ -20120,8 +20173,8 @@ function indiceBusca(){
     c.etapas.forEach(e=> it.push({g:'Partes de resumo', t:e.titulo, s:`${c.aba || r.titulo}`, x:(e.pontos||[]).join(' ').replace(/<[^>]+>/g,' ').slice(0, 400), l:{resumo:id, cap:i}}));
   }));
   // V3: estudo dirigido e guia do trabalho
-  ROTEIROS.forEach(r=>{ const d = DISC[2].find(x=>x.n===r.disc); it.push({g:'Estudo dirigido', t:r.titulo, s:d ? d.name : '', x:r.questoes.map(q=>q.tema).join(' '), l:{disc:r.disc}}); });
-  if(typeof EXH !== 'undefined'){ const d = DISC[2].find(x=>x.n===EXH.disc); it.push({g:'Estudo dirigido', t:EXH.titulo, s:`Guia do trabalho · ${d ? d.name : ''}`, x:EXH.passos.map(p=>p.t).join(' ') + ' gráfico planilha', l:{disc:EXH.disc}}); }
+  ROTEIROS.forEach(r=>{ const d = DISC_TODAS().find(x=>x.n===r.disc); it.push({g:'Estudo dirigido', t:r.titulo, s:d ? d.name : '', x:r.questoes.map(q=>q.tema).join(' '), l:{disc:r.disc}}); });
+  if(typeof EXH !== 'undefined'){ const d = DISC_TODAS().find(x=>x.n===EXH.disc); it.push({g:'Estudo dirigido', t:EXH.titulo, s:`Guia do trabalho · ${d ? d.name : ''}`, x:EXH.passos.map(p=>p.t).join(' ') + ' gráfico planilha', l:{disc:EXH.disc}}); }
   return it;
 }
 (function(){
@@ -20196,13 +20249,13 @@ function renderSeuEstudo(){
   const cards = [];
   // continue de onde parou: um por disciplina, do mais recente para o mais antigo (até 3)
   const ult = ultimoLer();
-  DISC[2].forEach(d=>{ if(ult[d.n]){ const h = continuarHTML(d); if(h) cards.push({h: h.replace('<span class="dp-cont-lbl">Continue de onde parou</span>', `<span class="dp-cont-lbl">Continue · ${escHTML(d.name)}</span>`)}); } });
+  DISC_TODAS().forEach(d=>{ if(ult[d.n]){ const h = continuarHTML(d); if(h) cards.push({h: h.replace('<span class="dp-cont-lbl">Continue de onde parou</span>', `<span class="dp-cont-lbl">Continue · ${escHTML(d.name)}</span>`)}); } });
   const cont = cards.slice(0, 3);
   // para revisar: assuntos com mais questões erradas
   const grupos = {};
   Object.values(errLoad()).forEach(e=>{ const k = (e.disc||'') + '|' + (e.origem||''); const g = grupos[k] = grupos[k] || {disc:e.disc, origem:e.origem||'', tipo:e.tipo, ref:e.ref, n:0}; g.n++; });
   const rev = Object.values(grupos).sort((a,b)=> b.n - a.n).slice(0, 2).map(g=>{
-    const d = DISC[2].find(x=>x.n===g.disc); const tema = g.origem.replace(/^[^·]+·\s*/, '');
+    const d = DISC_TODAS().find(x=>x.n===g.disc); const tema = g.origem.replace(/^[^·]+·\s*/, '');
     const go = g.tipo === 'simulado' ? `data-se-sim="${g.ref}"` : 'data-page-go="viewErros"';
     return `<button class="dp-continue se-rev" ${go}><span class="dp-cont-lbl">Para revisar${d ? ' · ' + escHTML(d.name) : ''}</span><span class="dp-cont-t">${escHTML(tema || 'Questões erradas')}</span><span class="dp-cont-s">${g.n} ${g.n === 1 ? 'questão errada' : 'questões erradas'} · some da lista quando você acerta</span><span class="dp-cont-go">Revisar →</span></button>`;
   });
@@ -20286,7 +20339,7 @@ function renderResumo(){
   const st = (rsEstado(resumoAtual)[c.id]) || {};
   const el = document.getElementById('resumoPage');
   const temAbas = r.caps.length > 1;
-  document.getElementById('backFromResumo').textContent = '← ' + (r.disc ? 'Voltar para ' + (DISC[2].find(d=>d.n===r.disc)?.name || 'a disciplina') : 'Voltar');
+  document.getElementById('backFromResumo').textContent = '← ' + (r.disc ? 'Voltar para ' + (DISC_TODAS().find(d=>d.n===r.disc)?.name || 'a disciplina') : 'Voltar');
 
   let etapasHTML = '', faseAtual = null, aberto = false;
   c.etapas.forEach((e, i)=>{
@@ -20621,7 +20674,7 @@ document.addEventListener('click', e=>{
 
   // ---------- utilidades ----------
   const um = lista => lista[Math.floor(Math.random() * lista.length)];
-  const nomeDisc = n => (DISC[2].find(d=>d.n===n) || {}).name || '';
+  const nomeDisc = n => (DISC_TODAS().find(d=>d.n===n) || {}).name || '';
   const palavras = q => q.replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
   const tem = (ws, lista) => lista.some(p => ws.includes(p));
   const temFrase = (q, lista) => lista.some(p => q.includes(p));
@@ -22220,7 +22273,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
 (function(){
   const fundo = document.getElementById('benFundo'), corpo = document.getElementById('benCorpo');
   const limpa = t => String(t || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-  const nomeDisc = n => (DISC[2].find(d => d.n === n) || {}).name || '';
+  const nomeDisc = n => (DISC_TODAS().find(d => d.n === n) || {}).name || '';
   const ehApoio = () => !!window.avApoiador;
   const lerJ = (k, pad) => { try{ return JSON.parse(localStorage.getItem(k)) || pad; }catch(e){ return pad; } };
   const gravarJ = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
@@ -22279,7 +22332,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   // ================= Plano de estudos automático =================
   function provasFuturas(){
     const hoje = hojeISO();
-    return TASKS.filter(t => /^prova/i.test(t.tarefa) && t.prazo >= hoje).map(t => ({data:t.prazo, disc:(DISC[2].find(d => d.name === t.materia || d.name.startsWith(t.materia) || t.materia.startsWith(d.name)) || {}).n, materia:t.materia})).filter(p => p.disc).sort((a, b) => a.data.localeCompare(b.data));
+    return TASKS.filter(t => /^prova/i.test(t.tarefa) && t.prazo >= hoje).map(t => ({data:t.prazo, disc:(DISC_TODAS().find(d => d.name === t.materia || d.name.startsWith(t.materia) || t.materia.startsWith(d.name)) || {}).n, materia:t.materia})).filter(p => p.disc).sort((a, b) => a.data.localeCompare(b.data));
   }
   function pctParte(sim, parte){
     const o = desempLer(); const s = (o.sims || {})[sim.id] || {};
@@ -22557,7 +22610,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-ben]'); if(b){ window.avAbrirBeneficio(b.dataset.ben); return; }
     const dd = e.target.closest('[data-ben-disc]');
-    if(dd){ const d = DISC[2].find(x => x.n === dd.dataset.benDisc);
+    if(dd){ const d = DISC_TODAS().find(x => x.n === dd.dataset.benDisc);
       if(dd.dataset.benTipo === 'caderno'){ if(ehApoio()) imprimir(cadernoHTML(d), `Caderno de revisão · ${d.name} · Arquivo Vivo`); else abrir(EB('Prévia') + `<div class="ben-pdf-previa">${cadernoHTML(d)}</div>`, true); }
       else abrir(escolherSimPDF(d.n));
       return; }
@@ -22834,7 +22887,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
 (function(){
   const limpa = t => String(t || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
   const semAcento = t => limpa(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-  const nomeDisc = n => (DISC[2].find(d => d.n === n) || {}).name || '';
+  const nomeDisc = n => (DISC_TODAS().find(d => d.n === n) || {}).name || '';
   const hojeISO = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
   const lerJ = (k, pad) => { try{ return JSON.parse(localStorage.getItem(k)) || pad; }catch(e){ return pad; } };
   const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
@@ -22842,7 +22895,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   const SEMC = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
   const curto = m => /idoso/i.test(m) ? 'Idoso' : /neuro/i.test(m) ? 'Neuro' : /experimental/i.test(m) ? 'Experimental' : /aprendizagem/i.test(m) ? 'Aprendizagem' : /bases|biol/i.test(m) ? 'Bases' : /extens/i.test(m) ? 'Extensão' : m.split(' ')[0];
   const dias = iso => Math.round((new Date(iso + 'T12:00:00') - new Date(hojeISO() + 'T12:00:00')) / 864e5);
-  const discDaMateria = m => (DISC[2].find(d => d.name === m || d.name.startsWith(m) || m.startsWith(d.name)) || {}).n;
+  const discDaMateria = m => (DISC_TODAS().find(d => d.name === m || d.name.startsWith(m) || m.startsWith(d.name)) || {}).n;
 
   // ================= Tela Hoje =================
   function proximosPrazos(){ const h = hojeISO(); return TASKS.filter(t => t.prazo >= h).sort((a, b) => a.prazo.localeCompare(b.prazo)); }
@@ -22921,7 +22974,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         ${sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('')}</section>`;
     }
     // progresso por disciplina
-    const linhas = DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n)).map(d => {
+    const linhas = DISC_TODAS().filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n)).map(d => {
       const p = progressoDisc(d);
       const bits = [p.caps ? `Resumos ${p.lidos}/${p.caps}` : '', p.temSim ? (p.melhor !== null ? `Simulado ${p.melhor}%` : 'Simulado não feito') : '', p.ds !== null ? `Discursiva ${p.ds}%` : ''].filter(Boolean);
       return `<div class="ma-disc"><button class="ma-disc-nome" data-ma-disc="${d.n}">${escHTML(d.name)}</button>
@@ -23360,7 +23413,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   function escolher(){
     const o = dsLer();
     abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>Escolha a disciplina</h2><p class="conta-sub">Perguntas no formato de prova e estudos de caso. Você escreve, corrige a própria resposta pelos critérios, como um professor, e compara com a resposta modelo.</p>
-      <div class="ben-escolha">${DISC[2].map(d => { const n = dsDe(d.n).length; return n ? `<button data-ds-menu="${d.n}"><b>${escHTML(d.name)}</b><span>${n} perguntas</span></button>` : ''; }).join('')}</div>
+      <div class="ben-escolha">${DISC_TODAS().map(d => { const n = dsDe(d.n).length; return n ? `<button data-ds-menu="${d.n}"><b>${escHTML(d.name)}</b><span>${n} perguntas</span></button>` : ''; }).join('')}</div>
       ${o.hist.length ? '<div class="ben-acoes"><button class="conta-btn sec" data-ds-hist>Ver seu histórico</button></div>' : ''}`);
   }
   function menu(disc){
@@ -23421,7 +23474,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   function historico(){
     const o = dsLer();
     let h = `<div class="eyebrow">Treino de discursiva</div><h2>Seu histórico</h2>`;
-    const discs = DISC[2].filter(d => o.hist.some(x => x.disc === d.n) || dsDe(d.n).some(q => o.c[q.id]));
+    const discs = DISC_TODAS().filter(d => o.hist.some(x => x.disc === d.n) || dsDe(d.n).some(q => o.c[q.id]));
     if(!discs.length) h += '<p class="conta-sub">Faça um treino escrevendo as respostas para começar seu histórico.</p>';
     discs.forEach(d => {
       const hs = o.hist.filter(x => x.disc === d.n).slice(-5);
@@ -23435,6 +23488,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     abrirDs(h + '<div class="ben-acoes"><button class="conta-btn sec" data-ds-escolher>Voltar</button></div>');
   }
   window.avDiscursivaContar = disc => dsDe(disc).length;
+  window.avDiscursivasAdd = arr => { arr.forEach(x => DISCURSIVAS.push(x)); };
 
   document.addEventListener('click', e => {
     if(e.target.closest('[data-ds-escolher]')){ escolher(); return; }
