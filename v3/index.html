@@ -1130,6 +1130,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   /* nav: disciplinas */
   .ni-icon.ni-num{font-size:12px; font-weight:800;}
   .nav-dd-disc{min-width:320px;}
+  .ma-sem{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:4px 0 14px; font-size:13px; color:var(--ink-2, #5b5a52);}
+  .ma-sem span{margin-right:4px;}
+  .ma-sem button{font:inherit; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid var(--rule, #E2E0D8); background:transparent; color:var(--ink, #1F2A28); cursor:pointer;}
+  .ma-sem button[aria-pressed="true"]{background:var(--petrol, #1F4E4A); border-color:var(--petrol, #1F4E4A); color:#fff;}
   .nav-dd-disc .nav-p1{border-top:1px solid var(--line, #E2E0D8); margin-top:4px; padding-top:10px;}
 
   /* busca */
@@ -1713,6 +1717,12 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   [data-d="05"]{--acc:#86697F;}
   [data-d="06"]{--acc:#5C7A8F;}
   [data-d="07"]{--acc:#7E7A5A;}
+  [data-d="11"]{--acc:#4F7A8C;}
+  [data-d="12"]{--acc:#8C5A6B;}
+  [data-d="13"]{--acc:#6B7F4E;}
+  [data-d="14"]{--acc:#C08A4A;}
+  [data-d="15"]{--acc:#7A5F99;}
+  [data-d="16"]{--acc:#9A6B4F;}
   .drive-block .card{background:var(--paper); border:1px solid var(--rule); border-top:3px solid var(--acc, var(--petrol)); border-radius:6px;}
   .drive-block .card:hover{border-color:var(--rule); border-top-color:var(--acc, var(--petrol)); box-shadow:0 14px 30px var(--shadow-lg);}
   .card .idx{font-family:var(--serif); font-size:22px; font-weight:500; line-height:1; color:var(--acc, var(--petrol)); background:none; padding:0; letter-spacing:0;}
@@ -4322,7 +4332,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-21', disc: '1º período', desc: 'O 1º período ganhou conteúdo próprio, carregado só quando você abre uma disciplina dele: 6 resumos (41 abas com quiz), 233 questões de simulado, 33 discursivas, 2 estudos dirigidos, ferramentas de exercício e um laboratório de Estatística com tabela de frequências, medidas, curva normal e teste t.', link: {url:'#disc-11'}},
+  {date: '2026-11-21', disc: '1º semestre', desc: 'O 1º semestre ganhou conteúdo próprio, carregado só quando você abre uma disciplina dele: 6 resumos (41 abas com quiz), 233 questões de simulado, 33 discursivas, 2 estudos dirigidos, ferramentas de exercício e um laboratório de Estatística com tabela de frequências, medidas, curva normal e teste t.', link: {url:'#disc-11'}},
   {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Estudo dirigido da N2 com as 7 perguntas respondidas: memória no envelhecimento, PPA, Kübler-Ross, suicídio na velhice, eutanásia, cuidados paliativos e diagnóstico diferencial.', link: {url:'#disc-05'}},
   {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides das aulas no resumo e no simulado: história da aposentadoria, fatores de ajuste, como funciona um PPA, memória e linguagem no envelhecimento, diagnóstico diferencial, cuidados paliativos, eutanásia e diretivas antecipadas. 20 questões novas no simulado (agora são 63).', link: {url:'#simulado-idoso-n2'}},
   {date: '2026-11-20', disc: 'Neuroanatomia Humana', desc: '16 casos clínicos comentados no simulado (parte Casos clínicos), cada um com a explicação neuroanatômica e a conexão com a Psicologia. E uma aba nova no resumo: Do sintoma à estrutura. Agora são 131 questões.', link: {url:'#simulado-neuro-n2'}},
@@ -15042,7 +15052,10 @@ document.querySelectorAll('.tab').forEach(btn=>{
     renderGrid(btn.dataset.sem);
   });
 });
-renderGrid('2');
+renderGrid(avSemestre());
+document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.sem === avSemestre()));
+navDiscRender();
+try{ if(avSemestre() === '1' && !localStorage.getItem('av-p1')) setTimeout(()=> typeof carregarP1 === 'function' && carregarP1().catch(()=>{}), 1500); }catch(e){}
 document.getElementById('cntDisc').textContent = `(${DISC[1].length + DISC[2].length})`;
 
 const monthsPt = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
@@ -15083,6 +15096,25 @@ function renderFeed(items){
 
 const P1_VERSAO = '2';
 function DISC_TODAS(){ return DISC[2].concat(DISC[1]); }
+// semestre do aluno (escolhido na Minha área): as listas do site mostram só as disciplinas dele
+function avSemestre(){ try{ return localStorage.getItem('av-semestre') === '1' ? '1' : '2'; }catch(e){ return '2'; } }
+function DISC_MEU(){ return DISC[avSemestre()]; }
+function discDoMeuSem(n){ return !n || DISC_MEU().some(d => d.n === n); }
+function navDiscRender(){
+  const dd = document.querySelector('.nav-dd-disc'); if(!dd) return;
+  const sem = avSemestre(), outro = sem === '1' ? '2' : '1';
+  dd.innerHTML = DISC[sem].map(d => `<button class="nav-item" data-open-disc="${d.n}"><span class="ni-icon ni-num">${d.rot || d.n}</span><span class="ni-text"><strong>${d.name}</strong><small>Drive, prazos, resumos e exercícios</small></span></button>`).join('')
+    + `<button class="nav-item nav-p1" data-outro-sem="${outro}"><span class="ni-icon ni-num">${outro}º</span><span class="ni-text"><strong>${outro}º semestre</strong><small>Ver as disciplinas do ${outro}º semestre</small></span></button>`;
+}
+window.avSetSemestre = function(sem){
+  try{ localStorage.setItem('av-semestre', sem); }catch(e){}
+  navDiscRender();
+  document.querySelector(`.tab[data-sem="${sem}"]`)?.click();
+  if(sem === '1' && !window.avP1Pronto && typeof carregarP1 === 'function') carregarP1().catch(()=>{});
+  if(typeof renderSimulados === 'function') renderSimulados();
+  if(window.avSyncSemestre) window.avSyncSemestre(sem);
+  document.dispatchEvent(new Event('av-semestre'));
+};
 const ALL_DISC = [...DISC[1].map(d=>({...d, sem:'1º sem.'})), ...DISC[2].map(d=>({...d, sem:'2º sem.'}))];
 
 renderFeed(UPDATES);
@@ -15376,14 +15408,14 @@ function carregarP1(){
   if(window.avP1Pronto) return Promise.resolve();
   if(p1Promessa) return p1Promessa;
   const aviso = document.createElement('div'); aviso.className = 'p1-carregando'; aviso.setAttribute('role', 'status');
-  aviso.innerHTML = '<span class="p1-bolinha"></span>Psiu está buscando o 1º período…';
+  aviso.innerHTML = '<span class="p1-bolinha"></span>Psiu está buscando o 1º semestre…';
   const mostrar = setTimeout(()=> document.body.appendChild(aviso), 250);
   p1Promessa = new Promise((ok, erro)=>{
     const sc = document.createElement('script');
     sc.src = 'conteudo/1-periodo.js?v=' + P1_VERSAO;
     sc.onload = ()=>{ clearTimeout(mostrar); aviso.remove(); if(window.avP1Pronto) ok(); else { p1Promessa = null; erro(new Error('conteúdo incompleto')); } };
     sc.onerror = ()=>{ clearTimeout(mostrar); p1Promessa = null; sc.remove();
-      aviso.innerHTML = 'Não consegui baixar o 1º período. Confira a internet e tente de novo.'; aviso.classList.add('erro'); if(!aviso.isConnected) document.body.appendChild(aviso);
+      aviso.innerHTML = 'Não consegui baixar o 1º semestre. Confira a internet e tente de novo.'; aviso.classList.add('erro'); if(!aviso.isConnected) document.body.appendChild(aviso);
       setTimeout(()=> aviso.remove(), 4000); erro(new Error('falha ao baixar')); };
     document.head.appendChild(sc);
   });
@@ -15437,7 +15469,7 @@ routeFromHash();
 
 function renderVideos(){
   const el = document.getElementById('videosAccordion');
-  el.innerHTML = DISC[2].map(d=>{
+  el.innerHTML = DISC_MEU().map(d=>{
     const items = VIDEOS[d.n] || [];
     const listHtml = items.length === 0
       ? '<div class="video-empty">Nenhum vídeo adicionado ainda nesta disciplina.</div>'
@@ -17764,7 +17796,7 @@ document.getElementById('gmCorrigirBtn').addEventListener('click', ()=>{
 // --- Página Modo prova (simulados do site) ---
 function renderSimulados(){
   const el = document.getElementById('simuladosLista'); if(!el) return;
-  el.innerHTML = DISC_TODAS().map(d=>{
+  el.innerHTML = DISC_MEU().map(d=>{
     const sims = SIM_JOGO.filter(x=>x.disc === d.n);
     if(!sims.length) return '';
     return `<div class="mpg-disc">
@@ -18713,7 +18745,7 @@ function renderDiscPage(d){
 
   el.innerHTML = `
     <header class="dp-header" data-d="${d.n}">
-      <div class="eyebrow">Disciplina ${d.rot || d.n} · ${DISC[1].includes(d) ? '1º período' : '2º semestre'}</div>
+      <div class="eyebrow">Disciplina ${d.rot || d.n} · ${DISC[1].includes(d) ? '1º semestre' : '2º semestre'}</div>
       <h1>${escHTML(d.name)}</h1>
       <div class="dp-actions">
         <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">Abrir Drive ↗</a>
@@ -18750,7 +18782,8 @@ function openDisc(n, opts){
   if(!opts.fromHistory && location.hash !== '#disc-' + n) history.pushState({disc:n}, '', '#disc-' + n);
 }
 document.addEventListener('click', e=>{
-  if(e.target.closest('[data-p1-grade]')){ closeMenus(); switchPage('top'); setTimeout(()=>{ document.querySelector('.tab[data-sem="1"]')?.click(); document.getElementById('disciplinas')?.scrollIntoView({behavior:'smooth', block:'start'}); }, 60); return; }
+  const os_ = e.target.closest('[data-outro-sem],[data-p1-grade]');
+  if(os_){ const sem = os_.dataset.outroSem || '1'; closeMenus(); switchPage('top'); setTimeout(()=>{ document.querySelector(`.tab[data-sem="${sem}"]`)?.click(); document.getElementById('disciplinas')?.scrollIntoView({behavior:'smooth', block:'start'}); }, 60); return; }
   const od = e.target.closest('[data-open-disc]');
   if(od){ openDisc(od.dataset.openDisc); return; }
   const tg = e.target.closest('[data-tool-go]');
@@ -19742,7 +19775,7 @@ function errDoExercicio(det, acertou){
   errRegistrar({k:'t:' + det.id + ':' + errHash(sit), tipo:'tool', ref:det.id, disc:t ? t.disc : null, origem:'Exercício · ' + (t ? t.titulo : ''), q:sit, ops, c:c.correta, w:c.explicacao || ''}, acertou);
 }
 function errLista(disc){
-  return Object.values(errLoad()).filter(x => disc === 'todas' || !disc || x.disc === disc).sort((a, b)=> b.n - a.n || b.t - a.t);
+  return Object.values(errLoad()).filter(x => (disc === 'todas' || !disc) ? discDoMeuSem(x.disc) : x.disc === disc).sort((a, b)=> b.n - a.n || b.t - a.t);
 }
 function errAvisoDisc(d){
   const n = errLista(d.n).length; if(!n) return '';
@@ -19758,7 +19791,7 @@ function renderErros(){
       <div class="er-acoes"><button class="btn btn-primary" data-page="viewFerramentas">Ir para os exercícios</button><button class="btn" data-page="viewEstudar">Ir para os resumos</button></div></div>`;
     return;
   }
-  const discs = DISC_TODAS().map(d=>({d, n: todos.filter(x=>x.disc === d.n).length})).filter(x=>x.n);
+  const discs = DISC_MEU().map(d=>({d, n: todos.filter(x=>x.disc === d.n).length})).filter(x=>x.n);
   if(errEstado.disc !== 'todas' && !discs.some(x=>x.d.n === errEstado.disc)) errEstado.disc = 'todas';
   const lista = errLista(errEstado.disc);
   box.innerHTML = `
@@ -20156,7 +20189,7 @@ const PAGINAS_BUSCA = [
 function indiceBusca(){
   const it = [];
   DISC[2].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'2º semestre · tudo da disciplina', x:(DISC_ALIASES[d.n]||[]).join(' '), l:{disc:d.n}}));
-  DISC[1].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'1º período · resumos, simulado e Drive', l:{disc:d.n}}));
+  DISC[1].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'1º semestre · resumos, simulado e Drive', l:{disc:d.n}}));
   PAGINAS_BUSCA.forEach(p=> it.push({g:'Páginas', t:p.t, s:p.s, l:p.l}));
   TASKS.filter(t=>t.prazo && diasAte(t.prazo) >= 0).forEach(t=> it.push({g:'Prazos', t:`${t.materia}: ${t.tarefa}`, s:`até ${fmtDia(t.prazo)} · ${quandoTxt(diasAte(t.prazo))}`, l:{page:'viewPrazos', target:'calendario'}}));
   STUDY.forEach(s=> it.push({g:'Resumos', t:s.titulo, s:s.materia, x:s.desc, l:{url:s.link}}));
@@ -20250,7 +20283,7 @@ function renderSeuEstudo(){
   const cards = [];
   // continue de onde parou: um por disciplina, do mais recente para o mais antigo (até 3)
   const ult = ultimoLer();
-  DISC_TODAS().forEach(d=>{ if(ult[d.n]){ const h = continuarHTML(d); if(h) cards.push({h: h.replace('<span class="dp-cont-lbl">Continue de onde parou</span>', `<span class="dp-cont-lbl">Continue · ${escHTML(d.name)}</span>`)}); } });
+  DISC_MEU().forEach(d=>{ if(ult[d.n]){ const h = continuarHTML(d); if(h) cards.push({h: h.replace('<span class="dp-cont-lbl">Continue de onde parou</span>', `<span class="dp-cont-lbl">Continue · ${escHTML(d.name)}</span>`)}); } });
   const cont = cards.slice(0, 3);
   // para revisar: assuntos com mais questões erradas
   const grupos = {};
@@ -22280,7 +22313,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   const gravarJ = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
   const hojeISO = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
   const dataBR = (iso, op) => new Date(iso + 'T12:00:00').toLocaleDateString('pt-BR', op || {day:'2-digit', month:'2-digit'});
-  const discsCom = () => DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n));
+  const discsCom = () => DISC_MEU().filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n));
   const EB = t => `<div class="eyebrow apoio-eb">${t}</div>`;
 
   function abrir(html, previa){
@@ -22333,7 +22366,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   // ================= Plano de estudos automático =================
   function provasFuturas(){
     const hoje = hojeISO();
-    return TASKS.filter(t => /^prova/i.test(t.tarefa) && t.prazo >= hoje).map(t => ({data:t.prazo, disc:(DISC_TODAS().find(d => d.name === t.materia || d.name.startsWith(t.materia) || t.materia.startsWith(d.name)) || {}).n, materia:t.materia})).filter(p => p.disc).sort((a, b) => a.data.localeCompare(b.data));
+    return (TASKS.filter(t => /^prova/i.test(t.tarefa) && t.prazo >= hoje).map(t => ({data:t.prazo, disc:(DISC_TODAS().find(d => d.name === t.materia || d.name.startsWith(t.materia) || t.materia.startsWith(d.name)) || {}).n, materia:t.materia})).filter(p => p.disc).sort((a, b) => a.data.localeCompare(b.data))).filter(p => p.disc && discDoMeuSem(p.disc));
   }
   function pctParte(sim, parte){
     const o = desempLer(); const s = (o.sims || {})[sim.id] || {};
@@ -22382,7 +22415,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   }
   function planoCfg(){ return Object.assign({min:45, dias:[0, 1, 2, 3, 4, 5, 6], feitos:{}, modo:'auto', escolhas:{}}, lerJ('av-plano', {})); }
   const isoDe = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-  const discsPlano = () => DISC[2].filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n));
+  const discsPlano = () => DISC_MEU().filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n));
   // plano montado pelo aluno: ele escolhe as disciplinas de cada dia e o site preenche com o que falta estudar nelas
   function montarMeu(cfg){
     const hoje = hojeISO(), fila = {}, dias = [];
@@ -22952,7 +22985,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const agora = new Date(), h = agora.getHours();
     const saud = h < 5 ? 'Boa noite' : h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
     const nome = (window.avNome || '').split(' ')[0];
-    const prazos = proximosPrazos();
+    const prazos = proximosPrazos().filter(t => { const d = typeof discOf === 'function' ? discOf(t.materia) : null; return !d || discDoMeuSem(d.n); });
     const prova = prazos.find(t => /^prova/i.test(t.tarefa));
     const dp = prova ? dias(prova.prazo) : null;
     const mesmas = prova ? prazos.filter(t => /^prova/i.test(t.tarefa) && t.prazo === prova.prazo).map(t => curto(t.materia)) : [];
@@ -22975,7 +23008,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         ${sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('')}</section>`;
     }
     // progresso por disciplina
-    const linhas = DISC_TODAS().filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n)).map(d => {
+    const linhas = DISC_MEU().filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n)).map(d => {
       const p = progressoDisc(d);
       const bits = [p.caps ? `Resumos ${p.lidos}/${p.caps}` : '', p.temSim ? (p.melhor !== null ? `Simulado ${p.melhor}%` : 'Simulado não feito') : '', p.ds !== null ? `Discursiva ${p.ds}%` : ''].filter(Boolean);
       return `<div class="ma-disc"><button class="ma-disc-nome" data-ma-disc="${d.n}">${escHTML(d.name)}</button>
@@ -23003,10 +23036,13 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     el.innerHTML = `
       <header class="hj-head"><div class="hj-topo"><div class="eyebrow">Minha área</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
         <div class="ma-ola">${window.avPsiuMini ? `<span class="ma-psiu">${window.avPsiuMini()}</span>` : ''}<div><h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${apoia ? '<span class="ma-selo">★ Apoiador</span>' : ''}</div></div>${chip}</header>
+      <div class="ma-sem" role="group" aria-label="Seu semestre"><span>Estou no</span>${['1', '2'].map(k => `<button data-ma-sem="${k}" aria-pressed="${avSemestre() === k}">${k}º semestre</button>`).join('')}</div>
       <div class="ma-abas" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-ma-aba="${k}" aria-selected="${maAba === k}">${t}</button>`).join('')}</div>
       ${corpo}`;
   }
   window.avRenderHoje = renderHoje;
+  document.addEventListener('click', e => { const sb = e.target.closest('[data-ma-sem]'); if(!sb) return; window.avSetSemestre(sb.dataset.maSem); renderHoje(); });
+  document.addEventListener('av-p1', () => { const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none' && avSemestre() === '1') renderHoje(); });
   // ===== Funcionar sem internet: registra o service worker e avisa quando está offline =====
   if('serviceWorker' in navigator){
     const raiz = location.pathname.replace(/(v3\/)?(index\.html)?$/, '');
@@ -23414,7 +23450,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   function escolher(){
     const o = dsLer();
     abrirDs(`<div class="eyebrow">Treino de discursiva</div><h2>Escolha a disciplina</h2><p class="conta-sub">Perguntas no formato de prova e estudos de caso. Você escreve, corrige a própria resposta pelos critérios, como um professor, e compara com a resposta modelo.</p>
-      <div class="ben-escolha">${DISC_TODAS().map(d => { const n = dsDe(d.n).length; return n ? `<button data-ds-menu="${d.n}"><b>${escHTML(d.name)}</b><span>${n} perguntas</span></button>` : ''; }).join('')}</div>
+      <div class="ben-escolha">${DISC_MEU().map(d => { const n = dsDe(d.n).length; return n ? `<button data-ds-menu="${d.n}"><b>${escHTML(d.name)}</b><span>${n} perguntas</span></button>` : ''; }).join('')}</div>
       ${o.hist.length ? '<div class="ben-acoes"><button class="conta-btn sec" data-ds-hist>Ver seu histórico</button></div>' : ''}`);
   }
   function menu(disc){
@@ -23475,7 +23511,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   function historico(){
     const o = dsLer();
     let h = `<div class="eyebrow">Treino de discursiva</div><h2>Seu histórico</h2>`;
-    const discs = DISC_TODAS().filter(d => o.hist.some(x => x.disc === d.n) || dsDe(d.n).some(q => o.c[q.id]));
+    const discs = DISC_MEU().filter(d => o.hist.some(x => x.disc === d.n) || dsDe(d.n).some(q => o.c[q.id]));
     if(!discs.length) h += '<p class="conta-sub">Faça um treino escrevendo as respostas para começar seu histórico.</p>';
     discs.forEach(d => {
       const hs = o.hist.filter(x => x.disc === d.n).slice(-5);
