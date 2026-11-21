@@ -1137,7 +1137,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   /* nav: disciplinas */
   .ni-icon.ni-num{font-size:12px; font-weight:800;}
   .nav-dd-disc{min-width:320px;}
-  .hero-sem{display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 0 14px; padding:5px 6px 5px 12px; border-radius:999px; background:var(--petrol-soft); color:var(--petrol); font-size:13.5px;}
+  .hero-sem{display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap; margin:14px 0 0; padding:5px 6px 5px 12px; border-radius:999px; background:var(--petrol-soft); color:var(--petrol); font-size:13.5px;}
   .hero-sem b{font-weight:700;}
   .hero-sem button{font:inherit; font-size:12.5px; font-weight:600; border:1px solid currentColor; background:transparent; color:inherit; border-radius:999px; padding:3px 10px; cursor:pointer; opacity:.85;}
   .hero-sem button:hover{opacity:1;}
@@ -2878,7 +2878,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
   <section class="hero">
     <div class="hero-text">
-      <div class="hero-sem" id="heroSem"></div>
       <h1>Todo o material da turma, <span class="hl">em um só lugar.</span></h1>
       <p class="lead"><span class="so-desk">Slides e livros das aulas, prazos, resumos, exercícios, vídeos e cursos complementares.</span><span class="so-mob">Aulas, prazos, resumos e exercícios de cada disciplina.</span></p>
       <div class="hero-ctas">
@@ -2886,10 +2885,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <button class="btn btn-accent" data-page="viewPrazos" data-target="calendario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> Calendário de prazos</button>
       </div>
       <button class="hero-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Buscar disciplina, prova, resumo, termo…</span><kbd>/</kbd></button>
-      <div class="hero-meta">
-        <span class="hero-credito">Criado e mantido por <strong>Thiago Monteiro</strong></span>
-        <span class="live"><span id="syncText"></span></span>
-      </div>
+      <div class="hero-sem" id="heroSem"></div>
     </div>
 
     <aside class="hero-panel" aria-label="Próximo prazo">
@@ -15544,23 +15540,7 @@ function renderVideos(){
 }
 renderVideos();
 
-// Selo de última atualização (baseado no registro mais recente que temos, não é sincronização automática em tempo real)
-(function(){
-  const allDates = [
-    ...UPDATES.map(u=>u.date),
-    ...TASKS.map(t=>t.added || t.prazo),
-    ...COURSES.map(c=>c.added)
-  ].filter(Boolean);
-  if(allDates.length === 0){ document.getElementById('syncText').textContent = 'Sem registros ainda'; return; }
-  const latest = new Date(allDates.sort().slice(-1)[0] + 'T12:00:00');
-  const diffMs = new Date() - latest;
-  const diffH = Math.floor(diffMs / 3600000);
-  let txt;
-  if(diffH < 1) txt = 'Última atualização no site: agora há pouco';
-  else if(diffH < 24) txt = `Última atualização no site: há ${diffH} hora${diffH>1?'s':''}`;
-  else txt = `Última atualização no site: há ${Math.floor(diffH/24)} dia${Math.floor(diffH/24)>1?'s':''}`;
-  document.getElementById('syncText').textContent = txt;
-})();
+
 
 // --- Ferramenta: Conversor para Linguagem Científica ---
 const FRASES = [
