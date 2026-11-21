@@ -684,6 +684,13 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   }
   .study-card:hover{border-color:var(--petrol-line); box-shadow:0 12px 28px var(--shadow-lg); transform:translateY(-1px);}
   .study-card .study-title{font-size:17px; font-weight:700; line-height:1.3; letter-spacing:-0.01em;}
+  .dp-temas{padding:0 14px 10px; margin-top:-4px;}
+  .dp-tile.dp-resumo-largo{grid-column:1 / -1;}
+  .sim-card-partes{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.18);}
+  .sim-card-partes span{font-size:12.5px; opacity:.8; flex-basis:100%;}
+  .sim-card-partes button{font:inherit; font-size:12.5px; font-weight:600; color:#fff; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.28); border-radius:6px; padding:5px 10px; cursor:pointer; text-align:left;}
+  .sim-card-partes button:hover{background:rgba(255,255,255,.2);}
+  .sim-card-partes small{opacity:.7; font-weight:500; margin-left:3px;}
   .study-temas{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 2px;}
   .study-tema{font:inherit; font-size:13px; font-weight:600; padding:5px 11px; border-radius:6px; border:1px solid var(--petrol-line); background:var(--petrol-soft); color:var(--petrol); cursor:pointer; text-align:left;}
   .study-tema:hover{background:var(--petrol); color:#fff;}
@@ -4438,45 +4445,49 @@ const STUDY = [
   {
     materia: 'Neuroanatomia',
     titulo: 'Telencéfalo & Diencéfalo',
+    subtitulo: 'Esquema, flashcards e simulado',
     desc: 'Localização de estruturas no esquema, flashcards nos dois sentidos e simulado.',
     link: 'https://resumoneuro.netlify.app/'
   },
   {
     materia: 'Neuroanatomia',
     titulo: 'Lobo occipital',
+    subtitulo: 'Funções visuais a partir de uma cena',
     desc: 'Funções visuais do lobo occipital e o efeito da perda de cada uma, a partir de uma mesma cena.',
     link: 'https://trabalhoneuro.netlify.app/'
   },
   {
     materia: 'Neuroanatomia',
-    titulo: 'Neuroanatomia',
-    subtitulo: 'De forma rápida e prática',
+    titulo: 'Revisão interativa de Neuroanatomia',
+    subtitulo: 'Os principais conteúdos, de forma rápida',
     desc: 'Revisão interativa dos principais conteúdos de Neuroanatomia.',
     link: 'https://neuroanatomia.netlify.app/'
   },
   {
     materia: 'Psicologia da Aprendizagem',
     titulo: 'Teorias de aprendizagem: do Behaviorismo ao Humanismo',
+    subtitulo: 'Teoria e perguntas sem consulta',
     desc: 'Teoria de cada abordagem, seguida de perguntas para responder sem consulta.',
     link: 'https://resumoaprendizagem.netlify.app/'
   },
   {
     materia: 'Psicologia da Aprendizagem',
-    titulo: 'Psicologia da Aprendizagem',
-    subtitulo: 'Testes rápidos e práticos',
+    titulo: 'Testes rápidos de Aprendizagem',
+    subtitulo: 'Perguntas com correção imediata',
     desc: 'Testes rápidos sobre os conteúdos da disciplina, com correção imediata.',
     link: 'https://psiaprendizagem.netlify.app/'
   },
   {
     materia: 'Psicologia Experimental',
     titulo: 'Teoria organizada para a prova N1',
+    subtitulo: 'Tópicos, Teste-se e cartões de revisão',
     desc: 'Leia o tópico, responda o Teste-se de cabeça e, no fim, revise com os cartões.',
     link: 'https://resumoexperimental.netlify.app/'
   },
   {
     materia: 'Psicologia Experimental',
-    titulo: 'Psicologia Experimental',
-    subtitulo: 'Testes para treinar e fixar conteúdo',
+    titulo: 'Testes de Experimental para a N1',
+    subtitulo: 'Perguntas com correção',
     desc: 'Teoria da prova N1 com testes e correção.',
     link: 'https://psiexperimental.netlify.app/'
   }
@@ -18739,14 +18750,16 @@ function renderDiscPage(d){
   const secExh = temExh ? sec('dpExperimento', 'Trabalho N2', `entrega ${fmtDia(EXH.entrega)}`, exhHTML()) : '';
   const secGuia = temGuia ? sec('dpGuia', 'Relatório do projeto', '', montadorHTML() + exemplosHTML()) : '';
 
+  const dpCaps = r => r.link.startsWith('#resumo-') && RESUMOS[r.link.slice(8)] ? RESUMOS[r.link.slice(8)].caps : [];
   const secResumos = c.resumos.length ? sec('dpResumos', 'Resumos', `${resumosFeitos}/${c.resumos.length} estudados`,
     `<div class="dp-tiles">${c.resumos.map(r=>{ const done = progStudyDone(r.link); const interno = r.link.startsWith('#'); return `
-      <div class="dp-tile dp-resumo${done ? ' done' : ''}">
+      <div class="dp-tile dp-resumo${done ? ' done' : ''}${dpCaps(r).length > 1 ? ' dp-resumo-largo' : ''}">
         <a class="dp-tile-link" href="${r.link}"${interno ? '' : ' target="_blank" rel="noopener"'}>
           <div class="dp-tile-title">${escHTML(r.titulo)}</div>
-          <div class="dp-tile-sub">${escHTML(r.subtitulo || 'Material de estudo')}${interno ? '' : ' ↗'}</div>
+          ${dpCaps(r).length > 1 ? '' : `<div class="dp-tile-sub">${escHTML(r.subtitulo || 'Material de estudo')}${interno ? '' : ' ↗'}</div>`}
           ${interno ? '' : '<div class="nota-fora">abre em outro site</div>'}
         </a>
+        ${dpCaps(r).length > 1 ? `<div class="study-temas dp-temas">${dpCaps(r).map((c, i) => `<button class="study-tema" data-resumo-cap="${r.link.slice(8)}|${i}">${escHTML(c.aba || c.titulo)}</button>`).join('')}</div>` : ''}
         <button class="dp-check" data-study-toggle="${r.link}" aria-pressed="${done}" title="${done ? 'Desmarcar' : 'Marcar como estudado'}">${done ? '✓ Estudado' : 'Marcar como estudado'}</button>
       </div>`; }).join('')}</div>`) : '';
 
@@ -19438,7 +19451,8 @@ function simHTMLCard(sim){
     <div class="sim-card-t">${escHTML(sim.titulo)}</div>
     <div class="sim-card-d">${escHTML(sim.desc)}</div>
     ${r ? `<div class="sim-card-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
-    <button class="btn btn-primary sim-go" data-sim-abrir="${sim.id}">Começar simulado</button>
+    <button class="btn btn-primary sim-go" data-sim-abrir="${sim.id}">Começar simulado completo</button>
+    ${(sim.partes || []).length ? `<div class="sim-card-partes"><span>Ou só uma parte:</span>${sim.partes.map(p => `<button data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}">${escHTML(p.t)} <small>${p.n}</small></button>`).join('')}</div>` : ''}
   </div>`;
 }
 
@@ -19457,7 +19471,7 @@ function simAbrir(id, opts){
   const sim = SIM_JOGO.find(s=>s.id === id); if(!sim) return;
   opts = opts || {};
   if(opts.push && location.hash !== '#simulado-' + id){ history.pushState({sim:id}, '', '#simulado-' + id); simPushou = true; }
-  simEst = {sim, tela:'inicio', parte: (simEst && simEst.sim.id === id && simEst.parte) || 'tudo', comTempo: simEst && simEst.sim.id === id ? simEst.comTempo : true};
+  simEst = {sim, tela:'inicio', parte: opts.parte || (opts.push ? 'tudo' : (simEst && simEst.sim.id === id && simEst.parte) || 'tudo'), comTempo: simEst && simEst.sim.id === id ? simEst.comTempo : true};
   const ov = simOverlay(); ov.hidden = false; document.documentElement.classList.add('sim-aberto');
   simRender();
 }
@@ -19760,7 +19774,7 @@ function simClique(ev){
 }
 document.addEventListener('click', ev=>{
   const a = ev.target.closest('[data-sim-abrir]'); if(!a) return;
-  ev.preventDefault(); simAbrir(a.dataset.simAbrir, {push:true});
+  ev.preventDefault(); simAbrir(a.dataset.simAbrir, {push:true, parte:a.dataset.simParteIni});
 });
 document.addEventListener('keydown', ev=>{
   if(!simEst || document.getElementById('simOverlay')?.hidden) return;
