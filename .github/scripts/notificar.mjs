@@ -2,6 +2,7 @@
 // Modos:
 //   aviso      → mensagem escrita (arquivo notificacoes/*.json ou disparo manual)
 //   lembretes  → todo dia: provas e entregas de amanhã, e provas em 3 dias
+//   mural      → a cada 5 min: avisos escritos no Painel do administrador, respostas e marcações do mural
 import fs from 'node:fs';
 import vm from 'node:vm';
 import admin from 'firebase-admin';
@@ -65,6 +66,23 @@ if(modo === 'aviso'){
   if(!p.mensagem){ console.log('Sem mensagem.'); process.exit(0); }
   await enviar(await destinos('avisos', p.publico), p.titulo || 'Psiu!', p.mensagem, p.link, p.tag);
 } else if(modo === 'mural'){
+  // avisos escritos no Painel do administrador: fila em pedidos/<uid do administrador>/fila
+  {
+    let admUid = null;
+    try{ admUid = (await admin.auth().getUserByEmail(ADMIN_EMAIL)).uid; }catch(e){ console.log('::warning::Conta do administrador não encontrada: ' + e.message); }
+    if(admUid){
+      const filaRef = db.ref('pedidos/' + admUid + '/fila'), f = (await filaRef.get()).val() || {};
+      for(const [id, a] of Object.entries(f)){
+        if(!a || a.status !== 'pendente' || !a.mensagem) continue;
+        try{
+          const lista = await destinos('avisos', a.publico === 'admin' ? 'admin' : 'todos');
+          await enviar(lista, String(a.titulo || 'Psiu!').slice(0, 60), String(a.mensagem).slice(0, 180), BASE + (a.link || ''), 'aviso-' + id);
+          await filaRef.child(id).update({status: 'enviado', enviadoEm: Date.now(), n: lista.length});
+          console.log(`::notice::Aviso do painel enviado para ${lista.length} aparelho(s).`);
+        }catch(e){ await filaRef.child(id).update({status: 'erro', erro: String(e.message || e).slice(0, 200)}); }
+      }
+    }
+  }
   // respostas e marcações do mural: avisa só quem está envolvido (autor do tópico, quem participou, quem foi marcado)
   const marco = db.ref('mural/_push/ultimo'), agora = Date.now(), ultimo = (await marco.get()).val();
   if(!ultimo){ await marco.set(agora); console.log('Marco inicial gravado. A partir de agora as novidades do mural são enviadas.'); process.exit(0); }

@@ -2823,9 +2823,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-conta b{font-size:14.5px;}
   .ma-conta small{font-size:12.5px; color:var(--ink-soft);}
   /* ===== Minha área: redesenho (nov/2026) ===== */
-  :is(#hojePage, #muralPage) .ma-ola{gap:14px; margin:4px 0 16px;}
-  :is(#hojePage, #muralPage) .ma-psiu{width:52px; height:52px; border-radius:14px; background:var(--paper); border:1px solid var(--rule); padding:4px; box-sizing:border-box;}
-  :is(#hojePage, #muralPage) .ma-ola h1{font-size:30px !important; line-height:1.15;}
+  :is(#hojePage, #muralPage, #adminPage) .ma-ola{gap:14px; margin:4px 0 16px;}
+  :is(#hojePage, #muralPage, #adminPage) .ma-psiu{width:52px; height:52px; border-radius:14px; background:var(--paper); border:1px solid var(--rule); padding:4px; box-sizing:border-box;}
+  :is(#hojePage, #muralPage, #adminPage) .ma-ola h1{font-size:30px !important; line-height:1.15;}
   #hojePage .ma-selo{display:inline-flex; align-items:center; gap:4px; margin-top:6px; padding:2px 9px; border-radius:999px; background:var(--ochre-soft); font-size:12px;}
   .ma-status{display:flex; align-items:stretch; gap:10px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:12px 14px; box-shadow:0 1px 2px var(--shadow);}
   .ma-prova{flex:1; min-width:0; display:flex; align-items:center; gap:11px;}
@@ -2839,13 +2839,13 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-seg{display:inline-flex; background:var(--paper-alt); border-radius:8px; padding:3px;}
   .ma-seg button{font:inherit; font-size:13px; font-weight:600; min-width:38px; padding:5px 9px; border:0; border-radius:6px; background:none; color:var(--ink-soft); cursor:pointer;}
   .ma-seg button[aria-pressed="true"]{background:var(--paper); color:var(--petrol); box-shadow:0 1px 3px var(--shadow-lg);}
-  :is(#hojePage, #muralPage) .ma-abas{display:flex; gap:6px; justify-content:space-between; background:none; border:0; border-bottom:1px solid var(--rule); border-radius:0; padding:0; margin:22px 0 4px; overflow-x:auto; scrollbar-width:none;}
-  :is(#hojePage, #muralPage) .ma-abas::-webkit-scrollbar{display:none;}
-  :is(#hojePage, #muralPage) .ma-abas button{flex:0 1 auto; position:relative; font-size:14px; font-weight:600; color:var(--ink-faint); background:none; border-radius:0; padding:10px 0 12px;}
-  :is(#hojePage, #muralPage) .ma-abas button[aria-selected="true"]{background:none; color:var(--ink);}
-  :is(#hojePage, #muralPage) .ma-abas button[aria-selected="true"]::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2.5px; border-radius:2px; background:var(--petrol);}
+  :is(#hojePage, #muralPage, #adminPage) .ma-abas{display:flex; gap:6px; justify-content:space-between; background:none; border:0; border-bottom:1px solid var(--rule); border-radius:0; padding:0; margin:22px 0 4px; overflow-x:auto; scrollbar-width:none;}
+  :is(#hojePage, #muralPage, #adminPage) .ma-abas::-webkit-scrollbar{display:none;}
+  :is(#hojePage, #muralPage, #adminPage) .ma-abas button{flex:0 1 auto; position:relative; font-size:14px; font-weight:600; color:var(--ink-faint); background:none; border-radius:0; padding:10px 0 12px;}
+  :is(#hojePage, #muralPage, #adminPage) .ma-abas button[aria-selected="true"]{background:none; color:var(--ink);}
+  :is(#hojePage, #muralPage, #adminPage) .ma-abas button[aria-selected="true"]::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2.5px; border-radius:2px; background:var(--petrol);}
   .ma-grupo-t{font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin:22px 4px 8px;}
-  :is(#hojePage, #muralPage) .hj-card{border-radius:14px; padding:16px 18px; box-shadow:0 1px 2px var(--shadow);}
+  :is(#hojePage, #muralPage, #adminPage) .hj-card{border-radius:14px; padding:16px 18px; box-shadow:0 1px 2px var(--shadow);}
   .ma-corpo > .ma-grupo-t + .hj-card{margin-top:0;}
   .ma-corpo > .hj-card:first-child{margin-top:18px;}
   .ma-lista{padding:4px 0 !important; overflow:hidden;}
@@ -3334,6 +3334,58 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-box p:last-child{margin:0;}
   .mu-head .ma-abas button{display:inline-flex; align-items:center;}
   .mu-head .ma-status{margin-top:0;}
+  /* painel do administrador */
+  .adm-page{max-width:720px; margin:0 auto;}
+  .adm-eyebrow{background:rgba(163,45,45,.1) !important; color:#8E2A2A !important;}
+  body.dark .adm-eyebrow{background:rgba(220,110,110,.16) !important; color:#F0B1B1 !important;}
+  .adm-so{font-size:12px; font-weight:600; color:var(--ink-faint);}
+  .adm-ic{flex:none; width:52px; height:52px; border-radius:16px; display:grid; place-items:center; color:#fff; background:linear-gradient(150deg, #2B3A38, #121B1A); box-shadow:0 6px 14px rgba(0,0,0,.15);}
+  .adm-ic svg{width:26px; height:26px;}
+  .adm-sts{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;}
+  .adm-st{display:flex; flex-direction:column; align-items:flex-start; gap:2px; font:inherit; text-align:left; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:12px 14px; cursor:pointer; box-shadow:0 1px 2px var(--shadow);}
+  .adm-st b{font-family:var(--serif, Georgia, serif); font-size:26px; line-height:1;}
+  .adm-st span{font-size:12.5px; line-height:1.3; color:var(--ink-soft);}
+  .adm-st.tem{border-color:rgba(196,73,47,.4); background:linear-gradient(160deg, rgba(196,73,47,.08), var(--paper) 70%);}
+  .adm-st.tem b{color:#B23B22;}
+  body.dark .adm-st.tem b{color:#F09A85;}
+  .adm-corpo{margin-top:16px;}
+  .adm-acessos .adm{margin:0 !important; padding-top:0 !important; border-top:0 !important;}
+  .adm-acessos .adm-head{margin-top:0;}
+  .adm-acessos .adm-head h3{font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600;}
+  .adm-aviso-form h3{margin:0 0 4px; font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600;}
+  .adm-ajuda{margin:0 0 12px; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
+  .adm-aviso-form form{display:flex; flex-direction:column; gap:12px;}
+  .adm-aviso-form label{display:flex; flex-direction:column; gap:5px; font-size:12.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint); flex:1; min-width:0;}
+  .adm-aviso-form input, .adm-aviso-form textarea, .adm-aviso-form select{font:inherit; font-size:15px; letter-spacing:0; text-transform:none; font-weight:400; color:var(--ink); background:var(--paper-alt); border:1px solid var(--rule); border-radius:10px; padding:9px 11px; resize:vertical;}
+  .adm-aviso-form input:focus, .adm-aviso-form textarea:focus, .adm-aviso-form select:focus{outline:none; border-color:var(--petrol);}
+  .adm-linha{display:flex; gap:10px; flex-wrap:wrap;}
+  .adm-prev{background:var(--paper-alt); border-radius:12px; padding:10px 12px;}
+  .adm-prev > small{display:block; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
+  .adm-prev-n{display:flex; gap:10px; align-items:flex-start; background:var(--paper); border-radius:12px; padding:10px 12px; box-shadow:0 2px 8px var(--shadow);}
+  .adm-prev-ic{flex:none; width:30px; height:30px; border-radius:8px; display:grid; place-items:center; font-size:11px; font-weight:800; color:#E6C27A; background:#163C38;}
+  .adm-prev-n b{display:block; font-size:14px;}
+  .adm-prev-n span{display:block; font-size:13.5px; line-height:1.4; color:var(--ink-soft); overflow-wrap:anywhere;}
+  .adm-aviso-form .btn{align-self:flex-start;}
+  .adm-msg{background:rgba(46,125,79,.12); color:#235F3D; border-radius:12px; padding:10px 14px; font-size:14px; margin:0 0 12px;}
+  body.dark .adm-msg{color:#9FE0B8;}
+  .adm-hist{padding:4px 16px !important;}
+  .adm-hist-i{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:12px 0; border-top:1px solid var(--rule);}
+  .adm-hist-i:first-child{border-top:0;}
+  .adm-hist-i b{font-size:14.5px;}
+  .adm-hist-i p{margin:2px 0 4px; font-size:14px; line-height:1.45; color:var(--ink-soft); overflow-wrap:anywhere;}
+  .adm-hist-i small{font-size:12px; color:var(--ink-faint);}
+  .adm-tag{flex:none; font-size:11.5px; font-weight:700; border-radius:999px; padding:3px 9px; white-space:nowrap;}
+  .adm-tag.ok{color:#2E7D4F; background:rgba(46,125,79,.12);}
+  .adm-tag.pend{color:#9A6417; background:rgba(183,121,31,.14);}
+  .adm-tag.er{color:#A32D2D; background:rgba(163,45,45,.12);}
+  .adm-bloqs{padding:6px 16px !important;}
+  .adm-bloq{display:flex; align-items:center; gap:10px; padding:8px 0; border-top:1px solid var(--rule);}
+  .adm-bloq:first-child{border-top:0;}
+  .adm-bloq b{flex:1; font-size:14.5px;}
+  .mu-adm-aviso{display:flex; flex-direction:column; align-items:flex-start; gap:2px; width:100%; font:inherit; text-align:left; color:#8E2A2A; background:rgba(163,45,45,.08); border:1px solid rgba(163,45,45,.25); border-radius:14px; padding:11px 14px; margin-bottom:14px; cursor:pointer;}
+  .mu-adm-aviso span{font-size:13px; color:var(--ink-soft);}
+  body.dark .mu-adm-aviso{color:#F0B1B1;}
+  @media (max-width:480px){ .adm-st{padding:10px;} .adm-st b{font-size:22px;} .adm-hist-i{flex-direction:column; gap:6px;} }
   /* turma (painel do administrador) */
   .tm-hero{margin:18px 0 0; padding:18px; border-radius:14px; color:#fff; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 6px 16px var(--shadow); position:relative; overflow:hidden;}
   .tm-hero::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
@@ -3414,8 +3466,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pg-mais:hover{background:var(--paper-alt);}
   @media (max-width:380px){ .pg-modos{grid-template-columns:1fr;} }
   #hojePage .hj-card-top h2{font-size:21px;}
-  @media (min-width:601px){ :is(#hojePage, #muralPage) .ma-abas{justify-content:flex-start; gap:28px;} }
-  @media (max-width:420px){ :is(#hojePage, #muralPage) .ma-ola h1{font-size:26px !important;} .ma-sem-box{padding-left:10px;} }
+  @media (min-width:601px){ :is(#hojePage, #muralPage, #adminPage) .ma-abas{justify-content:flex-start; gap:28px;} }
+  @media (max-width:420px){ :is(#hojePage, #muralPage, #adminPage) .ma-ola h1{font-size:26px !important;} .ma-sem-box{padding-left:10px;} }
   .ma-pend{font-style:normal; font-size:11.5px; background:#A32D2D; color:#fff; border-radius:999px; padding:1px 7px; margin-left:4px;}
   .hj-topo > *{height:32px; box-sizing:border-box;}
   .hj-inicio{display:inline-flex; align-items:center; font:inherit; font-size:12.5px; font-weight:600; line-height:normal; letter-spacing:.02em; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:5px 12px; cursor:pointer;}
@@ -3449,6 +3501,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <button class="nav-link nav-trigger" aria-expanded="false">Sua conta <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="nav-group-label">Sua conta</div>
         <div class="nav-dropdown">
+          <button class="nav-item nav-admin" data-page="viewAdmin" hidden><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="ni-text"><strong>Painel do administrador</strong><small>Acessos, avisos, mural e turma</small></span></button>
           <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span><span class="ni-text"><strong>Mural da turma</strong><small>Publique, comente e curta</small></span></button>
           <button class="nav-item" data-page="viewHoje" data-ma-ir="hoje"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg></span><span class="ni-text"><strong>Minha área</strong><small>Plano do dia, progresso e treinos</small></span></button>
           <button class="nav-item nav-ap" data-page="viewHoje" data-ma-ir="ferramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/></svg></span><span class="ni-text"><strong>Recursos de apoiador <span class="ap-selo">★</span></strong><small id="navApSub">Veja as prévias e o que o apoio libera</small></span></button>
@@ -3670,6 +3723,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 <!-- ============ PÁGINA: SOBRE O SITE ============ -->
 <div class="wrap" id="viewHoje" style="display:none;"><div id="hojePage" class="hj-page"></div></div>
 <div class="wrap" id="viewMural" style="display:none;"><div id="muralPage" class="mu-page"></div></div>
+<div class="wrap" id="viewAdmin" style="display:none;"><div id="adminPage" class="adm-page"></div></div>
 <div class="conta-fundo" id="muPerfilFundo" hidden><div class="conta-caixa mu-perfil-caixa" role="dialog" aria-modal="true" aria-label="Perfil"><button class="conta-fechar" data-mu-fechar aria-label="Fechar">×</button><div id="muPerfilCorpo"></div></div></div>
 
 <div class="wrap" id="viewErros" style="display:none;">
@@ -4976,6 +5030,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: 'Geral', desc: 'Painel do administrador separado da área dos colegas, com acessos, avisos no celular escritos pelo próprio site, moderação do mural e números da turma.', link: {url:'#admin'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural: agora dá para editar os seus tópicos e respostas, e quem abriu uma dúvida pode marcar a melhor resposta. O tópico ganha o selo Resolvida e quem respondeu recebe o crédito no perfil.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural com reações (Curtir, Concordo, Haha, Amei e Psiu), marcação de colegas com @ e uma aba de Notificações. Quem ativar as notificações recebe no celular quando responderem o seu tópico ou marcarem você.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'O Mural da turma ganhou um botão no topo do site, com um ponto vermelho quando há tópico ou resposta nova. O modo escuro passou para Sua conta, na aba Conta.', link: {url:'#mural'}},
@@ -15973,11 +16028,11 @@ if(document.body.classList.contains('dark')){
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
 // endereços amigáveis para compartilhar (os antigos #viewX continuam funcionando)
-const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'minha-area', viewMural:'mural'};
+const PAGE_SLUG = {viewAdmin:'admin', viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'minha-area', viewMural:'mural'};
 const SLUG_PAGE = Object.fromEntries(Object.entries(PAGE_SLUG).map(([k, v])=>[v, k]));
 SLUG_PAGE['simulados'] = 'viewSimulados';
 SLUG_PAGE['hoje'] = 'viewHoje';
-const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros', 'viewHoje', 'viewMural'];
+const ALL_PAGES = ['top', 'viewAdmin', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros', 'viewHoje', 'viewMural'];
 let currentPage = 'top';
 
 function closeMenus(){
@@ -22828,7 +22883,7 @@ function desenharPainel(){
       if(a === 'ignorar'){ const x0 = admDados.find(y => y.uid === uid); const nv = {recusado: x0.aviso.em}; if(x0.ate) nv.ate = x0.ate; await set(ref(db, 'apoiadores/' + uid), nv); x0.aviso = null; }
       const x = admDados.find(y => y.uid === uid);
       if(a === 'liberar') x.ok = true; if(a === 'bloquear') x.ok = false; if(a === 'apoio'){ x.apoia = true; x.aviso = null; } if(a === 'tirar-apoio'){ x.apoia = false; x.ate = 0; }
-      desenharPainel(); contarPendentes();
+      desenharPainel(); contarPendentes(); if(window.avAdminRender) window.avAdminRender(true);
     }catch(e){ b.disabled = false; alert('Não deu certo. Confira a internet e tente de novo.'); }
   });
 }
@@ -22838,7 +22893,7 @@ let contaAba = 'conta';
 const temaHTML = () => { const d = document.body.classList.contains('dark'); return `<button class="conta-tema" data-conta-tema role="switch" aria-checked="${d}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg><span><b>Modo escuro</b><small>Fundo escuro, mais confortável à noite</small></span><i class="ct-sw"></i></button>`; };
 function desenharConta(m){
   if(!usuario){ corpo.innerHTML = '<h2 id="contaTitulo">Sua conta</h2><p class="conta-sub">Você não está conectado.</p>' + temaHTML(); ligarTema(); return; }
-  const abas = [['conta', 'Conta'], ['psiu', 'Psiu'], ['apoio', 'Apoiador']].concat(ehAdmin(usuario) ? [['acessos', 'Acessos']] : []);
+  const abas = [['conta', 'Conta'], ['psiu', 'Psiu'], ['apoio', 'Apoiador']];
   if(!abas.some(a => a[0] === contaAba)) contaAba = 'conta';
   let h = `<h2 id="contaTitulo">Sua conta</h2>${msgHTML(m)}
     <div class="conta-topo${apoiador ? ' apoia' : ''}"><span class="ct-av">${fotoAtual() ? `<img src="${esc(fotoAtual())}" alt="" referrerpolicy="no-referrer">` : esc(iniciais(usuario))}</span><div><b>${esc(usuario.displayName || primeiroNome(usuario))}</b><span>${esc(usuario.email)}</span>${apoiador ? '<span class="conta-selo">★ Apoiador do Arquivo Vivo</span>' : ''}</div></div>
@@ -22849,15 +22904,17 @@ function desenharConta(m){
     ? `<p class="conta-sub">Obrigado por apoiar o Arquivo Vivo! Estes são os seus recursos.</p><div class="conta-area"><div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>`
     : `<div class="conta-apoio"><b>Apoie o Arquivo Vivo</b><span>O site continua aberto para todos. Um Pix de valor livre ajuda a manter o projeto e libera os recursos abaixo.</span><button class="conta-btn" data-apoio>Quero apoiar</button></div>
        <div class="conta-area bloqueada"><b>Recursos do apoiador</b><small>Toque em um item para ver uma prévia com os seus dados.</small><div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>`;
-  if(contaAba === 'acessos') h += '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="apoio">Apoio avisado</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>';
   corpo.innerHTML = h;
   corpo.querySelectorAll('[data-conta-aba]').forEach(b => b.onclick = () => { contaAba = b.dataset.contaAba; desenharConta(); });
-  if(contaAba === 'acessos') carregarPainel();
   ligarTema();
   const sair = document.getElementById('contaSair'); if(sair) sair.onclick = async ()=>{ await enviar(); fundo.hidden = true; await signOut(auth); };
 }
 function ligarTema(){ const b = corpo.querySelector('[data-conta-tema]'); if(b) b.onclick = () => { document.getElementById('themeBtn').click(); b.setAttribute('aria-checked', document.body.classList.contains('dark')); }; }
-window.avAbrirConta = aba => { contaAba = aba || ((ehAdmin(usuario) && dot.textContent) ? 'acessos' : 'conta'); desenharConta(); fundo.hidden = false; };
+window.avAbrirConta = aba => { if(aba === 'acessos' && ehAdmin(usuario)){ window.avAdminAba = 'acessos'; switchPage('viewAdmin'); return; } contaAba = aba || 'conta'; desenharConta(); fundo.hidden = false; };
+// painel do administrador (página própria): acessos, contagens e a fila de avisos
+window.avAdmMontar = el => { if(!el || !ehAdmin(usuario)) return; el.innerHTML = '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="apoio">Apoio avisado</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>'; carregarPainel(); };
+window.avAdmContar = async () => { if(!ehAdmin(usuario)) return null; try{ const t = await lerTudo(); return {aguardando: t.filter(x => !x.ok).length, pix: t.filter(x => x.aviso).length, liberados: t.filter(x => x.ok).length}; }catch(_){ return null; } };
+window.avAdmPainelRedesenhar = () => { try{ desenharPainel(); }catch(_){} };
 window.avEhAdmin = () => ehAdmin(usuario);
 // ---------- notificações (Firebase Cloud Messaging) ----------
 const VAPID = 'BMbrv3A6D6scuf4CmwhnstaNXarGzwy-HvA_STFeqeicW7Gc9rfC_Cf66fcYwwBfsNcn8Wp_3-BKIkB1eHw_rrw';
@@ -23677,6 +23734,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     return {caps, lidos, temSim:sims.length > 0, melhor, nSim:hist.length, err:errLista(d.n).length, ds:dsh.length ? dsh[dsh.length - 1].pct : null};
   }
   let maAba = 'hoje';
+  window.avTurmaHTML = e => turmaHTML(e);
   function turmaHTML(e){
     if(!e) return '<section class="hj-card"><p class="hj-vazio">Os números da turma ainda não foram calculados. Eles são atualizados uma vez por dia, de madrugada.</p></section>';
     const quando = new Date(e.em).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'});
@@ -23766,7 +23824,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     }).join('');
     const admin = window.avEhAdmin && window.avEhAdmin(), pend = window.avPendentes ? window.avPendentes() : '';
     const nErr = errLista('todas').length;
-    const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso']].concat([['ferramentas', '★ Apoiador']]).concat(admin ? [['turma', 'Turma']] : []).concat([['conta', 'Conta' + (admin && pend ? ` <i class="ma-pend">${pend}</i>` : '')]]);
+    const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso'], ['ferramentas', '★ Apoiador'], ['conta', 'Conta']];
     if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
     let corpo = '';
     if(maAba === 'hoje') corpo = (plano || '') + `<div class="ma-grupo-t">Treinar</div><div class="ma-acoes">
@@ -23782,8 +23840,6 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(maAba === 'ferramentas' && !apoia) corpo = `<section class="ma-convite"><div><small>★ Recursos de apoiador</small><b>Estude com mais estratégia</b><span>Um Pix de valor livre libera tudo por 30 dias. O resto do site continua grátis.</span></div><button data-apoio>Quero apoiar</button></section>
       <div class="ma-grupo-t">Veja uma prévia com os seus dados</div><section class="hj-card ma-lista">${(window.avBeneficiosDados ? window.avBeneficiosDados() : []).map(b => maRow(`data-ben="${b.k}"`, (BEN_IC[b.k] || ['estrela'])[0], (BEN_IC[b.k] || [0, 'cinza'])[1], escHTML(b.t), escHTML(b.d), CAD).replace('class="ma-row"', 'class="ma-row travado"')).join('')}</section>
       <p class="hj-vazio" style="margin-top:12px">Também para apoiadores: marca-texto e notas nos resumos, Resumão em PDF completo e acessórios especiais do Psiu.</p>`;
-    if(maAba === 'turma'){ corpo = '<div id="maTurma"><section class="hj-card"><p class="hj-vazio">Carregando os números da turma…</p></section></div>';
-      setTimeout(async () => { const el2 = document.getElementById('maTurma'); if(!el2) return; const e = window.avLerTurma ? await window.avLerTurma() : null; el2.innerHTML = turmaHTML(e); }, 0); }
     if(maAba === 'conta') corpo = `<div class="ma-grupo-t">Perfil</div><section class="hj-card ma-perfil">${window.avFotoHTML ? window.avFotoHTML().replace('<b>Foto do perfil</b>', `<b>${escHTML(window.avNome || 'Sua conta')}</b>${window.avEmail ? `<small class="ma-email">${escHTML(window.avEmail)}</small>` : ''}`) : ''}</section>
         ${window.avPushHTML ? `<div class="ma-grupo-t">Notificações</div><section class="hj-card ma-push">${window.avPushHTML()}</section>` : ''}
         <div class="ma-grupo-t">Conta e preferências</div><section class="hj-card ma-lista">
@@ -23791,7 +23847,6 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
           ${maRow('data-ma-conta="psiu"', 'psiu', 'roxo', 'Personalizar o Psiu', 'Acessórios, cor, fundo e comentários')}
           ${window.avRumoOculto && window.avRumoOculto() ? maRow('data-rumo-mostrar', 'olho', 'ocre', 'Mostrar o Rumo à prova', 'Oculto até ' + new Date(+localStorage.getItem('av-rumo-oculto')).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'})) : ''}
           ${maRow('data-ma-conta="apoio"', 'apoio', 'rosa', apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo', apoia ? (window.avApoioAte ? 'Vale até ' + new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : 'Obrigado por apoiar!') : 'Contribuição voluntária, com extras')}
-          ${admin ? maRow('data-ma-conta="acessos"', 'acessos', 'verde', 'Acessos da turma', 'Liberar, bloquear e marcar apoiadores', pend ? `<span class="ma-badge ma-badge-red">${pend}</span>` : '') : ''}
         </section>`;
     el.innerHTML = `
       <header class="hj-head"><div class="hj-topo"><div class="eyebrow">Minha área</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
@@ -23841,6 +23896,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const navHoje = () => {
     const g = document.getElementById('navConta'); if(!g) return;
     g.hidden = !localStorage.getItem('av-acesso-ok');
+    const na = g.querySelector('.nav-admin'); if(na){ const eu = window.avEu && window.avEu(); na.hidden = !(eu && eu.admin); }
     const ap = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache')), ate = +(window.avApoioAte || 0);
     const dd = ate > 1 ? new Date(ate).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : '';
     document.getElementById('navApSub').textContent = ap ? 'Plano de estudos, desempenho, PDFs e mais' : 'Veja as prévias e o que o apoio libera';
@@ -24577,7 +24633,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const cab = `<div class="mu-sec"><span class="ma-grupo-t">Tópicos</span><div class="mu-ordem" role="tablist"><button aria-selected="${ordem === 'recentes'}" data-mu-ordem="recentes">Recentes</button><button aria-selected="${ordem === 'alta'}" data-mu-ordem="alta">Em alta</button></div></div>
       <div class="mu-chips"><button class="mu-chip${filtro === 'todos' ? ' on' : ''}" data-mu-filtro="todos">Todas</button><button class="mu-chip${filtro === 'resolvidas' ? ' on' : ''}" data-mu-filtro="resolvidas" style="--c:#2E7D4F"><i></i>Resolvidas</button><button class="mu-chip${filtro === 'abertas' ? ' on' : ''}" data-mu-filtro="abertas" style="--c:#6B7280"><i></i>Sem resposta</button>${CATS.map(c => `<button class="mu-chip${filtro === c[0] ? ' on' : ''}" data-mu-filtro="${c[0]}" style="--c:${c[2]}"><i></i>${esc(c[1])}</button>`).join('')}</div>`;
     const vazio = `<section class="hj-card mu-vazio">${psiuMini()}<b>${todos.length ? 'Nada nesta categoria ainda' : 'O mural está esperando o primeiro tópico'}</b><p>${todos.length ? 'Que tal abrir o primeiro?' : 'Uma dúvida da prova, um material que ajudou ou um aviso. Quem começar ganha o primeiro lugar na lista.'}</p></section>`;
-    return `${eu.admin ? denunciasHTML() : ''}${acoes}${cab}
+    const nDen = eu.admin ? Object.keys(C.den || {}).length : 0;
+    return `${nDen ? `<button class="mu-adm-aviso" data-adm-ir="mural"><b>${plural(nDen, 'denúncia', 'denúncias')} para analisar</b><span>Abrir no Painel do administrador →</span></button>` : ''}${acoes}${cab}
       ${estado === 'carregando' ? '<div class="mu-esqueleto"><i></i><i></i><i></i></div>' : lista.length ? `<div class="mu-feed">${lista.map(([id, p]) => cardHTML(id, p, eu)).join('')}</div>` : vazio}`;
   }
   function novoHTML(eu){
@@ -24650,7 +24707,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     else if(vista !== 'lista' && C.posts[vista]) corpo = topicoHTML(vista, eu);
     else if(aba === 'membros') corpo = membrosHTML(eu);
     else if(aba === 'avisos') corpo = notifHTML(eu);
-    else if(aba === 'sobre') corpo = `<div class="mu-lado">${eu.admin ? `<section class="hj-card mu-teste-card"><h3>Modo de teste</h3><p>Experimente reações, marcações, denúncias e o painel de moderação com colegas de exemplo. Tudo fica só neste aparelho: nada vai para o Firebase e a turma não vê.</p>${emTeste() ? '<div class="mu-teste-bts"><button class="btn btn-ghost" data-mu-teste="recomecar">Recomeçar o teste</button><button class="btn btn-primary" data-mu-teste="sair">Sair do teste</button></div>' : '<button class="btn btn-primary" data-mu-teste="entrar">Entrar no modo de teste</button>'}</section>` : ''}${ladoHTML()}</div>`;
+    else if(aba === 'sobre') corpo = `<div class="mu-lado">${ladoHTML()}</div>`;
     else corpo = listaHTML(eu);
     const avisos = (emTeste() ? `<div class="mu-teste"><span><b>Modo de teste.</b> Tudo aqui fica só neste aparelho, a turma não vê.</span><button data-mu-teste="sair">Sair</button></div>` : '') + (C.bloq[eu.uid] ? '<p class="mu-erro">A sua conta está sem permissão para escrever no mural. Se achar que é um engano, fale com o representante da turma.</p>' : '') + (erro ? `<div class="mu-erro"><span>${esc(erro)}</span><button data-mu-erro-ok aria-label="Fechar aviso">×</button></div>` : '');
     const naLista = combinado && vista === 'lista';
@@ -24658,6 +24715,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(foco){ const t = el.querySelector('[data-mu-comentar] textarea'); if(t){ t.focus(); t.setSelectionRange(t.value.length, t.value.length); } }
     el.querySelectorAll('[data-mu-comentar] textarea').forEach(cresce);
   }
+  const renderMural = render; render = function(){ renderMural(); if(window.avAdminRender) window.avAdminRender(true); };
+  // parte do mural que fica no Painel do administrador
+  window.avMuralAdmin = el => { const eu = EU(); if(!el || !eu || !eu.admin) return;
+    if(estado === 'nada'){ carregar(); }
+    if(estado === 'carregando'){ el.innerHTML = '<section class="hj-card"><p class="hj-vazio">Carregando o mural…</p></section>'; return; }
+    const blq = Object.keys(C.bloq || {});
+    el.innerHTML = `${emTeste() ? '<div class="mu-teste"><span><b>Modo de teste ligado.</b> O mural mostra colegas de exemplo só neste aparelho.</span><button data-mu-teste="sair">Sair</button></div>' : ''}
+      <div class="ma-grupo-t">Denúncias</div>${denunciasHTML() || '<section class="hj-card"><p class="hj-vazio">Nenhuma denúncia para analisar.</p></section>'}
+      <div class="ma-grupo-t">Bloqueados no mural</div><section class="hj-card adm-bloqs">${blq.length ? blq.map(u => `<div class="adm-bloq">${avatar(u, nomeDe(u), 'mu-av-p')}<b>${esc(nomeDe(u))}</b><button class="adm-b sec" data-mu-desbloquear="${esc(u)}">Desbloquear</button></div>`).join('') : '<p class="hj-vazio">Ninguém bloqueado. Para bloquear, use o ⋯ de um tópico ou resposta da pessoa.</p>'}</section>
+      <div class="ma-grupo-t">Modo de teste</div><section class="hj-card mu-teste-card"><p>Experimente reações, marcações, denúncias e a moderação com colegas de exemplo. Tudo fica só neste aparelho: nada vai para o Firebase e a turma não vê.</p>${emTeste() ? '<div class="mu-teste-bts"><button class="btn btn-ghost" data-mu-teste="recomecar">Recomeçar o teste</button><button class="btn btn-primary" data-mu-teste="sair">Sair do teste</button></div>' : '<button class="btn btn-primary" data-mu-teste="entrar">Entrar no modo de teste</button>'}</section>`;
+  };
+  window.avMuralDenuncias = () => Object.keys(C.den || {}).length;
+  window.avMuralAtualizar = () => carregar();
   const cresce = t => { t.style.height = 'auto'; const h = t.scrollHeight + 2; t.style.height = Math.min(h, 160) + 'px'; t.style.overflowY = h > 160 ? 'auto' : 'hidden'; };
   function abrir(v){ vista = v; menuAberto = null; reacAberto = null; try{ history.replaceState(history.state, '', v !== 'lista' && v !== 'novo' ? '#mural-' + v : '#mural'); }catch(_){} render(); const el = document.getElementById('viewMural'); if(el) window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 70)}); }
   function perfilAbrir(uid){
@@ -24684,7 +24754,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     catch(e){
       if(desfazer) desfazer();
       const eu = EU(), negado = /permission|denied/i.test(String((e && (e.code || e.message)) || ''));
-      erro = negado ? (eu && eu.admin ? 'O banco recusou a gravação: as regras do mural ainda não estão no Firebase. Cole o arquivo _firebase/regras-mural.json em Realtime Database, Regras, ou use o modo de teste na aba Sobre.' : 'O mural ainda está sendo ativado. Tente de novo mais tarde.') : 'Não deu para salvar agora. Confira a internet e tente de novo.';
+      erro = negado ? (eu && eu.admin ? 'O banco recusou a gravação: as regras do mural ainda não estão no Firebase. Cole o arquivo _firebase/regras-mural.json em Realtime Database, Regras, ou use o modo de teste no Painel do administrador.' : 'O mural ainda está sendo ativado. Tente de novo mais tarde.') : 'Não deu para salvar agora. Confira a internet e tente de novo.';
       render(); window.scrollTo({top: Math.max(0, (document.getElementById('viewMural')?.offsetTop || 0) - 70), behavior:'smooth'});
     }
   }
@@ -24751,14 +24821,14 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   document.addEventListener('click', e => {
     const q = s => e.target.closest(s), eu = EU();
     if(q('[data-mu-fechar]') || e.target.id === 'muPerfilFundo'){ document.getElementById('muPerfilFundo').hidden = true; return; }
-    if(!q('#viewMural') && !q('#muPerfilFundo')) return;
+    if(!q('#viewMural') && !q('#muPerfilFundo') && !q('#viewAdmin')) return;
     if(!eu) return;
     let b;
     if(menuAberto && !q('.mu-mais-box')){ menuAberto = null; render(); }
     if(reacAberto && !q('.mu-reac-box')){ reacAberto = null; render(); }
     if(q('[data-mu-combinado]')){ try{ localStorage.setItem('av-mural-ok', '1'); }catch(_){} render(); return; }
     if(q('[data-mu-erro-ok]')){ erro = ''; render(); return; }
-    if((b = q('[data-mu-teste]'))){ const a = b.dataset.muTeste; if(a === 'sair'){ modoTeste(false); } else { modoTeste(true, a === 'recomecar'); window.scrollTo({top: Math.max(0, document.getElementById('viewMural').offsetTop - 70)}); } return; }
+    if((b = q('[data-mu-teste]'))){ const a = b.dataset.muTeste, doPainel = !!q('#viewAdmin'); if(a === 'sair'){ modoTeste(false); } else { modoTeste(true, a === 'recomecar'); if(doPainel) switchPage('viewMural'); } return; }
     if(q('[data-mu-atualizar]')){ carregar(); return; }
     if(q('[data-mu-novo]')){ if(editPid){ editPid = null; rascunho = {titulo:'', cat:'', texto:''}; } abrir('novo'); document.getElementById('muTit')?.focus(); return; }
     if(q('[data-mu-lista]')){ if(editPid){ editPid = null; rascunho = {titulo:'', cat:'', texto:''}; } abrir('lista'); return; }
@@ -24792,6 +24862,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       acao(async () => { try{ await B().apagar('mural/comentarios/' + id); }catch(_){} await B().apagar('mural/posts/' + id); if(eu.admin){ try{ await B().apagar('mural/curtidas/' + id); await B().apagar('mural/denuncias/' + id); await B().apagar('mural/fixados/' + id); }catch(_){} } }, () => { C.posts[id] = ant; }); return; }
     if((b = q('[data-mu-apagar-com]'))){ const [pid, cid] = b.dataset.muApagarCom.split('~'); menuAberto = null; if(!confirm('Apagar esta resposta?')){ render(); return; }
       const ant = (C.com[pid] || {})[cid]; if(C.com[pid]) delete C.com[pid][cid]; render(); acao(async () => { await B().apagar(`mural/comentarios/${pid}/${cid}`); if(eu.admin){ try{ await B().apagar(`mural/denuncias/${pid}~${cid}`); }catch(_){} } }, () => { if(ant) C.com[pid][cid] = ant; }); return; }
+    if((b = q('[data-mu-desbloquear]'))){ const uid = b.dataset.muDesbloquear; delete C.bloq[uid]; render(); acao(() => B().apagar('mural/bloqueados/' + uid), () => { C.bloq[uid] = true; }); return; }
     if((b = q('[data-mu-bloquear]'))){ const uid = b.dataset.muBloquear; menuAberto = null; if(!confirm('Bloquear esta pessoa no mural? Ela continua usando o site, mas não cria tópicos, não responde e não curte.')){ render(); return; }
       C.bloq[uid] = true; render(); acao(() => B().gravar('mural/bloqueados/' + uid, true), () => { delete C.bloq[uid]; }); return; }
     if((b = q('[data-mu-den-apagar]'))){ const alvo = b.dataset.muDenApagar, [pid, cid] = alvo.split('~'); if(!confirm('Apagar este conteúdo?')) return;
@@ -24820,6 +24891,108 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const _sp = window.switchPage;
   if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); document.getElementById('muralBtn')?.classList.toggle('on', id === 'viewMural'); if(id === 'viewMural'){ marcarVisto(); if(estado === 'pronto') carregar(); else { estado = 'nada'; render(); } } return r; }; }
   setTimeout(() => { const v = document.getElementById('viewMural'); if(v && v.style.display !== 'none') render(); }, 1500);
+})();
+</script>
+<script>
+// ===== Painel do administrador: página separada, só para o administrador =====
+(function(){
+  const EU = () => window.avEu && window.avEu(), B = () => window.avBanco, esc = t => escHTML(t == null ? '' : t);
+  let aba = 'acessos', cont = null, fila = {}, aparelhos = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos'}, msg = '';
+  const ABAS = [['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Mural'], ['turma', 'Turma']];
+  const LINKS = [['', 'Página inicial'], ['#minha-area', 'Minha área'], ['#mural', 'Mural da turma'], ['#modo-prova', 'Simulados'], ['#resumos', 'Resumos'], ['#prazos', 'Prazos']];
+  const IC = {escudo:'<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/>', sino:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'};
+  const ic = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
+  const quando = ts => ts ? new Date(ts).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : '';
+  const filaPath = () => 'pedidos/' + EU().uid + '/fila';
+  async function contar(){
+    cont = window.avAdmContar ? await window.avAdmContar() : null; desenharTopo();
+  }
+  async function lerAvisos(){
+    try{
+      const [f, pe] = await Promise.all([B().ler(filaPath()), B().ler('pedidos')]);
+      fila = f || {};
+      aparelhos = Object.values(pe || {}).filter(p => p && p.push && p.push.token);
+    }catch(_){ fila = {}; aparelhos = null; }
+    if(aba === 'avisos') desenharCorpo();
+  }
+  function topoHTML(){
+    const den = window.avMuralDenuncias ? window.avMuralDenuncias() : 0;
+    const st = (n, t, k) => `<button class="adm-st${n ? ' tem' : ''}" data-adm-aba="${k}"><b>${n == null ? '–' : n}</b><span>${t}</span></button>`;
+    return `<div class="adm-sts">${st(cont && cont.aguardando, 'aguardando liberação', 'acessos')}${st(cont && cont.pix, 'Pix para conferir', 'acessos')}${st(den, den === 1 ? 'denúncia no mural' : 'denúncias no mural', 'mural')}</div>`;
+  }
+  function desenharTopo(){ const t = document.getElementById('admTopo'); if(t) t.innerHTML = topoHTML(); }
+  function avisosHTML(){
+    const lista = Object.entries(fila).sort((a, b) => b[1].em - a[1].em).slice(0, 12);
+    const nTodos = aparelhos ? aparelhos.filter(p => p.push.avisos !== false).length : null;
+    const st = f => f.status === 'enviado' ? `<span class="adm-tag ok">Enviado ${quando(f.enviadoEm)} · ${f.n || 0} ${f.n === 1 ? 'aparelho' : 'aparelhos'}</span>` : f.status === 'erro' ? '<span class="adm-tag er">Não saiu</span>' : '<span class="adm-tag pend">Na fila, sai em até 15 min</span>';
+    return `${msg ? `<p class="adm-msg">${esc(msg)}</p>` : ''}
+      <section class="hj-card adm-aviso-form"><h3>Novo aviso no celular</h3>
+        <p class="adm-ajuda">${nTodos == null ? 'Contando aparelhos…' : `<b>${nTodos}</b> ${nTodos === 1 ? 'aparelho recebe' : 'aparelhos recebem'} avisos da turma.`} O envio sai em até 15 minutos.</p>
+        <form data-adm-aviso>
+          <label>Título<input name="titulo" maxlength="60" placeholder="Psiu!" value="${esc(envio.titulo)}"></label>
+          <label>Mensagem<textarea name="mensagem" maxlength="180" rows="3" required placeholder="Ex.: A prova de Neuro foi adiada para quinta.">${esc(envio.mensagem)}</textarea></label>
+          <div class="adm-linha"><label>Ao tocar, abre<select name="link">${LINKS.map(([v, t]) => `<option value="${v}"${envio.link === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
+          <label>Para quem<select name="publico"><option value="todos"${envio.publico === 'todos' ? ' selected' : ''}>Toda a turma</option><option value="admin"${envio.publico === 'admin' ? ' selected' : ''}>Só para mim (teste)</option></select></label></div>
+          <div class="adm-prev"><small>Prévia</small><div class="adm-prev-n"><span class="adm-prev-ic">AV</span><div><b data-prev-t>${esc(envio.titulo || 'Psiu!')}</b><span data-prev-m>${esc(envio.mensagem || 'A mensagem aparece aqui.')}</span></div></div></div>
+          <button class="btn btn-primary" type="submit">Enviar aviso</button>
+        </form></section>
+      <div class="ma-grupo-t">Últimos avisos</div>
+      <section class="hj-card adm-hist">${lista.length ? lista.map(([id, f]) => `<div class="adm-hist-i"><div><b>${esc(f.titulo || 'Psiu!')}</b><p>${esc(f.mensagem)}</p><small>${quando(f.em)} · ${f.publico === 'admin' ? 'só para você' : 'toda a turma'}</small></div>${st(f)}</div>`).join('') : '<p class="hj-vazio">Nenhum aviso enviado por aqui ainda.</p>'}</section>
+      <p class="adm-ajuda">Os lembretes de prova e de entrega continuam saindo sozinhos às 18h07, a partir dos prazos do site.</p>`;
+  }
+  function desenharCorpo(){
+    const c = document.getElementById('admCorpo'); if(!c) return;
+    if(aba === 'acessos'){ c.innerHTML = '<section class="hj-card adm-acessos" id="admAcessos"></section>'; if(window.avAdmMontar) window.avAdmMontar(document.getElementById('admAcessos')); }
+    if(aba === 'avisos'){ c.innerHTML = avisosHTML(); }
+    if(aba === 'mural'){ c.innerHTML = '<div id="admMural"></div>'; if(window.avMuralAdmin) window.avMuralAdmin(document.getElementById('admMural')); }
+    if(aba === 'turma'){ c.innerHTML = '<div id="admTurma"><section class="hj-card"><p class="hj-vazio">Carregando os números da turma…</p></section></div>';
+      (async () => { const e = window.avLerTurma ? await window.avLerTurma() : null; const el = document.getElementById('admTurma'); if(el && window.avTurmaHTML) el.innerHTML = window.avTurmaHTML(e); })(); }
+  }
+  function render(){
+    const el = document.getElementById('adminPage'); if(!el) return;
+    const eu = EU();
+    if(!eu || !eu.admin){ el.innerHTML = '<section class="hj-card"><p class="hj-vazio">Esta página é só para o administrador.</p></section>'; return; }
+    if(window.avAdminAba){ aba = window.avAdminAba; window.avAdminAba = null; }
+    el.innerHTML = `<header class="hj-head"><div class="hj-topo"><div class="eyebrow adm-eyebrow">Administração</div><span class="adm-so">Só você vê esta página</span></div>
+        <div class="ma-ola"><span class="adm-ic">${ic('escudo')}</span><div><h1>Painel do administrador</h1></div></div>
+        <div id="admTopo">${topoHTML()}</div></header>
+      <div class="ma-abas" role="tablist">${ABAS.map(([k, t]) => `<button role="tab" data-adm-aba="${k}" aria-selected="${aba === k}">${t}</button>`).join('')}</div>
+      <div id="admCorpo" class="adm-corpo"></div>`;
+    desenharCorpo(); contar();
+    if(aba === 'avisos') lerAvisos();
+  }
+  window.avAdminRender = leve => {
+    const v = document.getElementById('viewAdmin'); if(!v || v.style.display === 'none') return;
+    if(!leve){ render(); return; }
+    desenharTopo(); if(aba === 'mural'){ const m = document.getElementById('admMural'); if(m && window.avMuralAdmin) window.avMuralAdmin(m); }
+  };
+  document.addEventListener('click', e => {
+    const ir = e.target.closest('[data-adm-ir]'); if(ir){ window.avAdminAba = ir.dataset.admIr; switchPage('viewAdmin'); return; }
+    const b = e.target.closest('#viewAdmin [data-adm-aba]'); if(!b) return;
+    aba = b.dataset.admAba; msg = ''; document.querySelectorAll('#viewAdmin .ma-abas [data-adm-aba]').forEach(x => x.setAttribute('aria-selected', x.dataset.admAba === aba));
+    desenharCorpo(); if(aba === 'avisos') lerAvisos();
+  });
+  document.addEventListener('input', e => { const f = e.target.closest('[data-adm-aviso]'); if(!f) return;
+    envio = {titulo: f.titulo.value, mensagem: f.mensagem.value, link: f.link.value, publico: f.publico.value};
+    const pt = f.querySelector('[data-prev-t]'), pm = f.querySelector('[data-prev-m]'); if(pt) pt.textContent = envio.titulo || 'Psiu!'; if(pm) pm.textContent = envio.mensagem || 'A mensagem aparece aqui.'; });
+  document.addEventListener('change', e => { const f = e.target.closest('[data-adm-aviso]'); if(f) envio = {titulo: f.titulo.value, mensagem: f.mensagem.value, link: f.link.value, publico: f.publico.value}; });
+  document.addEventListener('submit', async e => {
+    const f = e.target.closest('[data-adm-aviso]'); if(!f) return; e.preventDefault();
+    const eu = EU(); if(!eu || !eu.admin) return;
+    const m = f.mensagem.value.trim(); if(!m) return;
+    const todos = f.publico.value === 'todos';
+    if(todos && !confirm('Enviar este aviso para o celular de toda a turma?')) return;
+    const id = Date.now().toString(36), item = {titulo: f.titulo.value.trim().slice(0, 60) || 'Psiu!', mensagem: m.slice(0, 180), link: f.link.value, publico: todos ? 'todos' : 'admin', em: Date.now(), status: 'pendente'};
+    f.querySelector('[type=submit]').disabled = true;
+    try{ await B().gravar(filaPath() + '/' + id, item); fila[id] = item; envio = {titulo:'', mensagem:'', link:'', publico:'todos'}; msg = todos ? 'Aviso na fila. Sai para a turma em até 15 minutos.' : 'Teste na fila. Chega no seu celular em até 15 minutos.'; }
+    catch(_){ msg = 'Não deu para colocar o aviso na fila. Confira a internet e tente de novo.'; }
+    desenharCorpo();
+  });
+  const _sp = window.switchPage;
+  if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewAdmin'){ render(); if(window.avMuralAtualizar) window.avMuralAtualizar(); } return r; }; }
+  // mostra o item do menu só para o administrador, assim que a conta é reconhecida
+  let n = 0; const t = setInterval(() => { const eu = EU(); const na = document.querySelector('.nav-admin'); if(na && eu){ na.hidden = !eu.admin; } if(eu || ++n > 40) clearInterval(t);
+    const v = document.getElementById('viewAdmin'); if(eu && v && v.style.display !== 'none') render(); }, 1000);
 })();
 </script>
 </body>
