@@ -3163,7 +3163,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-membro .mu-av{margin-bottom:6px;}
   .mu-membro b{font-size:14.5px;}
   .mu-membro small{font-size:12.5px; color:var(--ink-faint);}
-  .mu-membro span{margin-top:6px; font-size:12px; color:var(--ink-soft); background:var(--paper-alt); border-radius:999px; padding:3px 10px;}
+  .mu-membro .mu-membro-n{margin-top:6px; font-size:12px; color:var(--ink-soft); background:var(--paper-alt); border-radius:999px; padding:3px 10px;}
   /* boas-vindas */
   /* menus, avisos, denúncias */
   .mu-mais-box{position:relative; flex:none;}
@@ -3232,6 +3232,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   body.dark .mu-ordem button[aria-selected=true]{background:#2a6b63;}
   .mu-chips{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:2px 2px 12px; margin:0 -2px;}
   .mu-chips::-webkit-scrollbar{display:none;}
+  @media (min-width:600px){ .mu-chips{flex-wrap:wrap; overflow:visible;} }
+  @media (max-width:599px){ .mu-chips{-webkit-mask-image:linear-gradient(90deg, #000 85%, transparent); mask-image:linear-gradient(90deg, #000 85%, transparent); padding-right:24px;} }
   .mu-chip{flex:none; display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink); background:color-mix(in srgb, var(--c, var(--petrol)) 8%, var(--paper)); border:1px solid color-mix(in srgb, var(--c, var(--petrol)) 22%, var(--rule)); border-radius:999px; padding:7px 13px; cursor:pointer;}
   .mu-chip i{width:9px; height:9px; border-radius:50%; background:var(--c);}
   .mu-chip.on{background:var(--c, var(--petrol)); border-color:var(--c, var(--petrol)); color:#fff;}
@@ -24624,7 +24626,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const at = atividade(), lista = Object.keys(C.perfis).filter(u => C.perfis[u] && C.perfis[u].nome).sort((a, b) => ((at[b] || {}).ult || 0) - ((at[a] || {}).ult || 0) || nomeDe(a).localeCompare(nomeDe(b)));
     if(!lista.length) return '<section class="mu-vazio"><b>Ninguém por aqui ainda</b><p>Os membros aparecem quando abrem o mural pela primeira vez.</p></section>';
     return `<div class="mu-membros">${lista.map(u => { const p = C.perfis[u], a = at[u] || {t:0, r:0};
-      return `<button class="mu-membro" data-mu-perfil="${esc(u)}">${avatar(u, p.nome, 'mu-av-l')}<b>${esc(p.nome)}${selo(u)}</b><small>${p.sem ? p.sem + 'º semestre' : 'Psicologia'}${u === eu.uid ? ' · você' : ''}</small><span>${plural(a.t, 'tópico', 'tópicos')} · ${plural(a.r, 'resposta', 'respostas')}</span>${a.m ? `<em class="mu-resolvida">${ic('certo')} ${plural(a.m, 'melhor resposta', 'melhores respostas')}</em>` : ''}</button>`; }).join('')}</div>`;
+      return `<button class="mu-membro" data-mu-perfil="${esc(u)}">${avatar(u, p.nome, 'mu-av-l')}<b>${esc(p.nome)}${selo(u)}</b><small>${p.sem ? p.sem + 'º semestre' : 'Psicologia'}${u === eu.uid ? ' · você' : ''}</small><span class="mu-membro-n">${plural(a.t, 'tópico', 'tópicos')} · ${plural(a.r, 'resposta', 'respostas')}</span>${a.m ? `<em class="mu-resolvida">${ic('certo')} ${plural(a.m, 'melhor resposta', 'melhores respostas')}</em>` : ''}</button>`; }).join('')}</div>`;
   }
   function denunciasHTML(){
     const alvos = Object.entries(C.den || {}); if(!alvos.length) return '';
