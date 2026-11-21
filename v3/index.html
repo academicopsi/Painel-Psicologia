@@ -301,6 +301,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
   /* Próximo prazo (gerado via JS) */
   #topDeadline:empty{display:none;}
+  .hero-panel[hidden]{display:none !important;}
   .top-deadline{display:flex; flex-direction:column; gap:10px;}
   .top-deadline .alert-badge{
     align-self:flex-start;
@@ -2888,7 +2889,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     <aside class="hero-panel" aria-label="Próximo prazo">
       <div>
         <div class="panel-label">Próximo prazo</div>
-        <div id="topDeadline"><div class="empty" style="padding:14px">Nenhum prazo pendente no momento.</div></div>
+        <div id="topDeadline"></div>
       </div>
     </aside>
   </section>
@@ -15175,7 +15176,7 @@ function renderTasks(items){
     document.getElementById('homeTasks').innerHTML = '<div class="empty">Nenhum prazo pendente no momento.</div>';
     document.getElementById('homeTasksMore').innerHTML = '';
     document.getElementById('cntHomeTasks').textContent = '(0)';
-    topEl.innerHTML = '<div class="empty" style="padding:14px">Nenhum prazo pendente no momento.</div>';
+    topEl.innerHTML = '';
   } else {
     el.innerHTML = active.map(t => {
       const urgent = t.diffDays <= 3;
@@ -15222,7 +15223,7 @@ function renderTasks(items){
     else if(next.diffDays === 0) nextTxt = 'vence hoje';
     else if(next.diffDays === 1) nextTxt = 'vence amanhã';
     else nextTxt = `vence em ${next.diffDays} dias`;
-    if(!next.prazo){ topEl.innerHTML = '<div class="empty" style="padding:14px">Nenhum prazo do seu semestre no momento.</div>'; } else topEl.innerHTML = `<div class="top-deadline${nextUrgent ? ' alert' : ''}">
+    if(!next.prazo){ topEl.innerHTML = ''; } else topEl.innerHTML = `<div class="top-deadline${nextUrgent ? ' alert' : ''}">
       ${nextUrgent ? '<span class="alert-badge">Atenção: prazo se encerrando</span>' : '<span class="alert-badge">Em breve</span>'}
       <span class="txt"><strong>${next.materia}</strong> · ${next.tarefa.replace(/\s*\([^)]*\)\s*$/, '')} (<strong class="vence-destaque">${nextTxt}</strong>)<br><a href="#prazos" class="deadline-more-link" onclick="switchPage('viewPrazos'); return false;">Ver todos os prazos →</a></span>
     </div>`;
@@ -15239,8 +15240,10 @@ function renderTasks(items){
         </div>`;
       }).join('');
 }
-renderTasks(TASKS);
-document.addEventListener('av-semestre', ()=> renderTasks(TASKS));
+// sem prazo, o painel some
+function painelPrazo(){ const a = document.querySelector('.hero-panel'), t = document.getElementById('topDeadline'); if(a && t) a.hidden = !t.innerHTML.trim(); }
+renderTasks(TASKS); painelPrazo();
+document.addEventListener('av-semestre', ()=>{ renderTasks(TASKS); painelPrazo(); });
 
 
 
