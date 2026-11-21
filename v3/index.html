@@ -2887,27 +2887,32 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-lista .ma-ben > button:first-child{border-top:0 !important;}
   .ma-lista .ma-ben > button:hover{background:var(--paper-alt) !important;}
   /* plano de hoje (guia de estudos) */
-  #hojePage .pg{padding:18px 18px 8px;}
-  .pg-head{display:flex; align-items:center; gap:12px;}
-  .pg-head small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--petrol);}
-  .pg-head h2{font-family:var(--serif, Georgia, serif); font-size:22px; font-weight:600; margin:1px 0 0; line-height:1.15;}
-  .pg-desc{font-size:14px; color:var(--ink-soft); line-height:1.5; margin:12px 0 14px;}
-  .pg-modos{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
-  .pg-modos button{display:flex; align-items:flex-start; gap:10px; text-align:left; font:inherit; color:var(--ink); background:var(--paper); border:1.5px solid var(--rule); border-radius:12px; padding:12px; cursor:pointer; transition:border-color .15s, background .15s;}
-  .pg-modos button[aria-checked="true"]{border-color:var(--petrol); background:var(--petrol-soft);}
+  #hojePage .pg{padding:0 18px 0; overflow:hidden; border-color:transparent;}
+  .pg-topo{position:relative; margin:0 -18px; padding:20px 18px 18px; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); color:#fff; overflow:hidden;}
+  .pg-topo::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
+  body.dark .pg-topo{background:linear-gradient(160deg, #1f4a46 0%, #183634 100%);}
+  .pg-head{display:flex; align-items:center; gap:12px; position:relative;}
+  .pg-ic{flex:none; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.12); color:#fff;}
+  .pg-ic svg{width:19px; height:19px;}
+  .pg-head small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#A9D3C8;}
+  .pg-head h2{font-family:var(--serif, Georgia, serif); font-size:24px; font-weight:600; margin:1px 0 0; line-height:1.15; color:#fff;}
+  .pg-desc{position:relative; font-size:14px; color:rgba(255,255,255,.78); line-height:1.5; margin:12px 0 14px;}
+  .pg-modos{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:4px; border-radius:12px; background:rgba(0,0,0,.18);}
+  .pg-modos button{display:flex; align-items:flex-start; gap:9px; text-align:left; font:inherit; color:#fff; background:transparent; border:0; border-radius:9px; padding:11px 11px; cursor:pointer; transition:background .15s, color .15s;}
+  .pg-modos button[aria-checked="true"]{background:var(--paper); color:var(--ink); box-shadow:0 2px 8px rgba(0,0,0,.18);}
   .pg-modos b{display:block; font-size:14px; line-height:1.25;}
-  .pg-modos small{display:block; font-size:12.5px; color:var(--ink-soft); line-height:1.35; margin-top:3px;}
-  .pg-radio{flex:none; width:18px; height:18px; margin-top:1px; border-radius:50%; border:2px solid var(--rule); box-sizing:border-box; position:relative;}
+  .pg-modos small{display:block; font-size:12.5px; color:rgba(255,255,255,.7); line-height:1.35; margin-top:3px;}
+  .pg-modos button[aria-checked="true"] small{color:var(--ink-soft);}
+  .pg-radio{flex:none; width:17px; height:17px; margin-top:1px; border-radius:50%; border:2px solid rgba(255,255,255,.55); box-sizing:border-box; position:relative;}
   .pg-modos button[aria-checked="true"] .pg-radio{border-color:var(--petrol);}
-  .pg-modos button[aria-checked="true"] .pg-radio::after{content:''; position:absolute; inset:3px; border-radius:50%; background:var(--petrol);}
-  .pg-escolha{margin:16px 0 0;}
-  .pg-pergunta{font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 8px;}
+  .pg-modos button[aria-checked="true"] .pg-radio::after{content:''; position:absolute; inset:2.5px; border-radius:50%; background:var(--petrol);}
+  .pg-escolha{margin:18px 0 4px;}
+  .pg-pergunta{font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 10px;}
   #hojePage .pg .pl-chips{gap:8px;}
-  #hojePage .pg .pl-chips button{font-size:13.5px; font-weight:500; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:8px; padding:8px 12px 8px 10px; display:inline-flex; align-items:center; gap:7px;}
-  #hojePage .pg .pl-chips button{padding:8px 13px;}
-  #hojePage .pg .pl-chips button[aria-pressed="true"]{padding-left:10px;}
-  #hojePage .pg .pl-chips button[aria-pressed="true"]{border-color:var(--petrol); background:var(--petrol-soft); color:var(--petrol-dark);}
-  #hojePage .pg .pl-chips button[aria-pressed="true"]::before{content:''; width:16px; height:16px; border-radius:50%; flex:none; background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat;}
+  #hojePage .pg .pl-chips button{position:relative; font-size:13.5px; font-weight:600; color:var(--ink); background:color-mix(in srgb, var(--acc, var(--petrol)) 8%, var(--paper)); border:1px solid color-mix(in srgb, var(--acc, var(--petrol)) 30%, transparent); border-radius:999px; padding:8px 14px 8px 12px; display:inline-flex; align-items:center; gap:8px;}
+  #hojePage .pg .pl-chips button::before{content:''; width:9px; height:9px; border-radius:50%; flex:none; background:var(--acc, var(--petrol));}
+  #hojePage .pg .pl-chips button[aria-pressed="true"]{background:var(--acc, var(--petrol)); border-color:var(--acc, var(--petrol)); color:#fff;}
+  #hojePage .pg .pl-chips button[aria-pressed="true"]::before{width:16px; height:16px; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/10px no-repeat;}
   .pg-tarefas{margin:16px -18px 0; padding:14px 18px 2px; border-top:1px solid var(--rule); background:var(--paper-alt);}
   .pg-prog{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:7px;}
   .pg-prog b{color:var(--ink);}
@@ -2917,6 +2922,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pg-tarefas .hj-item input{appearance:none; -webkit-appearance:none; width:22px; height:22px; border-radius:50%; border:1.5px solid var(--petrol-line); background:transparent; cursor:pointer; margin-top:0;}
   .pg-tarefas .hj-item input:checked{border-color:var(--petrol); background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/13px no-repeat;}
   .pg-vazio{font-size:14px; color:var(--ink-soft); margin:16px 0 4px;}
+  .pg-topo + .pg-tarefas, .pg-topo + .pg-vazio + .pg-mais{margin-top:0;}
+  .pg-topo + .pg-tarefas{border-top:0;}
   .pg-mais{display:flex; justify-content:space-between; align-items:center; width:calc(100% + 36px); margin:14px -18px 0; padding:13px 18px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--petrol); background:none; border:0; border-top:1px solid var(--rule); cursor:pointer; text-align:left;}
   .pg-mais:hover{background:var(--paper-alt);}
   @media (max-width:380px){ .pg-modos{grid-template-columns:1fr;} }
@@ -23203,10 +23210,11 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       const tarefas = pl.itens.length ? `<div class="pg-tarefas"><div class="pg-prog"><span><b>${feitos} de ${pl.itens.length}</b> ${pl.itens.length === 1 ? 'tarefa feita' : 'tarefas feitas'}</span><span>cerca de ${min} min</span></div><div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>${pl.itens.map(itemHTML).join('')}</div>`
         : meu ? (pl.discs.length ? '<p class="pg-vazio">Nada pendente nessas disciplinas. Tudo em dia!</p>' : '') : '<p class="pg-vazio">Nada planejado para hoje. Aproveite para revisar os erros ou descansar.</p>';
       plano = `<section class="hj-card pg">
-        <div class="pg-head"><span class="ma-ic ma-ic-verde">${maIc('lista')}</span><div><small>Guia de estudos</small><h2>Plano de hoje</h2></div></div>
+        <div class="pg-topo">
+        <div class="pg-head"><span class="pg-ic">${maIc('lista')}</span><div><small>Guia de estudos</small><h2>Plano de hoje</h2></div></div>
         <p class="pg-desc">Um roteiro do que estudar hoje. Siga a sugestão do site ou monte o seu.</p>
-        ${modoBtns}
-        ${meu ? `<div class="pg-escolha"><p class="pg-pergunta">Escolha as disciplinas de hoje</p>${pl.chips(hojeISO())}</div>` : ''}
+        ${modoBtns}</div>
+        ${meu ? `<div class="pg-escolha"><p class="pg-pergunta">Escolha as disciplinas de hoje</p>${pl.chips(hojeISO()).replace(/data-hj-esc="[^|"]+\|(\d+)"/g, '$& data-d="$1"')}</div>` : ''}
         ${tarefas}
         <button class="pg-mais" data-ben="plano">${meu ? 'Planejar a semana' : 'Ver o plano da semana'}<span aria-hidden="true">→</span></button></section>`;
     } else {
