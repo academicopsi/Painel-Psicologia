@@ -1266,7 +1266,15 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   /* modo prova */
   .modo-prova{margin:0 0 28px;}
   .modo-prova[hidden]{display:none;}
-  .mp-intro{font-size:15px; color:var(--ink-soft); margin-bottom:12px;}
+  .mp-intro{font-size:15px; color:var(--ink-soft); margin-bottom:12px; display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+  .mp-ocultar{flex:none; font:inherit; font-size:13px; font-weight:600; color:var(--ink-soft); background:none; border:0; text-decoration:underline; text-underline-offset:3px; cursor:pointer; padding:0;}
+  .mp-ocultar:hover{color:var(--petrol);}
+  .mp-ocultar-op{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:-4px 0 14px; padding:12px 14px; background:var(--paper); border:1px solid var(--rule); border-radius:8px; font-size:14px;}
+  .mp-ocultar-op[hidden]{display:none;}
+  .mp-ocultar-op span{flex-basis:100%; color:var(--ink-soft);}
+  .mp-ocultar-op button{font:inherit; font-size:13.5px; font-weight:600; padding:7px 12px; border-radius:6px; border:1px solid var(--rule); background:var(--paper-alt); color:var(--ink); cursor:pointer;}
+  .mp-ocultar-op button:hover{border-color:var(--petrol-line); color:var(--petrol);}
+  .mp-ocultar-op .mp-cancelar{background:none; border-color:transparent; color:var(--ink-soft); text-decoration:underline;}
   .mp-intro strong{color:var(--ink);}
   .mp-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:14px;}
   .mp-card{background:var(--ochre-soft); border:1px solid rgba(183,121,31,.3); border-radius:6px; padding:18px 18px 16px;}
@@ -18644,12 +18652,25 @@ function modoProvaCard(p){
   </div>`;
 }
 document.addEventListener('av-semestre', ()=> renderModoProva());
+// o aluno pode ocultar o Rumo à prova por 24 h, 48 h ou de vez (volta pela Minha área)
+function rumoOculto(){ try{ const v = localStorage.getItem('av-rumo-oculto'); if(!v) return false; if(v === 'sempre') return true; if(Date.now() < +v) return true; localStorage.removeItem('av-rumo-oculto'); return false; }catch(e){ return false; } }
+window.avRumoOculto = rumoOculto;
+window.avRumoMostrar = () => { try{ localStorage.removeItem('av-rumo-oculto'); }catch(e){} renderModoProva(); };
+document.addEventListener('click', e => {
+  const m = e.target.closest('[data-rumo-menu]');
+  if(m){ const op = document.querySelector('.mp-ocultar-op'); if(op){ op.hidden = !op.hidden; document.querySelector('.mp-ocultar')?.setAttribute('aria-expanded', String(!op.hidden)); } return; }
+  const o = e.target.closest('[data-rumo-ocultar]'); if(!o) return;
+  const v = o.dataset.rumoOcultar === 'sempre' ? 'sempre' : String(Date.now() + (+o.dataset.rumoOcultar) * 3600000);
+  try{ localStorage.setItem('av-rumo-oculto', v); }catch(_){}
+  renderModoProva();
+});
 function renderModoProva(){
   const el = document.getElementById('modoProva');
   const ps = provasProximas(7);
-  if(!ps.length){ el.hidden = true; el.innerHTML = ''; return; }
+  if(!ps.length || rumoOculto()){ el.hidden = true; el.innerHTML = ''; return; }
   el.hidden = false;
-  el.innerHTML = `<div class="mp-intro"><strong>Prova nos próximos dias.</strong> Material de revisão das disciplinas:</div>
+  el.innerHTML = `<div class="mp-intro"><span><strong>Prova nos próximos dias.</strong> Material de revisão das disciplinas:</span><button class="mp-ocultar" data-rumo-menu aria-expanded="false">Ocultar</button></div>
+    <div class="mp-ocultar-op" hidden><span>Ocultar o Rumo à prova por</span><button data-rumo-ocultar="24">24 horas</button><button data-rumo-ocultar="48">48 horas</button><button data-rumo-ocultar="sempre">Sempre</button><button class="mp-cancelar" data-rumo-menu>Cancelar</button></div>
     <div class="mp-grid">${ps.slice(0,4).map(modoProvaCard).join('')}</div>`;
 }
 
@@ -23071,6 +23092,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(maAba === 'conta') corpo = `<section class="hj-card">${window.avFotoHTML ? window.avFotoHTML() : ''}${window.avPushHTML ? window.avPushHTML() : ''}<div class="ma-conta">
           <button data-ma-conta="conta"><b>Meus dados</b><small>${escHTML(window.avEmail || 'E-mail, sincronização e sair')}</small></button>
           <button data-ma-conta="psiu"><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e comentários</small></button>
+          ${window.avRumoOculto && window.avRumoOculto() ? `<button data-rumo-mostrar><b>Mostrar o Rumo à prova</b><small>${localStorage.getItem('av-rumo-oculto') === 'sempre' ? 'Está oculto na página inicial' : 'Oculto até ' + new Date(+localStorage.getItem('av-rumo-oculto')).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'})}</small></button>` : ''}
           <button data-ma-conta="apoio"><b>${apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo'}</b><small>${apoia ? (window.avApoioAte ? 'Vale até ' + new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : 'Obrigado por apoiar!') : 'Contribuição voluntária, com extras'}</small></button>
           ${admin ? `<button data-ma-conta="acessos"><b>Acessos da turma${pend ? ` <i class="ma-pend">${pend}</i>` : ''}</b><small>Liberar, bloquear e marcar apoiadores</small></button>` : ''}
         </div></section>`;
@@ -23082,6 +23104,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       ${corpo}`;
   }
   window.avRenderHoje = renderHoje;
+  document.addEventListener('click', e => { if(!e.target.closest('[data-rumo-mostrar]')) return; if(window.avRumoMostrar) window.avRumoMostrar(); renderHoje(); });
   document.addEventListener('click', e => { const sb = e.target.closest('[data-ma-sem]'); if(!sb) return; window.avSetSemestre(sb.dataset.maSem); renderHoje(); });
   document.addEventListener('av-p1', () => { const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none' && avSemestre() === '1') renderHoje(); });
   // ===== Funcionar sem internet: registra o service worker e avisa quando está offline =====
