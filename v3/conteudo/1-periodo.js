@@ -182,6 +182,10 @@ var CSS = '.lb{border:1px solid var(--line,#E2E0D8);border-radius:14px;padding:1
   + '.lb-campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:8px 0}.lb-campos label{font-size:12.5px;display:flex;flex-direction:column;gap:3px}.lb-campos input{font:inherit;border:1px solid var(--line,#E2E0D8);border-radius:8px;padding:6px 8px}'
   + '.lb-curva{width:100%;max-width:460px;display:block;margin:8px auto}.lb-res{display:flex;gap:12px;flex-wrap:wrap;font-size:14px}';
 
+CSS += '.ps-caixas{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}.ps-caixa{border:1.5px dashed var(--rule,#D9D4C7);border-radius:8px;padding:10px;min-height:86px;cursor:pointer;background:var(--paper,#fff)}.ps-caixa:hover{border-color:var(--petrol,#1F5C56)}.ps-cx-t{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft,#5b5a52);margin-bottom:8px}.ps-cx-itens{display:flex;flex-wrap:wrap;gap:6px}.ps-cx-itens .viz-chip{font-size:13px;padding:6px 10px}.ps-vazio{font-size:13px;color:var(--ink-soft,#5b5a52)}'
+  + '.lg-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}.lg-col{display:flex;flex-direction:column;gap:6px}.lg-cols .viz-chip{font-size:13.5px}.lg-cols .viz-chip.feito{border-color:var(--petrol-line,#9DB8B3)}.lg-n{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--petrol,#1F5C56);color:#fff;font-size:11px;margin-right:6px}'
+  + '.pfeedback ul{margin:6px 0 0 18px;padding:0}.pfeedback li{margin:3px 0;font-size:14px}';
+
 var depoisLista = [];
 function depois(){
   var st = document.createElement('style'); st.textContent = CSS + (window.avP1CSS || ''); document.head.appendChild(st);
@@ -196,21 +200,135 @@ var secoes = {
 var GRUPOS = [];
 function ferramentas(n, nome, rot, lista){ GRUPOS.push({n:n, nome:nome, rot:rot, lista:lista}); }
 function slug(t){ return String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+function registrarTentativa(det, ok){
+  if(typeof progLoad !== 'function') return;
+  var pr = progLoad(), x = pr.tools[det.id] || {t:0, a:0}; x.t += 1; if(ok) x.a += 1; pr.tools[det.id] = x; progSave(pr);
+  if(typeof paintToolBadges === 'function') paintToolBadges();
+}
+function embaralhar(a){ a = a.slice(); for(var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function fbMostrar(box, ok, html){ box.className = 'pfeedback show ' + (ok ? 'good' : 'bad'); box.innerHTML = html; }
+
+// ordenar: itens [{t, d}] na ordem certa; d aparece depois de corrigir
+function initOrdenar(det, t){
+  var lista = det.querySelector('.ord-list'), fb = det.querySelector('.pfeedback'), ordem;
+  function desenhar(marcar){
+    lista.innerHTML = ordem.map(function(it, k){
+      var cls = marcar ? (it === t.itens[k] ? ' ok' : ' err') : '';
+      return '<div class="ord-item' + cls + '"><span class="ord-num">' + (k + 1) + '</span><span class="ord-txt">' + it.t + (marcar && it.d ? ' <em class="ord-marca">' + it.d + '</em>' : '') + '</span><span class="ord-btns"><button class="ord-mv" data-mv="' + k + '|-1"' + (k === 0 ? ' disabled' : '') + ' aria-label="Subir">▲</button><button class="ord-mv" data-mv="' + k + '|1"' + (k === ordem.length - 1 ? ' disabled' : '') + ' aria-label="Descer">▼</button></span></div>';
+    }).join('');
+  }
+  function novo(){ do { ordem = embaralhar(t.itens); } while(ordem.every(function(x, k){ return x === t.itens[k]; })); fb.className = 'pfeedback'; fb.innerHTML = ''; desenhar(false); }
+  lista.addEventListener('click', function(e){ var b = e.target.closest('[data-mv]'); if(!b) return; var p = b.dataset.mv.split('|'), k = +p[0], d = +p[1]; var x = ordem[k]; ordem[k] = ordem[k + d]; ordem[k + d] = x; desenhar(false); });
+  det.querySelector('.correct-btn').addEventListener('click', function(){
+    var certos = ordem.filter(function(x, k){ return x === t.itens[k]; }).length, ok = certos === ordem.length;
+    desenhar(true); fbMostrar(fb, ok, ok ? '<b>Tudo na ordem certa!</b> ' + (t.fim || '') : '<b>' + certos + ' de ' + ordem.length + ' no lugar certo.</b> Os itens em vermelho estão fora de ordem; ajuste e corrija de novo.');
+    registrarTentativa(det, ok);
+  });
+  det.querySelector('.shuffle-btn').addEventListener('click', novo);
+  novo();
+}
+
+// separar: casos [{titulo, texto, itens:[{t, c}]}], categorias [..]; toque no item e depois na caixa
+function initSeparar(det, t){
+  var banco = det.querySelector('.ps-banco'), caixas = det.querySelector('.ps-caixas'), fb = det.querySelector('.pfeedback'), caso = det.querySelector('.ps-caso');
+  var ic = -1, lugar, sel = null, itens;
+  function desenhar(marcar){
+    banco.innerHTML = itens.map(function(it, k){ return lugar[k] == null ? '<button class="viz-chip' + (sel === k ? ' on' : '') + '" data-it="' + k + '">' + it.t + '</button>' : ''; }).join('') || '<span class="ps-vazio">Todos os itens foram colocados.</span>';
+    var cats = t.casos[ic].categorias || t.categorias;
+    caixas.innerHTML = cats.map(function(c, ci){
+      return '<div class="ps-caixa" data-cx="' + ci + '"><div class="ps-cx-t">' + c + '</div><div class="ps-cx-itens">' + itens.map(function(it, k){
+        if(lugar[k] !== ci) return '';
+        var cls = marcar ? (it.c === c ? ' certo' : ' errado') : '';
+        return '<button class="viz-chip' + cls + '" data-volta="' + k + '">' + it.t + '</button>';
+      }).join('') + '</div></div>';
+    }).join('');
+  }
+  function novo(){
+    ic = (ic + 1) % t.casos.length; var c = t.casos[ic];
+    itens = embaralhar(c.itens); lugar = itens.map(function(){ return null; }); sel = null;
+    caso.innerHTML = (c.titulo ? '<b>' + c.titulo + '</b>' : '') + (c.texto ? '<br>' + c.texto : '');
+    caso.parentNode.style.display = (c.titulo || c.texto) ? '' : 'none';
+    fb.className = 'pfeedback'; fb.innerHTML = ''; desenhar(false);
+  }
+  det.addEventListener('click', function(e){
+    var a = e.target.closest('[data-it]'); if(a && det.contains(a)){ sel = +a.dataset.it; desenhar(false); return; }
+    var v = e.target.closest('[data-volta]'); if(v){ lugar[+v.dataset.volta] = null; desenhar(false); return; }
+    var cx = e.target.closest('[data-cx]'); if(cx && sel !== null){ lugar[sel] = +cx.dataset.cx; sel = null; desenhar(false); }
+  });
+  det.querySelector('.correct-btn').addEventListener('click', function(){
+    if(lugar.some(function(x){ return x == null; })){ fbMostrar(fb, false, 'Coloque todos os itens numa caixa antes de corrigir.'); fb.classList.add('aviso'); return; }
+    var cats = t.casos[ic].categorias || t.categorias;
+    var certos = itens.filter(function(it, k){ return cats[lugar[k]] === it.c; }).length, ok = certos === itens.length;
+    desenhar(true);
+    var erros = itens.filter(function(it, k){ return cats[lugar[k]] !== it.c; }).map(function(it){ return '<li>' + it.t + ' → <b>' + it.c + '</b>' + (it.w ? ': ' + it.w : '') + '</li>'; }).join('');
+    fbMostrar(fb, ok, ok ? '<b>Tudo certo!</b> ' + (t.casos[ic].fim || '') : '<b>' + certos + ' de ' + itens.length + ' certos.</b><ul>' + erros + '</ul>');
+    registrarTentativa(det, ok);
+  });
+  det.querySelector('.shuffle-btn').addEventListener('click', novo);
+  novo();
+}
+
+// ligar: pares [{a, b}]; toque num item da esquerda e depois no da direita
+function initLigar(det, t){
+  var col = det.querySelector('.lg-cols'), fb = det.querySelector('.pfeedback'), pares, dir, liga, sel;
+  function desenhar(marcar){
+    col.innerHTML = '<div class="lg-col">' + pares.map(function(p, k){ var cls = sel === k ? ' on' : (liga[k] != null ? ' feito' : ''); if(marcar) cls = dir[liga[k]] === p ? ' certo' : ' errado';
+        return '<button class="viz-chip lg-a' + cls + '" data-la="' + k + '">' + (liga[k] != null ? '<span class="lg-n">' + (liga[k] + 1) + '</span>' : '') + p.a + '</button>'; }).join('') + '</div>'
+      + '<div class="lg-col">' + dir.map(function(p, k){ var usado = liga.indexOf(k) >= 0;
+        return '<button class="viz-chip lg-b' + (usado ? ' feito' : '') + '" data-lb="' + k + '"><span class="lg-n">' + (k + 1) + '</span>' + p.b + '</button>'; }).join('') + '</div>';
+  }
+  function novo(){ pares = embaralhar(t.pares).slice(0, t.max || 6); dir = embaralhar(pares); liga = pares.map(function(){ return null; }); sel = null; fb.className = 'pfeedback'; fb.innerHTML = ''; desenhar(false); }
+  col.addEventListener('click', function(e){
+    var a = e.target.closest('[data-la]'); if(a){ sel = +a.dataset.la; desenhar(false); return; }
+    var b = e.target.closest('[data-lb]'); if(b && sel !== null){ var k = +b.dataset.lb, ant = liga.indexOf(k); if(ant >= 0) liga[ant] = null; liga[sel] = k; sel = null; desenhar(false); }
+  });
+  det.querySelector('.correct-btn').addEventListener('click', function(){
+    if(liga.some(function(x){ return x == null; })){ fbMostrar(fb, false, 'Ligue todos os itens antes de corrigir.'); fb.classList.add('aviso'); return; }
+    var certos = pares.filter(function(p, k){ return dir[liga[k]] === p; }).length, ok = certos === pares.length;
+    desenhar(true);
+    fbMostrar(fb, ok, ok ? '<b>Todas as ligações certas!</b>' : '<b>' + certos + ' de ' + pares.length + ' certas.</b><ul>' + pares.filter(function(p, k){ return dir[liga[k]] !== p; }).map(function(p){ return '<li>' + p.a + ' → <b>' + p.b + '</b></li>'; }).join('') + '</ul>');
+    registrarTentativa(det, ok);
+  });
+  det.querySelector('.shuffle-btn').addEventListener('click', novo);
+  novo();
+}
+
+function corpoInterativo(t){
+  var rodape = '<div class="pfeedback"></div>' + (t.nota ? '<div class="tool-disclaimer">' + esc(t.nota) + '</div>' : '');
+  if(t.tipo === 'ordenar') return '<div class="ord-list"></div><div class="viz-row"><button class="correct-btn" style="margin-top:0;">Corrigir</button><button class="shuffle-btn" style="margin-top:0;">🔀 Embaralhar de novo</button></div>' + rodape;
+  if(t.tipo === 'separar') return '<div class="prompt-box"><div class="pfrase ps-caso"></div></div><div class="plabel" style="margin:4px 0 8px;">Itens (toque num item e depois na caixa)</div><div class="viz-chips ps-banco"></div><div class="ps-caixas"></div><div class="viz-row"><button class="correct-btn" style="margin-top:0;">Corrigir</button><button class="shuffle-btn" style="margin-top:0;">' + (t.casos.length > 1 ? '🔀 Outro caso' : '🔀 Recomeçar') + '</button></div>' + rodape;
+  if(t.tipo === 'ligar') return (t.topo || '') + '<div class="plabel" style="margin:4px 0 8px;">Toque num item da esquerda e depois no par da direita</div><div class="lg-cols"></div><div class="viz-row"><button class="correct-btn" style="margin-top:0;">Corrigir</button><button class="shuffle-btn" style="margin-top:0;">🔀 Outros pares</button></div>' + rodape;
+  if(t.tipo === 'custom') return t.html() + rodape;
+  return '';
+}
+
 function montarFerramentas(){
   var view = document.getElementById('viewFerramentas'); if(!view) return;
   var ultimo = [].slice.call(view.querySelectorAll('.tool-group')).pop();
   var cont = 0;
+  GRUPOS.sort(function(a, b){ return a.n < b.n ? -1 : 1; });
   GRUPOS.forEach(function(g){
     var sec = document.createElement('section'); sec.className = 'tool-group';
-    sec.innerHTML = '<h2 class="tool-group-title"><span class="tg-idx">' + g.rot + '</span>' + esc(g.nome) + '<span class="tg-count">' + g.lista.length + ' exercícios · 1º período</span></h2>'
+    sec.innerHTML = '<h2 class="tool-group-title"><span class="tg-idx">' + g.rot + '</span>' + esc(g.nome) + '<span class="tg-count">' + g.lista.length + ' exercícios · 1º semestre</span></h2>'
       + g.lista.map(function(t){ cont++; var pre = 'pz' + cont; t.pre = pre; t.id = 'tool-' + slug(t.titulo);
+        if(t.tipo) return '<details class="graveyard" id="' + t.id + '"><summary>' + esc(t.titulo) + '<span class="tool-tipo interativo">Interativo</span></summary><div class="tool-card" style="margin-top:12px;"><div class="sub">' + esc(t.sub) + '</div>' + corpoInterativo(t) + '</div></details>';
         return '<details class="graveyard" id="' + t.id + '"><summary>' + esc(t.titulo) + '<span class="tool-tipo quiz">Quiz</span></summary><div class="tool-card" style="margin-top:12px;"><div class="sub">' + esc(t.sub) + '</div><div class="prompt-box"><div class="plabel">Situação</div><div class="pfrase" id="' + pre + 'SituacaoTexto"></div></div><button class="shuffle-btn" id="' + pre + 'ShuffleBtn">🔀 Sortear outra situação</button><div id="' + pre + 'Opcoes" style="margin-top:18px; display:flex; flex-direction:column; gap:4px;"></div><button class="correct-btn" id="' + pre + 'CorrigirBtn" style="margin-top:12px;">Corrigir</button><div class="pfeedback" id="' + pre + 'FeedbackBox"></div>' + (t.nota ? '<div class="tool-disclaimer">' + esc(t.nota) + '</div>' : '') + '</div></details>'; }).join('');
     if(ultimo) ultimo.after(sec); else view.appendChild(sec);
     ultimo = sec;
     g.lista.forEach(function(t){
+      var det = document.getElementById(t.id);
+      if(typeof TOOL_LIST !== 'undefined') TOOL_LIST.push({id:t.id, titulo:t.titulo, tipo:t.tipo ? 'interativo' : 'quiz', disc:g.n, discNome:g.nome});
+      if(t.tipo){
+        try{
+          if(t.tipo === 'ordenar') initOrdenar(det, t);
+          else if(t.tipo === 'separar') initSeparar(det, t);
+          else if(t.tipo === 'ligar') initLigar(det, t);
+          else if(t.tipo === 'custom') t.init(det, function(ok){ registrarTentativa(det, ok); });
+        }catch(e){ console.error(e); }
+        return;
+      }
       if(typeof criarClassificador === 'function') criarClassificador(t.pool ? {pre:t.pre, cenarios:t.cenarios, pool:t.pool} : {pre:t.pre, cenarios:t.cenarios, opcoes:t.opcoes});
-      if(typeof TOOL_LIST !== 'undefined') TOOL_LIST.push({id:t.id, titulo:t.titulo, tipo:'quiz', disc:g.n, discNome:g.nome});
-      var det = document.getElementById(t.id), btn = det.querySelector('.correct-btn');
+      var btn = det.querySelector('.correct-btn');
       btn.addEventListener('click', function(){ setTimeout(function(){
         var fb = [].slice.call(det.querySelectorAll('.pfeedback.show')).pop();
         if(!fb || /Escolha uma opção/.test(fb.textContent) || typeof progLoad !== 'function') return;
@@ -393,6 +511,163 @@ ferramentas('15', 'Psicologia e Artes', '05', [
     {situacao:'Um poema conta uma história triste num ritmo leve, e o leitor sai dele estranhamente tranquilo.', correta:'Forma supera o conteúdo', explicacao:'A contradição entre forma e conteúdo produz a catarse.'},
     {situacao:'Na visita ao museu, a professora explica o contexto da obra e a turma passa a enxergá-la de outro jeito.', correta:'Mediação', explicacao:'A apropriação da arte depende de mediadores, como o professor.'}]}
 ]);
+var NOMES_P1 = {'11':['Estatística Aplicada à Psicologia','01'], '12':['Fenômenos e Processos Psicológicos Básicos','02'], '13':['Introdução à Psicologia','03'], '14':['Psicologia do Desenvolvimento: Infância e Adolescência','04'], '15':['Psicologia e Artes','05'], '16':['Filosofia','06']};
+function maisFerramentas(n, lista){ for(var i = 0; i < GRUPOS.length; i++){ if(GRUPOS[i].n === n){ GRUPOS[i].lista = GRUPOS[i].lista.concat(lista); return; } } ferramentas(n, NOMES_P1[n][0], NOMES_P1[n][1], lista); }
+
+// ---------- Interativos: Estatística ----------
+var HIPCASOS = [
+  {texto:'Pesquisa: alunos do método tradicional (T) terão <b>maior</b> rendimento escolar do que alunos das metodologias ativas (A).', a:'T', b:'A', dir:'>'},
+  {texto:'Pesquisa: o método de ensino (tradicional, T, ou metodologias ativas, A) <b>influencia</b> o rendimento escolar.', a:'T', b:'A', dir:null},
+  {texto:'Pesquisa: pessoas expostas a comunicação persuasiva (P) mudam <b>mais</b> de opinião do que pessoas expostas a comunicação não persuasiva (N).', a:'P', b:'N', dir:'>'},
+  {texto:'Pesquisa: o tipo de comunicação (persuasiva, P, ou não persuasiva, N) <b>tem efeito</b> sobre a opinião.', a:'P', b:'N', dir:null},
+  {texto:'Pesquisa: estudantes que dormem pouco (D) terão <b>menor</b> nota de memória do que estudantes que dormem bem (B).', a:'D', b:'B', dir:'<'},
+  {texto:'Pesquisa: a música ambiente (com música, M, ou em silêncio, S) <b>altera</b> o tempo de reação.', a:'M', b:'S', dir:null}];
+maisFerramentas('11', [
+  {tipo:'custom', titulo:'Monte H0 e H1', sub:'Leia a pesquisa, escolha a hipótese nula, a hipótese experimental e o tipo de teste. Depois clique em "Corrigir".', nota:'Pesquisas fictícias, na notação da aula 2: μ é a média da população.',
+    html:function(){ return '<div class="prompt-box"><div class="plabel">Pesquisa</div><div class="pfrase hb-caso"></div></div><div class="hb-slots"><div><div class="plabel">H0</div><div class="viz-chips hb-h0"></div></div><div><div class="plabel">H1</div><div class="viz-chips hb-h1"></div></div><div><div class="plabel">Teste</div><div class="viz-chips hb-tt"></div></div></div><div class="viz-row"><button class="correct-btn" style="margin-top:0;">Corrigir</button><button class="shuffle-btn" style="margin-top:0;">🔀 Outra pesquisa</button></div>'; },
+    init:function(det, reg){
+      var k = -1, esc0 = {}, c, fb = det.querySelector('.pfeedback');
+      function ops(){ return ['μ' + c.a + ' = μ' + c.b, 'μ' + c.a + ' ≠ μ' + c.b, 'μ' + c.a + ' > μ' + c.b, 'μ' + c.a + ' < μ' + c.b]; }
+      function chips(sel, nome, lista){ det.querySelector(sel).innerHTML = lista.map(function(o){ return '<button class="viz-chip' + (esc0[nome] === o ? ' on' : '') + '" data-hb="' + nome + '|' + o + '">' + o + '</button>'; }).join(''); }
+      function desenhar(){ chips('.hb-h0', 'h0', ops()); chips('.hb-h1', 'h1', ops()); chips('.hb-tt', 'tt', ['Unilateral', 'Bilateral']); }
+      function novo(){ k = (k + 1) % HIPCASOS.length; c = HIPCASOS[k]; esc0 = {}; det.querySelector('.hb-caso').innerHTML = c.texto; fb.className = 'pfeedback'; fb.innerHTML = ''; desenhar(); }
+      det.addEventListener('click', function(e){ var b = e.target.closest('[data-hb]'); if(!b) return; var p = b.dataset.hb.split('|'); esc0[p[0]] = p[1]; desenhar(); });
+      det.querySelector('.correct-btn').addEventListener('click', function(){
+        if(!esc0.h0 || !esc0.h1 || !esc0.tt){ fbMostrar(fb, false, 'Escolha H0, H1 e o tipo de teste.'); fb.classList.add('aviso'); return; }
+        var h0 = 'μ' + c.a + ' = μ' + c.b, h1 = c.dir ? 'μ' + c.a + ' ' + c.dir + ' μ' + c.b : 'μ' + c.a + ' ≠ μ' + c.b, tt = c.dir ? 'Unilateral' : 'Bilateral';
+        var ok = esc0.h0 === h0 && esc0.h1 === h1 && esc0.tt === tt;
+        fbMostrar(fb, ok, (ok ? '<b>Certo!</b> ' : '<b>Confira:</b> ') + 'H0: ' + h0 + ' (não há diferença). H1: ' + h1 + (c.dir ? ' (direcionada, porque a pesquisa diz qual grupo terá média maior), teste unilateral.' : ' (não direcionada, porque a pesquisa só diz que há diferença), teste bilateral.'));
+        reg(ok);
+      });
+      det.querySelector('.shuffle-btn').addEventListener('click', novo); novo();
+    }},
+  {tipo:'separar', titulo:'VI, VD ou nível da VI?', sub:'Leia a pesquisa e coloque cada elemento na caixa certa.', nota:'Pesquisas fictícias, com base na aula 1.', categorias:['Variável independente (VI)', 'Variável dependente (VD)', 'Nível da VI'], casos:[
+    {titulo:'Pesquisa 1', texto:'Influência do método de ensino (tradicional ou metodologias ativas) sobre o rendimento escolar.', itens:[{t:'Método de ensino', c:'Variável independente (VI)'}, {t:'Rendimento escolar', c:'Variável dependente (VD)'}, {t:'Método tradicional', c:'Nível da VI'}, {t:'Metodologias ativas', c:'Nível da VI'}]},
+    {titulo:'Pesquisa 2', texto:'Influência do tipo de comunicação (persuasiva ou não persuasiva) sobre a opinião a respeito de um tema.', itens:[{t:'Tipo de comunicação', c:'Variável independente (VI)'}, {t:'Opinião sobre o tema', c:'Variável dependente (VD)'}, {t:'Comunicação persuasiva', c:'Nível da VI'}, {t:'Comunicação não persuasiva', c:'Nível da VI'}]},
+    {titulo:'Pesquisa 3', texto:'Efeito das horas de sono (4 horas, 6 horas ou 8 horas) sobre o número de palavras lembradas num teste de memória.', itens:[{t:'Horas de sono', c:'Variável independente (VI)'}, {t:'Palavras lembradas', c:'Variável dependente (VD)'}, {t:'4 horas', c:'Nível da VI'}, {t:'6 horas', c:'Nível da VI'}, {t:'8 horas', c:'Nível da VI'}]}]}
+]);
+
+// ---------- Interativos: Fenômenos e Processos ----------
+function gestaltSVG(lei){
+  var r = function(n){ return Math.floor(Math.random() * n); }, out = '';
+  if(lei === 'Proximidade'){ var g = 2 + r(2); for(var c = 0; c < 6; c++){ var x = 20 + c * 30 + Math.floor(c / g) * 26; for(var l = 0; l < 4; l++) out += '<circle cx="' + x + '" cy="' + (20 + l * 26) + '" r="7"/>'; } }
+  else if(lei === 'Semelhança'){ var sq = r(2); for(var l2 = 0; l2 < 4; l2++) for(var c2 = 0; c2 < 7; c2++){ var x2 = 20 + c2 * 30, y2 = 20 + l2 * 26; out += ((l2 + sq) % 2) ? '<rect x="' + (x2 - 7) + '" y="' + (y2 - 7) + '" width="14" height="14"/>' : '<circle cx="' + x2 + '" cy="' + y2 + '" r="7" fill="none" stroke-width="2.5"/>'; } }
+  else if(lei === 'Fechamento'){ var tri = r(2); out = tri ? '<path d="M120 12 L150 64 M90 64 L150 64 M120 12 L90 64" stroke-dasharray="22 14" fill="none" stroke-width="4"/>' : '<circle cx="120" cy="60" r="40" fill="none" stroke-width="5" stroke-dasharray="40 16"/>'; out = out.replace('M90 64 L150 64', 'M60 100 L180 100').replace('M120 12 L150 64', 'M120 14 L180 100').replace('M120 12 L90 64', 'M120 14 L60 100'); }
+  else if(lei === 'Continuidade'){ out = '<path d="M10 100 Q120 -20 230 100" fill="none" stroke-width="4"/><path d="M10 20 Q120 140 230 20" fill="none" stroke-width="4" stroke-dasharray="2 0"/>'; }
+  else if(lei === 'Segregação'){ out = '<rect x="20" y="40" width="40" height="40" rx="4"/><circle cx="110" cy="60" r="20"/><path d="M160 80 L180 40 L200 80 Z"/>'; }
+  return '<svg viewBox="0 0 240 120" class="gs-svg" fill="currentColor" stroke="currentColor">' + out + '</svg>';
+}
+var GLEIS = {
+  'Proximidade':'Os pontos mais próximos parecem formar grupos (colunas juntas), embora sejam todos iguais.',
+  'Semelhança':'Elementos parecidos (círculos com círculos, quadrados com quadrados) são vistos como do mesmo grupo: vemos linhas.',
+  'Fechamento':'Completamos mentalmente as falhas e vemos uma figura fechada.',
+  'Continuidade':'Seguimos cada curva na mesma direção, e não vemos "cantos" no ponto em que elas se cruzam.',
+  'Segregação':'Identificamos itens distintos no mesmo espaço: três objetos separados.'};
+maisFerramentas('12', [
+  {tipo:'custom', titulo:'Veja a lei da Gestalt', sub:'Observe a figura e escolha a lei da Gestalt que explica o que você percebe. Depois clique em "Corrigir".', nota:'Leis da Gestalt conforme o texto 6. Figuras desenhadas para o exercício.',
+    html:function(){ return '<div class="gs-fig"></div><div class="viz-chips gs-ops" style="margin-top:12px"></div><div class="viz-row"><button class="correct-btn" style="margin-top:0;">Corrigir</button><button class="shuffle-btn" style="margin-top:0;">🔀 Outra figura</button></div>'; },
+    init:function(det, reg){
+      var leis = Object.keys(GLEIS), atual = null, esc1 = null, fb = det.querySelector('.pfeedback');
+      function ops(){ det.querySelector('.gs-ops').innerHTML = leis.map(function(l){ return '<button class="viz-chip' + (esc1 === l ? ' on' : '') + '" data-gs="' + l + '">' + l + '</button>'; }).join(''); }
+      function novo(){ var a; do { a = leis[Math.floor(Math.random() * leis.length)]; } while(a === atual); atual = a; esc1 = null; det.querySelector('.gs-fig').innerHTML = gestaltSVG(atual); fb.className = 'pfeedback'; fb.innerHTML = ''; ops(); }
+      det.addEventListener('click', function(e){ var b = e.target.closest('[data-gs]'); if(b){ esc1 = b.dataset.gs; ops(); } });
+      det.querySelector('.correct-btn').addEventListener('click', function(){ if(!esc1){ fbMostrar(fb, false, 'Escolha uma lei.'); fb.classList.add('aviso'); return; } var ok = esc1 === atual; fbMostrar(fb, ok, (ok ? '<b>Certo: ' : '<b>É ') + atual + '.</b> ' + GLEIS[atual]); reg(ok); });
+      det.querySelector('.shuffle-btn').addEventListener('click', novo); novo();
+    }},
+  {tipo:'separar', titulo:'Monte o esquema do condicionamento', sub:'Coloque cada elemento do caso no lugar do esquema de Pavlov: antes, durante e depois do condicionamento.', nota:'Esquema conforme a aula 5. O estímulo condicionado era neutro antes da associação.', categorias:['Estímulo não-condicionado (ENC)', 'Resposta não-condicionada (RNC)', 'Estímulo neutro → condicionado (EC)', 'Resposta condicionada (RC)'], casos:[
+    {titulo:'O cão de Pavlov', texto:'A carne faz o cão salivar. Uma luz acende sempre antes da carne. Depois de um tempo, o cão saliva quando a luz acende.', itens:[{t:'Carne', c:'Estímulo não-condicionado (ENC)'}, {t:'Salivar diante da carne', c:'Resposta não-condicionada (RNC)'}, {t:'Luz vermelha', c:'Estímulo neutro → condicionado (EC)'}, {t:'Salivar quando a luz acende', c:'Resposta condicionada (RC)'}]},
+    {titulo:'O motorzinho do dentista', texto:'A dor do tratamento deixa Ana tensa. O barulho do motorzinho sempre vem junto da dor. Hoje, Ana fica tensa só de ouvir o motorzinho.', itens:[{t:'Dor do tratamento', c:'Estímulo não-condicionado (ENC)'}, {t:'Tensão diante da dor', c:'Resposta não-condicionada (RNC)'}, {t:'Barulho do motorzinho', c:'Estímulo neutro → condicionado (EC)'}, {t:'Tensão ao ouvir o motorzinho', c:'Resposta condicionada (RC)'}]},
+    {titulo:'O jaleco branco', texto:'A injeção dói e faz o bebê chorar. A enfermeira sempre usa jaleco branco. Agora o bebê chora quando vê alguém de jaleco branco.', itens:[{t:'Dor da injeção', c:'Estímulo não-condicionado (ENC)'}, {t:'Choro diante da dor', c:'Resposta não-condicionada (RNC)'}, {t:'Jaleco branco', c:'Estímulo neutro → condicionado (EC)'}, {t:'Choro ao ver o jaleco', c:'Resposta condicionada (RC)'}]}]},
+  {tipo:'separar', titulo:'O caminho da memória (Atkinson e Shiffrin)', sub:'Coloque cada característica no armazenamento certo do modelo de Atkinson e Shiffrin.', nota:'Conforme o texto 5 da disciplina.', categorias:['Memória sensorial', 'Memória de curto prazo', 'Memória de longo prazo'], casos:[
+    {titulo:'', texto:'', itens:[{t:'Icônica e ecoica', c:'Memória sensorial'}, {t:'Guarda a imagem do relâmpago por um instante', c:'Memória sensorial'}, {t:'Também chamada de memória de trabalho', c:'Memória de curto prazo'}, {t:'Onde a informação ganha significado pela primeira vez', c:'Memória de curto prazo'}, {t:'Capacidade quase ilimitada', c:'Memória de longo prazo'}, {t:'Semântica, episódica e procedimental', c:'Memória de longo prazo'}, {t:'Saber andar de bicicleta', c:'Memória de longo prazo'}]}]},
+  {tipo:'ligar', titulo:'Ligue o pesquisador ao estudo', sub:'Ligue cada pesquisador ao seu estudo empírico sobre aprendizagem.', nota:'Conforme a aula 4 (estudos empíricos).', max:4, pares:[
+    {a:'Pavlov', b:'Cão, carne e luz: associação por contiguidade'}, {a:'Thorndike', b:'Gato na caixa-problema: ensaio e erro e Lei do Efeito'}, {a:'Ebbinghaus', b:'Sílabas sem sentido: memória'}, {a:'Köhler', b:'Macacos e bananas: insight'}]}
+]);
+
+// ---------- Interativos: Introdução à Psicologia ----------
+maisFerramentas('13', [
+  {tipo:'ordenar', titulo:'Linha do tempo: das raízes ao primeiro laboratório', sub:'Os marcos estão embaralhados. Use as setas para colocar do mais antigo ao mais recente e clique em "Corrigir": os anos aparecem depois.', nota:'Datas conforme Schultz e Schultz, capítulos 2 a 4, e os slides da Aula 02.', fim:'É a passagem da filosofia mecanicista para a psicologia de laboratório.', itens:[
+    {t:'La Mettrie afirma: "o homem é uma máquina"', d:'1748'}, {t:'Hartley publica Observations on Man', d:'1749'}, {t:'Maskelyne demite o assistente Kinnebrook', d:'1795'}, {t:'Müller publica o Manual de Fisiologia Humana', d:'1833-1840'}, {t:'Fechner tem a intuição sobre mente e corpo', d:'22/10/1850'}, {t:'Fechner publica Elementos de Psicofísica', d:'1860'}, {t:'Broca acha a área da fala na autópsia', d:'1861'}, {t:'Fritsch e Hitzig estimulam o córtex', d:'1870'}, {t:'Wundt vai para Leipzig', d:'1875'}]},
+  {tipo:'ordenar', titulo:'Linha do tempo: as primeiras escolas', sub:'Coloque os marcos do mais antigo ao mais recente e clique em "Corrigir".', nota:'Datas conforme Schultz e Schultz, capítulos 4 a 6, e "Rumos e Percursos".', itens:[
+    {t:'Darwin publica A Origem das Espécies', d:'1859'}, {t:'Galton publica Gênio Hereditário', d:'1869'}, {t:'Wundt publica Princípios de Psicologia Fisiológica', d:'1873-1874'}, {t:'Stanley Hall é o primeiro doutor em psicologia dos EUA', d:'1878'}, {t:'Wundt funda a revista Philosophische Studien', d:'1881'}, {t:'Galton cria a correlação', d:'1888'}, {t:'William James publica Os Princípios de Psicologia', d:'1890'}, {t:'Dewey critica o arco reflexo', d:'1896'}, {t:'Titchener dá o nome de funcionalismo', d:'1898'}]},
+  {tipo:'custom', titulo:'Laboratório de psicofísica', sub:'Seja o experimentador: encontre a diferença apenas perceptível de Weber e o limiar absoluto pelo método dos limites.', nota:'Participante simulado. A regra 1:40 para pesos é a de Weber, segundo Schultz e Schultz.',
+    html:function(){ return '<div class="pf-abas viz-row" style="margin-top:0"><button class="viz-chip on" data-pf="w">Weber: pesos</button><button class="viz-chip" data-pf="l">Método dos limites</button></div><div class="pf-w"></div><div class="pf-l" hidden></div><div class="viz-row"><button class="correct-btn" style="margin-top:0;">Corrigir</button><button class="shuffle-btn" style="margin-top:0;">🔀 Novo participante</button></div>'; },
+    init:function(det, reg){
+      var fb = det.querySelector('.pfeedback'), aba = 'w', w = {}, l = {};
+      function novoW(){ var ps = [40, 80, 120, 160, 200]; w.p = ps[Math.floor(Math.random() * ps.length)]; w.v = w.p; w.hist = []; desenharW(); }
+      function desenharW(){ det.querySelector('.pf-w').innerHTML = '<p class="pf-txt">Peso-padrão: <b>' + w.p + ' g</b>. Ajuste o peso de comparação e pergunte ao participante. Ache o <b>menor</b> peso que ele já sente como diferente.</p><input type="range" class="pf-r" min="' + w.p + '" max="' + Math.round(w.p * 1.08) + '" step="1" value="' + w.v + '"><div class="viz-row" style="margin-top:6px"><span class="pf-val">Comparação: <b>' + w.v + ' g</b></span><button class="shuffle-btn pf-perg" style="margin-top:0">Perguntar ao participante</button></div><div class="pf-hist">' + w.hist.map(function(h){ return '<span>' + h + '</span>'; }).join('') + '</div>'; }
+      function novoL(){ l.lim = 20 + Math.floor(Math.random() * 9) * 5 + Math.floor(Math.random() * 2) * 0; l.serie = 'asc'; l.i = 0; l.asc = null; l.desc = null; l.reg = []; desenharL(); }
+      function intensidadeL(){ return l.serie === 'asc' ? l.i * 5 : 80 - l.i * 5; }
+      function desenharL(){ var fim = l.asc != null && l.desc != null;
+        det.querySelector('.pf-l').innerHTML = '<p class="pf-txt">Apresente sons cada vez ' + (l.serie === 'asc' ? '<b>mais fortes</b> (série crescente, a partir de 0)' : '<b>mais fracos</b> (série decrescente, a partir de 80)') + ' até a resposta do participante mudar.</p>'
+          + (fim ? '<p class="pf-txt">Série crescente: mudou em <b>' + l.asc + '</b>. Série decrescente: mudou em <b>' + l.desc + '</b>. Qual é o limiar absoluto (a média dos dois pontos de mudança)?</p><div class="lb-resp"><input type="number" class="pf-resp" placeholder="Limiar"></div>' : '<button class="shuffle-btn pf-som" style="margin-top:0">Tocar som de intensidade ' + intensidadeL() + '</button>')
+          + '<div class="pf-hist">' + l.reg.map(function(h){ return '<span>' + h + '</span>'; }).join('') + '</div>'; }
+      det.addEventListener('click', function(e){
+        var a = e.target.closest('[data-pf]'); if(a){ aba = a.dataset.pf; det.querySelectorAll('[data-pf]').forEach(function(b){ b.classList.toggle('on', b === a); }); det.querySelector('.pf-w').hidden = aba !== 'w'; det.querySelector('.pf-l').hidden = aba !== 'l'; fb.className = 'pfeedback'; return; }
+        if(e.target.closest('.pf-perg')){ var dif = (w.v - w.p) >= w.p / 40; w.hist.push(w.v + ' g: "' + (w.v === w.p ? 'igual' : dif ? 'diferente' : 'igual') + '"'); desenharW(); return; }
+        if(e.target.closest('.pf-som')){ var x = intensidadeL(), ouviu = x >= l.lim; l.reg.push(x + ': "' + (ouviu ? 'ouvi' : 'não ouvi') + '"');
+          if(l.serie === 'asc'){ if(ouviu){ l.asc = x; l.serie = 'desc'; l.i = 0; l.reg.push('—'); } else l.i++; }
+          else { if(!ouviu){ l.desc = x; } else l.i++; }
+          desenharL(); }
+      });
+      det.addEventListener('input', function(e){ if(e.target.classList.contains('pf-r')){ w.v = +e.target.value; det.querySelector('.pf-val').innerHTML = 'Comparação: <b>' + w.v + ' g</b>'; } });
+      det.querySelector('.correct-btn').addEventListener('click', function(){
+        if(aba === 'w'){ var alvo = w.p + w.p / 40, ok = w.v === alvo;
+          fbMostrar(fb, ok, (ok ? '<b>Certo!</b> ' : '<b>Ainda não.</b> ') + 'Com a razão de 1:40 de Weber, para ' + w.p + ' g a diferença apenas perceptível é ' + (w.p / 40) + ' g: o menor peso sentido como diferente é <b>' + alvo + ' g</b>.'); reg(ok); }
+        else { if(l.asc == null || l.desc == null){ fbMostrar(fb, false, 'Termine as duas séries antes de corrigir.'); fb.classList.add('aviso'); return; }
+          var v = parseFloat((det.querySelector('.pf-resp') || {}).value), certo = (l.asc + l.desc) / 2, ok2 = Math.abs(v - certo) < 0.01;
+          fbMostrar(fb, ok2, (ok2 ? '<b>Certo!</b> ' : '<b>Confira:</b> ') + 'Limiar = (' + l.asc + ' + ' + l.desc + ') / 2 = <b>' + certo + '</b>. No método dos limites, usam-se séries crescentes e decrescentes e a média dos pontos em que a resposta muda.'); reg(ok2); }
+      });
+      det.querySelector('.shuffle-btn:not(.pf-perg):not(.pf-som)').addEventListener('click', function(){ fb.className = 'pfeedback'; if(aba === 'w') novoW(); else novoL(); });
+      novoW(); novoL();
+    }},
+  {tipo:'ligar', titulo:'Ligue o pesquisador à descoberta', sub:'Ligue cada pesquisador à sua contribuição para a nova psicologia.', nota:'Conforme Schultz e Schultz, capítulos 2 a 6.', max:6, pares:[
+    {a:'Müller', b:'Energias específicas dos nervos'}, {a:'Flourens', b:'Extirpação: o cerebelo coordena os movimentos'}, {a:'Broca', b:'Método clínico: a área da fala'}, {a:'Helmholtz', b:'Velocidade do impulso nervoso'}, {a:'Weber', b:'Limiar de dois pontos'}, {a:'Fechner', b:'S = k log R'}, {a:'Wundt', b:'Voluntarismo e percepção interior'}, {a:'Titchener', b:'Erro de estímulo'}, {a:'Ebbinghaus', b:'Sílabas sem sentido'}, {a:'Brentano', b:'Psicologia do ato'}, {a:'Galton', b:'Correlação'}, {a:'Morgan', b:'Lei da parcimônia'}]},
+  {tipo:'separar', titulo:'Wundt, Titchener ou funcionalismo?', sub:'Coloque cada ideia na escola certa.', nota:'Conforme Schultz e Schultz e "Rumos e Percursos".', categorias:['Wundt (voluntarismo)', 'Titchener (estruturalismo)', 'Funcionalismo'], casos:[
+    {titulo:'', texto:'', itens:[{t:'Sensações e sentimentos', c:'Wundt (voluntarismo)'}, {t:'Apercepção e síntese criativa', c:'Wundt (voluntarismo)'}, {t:'Psicologia Cultural', c:'Wundt (voluntarismo)'}, {t:'Sensações, imagens e estados afetivos', c:'Titchener (estruturalismo)'}, {t:'Erro de estímulo', c:'Titchener (estruturalismo)'}, {t:'Ciência pura, sem aplicação', c:'Titchener (estruturalismo)'}, {t:'Fluxo do pensamento', c:'Funcionalismo'}, {t:'Para que serve a consciência?', c:'Funcionalismo'}, {t:'Lei do Efeito', c:'Funcionalismo'}]}]}
+]);
+
+// ---------- Interativos: Desenvolvimento ----------
+maisFerramentas('14', [
+  {tipo:'ordenar', titulo:'Ordene as fases psicossexuais', sub:'Coloque as fases do desenvolvimento psicossexual de Freud na ordem em que acontecem.', nota:'Conforme o slide "Sobre a Psicanálise".', itens:[{t:'Oral', d:'a boca'}, {t:'Anal', d:'controle do esfíncter'}, {t:'Fálica', d:'Complexo de Édipo'}, {t:'Latência', d:'escola e amizades'}, {t:'Genital', d:'adolescência'}]},
+  {tipo:'separar', titulo:'Régua das idades', sub:'Coloque cada estágio na faixa de idade certa. Depois troque de autor em "Outro caso".', nota:'Idades conforme os slides de Piaget e de Wallon. As idades variam de pessoa para pessoa; a ordem é fixa.', categorias:[], casos:[
+    {titulo:'Piaget', texto:'Os quatro estágios do desenvolvimento cognitivo.', categorias:['0 a 2 anos', '2 a 7 anos', '7 a 11 anos', '11 anos em diante'], itens:[{t:'Sensório-motor', c:'0 a 2 anos'}, {t:'Pré-operacional', c:'2 a 7 anos'}, {t:'Operações concretas', c:'7 a 11 anos'}, {t:'Operações formais', c:'11 anos em diante'}]},
+    {titulo:'Wallon', texto:'Os cinco estágios, que alternam afetividade e inteligência.', categorias:['0 a 1 ano', '1 a 3 anos', '3 a 6 anos', '6 a 11 anos', '11 anos em diante'], itens:[{t:'Impulsivo-emocional', c:'0 a 1 ano'}, {t:'Sensório-motor e projetivo', c:'1 a 3 anos'}, {t:'Personalismo', c:'3 a 6 anos'}, {t:'Categorial', c:'6 a 11 anos'}, {t:'Puberdade e adolescência', c:'11 anos em diante'}]}]},
+  {tipo:'separar', titulo:'Monte a ZDP', sub:'Leia o caso e coloque cada tarefa na zona certa, segundo Vygotsky.', nota:'Casos fictícios, para treinar nível real, ZDP e o que ainda não é possível.', categorias:['Faz sozinho (nível real)', 'Faz com ajuda (ZDP)', 'Ainda não faz, nem com ajuda'], casos:[
+    {titulo:'Lia, 5 anos', texto:'Lia monta sozinha quebra-cabeças de 12 peças. Com a dica da irmã, monta os de 30 peças. Os de 500 peças ainda não consegue, nem com ajuda.', itens:[{t:'Quebra-cabeça de 12 peças', c:'Faz sozinho (nível real)'}, {t:'Quebra-cabeça de 30 peças', c:'Faz com ajuda (ZDP)'}, {t:'Quebra-cabeça de 500 peças', c:'Ainda não faz, nem com ajuda'}]},
+    {titulo:'Davi, 7 anos', texto:'Davi lê sozinho palavras simples. Com o professor apontando as sílabas, lê frases curtas. Ainda não lê um livro sem figuras, mesmo com ajuda.', itens:[{t:'Ler palavras simples', c:'Faz sozinho (nível real)'}, {t:'Ler frases curtas', c:'Faz com ajuda (ZDP)'}, {t:'Ler um livro sem figuras', c:'Ainda não faz, nem com ajuda'}]},
+    {titulo:'Bia, 9 anos', texto:'Bia faz contas de somar sozinha. Com um colega mostrando o passo a passo, faz contas de dividir. Equações ainda não consegue, mesmo com ajuda.', itens:[{t:'Contas de somar', c:'Faz sozinho (nível real)'}, {t:'Contas de dividir', c:'Faz com ajuda (ZDP)'}, {t:'Equações', c:'Ainda não faz, nem com ajuda'}]}]},
+  {tipo:'ligar', titulo:'Ligue o conceito ao autor', sub:'Ligue cada conceito ao teórico do desenvolvimento.', nota:'Conforme os slides da disciplina.', max:6, pares:[
+    {a:'Equilibração', b:'Piaget'}, {a:'Zona de desenvolvimento proximal', b:'Vygotsky'}, {a:'Personalismo', b:'Wallon'}, {a:'Objeto transicional', b:'Winnicott'}, {a:'Complexo de Édipo', b:'Freud'}, {a:'Síndrome da adolescência normal', b:'Aberastury e Knobel'}]}
+]);
+
+// ---------- Interativos: Psicologia e Artes ----------
+maisFerramentas('15', [
+  {tipo:'separar', titulo:'Desmonte a obra (Vigotski)', sub:'Leia a descrição da obra e coloque cada elemento na caixa certa: forma externa, forma interna ou conteúdo.', nota:'Obras fictícias. Forma externa é o material; forma interna, como o artista o organiza; conteúdo, o que a obra representa.', categorias:['Forma externa (material)', 'Forma interna (organização do artista)', 'Conteúdo (o que representa)'], casos:[
+    {titulo:'Um poema', texto:'Um poema sobre a morte de um amigo, escrito em versos curtos e num ritmo leve, quase de canção.', itens:[{t:'As palavras da língua', c:'Forma externa (material)'}, {t:'Versos curtos em ritmo de canção', c:'Forma interna (organização do artista)'}, {t:'A morte de um amigo', c:'Conteúdo (o que representa)'}]},
+    {titulo:'Uma escultura', texto:'Uma escultura de pedra pesada que mostra um pássaro levantando voo, com linhas finas e leves.', itens:[{t:'A pedra', c:'Forma externa (material)'}, {t:'Linhas finas que dão sensação de leveza', c:'Forma interna (organização do artista)'}, {t:'Um pássaro levantando voo', c:'Conteúdo (o que representa)'}]},
+    {titulo:'Uma peça de teatro', texto:'Uma peça sobre uma família em crise, contada de trás para a frente, começando pelo final.', itens:[{t:'Atores, cenário e falas', c:'Forma externa (material)'}, {t:'A história contada de trás para a frente', c:'Forma interna (organização do artista)'}, {t:'Uma família em crise', c:'Conteúdo (o que representa)'}]}]},
+  {tipo:'ligar', titulo:'Ligue o conceito ao significado', sub:'Ligue cada conceito da Psicologia da Arte ao que ele quer dizer.', nota:'Conforme Faria, Dias e Camargo (2019) e Barroco e Superti (2014).', max:6, pares:[
+    {a:'Técnica social do sentimento', b:'O sentimento individual se torna social pela obra'}, {a:'Catarse', b:'Emoções angustiantes se transformam no seu contrário'}, {a:'Duplicação do real', b:'Viver, de modo indireto, emoções não cotidianas'}, {a:'Emoções inteligentes', b:'Resolvem-se em imagens da fantasia'}, {a:'Perejivanie', b:'Vivência'}, {a:'Objetivação', b:'Fixar capacidades humanas nos objetos da cultura'}, {a:'Apropriação', b:'Tornar suas as capacidades fixadas na cultura'}, {a:'Teoria do contágio', b:'O artista contagia o público (Tolstói)'}]},
+  {tipo:'separar', titulo:'Recursos da arteterapia', sub:'Coloque cada atividade no tipo de recurso expressivo da arteterapia.', nota:'Recursos conforme o slide de Arteterapia.', categorias:['Artes manuais', 'Corpo e movimento', 'Palavra e som'], casos:[
+    {titulo:'', texto:'', itens:[{t:'Modelagem em argila', c:'Artes manuais'}, {t:'Colagem', c:'Artes manuais'}, {t:'Criação com sucata', c:'Artes manuais'}, {t:'Tecelagem', c:'Artes manuais'}, {t:'Dança', c:'Corpo e movimento'}, {t:'Expressão corporal', c:'Corpo e movimento'}, {t:'Teatro', c:'Corpo e movimento'}, {t:'Literatura', c:'Palavra e som'}, {t:'Música', c:'Palavra e som'}]}]}
+]);
+
+// ---------- Interativos: Filosofia ----------
+maisFerramentas('16', [
+  {tipo:'ordenar', titulo:'Linha do tempo da filosofia', sub:'Coloque os pensadores do mais antigo ao mais recente e clique em "Corrigir".', nota:'Datas conforme os Percursos de Aprendizagem 1 a 4.', itens:[
+    {t:'Tales de Mileto', d:'625 a.C.'}, {t:'Sócrates', d:'469-399 a.C.'}, {t:'Aristóteles', d:'384-322 a.C.'}, {t:'Agostinho', d:'354-430'}, {t:'Tomás de Aquino', d:'1225-1274'}, {t:'Ockham', d:'1287-1347'}, {t:'Descartes', d:'1596-1650'}, {t:'Kant', d:'1724-1804'}, {t:'Sartre', d:'1905-1980'}]},
+  {tipo:'ligar', titulo:'Decifre o Mito da Caverna', sub:'Ligue cada parte do mito ao que ela significa, segundo o Percurso 1.', nota:'Platão, A República, livro VII.',
+    topo:'<svg viewBox="0 0 320 120" class="cv-svg" aria-hidden="true"><path d="M0 120 L0 20 Q60 0 140 18 L210 30 Q260 34 320 10 L320 120 Z" fill="#3D3A33"/><path d="M210 30 Q260 34 320 10 L320 0 L210 0 Z" fill="#E9C46A"/><circle cx="292" cy="16" r="9" fill="#F4A261"/><rect x="18" y="58" width="44" height="30" fill="#6B675C"/><g fill="#1F1D19"><circle cx="110" cy="96" r="6"/><circle cx="130" cy="96" r="6"/><circle cx="150" cy="96" r="6"/></g><path d="M104 104 h52" stroke="#9A8F7A" stroke-width="2" stroke-dasharray="3 3"/><path d="M180 104 Q200 60 240 34" stroke="#C9B98F" stroke-width="2" fill="none" stroke-dasharray="4 4"/></svg>',
+    max:6, pares:[{a:'Sombras na parede', b:'O mundo sensível e as opiniões (doxa)'}, {a:'Correntes', b:'Os desejos do corpo, as vaidades e o status'}, {a:'Correntes rompidas', b:'O despertar da razão'}, {a:'Subir para fora da caverna', b:'Fazer filosofia pela dialética'}, {a:'O mundo de luz', b:'A verdade, o mundo das ideias (episteme)'}, {a:'A morte de quem volta', b:'A resistência dos outros à verdade'}]},
+  {tipo:'separar', titulo:'Estado de natureza: quem pensou isso?', sub:'Coloque cada ideia no filósofo político certo.', nota:'Conforme o Percurso 4.', categorias:['Maquiavel', 'Hobbes', 'Locke', 'Rousseau'], casos:[
+    {titulo:'', texto:'', itens:[{t:'Não se pode confiar nas pessoas', c:'Maquiavel'}, {t:'O governante não precisa do aval da Igreja', c:'Maquiavel'}, {t:'O homem é lobo do homem', c:'Hobbes'}, {t:'Leviatã', c:'Hobbes'}, {t:'Vida, liberdade e propriedade', c:'Locke'}, {t:'A propriedade vem do trabalho', c:'Locke'}, {t:'O homem nasce bom e a sociedade o corrompe', c:'Rousseau'}, {t:'O povo é o soberano', c:'Rousseau'}]}]},
+  {tipo:'separar', titulo:'Racionalista, empirista ou crítico?', sub:'Coloque cada ideia na corrente da filosofia moderna.', nota:'Conforme o Percurso 3.', categorias:['Racionalismo (Descartes)', 'Empirismo (Bacon, Locke)', 'Criticismo (Kant)'], casos:[
+    {titulo:'', texto:'', itens:[{t:'Penso, logo existo', c:'Racionalismo (Descartes)'}, {t:'Dúvida metódica', c:'Racionalismo (Descartes)'}, {t:'Gênio maligno', c:'Racionalismo (Descartes)'}, {t:'Raciocínio indutivo', c:'Empirismo (Bacon, Locke)'}, {t:'Os ídolos que distorcem o conhecimento', c:'Empirismo (Bacon, Locke)'}, {t:'Tábula rasa', c:'Empirismo (Bacon, Locke)'}, {t:'Espaço e tempo a priori', c:'Criticismo (Kant)'}, {t:'O conhecimento começa na experiência, mas não se origina todo dela', c:'Criticismo (Kant)'}]}]}
+]);
+CSS += '.hb-slots{display:grid;gap:12px;margin-top:12px}.gs-fig{display:flex;justify-content:center;padding:10px;background:var(--paper-alt,#F4F1EA);border-radius:8px}.gs-svg{width:100%;max-width:300px;color:var(--ink,#1F2A28)}'
+  + '.pf-txt{font-size:14.5px;margin:10px 0}.pf-r{width:100%}.pf-val{font-size:14px}.pf-hist{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.pf-hist span{font-size:12.5px;padding:4px 8px;border-radius:6px;background:var(--paper-alt,#F4F1EA)}.cv-svg{width:100%;max-width:420px;display:block;margin:0 auto 10px;border-radius:8px}';
+
 //@@MAIS@@
 
 return {secoes: secoes, depois: depois};
