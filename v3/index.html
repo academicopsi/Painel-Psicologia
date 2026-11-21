@@ -2940,6 +2940,44 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-apoio-faixa small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.8);}
   .ma-apoio-faixa b{display:block; font-size:16px; margin:2px 0;}
   .ma-apoio-faixa span{font-size:13px; color:rgba(255,255,255,.85);}
+  /* turma (painel do administrador) */
+  .tm-hero{margin:18px 0 0; padding:18px; border-radius:14px; color:#fff; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 6px 16px var(--shadow); position:relative; overflow:hidden;}
+  .tm-hero::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
+  body.dark .tm-hero{background:linear-gradient(160deg, #1f4a46, #183634);}
+  .tm-hero-top{display:flex; align-items:center; gap:12px; position:relative;}
+  .tm-hero-top small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#A9D3C8;}
+  .tm-hero-top h2{font-family:var(--serif, Georgia, serif); font-size:21px; font-weight:600; margin:1px 0 0; color:#fff; line-height:1.2;}
+  #maTurma .tm-kpis{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0 12px;}
+  #maTurma .tm-kpis div{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.14); border-radius:10px; padding:11px 12px;}
+  #maTurma .tm-kpis b{display:block; font-family:var(--serif, Georgia, serif); font-size:26px; font-weight:600; line-height:1.1; color:#fff;}
+  #maTurma .tm-kpis span{font-size:12.5px; color:rgba(255,255,255,.75);}
+  .tm-nota{position:relative; font-size:12.5px; line-height:1.45; color:rgba(255,255,255,.65); margin:0;}
+  #maTurma .tm-sub{font-size:13.5px; color:var(--ink-soft); margin:0 0 12px;}
+  #maTurma .tm-dias{display:flex; gap:8px; align-items:flex-end; height:150px; margin:0;}
+  #maTurma .tm-dia{flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; height:100%;}
+  #maTurma .tm-dia b{font-size:13px; color:var(--ink);}
+  #maTurma .tm-col{flex:1; width:100%; max-width:34px; display:flex; align-items:flex-end; background:var(--paper-alt); border-radius:8px; overflow:hidden;}
+  #maTurma .tm-col i{display:block; width:100%; border-radius:8px 8px 0 0; background:linear-gradient(180deg, var(--petrol), var(--petrol-dark));}
+  #maTurma .tm-dia small{font-size:11.5px; color:var(--ink-faint);}
+  #maTurma .tm-linha{display:grid; grid-template-columns:1fr 90px 44px; align-items:center; gap:10px; padding:11px 0; border-top:1px solid var(--rule);}
+  #maTurma .tm-card > .tm-linha:first-child, #maTurma .tm-sub + .tm-linha{border-top:0; padding-top:2px;}
+  #maTurma .tm-nome{font-size:14px; font-weight:600; display:flex; flex-direction:column; gap:1px; padding-left:12px; position:relative;}
+  #maTurma .tm-nome::before{content:''; position:absolute; left:0; top:2px; bottom:2px; width:4px; border-radius:2px; background:var(--acc, var(--petrol));}
+  #maTurma .tm-nome small{font-size:12.5px; font-weight:400; color:var(--ink-soft);}
+  #maTurma .tm-bar{height:7px; border-radius:999px; background:var(--paper-alt); overflow:hidden;}
+  #maTurma .tm-bar i{display:block; height:100%; border-radius:999px; background:var(--acc, var(--petrol));}
+  #maTurma .tm-linha > b{text-align:right; font-size:14px; color:var(--acc, var(--petrol)); font-variant-numeric:tabular-nums;}
+  #maTurma .tm-erro{--acc:#B57A35;}
+  .tm-ds{display:flex; align-items:center; gap:12px;}
+  .tm-ds p{margin:0; font-size:14.5px; color:var(--ink-soft);}
+  .tm-ds b{color:var(--ink);}
+  #maTurma .tm-lista{list-style:none; counter-reset:tl; margin:0; padding:0;}
+  #maTurma .tm-lista li{counter-increment:tl; display:flex; align-items:baseline; gap:10px; padding:10px 0; border-top:1px solid var(--rule); font-size:14px;}
+  #maTurma .tm-lista li:first-child{border-top:0; padding-top:2px;}
+  #maTurma .tm-lista li::before{content:counter(tl); flex:none; width:22px; height:22px; border-radius:50%; background:var(--petrol-soft); color:var(--petrol); font-size:12px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; align-self:center;}
+  #maTurma .tm-lista li span{flex:1;}
+  #maTurma .tm-lista li small{flex:none; font-size:12.5px; color:var(--ink-faint);}
+  @media (min-width:601px){ #maTurma .tm-kpis{grid-template-columns:repeat(4, 1fr);} #maTurma .tm-linha{grid-template-columns:1fr 200px 50px;} }
   /* plano de hoje (guia de estudos) */
   #hojePage .pg{padding:0 18px 0; overflow:hidden; border-color:transparent;}
   .pg-topo{position:relative; margin:0 -18px; padding:20px 18px 18px; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); color:#fff; overflow:hidden;}
@@ -23206,20 +23244,23 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   }
   let maAba = 'hoje';
   function turmaHTML(e){
-    if(!e) return '<p class="hj-vazio">Os números da turma ainda não foram calculados. Eles são atualizados uma vez por dia, de madrugada.</p>';
+    if(!e) return '<section class="hj-card"><p class="hj-vazio">Os números da turma ainda não foram calculados. Eles são atualizados uma vez por dia, de madrugada.</p></section>';
     const quando = new Date(e.em).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'});
-    const nomeSim = id => { const x = SIM_JOGO.find(z => z.id === id); return x ? nomeDisc(x.disc) : id; };
-    const barra = (pct, cor) => `<span class="tm-bar"><i style="width:${Math.max(2, Math.min(100, pct))}%;${cor ? 'background:' + cor : ''}"></i></span>`;
+    const simDe = id => SIM_JOGO.find(z => z.id === id);
+    const nomeSim = id => { const x = simDe(id); return x ? nomeDisc(x.disc) : id; };
+    const barra = pct => `<span class="tm-bar"><i style="width:${Math.max(2, Math.min(100, pct))}%"></i></span>`;
     const dias = (e.dias || []).slice(-7), maxD = Math.max(1, ...dias.map(d => d.n));
-    let h = `<p class="tm-sub">Só você vê esta aba. São números gerais, sem nomes; grupos com menos de 3 pessoas não aparecem. Atualizado em ${quando}.</p>
-      <div class="tm-kpis"><div><b>${e.contas.liberadas}</b><span>contas liberadas</span></div><div><b>${e.ativos.d7}</b><span>estudaram nos últimos 7 dias</span></div><div><b>${e.ativos.d1}</b><span>estudaram ontem ou hoje</span></div><div><b>${e.contas.apoiadores}</b><span>apoiadores</span></div></div>`;
-    if(dias.length) h += `<h3 class="tm-h">Pessoas estudando por dia (últimos 7 dias)</h3><div class="tm-dias">${dias.map(d => `<div class="tm-dia" title="${d.n} pessoas"><span class="tm-col"><i style="height:${Math.round(d.n / maxD * 100)}%"></i></span><b>${d.n}</b><small>${d.d.slice(8, 10)}/${d.d.slice(5, 7)}</small></div>`).join('')}</div>`;
-    if((e.simulados || []).length) h += `<h3 class="tm-h">Simulados: média de acertos</h3>${e.simulados.map(x => `<div class="tm-linha"><span class="tm-nome">${escHTML(nomeSim(x.id))}<small>${x.pessoas} pessoas</small></span>${barra(x.media)}<b>${x.media}%</b></div>`).join('')}`;
-    if((e.temas || []).length) h += `<h3 class="tm-h">Temas que a turma mais erra</h3><p class="tm-sub">Bons candidatos para reforçar no resumo ou pedir revisão em aula.</p>${e.temas.map(x => `<div class="tm-linha"><span class="tm-nome">${escHTML(x.tema)}<small>${escHTML(nomeSim(x.sim))} · ${x.pessoas} pessoas</small></span>${barra(x.pct, '#BA7517')}<b>${x.pct}%</b></div>`).join('')}`;
-    if(e.discursiva && e.discursiva.pessoas >= 3) h += `<h3 class="tm-h">Treino de discursiva</h3><p class="tm-sub">${e.discursiva.respostas} respostas escritas por ${e.discursiva.pessoas} pessoas.</p>`;
+    const sec = (t, sub, corpo) => `<div class="ma-grupo-t">${t}</div><section class="hj-card tm-card">${sub ? `<p class="tm-sub">${sub}</p>` : ''}${corpo}</section>`;
+    let h = `<section class="tm-hero"><div class="tm-hero-top"><span class="pg-ic">${maIc('grafico')}</span><div><small>Painel da turma</small><h2>Como a turma está estudando</h2></div></div>
+      <div class="tm-kpis"><div><b>${e.contas.liberadas}</b><span>contas liberadas</span></div><div><b>${e.ativos.d7}</b><span>estudaram em 7 dias</span></div><div><b>${e.ativos.d1}</b><span>estudaram ontem ou hoje</span></div><div><b>${e.contas.apoiadores}</b><span>apoiadores</span></div></div>
+      <p class="tm-nota">Só você vê esta aba. Números gerais, sem nomes; grupos com menos de 3 pessoas não aparecem. Atualizado em ${quando}.</p></section>`;
+    if(dias.length) h += sec('Pessoas estudando por dia', 'Últimos 7 dias.', `<div class="tm-dias">${dias.map(d => `<div class="tm-dia" title="${d.n} pessoas"><b>${d.n}</b><span class="tm-col"><i style="height:${Math.max(4, Math.round(d.n / maxD * 100))}%"></i></span><small>${d.d.slice(8, 10)}/${d.d.slice(5, 7)}</small></div>`).join('')}</div>`);
+    if((e.simulados || []).length) h += sec('Simulados: média de acertos', '', e.simulados.map(x => { const sm = simDe(x.id); return `<div class="tm-linha"${sm ? ` data-d="${sm.disc}"` : ''}><span class="tm-nome">${escHTML(nomeSim(x.id))}<small>${x.pessoas} pessoas</small></span>${barra(x.media)}<b>${x.media}%</b></div>`; }).join(''));
+    if((e.temas || []).length) h += sec('Temas que a turma mais erra', 'Bons candidatos para reforçar no resumo ou pedir revisão em aula.', e.temas.map(x => `<div class="tm-linha tm-erro"><span class="tm-nome">${escHTML(x.tema)}<small>${escHTML(nomeSim(x.sim))} · ${x.pessoas} pessoas</small></span>${barra(x.pct)}<b>${x.pct}%</b></div>`).join(''));
+    if(e.discursiva && e.discursiva.pessoas >= 3) h += sec('Treino de discursiva', '', `<div class="tm-ds"><span class="ma-ic ma-ic-verde">${maIc('discursiva')}</span><p><b>${e.discursiva.respostas} respostas</b> escritas por <b>${e.discursiva.pessoas} pessoas</b>.</p></div>`);
     const ps = e.psiu || {};
-    if((ps.top || []).length) h += `<h3 class="tm-h">O que mais perguntam ao Psiu</h3><ol class="tm-lista">${ps.top.map(x => `<li>${escHTML(x.t)} <small>${x.n} pessoas</small></li>`).join('')}</ol>`;
-    if((ps.sem || []).length) h += `<h3 class="tm-h">Perguntas que o Psiu não soube responder</h3><p class="tm-sub">Me mande esta lista para eu ensinar o Psiu.</p><ol class="tm-lista">${ps.sem.map(x => `<li>${escHTML(x.t)} <small>${x.n} pessoas</small></li>`).join('')}</ol>`;
+    if((ps.top || []).length) h += sec('O que mais perguntam ao Psiu', '', `<ol class="tm-lista">${ps.top.map(x => `<li><span>${escHTML(x.t)}</span><small>${x.n} pessoas</small></li>`).join('')}</ol>`);
+    if((ps.sem || []).length) h += sec('Perguntas que o Psiu não soube responder', 'Me mande esta lista para eu ensinar o Psiu.', `<ol class="tm-lista">${ps.sem.map(x => `<li><span>${escHTML(x.t)}</span><small>${x.n} pessoas</small></li>`).join('')}</ol>`);
     return h;
   }
   const MA_IC = {
@@ -23302,7 +23343,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       <div class="ma-grupo-t">Por disciplina</div><section class="hj-card ma-prog">${linhas}</section>`;
     const BEN_IC = {desempenho:['grafico', 'verde'], plano:['lista', 'cinza'], semestre:['estrela', 'ocre'], simpdf:['pdf', 'rosa'], notas:['nota', 'roxo']};
     if(maAba === 'ferramentas') corpo = `<section class="ma-apoio-faixa"><span class="ma-apoio-estrela">★</span><div><small>Apoiador do Arquivo Vivo</small><b>Obrigado por manter o site no ar</b>${window.avApoioAte ? `<span>Seus recursos valem até ${new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</span>` : ''}</div></section><div class="ma-grupo-t">Recursos de apoiador</div><section class="hj-card ma-lista">${(window.avBeneficiosDados ? window.avBeneficiosDados() : []).map(b => maRow(`data-ben="${b.k}"`, (BEN_IC[b.k] || ['estrela'])[0], (BEN_IC[b.k] || [0, 'cinza'])[1], escHTML(b.t), escHTML(b.d))).join('')}</section>`;
-    if(maAba === 'turma'){ corpo = '<section class="hj-card" id="maTurma"><p class="hj-vazio">Carregando os números da turma…</p></section>';
+    if(maAba === 'turma'){ corpo = '<div id="maTurma"><section class="hj-card"><p class="hj-vazio">Carregando os números da turma…</p></section></div>';
       setTimeout(async () => { const el2 = document.getElementById('maTurma'); if(!el2) return; const e = window.avLerTurma ? await window.avLerTurma() : null; el2.innerHTML = turmaHTML(e); }, 0); }
     if(maAba === 'conta') corpo = `<div class="ma-grupo-t">Perfil</div><section class="hj-card ma-perfil">${window.avFotoHTML ? window.avFotoHTML().replace('<b>Foto do perfil</b>', `<b>${escHTML(window.avNome || 'Sua conta')}</b>${window.avEmail ? `<small class="ma-email">${escHTML(window.avEmail)}</small>` : ''}`) : ''}</section>
         ${window.avPushHTML ? `<div class="ma-grupo-t">Notificações</div><section class="hj-card ma-push">${window.avPushHTML()}</section>` : ''}
