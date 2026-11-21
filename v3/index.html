@@ -3291,6 +3291,13 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-acao-g svg{width:19px; height:19px;}
   .mu-post-pe .mu-reac-box{display:flex;}
   .mu-acao.on, .mu-acao-g.on{color:var(--rc, #C0395A);}
+  .mu-teste{display:flex; align-items:center; gap:10px; background:linear-gradient(160deg, #C98F45, #A8702F); color:#fff; border-radius:12px; padding:10px 12px 10px 14px; margin:0 0 14px; font-size:13.5px; line-height:1.4; box-shadow:0 4px 12px rgba(168,112,47,.25);}
+  .mu-teste span{flex:1;}
+  .mu-teste button{flex:none; font:inherit; font-size:13px; font-weight:700; color:#A06A2C; background:#fff; border:0; border-radius:999px; padding:6px 14px; cursor:pointer;}
+  .mu-teste-card{border-color:rgba(183,121,31,.4) !important; background:linear-gradient(160deg, var(--ochre-soft), var(--paper) 60%) !important;}
+  body.dark .mu-teste-card{background:linear-gradient(160deg, rgba(183,121,31,.14), var(--paper) 60%) !important;}
+  .mu-teste-card .btn{margin-top:4px;}
+  .mu-teste-bts{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;}
   /* aba Sobre */
   .mu-lado{display:flex; flex-direction:column; gap:0;}
   .mu-box h3{margin:0 0 10px; font-family:var(--serif, Georgia, serif); font-size:19px; font-weight:600;}
@@ -3462,7 +3469,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     <div class="nav-actions">
       <button class="icon-btn" id="searchBtn" data-open-search aria-label="Buscar no site" title="Buscar (atalho: /)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <button class="icon-btn" id="contaBtn" aria-label="Entrar ou criar conta" title="Sua conta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="conta-dot" hidden></span></button>
-      <button class="icon-btn hdr-mural" id="muralBtn" data-page="viewMural" aria-label="Mural da turma" title="Mural da turma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg><span class="hdr-dot" id="muralDot" hidden></span></button>
+      <button class="icon-btn hdr-mural" id="muralBtn" data-page="viewMural" aria-label="Mural da turma" title="Mural da turma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg><span class="hdr-dot" id="muralDot" hidden></span></button>
       <button class="icon-btn" id="themeBtn" hidden style="display:none" aria-label="Alternar modo escuro" title="Modo escuro"><span id="themeIcon" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span></button>
       <button class="icon-btn" id="shareBtn" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button>
       <button class="icon-btn nav-burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
@@ -24309,7 +24316,41 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const CATS = [['duvidas','Dúvidas','#2F6F9F'], ['provas','Provas e trabalhos','#A3472F'], ['materiais','Materiais','#1F7A6E'], ['avisos','Avisos','#B7791F'], ['conversa','Conversa','#6B4E9B'], ['opiniao','Elogios e críticas','#8A6A2F']];
   const catDe = id => CATS.find(c => c[0] === id) || CATS[4];
   let C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}, fix:{}}, estado = 'nada', vista = 'lista', aba = 'topicos', reacAberto = null, notifVisto = 0, filtro = 'todos', ordem = 'recentes', menuAberto = null, erro = '', rascunho = {titulo:'', cat:'', texto:''}, resposta = '';
-  const B = () => window.avBanco, EU = () => window.avEu && window.avEu();
+  const EU = () => window.avEu && window.avEu();
+  // ---------- modo de teste (só para o administrador): tudo fica neste aparelho, nada vai para o Firebase ----------
+  const TK = 'muTeste', TDB = 'muTesteDb';
+  const emTeste = () => { try{ return localStorage.getItem(TK) === '1'; }catch(_){ return false; } };
+  function semente(eu){
+    const h = Date.now(), m = 60000, uid = eu ? eu.uid : 'eu';
+    return {perfis: {t1: {nome: 'Bruno Lima', sem: '2', ap: true, conq: 6, conqT: 15, psiu: {acc: [], cor: 'azul', fundo: 'nenhum'}}, t2: {nome: 'Carla Souza', sem: '2', conq: 9, conqT: 15}, t3: {nome: 'Diego Alves', sem: '1', conq: 3, conqT: 15}, t4: {nome: 'Júlia Ramos', sem: '2', conq: 11, conqT: 15}},
+      mural: {
+        posts: {
+          x1: {uid: 't2', nome: 'Carla Souza', titulo: 'Quem topa revisar Neuro na segunda depois da aula?', cat: 'provas', texto: 'Pensei em 1 hora na biblioteca, cada um leva um tema dos nervos cranianos. Quem vem?', em: h - 95 * m},
+          x2: {uid: 't1', nome: 'Bruno Lima', titulo: 'Mapa mental das fases do luto', cat: 'materiais', texto: 'Montei um resumo visual de Kübler-Ross para a prova de Idoso. @' + ((eu && eu.nome || '').split(' ')[0] || 'Thiago') + ' dá uma olhada se ficou certo?', men: [uid], em: h - 40 * m},
+          x3: {uid: 't3', nome: 'Diego Alves', titulo: 'O simulado de Experimental ajudou demais', cat: 'opiniao', texto: 'Só queria agradecer quem montou. Errei bastante no começo e acertei quase tudo na segunda vez.', em: h - 26 * 60 * m},
+          x4: {uid: uid, nome: eu ? eu.nome : 'Você', titulo: 'Testando o mural', cat: 'conversa', texto: 'Este é um tópico seu de exemplo, para testar apagar e ver as notificações.', em: h - 3 * 60 * m}
+        },
+        comentarios: {
+          x1: {k1: {uid: 't4', nome: 'Júlia Ramos', texto: 'Eu vou! Fico com o trigêmeo e o facial.', em: h - 80 * m}, k2: {uid: 't1', nome: 'Bruno Lima', texto: '@Júlia levo o vago então.', men: ['t4'], em: h - 60 * m}},
+          x4: {k3: {uid: 't2', nome: 'Carla Souza', texto: 'Funcionou aqui também!', em: h - 50 * m}, k4: {uid: 't3', nome: 'Diego Alves', texto: 'Esse texto aqui é só para você testar a denúncia.', em: h - 20 * m}}
+        },
+        curtidas: {x1: {t1: {t: 'concordo', em: h - 70 * m}, t4: {t: 'amei', em: h - 75 * m}}, x2: {t2: {t: 'psiu', em: h - 30 * m}}, x3: {t1: {t: 'haha', em: h - 600 * m}, t2: {t: 'amei', em: h - 500 * m}, t4: true},
+          x4: {t1: {t: 'curtir', em: h - 45 * m}, t4: {t: 'haha', em: h - 15 * m}}, 'x4~k3': {t3: {t: 'concordo', em: h - 10 * m}}},
+        fixados: {x1: true}
+      }};
+  }
+  const bancoTeste = {
+    _l(){ try{ return JSON.parse(localStorage.getItem(TDB)) || {}; }catch(_){ return {}; } },
+    _s(d){ try{ localStorage.setItem(TDB, JSON.stringify(d)); }catch(_){} },
+    ler(p){ let n = this._l(); for(const k of p.split('/')){ n = n == null ? null : n[k]; } return Promise.resolve(n == null ? null : JSON.parse(JSON.stringify(n))); },
+    gravar(p, v){ const d = this._l(), ks = p.split('/'); let n = d; ks.slice(0, -1).forEach(k => { n = n[k] = (n[k] && typeof n[k] === 'object') ? n[k] : {}; }); n[ks[ks.length - 1]] = JSON.parse(JSON.stringify(v)); this._s(d); return Promise.resolve(); },
+    apagar(p){ const d = this._l(), ks = p.split('/'); let n = d; for(const k of ks.slice(0, -1)){ n = n && n[k]; } if(n) delete n[ks[ks.length - 1]]; this._s(d); return Promise.resolve(); }
+  };
+  const B = () => emTeste() ? bancoTeste : window.avBanco;
+  function modoTeste(liga, recomecar){
+    try{ if(liga){ localStorage.setItem(TK, '1'); if(recomecar || !localStorage.getItem(TDB)) localStorage.setItem(TDB, JSON.stringify(semente(EU()))); } else { localStorage.removeItem(TK); localStorage.removeItem(TDB); } }catch(_){}
+    erro = ''; estado = 'nada'; vista = 'lista'; aba = 'topicos'; C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}, fix:{}}; render();
+  }
   const esc = t => escHTML(t == null ? '' : t);
   const semAcento = t => (t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   // apelido para marcar: primeiro nome, ou primeiro + último quando há colegas com o mesmo primeiro nome
@@ -24584,9 +24625,9 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     else if(vista !== 'lista' && C.posts[vista]) corpo = topicoHTML(vista, eu);
     else if(aba === 'membros') corpo = membrosHTML(eu);
     else if(aba === 'avisos') corpo = notifHTML(eu);
-    else if(aba === 'sobre') corpo = `<div class="mu-lado">${ladoHTML()}</div>`;
+    else if(aba === 'sobre') corpo = `<div class="mu-lado">${eu.admin ? `<section class="hj-card mu-teste-card"><h3>Modo de teste</h3><p>Experimente reações, marcações, denúncias e o painel de moderação com colegas de exemplo. Tudo fica só neste aparelho: nada vai para o Firebase e a turma não vê.</p>${emTeste() ? '<div class="mu-teste-bts"><button class="btn btn-ghost" data-mu-teste="recomecar">Recomeçar o teste</button><button class="btn btn-primary" data-mu-teste="sair">Sair do teste</button></div>' : '<button class="btn btn-primary" data-mu-teste="entrar">Entrar no modo de teste</button>'}</section>` : ''}${ladoHTML()}</div>`;
     else corpo = listaHTML(eu);
-    const avisos = (C.bloq[eu.uid] ? '<p class="mu-erro">A sua conta está sem permissão para escrever no mural. Se achar que é um engano, fale com o representante da turma.</p>' : '') + (erro ? `<div class="mu-erro"><span>${esc(erro)}</span><button data-mu-erro-ok aria-label="Fechar aviso">×</button></div>` : '');
+    const avisos = (emTeste() ? `<div class="mu-teste"><span><b>Modo de teste.</b> Tudo aqui fica só neste aparelho, a turma não vê.</span><button data-mu-teste="sair">Sair</button></div>` : '') + (C.bloq[eu.uid] ? '<p class="mu-erro">A sua conta está sem permissão para escrever no mural. Se achar que é um engano, fale com o representante da turma.</p>' : '') + (erro ? `<div class="mu-erro"><span>${esc(erro)}</span><button data-mu-erro-ok aria-label="Fechar aviso">×</button></div>` : '');
     const naLista = combinado && vista === 'lista';
     el.innerHTML = (naLista ? cabecaHTML(eu) : '') + `<div class="mu-main">${avisos}${corpo}</div>`;
     if(foco){ const t = el.querySelector('[data-mu-comentar] textarea'); if(t){ t.focus(); t.setSelectionRange(t.value.length, t.value.length); } }
@@ -24617,7 +24658,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     catch(e){
       if(desfazer) desfazer();
       const eu = EU(), negado = /permission|denied/i.test(String((e && (e.code || e.message)) || ''));
-      erro = negado ? (eu && eu.admin ? 'O banco recusou a gravação: as regras do mural ainda não estão no Firebase. Cole o arquivo _firebase/regras-mural.json em Realtime Database, Regras.' : 'O mural ainda está sendo ativado. Tente de novo mais tarde.') : 'Não deu para salvar agora. Confira a internet e tente de novo.';
+      erro = negado ? (eu && eu.admin ? 'O banco recusou a gravação: as regras do mural ainda não estão no Firebase. Cole o arquivo _firebase/regras-mural.json em Realtime Database, Regras, ou use o modo de teste na aba Sobre.' : 'O mural ainda está sendo ativado. Tente de novo mais tarde.') : 'Não deu para salvar agora. Confira a internet e tente de novo.';
       render(); window.scrollTo({top: Math.max(0, (document.getElementById('viewMural')?.offsetTop || 0) - 70), behavior:'smooth'});
     }
   }
@@ -24682,6 +24723,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(reacAberto && !q('.mu-reac-box')){ reacAberto = null; render(); }
     if(q('[data-mu-combinado]')){ try{ localStorage.setItem('av-mural-ok', '1'); }catch(_){} render(); return; }
     if(q('[data-mu-erro-ok]')){ erro = ''; render(); return; }
+    if((b = q('[data-mu-teste]'))){ const a = b.dataset.muTeste; if(a === 'sair'){ modoTeste(false); } else { modoTeste(true, a === 'recomecar'); window.scrollTo({top: Math.max(0, document.getElementById('viewMural').offsetTop - 70)}); } return; }
     if(q('[data-mu-atualizar]')){ carregar(); return; }
     if(q('[data-mu-novo]')){ abrir('novo'); document.getElementById('muTit')?.focus(); return; }
     if(q('[data-mu-lista]')){ abrir('lista'); return; }
@@ -24701,7 +24743,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if((b = q('[data-mu-fixar]'))){ const id = b.dataset.muFixar; menuAberto = null; if(C.fix[id]){ delete C.fix[id]; render(); acao(() => B().apagar('mural/fixados/' + id)); } else { C.fix[id] = true; render(); acao(() => B().gravar('mural/fixados/' + id, true), () => { delete C.fix[id]; }); } return; }
     if((b = q('[data-mu-denunciar]'))){ const alvo = b.dataset.muDenunciar; menuAberto = null;
       if(!confirm('Denunciar este conteúdo para a moderação? Quem escreveu não fica sabendo quem denunciou.')){ render(); return; }
-      acao(async () => { await B().gravar(`mural/denuncias/${alvo}/${eu.uid}`, {em: Date.now()}); erro = ''; render(); alert('Denúncia enviada. Obrigado por ajudar a manter o mural um bom lugar.'); }); return; }
+      acao(async () => { await B().gravar(`mural/denuncias/${alvo}/${eu.uid}`, {em: Date.now()}); if(eu.admin) (C.den[alvo] = C.den[alvo] || {})[eu.uid] = {em: Date.now()}; erro = ''; render(); alert('Denúncia enviada. Obrigado por ajudar a manter o mural um bom lugar.'); }); return; }
     if((b = q('[data-mu-apagar]'))){ const id = b.dataset.muApagar; menuAberto = null; if(!confirm('Apagar este tópico? As respostas somem junto e não dá para desfazer.')){ render(); return; }
       const ant = C.posts[id]; delete C.posts[id]; vista = 'lista'; render();
       acao(async () => { try{ await B().apagar('mural/comentarios/' + id); }catch(_){} await B().apagar('mural/posts/' + id); if(eu.admin){ try{ await B().apagar('mural/curtidas/' + id); await B().apagar('mural/denuncias/' + id); await B().apagar('mural/fixados/' + id); }catch(_){} } }, () => { C.posts[id] = ant; }); return; }
