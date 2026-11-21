@@ -3021,7 +3021,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-capa-c{display:flex; align-items:flex-start; gap:14px; padding:0 20px; margin-top:-34px; position:relative;}
   .mu-capa-ic{flex:none; width:76px; height:76px; border-radius:20px; display:grid; place-items:center; color:#fff; background:linear-gradient(145deg, #C99A3E, #A8752B); box-shadow:0 0 0 4px var(--paper), 0 8px 18px rgba(0,0,0,.15);}
   .mu-capa-ic svg{width:36px; height:36px;}
-  .mu-capa-t{padding-top:44px; min-width:0;}
+  .mu-capa-t{padding-top:46px; min-width:0;}
   .mu-capa-t h1{margin:0; font-size:clamp(24px, 5.5vw, 30px); line-height:1.1;}
   .mu-capa-t p{margin:4px 0 0; font-size:13.5px; color:var(--ink-soft);}
   .mu-capa-pe{display:flex; align-items:center; gap:10px; padding:14px 20px 0; font-size:13.5px; color:var(--ink-soft);}
@@ -3229,7 +3229,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     .mu-capa{border-radius:18px;}
     .mu-capa-banner{height:96px;}
     .mu-capa-c{padding:0 16px; gap:12px; margin-top:-28px;}
-    .mu-capa-t{padding-top:36px;}
+    .mu-capa-t{padding-top:38px;}
     .mu-capa-ic{width:64px; height:64px; border-radius:17px;}
     .mu-capa-ic svg{width:30px; height:30px;}
     .mu-capa-pe{padding:12px 16px 0;}
@@ -24336,7 +24336,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       <div class="mu-capa-banner">${eu && eu.liberado ? `<button class="mu-capa-atual" data-mu-atualizar aria-label="Atualizar"${estado !== 'pronto' ? ' disabled' : ''}>${ic('atual')}</button>` : ''}</div>
       <div class="mu-capa-c">
         <div class="mu-capa-ic">${ic('grupo')}</div>
-        <div class="mu-capa-t"><h1>Mural da turma</h1><p>Comunidade da turma de Psicologia · só contas liberadas</p></div>
+        <div class="mu-capa-t"><h1>Mural da turma</h1></div>
       </div>
       ${eu && eu.liberado ? `<div class="mu-capa-pe"><div class="mu-pilha">${pilha.map(u => avatar(u, nomeDe(u), 'mu-av-p')).join('')}</div><span><b>${membros.length}</b> ${membros.length === 1 ? 'membro' : 'membros'} · <b>${nTop}</b> ${nTop === 1 ? 'tópico' : 'tópicos'} · <b>${nResp}</b> ${nResp === 1 ? 'resposta' : 'respostas'}</span></div>
       <nav class="mu-abas" role="tablist"><button role="tab" aria-selected="${aba === 'topicos'}" data-mu-aba="topicos">Tópicos</button><button role="tab" aria-selected="${aba === 'membros'}" data-mu-aba="membros">Membros</button><button role="tab" aria-selected="${aba === 'sobre'}" data-mu-aba="sobre" class="mu-so-cel">Sobre</button></nav>` : ''}
