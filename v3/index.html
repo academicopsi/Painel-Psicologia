@@ -2806,6 +2806,90 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-conta button:first-child{border-top:0;}
   .ma-conta b{font-size:14.5px;}
   .ma-conta small{font-size:12.5px; color:var(--ink-soft);}
+  /* ===== Minha área: redesenho (nov/2026) ===== */
+  #hojePage .ma-ola{gap:14px; margin:4px 0 16px;}
+  #hojePage .ma-psiu{width:52px; height:52px; border-radius:14px; background:var(--paper); border:1px solid var(--rule); padding:4px; box-sizing:border-box;}
+  #hojePage .ma-ola h1{font-size:30px !important; line-height:1.15;}
+  #hojePage .ma-selo{display:inline-flex; align-items:center; gap:4px; margin-top:6px; padding:2px 9px; border-radius:999px; background:var(--ochre-soft); font-size:12px;}
+  .ma-status{display:flex; align-items:stretch; gap:10px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:12px 14px; box-shadow:0 1px 2px var(--shadow);}
+  .ma-prova{flex:1; min-width:0; display:flex; align-items:center; gap:11px;}
+  .ma-prova-ic{flex:none; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--paper-alt); color:var(--ink-soft);}
+  .ma-prova.perto .ma-prova-ic{background:var(--ochre-soft); color:var(--ochre);}
+  .ma-prova-ic svg{width:19px; height:19px;}
+  .ma-prova small, .ma-sem-box small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint);}
+  .ma-prova b{display:block; font-size:14.5px; line-height:1.3; color:var(--ink);}
+  .ma-prova.perto b{color:var(--ochre);}
+  .ma-sem-box{flex:none; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:4px; padding-left:12px; border-left:1px solid var(--rule);}
+  .ma-seg{display:inline-flex; background:var(--paper-alt); border-radius:8px; padding:3px;}
+  .ma-seg button{font:inherit; font-size:13px; font-weight:600; min-width:38px; padding:5px 9px; border:0; border-radius:6px; background:none; color:var(--ink-soft); cursor:pointer;}
+  .ma-seg button[aria-pressed="true"]{background:var(--paper); color:var(--petrol); box-shadow:0 1px 3px var(--shadow-lg);}
+  #hojePage .ma-abas{display:flex; gap:6px; justify-content:space-between; background:none; border:0; border-bottom:1px solid var(--rule); border-radius:0; padding:0; margin:22px 0 4px; overflow-x:auto; scrollbar-width:none;}
+  #hojePage .ma-abas::-webkit-scrollbar{display:none;}
+  #hojePage .ma-abas button{flex:0 1 auto; position:relative; font-size:14px; font-weight:600; color:var(--ink-faint); background:none; border-radius:0; padding:10px 0 12px;}
+  #hojePage .ma-abas button[aria-selected="true"]{background:none; color:var(--ink);}
+  #hojePage .ma-abas button[aria-selected="true"]::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2.5px; border-radius:2px; background:var(--petrol);}
+  .ma-grupo-t{font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin:22px 4px 8px;}
+  #hojePage .hj-card{border-radius:14px; padding:16px 18px; box-shadow:0 1px 2px var(--shadow);}
+  .ma-corpo > .ma-grupo-t + .hj-card{margin-top:0;}
+  .ma-corpo > .hj-card:first-child{margin-top:18px;}
+  .ma-lista{padding:4px 0 !important; overflow:hidden;}
+  .ma-row{display:flex; align-items:center; gap:13px; width:100%; font:inherit; text-align:left; background:none; border:0; border-top:1px solid var(--rule); padding:13px 16px; cursor:pointer; color:var(--ink);}
+  .ma-lista > .ma-row:first-child{border-top:0;}
+  .ma-row:hover{background:var(--paper-alt);}
+  .ma-ic{flex:none; width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;}
+  .ma-ic svg{width:18px; height:18px;}
+  .ma-ic-verde{background:var(--petrol-soft); color:var(--petrol);}
+  .ma-ic-ocre{background:var(--ochre-soft); color:var(--ochre);}
+  .ma-ic-cinza{background:var(--paper-alt); color:var(--ink-soft);}
+  .ma-ic-roxo{background:rgba(110,86,160,.12); color:#6E56A0;}
+  .ma-ic-rosa{background:rgba(176,74,96,.1); color:#A8455A;}
+  .ma-row-tx{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;}
+  .ma-row-tx b{font-size:15px; font-weight:600;}
+  .ma-row-tx small{font-size:13px; color:var(--ink-soft); line-height:1.4; overflow:hidden; text-overflow:ellipsis;}
+  .ma-chev{flex:none; color:var(--ink-faint); display:flex;}
+  .ma-chev svg{width:18px; height:18px;}
+  .ma-badge{flex:none; min-width:24px; height:24px; padding:0 7px; border-radius:999px; background:var(--ochre); color:#fff; font-size:12.5px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box;}
+  .ma-badge-red{background:#A32D2D;}
+  /* perfil */
+  .ma-perfil .conta-foto{display:flex; align-items:center; gap:16px; margin:0; padding:0; border:0;}
+  .ma-perfil .cf-img{width:64px !important; height:64px !important; font-size:22px;}
+  .ma-perfil .conta-foto b{display:block; font-size:16px;}
+  .ma-email{display:block; font-size:13px; color:var(--ink-soft); margin-top:1px; word-break:break-all;}
+  .ma-perfil .cf-bts{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+  .ma-perfil .cf-bts .conta-link{font:inherit; font-size:13px; font-weight:600; text-decoration:none; padding:6px 12px; border-radius:8px; border:1px solid var(--rule); background:var(--paper-alt); color:var(--ink); cursor:pointer; margin:0;}
+  .ma-perfil .cf-bts .conta-link:hover{border-color:var(--petrol-line); color:var(--petrol);}
+  .ma-perfil .cf-bts .conta-link:last-child:not(:first-child){background:none; border-color:transparent; color:var(--ink-soft);}
+  /* notificações */
+  .ma-push .pn{margin:0; padding:0; border:0;}
+  .ma-push .pn > b{display:none;}
+  .ma-push .pn-txt{margin:0 0 10px; font-size:14px;}
+  .ma-push .pn-ok{display:flex; align-items:center; gap:8px; font-weight:600; color:var(--petrol);}
+  .ma-push .pn-ok::before{content:''; width:8px; height:8px; border-radius:50%; background:#2FA36B; box-shadow:0 0 0 3px rgba(47,163,107,.18);}
+  .ma-push .pn-op{justify-content:space-between; flex-direction:row-reverse; padding:11px 0; border-top:1px solid var(--rule); font-size:15px; cursor:pointer;}
+  .ma-push .pn-op span{flex:1;}
+  .ma-push .pn-op input{appearance:none; -webkit-appearance:none; width:44px; height:26px; border-radius:999px; background:var(--rule); position:relative; cursor:pointer; transition:background .15s; margin:0;}
+  .ma-push .pn-op input::after{content:''; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.2); transition:transform .15s;}
+  .ma-push .pn-op input:checked{background:var(--petrol);}
+  .ma-push .pn-op input:checked::after{transform:translateX(18px);}
+  .ma-push .pn-link{display:block; width:100%; text-align:left; margin:0 !important; padding:12px 0 2px !important; border-top:1px solid var(--rule) !important; text-decoration:none; font-size:14.5px; font-weight:600; color:#A32D2D;}
+  .ma-push .pn-ativar{width:100%;}
+  /* progresso */
+  .ma-prog .ma-disc{padding:14px 0;}
+  .ma-prog .ma-disc:first-child{padding-top:4px;}
+  .ma-prog .ma-disc:last-child{padding-bottom:4px;}
+  .ma-disc-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
+  .ma-pct{font-size:13px; font-weight:700; color:var(--petrol); font-variant-numeric:tabular-nums;}
+  .ma-prog .ma-bar{height:6px; border-radius:999px; background:var(--paper-alt); margin:9px 0 8px;}
+  .ma-prog .ma-bar i{border-radius:999px;}
+  /* ferramentas (lista de benefícios) */
+  .ma-lista .ma-ben{display:flex; flex-direction:column; gap:0;}
+  .ma-lista .ma-ben > button{border:0 !important; border-top:1px solid var(--rule) !important; border-radius:0 !important; background:none !important; padding:14px 16px !important; margin:0 !important;}
+  .ma-lista .ma-ben > button:first-child{border-top:0 !important;}
+  .ma-lista .ma-ben > button:hover{background:var(--paper-alt) !important;}
+  /* plano de hoje */
+  #hojePage .hj-card-top h2{font-size:21px;}
+  @media (min-width:601px){ #hojePage .ma-abas{justify-content:flex-start; gap:28px;} }
+  @media (max-width:420px){ #hojePage .ma-ola h1{font-size:26px !important;} .ma-sem-box{padding-left:10px;} }
   .ma-pend{font-style:normal; font-size:11.5px; background:#A32D2D; color:#fff; border-radius:999px; padding:1px 7px; margin-left:4px;}
   .hj-topo > *{height:32px; box-sizing:border-box;}
   .hj-inicio{display:inline-flex; align-items:center; font:inherit; font-size:12.5px; font-weight:600; line-height:normal; letter-spacing:.02em; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:5px 12px; cursor:pointer;}
@@ -22257,7 +22341,7 @@ window.avPushHTML = () => {
   else if(pushInfo && pushInfo.token && Notification.permission === 'granted') corpo = `<p class="pn-txt pn-ok">Ativadas neste aparelho.</p>
       <label class="pn-op"><input type="checkbox" data-pn-pref="provas"${pushInfo.provas !== false ? ' checked' : ''}><span>Lembretes de provas e entregas</span></label>
       <label class="pn-op"><input type="checkbox" data-pn-pref="avisos"${pushInfo.avisos !== false ? ' checked' : ''}><span>Avisos da turma</span></label>
-      <button class="conta-link pn-link" data-pn-desativar>Desativar</button>`;
+      <button class="conta-link pn-link" data-pn-desativar>Desativar notificações</button>`;
   else corpo = '<p class="pn-txt">Receba no celular os lembretes de provas e os avisos da turma, mesmo com o site fechado.</p><button class="conta-btn pn-ativar" data-pn-ativar>Ativar notificações</button>';
   return `<div class="pn"><b>Notificações</b>${corpo}<p class="pn-erro" hidden></p></div>`;
 };
@@ -22696,6 +22780,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     simpdf: {t:'Simulado em PDF', d:'Prova para imprimir, com gabarito separado', disc:true},
     notas: {t:'Minhas anotações', d:'Trechos marcados e notas dos resumos', html:anotacoesHTML}
   };
+  window.avBeneficiosDados = () => Object.entries(BEN).map(([k, b]) => ({k, t:b.t, d:b.d}));
   window.avBeneficiosLista = () => Object.entries(BEN).map(([k, b]) => `<button data-ben="${k}"><span><b>${ehApoio() ? '' : '🔒 '}${b.t}</b><small>${b.d}</small></span></button>`).join('');
   function escolherDisc(tipo){
     const b = BEN[tipo];
@@ -23043,6 +23128,23 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if((ps.sem || []).length) h += `<h3 class="tm-h">Perguntas que o Psiu não soube responder</h3><p class="tm-sub">Me mande esta lista para eu ensinar o Psiu.</p><ol class="tm-lista">${ps.sem.map(x => `<li>${escHTML(x.t)} <small>${x.n} pessoas</small></li>`).join('')}</ol>`;
     return h;
   }
+  const MA_IC = {
+    discursiva:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    erros:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
+    dados:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+    psiu:'<path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4Z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8Z"/>',
+    olho:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+    apoio:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/>',
+    acessos:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+    cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+    grafico:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+    lista:'<path d="M9 6h11M9 12h11M9 18h11"/><path d="m3 6 1 1 2-2M3 12l1 1 2-2M3 18l1 1 2-2"/>',
+    estrela:'<path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/>',
+    pdf:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M9 14h6M9 17h4"/>',
+    nota:'<path d="M4 4h16v12H8l-4 4Z"/><path d="M8 9h8M8 12h5"/>'
+  };
+  const maIc = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${MA_IC[k] || ''}</svg>`;
+  const maRow = (attrs, ic, tom, titulo, sub, extra) => `<button class="ma-row" ${attrs}><span class="ma-ic ma-ic-${tom}">${maIc(ic)}</span><span class="ma-row-tx"><b>${titulo}</b>${sub ? `<small>${sub}</small>` : ''}</span>${extra || ''}<span class="ma-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></button>`;
   function renderHoje(){
     const el = document.getElementById('hojePage'); if(!el) return;
     const apoia = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
@@ -23054,7 +23156,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const dp = prova ? dias(prova.prazo) : null;
     const mesmas = prova ? prazos.filter(t => /^prova/i.test(t.tarefa) && t.prazo === prova.prazo).map(t => curto(t.materia)) : [];
     const quando = dp === 0 ? 'hoje' : dp === 1 ? 'amanhã' : 'em ' + dp + ' dias';
-    const chip = prova ? `<span class="hj-chip">${mesmas.length > 1 ? 'Provas de ' + escHTML(mesmas.join(' e ')) : 'Prova de ' + escHTML(mesmas[0])} ${quando}</span>` : '';
+    const chip = prova ? `<div class="ma-prova${dp <= 3 ? ' perto' : ''}"><span class="ma-prova-ic">${maIc('cal')}</span><span><small>${mesmas.length > 1 ? 'Provas' : 'Prova'} ${quando}</small><b>${escHTML(mesmas.join(' e '))}</b></span></div>` : `<div class="ma-prova"><span class="ma-prova-ic">${maIc('cal')}</span><span><small>Provas</small><b>Nenhuma nos próximos dias</b></span></div>`;
     // plano (apoiador) ou sugestões (todos)
     let plano = '';
     const pl = apoia && window.avPlanoDoDia ? window.avPlanoDoDia() : null;
@@ -23075,7 +23177,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const linhas = DISC_MEU().filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n)).map(d => {
       const p = progressoDisc(d);
       const bits = [p.caps ? `Resumos ${p.lidos}/${p.caps}` : '', p.temSim ? (p.melhor !== null ? `Simulado ${p.melhor}%` : 'Simulado não feito') : '', p.ds !== null ? `Discursiva ${p.ds}%` : ''].filter(Boolean);
-      return `<div class="ma-disc"><button class="ma-disc-nome" data-ma-disc="${d.n}">${escHTML(d.name)}</button>
+      return `<div class="ma-disc"><div class="ma-disc-top"><button class="ma-disc-nome" data-ma-disc="${d.n}">${escHTML(d.name)}</button><span class="ma-pct">${p.caps ? Math.round(p.lidos / p.caps * 100) : 0}%</span></div>
         <div class="ma-bar"><i style="width:${p.caps ? Math.round(p.lidos / p.caps * 100) : 0}%"></i></div>
         <div class="ma-bits">${bits.map(b => `<span>${b}</span>`).join('')}${p.err ? `<button data-hj-erros="${d.n}">${p.err} ${p.err === 1 ? 'erro' : 'erros'} para revisar</button>` : ''}</div></div>`;
     }).join('');
@@ -23084,26 +23186,30 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso']].concat(apoia ? [['ferramentas', 'Ferramentas']] : []).concat(admin ? [['turma', 'Turma']] : []).concat([['conta', 'Conta' + (admin && pend ? ` <i class="ma-pend">${pend}</i>` : '')]]);
     if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
     let corpo = '';
-    if(maAba === 'hoje') corpo = (plano || '') + `<div class="hj-grid">
-        <button class="hj-mini hj-ds" data-ds-escolher><span>Treino de discursiva</span><b>Escreva e corrija</b><small>Perguntas de prova e casos</small></button>
-        <button class="hj-mini hj-rev" data-hj-ir='{"tipo":"erros"}'><span>Revisão dos erros</span><b>${nErr || 'Tudo em dia'}</b><small>${nErr ? (nErr === 1 ? 'questão para revisar' : 'questões para revisar') : 'Nenhum erro guardado'}</small></button></div>`;
-    if(maAba === 'progresso') corpo = `<section class="hj-card">${linhas}</section>`;
-    if(maAba === 'ferramentas') corpo = `<section class="hj-card"><div class="conta-area-bts ma-ben">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></section>`;
+    if(maAba === 'hoje') corpo = (plano || '') + `<div class="ma-grupo-t">Treinar</div><section class="hj-card ma-lista">
+        ${maRow('data-ds-escolher', 'discursiva', 'verde', 'Treino de discursiva', 'Escreva e corrija perguntas de prova e casos')}
+        ${maRow(`data-hj-ir='{"tipo":"erros"}'`, 'erros', 'ocre', 'Revisão dos erros', nErr ? (nErr === 1 ? '1 questão para revisar' : nErr + ' questões para revisar') : 'Tudo em dia: nenhum erro guardado', nErr ? `<span class="ma-badge">${nErr}</span>` : '')}
+      </section>`;
+    if(maAba === 'progresso') corpo = `<div class="ma-grupo-t">Resumos lidos por disciplina</div><section class="hj-card ma-prog">${linhas}</section>`;
+    const BEN_IC = {desempenho:['grafico', 'verde'], plano:['lista', 'cinza'], semestre:['estrela', 'ocre'], simpdf:['pdf', 'rosa'], notas:['nota', 'roxo']};
+    if(maAba === 'ferramentas') corpo = `<div class="ma-grupo-t">Recursos de apoiador</div><section class="hj-card ma-lista">${(window.avBeneficiosDados ? window.avBeneficiosDados() : []).map(b => maRow(`data-ben="${b.k}"`, (BEN_IC[b.k] || ['estrela'])[0], (BEN_IC[b.k] || [0, 'cinza'])[1], escHTML(b.t), escHTML(b.d))).join('')}</section>`;
     if(maAba === 'turma'){ corpo = '<section class="hj-card" id="maTurma"><p class="hj-vazio">Carregando os números da turma…</p></section>';
       setTimeout(async () => { const el2 = document.getElementById('maTurma'); if(!el2) return; const e = window.avLerTurma ? await window.avLerTurma() : null; el2.innerHTML = turmaHTML(e); }, 0); }
-    if(maAba === 'conta') corpo = `<section class="hj-card">${window.avFotoHTML ? window.avFotoHTML() : ''}${window.avPushHTML ? window.avPushHTML() : ''}<div class="ma-conta">
-          <button data-ma-conta="conta"><b>Meus dados</b><small>${escHTML(window.avEmail || 'E-mail, sincronização e sair')}</small></button>
-          <button data-ma-conta="psiu"><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e comentários</small></button>
-          ${window.avRumoOculto && window.avRumoOculto() ? `<button data-rumo-mostrar><b>Mostrar o Rumo à prova</b><small>${'Oculto até ' + new Date(+localStorage.getItem('av-rumo-oculto')).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'})}</small></button>` : ''}
-          <button data-ma-conta="apoio"><b>${apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo'}</b><small>${apoia ? (window.avApoioAte ? 'Vale até ' + new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : 'Obrigado por apoiar!') : 'Contribuição voluntária, com extras'}</small></button>
-          ${admin ? `<button data-ma-conta="acessos"><b>Acessos da turma${pend ? ` <i class="ma-pend">${pend}</i>` : ''}</b><small>Liberar, bloquear e marcar apoiadores</small></button>` : ''}
-        </div></section>`;
+    if(maAba === 'conta') corpo = `<div class="ma-grupo-t">Perfil</div><section class="hj-card ma-perfil">${window.avFotoHTML ? window.avFotoHTML().replace('<b>Foto do perfil</b>', `<b>${escHTML(window.avNome || 'Sua conta')}</b>${window.avEmail ? `<small class="ma-email">${escHTML(window.avEmail)}</small>` : ''}`) : ''}</section>
+        ${window.avPushHTML ? `<div class="ma-grupo-t">Notificações</div><section class="hj-card ma-push">${window.avPushHTML()}</section>` : ''}
+        <div class="ma-grupo-t">Conta e preferências</div><section class="hj-card ma-lista">
+          ${maRow('data-ma-conta="conta"', 'dados', 'cinza', 'Meus dados', 'E-mail, sincronização e sair da conta')}
+          ${maRow('data-ma-conta="psiu"', 'psiu', 'roxo', 'Personalizar o Psiu', 'Acessórios, cor, fundo e comentários')}
+          ${window.avRumoOculto && window.avRumoOculto() ? maRow('data-rumo-mostrar', 'olho', 'ocre', 'Mostrar o Rumo à prova', 'Oculto até ' + new Date(+localStorage.getItem('av-rumo-oculto')).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'})) : ''}
+          ${maRow('data-ma-conta="apoio"', 'apoio', 'rosa', apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo', apoia ? (window.avApoioAte ? 'Vale até ' + new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : 'Obrigado por apoiar!') : 'Contribuição voluntária, com extras')}
+          ${admin ? maRow('data-ma-conta="acessos"', 'acessos', 'verde', 'Acessos da turma', 'Liberar, bloquear e marcar apoiadores', pend ? `<span class="ma-badge ma-badge-red">${pend}</span>` : '') : ''}
+        </section>`;
     el.innerHTML = `
       <header class="hj-head"><div class="hj-topo"><div class="eyebrow">Minha área</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
-        <div class="ma-ola">${window.avPsiuMini ? `<span class="ma-psiu">${window.avPsiuMini()}</span>` : ''}<div><h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${apoia ? '<span class="ma-selo">★ Apoiador</span>' : ''}</div></div>${chip}</header>
-      <div class="ma-sem" role="group" aria-label="Seu semestre"><span>Estou no</span>${['1', '2'].map(k => `<button data-ma-sem="${k}" aria-pressed="${avSemestre() === k}">${k}º semestre</button>`).join('')}</div>
+        <div class="ma-ola">${window.avPsiuMini ? `<span class="ma-psiu">${window.avPsiuMini()}</span>` : ''}<div><h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${apoia ? '<span class="ma-selo">★ Apoiador</span>' : ''}</div></div>
+        <div class="ma-status">${chip}<div class="ma-sem-box"><small>Semestre</small><div class="ma-seg" role="group" aria-label="Seu semestre">${['1', '2'].map(k => `<button data-ma-sem="${k}" aria-pressed="${avSemestre() === k}">${k}º</button>`).join('')}</div></div></div></header>
       <div class="ma-abas" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-ma-aba="${k}" aria-selected="${maAba === k}">${t}</button>`).join('')}</div>
-      ${corpo}`;
+      <div class="ma-corpo">${corpo}</div>`;
   }
   window.avRenderHoje = renderHoje;
   document.addEventListener('click', e => { if(!e.target.closest('[data-rumo-mostrar]')) return; if(window.avRumoMostrar) window.avRumoMostrar(); renderHoje(); });
