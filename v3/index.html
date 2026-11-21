@@ -15308,7 +15308,7 @@ function studyCardHTML(s){
     <div class="study-info">
       <div class="study-title">${s.titulo}</div>
       ${temas || `<div class="study-subtitle">${s.subtitulo || "Material de estudo"}${s.link.startsWith('#') ? '' : '<span class="nota-fora"> · abre em outro site</span>'}</div>`}
-      <div class="study-desc">${s.desc}</div>
+      ${temas ? '' : `<div class="study-desc">${s.desc}</div>`}
     </div>
     <div class="study-actions">
       ${s.link.startsWith('#') ? `<a class="study-go" href="${s.link}">Estudar →</a>` : `<a class="study-go" href="${s.link}" target="_blank" rel="noopener">Estudar ↗</a>`}
