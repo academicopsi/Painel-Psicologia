@@ -691,10 +691,12 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .sim-card-partes button{font:inherit; font-size:12.5px; font-weight:600; color:#fff; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.28); border-radius:6px; padding:5px 10px; cursor:pointer; text-align:left;}
   .sim-card-partes button:hover{background:rgba(255,255,255,.2);}
   .sim-card-partes small{opacity:.7; font-weight:500; margin-left:3px;}
-  .study-temas{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 2px;}
-  .study-tema{font:inherit; font-size:13px; font-weight:600; padding:5px 11px; border-radius:6px; border:1px solid var(--petrol-line); background:var(--petrol-soft); color:var(--petrol); cursor:pointer; text-align:left;}
-  .study-tema:hover{background:var(--petrol); color:#fff;}
-  body.dark .study-tema:hover{color:#0F1615;}
+  .study-temas{display:flex; flex-direction:column; margin:10px 0 4px; border-top:1px solid var(--rule); counter-reset:tema;}
+  .study-tema{counter-increment:tema; display:flex; align-items:baseline; gap:10px; width:100%; font:inherit; font-size:14.5px; font-weight:500; line-height:1.35; padding:10px 2px; border:0; border-bottom:1px solid var(--rule); background:transparent; color:var(--ink); cursor:pointer; text-align:left;}
+  .study-tema::before{content:counter(tema, decimal-leading-zero); font-family:var(--mono, monospace); font-size:12px; color:var(--ink-faint); flex:none;}
+  .study-tema::after{content:'→'; margin-left:auto; padding-left:8px; color:var(--petrol); flex:none;}
+  @media (hover:hover){ .study-tema:hover{color:var(--petrol);} }
+  .study-tema:active{color:var(--petrol);}
   .study-card .study-subtitle{font-size:13px; font-weight:600; color:var(--petrol); margin-top:3px;}
   .study-card .study-desc{font-size:14.5px; line-height:1.55; color:var(--ink-soft); margin-top:7px; max-width:68ch;}
   .study-card .study-go{
