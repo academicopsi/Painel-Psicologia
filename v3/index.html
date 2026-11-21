@@ -2544,6 +2544,18 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   #contaBtn.conta-on{width:auto !important; padding:0 4px; border-color:var(--petrol-line); background:var(--paper); gap:8px;}
   #contaBtn .cb-av{width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg, var(--petrol), var(--petrol-dark)); color:#fff; font-size:13px; font-weight:700; display:grid; place-items:center; letter-spacing:0; flex:none; position:relative;}
   #contaBtn.apoia .cb-av{box-shadow:0 0 0 2px var(--paper), 0 0 0 3.5px var(--ochre);}
+  .hdr-mural{position:relative;}
+  .hdr-mural.on{color:var(--petrol); border-color:var(--petrol);}
+  .hdr-dot{position:absolute; top:6px; right:6px; width:9px; height:9px; border-radius:50%; background:#C4492F; box-shadow:0 0 0 2px var(--paper);}
+  .conta-tema{display:flex; align-items:center; gap:12px; width:100%; text-align:left; font:inherit; color:var(--ink); background:var(--paper-alt); border:1px solid var(--rule); border-radius:12px; padding:11px 14px; margin:0 0 14px; cursor:pointer;}
+  .conta-tema > svg{width:20px; height:20px; flex:none; color:var(--petrol);}
+  .conta-tema span{flex:1;}
+  .conta-tema b{display:block; font-size:14.5px;}
+  .conta-tema small{display:block; font-size:12.5px; color:var(--ink-soft);}
+  .ct-sw{flex:none; position:relative; width:42px; height:24px; border-radius:999px; background:var(--rule); transition:background .2s;}
+  .ct-sw::after{content:''; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.25); transition:transform .2s;}
+  .conta-tema[aria-checked=true] .ct-sw{background:var(--petrol);}
+  .conta-tema[aria-checked=true] .ct-sw::after{transform:translateX(18px);}
   #contaBtn .cb-estrela{position:absolute; right:-5px; bottom:-4px; width:14px; height:14px; border-radius:50%; background:var(--ochre); color:#fff; font-size:8.5px; display:grid; place-items:center; box-shadow:0 0 0 1.5px var(--paper);}
   #contaBtn .cb-nome{display:none; font-size:13.5px; font-weight:600; color:var(--ink); padding-right:8px; max-width:110px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
   @media (min-width:900px){ #contaBtn.conta-on{padding:0 6px 0 4px;} #contaBtn .cb-nome{display:block; padding-right:12px;} }
@@ -3291,7 +3303,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     <div class="nav-actions">
       <button class="icon-btn" id="searchBtn" data-open-search aria-label="Buscar no site" title="Buscar (atalho: /)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <button class="icon-btn" id="contaBtn" aria-label="Entrar ou criar conta" title="Sua conta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="conta-dot" hidden></span></button>
-      <button class="icon-btn" id="themeBtn" aria-label="Alternar modo escuro" title="Modo escuro"><span id="themeIcon" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span></button>
+      <button class="icon-btn hdr-mural" id="muralBtn" data-page="viewMural" aria-label="Mural da turma" title="Mural da turma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg><span class="hdr-dot" id="muralDot" hidden></span></button>
+      <button class="icon-btn" id="themeBtn" hidden style="display:none" aria-label="Alternar modo escuro" title="Modo escuro"><span id="themeIcon" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span></button>
       <button class="icon-btn" id="shareBtn" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button>
       <button class="icon-btn nav-burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
     </div>
@@ -4768,6 +4781,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: 'Geral', desc: 'O Mural da turma ganhou um botão no topo do site, com um ponto vermelho quando há tópico ou resposta nova. O modo escuro passou para Sua conta, na aba Conta.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural da turma, no estilo das comunidades antigas: abra tópicos com título e categoria, responda os dos colegas e curta. Tudo sai com o seu nome, e cada pessoa tem um perfil com foto, semestre e o Psiu que montou. Só contas liberadas participam, e qualquer conteúdo pode ser denunciado.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Ficou mais claro o que é de apoiador: selo ★ Apoiador nos recursos exclusivos, aba Apoiador na Minha área com prévias para todos e uma comparação entre o que é grátis e o que o apoio libera.'},
   {date: '2026-11-21', disc: 'Geral', desc: 'O semestre escolhido na Minha área agora vale para o site todo: Drive das disciplinas, exercícios, glossário, busca e atualizações mostram só o seu semestre. Um link discreto deixa ver o outro quando quiser.'},
@@ -22623,14 +22637,15 @@ function desenharPainel(){
 
 // ---------- janela "Sua conta" (botão no topo) ----------
 let contaAba = 'conta';
+const temaHTML = () => { const d = document.body.classList.contains('dark'); return `<button class="conta-tema" data-conta-tema role="switch" aria-checked="${d}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg><span><b>Modo escuro</b><small>Fundo escuro, mais confortável à noite</small></span><i class="ct-sw"></i></button>`; };
 function desenharConta(m){
-  if(!usuario){ corpo.innerHTML = '<h2 id="contaTitulo">Sua conta</h2><p class="conta-sub">Você não está conectado.</p>'; return; }
+  if(!usuario){ corpo.innerHTML = '<h2 id="contaTitulo">Sua conta</h2><p class="conta-sub">Você não está conectado.</p>' + temaHTML(); ligarTema(); return; }
   const abas = [['conta', 'Conta'], ['psiu', 'Psiu'], ['apoio', 'Apoiador']].concat(ehAdmin(usuario) ? [['acessos', 'Acessos']] : []);
   if(!abas.some(a => a[0] === contaAba)) contaAba = 'conta';
   let h = `<h2 id="contaTitulo">Sua conta</h2>${msgHTML(m)}
     <div class="conta-topo${apoiador ? ' apoia' : ''}"><span class="ct-av">${fotoAtual() ? `<img src="${esc(fotoAtual())}" alt="" referrerpolicy="no-referrer">` : esc(iniciais(usuario))}</span><div><b>${esc(usuario.displayName || primeiroNome(usuario))}</b><span>${esc(usuario.email)}</span>${apoiador ? '<span class="conta-selo">★ Apoiador do Arquivo Vivo</span>' : ''}</div></div>
     <div class="conta-abas-top" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-conta-aba="${k}" aria-selected="${contaAba === k}">${t}${k === 'acessos' && dot.textContent ? ` <i>${dot.textContent}</i>` : ''}</button>`).join('')}</div>`;
-  if(contaAba === 'conta') h += fotoHTML() + `<p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p><button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
+  if(contaAba === 'conta') h += fotoHTML() + temaHTML() + `<p class="conta-sync">Seu progresso (simulados, erros para revisar, resumos e exercícios) fica salvo na conta: ${quando(ultimaSync)}.</p><button class="conta-btn sec" id="contaSair">Sair da conta</button>`;
   if(contaAba === 'psiu') h += `<button class="conta-psiu" data-psiu-vitrine>${window.avPsiuMini ? window.avPsiuMini() : ''}<span><b>Personalizar o Psiu</b><small>Acessórios, cor, fundo e o que ele comenta</small></span></button>`;
   if(contaAba === 'apoio') h += apoiador
     ? `<p class="conta-sub">Obrigado por apoiar o Arquivo Vivo! Estes são os seus recursos.</p><div class="conta-area"><div class="conta-area-bts">${window.avBeneficiosLista ? window.avBeneficiosLista() : ''}</div></div>`
@@ -22640,8 +22655,10 @@ function desenharConta(m){
   corpo.innerHTML = h;
   corpo.querySelectorAll('[data-conta-aba]').forEach(b => b.onclick = () => { contaAba = b.dataset.contaAba; desenharConta(); });
   if(contaAba === 'acessos') carregarPainel();
+  ligarTema();
   const sair = document.getElementById('contaSair'); if(sair) sair.onclick = async ()=>{ await enviar(); fundo.hidden = true; await signOut(auth); };
 }
+function ligarTema(){ const b = corpo.querySelector('[data-conta-tema]'); if(b) b.onclick = () => { document.getElementById('themeBtn').click(); b.setAttribute('aria-checked', document.body.classList.contains('dark')); }; }
 window.avAbrirConta = aba => { contaAba = aba || ((ehAdmin(usuario) && dot.textContent) ? 'acessos' : 'conta'); desenharConta(); fundo.hidden = false; };
 window.avEhAdmin = () => ehAdmin(usuario);
 // ---------- notificações (Firebase Cloud Messaging) ----------
@@ -23578,7 +23595,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(maAba === 'conta') corpo = `<div class="ma-grupo-t">Perfil</div><section class="hj-card ma-perfil">${window.avFotoHTML ? window.avFotoHTML().replace('<b>Foto do perfil</b>', `<b>${escHTML(window.avNome || 'Sua conta')}</b>${window.avEmail ? `<small class="ma-email">${escHTML(window.avEmail)}</small>` : ''}`) : ''}</section>
         ${window.avPushHTML ? `<div class="ma-grupo-t">Notificações</div><section class="hj-card ma-push">${window.avPushHTML()}</section>` : ''}
         <div class="ma-grupo-t">Conta e preferências</div><section class="hj-card ma-lista">
-          ${maRow('data-ma-conta="conta"', 'dados', 'cinza', 'Meus dados', 'E-mail, sincronização e sair da conta')}
+          ${maRow('data-ma-conta="conta"', 'dados', 'cinza', 'Conta e aparência', 'Modo escuro, foto, sincronização e sair')}
           ${maRow('data-ma-conta="psiu"', 'psiu', 'roxo', 'Personalizar o Psiu', 'Acessórios, cor, fundo e comentários')}
           ${window.avRumoOculto && window.avRumoOculto() ? maRow('data-rumo-mostrar', 'olho', 'ocre', 'Mostrar o Rumo à prova', 'Oculto até ' + new Date(+localStorage.getItem('av-rumo-oculto')).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'})) : ''}
           ${maRow('data-ma-conta="apoio"', 'apoio', 'rosa', apoia ? 'Meu apoio' : 'Apoiar o Arquivo Vivo', apoia ? (window.avApoioAte ? 'Vale até ' + new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : 'Obrigado por apoiar!') : 'Contribuição voluntária, com extras')}
@@ -24349,8 +24366,25 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if((b = q('[data-mu-den-ok]'))){ const alvo = b.dataset.muDenOk; delete C.den[alvo]; render(); acao(() => B().apagar('mural/denuncias/' + alvo)); return; }
   });
   document.addEventListener('keydown', e => { if(e.key === 'Escape'){ const f = document.getElementById('muPerfilFundo'); if(f && !f.hidden) f.hidden = true; } });
+  // botão do mural no cabeçalho: destaque na página e ponto quando há novidade de outras pessoas
+  const VISTO = 'av-mural-visto';
+  const marcarVisto = () => { try{ localStorage.setItem(VISTO, String(Date.now())); }catch(_){} const d = document.getElementById('muralDot'); if(d) d.hidden = true; };
+  async function checarNovidade(){
+    const eu = EU(); if(!eu || !eu.liberado || !B()) return false;
+    try{
+      const visto = +(localStorage.getItem(VISTO) || 0), [posts, com] = await Promise.all([B().ler('mural/posts'), B().ler('mural/comentarios')]);
+      let novo = false;
+      Object.values(posts || {}).forEach(x => { if(x && x.uid !== eu.uid && x.em > visto) novo = true; });
+      Object.values(com || {}).forEach(o => Object.values(o || {}).forEach(x => { if(x && x.uid !== eu.uid && x.em > visto) novo = true; }));
+      const d = document.getElementById('muralDot'), naPagina = document.getElementById('viewMural')?.style.display !== 'none';
+      if(d) d.hidden = !novo || naPagina;
+    }catch(_){}
+    return true;
+  }
+  let tentativas = 0; const espera = setInterval(async () => { if(++tentativas > 40 || await checarNovidade()) clearInterval(espera); }, 1500);
+  document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'visible') checarNovidade(); });
   const _sp = window.switchPage;
-  if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewMural'){ if(estado === 'pronto') carregar(); else { estado = 'nada'; render(); } } return r; }; }
+  if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); document.getElementById('muralBtn')?.classList.toggle('on', id === 'viewMural'); if(id === 'viewMural'){ marcarVisto(); if(estado === 'pronto') carregar(); else { estado = 'nada'; render(); } } return r; }; }
   setTimeout(() => { const v = document.getElementById('viewMural'); if(v && v.style.display !== 'none') render(); }, 1500);
 })();
 </script>
