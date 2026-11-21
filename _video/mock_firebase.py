@@ -13,7 +13,7 @@ export async function signOut(){ sessionStorage.removeItem('fakeUser'); cb(null)
 DB="""const L=()=>JSON.parse(sessionStorage.getItem('fakeDB')||'{"apoiadores/u1":true,"acesso/u1":true}'); const S=d=>sessionStorage.setItem('fakeDB',JSON.stringify(d));
 export function getDatabase(){return {}}
 export function ref(d,p){return p}
-export async function get(p){ await new Promise(r=>setTimeout(r,200)); const d=L(); if(p==='usuarios/u1' && !sessionStorage.getItem('jaPuxou')){ sessionStorage.setItem('jaPuxou','1'); return {val:()=>({atualizadoEm:Date.now()+5000, progresso:{'av-desempenho':JSON.stringify({sims:{}, hist:[]})}})}; } if(p in d) return {val:()=>d[p]}; const pre=p+'/'; const o={}; Object.keys(d).forEach(k=>{if(k.startsWith(pre)) o[k.slice(pre.length)]=d[k]}); return {val:()=>Object.keys(o).length?o:null}}
+export async function get(p){ await new Promise(r=>setTimeout(r,200)); const d=L(); if(p==='usuarios/u1' && !sessionStorage.getItem('jaPuxou')){ sessionStorage.setItem('jaPuxou','1'); return {val:()=>({atualizadoEm:Date.now()+5000, progresso:{'av-desempenho':JSON.stringify({sims:{}, hist:[]})}})}; } if(p in d) return {val:()=>d[p]}; const pre=p+'/'; const o={}; Object.keys(d).forEach(k=>{if(k.startsWith(pre)){ const ps=k.slice(pre.length).split('/'); let n=o; ps.slice(0,-1).forEach(x=>{n=n[x]=n[x]||{}}); n[ps[ps.length-1]]=d[k]; }}); return {val:()=>Object.keys(o).length?o:null}}
 export async function set(p,v){ await new Promise(r=>setTimeout(r,200)); const d=L(); d[p]=JSON.parse(JSON.stringify(v)); S(d); window.__sets=(window.__sets||0)+1}
 export async function remove(p){const d=L(); delete d[p]; S(d)}
 export function goOnline(){} export function goOffline(){}"""

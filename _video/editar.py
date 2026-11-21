@@ -77,13 +77,14 @@ def topo_escuro(base, h=560):
     for y in range(h): g.putpixel((0,y), int(200*(1-y/h)**1.4))
     g=g.resize((W,h)); base.paste((10,34,32),(0,0),g)
 # ---------- barra de progresso e capítulos ----------
-TOTAL=86.4
-CAPS=[(15.6,'01'),(30.0,'02'),(39.6,'03'),(55.2,'04'),(63.6,'05'),(70.8,'06')]
+TOTAL=102.6
+CAPS=[(15.6,'01'),(30.0,'02'),(39.6,'03'),(55.2,'04'),(71.4,'05'),(79.8,'06'),(87.0,'07')]
+FIM=96.6
 def hud(base,t):
     d=ImageDraw.Draw(base)
     d.rectangle((0,0,W,9),fill=(20,52,49)); d.rectangle((0,0,int(W*t/TOTAL),9),fill=OCRE)
-    if 15.6<=t<80.4:
-        f=fnt(INTER_B,26); x=W-80-6*58
+    if 15.6<=t<FIM:
+        f=fnt(INTER_B,26); x=W-80-len(CAPS)*58
         for i,(ti,n) in enumerate(CAPS):
             on = t>=ti and (i==len(CAPS)-1 or t<CAPS[i+1][0]); past=t>=ti
             c = OCRE if on else ((120,165,155) if past else (60,100,94))
@@ -185,7 +186,7 @@ def cena_fim(t):
 # ---------- notificações (tela de bloqueio) ----------
 NOTIFS=[('Psiu! Em 3 dias: Prova N2 de Neuroanatomia','Três dias: um resumo por dia e um simulado no fim. Topa?'),
         ('Psiu! Amanhã: Prova N2 de Desenvolvimento Adulto e Idoso','Respira, revisa o resumo e dorme cedo. Eu acredito em você!'),
-        ('Arquivo Vivo','Resumos novos do 1º semestre no ar. Bora conferir?')]
+        ('Júlia respondeu ao seu tópico','“Quem topa revisar Neuro na segunda?”: Eu vou! Fico com o trigêmeo e o facial.')]
 _lock=None
 def lock_fundo():
     global _lock
@@ -233,7 +234,7 @@ def cena_notif(t, dur):
     im=FUNDO.copy(); z=1.0+0.05*ease_io(t/dur)
     celular(im, scr, W//2, 1180, z)
     topo_escuro(im,640)
-    if t<3.6: cola_legenda(im,'Notificações','Lembretes de prova e avisos da turma no seu celular',t)
+    if t<3.6: cola_legenda(im,'Notificações','Lembretes de prova, avisos e respostas do mural no celular',t)
     else: cola_legenda(im,'Notificações','Chegam mesmo com o site fechado. Você escolhe o que receber.',t-3.6)
     return im
 # ---------- linha do tempo ----------
@@ -246,6 +247,12 @@ APOIO=[(0,'Para apoiadores','Seu desempenho por tema e o que revisar primeiro',1
        (4.4,'Para apoiadores','Seu semestre em números, pronto para o story',1.0,None),]
 PSIU=[(0,'Psiu, o colega virtual','Pergunte: ele sabe as datas, os prazos e os conceitos',1.0,None),
       (7.5,'Psiu, o colega virtual','E também sabe descontrair',1.0,None)]
+MURAL_DUR=15.0
+def _mt(n): return (S[n]-S['mural'])*MURAL_DUR/(S['mural_fim']-S['mural'])
+MURAL=[(0,'Novo · Mural da turma','Tópicos com título e categoria, sempre com o seu nome',1.0,None),
+       (_mt('mural_reac'),'Reações','Curtir, Concordo, Haha, Amei e o Psiu',1.0,None),
+       (_mt('mural_marca'),'Marque colegas','Digite @ e a pessoa fica sabendo na hora',1.0,None),
+       (_mt('mural_melhor'),'Dúvida resolvida','Quem perguntou marca a melhor resposta',1.0,None)]
 SIM=[(0,'Simulados','Escolha o tema, responda e veja a explicação na hora',1.0,None)]
 P1=[(0,'1º período','Vai ter aula das disciplinas do 1º período? Vocês não ficaram de fora!',1.0,None)]
 CENAS=[('hook',4.8,lambda t:cena_hook(t)),
@@ -256,12 +263,14 @@ CENAS=[('hook',4.8,lambda t:cena_hook(t)),
  ('c2',1.2,lambda t:cena_capitulo(t,'02','Área do apoiador','Recursos extras para quem apoia')),
  ('apoio',8.4,lambda t:cena_gravada(t,8.4,S['apoio'],S['psiu'],APOIO)),
  ('c3',1.2,lambda t:cena_capitulo(t,'03','Conheça o Psiu','O colega virtual da turma')),
- ('psiu',14.4,lambda t:cena_gravada(t,14.4,S['psiu'],S['sim']-1.6,PSIU)),
- ('c4',1.2,lambda t:cena_capitulo(t,'04','Notificações','O site agora te avisa')),
+ ('psiu',14.4,lambda t:cena_gravada(t,14.4,S['psiu'],S['mural']-0.2,PSIU)),
+ ('c4',1.2,lambda t:cena_capitulo(t,'04','Mural da turma','Dúvidas, materiais e conversa com a turma')),
+ ('mural',MURAL_DUR,lambda t:cena_gravada(t,MURAL_DUR,S['mural'],S['mural_fim'],MURAL)),
+ ('c5',1.2,lambda t:cena_capitulo(t,'05','Notificações','O site agora te avisa')),
  ('notif',7.2,lambda t:cena_notif(t,7.2)),
- ('c5',1.2,lambda t:cena_capitulo(t,'05','Simulados','688 questões, separadas por tema')),
+ ('c6',1.2,lambda t:cena_capitulo(t,'06','Simulados','688 questões, separadas por tema')),
  ('sim',6.0,lambda t:cena_gravada(t,6.0,S['sim'],S['p1']-0.3,SIM)),
- ('c6',1.2,lambda t:cena_capitulo(t,'06','1º período','Vocês não ficaram de fora')),
+ ('c7',1.2,lambda t:cena_capitulo(t,'07','1º período','Vocês não ficaram de fora')),
  ('p1',8.4,lambda t:cena_gravada(t,8.4,S['p1'],S['fim'],P1)),
  ('fim',6.0,lambda t:cena_fim(t))]
 def render(nome):

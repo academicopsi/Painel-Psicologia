@@ -13,6 +13,22 @@ SEED = r"""(()=>{
   Object.entries(RESUMOS).filter(([, r]) => DISC['2'].some(d => d.n === r.disc)).forEach(([id, r], i) => { const st = {}; r.caps.forEach((c, j) => { if((i + j) % 3 !== 2){ st[c.id] = {}; c.etapas.forEach((e, k) => st[c.id][k] = 1); } }); localStorage.setItem('av-resumo-' + id, JSON.stringify(st)); });
   localStorage.setItem('av-tempo', JSON.stringify({total: 19 * 3600 + 1200, dias:{}}));
 })()"""
+MURAL_SEED = r"""(()=>{
+  const d = JSON.parse(sessionStorage.getItem('fakeDB') || '{"apoiadores/u1":true,"acesso/u1":true}'), h = Date.now(), m = 60000;
+  const put = (k, v) => d[k] = v;
+  put('perfis/u1', {nome:'Ana Clara', sem:'2', ap:true});
+  put('perfis/t1', {nome:'Bruno Lima', sem:'2', ap:true, conq:6, conqT:15}); put('perfis/t2', {nome:'Carla Souza', sem:'2', conq:9, conqT:15});
+  put('perfis/t3', {nome:'Diego Alves', sem:'1', conq:3, conqT:15}); put('perfis/t4', {nome:'Júlia Ramos', sem:'2', conq:11, conqT:15});
+  put('mural/posts/x1', {uid:'u1', nome:'Ana Clara', titulo:'Quem topa revisar Neuro na segunda depois da aula?', cat:'provas', texto:'Pensei em 1 hora na biblioteca, cada um leva um tema dos nervos cranianos. Quem vem?', em:h-95*m});
+  put('mural/posts/x2', {uid:'t1', nome:'Bruno Lima', titulo:'Mapa mental das fases do luto', cat:'materiais', texto:'Montei um resumo visual de Kübler-Ross para a prova de Idoso. Alguém confere se ficou certo?', em:h-40*m});
+  put('mural/posts/x3', {uid:'t3', nome:'Diego Alves', titulo:'O simulado de Experimental ajudou demais', cat:'opiniao', texto:'Errei bastante no começo e acertei quase tudo na segunda vez.', em:h-26*60*m});
+  put('mural/comentarios/x1/k1', {uid:'t4', nome:'Júlia Ramos', texto:'Eu vou! Fico com o trigêmeo e o facial.', em:h-80*m});
+  put('mural/comentarios/x1/k2', {uid:'t1', nome:'Bruno Lima', texto:'@Júlia levo o vago então.', men:['t4'], em:h-60*m});
+  put('mural/curtidas/x1/t1', {t:'concordo', em:h-70*m}); put('mural/curtidas/x1/t4', {t:'amei', em:h-75*m});
+  put('mural/curtidas/x2/t2', {t:'psiu', em:h-30*m}); put('mural/curtidas/x2/t4', {t:'curtir', em:h-20*m});
+  put('mural/curtidas/x3/t1', {t:'haha', em:h-600*m}); put('mural/curtidas/x3/t2', {t:'amei', em:h-500*m});
+  sessionStorage.setItem('fakeDB', JSON.stringify(d)); localStorage.setItem('av-mural-ok', '1');
+})()"""
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path='/usr/bin/google-chrome')
     ctx=b.new_context(viewport={'width':390,'height':780}, device_scale_factor=2, service_workers='block'); pg=ctx.new_page()
@@ -22,7 +38,9 @@ with sync_playwright() as p:
     pg.route('**/firebasejs/**', r)
     pg.goto('http://localhost:8765/v3/#entrar');pg.wait_for_timeout(1500)
     pg.fill('#cEmail','ana.clara@exemplo.com');pg.fill('#cSenha','123456');pg.click('[data-form] button[type=submit]'); pg.wait_for_timeout(4000)
-    pg.evaluate(SEED); pg.reload(); pg.wait_for_timeout(4000)
+    pg.evaluate(SEED)
+    pg.evaluate(MURAL_SEED)
+    pg.reload(); pg.wait_for_timeout(4000)
     pg.add_style_tag(content="::-webkit-scrollbar{display:none} #psiuBalao{display:none!important} html{scroll-behavior:auto}")
     cdp=ctx.new_cdp_session(pg)
     def onf(ev):
@@ -74,6 +92,20 @@ with sync_playwright() as p:
     pg.evaluate("Math.random=window.__rnd")
     digita('#botInput', 'tô cansado'); pg.keyboard.press('Enter'); W(3200)
     pg.click('#botFechar'); W(300)
+    # MURAL
+    pg.evaluate("location.hash='#top'"); W(500); pg.evaluate("scrollTo(0,0)"); W(300)
+    seg('mural'); W(400); toque('#muralBtn', espera=1800)
+    ate('.mu-feed', 230, 1100); W(1000)
+    toque('[data-mu-ver=x1] .mu-card-t', espera=1300)
+    seg('mural_reac'); toque('[data-mu-reagir=x1]', espera=900); toque('[data-mu-reac="x1|psiu"]', espera=1000)
+    seg('mural_marca'); ate('.mu-thread', 120, 800)
+    pg.click('[data-mu-comentar] textarea'); W(200)
+    for ch in 'Valeu, @Ju': pg.keyboard.type(ch); W(70)
+    W(900); toque('[data-mu-sug]', espera=400)
+    for ch in 'levo o resumo do vago!': pg.keyboard.type(ch); W(45)
+    W(300); toque('[data-mu-comentar] button[type=submit]', espera=1300)
+    seg('mural_melhor'); toque('[data-mu-melhor="x1~k1"]', espera=900); ate('.mu-post', 90, 900); W(1500)
+    seg('mural_fim')
     # SIMULADO
     pg.evaluate("location.hash='#disc-02'"); W(1600); ate('.sim-card', 260, 10); W(300)
     seg('sim'); W(600); toque('[data-sim-parte-ini]', idx=1, espera=900); toque('[data-sim-start]', espera=1200)
