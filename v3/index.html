@@ -1137,6 +1137,11 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   /* nav: disciplinas */
   .ni-icon.ni-num{font-size:12px; font-weight:800;}
   .nav-dd-disc{min-width:320px;}
+  .hero-sem{display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 0 14px; padding:5px 6px 5px 12px; border-radius:999px; background:var(--petrol-soft); color:var(--petrol); font-size:13.5px;}
+  .hero-sem b{font-weight:700;}
+  .hero-sem button{font:inherit; font-size:12.5px; font-weight:600; border:1px solid currentColor; background:transparent; color:inherit; border-radius:999px; padding:3px 10px; cursor:pointer; opacity:.85;}
+  .hero-sem button:hover{opacity:1;}
+  @media (max-width:600px){ .hero-sem{background:rgba(255,255,255,.14); color:#fff;} }
   .ma-sem{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:4px 0 14px; font-size:13px; color:var(--ink-2, #5b5a52);}
   .ma-sem span{margin-right:4px;}
   .ma-sem button{font:inherit; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid var(--rule, #E2E0D8); background:transparent; color:var(--ink, #1F2A28); cursor:pointer;}
@@ -2873,6 +2878,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
   <section class="hero">
     <div class="hero-text">
+      <div class="hero-sem" id="heroSem"></div>
       <h1>Todo o material da turma, <span class="hl">em um só lugar.</span></h1>
       <p class="lead"><span class="so-desk">Slides e livros das aulas, prazos, resumos, exercícios, vídeos e cursos complementares.</span><span class="so-mob">Aulas, prazos, resumos e exercícios de cada disciplina.</span></p>
       <div class="hero-ctas">
@@ -15056,19 +15062,26 @@ document.querySelectorAll('.tab').forEach(btn=>{
   });
 });
 let gridSem = avSemestre();
+function heroSemRender(){
+  const el = document.getElementById('heroSem'); if(!el) return;
+  const sem = avSemestre(), outro = sem === '1' ? '2' : '1';
+  el.innerHTML = `<span>Você está no <b>${sem}º semestre</b></span><button type="button" data-hero-sem="${outro}">Trocar para o ${outro}º</button>`;
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-hero-sem]'); if(b) window.avSetSemestre(b.dataset.heroSem); });
+document.addEventListener('av-semestre', heroSemRender);
 function gridMostrar(sem){
   gridSem = sem; renderGrid(sem);
   const meu = avSemestre(), outro = meu === '1' ? '2' : '1', b = document.getElementById('gridOutro');
   if(b) b.textContent = sem === meu ? `Ver o Drive do ${outro}º semestre` : `Voltar ao ${meu}º semestre`;
   const c = document.getElementById('cntDisc'); if(c) c.textContent = `(${DISC[sem].length})`;
-  const t = document.getElementById('disciplinasTitulo'); if(t && t.firstChild) t.firstChild.textContent = sem === meu ? 'Drive das Disciplinas' : `Drive do ${sem}º semestre`;
+  const t = document.getElementById('disciplinasTitulo'); if(t && t.firstChild) t.firstChild.textContent = `Drive do ${sem}º semestre`;
 }
 document.getElementById('gridOutro')?.addEventListener('click', ()=> gridMostrar(gridSem === avSemestre() ? (gridSem === '1' ? '2' : '1') : avSemestre()));
 renderGrid(avSemestre());
 document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.sem === avSemestre()));
 navDiscRender();
 try{ if(avSemestre() === '1') setTimeout(()=> typeof carregarP1 === 'function' && carregarP1().catch(()=>{}), 1500); }catch(e){}
-gridMostrar(avSemestre());
+gridMostrar(avSemestre()); heroSemRender();
 
 const monthsPt = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 function fmtStamp(iso){
