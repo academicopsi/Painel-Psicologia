@@ -2986,17 +2986,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ap-comp .apoiador li::before{content:'★'; position:absolute; left:0; color:var(--ochre);}
   .ap-comp small{display:block; margin-top:6px; color:var(--ink-soft); font-size:12px;}
   @media (max-width:420px){ .ap-comp{grid-template-columns:1fr;} }
-  /* coesão: todo conteúdo da aba começa no mesmo ponto, e listas seguem o mesmo ritmo */
-  .ma-corpo > :first-child{margin-top:18px !important;}
-  .pg-sug{display:flex; flex-direction:column; margin:0 -18px;}
-  .pg-sug-item{display:flex; align-items:center; gap:12px; width:100%; text-align:left; font:inherit; color:var(--ink); background:none; border:0; border-top:1px solid var(--rule); padding:13px 18px; cursor:pointer;}
-  .pg-topo + .pg-sug .pg-sug-item:first-child{border-top:0;}
-  .pg-sug-item:hover{background:var(--paper-alt);}
-  .pg-sug-tx{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;}
-  .pg-sug-tx b{font-size:15px; font-weight:600; line-height:1.3;}
-  .pg-sug-tx small{font-size:13px; color:var(--ink-soft);}
-  .pg .sg-convite{width:calc(100% + 36px); margin:0 -18px; border-radius:0;}
-  .pg .pg-vazio{margin:14px 0;}
   /* turma (painel do administrador) */
   .tm-hero{margin:18px 0 0; padding:18px; border-radius:14px; color:#fff; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 6px 16px var(--shadow); position:relative; overflow:hidden;}
   .tm-hero::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
@@ -23398,10 +23387,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         <button class="pg-mais" data-ben="plano">${meu ? 'Planejar a semana' : 'Ver o plano da semana'}<span aria-hidden="true">→</span></button></section>`;
     } else {
       const sg = sugestoes();
-      plano = `<section class="hj-card pg">
-        <div class="pg-topo"><div class="pg-head"><span class="pg-ic">${maIc('lista')}</span><div><small>Guia de estudos</small><h2>Sugestões para hoje</h2></div></div>
-        <p class="pg-desc">O que vale estudar hoje, a partir das suas próximas provas.</p></div>
-        ${sg.length ? `<div class="pg-sug">${sg.map(t => `<button class="pg-sug-item" data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><span class="pg-sug-tx"><b>${escHTML(t.t)}</b><small>${escHTML(t.s)}</small></span><span class="ma-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></button>`).join('')}</div>` : '<p class="pg-vazio">Nenhuma prova nos próximos dias. Aproveite para revisar com calma.</p>'}
+      if(sg.length) plano = `<section class="hj-card"><div class="hj-card-top"><h2>Sugestões para hoje</h2></div>
+        ${sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('')}
         <button class="sg-convite" data-ben="plano"><span><b>Quer um guia de estudos completo?</b><small>Plano do dia e da semana, montado pelo site ou por você</small></span><span class="ap-selo">★ Apoiador</span></button></section>`;
     }
     // progresso por disciplina
@@ -23419,10 +23406,10 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso']].concat([['ferramentas', '★ Apoiador']]).concat(admin ? [['turma', 'Turma']] : []).concat([['conta', 'Conta' + (admin && pend ? ` <i class="ma-pend">${pend}</i>` : '')]]);
     if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
     let corpo = '';
-    if(maAba === 'hoje') corpo = (plano || '') + `<div class="ma-grupo-t">Treinar</div><section class="hj-card ma-lista">
-        ${maRow('data-ds-escolher', 'discursiva', 'verde', 'Treino de discursiva', 'Escreva e corrija perguntas de prova e casos')}
-        ${maRow(`data-hj-ir='{"tipo":"erros"}'`, 'erros', 'ocre', 'Revisão dos erros', nErr ? (nErr === 1 ? '1 questão esperando revisão' : nErr + ' questões esperando revisão') : 'Tudo em dia: nenhum erro guardado', nErr ? `<span class="ma-badge">${nErr}</span>` : '')}
-      </section>`;
+    if(maAba === 'hoje') corpo = (plano || '') + `<div class="ma-grupo-t">Treinar</div><div class="ma-acoes">
+        <button class="ma-acao ma-acao-verde" data-ds-escolher><span class="ma-acao-ic">${maIc('discursiva')}</span><b>Treino de discursiva</b><small>Escreva e corrija perguntas de prova e casos</small><span class="ma-acao-go">Começar <span aria-hidden="true">→</span></span></button>
+        <button class="ma-acao ma-acao-ocre" data-hj-ir='{"tipo":"erros"}'><span class="ma-acao-ic">${maIc('erros')}</span>${nErr ? `<span class="ma-acao-num">${nErr}</span>` : ''}<b>Revisão dos erros</b><small>${nErr ? (nErr === 1 ? '1 questão esperando revisão' : nErr + ' questões esperando revisão') : 'Tudo em dia: nenhum erro guardado'}</small><span class="ma-acao-go">${nErr ? 'Revisar' : 'Abrir'} <span aria-hidden="true">→</span></span></button>
+      </div>`;
     const pctTot = tot.caps ? Math.round(tot.lidos / tot.caps * 100) : 0;
     if(maAba === 'progresso') corpo = `<section class="ma-resumo"><div class="ma-anel" style="--p:${pctTot}"><b>${pctTot}%</b></div><div class="ma-resumo-tx"><small>Seu ${avSemestre()}º semestre</small><b>${tot.lidos} de ${tot.caps} partes de resumo lidas</b><span>${tot.sims} de ${tot.simsTot} simulados feitos</span></div></section>
       <div class="ma-grupo-t">Por disciplina</div><section class="hj-card ma-prog">${linhas}</section>`;
@@ -23434,7 +23421,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
       <p class="hj-vazio" style="margin-top:12px">Também para apoiadores: marca-texto e notas nos resumos, Resumão em PDF completo e acessórios especiais do Psiu.</p>`;
     if(maAba === 'turma'){ corpo = '<div id="maTurma"><section class="hj-card"><p class="hj-vazio">Carregando os números da turma…</p></section></div>';
       setTimeout(async () => { const el2 = document.getElementById('maTurma'); if(!el2) return; const e = window.avLerTurma ? await window.avLerTurma() : null; el2.innerHTML = turmaHTML(e); }, 0); }
-    if(maAba === 'conta') corpo = `<section class="hj-card ma-perfil">${window.avFotoHTML ? window.avFotoHTML().replace('<b>Foto do perfil</b>', `<b>${escHTML(window.avNome || 'Sua conta')}</b>${window.avEmail ? `<small class="ma-email">${escHTML(window.avEmail)}</small>` : ''}`) : ''}</section>
+    if(maAba === 'conta') corpo = `<div class="ma-grupo-t">Perfil</div><section class="hj-card ma-perfil">${window.avFotoHTML ? window.avFotoHTML().replace('<b>Foto do perfil</b>', `<b>${escHTML(window.avNome || 'Sua conta')}</b>${window.avEmail ? `<small class="ma-email">${escHTML(window.avEmail)}</small>` : ''}`) : ''}</section>
         ${window.avPushHTML ? `<div class="ma-grupo-t">Notificações</div><section class="hj-card ma-push">${window.avPushHTML()}</section>` : ''}
         <div class="ma-grupo-t">Conta e preferências</div><section class="hj-card ma-lista">
           ${maRow('data-ma-conta="conta"', 'dados', 'cinza', 'Meus dados', 'E-mail, sincronização e sair da conta')}
