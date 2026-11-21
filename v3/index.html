@@ -159,6 +159,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .nav-group{position:relative;}
   .nav-group.open .caret{transform:rotate(180deg);}
   .nav-group-label{display:none;}
+  .nav-conta[hidden]{display:none !important;}
+  .nav-conta > .nav-trigger{white-space:nowrap;}
+  @media (min-width:881px){ .nav-conta{order:99;} .nav-conta .nav-dropdown{left:auto; right:0;} }
+  .nav-item .ap-selo{font-size:10px; padding:1px 6px; margin-left:4px;}
   .nav-dropdown{
     position:absolute; top:calc(100% + 8px); left:-8px;
     min-width:290px;
@@ -3093,7 +3097,15 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     </button>
 
     <nav class="nav-menu" id="navMenu" aria-label="Navegação principal">
-      <button class="nav-link" data-page="viewHoje" data-nav="viewHoje" id="navHoje" hidden>Minha área</button>
+      <div class="nav-group nav-conta" id="navConta" hidden>
+        <button class="nav-link nav-trigger" aria-expanded="false">Sua conta <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="nav-group-label">Sua conta</div>
+        <div class="nav-dropdown">
+          <button class="nav-item" data-page="viewHoje" data-ma-ir="hoje"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg></span><span class="ni-text"><strong>Minha área</strong><small>Plano do dia, progresso e treinos</small></span></button>
+          <button class="nav-item nav-ap" data-page="viewHoje" data-ma-ir="ferramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/></svg></span><span class="ni-text"><strong>Recursos de apoiador <span class="ap-selo">★</span></strong><small id="navApSub">Veja as prévias e o que o apoio libera</small></span></button>
+          <button class="nav-item" data-apoio data-nav-apoio><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg></span><span class="ni-text"><strong id="navApoioT">Apoiar o Arquivo Vivo</strong><small id="navApoioSub">Pix de valor livre, vale 30 dias</small></span></button>
+        </div>
+      </div>
       <button class="nav-link" data-scroll="top" data-nav="top">Início</button>
       <button class="nav-link nav-drive" data-scroll="disciplinas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Drive</button>
       <div class="nav-group">
@@ -23458,7 +23470,21 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   setTimeout(apoioHome, 0);
   const _sp = window.switchPage;
   if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewHoje') renderHoje(); return r; }; }
-  const navHoje = () => { const b = document.getElementById('navHoje'); if(b) b.hidden = !localStorage.getItem('av-acesso-ok'); };
+  const navHoje = () => {
+    const g = document.getElementById('navConta'); if(!g) return;
+    g.hidden = !localStorage.getItem('av-acesso-ok');
+    const ap = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache')), ate = +(window.avApoioAte || 0);
+    const dd = ate > 1 ? new Date(ate).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : '';
+    document.getElementById('navApSub').textContent = ap ? 'Plano de estudos, desempenho, PDFs e mais' : 'Veja as prévias e o que o apoio libera';
+    document.getElementById('navApoioT').textContent = ap ? 'Meu apoio' : 'Apoiar o Arquivo Vivo';
+    document.getElementById('navApoioSub').textContent = ap ? (dd ? 'Vale até ' + dd + ' · renove quando quiser' : 'Obrigado por apoiar!') : 'Pix de valor livre, vale 30 dias';
+  };
+  // itens do menu "Sua conta": abrem a Minha área já na aba certa
+  document.addEventListener('click', e => {
+    const b = e.target.closest('#navConta .nav-item'); if(!b) return;
+    if(b.dataset.maIr){ maAba = b.dataset.maIr; }
+    if(b.hasAttribute('data-nav-apoio') && typeof closeMenus === 'function') closeMenus();
+  }, true);
   navHoje();
   document.addEventListener('av-apoio', () => { navHoje(); const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); });
 
