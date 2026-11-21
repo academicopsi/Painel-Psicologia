@@ -2919,7 +2919,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       </div>
     </div>
     <div class="grid" id="grid"></div>
-    <button class="sem-outro" id="gridOutro" type="button"></button>
     <a class="drive-all" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> Abrir a pasta completa do Drive</a>
   </section>
 
@@ -15071,12 +15070,9 @@ document.addEventListener('click', e => { const b = e.target.closest('[data-hero
 document.addEventListener('av-semestre', heroSemRender);
 function gridMostrar(sem){
   gridSem = sem; renderGrid(sem);
-  const meu = avSemestre(), outro = meu === '1' ? '2' : '1', b = document.getElementById('gridOutro');
-  if(b) b.textContent = sem === meu ? `Ver o Drive do ${outro}º semestre` : `Voltar ao ${meu}º semestre`;
   const c = document.getElementById('cntDisc'); if(c) c.textContent = `(${DISC[sem].length})`;
   const t = document.getElementById('disciplinasTitulo'); if(t && t.firstChild) t.firstChild.textContent = `Drive do ${sem}º semestre`;
 }
-document.getElementById('gridOutro')?.addEventListener('click', ()=> gridMostrar(gridSem === avSemestre() ? (gridSem === '1' ? '2' : '1') : avSemestre()));
 renderGrid(avSemestre());
 document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.sem === avSemestre()));
 navDiscRender();
