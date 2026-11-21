@@ -80,6 +80,8 @@ if(modo === 'aviso'){
     const tit = corta(p.titulo || p.texto, 60), link = BASE + '#mural-' + pid, tag = 'mural-' + pid;
     if(p.em > desde && p.em <= agora) for(const u of (p.men || [])) add(u, p.uid, {chave: 'p' + pid, titulo: `${nome(p.uid, p.nome)} marcou você no mural`, corpo: `“${tit}”: ${corta(p.texto, 90)}`, link, tag});
     const rs = Object.entries(com[pid] || {}).filter(([, c]) => c && c.texto).sort((a, b) => a[1].em - b[1].em);
+    const ml = p.melhor, mc = ml && (com[pid] || {})[ml.c];
+    if(mc && ml.em > desde && ml.em <= agora) add(mc.uid, p.uid, {chave: 'm' + pid + ml.c, titulo: `${nome(p.uid, p.nome)} escolheu a sua resposta como a melhor`, corpo: `“${tit}”: ${corta(mc.texto, 90)}`, link, tag});
     const participantes = new Set();
     for(const [cid, c] of rs){
       if(c.em > desde && c.em <= agora){

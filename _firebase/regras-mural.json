@@ -10,8 +10,8 @@
     "posts": {
       ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
       "$pid": {
-        ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists()) || (!newData.exists() && (data.child('uid').val() === auth.uid || auth.token.email === 'thiagodentalbeauty@gmail.com')))",
-        ".validate": "newData.hasChildren(['uid', 'nome', 'texto', 'em']) && newData.child('texto').isString() && newData.child('texto').val().length > 0 && newData.child('texto').val().length <= 2000 && newData.child('nome').val().length <= 60 && (!newData.child('titulo').exists() || (newData.child('titulo').isString() && newData.child('titulo').val().length <= 100)) && (!newData.child('cat').exists() || newData.child('cat').val().matches(/^(duvidas|provas|materiais|avisos|conversa|opiniao)$/)) && newData.child('em').val() <= now + 60000"
+        ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists()) || (data.exists() && newData.exists() && data.child('uid').val() === auth.uid && newData.child('uid').val() === auth.uid && newData.child('em').val() === data.child('em').val() && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists()) || (!newData.exists() && (data.child('uid').val() === auth.uid || auth.token.email === 'thiagodentalbeauty@gmail.com')))",
+        ".validate": "newData.hasChildren(['uid', 'nome', 'texto', 'em']) && newData.child('texto').isString() && newData.child('texto').val().length > 0 && newData.child('texto').val().length <= 2000 && newData.child('nome').val().length <= 60 && (!newData.child('titulo').exists() || (newData.child('titulo').isString() && newData.child('titulo').val().length <= 100)) && (!newData.child('cat').exists() || newData.child('cat').val().matches(/^(duvidas|provas|materiais|avisos|conversa|opiniao)$/)) && newData.child('em').val() <= now + 60000 && (!newData.child('melhor').exists() || newData.child('melhor').hasChildren(['c', 'em']))"
       }
     },
     "comentarios": {
@@ -19,7 +19,7 @@
       "$pid": {
         ".write": "auth != null && (auth.token.email === 'thiagodentalbeauty@gmail.com' || (!newData.exists() && root.child('mural/posts/' + $pid + '/uid').val() === auth.uid))",
         "$cid": {
-          ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists() && root.child('mural/posts/' + $pid).exists()) || (!newData.exists() && (data.child('uid').val() === auth.uid || auth.token.email === 'thiagodentalbeauty@gmail.com')))",
+          ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists() && root.child('mural/posts/' + $pid).exists()) || (data.exists() && newData.exists() && data.child('uid').val() === auth.uid && newData.child('uid').val() === auth.uid && newData.child('em').val() === data.child('em').val() && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists()) || (!newData.exists() && (data.child('uid').val() === auth.uid || auth.token.email === 'thiagodentalbeauty@gmail.com')))",
           ".validate": "newData.hasChildren(['uid', 'nome', 'texto', 'em']) && newData.child('texto').isString() && newData.child('texto').val().length > 0 && newData.child('texto').val().length <= 1000 && newData.child('em').val() <= now + 60000"
         }
       }

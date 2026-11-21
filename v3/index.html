@@ -3298,6 +3298,32 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   body.dark .mu-teste-card{background:linear-gradient(160deg, rgba(183,121,31,.14), var(--paper) 60%) !important;}
   .mu-teste-card .btn{margin-top:4px;}
   .mu-teste-bts{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;}
+  .mu-resolvida{display:inline-flex; align-items:center; gap:4px; font-size:11.5px; font-weight:700; font-style:normal; color:#2E7D4F; background:rgba(46,125,79,.12); border-radius:999px; padding:3px 9px 3px 7px; white-space:nowrap;}
+  body.dark .mu-resolvida{color:#7FD3A0; background:rgba(46,125,79,.25);}
+  .mu-resolvida svg{width:12px; height:12px; stroke-width:3;}
+  .mu-membro .mu-resolvida{margin-top:6px;}
+  .mu-editado{display:block; margin-top:8px; font-size:12px; color:var(--ink-faint);}
+  .mu-melhor{display:block; width:100%; text-align:left; font:inherit; color:var(--ink); background:linear-gradient(160deg, rgba(46,125,79,.10), var(--paper) 70%); border:1px solid rgba(46,125,79,.35); border-radius:14px; padding:12px 16px 14px; margin-top:14px; cursor:pointer;}
+  .mu-melhor-cab{display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#2E7D4F; margin-bottom:10px;}
+  body.dark .mu-melhor-cab{color:#7FD3A0;}
+  .mu-melhor-cab svg{width:15px; height:15px; stroke-width:3;}
+  .mu-melhor-cab small{font-size:12px; font-weight:500; letter-spacing:0; text-transform:none; color:var(--ink-faint);}
+  .mu-melhor-c{display:flex; gap:10px;}
+  .mu-melhor-c > span{min-width:0;}
+  .mu-melhor-c b{display:block; font-size:13.5px;}
+  .mu-melhor-x{display:block; font-size:14.5px; line-height:1.5; margin-top:2px; overflow-wrap:anywhere;}
+  .mu-r-melhor .mu-r-bolha{border-color:rgba(46,125,79,.5); box-shadow:0 0 0 1px rgba(46,125,79,.25);}
+  .mu-op-melhor{display:inline-flex; align-items:center; gap:3px; color:#2E7D4F; background:rgba(46,125,79,.12);}
+  .mu-op-melhor svg{width:11px; height:11px; stroke-width:3;}
+  .mu-r-acoes > .mu-r-marcar{color:#2E7D4F;}
+  .mu-r-acoes > .mu-r-marcar.on{color:var(--ink-faint);}
+  body.dark .mu-r-acoes > .mu-r-marcar{color:#7FD3A0;}
+  .mu-r-edit{margin-top:4px;}
+  .mu-r-edit textarea{width:100%; box-sizing:border-box; min-width:240px; font:inherit; font-size:15px; line-height:1.5; color:var(--ink); background:var(--paper-alt); border:1px solid var(--rule); border-radius:10px; padding:8px 10px; resize:vertical;}
+  .mu-r-edit > span{display:flex; justify-content:flex-end; gap:6px; margin-top:6px;}
+  .mu-r-edit .btn{padding:6px 14px; font-size:13.5px;}
+  .mu-notif-melhor{background:#2E7D4F;}
+  .mu-r-acoes{flex-wrap:wrap; row-gap:4px;}
   /* aba Sobre */
   .mu-lado{display:flex; flex-direction:column; gap:0;}
   .mu-box h3{margin:0 0 10px; font-family:var(--serif, Georgia, serif); font-size:19px; font-weight:600;}
@@ -4947,6 +4973,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: 'Geral', desc: 'Mural: agora dá para editar os seus tópicos e respostas, e quem abriu uma dúvida pode marcar a melhor resposta. O tópico ganha o selo Resolvida e quem respondeu recebe o crédito no perfil.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural com reações (Curtir, Concordo, Haha, Amei e Psiu), marcação de colegas com @ e uma aba de Notificações. Quem ativar as notificações recebe no celular quando responderem o seu tópico ou marcarem você.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'O Mural da turma ganhou um botão no topo do site, com um ponto vermelho quando há tópico ou resposta nova. O modo escuro passou para Sua conta, na aba Conta.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural da turma, uma comunidade da turma dentro do site: abra tópicos com título e categoria, responda e curta tópicos e respostas, marque colegas com @, veja os membros e quem está mais ativo na semana. Tudo sai com o seu nome, e cada pessoa tem um perfil com foto, semestre e o Psiu que montou. Só contas liberadas participam, e qualquer conteúdo pode ser denunciado.', link: {url:'#mural'}},
@@ -24315,7 +24342,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const LIM_TIT = 100, LIM_POST = 2000, LIM_COM = 1000;
   const CATS = [['duvidas','Dúvidas','#2F6F9F'], ['provas','Provas e trabalhos','#A3472F'], ['materiais','Materiais','#1F7A6E'], ['avisos','Avisos','#B7791F'], ['conversa','Conversa','#6B4E9B'], ['opiniao','Elogios e críticas','#8A6A2F']];
   const catDe = id => CATS.find(c => c[0] === id) || CATS[4];
-  let C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}, fix:{}}, estado = 'nada', vista = 'lista', aba = 'topicos', reacAberto = null, notifVisto = 0, filtro = 'todos', ordem = 'recentes', menuAberto = null, erro = '', rascunho = {titulo:'', cat:'', texto:''}, resposta = '';
+  let C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}, fix:{}}, estado = 'nada', vista = 'lista', aba = 'topicos', reacAberto = null, notifVisto = 0, editando = null, editPid = null, filtro = 'todos', ordem = 'recentes', menuAberto = null, erro = '', rascunho = {titulo:'', cat:'', texto:''}, resposta = '';
   const EU = () => window.avEu && window.avEu();
   // ---------- modo de teste (só para o administrador): tudo fica neste aparelho, nada vai para o Firebase ----------
   const TK = 'muTeste', TDB = 'muTesteDb';
@@ -24373,6 +24400,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const respostas = pid => Object.entries(C.com[pid] || {}).filter(([, c]) => c && c.texto).sort((a, b) => a[1].em - b[1].em);
   const ultimaEm = (pid, p) => { const r = respostas(pid); return r.length ? r[r.length - 1][1].em : p.em; };
   const curtidasDe = alvo => Object.keys(C.curt[alvo] || {});
+  const melhorDe = pid => { const m = (C.posts[pid] || {}).melhor; const c = m && m.c; return c && (C.com[pid] || {})[c] ? c : null; };
   // reações: curtir, concordo, haha, amei e psiu (o valor antigo "true" vale como curtir)
   const REAC = [['curtir','Curtir','#1F7A6E','#1F7A6E'], ['concordo','Concordo','#2F6F9F','#2F6F9F'], ['haha','Haha','#B7791F','#F2B630'], ['amei','Amei','#C0395A','#D64561'], ['psiu','Psiu','#A8455A','#FBE3E7']];
   const REAC_SVG = {
@@ -24408,6 +24436,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     voltar:'<path d="M15 18l-6-6 6-6"/>',
     lapis:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
     pino:'<path d="M9 4h6l-1 6 4 4H6l4-4-1-6ZM12 14v7"/>',
+    certo:'<path d="M20 6 9 17l-5-5"/>',
     enviar:'<path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/>',
     grupo:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
     fogo:'<path d="M12 22c4 0 7-2.7 7-6.6 0-3.9-3-6.3-4.2-9.4-.4 2-1.6 3.4-2.8 4-.2-3-1.6-5.6-4-8 0 4.6-3 6.9-3 11.1C5 19.3 8 22 12 22Z"/>',
@@ -24451,6 +24480,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const soma = (uid, em) => { if(!uid) return; const x = por[uid] = por[uid] || {t:0, r:0, s:0, ult:0}; x.ult = Math.max(x.ult, em || 0); if(em > semana) x.s++; };
     Object.values(C.posts).forEach(p => { if(p && p.uid){ soma(p.uid, p.em); por[p.uid].t++; } });
     Object.values(C.com).forEach(o => Object.values(o || {}).forEach(c => { if(c && c.uid){ soma(c.uid, c.em); por[c.uid].r++; } }));
+    Object.entries(C.posts).forEach(([pid, p]) => { const m = p && p.melhor, c = m && (C.com[pid] || {})[m.c]; if(c && por[c.uid]) por[c.uid].m = (por[c.uid].m || 0) + 1; });
     return por;
   }
   // ---------- pedaços ----------
@@ -24459,6 +24489,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const meu = uid === eu.uid;
     return `<div class="mu-menu" role="menu">
       ${ehTopico && eu.admin ? `<button data-mu-fixar="${alvo}">${ic('pino')} ${C.fix[alvo] ? 'Desafixar tópico' : 'Fixar no topo'}</button>` : ''}
+      ${meu ? `<button data-mu-editar="${alvo}">${ic('lapis')} ${ehTopico ? 'Editar tópico' : 'Editar resposta'}</button>` : ''}
       ${!meu ? `<button data-mu-denunciar="${alvo}">${ic('bandeira')} Denunciar</button>` : ''}
       ${meu || eu.admin ? `<button class="mu-perigo" ${ehTopico ? `data-mu-apagar="${alvo}"` : `data-mu-apagar-com="${alvo}"`}>${ehTopico ? 'Apagar tópico' : 'Apagar resposta'}</button>` : ''}
       ${eu.admin && !meu ? `<button class="mu-perigo" data-mu-bloquear="${esc(uid)}">Bloquear quem escreveu</button>` : ''}
@@ -24480,6 +24511,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
         else if(c.em > euParticipei) add({uid: c.uid, em: c.em, pid, cid, ic: 'resposta', txt: 'também respondeu em', tit, x: c.texto});
       });
     });
+    Object.entries(C.posts).forEach(([pid, p]) => { const m = p && p.melhor, c = m && (C.com[pid] || {})[m.c]; if(c && c.uid === eu.uid) add({uid: p.uid, em: m.em || p.em, pid, cid: m.c, ic: 'melhor', txt: 'escolheu a sua resposta como a melhor em', tit: titulo(p)}); });
     Object.keys(C.curt).forEach(alvo => {
       const [pid, cid] = alvo.split('~'), dono = cid ? ((C.com[pid] || {})[cid] || {}).uid : (C.posts[pid] || {}).uid;
       if(dono !== eu.uid || !C.posts[pid]) return;
@@ -24494,7 +24526,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const convite = !pushAtivo && window.avPushHTML ? `<section class="hj-card mu-push"><div class="mu-push-ic">${ic('sino')}</div><div><b>Saiba na hora no celular</b><p>Ative as notificações para receber quando responderem o seu tópico ou marcarem você. Só o que é com você, sem o barulho do grupo.</p>${window.avPushHTML().replace('<b>Notificações</b>', '')}</div></section>` : '';
     if(!L.length) return convite + `<section class="mu-vazio">${ic('sino')}<b>Nada por aqui ainda</b><p>Quando alguém responder, reagir ou marcar você no mural, aparece aqui.</p></section>`;
     return convite + `<div class="mu-notifs">${L.map(n => `<button class="mu-notif${n.em > v ? ' nova' : ''}" data-mu-ver="${n.pid}"${n.cid ? ` data-mu-alvo="${n.cid}"` : ''}>
-      <span class="mu-notif-av">${avatar(n.uid, nomeDe(n.uid))}${n.ic === 'reacao' ? reIc(n.t, 'mu-re-canto') : `<span class="mu-notif-ic mu-notif-${n.ic}">${ic(n.ic === 'mencao' ? 'arroba' : 'com', 1)}</span>`}</span>
+      <span class="mu-notif-av">${avatar(n.uid, nomeDe(n.uid))}${n.ic === 'reacao' ? reIc(n.t, 'mu-re-canto') : `<span class="mu-notif-ic mu-notif-${n.ic}">${ic(n.ic === 'mencao' ? 'arroba' : n.ic === 'melhor' ? 'certo' : 'com', n.ic !== 'melhor')}</span>`}</span>
       <span class="mu-notif-c"><span><b>${esc(nomeDe(n.uid))}</b> ${esc(n.txt)} <b>“${esc(n.tit)}”</b></span>${n.x ? `<small class="mu-notif-x">${esc(n.x.length > 110 ? n.x.slice(0, 107) + '…' : n.x)}</small>` : ''}<small>${quando(n.em)}</small></span>
     </button>`).join('')}</div>`;
   }
@@ -24534,7 +24566,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const resumo = (p.texto || '').length > 200 ? p.texto.slice(0, 197).trim() + '…' : p.texto;
     const quem = [...new Set(r.map(([, c]) => c.uid))].filter(u => u !== p.uid).slice(-3);
     return `<article class="mu-card${C.fix[id] ? ' fixo' : ''}" data-mu-ver="${id}" tabindex="0" style="--c:${catDe(p.cat)[2]}">
-      <div class="mu-card-top">${C.fix[id] ? `<span class="mu-fixo">${ic('pino')} Fixado</span>` : ''}${tag(p.cat)}${novo ? '<span class="mu-novo-b">Novo</span>' : ''}<span class="mu-card-quando">${quando(ultimaEm(id, p))}</span></div>
+      <div class="mu-card-top">${C.fix[id] ? `<span class="mu-fixo">${ic('pino')} Fixado</span>` : ''}${tag(p.cat)}${melhorDe(id) ? `<span class="mu-resolvida">${ic('certo')} Resolvida</span>` : ''}${novo ? '<span class="mu-novo-b">Novo</span>' : ''}<span class="mu-card-quando">${quando(ultimaEm(id, p))}</span></div>
       <h3 class="mu-card-t">${esc(titulo(p))}</h3>
       <p class="mu-card-x">${texto(resumo, p.men)}</p>
       <footer class="mu-card-pe">
@@ -24546,7 +24578,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function listaHTML(eu){
     const todos = Object.entries(C.posts).filter(([, p]) => p && p.texto);
     const pont = ([id, p]) => curtidasDe(id).length * 2 + respostas(id).length * 3 - (Date.now() - ultimaEm(id, p)) / 43200000;
-    const lista = todos.filter(([, p]) => filtro === 'todos' || catDe(p.cat)[0] === filtro)
+    const lista = todos.filter(([id, p]) => filtro === 'todos' || (filtro === 'resolvidas' ? !!melhorDe(id) : filtro === 'abertas' ? !respostas(id).length : catDe(p.cat)[0] === filtro))
       .sort((a, b) => (C.fix[b[0]] ? 1 : 0) - (C.fix[a[0]] ? 1 : 0) || (ordem === 'alta' ? pont(b) - pont(a) : ultimaEm(b[0], b[1]) - ultimaEm(a[0], a[1])));
     const bloqueado = !!C.bloq[eu.uid], nl = naoLidas(eu);
     const acoes = bloqueado ? '' : `<div class="ma-acoes mu-acoes">
@@ -24554,46 +24586,50 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
         <button class="ma-acao ma-acao-ocre" data-mu-aba="avisos"><span class="ma-acao-ic">${ic('sino')}</span>${nl ? `<span class="ma-acao-num">${nl > 99 ? '99+' : nl}</span>` : ''}<b>Para você</b><small>${nl ? (nl === 1 ? 'Uma resposta, reação ou marcação nova' : nl + ' respostas, reações e marcações novas') : 'Tudo em dia: nada novo para você'}</small><span class="ma-acao-go">Ver <span aria-hidden="true">→</span></span></button>
       </div>`;
     const cab = `<div class="mu-sec"><span class="ma-grupo-t">Tópicos</span><div class="mu-ordem" role="tablist"><button aria-selected="${ordem === 'recentes'}" data-mu-ordem="recentes">Recentes</button><button aria-selected="${ordem === 'alta'}" data-mu-ordem="alta">Em alta</button></div></div>
-      <div class="mu-chips"><button class="mu-chip${filtro === 'todos' ? ' on' : ''}" data-mu-filtro="todos">Todas</button>${CATS.map(c => `<button class="mu-chip${filtro === c[0] ? ' on' : ''}" data-mu-filtro="${c[0]}" style="--c:${c[2]}"><i></i>${esc(c[1])}</button>`).join('')}</div>`;
+      <div class="mu-chips"><button class="mu-chip${filtro === 'todos' ? ' on' : ''}" data-mu-filtro="todos">Todas</button><button class="mu-chip${filtro === 'resolvidas' ? ' on' : ''}" data-mu-filtro="resolvidas" style="--c:#2E7D4F"><i></i>Resolvidas</button><button class="mu-chip${filtro === 'abertas' ? ' on' : ''}" data-mu-filtro="abertas" style="--c:#6B7280"><i></i>Sem resposta</button>${CATS.map(c => `<button class="mu-chip${filtro === c[0] ? ' on' : ''}" data-mu-filtro="${c[0]}" style="--c:${c[2]}"><i></i>${esc(c[1])}</button>`).join('')}</div>`;
     const vazio = `<section class="hj-card mu-vazio">${psiuMini()}<b>${todos.length ? 'Nada nesta categoria ainda' : 'O mural está esperando o primeiro tópico'}</b><p>${todos.length ? 'Que tal abrir o primeiro?' : 'Uma dúvida da prova, um material que ajudou ou um aviso. Quem começar ganha o primeiro lugar na lista.'}</p></section>`;
     return `${eu.admin ? denunciasHTML() : ''}${acoes}${cab}
       ${estado === 'carregando' ? '<div class="mu-esqueleto"><i></i><i></i><i></i></div>' : lista.length ? `<div class="mu-feed">${lista.map(([id, p]) => cardHTML(id, p, eu)).join('')}</div>` : vazio}`;
   }
   function novoHTML(eu){
-    return `${topoHTML(eu, 'Mural da turma', '<button class="hj-inicio" data-mu-lista>← Voltar ao mural</button>')}
-      <form class="mu-form" data-mu-publicar>
-        <header class="mu-autor-l">${avatar(eu.uid, eu.nome)}<div><b class="mu-nome">${esc(eu.nome)}</b><small>Publicando no Mural da turma</small></div></header>
+    const ed = editPid && C.posts[editPid];
+    return `${topoHTML(eu, 'Mural da turma', ed ? `<button class="hj-inicio" data-mu-ver="${editPid}">← Voltar ao tópico</button>` : '<button class="hj-inicio" data-mu-lista>← Voltar ao mural</button>')}
+      <form class="mu-form" data-mu-publicar${ed ? ` data-mu-edita="${editPid}"` : ''}>
+        <header class="mu-autor-l">${avatar(eu.uid, eu.nome)}<div><b class="mu-nome">${esc(eu.nome)}</b><small>${ed ? 'Editando o seu tópico' : 'Publicando no Mural da turma'}</small></div></header>
         <input class="mu-form-t" id="muTit" name="titulo" maxlength="${LIM_TIT}" placeholder="Título do tópico" value="${esc(rascunho.titulo)}" autocomplete="off" required aria-label="Título">
         <textarea class="mu-form-x" id="muTxt" name="texto" maxlength="${LIM_POST}" rows="6" placeholder="Escreva o que quer perguntar ou compartilhar com a turma… use @ para marcar colegas" required aria-label="Mensagem">${esc(rascunho.texto)}</textarea>
         <div class="mu-form-cats"><span>Categoria</span><div class="mu-cats">${CATS.map(c => `<label class="mu-cat" style="--c:${c[2]}"><input type="radio" name="cat" value="${c[0]}"${rascunho.cat === c[0] ? ' checked' : ''} required><span><i></i>${esc(c[1])}</span></label>`).join('')}</div></div>
-        <footer class="mu-form-pe"><small data-mu-cont>${rascunho.texto.length}/${LIM_POST}</small><span><button type="button" class="btn btn-ghost" data-mu-lista>Cancelar</button><button class="btn btn-primary" type="submit">Publicar</button></span></footer>
+        <footer class="mu-form-pe"><small data-mu-cont>${rascunho.texto.length}/${LIM_POST}</small><span>${ed ? `<button type="button" class="btn btn-ghost" data-mu-ver="${editPid}">Cancelar</button><button class="btn btn-primary" type="submit">Salvar</button>` : '<button type="button" class="btn btn-ghost" data-mu-lista>Cancelar</button><button class="btn btn-primary" type="submit">Publicar</button>'}</span></footer>
       </form>`;
   }
   function topicoHTML(id, eu){
     const p = C.posts[id]; if(!p) return '';
     const r = respostas(id), rs = reacoes(id), eu_r = rs.some(x => x.uid === eu.uid);
+    const mid = melhorDe(id), mc = mid && (C.com[id] || {})[mid], souAutor = p.uid === eu.uid;
     const outros = rs.filter(x => x.uid !== eu.uid).map(x => primeiro(nomeDe(x.uid)));
     const linhaReac = rs.length ? (eu_r ? (outros.length ? `Você e ${outros.length === 1 ? outros[0] : plural(outros.length, 'pessoa', 'pessoas')}` : 'Você') : outros.slice(0, 2).join(', ') + (outros.length > 2 ? ` e mais ${outros.length - 2}` : '')) : '';
     return `${topoHTML(eu, 'Mural da turma', '<button class="hj-inicio" data-mu-lista>← Todos os tópicos</button>')}
       <article class="mu-post" style="--c:${catDe(p.cat)[2]}">
         ${C.fix[id] ? `<div class="mu-fixo">${ic('pino')} Fixado pela moderação</div>` : ''}
         <header class="mu-autor-l">${avatar(p.uid, p.nome, 'mu-av-l')}<div><button class="mu-nome" data-mu-perfil="${esc(p.uid)}">${esc(nomeDe(p.uid, p.nome))}</button>${selo(p.uid)}<small>${perfil(p.uid).sem ? perfil(p.uid).sem + 'º semestre · ' : ''}${quando(p.em)}</small></div>${maisBtn(id, p.uid, eu, true)}</header>
-        ${tag(p.cat)}
+        <div class="mu-card-top">${tag(p.cat)}${mc ? `<span class="mu-resolvida">${ic('certo')} Resolvida</span>` : ''}</div>
         <h2 class="mu-post-t">${esc(titulo(p))}</h2>
-        <div class="mu-post-x">${texto(p.texto, p.men)}</div>
+        <div class="mu-post-x">${texto(p.texto, p.men)}</div>${p.editado ? `<small class="mu-editado">Editado ${quando(p.editado)}</small>` : ''}
         ${rs.length ? `<div class="mu-curt-l">${resumoReac(id, 'mu-reac-linha')}<button class="mu-link-quem" data-mu-quem="${id}">${esc(linhaReac)}</button></div>` : ''}
         <footer class="mu-post-pe">
           ${botaoReagir(id, eu, 'mu-acao-g')}
           <button class="mu-acao-g" data-mu-focar>${ic('com')} Responder${r.length ? ` · ${r.length}` : ''}</button>
         </footer>
       </article>
+      ${mc ? `<button class="mu-melhor" data-mu-ir-resp="${id}~${mid}"><span class="mu-melhor-cab">${ic('certo')} Melhor resposta <small>escolhida por ${esc(primeiro(nomeDe(p.uid, p.nome)))}</small></span><span class="mu-melhor-c">${avatar(mc.uid, mc.nome, 'mu-av-p')}<span><b>${esc(nomeDe(mc.uid, mc.nome))}</b><span class="mu-melhor-x">${texto(mc.texto.length > 220 ? mc.texto.slice(0, 217) + '…' : mc.texto, mc.men)}</span></span></span></button>` : ''}
       <section class="mu-thread">
         <h3 class="mu-thread-t">${r.length ? plural(r.length, 'resposta', 'respostas') : 'Nenhuma resposta ainda'}</h3>
         ${r.length ? '' : '<p class="mu-thread-v">Seja a primeira pessoa a responder.</p>'}
         ${r.map(([cid, c]) => { const alvo = id + '~' + cid;
-          return `<div class="mu-r" id="mu-${id}-${cid}">${avatar(c.uid, c.nome)}<div class="mu-r-c">
-            <div class="mu-r-bolha"><div class="mu-r-cab"><button class="mu-nome" data-mu-perfil="${esc(c.uid)}">${esc(nomeDe(c.uid, c.nome))}</button>${selo(c.uid)}${c.uid === p.uid ? '<span class="mu-op">Autor</span>' : ''}</div><div class="mu-r-x">${texto(c.texto, c.men)}</div>${resumoReac(alvo, 'mu-r-curt')}</div>
-            <div class="mu-r-acoes"><span>${quando(c.em)}</span>${botaoReagir(alvo, eu, 'mu-r-btn', false)}${C.bloq[eu.uid] ? '' : `<button data-mu-citar="${esc(apelido(c.uid))}">Responder</button>`}${maisBtn(alvo, c.uid, eu, false)}</div>
+          const ehMelhor = cid === mid, edit = editando === alvo;
+          return `<div class="mu-r${ehMelhor ? ' mu-r-melhor' : ''}" id="mu-${id}-${cid}">${avatar(c.uid, c.nome)}<div class="mu-r-c">
+            <div class="mu-r-bolha"><div class="mu-r-cab"><button class="mu-nome" data-mu-perfil="${esc(c.uid)}">${esc(nomeDe(c.uid, c.nome))}</button>${selo(c.uid)}${c.uid === p.uid ? '<span class="mu-op">Autor</span>' : ''}${ehMelhor ? `<span class="mu-op mu-op-melhor">${ic('certo')} Melhor resposta</span>` : ''}</div>${edit ? `<form class="mu-r-edit" data-mu-salvar-com="${alvo}"><textarea name="t" maxlength="${LIM_COM}" rows="3" required>${esc(c.texto)}</textarea><span><button type="button" class="btn btn-ghost" data-mu-cancelar-ed>Cancelar</button><button class="btn btn-primary" type="submit">Salvar</button></span></form>` : `<div class="mu-r-x">${texto(c.texto, c.men)}</div>`}${resumoReac(alvo, 'mu-r-curt')}</div>
+            <div class="mu-r-acoes"><span>${quando(c.em)}${c.editado ? ' · editado' : ''}</span>${botaoReagir(alvo, eu, 'mu-r-btn', false)}${C.bloq[eu.uid] ? '' : `<button data-mu-citar="${esc(apelido(c.uid))}">Responder</button>`}${souAutor && c.uid !== eu.uid ? `<button class="mu-r-marcar${ehMelhor ? ' on' : ''}" data-mu-melhor="${alvo}">${ehMelhor ? 'Desmarcar' : 'Marcar melhor'}</button>` : ''}${maisBtn(alvo, c.uid, eu, false)}</div>
           </div></div>`; }).join('')}
       </section>
       ${C.bloq[eu.uid] ? '' : `<form class="mu-barra-resp" data-mu-comentar="${id}">${avatar(eu.uid, eu.nome, 'mu-av-p')}<textarea name="t" rows="1" maxlength="${LIM_COM}" placeholder="Escreva uma resposta… use @ para marcar" aria-label="Resposta" required>${esc(resposta)}</textarea><button type="submit" aria-label="Enviar resposta">${ic('enviar')}</button></form>`}`;
@@ -24602,7 +24638,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const at = atividade(), lista = Object.keys(C.perfis).filter(u => C.perfis[u] && C.perfis[u].nome).sort((a, b) => ((at[b] || {}).ult || 0) - ((at[a] || {}).ult || 0) || nomeDe(a).localeCompare(nomeDe(b)));
     if(!lista.length) return '<section class="mu-vazio"><b>Ninguém por aqui ainda</b><p>Os membros aparecem quando abrem o mural pela primeira vez.</p></section>';
     return `<div class="mu-membros">${lista.map(u => { const p = C.perfis[u], a = at[u] || {t:0, r:0};
-      return `<button class="mu-membro" data-mu-perfil="${esc(u)}">${avatar(u, p.nome, 'mu-av-l')}<b>${esc(p.nome)}${selo(u)}</b><small>${p.sem ? p.sem + 'º semestre' : 'Psicologia'}${u === eu.uid ? ' · você' : ''}</small><span>${plural(a.t, 'tópico', 'tópicos')} · ${plural(a.r, 'resposta', 'respostas')}</span></button>`; }).join('')}</div>`;
+      return `<button class="mu-membro" data-mu-perfil="${esc(u)}">${avatar(u, p.nome, 'mu-av-l')}<b>${esc(p.nome)}${selo(u)}</b><small>${p.sem ? p.sem + 'º semestre' : 'Psicologia'}${u === eu.uid ? ' · você' : ''}</small><span>${plural(a.t, 'tópico', 'tópicos')} · ${plural(a.r, 'resposta', 'respostas')}</span>${a.m ? `<em class="mu-resolvida">${ic('certo')} ${plural(a.m, 'melhor resposta', 'melhores respostas')}</em>` : ''}</button>`; }).join('')}</div>`;
   }
   function denunciasHTML(){
     const alvos = Object.entries(C.den || {}); if(!alvos.length) return '';
@@ -24638,11 +24674,12 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function perfilAbrir(uid){
     const p = C.perfis[uid] || {}, f = document.getElementById('muPerfilFundo'), c = document.getElementById('muPerfilCorpo'); if(!f) return;
     const tops = Object.entries(C.posts).filter(([, x]) => x.uid === uid).sort((a, b) => b[1].em - a[1].em), a = atividade()[uid] || {t:0, r:0};
+    let melhores = 0; Object.entries(C.posts).forEach(([pid, x]) => { const m = x && x.melhor, c = m && (C.com[pid] || {})[m.c]; if(c && c.uid === uid) melhores++; });
     let recebidas = 0; tops.forEach(([id]) => recebidas += curtidasDe(id).length); Object.entries(C.com).forEach(([pid, o]) => Object.entries(o || {}).forEach(([cid, x]) => { if(x && x.uid === uid) recebidas += curtidasDe(pid + '~' + cid).length; }));
     c.innerHTML = `<div class="mu-pf-topo"><div class="mu-pf-psiu">${window.avPsiuDe ? window.avPsiuDe(p.psiu) : ''}</div>${avatar(uid, p.nome, 'mu-av-g')}</div>
       <h2 class="mu-pf-nome">${esc(p.nome || 'Colega')}</h2>
       <p class="mu-pf-sub">${p.sem ? p.sem + 'º semestre de Psicologia' : 'Psicologia'}${p.ap ? ' · <span class="ap-selo">★ Apoiador</span>' : ''}</p>
-      <div class="mu-pf-nums"><div><b>${a.t}</b><span>${a.t === 1 ? 'tópico' : 'tópicos'}</span></div><div><b>${a.r}</b><span>${a.r === 1 ? 'resposta' : 'respostas'}</span></div><div><b>${recebidas}</b><span>reações recebidas</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
+      <div class="mu-pf-nums"><div><b>${a.t}</b><span>${a.t === 1 ? 'tópico' : 'tópicos'}</span></div><div><b>${a.r}</b><span>${a.r === 1 ? 'resposta' : 'respostas'}</span></div><div><b>${melhores}</b><span>${melhores === 1 ? 'melhor resposta' : 'melhores respostas'}</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
       ${tops.length ? `<div class="ma-grupo-t">Tópicos que abriu</div>${tops.slice(0, 4).map(([id, x]) => `<button class="mu-pf-post" data-mu-ir="${id}">${tag(x.cat)}<p>${esc(titulo(x))}</p><small>${quando(x.em)} · ${plural(respostas(id).length, 'resposta', 'respostas')}</small></button>`).join('')}` : '<p class="hj-vazio">Ainda não abriu tópicos no mural.</p>'}`;
     f.hidden = false;
   }
@@ -24663,11 +24700,20 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     }
   }
   document.addEventListener('submit', e => {
+    const fe = e.target.closest('[data-mu-salvar-com]');
+    if(fe){ e.preventDefault(); const eu = EU(), [pid, cid] = fe.dataset.muSalvarCom.split('~'), ant = (C.com[pid] || {})[cid], t = fe.t.value.trim(); if(!eu || !ant || !t) return;
+      const nv = Object.assign({}, ant, {texto: t.slice(0, LIM_COM), editado: Date.now()}), mc = marcados(t, eu.uid); if(mc.length) nv.men = mc; else delete nv.men;
+      C.com[pid][cid] = nv; editando = null; render(); acao(() => B().gravar(`mural/comentarios/${pid}/${cid}`, nv), () => { C.com[pid][cid] = ant; }); return; }
     const fp = e.target.closest('[data-mu-publicar]'), fc = e.target.closest('[data-mu-comentar]');
     if(!fp && !fc) return; e.preventDefault();
     const eu = EU(); if(!eu) return;
     if(fp){ const t = fp.titulo.value.trim(), x = fp.texto.value.trim(), cat = (fp.querySelector('[name=cat]:checked') || {}).value;
       if(!t || !x || !cat) return;
+      const eid = fp.dataset.muEdita;
+      if(eid && C.posts[eid]){ const ant = C.posts[eid], nv = Object.assign({}, ant, {titulo: t.slice(0, LIM_TIT), cat, texto: x.slice(0, LIM_POST), editado: Date.now()}), mp = marcados(x, eu.uid);
+        if(mp.length) nv.men = mp; else delete nv.men;
+        C.posts[eid] = nv; editPid = null; rascunho = {titulo:'', cat:'', texto:''}; abrir(eid);
+        acao(() => B().gravar('mural/posts/' + eid, nv), () => { C.posts[eid] = ant; }); return; }
       const id = novoId(), p = {uid: eu.uid, nome: eu.nome.slice(0, 60), titulo: t.slice(0, LIM_TIT), cat, texto: x.slice(0, LIM_POST), em: Date.now()}, guard = rascunho, mp = marcados(x, eu.uid); if(mp.length) p.men = mp;
       C.posts[id] = p; rascunho = {titulo:'', cat:'', texto:''}; abrir(id);
       acao(async () => { await salvarPerfil(); await B().gravar('mural/posts/' + id, p); }, () => { delete C.posts[id]; rascunho = guard; vista = 'novo'; }); }
@@ -24725,8 +24771,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(q('[data-mu-erro-ok]')){ erro = ''; render(); return; }
     if((b = q('[data-mu-teste]'))){ const a = b.dataset.muTeste; if(a === 'sair'){ modoTeste(false); } else { modoTeste(true, a === 'recomecar'); window.scrollTo({top: Math.max(0, document.getElementById('viewMural').offsetTop - 70)}); } return; }
     if(q('[data-mu-atualizar]')){ carregar(); return; }
-    if(q('[data-mu-novo]')){ abrir('novo'); document.getElementById('muTit')?.focus(); return; }
-    if(q('[data-mu-lista]')){ abrir('lista'); return; }
+    if(q('[data-mu-novo]')){ if(editPid){ editPid = null; rascunho = {titulo:'', cat:'', texto:''}; } abrir('novo'); document.getElementById('muTit')?.focus(); return; }
+    if(q('[data-mu-lista]')){ if(editPid){ editPid = null; rascunho = {titulo:'', cat:'', texto:''}; } abrir('lista'); return; }
     if((b = q('[data-mu-aba]'))){ aba = b.dataset.muAba; vista = 'lista'; if(aba === 'avisos'){ try{ notifVisto = +(localStorage.getItem(NOTIF) || 0); localStorage.setItem(NOTIF, String(Date.now())); }catch(_){} } render(); return; }
     if((b = q('[data-mu-filtro]'))){ filtro = filtro === b.dataset.muFiltro && b.closest('.mu-cat-l') ? 'todos' : b.dataset.muFiltro; aba = 'topicos'; render(); return; }
     if((b = q('[data-mu-ordem]'))){ ordem = b.dataset.muOrdem; render(); return; }
@@ -24735,6 +24781,14 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if((b = q('[data-mu-ir]'))){ document.getElementById('muPerfilFundo').hidden = true; abrir(b.dataset.muIr); return; }
     if(q('[data-mu-focar]')){ const t = document.querySelector('[data-mu-comentar] textarea'); if(t){ t.focus(); t.scrollIntoView({block:'center', behavior:'smooth'}); } return; }
     if((b = q('[data-mu-citar]'))){ const t = document.querySelector('[data-mu-comentar] textarea'); if(t){ const m = '@' + b.dataset.muCitar + ' '; if(!t.value.startsWith(m)) t.value = m + t.value; resposta = t.value; cresce(t); t.focus(); t.setSelectionRange(t.value.length, t.value.length); } return; }
+    if((b = q('[data-mu-editar]'))){ const [pid, cid] = b.dataset.muEditar.split('~'); menuAberto = null;
+      if(cid){ editando = b.dataset.muEditar; render(); const t = document.querySelector('[data-mu-salvar-com] textarea'); if(t){ t.focus(); t.setSelectionRange(t.value.length, t.value.length); } }
+      else { const p = C.posts[pid]; editPid = pid; rascunho = {titulo: p.titulo || '', cat: p.cat || '', texto: p.texto || ''}; vista = 'novo'; render(); document.getElementById('muTit')?.focus(); } return; }
+    if(q('[data-mu-cancelar-ed]')){ editando = null; render(); return; }
+    if((b = q('[data-mu-melhor]'))){ const [pid, cid] = b.dataset.muMelhor.split('~'), p = C.posts[pid]; if(!p) return; const ant = p.melhor;
+      if(ant && ant.c === cid) delete p.melhor; else p.melhor = {c: cid, em: Date.now()}; render();
+      acao(() => p.melhor ? B().gravar(`mural/posts/${pid}/melhor`, p.melhor) : B().apagar(`mural/posts/${pid}/melhor`), () => { if(ant) p.melhor = ant; else delete p.melhor; }); return; }
+    if((b = q('[data-mu-ir-resp]'))){ const [pid, cid] = b.dataset.muIrResp.split('~'), el = document.getElementById('mu-' + pid + '-' + cid); if(el){ el.scrollIntoView({block:'center', behavior:'smooth'}); el.classList.add('mu-destaque'); setTimeout(() => el.classList.remove('mu-destaque'), 2200); } return; }
     if((b = q('[data-mu-reagir]'))){ if(C.bloq[eu.uid]) return; reacAberto = reacAberto === b.dataset.muReagir ? null : b.dataset.muReagir; render(); return; }
     if((b = q('[data-mu-reac]'))){ const [alvo, t] = b.dataset.muReac.split('|'), m = C.curt[alvo] = C.curt[alvo] || {}, ant = m[eu.uid]; reacAberto = null;
       if(ant && tipoDe(ant) === t){ delete m[eu.uid]; render(); acao(() => B().apagar(`mural/curtidas/${alvo}/${eu.uid}`), () => { m[eu.uid] = ant; }); }
@@ -24755,7 +24809,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       if(cid){ if(C.com[pid]) delete C.com[pid][cid]; } else delete C.posts[pid]; delete C.den[alvo]; render();
       acao(async () => { await B().apagar(cid ? `mural/comentarios/${pid}/${cid}` : 'mural/posts/' + pid); if(!cid){ try{ await B().apagar('mural/comentarios/' + pid); }catch(_){} } await B().apagar('mural/denuncias/' + alvo); }); return; }
     if((b = q('[data-mu-den-ok]'))){ const alvo = b.dataset.muDenOk; delete C.den[alvo]; render(); acao(() => B().apagar('mural/denuncias/' + alvo)); return; }
-    if((b = q('[data-mu-ver]'))){ const alvo = b.dataset.muAlvo; abrir(b.dataset.muVer); if(alvo){ const el = document.getElementById('mu-' + b.dataset.muVer + '-' + alvo); if(el){ el.scrollIntoView({block:'center'}); el.classList.add('mu-destaque'); setTimeout(() => el.classList.remove('mu-destaque'), 2200); } } return; }
+    if((b = q('[data-mu-ver]'))){ if(editPid){ editPid = null; rascunho = {titulo:'', cat:'', texto:''}; } editando = null; const alvo = b.dataset.muAlvo; abrir(b.dataset.muVer); if(alvo){ const el = document.getElementById('mu-' + b.dataset.muVer + '-' + alvo); if(el){ el.scrollIntoView({block:'center'}); el.classList.add('mu-destaque'); setTimeout(() => el.classList.remove('mu-destaque'), 2200); } } return; }
   });
   // botão do mural no cabeçalho: destaque na página e ponto quando há novidade de outras pessoas
   const VISTO = 'av-mural-visto';
