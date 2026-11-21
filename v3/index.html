@@ -2904,16 +2904,17 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pg-pergunta{font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 8px;}
   #hojePage .pg .pl-chips{gap:8px;}
   #hojePage .pg .pl-chips button{font-size:13.5px; font-weight:500; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:8px; padding:8px 12px 8px 10px; display:inline-flex; align-items:center; gap:7px;}
-  #hojePage .pg .pl-chips button::before{content:''; width:16px; height:16px; border-radius:4px; border:1.5px solid var(--ink-faint); box-sizing:border-box; flex:none;}
+  #hojePage .pg .pl-chips button{padding:8px 13px;}
+  #hojePage .pg .pl-chips button[aria-pressed="true"]{padding-left:10px;}
   #hojePage .pg .pl-chips button[aria-pressed="true"]{border-color:var(--petrol); background:var(--petrol-soft); color:var(--petrol-dark);}
-  #hojePage .pg .pl-chips button[aria-pressed="true"]::before{border-color:var(--petrol); background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat;}
+  #hojePage .pg .pl-chips button[aria-pressed="true"]::before{content:''; width:16px; height:16px; border-radius:50%; flex:none; background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat;}
   .pg-tarefas{margin:16px -18px 0; padding:14px 18px 2px; border-top:1px solid var(--rule); background:var(--paper-alt);}
   .pg-prog{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:7px;}
   .pg-prog b{color:var(--ink);}
   .pg-tarefas .hj-bar{height:6px; background:var(--rule); margin-bottom:4px;}
   .pg-tarefas .hj-item{border-top:1px solid var(--rule);}
   .pg-tarefas .hj-item:first-of-type{border-top:0;}
-  .pg-tarefas .hj-item input{appearance:none; -webkit-appearance:none; width:20px; height:20px; border-radius:6px; border:1.5px solid var(--ink-faint); background:var(--paper); cursor:pointer; margin-top:1px;}
+  .pg-tarefas .hj-item input{appearance:none; -webkit-appearance:none; width:22px; height:22px; border-radius:50%; border:1.5px solid var(--petrol-line); background:transparent; cursor:pointer; margin-top:0;}
   .pg-tarefas .hj-item input:checked{border-color:var(--petrol); background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/13px no-repeat;}
   .pg-vazio{font-size:14px; color:var(--ink-soft); margin:16px 0 4px;}
   .pg-mais{display:flex; justify-content:space-between; align-items:center; width:calc(100% + 36px); margin:14px -18px 0; padding:13px 18px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--petrol); background:none; border:0; border-top:1px solid var(--rule); cursor:pointer; text-align:left;}
@@ -15205,12 +15206,12 @@ function rotuloLink(l){
 }
 function renderFeed(items){
   const feed = document.getElementById('feed');
-  document.getElementById('cntFeed').textContent = `(${items.length})`;
+  document.getElementById('cntFeed').textContent = `(${Math.min(5, items.length)})`;
   if(!items.length){
     feed.innerHTML = '<div class="empty">Nada registrado ainda. Seja a primeira pessoa a avisar o que foi adicionado.</div>';
     return;
   }
-  const sorted = [...items].sort((a,b)=> new Date(b.date) - new Date(a.date));
+  const sorted = [...items].sort((a,b)=> new Date(b.date) - new Date(a.date)).slice(0, 5);
   feed.innerHTML = sorted.map(it=>{
     const s = fmtStamp(it.date);
     const lk = it.link ? ` data-link='${JSON.stringify(it.link)}' role="button" tabindex="0"` : '';
