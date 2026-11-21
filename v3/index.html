@@ -15094,7 +15094,7 @@ function renderFeed(items){
   }).join('');
 }
 
-const P1_VERSAO = '2';
+const P1_VERSAO = '3';
 function DISC_TODAS(){ return DISC[2].concat(DISC[1]); }
 // semestre do aluno (escolhido na Minha área): as listas do site mostram só as disciplinas dele
 function avSemestre(){ try{ return localStorage.getItem('av-semestre') === '1' ? '1' : '2'; }catch(e){ return '2'; } }
@@ -15430,6 +15430,7 @@ window.avP1Instalar = function(c){
   (c.simulados || []).forEach(x => SIM_JOGO.push(x));
   (c.roteiros || []).forEach(x => ROTEIROS.push(x));
   (c.glossario || []).forEach(x => GLOSSARIO.push(x));
+  (c.comparacoes || []).forEach(x => COMPARACOES.push(x));
   if(window.avDiscursivasAdd) window.avDiscursivasAdd(c.discursivas || []);
   window.avP1Secoes = c.secoes || {};
   window.avP1Pronto = true;
