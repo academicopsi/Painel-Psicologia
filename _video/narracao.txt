@@ -1,0 +1,10 @@
+# Narração (início em segundos | texto). Cada bloco deve terminar antes do próximo.
+0.3|O site que você usava para buscar material… agora virou uma plataforma de estudos.
+5.0|Esse é o novo Arquivo Vivo: materiais, prazos, resumos e simulados, tudo num lugar só.
+11.0|São quase setecentas questões, mais de quinhentos termos e doze disciplinas.
+16.0|Agora você tem a sua área de estudos. Ela mostra quantos dias faltam para a próxima prova e monta um plano do dia para você, ou você monta do seu jeito. E ainda tem treino de discursiva, revisão dos seus erros e o seu progresso em cada disciplina.
+30.2|Quem apoia o site ganha ainda mais: o seu desempenho por tema, o que revisar primeiro e o seu semestre em números, pronto para postar.
+39.8|E tem o Psiu, o colega virtual da turma. Pergunta a data da prova, ele responde. Pergunta um conceito, ele explica. E quando bate o cansaço… ele também sabe descontrair.
+55.4|Nos simulados, você escolhe o tema e vê a explicação de cada questão na hora.
+62.6|E para o pessoal que vai ter aula das disciplinas do primeiro período: vocês não ficaram de fora! É só escolher o seu semestre.
+72.2|Não é mais um site de estudos. É a plataforma da turma. Crie a sua conta!
