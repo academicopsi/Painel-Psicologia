@@ -22346,7 +22346,6 @@ document.addEventListener('click', e=>{
 
   // ---------- pomodoro ----------
   const timerEl = document.getElementById('psiuTimer');
-  function pomoAtivo(){ return !!pomo; }
   function iniciarPomodoro(){
     pomo = {fase:'foco', fim:Date.now() + 25 * 60000};
     desenhar(poseBase()); tickPomodoro();
@@ -23665,14 +23664,6 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       if(r) out.push({t:`Resumo: ${limpa(r[1].titulo)}`, s:`${nomeDisc(d)} · partes ainda não estudadas`, ir:{tipo:'resumo', id:r[0]}}); }
     return out.slice(0, 3);
   }
-  function dicaPsiu(){
-    const o = (typeof desempLer === 'function') ? desempLer() : {sims:{}};
-    const temas = []; Object.values(o.sims || {}).forEach(s => Object.entries(s).forEach(([t, v]) => { if(v.n >= 3) temas.push({t, pc:Math.round(v.a / v.n * 100)}); }));
-    temas.sort((a, b) => a.pc - b.pc);
-    if(temas[0] && temas[0].pc < 70) return `${temas[0].t} é o seu tema mais fraco agora (${temas[0].pc}%). Que tal treinar ele hoje?`;
-    if(temas.length) return 'Você está indo bem nos simulados. Mantém o ritmo que a prova vem aí!';
-    return 'Faça um simulado, nem que seja uma parte, para eu descobrir seus pontos fortes e fracos.';
-  }
   function progressoDisc(d){
     let caps = 0, lidos = 0;
     Object.entries(RESUMOS).filter(([, r]) => r.disc === d.n).forEach(([id, r]) => { const st = rsEstado(id); r.caps.forEach(c => { caps++; if(Object.keys(st[c.id] || {}).length >= c.etapas.length) lidos++; }); });
@@ -23871,11 +23862,6 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     palavras.forEach(p => { const n = semAcento(p); if(fraca(n)) return; const raiz = n.slice(0, Math.min(6, n.length - 1)); if(vistos.has(raiz)) return; vistos.add(raiz); out.push({w:p.replace(/^[^\wÀ-ú]+|[^\wÀ-ú]+$/g, ''), raiz}); });
     if(out.length < 2) palavras.forEach(p => { const n = semAcento(p); if(n.length < 5 || PARADAS.has(n)) return; const raiz = n.slice(0, Math.min(6, n.length - 1)); if(vistos.has(raiz)) return; vistos.add(raiz); out.push({w:p.replace(/^[^\wÀ-ú]+|[^\wÀ-ú]+$/g, ''), raiz}); });
     return out.slice(0, 6);
-  }
-  function perguntasDe(disc){
-    const out = [];
-    Object.entries(RESUMOS).filter(([, r]) => r.disc === disc).forEach(([id, r]) => r.caps.forEach(c => c.etapas.forEach(e => { if(e.q && e.a && limpa(e.a).length >= 45) out.push({q:e.q, a:e.a, tema:limpa(c.titulo || c.aba)}); })));
-    return out;
   }
   var DISCURSIVAS = [
 // ===== 05 Desenvolvimento Adulto e Idoso =====
