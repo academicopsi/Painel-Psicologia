@@ -135,7 +135,7 @@ function montarFerramentas(){
   GRUPOS = GRUPOS.filter(function(g){ return g.lista.length; });
   GRUPOS.sort(function(a, b){ return a.n < b.n ? -1 : 1; });
   GRUPOS.forEach(function(g){
-    var sec = document.createElement('section'); sec.className = 'tool-group';
+    var sec = document.createElement('section'); sec.className = 'tool-group so-sem1';
     sec.innerHTML = '<h2 class="tool-group-title"><span class="tg-idx">' + g.rot + '</span>' + esc(g.nome) + '<span class="tg-count">' + g.lista.length + ' exercícios · 1º semestre</span></h2>'
       + g.lista.map(function(t){ cont++; var pre = 'pz' + cont; t.pre = pre; t.id = 'tool-' + slug(t.titulo);
         if(t.tipo) return '<details class="graveyard" id="' + t.id + '"><summary>' + esc(t.titulo) + '<span class="tool-tipo interativo">Interativo</span></summary><div class="tool-card" style="margin-top:12px;"><div class="sub">' + esc(t.sub) + '</div>' + corpoInterativo(t) + '</div></details>';

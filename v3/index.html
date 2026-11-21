@@ -392,6 +392,12 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   }
   .tab:hover{color:var(--ink);}
   .tab.active{background:var(--paper); color:var(--ink); box-shadow:0 1px 3px var(--shadow-lg);}
+  /* semestre escolhido: o outro semestre some das listas (dá para espiar pelo link) */
+  #disciplinas .tabs{display:none;}
+  .sem-outro{display:block; margin:14px auto 0; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; text-decoration:underline; text-underline-offset:3px; cursor:pointer;}
+  .sem-outro:hover{color:var(--petrol);}
+  html[data-semestre="1"] .so-sem2, html[data-semestre="2"] .so-sem1{display:none !important;}
+  html[data-semestre] .ver-outro .so-sem1, html[data-semestre] .ver-outro .so-sem2{display:block !important;}
 
   /* ---------- Cards de disciplina ---------- */
   .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:16px;}
@@ -2916,6 +2922,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       </div>
     </div>
     <div class="grid" id="grid"></div>
+    <button class="sem-outro" id="gridOutro" type="button"></button>
     <a class="drive-all" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> Abrir a pasta completa do Drive</a>
   </section>
 
@@ -4021,6 +4028,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <div class="tool-disclaimer" style="margin-top:32px; border-top:1px solid var(--rule); padding-top:14px;">
     O material é revisado com base na bibliografia das disciplinas. Em caso de divergência, vale o conteúdo dado em aula.
   </div>
+  <button class="sem-outro" id="exOutro" type="button"></button>
 
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
 </div>
@@ -4332,6 +4340,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: 'Geral', desc: 'O semestre escolhido na Minha área agora vale para o site todo: Drive das disciplinas, exercícios, glossário, busca e atualizações mostram só o seu semestre. Um link discreto deixa ver o outro quando quiser.'},
   {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Simulado em PDF corrigido no app instalado no iPhone: em vez de abrir a impressão, que não funciona ali, o site gera o PDF e abre a opção de salvar ou compartilhar.'},
   {date: '2026-11-21', disc: '1º semestre', desc: 'Glossário do 1º semestre reescrito: definições mais completas e um exemplo em cada termo.', link: {url:'#disc-11'}},
   {date: '2026-11-21', disc: '1º semestre', desc: 'Exercícios interativos novos no 1º semestre: monte o esquema do condicionamento, o caminho da memória, régua das idades, monte a ZDP, desmonte a obra (Vigotski), linha do tempo da filosofia e outros.', link: {url:'#exercicios'}},
@@ -15055,11 +15064,20 @@ document.querySelectorAll('.tab').forEach(btn=>{
     renderGrid(btn.dataset.sem);
   });
 });
+let gridSem = avSemestre();
+function gridMostrar(sem){
+  gridSem = sem; renderGrid(sem);
+  const meu = avSemestre(), outro = meu === '1' ? '2' : '1', b = document.getElementById('gridOutro');
+  if(b) b.textContent = sem === meu ? `Ver o Drive do ${outro}º semestre` : `Voltar ao ${meu}º semestre`;
+  const c = document.getElementById('cntDisc'); if(c) c.textContent = `(${DISC[sem].length})`;
+  const t = document.getElementById('disciplinasTitulo'); if(t && t.firstChild) t.firstChild.textContent = sem === meu ? 'Drive das Disciplinas' : `Drive do ${sem}º semestre`;
+}
+document.getElementById('gridOutro')?.addEventListener('click', ()=> gridMostrar(gridSem === avSemestre() ? (gridSem === '1' ? '2' : '1') : avSemestre()));
 renderGrid(avSemestre());
 document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.sem === avSemestre()));
 navDiscRender();
-try{ if(avSemestre() === '1' && !localStorage.getItem('av-p1')) setTimeout(()=> typeof carregarP1 === 'function' && carregarP1().catch(()=>{}), 1500); }catch(e){}
-document.getElementById('cntDisc').textContent = `(${DISC[1].length + DISC[2].length})`;
+try{ if(avSemestre() === '1') setTimeout(()=> typeof carregarP1 === 'function' && carregarP1().catch(()=>{}), 1500); }catch(e){}
+gridMostrar(avSemestre());
 
 const monthsPt = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 function fmtStamp(iso){
@@ -15097,11 +15115,12 @@ function renderFeed(items){
   }).join('');
 }
 
-const P1_VERSAO = '11';
+const P1_VERSAO = '12';
 function DISC_TODAS(){ return DISC[2].concat(DISC[1]); }
 // semestre do aluno (escolhido na Minha área): as listas do site mostram só as disciplinas dele
 function avSemestre(){ try{ return localStorage.getItem('av-semestre') === '1' ? '1' : '2'; }catch(e){ return '2'; } }
 function DISC_MEU(){ return DISC[avSemestre()]; }
+document.documentElement.dataset.semestre = avSemestre();
 function discDoMeuSem(n){ return !n || DISC_MEU().some(d => d.n === n); }
 function navDiscRender(){
   const dd = document.querySelector('.nav-dd-disc'); if(!dd) return;
@@ -15111,8 +15130,11 @@ function navDiscRender(){
 }
 window.avSetSemestre = function(sem){
   try{ localStorage.setItem('av-semestre', sem); }catch(e){}
+  document.documentElement.dataset.semestre = sem;
+  document.querySelectorAll('.ver-outro').forEach(x => x.classList.remove('ver-outro'));
   navDiscRender();
-  document.querySelector(`.tab[data-sem="${sem}"]`)?.click();
+  if(typeof gridMostrar === 'function') gridMostrar(sem);
+  if(typeof renderFeedSem === 'function') renderFeedSem();
   if(sem === '1' && !window.avP1Pronto && typeof carregarP1 === 'function') carregarP1().catch(()=>{});
   if(typeof renderSimulados === 'function') renderSimulados();
   if(window.avSyncSemestre) window.avSyncSemestre(sem);
@@ -15120,7 +15142,24 @@ window.avSetSemestre = function(sem){
 };
 const ALL_DISC = [...DISC[1].map(d=>({...d, sem:'1º sem.'})), ...DISC[2].map(d=>({...d, sem:'2º sem.'}))];
 
-renderFeed(UPDATES);
+function renderFeedSem(){
+  const meu = avSemestre();
+  renderFeed(UPDATES.filter(u => { if(u.disc === '1º semestre') return meu === '1'; const d = discOf(u.disc); return !d || discDoMeuSem(d.n); }));
+}
+renderFeedSem();
+// Exercícios: o outro semestre fica escondido, com um link para ver
+function exOutroTexto(){
+  const b = document.getElementById('exOutro'); if(!b) return;
+  const outro = avSemestre() === '1' ? '2' : '1', aberto = document.getElementById('viewFerramentas').classList.contains('ver-outro');
+  b.textContent = aberto ? `Esconder os exercícios do ${outro}º semestre` : `Ver também os exercícios do ${outro}º semestre`;
+}
+document.getElementById('exOutro')?.addEventListener('click', ()=>{
+  const v = document.getElementById('viewFerramentas'), abrir = !v.classList.contains('ver-outro');
+  const faz = ()=>{ v.classList.toggle('ver-outro', abrir); exOutroTexto(); };
+  if(abrir && avSemestre() === '2' && !window.avP1Pronto && typeof carregarP1 === 'function') carregarP1().then(faz, ()=>{}); else faz();
+});
+document.addEventListener('av-semestre', exOutroTexto);
+exOutroTexto();
 
 
 
@@ -15443,8 +15482,7 @@ window.avP1Instalar = function(c){
   if(window.avBuscaRefazer) window.avBuscaRefazer();
   document.dispatchEvent(new Event('av-p1'));
 };
-// quem já usou o 1º período recebe o conteúdo em segundo plano (revisão dos erros, discursiva e progresso dependem dele)
-try{ if(localStorage.getItem('av-p1')) setTimeout(()=> carregarP1().catch(()=>{}), 1500); }catch(e){}
+// o conteúdo do 1º semestre só é baixado para quem escolheu o 1º semestre (o carregamento automático fica no início do site) ou para quem abre uma disciplina dele
 
 function routeFromHash(){
   const h = decodeURIComponent(location.hash.slice(1));
@@ -18251,19 +18289,26 @@ document.querySelectorAll('.extras-index [data-goto]').forEach(b=>{
   if(!lista) return;
   const busca = document.getElementById('glBusca');
   const filtrosEl = document.getElementById('glFiltros');
-  const discs = ['Todas', ...new Set(GLOSSARIO.map(g=>g.disc))];
   let filtro = 'Todas';
   const norm = t => t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
-  filtrosEl.innerHTML = discs.map(d=>`<button class="apx-chip${d==='Todas'?' on':''}" data-disc="${d}">${d}</button>`).join('');
-  filtrosEl.querySelectorAll('button').forEach(b=>b.addEventListener('click', ()=>{
+  const doSem = g => { const d = discOf(g.disc); return !d || discDoMeuSem(d.n); };
+  function chips(){
+    const discs = ['Todas', ...new Set(GLOSSARIO.filter(doSem).map(g=>g.disc))];
+    if(!discs.includes(filtro)) filtro = 'Todas';
+    filtrosEl.innerHTML = discs.map(d=>`<button class="apx-chip${d===filtro?' on':''}" data-disc="${d}">${d}</button>`).join('');
+  }
+  filtrosEl.addEventListener('click', e=>{ const b = e.target.closest('button[data-disc]'); if(!b) return;
     filtro = b.dataset.disc;
     filtrosEl.querySelectorAll('button').forEach(x=>x.classList.toggle('on', x===b));
     render();
-  }));
+  });
+  ['av-p1', 'av-semestre'].forEach(ev => document.addEventListener(ev, ()=>{ chips(); render(); }));
+  chips();
   busca.addEventListener('input', render);
   function render(){
     const q = norm(busca.value.trim());
     const itens = GLOSSARIO
+      .filter(doSem)
       .filter(g => filtro==='Todas' || g.disc===filtro)
       .filter(g => !q || norm(g.t + ' ' + g.d).includes(q))
       .sort((a,b)=> a.t.localeCompare(b.t, 'pt-BR'));
@@ -18437,6 +18482,7 @@ document.querySelectorAll('#viewFerramentas .tool-group').forEach(g=>{
   const h = g.querySelector('.tool-group-title');
   const nome = [...h.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();
   const d = discOf(nome);
+  g.classList.add(d && DISC[1].some(x => x.n === d.n) ? 'so-sem1' : 'so-sem2');
   g.querySelectorAll(':scope > details').forEach(det=>{
     const sum = det.querySelector('summary');
     const titulo = sum.textContent.trim();
@@ -20210,28 +20256,29 @@ const PAGINAS_BUSCA = [
 ];
 function indiceBusca(){
   const it = [];
-  DISC[2].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'2º semestre · tudo da disciplina', x:(DISC_ALIASES[d.n]||[]).join(' '), l:{disc:d.n}}));
-  DISC[1].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'1º semestre · resumos, simulado e Drive', l:{disc:d.n}}));
+  DISC[2].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'2º semestre · tudo da disciplina', x:(DISC_ALIASES[d.n]||[]).join(' '), l:{disc:d.n}, _d:d.n}));
+  DISC[1].forEach(d=> it.push({g:'Disciplinas', t:d.name, s:'1º semestre · resumos, simulado e Drive', l:{disc:d.n}, _d:d.n}));
   PAGINAS_BUSCA.forEach(p=> it.push({g:'Páginas', t:p.t, s:p.s, l:p.l}));
-  TASKS.filter(t=>t.prazo && diasAte(t.prazo) >= 0).forEach(t=> it.push({g:'Prazos', t:`${t.materia}: ${t.tarefa}`, s:`até ${fmtDia(t.prazo)} · ${quandoTxt(diasAte(t.prazo))}`, l:{page:'viewPrazos', target:'calendario'}}));
-  STUDY.forEach(s=> it.push({g:'Resumos', t:s.titulo, s:s.materia, x:s.desc, l:{url:s.link}}));
-  TOOL_LIST.forEach(t=> it.push({g:'Exercícios', t:t.titulo, s:t.discNome, l:{page:'viewFerramentas', target:t.id}}));
-  Object.entries(VIDEOS).forEach(([n, vs])=> vs.forEach(v=>{ const d = DISC_TODAS().find(x=>x.n===n); it.push({g:'Vídeos', t:v.titulo, s:d ? d.name : '', l:{disc:n}}); }));
-  GLOSSARIO.forEach(g=> it.push({g:'Glossário', t:g.t, s:g.disc, x:g.d, l:{page:'viewApoio', target:'glossario', term:g.t}}));
+  TASKS.filter(t=>t.prazo && diasAte(t.prazo) >= 0 && (()=>{ const d = discOf(t.materia); return !d || discDoMeuSem(d.n); })()).forEach(t=> it.push({g:'Prazos', t:`${t.materia}: ${t.tarefa}`, s:`até ${fmtDia(t.prazo)} · ${quandoTxt(diasAte(t.prazo))}`, l:{page:'viewPrazos', target:'calendario'}}));
+  const dn = nome => (discOf(nome) || {}).n;
+  STUDY.forEach(s=> it.push({g:'Resumos', t:s.titulo, s:s.materia, x:s.desc, l:{url:s.link}, _d:dn(s.materia)}));
+  TOOL_LIST.forEach(t=> it.push({g:'Exercícios', t:t.titulo, s:t.discNome, l:{page:'viewFerramentas', target:t.id}, _d:t.disc}));
+  Object.entries(VIDEOS).forEach(([n, vs])=> vs.forEach(v=>{ const d = DISC_TODAS().find(x=>x.n===n); it.push({g:'Vídeos', t:v.titulo, s:d ? d.name : '', l:{disc:n}, _d:n}); }));
+  GLOSSARIO.forEach(g=> it.push({g:'Glossário', t:g.t, s:g.disc, x:g.d, l:{page:'viewApoio', target:'glossario', term:g.t}, _d:dn(g.disc)}));
   COURSES.forEach(c=> it.push({g:'Cursos extras', t:c.nome, s:c.nota || 'Curso', l:{url:c.link}}));
   // V3: simulados e cada parte deles
-  SIM_JOGO.forEach(s=>{ const d = DISC_TODAS().find(x=>x.n===s.disc);
+  SIM_JOGO.filter(s => discDoMeuSem(s.disc)).forEach(s=>{ const d = DISC_TODAS().find(x=>x.n===s.disc);
     it.push({g:'Simulados', t:s.titulo, s:`${d ? d.name + ' · ' : ''}${s.questoes.length} questões`, x:s.partes.map(p=>p.t).join(' '), l:{url:'#simulado-' + s.id}});
     s.partes.forEach(p=> it.push({g:'Simulados', t:`${p.t}`, s:`Parte do simulado · ${d ? d.name + ' · ' : ''}${p.n} questões`, x:s.questoes.filter(q=>q.tema===p.t).slice(0,3).map(q=>q.p.replace(/<[^>]+>/g,' ')).join(' '), l:{url:'#simulado-' + s.id}})); });
   // V3: abas e partes dos resumos (abre direto na aba)
-  Object.entries(RESUMOS).forEach(([id, r])=> r.caps.forEach((c, i)=>{
+  Object.entries(RESUMOS).filter(([id, r]) => discDoMeuSem(r.disc)).forEach(([id, r])=> r.caps.forEach((c, i)=>{
     if(r.caps.length > 1) it.push({g:'Resumos', t:c.aba || c.titulo, s:`Aba do resumo · ${r.titulo}`, x:c.etapas.map(e=>e.titulo).join(' '), l:{resumo:id, cap:i}});
     c.etapas.forEach(e=> it.push({g:'Partes de resumo', t:e.titulo, s:`${c.aba || r.titulo}`, x:(e.pontos||[]).join(' ').replace(/<[^>]+>/g,' ').slice(0, 400), l:{resumo:id, cap:i}}));
   }));
   // V3: estudo dirigido e guia do trabalho
-  ROTEIROS.forEach(r=>{ const d = DISC_TODAS().find(x=>x.n===r.disc); it.push({g:'Estudo dirigido', t:r.titulo, s:d ? d.name : '', x:r.questoes.map(q=>q.tema).join(' '), l:{disc:r.disc}}); });
-  if(typeof EXH !== 'undefined'){ const d = DISC_TODAS().find(x=>x.n===EXH.disc); it.push({g:'Estudo dirigido', t:EXH.titulo, s:`Guia do trabalho · ${d ? d.name : ''}`, x:EXH.passos.map(p=>p.t).join(' ') + ' gráfico planilha', l:{disc:EXH.disc}}); }
-  return it;
+  ROTEIROS.filter(r => discDoMeuSem(r.disc)).forEach(r=>{ const d = DISC_TODAS().find(x=>x.n===r.disc); it.push({g:'Estudo dirigido', t:r.titulo, s:d ? d.name : '', x:r.questoes.map(q=>q.tema).join(' '), l:{disc:r.disc}}); });
+  if(typeof EXH !== 'undefined' && discDoMeuSem(EXH.disc)){ const d = DISC_TODAS().find(x=>x.n===EXH.disc); it.push({g:'Estudo dirigido', t:EXH.titulo, s:`Guia do trabalho · ${d ? d.name : ''}`, x:EXH.passos.map(p=>p.t).join(' ') + ' gráfico planilha', l:{disc:EXH.disc}}); }
+  return it.filter(i => !i._d || discDoMeuSem(i._d));
 }
 (function(){
   const ov = document.getElementById('searchOverlay');
