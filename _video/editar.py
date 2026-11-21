@@ -77,15 +77,15 @@ def topo_escuro(base, h=560):
     for y in range(h): g.putpixel((0,y), int(200*(1-y/h)**1.4))
     g=g.resize((W,h)); base.paste((10,34,32),(0,0),g)
 # ---------- barra de progresso e capítulos ----------
-TOTAL=78.0
-CAPS=[(15.6,'01'),(30.0,'02'),(39.6,'03'),(55.2,'04'),(62.4,'05')]
+TOTAL=86.4
+CAPS=[(15.6,'01'),(30.0,'02'),(39.6,'03'),(55.2,'04'),(63.6,'05'),(70.8,'06')]
 def hud(base,t):
     d=ImageDraw.Draw(base)
     d.rectangle((0,0,W,9),fill=(20,52,49)); d.rectangle((0,0,int(W*t/TOTAL),9),fill=OCRE)
-    if 15.6<=t<72.0:
-        f=fnt(INTER_B,26); x=W-80-5*58
+    if 15.6<=t<80.4:
+        f=fnt(INTER_B,26); x=W-80-6*58
         for i,(ti,n) in enumerate(CAPS):
-            on = t>=ti and (i==4 or t<CAPS[i+1][0]); past=t>=ti
+            on = t>=ti and (i==len(CAPS)-1 or t<CAPS[i+1][0]); past=t>=ti
             c = OCRE if on else ((120,165,155) if past else (60,100,94))
             d.rounded_rectangle((x+i*58,40,x+i*58+48,76),radius=8,fill=(255,255,255,0) if not on else (60,48,30),outline=c,width=2)
             tw=d.textlength(n,font=f); d.text((x+i*58+24-tw/2,43),n,font=f,fill=c)
@@ -181,6 +181,61 @@ def cena_fim(t):
         tx='Crie sua conta e escolha seu semestre'; tw=d.textlength(tx,font=f3); d.text(((W-tw)/2,1363),tx,font=f3,fill=(40,28,10))
         tx='academicopsi.github.io/Painel-Psicologia'; tw=d.textlength(tx,font=f4); d.text(((W-tw)/2,1480),tx,font=f4,fill=CREME)
     return im
+
+# ---------- notificações (tela de bloqueio) ----------
+NOTIFS=[('Psiu! Em 3 dias: Prova N2 de Neuroanatomia','Três dias: um resumo por dia e um simulado no fim. Topa?'),
+        ('Psiu! Amanhã: Prova N2 de Desenvolvimento Adulto e Idoso','Respira, revisa o resumo e dorme cedo. Eu acredito em você!'),
+        ('Arquivo Vivo','Resumos novos do 1º semestre no ar. Bora conferir?')]
+_lock=None
+def lock_fundo():
+    global _lock
+    if _lock is None:
+        im=Image.new('RGB',(780,1560)); d=ImageDraw.Draw(im)
+        for y in range(1560):
+            t=y/1560; d.line([(0,y),(780,y)],fill=tuple(int(a+(b-a)*t) for a,b in zip((0x2B,0x55,0x6E),(0x12,0x1C,0x2E))))
+        g=Image.new('L',(780,1560),0); ImageDraw.Draw(g).ellipse((-200,900,700,1800),fill=90); g=g.filter(ImageFilter.GaussianBlur(120)); im.paste((0x3E,0x8E,0x82),(0,0),g)
+        d=ImageDraw.Draw(im); fd=fnt(INTER_SB,30); fh=fnt(INTER_B,170)
+        tx='sábado, 21 de novembro'; d.text(((780-d.textlength(tx,font=fd))/2,170),tx,font=fd,fill=(235,240,245))
+        tx='18:07'; d.text(((780-d.textlength(tx,font=fh))/2,205),tx,font=fh,fill=(240,244,248))
+        _lock=im
+    return _lock
+ICON=Image.open('/home/claude/painel-psicologia/icons/icon-256.png').convert('RGBA').resize((76,76),Image.LANCZOS)
+IM=Image.new('L',(76,76),0); ImageDraw.Draw(IM).rounded_rectangle((0,0,76,76),radius=18,fill=255)
+def card_notif(titulo, corpo):
+    ft=fnt(INTER_B,29); fb=fnt(INTER_M,28); fa=fnt(INTER_M,23)
+    lt=quebra(titulo,ft,560); lb=quebra(corpo,fb,560); h=34+len(lt)*36+len(lb)*35+30
+    c=Image.new('RGBA',(720,h),(0,0,0,0)); d=ImageDraw.Draw(c)
+    d.rounded_rectangle((0,0,719,h-1),radius=34,fill=(245,245,247,232))
+    c.paste(ICON,(24,28),IM)
+    d.text((616,30),'agora',font=fa,fill=(120,120,128))
+    y=26
+    for ln in lt: d.text((122,y),ln,font=ft,fill=(20,20,24)); y+=36
+    for ln in lb: d.text((122,y),ln,font=fb,fill=(55,55,62)); y+=35
+    return c
+_cards=None
+def cena_notif(t, dur):
+    global _cards
+    if _cards is None: _cards=[card_notif(a,b) for a,b in NOTIFS]
+    scr=lock_fundo().copy(); y=520
+    # cada nova notificação entra por cima e empurra as anteriores
+    chegadas=[0.5,2.4,4.3]
+    vis=[i for i,c in enumerate(chegadas) if t>=c]
+    for ordem,i in enumerate(reversed(vis)):
+        c=_cards[i]; k=ease((t-chegadas[i])/0.45)
+        yy=y if ordem==0 else y
+        if ordem==0: yy=int(y-(c.size[1]+40)*(1-k)); a=k
+        else:
+            yy=y; a=1
+        if a<1:
+            c2=c.copy(); c2.putalpha(c2.getchannel('A').point(lambda v:int(v*a))); scr.paste(c2,(30,yy),c2)
+        else: scr.paste(c,(30,yy),c)
+        y=yy+c.size[1]+16 if ordem==0 else y+c.size[1]+16
+    im=FUNDO.copy(); z=1.0+0.05*ease_io(t/dur)
+    celular(im, scr, W//2, 1180, z)
+    topo_escuro(im,640)
+    if t<3.6: cola_legenda(im,'Notificações','Lembretes de prova e avisos da turma no seu celular',t)
+    else: cola_legenda(im,'Notificações','Chegam mesmo com o site fechado. Você escolhe o que receber.',t-3.6)
+    return im
 # ---------- linha do tempo ----------
 S=SEG
 AREA=[(0,'Área logada','A contagem regressiva até a sua próxima prova',1.32,300),
@@ -202,9 +257,11 @@ CENAS=[('hook',4.8,lambda t:cena_hook(t)),
  ('apoio',8.4,lambda t:cena_gravada(t,8.4,S['apoio'],S['psiu'],APOIO)),
  ('c3',1.2,lambda t:cena_capitulo(t,'03','Conheça o Psiu','O colega virtual da turma')),
  ('psiu',14.4,lambda t:cena_gravada(t,14.4,S['psiu'],S['sim']-1.6,PSIU)),
- ('c4',1.2,lambda t:cena_capitulo(t,'04','Simulados','688 questões, separadas por tema')),
+ ('c4',1.2,lambda t:cena_capitulo(t,'04','Notificações','O site agora te avisa')),
+ ('notif',7.2,lambda t:cena_notif(t,7.2)),
+ ('c5',1.2,lambda t:cena_capitulo(t,'05','Simulados','688 questões, separadas por tema')),
  ('sim',6.0,lambda t:cena_gravada(t,6.0,S['sim'],S['p1']-0.3,SIM)),
- ('c5',1.2,lambda t:cena_capitulo(t,'05','1º período','Vocês não ficaram de fora')),
+ ('c6',1.2,lambda t:cena_capitulo(t,'06','1º período','Vocês não ficaram de fora')),
  ('p1',8.4,lambda t:cena_gravada(t,8.4,S['p1'],S['fim'],P1)),
  ('fim',6.0,lambda t:cena_fim(t))]
 def render(nome):

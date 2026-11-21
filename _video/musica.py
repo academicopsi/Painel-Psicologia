@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, lfilter
-SR=44100; BPM=100; BEAT=60/BPM; BAR=4*BEAT; DUR=79.5
+SR=44100; BPM=100; BEAT=60/BPM; BAR=4*BEAT; DUR=88.5
 N=int(SR*DUR); L=np.zeros(N); R=np.zeros(N)
 rng=np.random.default_rng(3)
 def nota(m): return 440*2**((m-69)/12)
@@ -61,7 +61,7 @@ nbar=int(DUR/BAR)+1
 for b in range(nbar):
     t=b*BAR; k=b%4; ch=CH[k]
     if t>=DUR-1: break
-    fim = t>=72.0
+    fim = t>=80.4
     pad(t, ch, BAR+0.3, 0.55 if b>=2 else 0.4+0.08*b)
     # arpejo
     padrao=[0,1,2,1,0,2,1,2]
@@ -69,7 +69,7 @@ for b in range(nbar):
         tt=t+i*BEAT/2
         m=ch[padrao[i]]+12+(12 if i in (5,7) else 0)
         g=0.10 if b<2 else 0.13
-        if fim: g*=max(0,1-(tt-72)/5.5)
+        if fim: g*=max(0,1-(tt-80.4)/5.5)
         pluck(tt,m,g,-0.35 if i%2 else 0.35)
     if 2<=b and not fim:
         r=RAIZ[k]
@@ -80,10 +80,10 @@ for b in range(nbar):
             if i in (1,3): palma(t+i*BEAT)
         for i in range(8): chimbal(t+i*BEAT/2, 1.0 if i%2 else 0.6, aberto=(i==7))
 subida(2.4,4.8)
-for tc in (4.8,15.6,30.0,39.6,55.2,62.4,72.0): impacto(tc)
-subida(70.8,72.0)
+for tc in (4.8,15.6,30.0,39.6,55.2,63.6,70.8,80.4): impacto(tc)
+subida(79.2,80.4)
 # acorde final
-pad(72.0,[57,61,64,69],6.0,0.6)
+pad(80.4,[57,61,64,69],6.0,0.6)
 mix=np.stack([L,R],1)
 # compressão suave e normalização
 mix=np.tanh(mix*1.4)/np.tanh(1.4)

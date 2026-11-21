@@ -69,7 +69,9 @@ with sync_playwright() as p:
     digita('#botInput', 'Quando é a prova de neuro?'); pg.keyboard.press('Enter'); W(2600)
     digita('#botInput', 'O que é reforço negativo?'); pg.keyboard.press('Enter'); W(3000)
     seg('psiu2')
+    pg.evaluate("window.__rnd=Math.random; Math.random=()=>0.4")
     digita('#botInput', 'Me conta uma piada'); pg.keyboard.press('Enter'); W(2800)
+    pg.evaluate("Math.random=window.__rnd")
     digita('#botInput', 'tô cansado'); pg.keyboard.press('Enter'); W(3200)
     pg.click('#botFechar'); W(300)
     # SIMULADO

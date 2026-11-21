@@ -4,7 +4,7 @@ Pasta de trabalho do vídeo de divulgação (não é publicada no site: o GitHub
 
 ## O que tem aqui
 - `gravar.py`: abre a V3 num navegador de teste com uma conta fictícia ("Ana Clara", apoiadora), preenche dados de estudo de demonstração e grava a tela do site rodando (Page.startScreencast), com marcas de tempo por trecho.
-- `editar.py`: monta o vídeo vertical 1080×1920 a 30 fps: abertura com a frase de efeito, números do site contando, capítulos 01 a 05 com barra de progresso, celular com zoom de câmera e legendas animadas, encerramento.
+- `editar.py`: monta o vídeo vertical 1080×1920 a 30 fps: abertura com a frase de efeito, números do site contando, capítulos 01 a 06 (área, apoiador, Psiu, notificações, simulados, 1º período) com barra de progresso, celular com zoom de câmera e legendas animadas, encerramento.
 - `musica.py`: compõe a trilha (100 bpm, A–E–F#m–D, subida antes da frase principal e impacto em cada capítulo).
 - `mock_firebase.py`: troca o Firebase por uma versão falsa para gravar sem conta real.
 - `narracao.txt`: roteiro da narração com o segundo em que cada bloco começa.
