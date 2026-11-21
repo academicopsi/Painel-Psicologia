@@ -185,6 +185,17 @@
   .psiu-sec .psiu-box{background:var(--paper); width:240px;}
   .psiu-sec h2{margin:8px 0 12px;}
   .psiu-lead{font-size:17px; color:var(--ink-soft); margin:0;}
+  .mural-grid{display:grid; grid-template-columns:minmax(0, 1fr) 300px; gap:48px; align-items:center;}
+  .mural-sec h2{margin:8px 0 12px;}
+  .mural-lead{font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:56ch; margin:0;}
+  .poderes.mural-poderes{grid-template-columns:repeat(2, 1fr); margin-top:24px;}
+  .mural-nota{margin:16px 0 0; font-size:14px; color:var(--ink-soft);}
+  .phone.tilt-l{transform:rotate(-2.5deg);}
+  @media (max-width:860px){
+    .mural-grid{grid-template-columns:1fr; gap:30px;}
+    .poderes.mural-poderes{grid-template-columns:1fr;}
+    .mural-sec .phone{width:min(260px, 70vw);}
+  }
   .poderes{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:32px;}
   .poder{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px;}
   .poder b{font-size:16.5px;}
@@ -239,6 +250,7 @@
         <li>Simulados com mais de 680 questões, separados por assunto</li>
         <li>Revisão automática das questões que você errou</li>
         <li>O Psiu, um colega virtual que tira dúvidas e lembra os prazos</li>
+        <li>O Mural da turma, para tirar dúvidas e trocar materiais com os colegas</li>
       </ul>
       <div class="ctas">
         <a class="btn btn-light" data-site="#criar" href="../#criar">Criar minha conta</a>
@@ -285,6 +297,24 @@
 
 
 
+
+  <section class="block mural-sec" id="mural">
+    <div class="mural-grid">
+      <div>
+        <div class="eyebrow">Novo · Mural da turma</div>
+        <h2>A dúvida resolvida <em>fica guardada.</em></h2>
+        <p class="mural-lead">No grupo, a pergunta some no meio de duzentas mensagens. No Mural, cada dúvida vira um tópico com título e categoria, as respostas ficam juntas e quem perguntou marca a melhor. Quem estudar depois encontra tudo no lugar.</p>
+        <div class="poderes mural-poderes">
+          <div class="poder"><b>Tópicos e respostas</b><p>Dúvidas, provas e trabalhos, materiais e avisos, cada um na sua categoria.</p></div>
+          <div class="poder"><b>Melhor resposta</b><p>Quem perguntou escolhe a resposta que resolveu. O tópico ganha o selo Resolvida e quem ajudou recebe o crédito no perfil.</p></div>
+          <div class="poder"><b>Reações e @</b><p>Curtir, Concordo, Haha, Amei e o Psiu. Marque um colega com @ e ele fica sabendo.</p></div>
+          <div class="poder"><b>Só o que é com você</b><p>Aviso no celular quando responderem o seu tópico ou marcarem você. Sem o barulho do grupo.</p></div>
+        </div>
+        <p class="mural-nota">Só para contas liberadas da turma e sempre com nome e foto: nada de mensagens anônimas. Qualquer conteúdo pode ser denunciado.</p>
+      </div>
+      <div class="phone tilt-l"><img src="img/mural.jpg" alt="Um tópico no Mural da turma, com reações e respostas de colegas" loading="lazy"></div>
+    </div>
+  </section>
 
   <section class="block psiu-sec" id="psiu">
     <div class="psiu-topo">
@@ -348,6 +378,7 @@
     <div class="faq">
       <details><summary>Funciona no celular?</summary><p>Sim. Abre direto no navegador e, se quiser, pode ser instalado como app na tela inicial, sem passar pela loja.</p></details>
       <details><summary>Quem pode usar?</summary><p>Estudantes de Psicologia do 1º e do 2º semestre. Depois de criar a conta, o acesso é liberado; você escolhe o seu semestre e o site mostra só as suas disciplinas.</p></details>
+      <details><summary>Dá para comentar anonimamente no Mural?</summary><p>Não. Tudo no Mural aparece com o nome e a foto da conta, justamente para evitar mensagens ofensivas ou erradas. Só quem tem a conta liberada participa, e qualquer conteúdo pode ser denunciado.</p></details>
       <details><summary>Meu progresso fica salvo?</summary><p>Sim, na sua conta: simulados feitos, resumos estudados e questões para revisar aparecem em qualquer aparelho em que você entrar.</p></details>
       <details><summary>Substitui as aulas ou o material dos professores?</summary><p>Não. O Arquivo Vivo é uma ferramenta de apoio. O conteúdo das aulas sempre prevalece como referência final.</p></details>
       <details><summary>Preciso pagar para usar?</summary><p>Não. O apoio é opcional, por Pix e de valor livre, para quem quiser ajudar a manter o Arquivo Vivo.</p></details>
