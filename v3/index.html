@@ -684,6 +684,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   }
   .study-card:hover{border-color:var(--petrol-line); box-shadow:0 12px 28px var(--shadow-lg); transform:translateY(-1px);}
   .study-card .study-title{font-size:17px; font-weight:700; line-height:1.3; letter-spacing:-0.01em;}
+  .study-temas{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 2px;}
+  .study-tema{font:inherit; font-size:13px; font-weight:600; padding:5px 11px; border-radius:6px; border:1px solid var(--petrol-line); background:var(--petrol-soft); color:var(--petrol); cursor:pointer; text-align:left;}
+  .study-tema:hover{background:var(--petrol); color:#fff;}
+  body.dark .study-tema:hover{color:#0F1615;}
   .study-card .study-subtitle{font-size:13px; font-weight:600; color:var(--petrol); margin-top:3px;}
   .study-card .study-desc{font-size:14.5px; line-height:1.55; color:var(--ink-soft); margin-top:7px; max-width:68ch;}
   .study-card .study-go{
@@ -15278,20 +15282,23 @@ renderCourses(COURSES);
 
 function renderStudy(){
   const el = document.getElementById('studyList');
-  const groups = [...new Set(STUDY.map(s => s.materia))];
+  const meus = STUDY.filter(s => { const d = discOf(s.materia); return !d || discDoMeuSem(d.n); });
+  const groups = [...new Set(meus.map(s => s.materia))];
   el.innerHTML = `<div class="prog-note">Seu progresso fica salvo só neste aparelho. <button class="link-btn" data-prog-reset="study">Zerar resumos estudados</button></div>` +
     groups.map(materia => `
     <section class="study-group">
       <h2 class="study-group-title">${materia}</h2>
-      ${STUDY.filter(s => s.materia === materia).map(studyCardHTML).join('')}
+      ${meus.filter(s => s.materia === materia).map(studyCardHTML).join('')}
     </section>`).join('');
 }
 function studyCardHTML(s){
   const done = progStudyDone(s.link);
+  const rid = s.link.startsWith('#resumo-') ? s.link.slice(8) : null, caps = rid && RESUMOS[rid] ? RESUMOS[rid].caps : [];
+  const temas = caps.length > 1 ? `<div class="study-temas">${caps.map((c, i) => `<button class="study-tema" data-resumo-cap="${rid}|${i}">${c.aba || c.titulo}</button>`).join('')}</div>` : '';
   return `<div class="study-card${done ? ' done' : ''}">
     <div class="study-info">
       <div class="study-title">${s.titulo}</div>
-      <div class="study-subtitle">${s.subtitulo || "Material de estudo"}${s.link.startsWith('#') ? '' : '<span class="nota-fora"> · abre em outro site</span>'}</div>
+      ${temas || `<div class="study-subtitle">${s.subtitulo || "Material de estudo"}${s.link.startsWith('#') ? '' : '<span class="nota-fora"> · abre em outro site</span>'}</div>`}
       <div class="study-desc">${s.desc}</div>
     </div>
     <div class="study-actions">
@@ -15301,6 +15308,8 @@ function studyCardHTML(s){
   </div>`;
 }
 renderStudy();
+['av-p1', 'av-semestre'].forEach(ev => document.addEventListener(ev, renderStudy));
+document.addEventListener('click', e => { const b = e.target.closest('[data-resumo-cap]'); if(!b) return; const [id, i] = b.dataset.resumoCap.split('|'); openResumo(id, {cap: +i}); });
 
 document.getElementById('footDate').textContent = new Date().toLocaleDateString('pt-BR', {day:'2-digit', month:'long', year:'numeric'});
 
