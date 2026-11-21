@@ -22264,7 +22264,7 @@ async function puxar(){
       Object.entries(remoto.progresso).forEach(([k, v])=>{ const kk = dec(k); if(localStorage.getItem(kk) !== v){ _set.call(localStorage, kk, v); if(!VOLATEIS.has(kk)) mudou = true; } });
       _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
     }
-    try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); const ate = apoioAte(v); apoiador = ate > Date.now(); window.avApoioAte = ate; window.avApoioRecusado = (v && typeof v === 'object' && v.recusado) || 0; } }catch(e){ apoiador = false; }
+    try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); const ate = apoioAte(v); apoiador = ate > Date.now(); window.avApoioAte = ate; window.avApoioConf = apoioConf(v); window.avApoioRecusado = (v && typeof v === 'object' && v.recusado) || 0; } }catch(e){ apoiador = false; }
     await lerPush();
     window.avApoiador = apoiador; window.avNome = usuario.displayName || ''; window.avEmail = usuario.email || '';
     try{ if(apoiador) localStorage.setItem('av-apoiador-cache', String(window.avApoioAte)); else localStorage.removeItem('av-apoiador-cache'); }catch(e){}
@@ -22497,6 +22497,16 @@ document.addEventListener('change', async e => {
   try{ await set(ref(db, 'pedidos/' + usuario.uid + '/push/' + c.dataset.pnPref), c.checked); }catch(_){ c.checked = !c.checked; }
 });
 window.avLerTurma = async () => { if(!ehAdmin(usuario)) return null; try{ return (await get(ref(db, 'pedidos/_estatisticas'))).val(); }catch(_){ return null; } };
+// situação do aviso de Pix lida direto do banco (mesma regra do painel de Acessos), para a tela do apoiador nunca ficar presa
+window.avApoioStatus = async () => {
+  if(!usuario) return null;
+  const [p, a] = await noBanco(() => Promise.all([get(ref(db, 'pedidos/' + usuario.uid + '/apoio')), get(ref(db, 'apoiadores/' + usuario.uid))]));
+  const aviso = p.val(), v = a.val(), ate = apoioAte(v), conf = apoioConf(v), em = aviso && +aviso.em || 0;
+  const obj = v && typeof v === 'object' ? v : {};
+  window.avApoioAte = ate; window.avApoioConf = conf; window.avApoioRecusado = obj.recusado || 0;
+  const confirmado = em && conf >= em, recusado = em && obj.recusado === em, removido = em && (obj.removido || 0) > em;
+  return {em, ate, conf, apoia: ate > Date.now(), pendente: em && !confirmado && !recusado && !removido ? em : 0, recusado: recusado ? em : 0, confirmado: confirmado ? conf : 0};
+};
 window.avAvisarApoio = async valor => { if(!usuario) throw new Error('sem conta'); const em = Date.now(); await set(ref(db, 'pedidos/' + usuario.uid + '/apoio'), {valor: String(valor), em}); return em; };
 window.avPendentes = () => dot.textContent || '';
 document.getElementById('contaBtn').addEventListener('click', ()=>{ if(usuario && liberado && typeof switchPage === 'function'){ switchPage('viewHoje'); window.scrollTo({top:0}); } else window.avAbrirConta(); });
@@ -22548,19 +22558,24 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(e.target.closest('[data-apoio-fechar]') || e.target === fundo) fundo.hidden = true;
   });
   document.addEventListener('keydown', e=>{ if(e.key === 'Escape') fundo.hidden = true; });
-  function avisoEstado(){
+  function avisoDesenhar(st){
     const box = document.getElementById('apAviso'); if(!box) return;
     const dd = ts => new Date(ts).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
-    const ate = +(window.avApoioAte || 0), agora = Date.now(), dias = Math.ceil((ate - agora) / 864e5);
+    const ate = st.ate, agora = Date.now();
+    const btn = rot => `<button class="conta-btn sec" id="apJaFiz" type="button">${rot}</button>`;
+    const nota = '<p class="conta-priv">Toque depois de pagar. O aviso chega para quem cuida do site, e cada Pix conferido vale 30 dias de recursos de apoiador.</p>';
+    if(st.pendente){ box.innerHTML = `<p class="ap-ok">Aviso enviado em ${dd(st.pendente)}. Assim que o Pix for conferido, ${ate > agora ? 'o seu apoio ganha mais 30 dias' : 'os recursos de apoiador aparecem na sua conta'}. Obrigado!</p>`; return; }
+    if(st.recusado){ box.innerHTML = `<p class="ap-recusa">Ainda não encontramos o seu Pix. Se você já pagou, confira se foi para a chave certa e avise de novo. Se ficou alguma dúvida, é só chamar no grupo da turma.</p>${btn('Avisar de novo')}`; return; }
+    const topo = ate > agora ? `<p class="ap-ok">${st.confirmado && agora - st.confirmado < 3 * 864e5 ? 'Pix confirmado! ' : ''}Seu apoio vale até ${dd(ate)}. Obrigado!</p><p class="conta-sub">Fez um novo Pix? Avise aqui e ganhe mais 30 dias.</p>`
+      : ate ? `<p class="conta-sub">Seu apoio venceu em ${dd(ate)}. Quer renovar? Cada Pix vale por 30 dias.</p>` : '';
+    box.innerHTML = topo + btn(ate > agora ? 'Já fiz outro Pix' : ate ? 'Já renovei o Pix' : 'Já fiz o Pix') + nota;
+  }
+  async function avisoEstado(){
+    // primeiro desenha com o que já se sabe; depois confere no banco e redesenha
     let t = 0; try{ t = +(localStorage.getItem('av-apoio-avisado') || 0); }catch(_){}
-    if(t && ate && t < ate - 30 * 864e5) t = 0;            // aviso de um período que já passou
-    if(window.avApoiador && dias > 3){ box.innerHTML = `<p class="ap-ok">Você é apoiador. Seu apoio vale até ${dd(ate)}. Obrigado!</p>`; return; }
-    const topo = window.avApoiador ? `<p class="conta-sub">Seu apoio vale até ${dd(ate)}. Para continuar com os recursos, é só fazer um novo Pix e avisar aqui.</p>`
-      : ate && ate < agora ? `<p class="conta-sub">Seu apoio venceu em ${dd(ate)}. Quer renovar? Cada Pix vale por 30 dias.</p>` : '';
-    const btn = `<button class="conta-btn sec" id="apJaFiz" type="button">${ate ? 'Já renovei o Pix' : 'Já fiz o Pix'}</button>`;
-    if(t && window.avApoioRecusado === t){ box.innerHTML = `${topo}<p class="ap-recusa">Ainda não encontramos o seu Pix. Se você já pagou, confira se foi para a chave certa e toque em avisar de novo. Se ficou alguma dúvida, é só chamar no grupo da turma.</p>${btn.replace(/>[^<]+<\/button>$/, '>Avisar de novo</button>')}`; return; }
-    if(!t){ box.innerHTML = topo + btn + '<p class="conta-priv">Toque depois de pagar. O aviso chega para quem cuida do site, e os recursos de apoiador ficam ativos por 30 dias assim que o Pix for conferido.</p>'; return; }
-    box.innerHTML = `${topo}<p class="ap-ok">Aviso enviado em ${dd(t)}. Assim que o Pix for conferido, ${window.avApoiador ? 'o seu apoio ganha mais 30 dias' : 'os recursos de apoiador aparecem na sua conta'}. Obrigado!</p>`;
+    const conf = +(window.avApoioConf || 0), rec = +(window.avApoioRecusado || 0);
+    avisoDesenhar({ate: +(window.avApoioAte || 0), conf, confirmado: 0, pendente: t && t > conf && t !== rec ? t : 0, recusado: t && t === rec ? t : 0});
+    if(window.avApoioStatus){ try{ const st = await window.avApoioStatus(); if(st){ try{ if(!st.pendente) localStorage.removeItem('av-apoio-avisado'); }catch(_){} avisoDesenhar(st); } }catch(_){} }
   }
   document.addEventListener('click', async e => {
     const b = e.target.closest('#apJaFiz'); if(!b) return;
