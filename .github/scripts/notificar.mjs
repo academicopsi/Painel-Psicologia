@@ -64,6 +64,43 @@ if(modo === 'aviso'){
   if(arq){ p = Object.assign({publico:'todos'}, JSON.parse(fs.readFileSync(arq, 'utf8'))); }
   if(!p.mensagem){ console.log('Sem mensagem.'); process.exit(0); }
   await enviar(await destinos('avisos', p.publico), p.titulo || 'Psiu!', p.mensagem, p.link, p.tag);
+} else if(modo === 'mural'){
+  // respostas e marcações do mural: avisa só quem está envolvido (autor do tópico, quem participou, quem foi marcado)
+  const marco = db.ref('mural/_push/ultimo'), agora = Date.now(), ultimo = (await marco.get()).val();
+  if(!ultimo){ await marco.set(agora); console.log('Marco inicial gravado. A partir de agora as novidades do mural são enviadas.'); process.exit(0); }
+  const ler = async c => (await db.ref(c).get()).val() || {};
+  const [posts, com, perfis, pe] = await Promise.all([ler('mural/posts'), ler('mural/comentarios'), ler('perfis'), ler('pedidos')]);
+  const desde = Math.max(ultimo, agora - 6 * 3600e3);
+  const nome = (uid, fb) => (((perfis[uid] && perfis[uid].nome) || fb || 'Alguém').trim().split(/\s+/)[0]);
+  const corta = (t, n) => { t = String(t || '').replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; };
+  const fila = new Map();
+  const add = (uid, autor, m) => { if(!uid || uid === autor) return; const l = fila.get(uid) || []; if(l.some(x => x.chave === m.chave)) return; l.push(m); fila.set(uid, l); };
+  for(const [pid, p] of Object.entries(posts)){
+    if(!p || !p.texto) continue;
+    const tit = corta(p.titulo || p.texto, 60), link = BASE + '#mural-' + pid, tag = 'mural-' + pid;
+    if(p.em > desde && p.em <= agora) for(const u of (p.men || [])) add(u, p.uid, {chave: 'p' + pid, titulo: `${nome(p.uid, p.nome)} marcou você no mural`, corpo: `“${tit}”: ${corta(p.texto, 90)}`, link, tag});
+    const rs = Object.entries(com[pid] || {}).filter(([, c]) => c && c.texto).sort((a, b) => a[1].em - b[1].em);
+    const participantes = new Set();
+    for(const [cid, c] of rs){
+      if(c.em > desde && c.em <= agora){
+        const quem = nome(c.uid, c.nome), corpo = `“${tit}”: ${corta(c.texto, 90)}`, chave = 'c' + cid;
+        for(const u of (c.men || [])) add(u, c.uid, {chave, titulo: `${quem} marcou você no mural`, corpo, link, tag});
+        add(p.uid, c.uid, {chave, titulo: `${quem} respondeu ao seu tópico`, corpo, link, tag});
+        for(const u of participantes) add(u, c.uid, {chave, titulo: `${quem} também respondeu`, corpo, link, tag});
+      }
+      participantes.add(c.uid);
+    }
+  }
+  let n = 0;
+  for(const [uid, msgs] of fila){
+    const pu = pe[uid] && pe[uid].push; if(!pu || !pu.token || pu.mural === false) continue;
+    const lista = [{uid, token: pu.token}];
+    if(msgs.length > 3) await enviar(lista, `Psiu! ${msgs.length} novidades no mural`, msgs.slice(-3).map(m => m.titulo).join(' · '), BASE + '#mural', 'mural');
+    else for(const m of msgs) await enviar(lista, m.titulo, m.corpo, m.link, m.tag);
+    n += msgs.length;
+  }
+  await marco.set(agora);
+  console.log(`::notice::Mural: ${n} notificações para ${fila.size} pessoas.`);
 } else {
   const amanha = isoBR(1), em3 = isoBR(3);
   const lista = prazos().filter(t => t.prazo === amanha || (t.prazo === em3 && /prova/i.test(t.tarefa)));

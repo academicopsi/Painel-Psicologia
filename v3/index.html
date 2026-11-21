@@ -3026,7 +3026,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-capa-t p{margin:4px 0 0; font-size:13.5px; color:var(--ink-soft);}
   .mu-capa-pe{display:flex; align-items:center; gap:10px; padding:14px 20px 0; font-size:13.5px; color:var(--ink-soft);}
   .mu-capa-pe b{color:var(--ink);}
-  .mu-abas{display:flex; gap:4px; padding:10px 14px 0; margin-top:12px; border-top:1px solid var(--rule);}
+  .mu-abas{display:flex; gap:4px; padding:10px 14px 0; margin-top:12px; border-top:1px solid var(--rule); overflow-x:auto; scrollbar-width:none;}
+  .mu-abas::-webkit-scrollbar{display:none;}
+  .mu-abas button{flex:none; white-space:nowrap;}
   .mu-abas button{font:inherit; font-size:14.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-bottom:3px solid transparent; padding:8px 12px 11px; cursor:pointer;}
   .mu-abas button[aria-selected=true]{color:var(--ink); border-bottom-color:#B7791F;}
   /* grade */
@@ -3146,6 +3148,75 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-barra-resp button{flex:none; width:38px; height:38px; border-radius:50%; border:0; background:#1F5C56; color:#fff; display:grid; place-items:center; cursor:pointer;}
   .mu-barra-resp button svg{width:18px; height:18px; margin-left:-2px;}
   body:has(#viewMural[style*="block"] .mu-barra-resp) #botFab{display:none;}
+  /* reações, marcações e notificações do mural */
+  .mu-re{display:inline-flex; width:20px; height:20px; border-radius:50%; flex:none;}
+  .mu-re svg{width:100%; height:100%; display:block;}
+  .mu-re-s{width:19px; height:19px;}
+  .mu-reac-box{position:relative; display:inline-flex;}
+  .mu-acao.on, .mu-acao-g.on, .mu-r-btn.on{color:var(--rc, #C0395A);}
+  .mu-r-btn{font:inherit; font-size:12.5px; font-weight:700; color:var(--ink-soft); background:none; border:0; padding:2px 0; cursor:pointer;}
+  .mu-r-btn:hover{text-decoration:underline;}
+  .mu-reac-pick{position:absolute; left:-6px; bottom:calc(100% + 8px); z-index:30; display:flex; gap:2px; padding:6px; background:var(--paper); border:1px solid var(--rule); border-radius:999px; box-shadow:0 14px 34px var(--shadow-lg, rgba(0,0,0,.2)); animation:muSobe .16s ease-out;}
+  @keyframes muSobe{from{opacity:0; transform:translateY(6px) scale(.96);}}
+  .mu-reac-pick button{display:flex; flex-direction:column; align-items:center; gap:3px; font:inherit; background:none; border:0; border-radius:14px; padding:4px 6px 3px; cursor:pointer; transition:transform .12s;}
+  .mu-reac-pick button .mu-re{width:34px; height:34px; transition:transform .15s;}
+  .mu-reac-pick button:hover .mu-re{transform:translateY(-4px) scale(1.15);}
+  .mu-reac-pick button small{font-size:10.5px; font-weight:700; color:var(--ink-soft);}
+  .mu-reac-pick button.on{background:var(--paper-alt);}
+  .mu-reac-res{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; font-weight:600; color:var(--ink-soft); background:none; border:0; padding:6px 8px; border-radius:10px; cursor:pointer;}
+  .mu-reac-res:hover{background:var(--paper-alt);}
+  .mu-re-pilha{display:inline-flex;}
+  .mu-re-pilha .mu-re{width:19px; height:19px; margin-left:-5px; box-shadow:0 0 0 2px var(--paper); border-radius:50%;}
+  .mu-re-pilha .mu-re:first-child{margin-left:0;}
+  .mu-card-pe .mu-reac-res{margin-left:auto;}
+  .mu-card-pe .mu-reac-res ~ .mu-card-quem{margin-left:6px;}
+  .mu-curt-l{display:flex; align-items:center; gap:2px; margin:12px -8px 0;}
+  .mu-link-quem{font:inherit; font-size:13px; color:var(--ink-soft); background:none; border:0; padding:0; cursor:pointer; text-align:left;}
+  .mu-link-quem:hover{text-decoration:underline;}
+  .mu-r-curt{position:absolute; right:-8px; bottom:-12px; padding:2px 7px 2px 3px; gap:4px; font-size:11.5px; background:var(--paper); border:1px solid var(--rule); border-radius:999px; box-shadow:0 1px 3px var(--shadow);}
+  .mu-r-curt .mu-re-pilha .mu-re{width:16px; height:16px;}
+  .mu-r-acoes .mu-reac-pick{left:-40px;}
+  button.mu-mencao{font:inherit; font-weight:600; color:var(--petrol); background:none; border:0; padding:0; cursor:pointer;}
+  button.mu-mencao:hover{text-decoration:underline;}
+  .mu-sug{position:absolute; left:10px; right:10px; top:calc(100% + 6px); z-index:40; max-height:280px; overflow:auto; background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:6px; box-shadow:0 18px 40px var(--shadow-lg, rgba(0,0,0,.2));}
+  .mu-sug.mu-sug-cima{top:auto; bottom:calc(100% + 8px);}
+  .mu-sug > small{display:block; font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); padding:4px 8px 6px;}
+  .mu-sug button{display:flex; align-items:center; gap:10px; width:100%; font:inherit; color:var(--ink); background:none; border:0; border-radius:10px; padding:7px 8px; text-align:left; cursor:pointer;}
+  .mu-sug button:hover, .mu-sug button:focus{background:var(--paper-alt);}
+  .mu-sug button b{display:block; font-size:14px;}
+  .mu-sug button span small{font-size:12px; color:var(--ink-faint);}
+  .mu-form, .mu-barra-resp{position:relative;}
+  .mu-aba-n{display:inline-grid; place-items:center; min-width:18px; height:18px; padding:0 5px; margin-left:4px; border-radius:999px; background:#C4492F; color:#fff; font-size:11px; font-style:normal; font-weight:700; vertical-align:1px;}
+  .mu-notifs{background:var(--paper); border:1px solid var(--rule); border-radius:18px; overflow:hidden;}
+  .mu-notif{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; font:inherit; color:var(--ink); background:none; border:0; border-top:1px solid var(--rule); padding:13px 16px; cursor:pointer;}
+  .mu-notif:first-child{border-top:0;}
+  .mu-notif:hover{background:var(--paper-alt);}
+  .mu-notif.nova{background:color-mix(in srgb, #1F5C56 7%, var(--paper));}
+  .mu-notif.nova::after{content:''; flex:none; align-self:center; width:9px; height:9px; border-radius:50%; background:#1F5C56;}
+  .mu-notif-av, .mu-quem-av{position:relative; flex:none;}
+  .mu-re-canto, .mu-notif-ic{position:absolute; right:-4px; bottom:-3px; width:20px; height:20px; box-shadow:0 0 0 2px var(--paper);}
+  .mu-notif-ic{display:grid; place-items:center; border-radius:50%; color:#fff;}
+  .mu-notif-ic svg{width:11px; height:11px;}
+  .mu-notif-resposta{background:#2F6F9F;}
+  .mu-notif-mencao{background:#B7791F;}
+  .mu-notif-c{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; font-size:14px; line-height:1.4;}
+  .mu-notif-c small{font-size:12px; color:var(--ink-faint);}
+  .mu-notif-c .mu-notif-x{font-size:13.5px; color:var(--ink-soft); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .mu-push{display:flex; gap:14px; margin-bottom:14px; border-color:rgba(183,121,31,.45); background:linear-gradient(135deg, rgba(183,121,31,.08), transparent 60%), var(--paper);}
+  .mu-push-ic{flex:none; width:44px; height:44px; border-radius:14px; display:grid; place-items:center; color:#fff; background:linear-gradient(145deg, #C99A3E, #A8752B);}
+  .mu-push-ic svg{width:22px; height:22px;}
+  .mu-push b{font-size:15.5px;}
+  .mu-push p{margin:4px 0 10px;}
+  .mu-push .pn{margin:0; padding:0; border:0; background:none;}
+  .mu-push .pn-txt{display:none;}
+  .mu-destaque .mu-r-bolha{animation:muBrilha 2.2s ease-out;}
+  @keyframes muBrilha{0%,40%{box-shadow:0 0 0 3px rgba(183,121,31,.55);}}
+  .mu-quem-t{margin:4px 0 14px; font-size:22px; text-align:left;}
+  .mu-quem-l{display:flex; flex-direction:column; gap:2px; text-align:left;}
+  .mu-quem-l > button{display:flex; align-items:center; gap:12px; font:inherit; color:var(--ink); background:none; border:0; border-radius:12px; padding:8px; cursor:pointer; text-align:left;}
+  .mu-quem-l > button:hover{background:var(--paper-alt);}
+  .mu-quem-l b{display:block; font-size:14.5px;}
+  .mu-quem-l small{font-size:12.5px; color:var(--ink-faint);}
   /* novo tópico */
   .mu-form{background:var(--paper); border:1px solid var(--rule); border-radius:20px; padding:18px 20px; box-shadow:0 1px 2px var(--shadow), 0 12px 30px rgba(14,46,44,.07);}
   .mu-form-t{display:block; width:100%; box-sizing:border-box; margin:16px 0 6px; font:inherit; font-family:var(--serif, Georgia, serif); font-size:23px; font-weight:600; color:var(--ink); background:none; border:0; border-bottom:1px solid var(--rule); padding:6px 0 10px;}
@@ -4882,6 +4953,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: 'Geral', desc: 'Mural com reações (Curtir, Concordo, Haha, Amei e Psiu), marcação de colegas com @ e uma aba de Notificações. Quem ativar as notificações recebe no celular quando responderem o seu tópico ou marcarem você.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'O Mural da turma ganhou um botão no topo do site, com um ponto vermelho quando há tópico ou resposta nova. O modo escuro passou para Sua conta, na aba Conta.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural da turma, uma comunidade da turma dentro do site: abra tópicos com título e categoria, responda e curta tópicos e respostas, marque colegas com @, veja os membros e quem está mais ativo na semana. Tudo sai com o seu nome, e cada pessoa tem um perfil com foto, semestre e o Psiu que montou. Só contas liberadas participam, e qualquer conteúdo pode ser denunciado.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Ficou mais claro o que é de apoiador: selo ★ Apoiador nos recursos exclusivos, aba Apoiador na Minha área com prévias para todos e uma comparação entre o que é grátis e o que o apoio libera.'},
@@ -16031,6 +16103,8 @@ function routeFromHash(){
   const mx = h.match(/^exercicio-([\w-]+)$/);
   if(mx){ switchPage('viewFerramentas', {fromHistory:true}); setTimeout(()=> revealTarget('tool-' + mx[1]), 60); return; } // os ids dos exercícios são criados mais abaixo; o setTimeout espera por eles
   if(h === 'calendario'){ switchPage('viewPrazos', {fromHistory:true}); setTimeout(()=> revealTarget('calendario'), 60); return; }
+  const mm = h.match(/^mural-(\w+)$/);
+  if(mm){ window.avMuralDestino = mm[1]; switchPage('viewMural', {fromHistory:true}); return; }
   if(SLUG_PAGE[h]){ switchPage(SLUG_PAGE[h], {fromHistory:true}); return; }
   if(ALL_PAGES.includes(h)) switchPage(h, {fromHistory:true});
   else if(h && document.getElementById(h)){ switchPage('top', {fromHistory:true}); setTimeout(()=>document.getElementById(h)?.scrollIntoView(), 30); }
@@ -22789,11 +22863,13 @@ window.avPushHTML = () => {
   else if(pushInfo && pushInfo.token && Notification.permission === 'granted') corpo = `<p class="pn-txt pn-ok">Ativadas neste aparelho.</p>
       <label class="pn-op"><input type="checkbox" data-pn-pref="provas"${pushInfo.provas !== false ? ' checked' : ''}><span>Lembretes de provas e entregas</span></label>
       <label class="pn-op"><input type="checkbox" data-pn-pref="avisos"${pushInfo.avisos !== false ? ' checked' : ''}><span>Avisos da turma</span></label>
+      <label class="pn-op"><input type="checkbox" data-pn-pref="mural"${pushInfo.mural !== false ? ' checked' : ''}><span>Mural: respostas e marcações</span></label>
       <button class="conta-link pn-link" data-pn-desativar>Desativar notificações</button>`;
-  else corpo = '<p class="pn-txt">Receba no celular os lembretes de provas e os avisos da turma, mesmo com o site fechado.</p><button class="conta-btn pn-ativar" data-pn-ativar>Ativar notificações</button>';
+  else corpo = '<p class="pn-txt">Receba no celular os lembretes de provas, os avisos da turma e as respostas e marcações do mural, mesmo com o site fechado.</p><button class="conta-btn pn-ativar" data-pn-ativar>Ativar notificações</button>';
   return `<div class="pn"><b>Notificações</b>${corpo}<p class="pn-erro" hidden></p></div>`;
 };
-const pushRedesenhar = () => { if(window.avRenderHoje && document.getElementById('viewHoje').style.display !== 'none') window.avRenderHoje(); };
+const pushRedesenhar = () => { if(window.avRenderHoje && document.getElementById('viewHoje').style.display !== 'none') window.avRenderHoje(); if(window.avMuralRender) window.avMuralRender(); };
+window.avPushAtivo = () => !!(pushInfo && pushInfo.token && pushSuporte() && Notification.permission === 'granted');
 document.addEventListener('click', async e => {
   const at = e.target.closest('[data-pn-ativar]'), de = e.target.closest('[data-pn-desativar]'); if(!at && !de) return;
   const box = e.target.closest('.pn'), er = box && box.querySelector('.pn-erro');
@@ -24245,10 +24321,16 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const LIM_TIT = 100, LIM_POST = 2000, LIM_COM = 1000;
   const CATS = [['duvidas','Dúvidas','#2F6F9F'], ['provas','Provas e trabalhos','#A3472F'], ['materiais','Materiais','#1F7A6E'], ['avisos','Avisos','#B7791F'], ['conversa','Conversa','#6B4E9B'], ['opiniao','Elogios e críticas','#8A6A2F']];
   const catDe = id => CATS.find(c => c[0] === id) || CATS[4];
-  let C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}, fix:{}}, estado = 'nada', vista = 'lista', aba = 'topicos', filtro = 'todos', ordem = 'recentes', menuAberto = null, erro = '', rascunho = {titulo:'', cat:'', texto:''}, resposta = '';
+  let C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}, fix:{}}, estado = 'nada', vista = 'lista', aba = 'topicos', reacAberto = null, notifVisto = 0, filtro = 'todos', ordem = 'recentes', menuAberto = null, erro = '', rascunho = {titulo:'', cat:'', texto:''}, resposta = '';
   const B = () => window.avBanco, EU = () => window.avEu && window.avEu();
   const esc = t => escHTML(t == null ? '' : t);
-  const texto = t => esc(t).replace(/\n{3,}/g, '\n\n').replace(/\n/g, '<br>').replace(/(^|[\s(>])@([A-Za-zÀ-ÿ]{2,})/g, '$1<span class="mu-mencao">@$2</span>');
+  const semAcento = t => (t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  // apelido para marcar: primeiro nome, ou primeiro + último quando há colegas com o mesmo primeiro nome
+  const apelido = uid => { const n = ((C.perfis[uid] || {}).nome || '').trim().split(/\s+/); const pr = (n[0] || 'Colega').replace(/[^A-Za-zÀ-ÿ]/g, '');
+    const iguais = Object.keys(C.perfis).filter(u => u !== uid && semAcento(((C.perfis[u] || {}).nome || '').split(/\s+/)[0]) === semAcento(pr));
+    return iguais.length && n.length > 1 ? pr + n[n.length - 1].replace(/[^A-Za-zÀ-ÿ]/g, '') : pr; };
+  const marcados = (t, autor) => Object.keys(C.perfis).filter(u => u !== autor && new RegExp('@' + apelido(u) + '(?![A-Za-zÀ-ÿ])').test(t || ''));
+  const texto = (t, men) => esc(t).replace(/\n{3,}/g, '\n\n').replace(/\n/g, '<br>').replace(/(^|[\s(>])@([A-Za-zÀ-ÿ]{2,})/g, (m, a, n) => { const u = (men || []).find(x => apelido(x) === n); return a + (u ? `<button class="mu-mencao" data-mu-perfil="${esc(u)}">@${n}</button>` : `<span class="mu-mencao">@${n}</span>`); });
   const novoId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   const quando = ts => { const d = (Date.now() - ts) / 1000; if(d < 60) return 'agora'; if(d < 3600) return Math.floor(d / 60) + ' min'; if(d < 86400) return Math.floor(d / 3600) + ' h'; if(d < 172800) return 'ontem'; if(d < 604800) return Math.floor(d / 86400) + ' dias'; return new Date(ts).toLocaleDateString('pt-BR', {day:'2-digit', month:'short'}).replace('.', ''); };
   const perfil = (uid, fb) => C.perfis[uid] || {nome: fb || 'Colega'};
@@ -24263,6 +24345,31 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const respostas = pid => Object.entries(C.com[pid] || {}).filter(([, c]) => c && c.texto).sort((a, b) => a[1].em - b[1].em);
   const ultimaEm = (pid, p) => { const r = respostas(pid); return r.length ? r[r.length - 1][1].em : p.em; };
   const curtidasDe = alvo => Object.keys(C.curt[alvo] || {});
+  // reações: curtir, concordo, haha, amei e psiu (o valor antigo "true" vale como curtir)
+  const REAC = [['curtir','Curtir','#1F7A6E','#1F7A6E'], ['concordo','Concordo','#2F6F9F','#2F6F9F'], ['haha','Haha','#B7791F','#F2B630'], ['amei','Amei','#C0395A','#D64561'], ['psiu','Psiu','#A8455A','#FBE3E7']];
+  const REAC_SVG = {
+    curtir:'<path d="M6.5 10.5h2.6v8H6.5z" fill="#fff"/><path d="M10.2 18.5h5.6a1.8 1.8 0 0 0 1.8-1.5l.9-4.6a1.6 1.6 0 0 0-1.6-1.9h-3.1l.5-2.6a1.4 1.4 0 0 0-2.6-.9l-1.5 3.4Z" fill="#fff"/>',
+    concordo:'<path d="M7 12.4l3.3 3.3L17.2 8.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>',
+    haha:'<path d="M7.3 9.8q1.3-1.7 2.6 0M14.1 9.8q1.3-1.7 2.6 0" fill="none" stroke="#5A3A05" stroke-width="1.6" stroke-linecap="round"/><path d="M6.6 12.6h10.8a5.4 5.4 0 0 1-10.8 0Z" fill="#5A3A05"/><path d="M9.3 16.4a3.4 1.7 0 0 0 5.4 0" fill="#E9667A"/>',
+    amei:'<path d="M12 18.6s-6.4-3.9-6.4-8.4A3.5 3.5 0 0 1 12 8.1a3.5 3.5 0 0 1 6.4 2.1c0 4.5-6.4 8.4-6.4 8.4Z" fill="#fff"/>',
+    psiu:'<g transform="translate(0 1.2) scale(.2)" fill="#F4B9C1" stroke="#A8455A" stroke-width="5" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/><circle cx="48" cy="58" r="8" fill="#fff" stroke="#14211F" stroke-width="4"/><circle cx="72" cy="58" r="8" fill="#fff" stroke="#14211F" stroke-width="4"/><circle cx="48" cy="59" r="3" fill="#14211F" stroke="none"/><circle cx="72" cy="59" r="3" fill="#14211F" stroke="none"/></g>'
+  };
+  const reacDe = id => REAC.find(r => r[0] === id) || REAC[0];
+  const reIc = (t, cls) => `<span class="mu-re ${cls || ''}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="${reacDe(t)[3]}"/>${REAC_SVG[reacDe(t)[0]]}</svg></span>`;
+  const tipoDe = v => v === true ? 'curtir' : (v && typeof v === 'object' ? reacDe(v.t)[0] : typeof v === 'string' ? reacDe(v)[0] : 'curtir');
+  const reacoes = alvo => Object.entries(C.curt[alvo] || {}).filter(([, v]) => v).map(([u, v]) => ({uid: u, t: tipoDe(v), em: v && v.em || 0}));
+  const minhaReac = (alvo, eu) => { const v = (C.curt[alvo] || {})[eu.uid]; return v ? tipoDe(v) : null; };
+  function resumoReac(alvo, cls){
+    const rs = reacoes(alvo); if(!rs.length) return '';
+    const cont = {}; rs.forEach(r => cont[r.t] = (cont[r.t] || 0) + 1);
+    const tops = Object.keys(cont).sort((a, b) => cont[b] - cont[a]).slice(0, 3);
+    return `<button class="mu-reac-res ${cls || ''}" data-mu-quem="${alvo}" aria-label="Ver quem reagiu"><span class="mu-re-pilha">${tops.map(t => reIc(t)).join('')}</span><span>${rs.length}</span></button>`;
+  }
+  function botaoReagir(alvo, eu, estilo, rotulo){
+    const m = minhaReac(alvo, eu), r = m && reacDe(m);
+    const pick = reacAberto === alvo ? `<div class="mu-reac-pick" role="menu" aria-label="Escolha uma reação">${REAC.map(x => `<button data-mu-reac="${alvo}|${x[0]}" class="${m === x[0] ? 'on' : ''}" aria-label="${x[1]}" title="${x[1]}">${reIc(x[0])}<small>${x[1]}</small></button>`).join('')}</div>` : '';
+    return `<div class="mu-reac-box"><button class="${estilo}${m ? ' on' : ''}" data-mu-reagir="${alvo}" aria-expanded="${reacAberto === alvo}"${r ? ` style="--rc:${r[2]}"` : ''}>${rotulo === false ? '' : r ? reIc(m, 'mu-re-s') : ic('curtir')}<span>${r ? r[1] : 'Reagir'}</span></button>${pick}</div>`;
+  }
   const plural = (n, a, b) => n + ' ' + (n === 1 ? a : b);
   const ICO = {
     curtir:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/>',
@@ -24277,7 +24384,9 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     grupo:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
     fogo:'<path d="M12 22c4 0 7-2.7 7-6.6 0-3.9-3-6.3-4.2-9.4-.4 2-1.6 3.4-2.8 4-.2-3-1.6-5.6-4-8 0 4.6-3 6.9-3 11.1C5 19.3 8 22 12 22Z"/>',
     relogio:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-    resp:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v5"/>'
+    resp:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v5"/>',
+    sino:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+    arroba:'<circle cx="12" cy="12" r="4" fill="none"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.9 7.9" fill="none"/>'
   };
   const ic = (k, f) => `<svg viewBox="0 0 24 24" fill="${f ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[k]}</svg>`;
   const tag = id => { const c = catDe(id); return `<span class="mu-tag" style="--c:${c[2]}">${esc(c[1])}</span>`; };
@@ -24304,6 +24413,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     C = {posts: posts || {}, curt: curt || {}, com: com || {}, perfis: perfis || {}, bloq: bloq || {}, fix: fix || {}, den: {}};
     if(eu.admin){ try{ C.den = await B().ler('mural/denuncias') || {}; }catch(e){} }
     estado = 'pronto'; salvarPerfil();
+    if(window.avMuralDestino){ if(C.posts[window.avMuralDestino]){ vista = window.avMuralDestino; aba = 'topicos'; } window.avMuralDestino = null; }
     if(vista !== 'lista' && vista !== 'novo' && !C.posts[vista]) vista = 'lista';
     render();
   }
@@ -24327,6 +24437,39 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     </div>`;
   }
   const maisBtn = (alvo, uid, eu, ehTopico) => `<div class="mu-mais-box"><button class="mu-mais" data-mu-menu="${alvo}" aria-label="Mais opções" aria-expanded="${menuAberto === alvo}">${ic('mais', 1)}</button>${menuHTML(alvo, uid, eu, ehTopico)}</div>`;
+  const NOTIF = 'av-mural-notif';
+  function notificacoes(eu){
+    const L = [], add = o => { if(o.uid && o.uid !== eu.uid) L.push(o); };
+    Object.entries(C.posts).forEach(([pid, p]) => {
+      if(!p || !p.texto) return;
+      const tit = titulo(p);
+      if((p.men || []).includes(eu.uid)) add({uid: p.uid, em: p.em, pid, ic: 'mencao', txt: 'marcou você no tópico', tit});
+      let euParticipei = p.uid === eu.uid ? 0 : Infinity;
+      respostas(pid).forEach(([cid, c]) => {
+        if(c.uid === eu.uid){ euParticipei = Math.min(euParticipei, c.em); return; }
+        if((c.men || []).includes(eu.uid)) add({uid: c.uid, em: c.em, pid, cid, ic: 'mencao', txt: 'marcou você em uma resposta em', tit, x: c.texto});
+        else if(p.uid === eu.uid) add({uid: c.uid, em: c.em, pid, cid, ic: 'resposta', txt: 'respondeu ao seu tópico', tit, x: c.texto});
+        else if(c.em > euParticipei) add({uid: c.uid, em: c.em, pid, cid, ic: 'resposta', txt: 'também respondeu em', tit, x: c.texto});
+      });
+    });
+    Object.keys(C.curt).forEach(alvo => {
+      const [pid, cid] = alvo.split('~'), dono = cid ? ((C.com[pid] || {})[cid] || {}).uid : (C.posts[pid] || {}).uid;
+      if(dono !== eu.uid || !C.posts[pid]) return;
+      reacoes(alvo).forEach(r => { if(r.em) add({uid: r.uid, em: r.em, pid, cid, ic: 'reacao', t: r.t, txt: `reagiu com ${reacDe(r.t)[1]} ${cid ? 'à sua resposta em' : 'ao seu tópico'}`, tit: titulo(C.posts[pid])}); });
+    });
+    return L.sort((a, b) => b.em - a.em).slice(0, 60);
+  }
+  const naoLidas = eu => { let v = 0; try{ v = +(localStorage.getItem(NOTIF) || 0); }catch(_){} return notificacoes(eu).filter(n => n.em > v).length; };
+  function notifHTML(eu){
+    const L = notificacoes(eu), v = notifVisto;
+    const pushAtivo = window.avPushAtivo && window.avPushAtivo();
+    const convite = !pushAtivo && window.avPushHTML ? `<section class="mu-box mu-push"><div class="mu-push-ic">${ic('sino')}</div><div><b>Saiba na hora no celular</b><p>Ative as notificações para receber quando responderem o seu tópico ou marcarem você. Só o que é com você, sem o barulho do grupo.</p>${window.avPushHTML().replace('<b>Notificações</b>', '')}</div></section>` : '';
+    if(!L.length) return convite + `<section class="mu-vazio">${ic('sino')}<b>Nada por aqui ainda</b><p>Quando alguém responder, reagir ou marcar você no mural, aparece aqui.</p></section>`;
+    return convite + `<div class="mu-notifs">${L.map(n => `<button class="mu-notif${n.em > v ? ' nova' : ''}" data-mu-ver="${n.pid}"${n.cid ? ` data-mu-alvo="${n.cid}"` : ''}>
+      <span class="mu-notif-av">${avatar(n.uid, nomeDe(n.uid))}${n.ic === 'reacao' ? reIc(n.t, 'mu-re-canto') : `<span class="mu-notif-ic mu-notif-${n.ic}">${ic(n.ic === 'mencao' ? 'arroba' : 'com', 1)}</span>`}</span>
+      <span class="mu-notif-c"><span><b>${esc(nomeDe(n.uid))}</b> ${esc(n.txt)} <b>“${esc(n.tit)}”</b></span>${n.x ? `<small class="mu-notif-x">${esc(n.x.length > 110 ? n.x.slice(0, 107) + '…' : n.x)}</small>` : ''}<small>${quando(n.em)}</small></span>
+    </button>`).join('')}</div>`;
+  }
   function capaHTML(eu){
     const at = atividade(), membros = Object.keys(C.perfis).filter(u => C.perfis[u] && C.perfis[u].nome);
     const ativos = Object.keys(at).sort((a, b) => at[b].ult - at[a].ult);
@@ -24339,7 +24482,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
         <div class="mu-capa-t"><h1>Mural da turma</h1></div>
       </div>
       ${eu && eu.liberado ? `<div class="mu-capa-pe"><div class="mu-pilha">${pilha.map(u => avatar(u, nomeDe(u), 'mu-av-p')).join('')}</div><span><b>${membros.length}</b> ${membros.length === 1 ? 'membro' : 'membros'} · <b>${nTop}</b> ${nTop === 1 ? 'tópico' : 'tópicos'} · <b>${nResp}</b> ${nResp === 1 ? 'resposta' : 'respostas'}</span></div>
-      <nav class="mu-abas" role="tablist"><button role="tab" aria-selected="${aba === 'topicos'}" data-mu-aba="topicos">Tópicos</button><button role="tab" aria-selected="${aba === 'membros'}" data-mu-aba="membros">Membros</button><button role="tab" aria-selected="${aba === 'sobre'}" data-mu-aba="sobre" class="mu-so-cel">Sobre</button></nav>` : ''}
+      <nav class="mu-abas" role="tablist"><button role="tab" aria-selected="${aba === 'topicos'}" data-mu-aba="topicos">Tópicos</button><button role="tab" aria-selected="${aba === 'avisos'}" data-mu-aba="avisos">Notificações${(() => { const n = naoLidas(eu); return n ? ` <i class="mu-aba-n">${n > 9 ? '9+' : n}</i>` : ''; })()}</button><button role="tab" aria-selected="${aba === 'membros'}" data-mu-aba="membros">Membros</button><button role="tab" aria-selected="${aba === 'sobre'}" data-mu-aba="sobre" class="mu-so-cel">Sobre</button></nav>` : ''}
     </header>`;
   }
   function ladoHTML(){
@@ -24351,7 +24494,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       <section class="mu-box"><h3>Mais ativos na semana</h3>${sem.length ? `<div class="mu-ativos">${sem.map((u, i) => `<button data-mu-perfil="${esc(u)}">${avatar(u, nomeDe(u), 'mu-av-p')}<span class="mu-ativo-t"><b>${esc(nomeDe(u))}</b>${selo(u)}<small>${plural(at[u].s, 'participação', 'participações')}</small></span>${i === 0 ? `<em>${ic('fogo', 1)}</em>` : ''}</button>`).join('')}</div>` : '<p>Ninguém participou nesta semana ainda.</p>'}</section>`;
   }
   function cardHTML(id, p, eu){
-    const r = respostas(id), cs = curtidasDe(id), curti = cs.includes(eu.uid), novo = Date.now() - ultimaEm(id, p) < 86400000;
+    const r = respostas(id), novo = Date.now() - ultimaEm(id, p) < 86400000;
     const quem = [...new Set(r.map(([, c]) => c.uid))].filter(u => u !== p.uid);
     const resumo = (p.texto || '').length > 220 ? p.texto.slice(0, 217).trim() + '…' : p.texto;
     return `<article class="mu-card${C.fix[id] ? ' fixo' : ''}" data-mu-ver="${id}" tabindex="0">
@@ -24359,10 +24502,11 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       <header class="mu-autor-l">${avatar(p.uid, p.nome)}<div><button class="mu-nome" data-mu-perfil="${esc(p.uid)}">${esc(nomeDe(p.uid, p.nome))}</button>${selo(p.uid)}<small>${perfil(p.uid).sem ? perfil(p.uid).sem + 'º semestre · ' : ''}${quando(p.em)}</small></div></header>
       <div class="mu-card-tag">${tag(p.cat)}</div>
       <h3 class="mu-card-t">${esc(titulo(p))}${novo ? ' <span class="mu-novo-b">Novo</span>' : ''}</h3>
-      <p class="mu-card-x">${texto(resumo)}</p>
+      <p class="mu-card-x">${texto(resumo, p.men)}</p>
       <footer class="mu-card-pe">
-        <button class="mu-acao${curti ? ' on' : ''}" data-mu-curtir="${id}" aria-pressed="${curti}">${ic('curtir', curti)}<span>${cs.length || 'Curtir'}</span></button>
+        ${botaoReagir(id, eu, 'mu-acao')}
         <span class="mu-acao">${ic('com')}<span>${r.length || 'Responder'}</span></span>
+        ${resumoReac(id)}
         <span class="mu-card-quem">${quem.length ? `<span class="mu-pilha mu-pilha-p">${quem.slice(0, 3).map(u => avatar(u, nomeDe(u), 'mu-av-pp')).join('')}</span>${esc(primeiro(nomeDe(quem[quem.length - 1])))}${quem.length > 1 ? ` e mais ${quem.length - 1}` : ''} · ${quando(ultimaEm(id, p))}` : r.length ? 'Autor respondeu' : 'Sem respostas ainda'}</span>
       </footer>
     </article>`;
@@ -24388,39 +24532,39 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       <form class="mu-form" data-mu-publicar>
         <header class="mu-autor-l">${avatar(eu.uid, eu.nome)}<div><b class="mu-nome">${esc(eu.nome)}</b><small>Publicando no Mural da turma</small></div></header>
         <input class="mu-form-t" id="muTit" name="titulo" maxlength="${LIM_TIT}" placeholder="Título do tópico" value="${esc(rascunho.titulo)}" autocomplete="off" required aria-label="Título">
-        <textarea class="mu-form-x" id="muTxt" name="texto" maxlength="${LIM_POST}" rows="6" placeholder="Escreva o que quer perguntar ou compartilhar com a turma…" required aria-label="Mensagem">${esc(rascunho.texto)}</textarea>
+        <textarea class="mu-form-x" id="muTxt" name="texto" maxlength="${LIM_POST}" rows="6" placeholder="Escreva o que quer perguntar ou compartilhar com a turma… use @ para marcar colegas" required aria-label="Mensagem">${esc(rascunho.texto)}</textarea>
         <div class="mu-form-cats"><span>Categoria</span><div class="mu-cats">${CATS.map(c => `<label class="mu-cat" style="--c:${c[2]}"><input type="radio" name="cat" value="${c[0]}"${rascunho.cat === c[0] ? ' checked' : ''} required><span><i></i>${esc(c[1])}</span></label>`).join('')}</div></div>
         <footer class="mu-form-pe"><small data-mu-cont>${rascunho.texto.length}/${LIM_POST}</small><span><button type="button" class="btn btn-ghost" data-mu-lista>Cancelar</button><button class="btn btn-primary" type="submit">Publicar</button></span></footer>
       </form>`;
   }
   function topicoHTML(id, eu){
     const p = C.posts[id]; if(!p) return '';
-    const r = respostas(id), cs = curtidasDe(id), curti = cs.includes(eu.uid);
-    const nomesC = cs.filter(u => u !== eu.uid).map(u => primeiro(nomeDe(u)));
-    const curtLinha = cs.length ? (curti ? (nomesC.length ? `Você e ${nomesC.length === 1 ? nomesC[0] : plural(nomesC.length, 'pessoa', 'pessoas')}` : 'Você') : nomesC.slice(0, 2).join(' e ') + (nomesC.length > 2 ? ` e mais ${nomesC.length - 2}` : '')) + ' curtiram' : '';
+    const r = respostas(id), rs = reacoes(id), eu_r = rs.some(x => x.uid === eu.uid);
+    const outros = rs.filter(x => x.uid !== eu.uid).map(x => primeiro(nomeDe(x.uid)));
+    const linhaReac = rs.length ? (eu_r ? (outros.length ? `Você e ${outros.length === 1 ? outros[0] : plural(outros.length, 'pessoa', 'pessoas')}` : 'Você') : outros.slice(0, 2).join(', ') + (outros.length > 2 ? ` e mais ${outros.length - 2}` : '')) : '';
     return `<button class="mu-voltar" data-mu-lista>${ic('voltar')} Todos os tópicos</button>
       <article class="mu-post">
         ${C.fix[id] ? `<div class="mu-fixo">${ic('pino')} Fixado pela moderação</div>` : ''}
         <header class="mu-autor-l">${avatar(p.uid, p.nome, 'mu-av-l')}<div><button class="mu-nome" data-mu-perfil="${esc(p.uid)}">${esc(nomeDe(p.uid, p.nome))}</button>${selo(p.uid)}<small>${perfil(p.uid).sem ? perfil(p.uid).sem + 'º semestre · ' : ''}${quando(p.em)}</small></div>${maisBtn(id, p.uid, eu, true)}</header>
         ${tag(p.cat)}
         <h2 class="mu-post-t">${esc(titulo(p))}</h2>
-        <div class="mu-post-x">${texto(p.texto)}</div>
-        ${curtLinha ? `<p class="mu-curt-l">${ic('curtir', 1)} ${esc(curtLinha.replace(' curtiram', ''))} ${cs.length === 1 && !curti ? 'curtiu' : 'curtiram'}</p>` : ''}
+        <div class="mu-post-x">${texto(p.texto, p.men)}</div>
+        ${rs.length ? `<div class="mu-curt-l">${resumoReac(id, 'mu-reac-linha')}<button class="mu-link-quem" data-mu-quem="${id}">${esc(linhaReac)}</button></div>` : ''}
         <footer class="mu-post-pe">
-          <button class="mu-acao-g${curti ? ' on' : ''}" data-mu-curtir="${id}" aria-pressed="${curti}">${ic('curtir', curti)} ${curti ? 'Curtido' : 'Curtir'}${cs.length ? ` · ${cs.length}` : ''}</button>
+          ${botaoReagir(id, eu, 'mu-acao-g')}
           <button class="mu-acao-g" data-mu-focar>${ic('com')} Responder${r.length ? ` · ${r.length}` : ''}</button>
         </footer>
       </article>
       <section class="mu-thread">
         <h3 class="mu-thread-t">${r.length ? plural(r.length, 'resposta', 'respostas') : 'Nenhuma resposta ainda'}</h3>
         ${r.length ? '' : '<p class="mu-thread-v">Seja a primeira pessoa a responder.</p>'}
-        ${r.map(([cid, c]) => { const alvo = id + '~' + cid, cc = curtidasDe(alvo), eu_c = cc.includes(eu.uid);
+        ${r.map(([cid, c]) => { const alvo = id + '~' + cid;
           return `<div class="mu-r" id="mu-${id}-${cid}">${avatar(c.uid, c.nome)}<div class="mu-r-c">
-            <div class="mu-r-bolha"><div class="mu-r-cab"><button class="mu-nome" data-mu-perfil="${esc(c.uid)}">${esc(nomeDe(c.uid, c.nome))}</button>${selo(c.uid)}${c.uid === p.uid ? '<span class="mu-op">Autor</span>' : ''}</div><div class="mu-r-x">${texto(c.texto)}</div>${cc.length ? `<span class="mu-r-curt">${ic('curtir', 1)}${cc.length}</span>` : ''}</div>
-            <div class="mu-r-acoes"><span>${quando(c.em)}</span><button class="${eu_c ? 'on' : ''}" data-mu-curtir="${alvo}" aria-pressed="${eu_c}">${eu_c ? 'Curtido' : 'Curtir'}</button>${C.bloq[eu.uid] ? '' : `<button data-mu-citar="${esc(primeiro(nomeDe(c.uid, c.nome)))}">Responder</button>`}${maisBtn(alvo, c.uid, eu, false)}</div>
+            <div class="mu-r-bolha"><div class="mu-r-cab"><button class="mu-nome" data-mu-perfil="${esc(c.uid)}">${esc(nomeDe(c.uid, c.nome))}</button>${selo(c.uid)}${c.uid === p.uid ? '<span class="mu-op">Autor</span>' : ''}</div><div class="mu-r-x">${texto(c.texto, c.men)}</div>${resumoReac(alvo, 'mu-r-curt')}</div>
+            <div class="mu-r-acoes"><span>${quando(c.em)}</span>${botaoReagir(alvo, eu, 'mu-r-btn', false)}${C.bloq[eu.uid] ? '' : `<button data-mu-citar="${esc(apelido(c.uid))}">Responder</button>`}${maisBtn(alvo, c.uid, eu, false)}</div>
           </div></div>`; }).join('')}
       </section>
-      ${C.bloq[eu.uid] ? '' : `<form class="mu-barra-resp" data-mu-comentar="${id}">${avatar(eu.uid, eu.nome, 'mu-av-p')}<textarea name="t" rows="1" maxlength="${LIM_COM}" placeholder="Escreva uma resposta…" aria-label="Resposta" required>${esc(resposta)}</textarea><button type="submit" aria-label="Enviar resposta">${ic('enviar')}</button></form>`}`;
+      ${C.bloq[eu.uid] ? '' : `<form class="mu-barra-resp" data-mu-comentar="${id}">${avatar(eu.uid, eu.nome, 'mu-av-p')}<textarea name="t" rows="1" maxlength="${LIM_COM}" placeholder="Escreva uma resposta… use @ para marcar" aria-label="Resposta" required>${esc(resposta)}</textarea><button type="submit" aria-label="Enviar resposta">${ic('enviar')}</button></form>`}`;
   }
   function membrosHTML(eu){
     const at = atividade(), lista = Object.keys(C.perfis).filter(u => C.perfis[u] && C.perfis[u].nome).sort((a, b) => ((at[b] || {}).ult || 0) - ((at[a] || {}).ult || 0) || nomeDe(a).localeCompare(nomeDe(b)));
@@ -24448,6 +24592,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     else if(vista === 'novo') corpo = C.bloq[eu.uid] ? '' : novoHTML(eu);
     else if(vista !== 'lista' && C.posts[vista]) corpo = topicoHTML(vista, eu);
     else if(aba === 'membros') corpo = membrosHTML(eu);
+    else if(aba === 'avisos') corpo = notifHTML(eu);
     else if(aba === 'sobre') corpo = `<div class="mu-lado mu-lado-cel">${ladoHTML()}</div>`;
     else corpo = listaHTML(eu);
     const avisos = (C.bloq[eu.uid] ? '<p class="mu-erro">A sua conta está sem permissão para escrever no mural. Se achar que é um engano, fale com o representante da turma.</p>' : '') + (erro ? `<div class="mu-erro"><span>${esc(erro)}</span><button data-mu-erro-ok aria-label="Fechar aviso">×</button></div>` : '');
@@ -24457,16 +24602,22 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     el.querySelectorAll('[data-mu-comentar] textarea').forEach(cresce);
   }
   const cresce = t => { t.style.height = 'auto'; t.style.height = Math.min(t.scrollHeight, 160) + 'px'; };
-  function abrir(v){ vista = v; menuAberto = null; render(); const el = document.getElementById('viewMural'); if(el) window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 70)}); }
+  function abrir(v){ vista = v; menuAberto = null; reacAberto = null; try{ history.replaceState(history.state, '', v !== 'lista' && v !== 'novo' ? '#mural-' + v : '#mural'); }catch(_){} render(); const el = document.getElementById('viewMural'); if(el) window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 70)}); }
   function perfilAbrir(uid){
     const p = C.perfis[uid] || {}, f = document.getElementById('muPerfilFundo'), c = document.getElementById('muPerfilCorpo'); if(!f) return;
     const tops = Object.entries(C.posts).filter(([, x]) => x.uid === uid).sort((a, b) => b[1].em - a[1].em), a = atividade()[uid] || {t:0, r:0};
-    let recebidas = 0; tops.forEach(([id]) => recebidas += curtidasDe(id).length);
+    let recebidas = 0; tops.forEach(([id]) => recebidas += curtidasDe(id).length); Object.entries(C.com).forEach(([pid, o]) => Object.entries(o || {}).forEach(([cid, x]) => { if(x && x.uid === uid) recebidas += curtidasDe(pid + '~' + cid).length; }));
     c.innerHTML = `<div class="mu-pf-topo"><div class="mu-pf-psiu">${window.avPsiuDe ? window.avPsiuDe(p.psiu) : ''}</div>${avatar(uid, p.nome, 'mu-av-g')}</div>
       <h2 class="mu-pf-nome">${esc(p.nome || 'Colega')}</h2>
       <p class="mu-pf-sub">${p.sem ? p.sem + 'º semestre de Psicologia' : 'Psicologia'}${p.ap ? ' · <span class="ap-selo">★ Apoiador</span>' : ''}</p>
-      <div class="mu-pf-nums"><div><b>${a.t}</b><span>${a.t === 1 ? 'tópico' : 'tópicos'}</span></div><div><b>${a.r}</b><span>${a.r === 1 ? 'resposta' : 'respostas'}</span></div><div><b>${recebidas}</b><span>curtidas recebidas</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
+      <div class="mu-pf-nums"><div><b>${a.t}</b><span>${a.t === 1 ? 'tópico' : 'tópicos'}</span></div><div><b>${a.r}</b><span>${a.r === 1 ? 'resposta' : 'respostas'}</span></div><div><b>${recebidas}</b><span>reações recebidas</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
       ${tops.length ? `<div class="ma-grupo-t">Tópicos que abriu</div>${tops.slice(0, 4).map(([id, x]) => `<button class="mu-pf-post" data-mu-ir="${id}">${tag(x.cat)}<p>${esc(titulo(x))}</p><small>${quando(x.em)} · ${plural(respostas(id).length, 'resposta', 'respostas')}</small></button>`).join('')}` : '<p class="hj-vazio">Ainda não abriu tópicos no mural.</p>'}`;
+    f.hidden = false;
+  }
+  function quemReagiu(alvo){
+    const f = document.getElementById('muPerfilFundo'), c = document.getElementById('muPerfilCorpo'); if(!f) return;
+    const rs = reacoes(alvo).sort((a, b) => b.em - a.em);
+    c.innerHTML = `<h2 class="mu-quem-t">Reações</h2><div class="mu-quem-l">${rs.map(x => `<button data-mu-perfil="${esc(x.uid)}"><span class="mu-quem-av">${avatar(x.uid, nomeDe(x.uid))}${reIc(x.t, 'mu-re-canto')}</span><span><b>${esc(nomeDe(x.uid))}</b><small>${esc(reacDe(x.t)[1])}</small></span></button>`).join('')}</div>`;
     f.hidden = false;
   }
   // ---------- ações ----------
@@ -24485,10 +24636,10 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const eu = EU(); if(!eu) return;
     if(fp){ const t = fp.titulo.value.trim(), x = fp.texto.value.trim(), cat = (fp.querySelector('[name=cat]:checked') || {}).value;
       if(!t || !x || !cat) return;
-      const id = novoId(), p = {uid: eu.uid, nome: eu.nome.slice(0, 60), titulo: t.slice(0, LIM_TIT), cat, texto: x.slice(0, LIM_POST), em: Date.now()}, guard = rascunho;
+      const id = novoId(), p = {uid: eu.uid, nome: eu.nome.slice(0, 60), titulo: t.slice(0, LIM_TIT), cat, texto: x.slice(0, LIM_POST), em: Date.now()}, guard = rascunho, mp = marcados(x, eu.uid); if(mp.length) p.men = mp;
       C.posts[id] = p; rascunho = {titulo:'', cat:'', texto:''}; abrir(id);
       acao(async () => { await salvarPerfil(); await B().gravar('mural/posts/' + id, p); }, () => { delete C.posts[id]; rascunho = guard; vista = 'novo'; }); }
-    if(fc){ const pid = fc.dataset.muComentar, t = fc.t.value.trim(); if(!t) return; const cid = novoId(), c = {uid: eu.uid, nome: eu.nome.slice(0, 60), texto: t.slice(0, LIM_COM), em: Date.now()};
+    if(fc){ const pid = fc.dataset.muComentar, t = fc.t.value.trim(); if(!t) return; const cid = novoId(), c = {uid: eu.uid, nome: eu.nome.slice(0, 60), texto: t.slice(0, LIM_COM), em: Date.now()}, mc = marcados(t, eu.uid); if(mc.length) c.men = mc;
       (C.com[pid] = C.com[pid] || {})[cid] = c; resposta = ''; render(); document.getElementById('mu-' + pid + '-' + cid)?.scrollIntoView({block:'center', behavior:'smooth'});
       acao(() => B().gravar(`mural/comentarios/${pid}/${cid}`, c), () => { delete C.com[pid][cid]; resposta = t; }); }
   });
@@ -24497,6 +24648,33 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(f){ rascunho = {titulo: f.titulo.value, cat: (f.querySelector('[name=cat]:checked') || {}).value || '', texto: f.texto.value}; const k = document.querySelector('[data-mu-cont]'); if(k) k.textContent = f.texto.value.length + '/' + LIM_POST; }
     if(e.target.closest('[data-mu-comentar]')){ resposta = e.target.value; cresce(e.target); }
   });
+  let sugEl = null, sugAlvo = null;
+  function sugerir(t){
+    const antes = t.value.slice(0, t.selectionStart), m = antes.match(/(^|\s)@([A-Za-zÀ-ÿ]*)$/), eu = EU();
+    if(!m || !eu){ fecharSug(); return; }
+    const qq = semAcento(m[2]);
+    const lista = Object.keys(C.perfis).filter(u => u !== eu.uid && C.perfis[u] && C.perfis[u].nome && semAcento(C.perfis[u].nome).split(/\s+/).some(w => w.startsWith(qq))).slice(0, 6);
+    if(!lista.length){ fecharSug(); return; }
+    if(!sugEl){ sugEl = document.createElement('div'); sugEl.className = 'mu-sug'; sugEl.setAttribute('role', 'listbox'); }
+    const form = t.closest('form'); if(sugEl.parentNode !== form) form.appendChild(sugEl);
+    sugEl.classList.toggle('mu-sug-cima', !!t.closest('.mu-barra-resp'));
+    sugEl.style.top = t.closest('.mu-barra-resp') ? '' : (t.offsetTop + t.offsetHeight + 4) + 'px';
+    sugEl.innerHTML = `<small>Marcar colega</small>` + lista.map(u => `<button type="button" role="option" data-mu-sug="${esc(u)}">${avatar(u, nomeDe(u), 'mu-av-p')}<span><b>${esc(nomeDe(u))}</b><small>@${esc(apelido(u))}</small></span></button>`).join('');
+    sugAlvo = t;
+  }
+  function fecharSug(){ if(sugEl){ sugEl.remove(); } sugAlvo = null; }
+  document.addEventListener('input', e => { if(e.target.matches && e.target.matches('#muTxt, [data-mu-comentar] textarea')) sugerir(e.target); });
+  document.addEventListener('mousedown', e => { if(e.target.closest('[data-mu-sug]')) e.preventDefault(); });
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-mu-sug]');
+    if(!b){ if(sugEl && !e.target.closest('.mu-sug') && e.target !== sugAlvo) fecharSug(); return; }
+    const t = sugAlvo; if(!t) return;
+    const pos = t.selectionStart, antes = t.value.slice(0, pos).replace(/@([A-Za-zÀ-ÿ]*)$/, '@' + apelido(b.dataset.muSug) + ' ');
+    t.value = antes + t.value.slice(pos); t.focus(); t.setSelectionRange(antes.length, antes.length);
+    t.dispatchEvent(new Event('input', {bubbles: true})); fecharSug();
+  }, true);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && sugEl && sugEl.parentNode){ fecharSug(); } });
+  window.avMuralRender = () => { if(document.getElementById('viewMural')?.style.display !== 'none') render(); };
   document.addEventListener('change', e => { const f = e.target.closest('[data-mu-publicar]'); if(f) rascunho.cat = (f.querySelector('[name=cat]:checked') || {}).value || ''; });
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape'){ const f = document.getElementById('muPerfilFundo'); if(f && !f.hidden) f.hidden = true; }
@@ -24510,12 +24688,13 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(!eu) return;
     let b;
     if(menuAberto && !q('.mu-mais-box')){ menuAberto = null; render(); }
+    if(reacAberto && !q('.mu-reac-box')){ reacAberto = null; render(); }
     if(q('[data-mu-combinado]')){ try{ localStorage.setItem('av-mural-ok', '1'); }catch(_){} render(); return; }
     if(q('[data-mu-erro-ok]')){ erro = ''; render(); return; }
     if(q('[data-mu-atualizar]')){ carregar(); return; }
     if(q('[data-mu-novo]')){ abrir('novo'); document.getElementById('muTit')?.focus(); return; }
     if(q('[data-mu-lista]')){ abrir('lista'); return; }
-    if((b = q('[data-mu-aba]'))){ aba = b.dataset.muAba; vista = 'lista'; render(); return; }
+    if((b = q('[data-mu-aba]'))){ aba = b.dataset.muAba; vista = 'lista'; if(aba === 'avisos'){ try{ notifVisto = +(localStorage.getItem(NOTIF) || 0); localStorage.setItem(NOTIF, String(Date.now())); }catch(_){} } render(); return; }
     if((b = q('[data-mu-filtro]'))){ filtro = filtro === b.dataset.muFiltro && b.closest('.mu-cat-l') ? 'todos' : b.dataset.muFiltro; aba = 'topicos'; render(); return; }
     if((b = q('[data-mu-ordem]'))){ ordem = b.dataset.muOrdem; render(); return; }
     if((b = q('[data-mu-menu]'))){ menuAberto = menuAberto === b.dataset.muMenu ? null : b.dataset.muMenu; render(); return; }
@@ -24523,9 +24702,11 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if((b = q('[data-mu-ir]'))){ document.getElementById('muPerfilFundo').hidden = true; abrir(b.dataset.muIr); return; }
     if(q('[data-mu-focar]')){ const t = document.querySelector('[data-mu-comentar] textarea'); if(t){ t.focus(); t.scrollIntoView({block:'center', behavior:'smooth'}); } return; }
     if((b = q('[data-mu-citar]'))){ const t = document.querySelector('[data-mu-comentar] textarea'); if(t){ const m = '@' + b.dataset.muCitar + ' '; if(!t.value.startsWith(m)) t.value = m + t.value; resposta = t.value; cresce(t); t.focus(); t.setSelectionRange(t.value.length, t.value.length); } return; }
-    if((b = q('[data-mu-curtir]'))){ if(C.bloq[eu.uid]) return; const alvo = b.dataset.muCurtir, m = C.curt[alvo] = C.curt[alvo] || {};
-      if(m[eu.uid]){ delete m[eu.uid]; render(); acao(() => B().apagar(`mural/curtidas/${alvo}/${eu.uid}`), () => { m[eu.uid] = true; }); }
-      else { m[eu.uid] = true; render(); acao(() => B().gravar(`mural/curtidas/${alvo}/${eu.uid}`, true), () => { delete m[eu.uid]; }); } return; }
+    if((b = q('[data-mu-reagir]'))){ if(C.bloq[eu.uid]) return; reacAberto = reacAberto === b.dataset.muReagir ? null : b.dataset.muReagir; render(); return; }
+    if((b = q('[data-mu-reac]'))){ const [alvo, t] = b.dataset.muReac.split('|'), m = C.curt[alvo] = C.curt[alvo] || {}, ant = m[eu.uid]; reacAberto = null;
+      if(ant && tipoDe(ant) === t){ delete m[eu.uid]; render(); acao(() => B().apagar(`mural/curtidas/${alvo}/${eu.uid}`), () => { m[eu.uid] = ant; }); }
+      else { const v = {t, em: Date.now()}; m[eu.uid] = v; render(); acao(() => B().gravar(`mural/curtidas/${alvo}/${eu.uid}`, v), () => { if(ant) m[eu.uid] = ant; else delete m[eu.uid]; }); } return; }
+    if((b = q('[data-mu-quem]'))){ quemReagiu(b.dataset.muQuem); return; }
     if((b = q('[data-mu-fixar]'))){ const id = b.dataset.muFixar; menuAberto = null; if(C.fix[id]){ delete C.fix[id]; render(); acao(() => B().apagar('mural/fixados/' + id)); } else { C.fix[id] = true; render(); acao(() => B().gravar('mural/fixados/' + id, true), () => { delete C.fix[id]; }); } return; }
     if((b = q('[data-mu-denunciar]'))){ const alvo = b.dataset.muDenunciar; menuAberto = null;
       if(!confirm('Denunciar este conteúdo para a moderação? Quem escreveu não fica sabendo quem denunciou.')){ render(); return; }
@@ -24541,7 +24722,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       if(cid){ if(C.com[pid]) delete C.com[pid][cid]; } else delete C.posts[pid]; delete C.den[alvo]; render();
       acao(async () => { await B().apagar(cid ? `mural/comentarios/${pid}/${cid}` : 'mural/posts/' + pid); if(!cid){ try{ await B().apagar('mural/comentarios/' + pid); }catch(_){} } await B().apagar('mural/denuncias/' + alvo); }); return; }
     if((b = q('[data-mu-den-ok]'))){ const alvo = b.dataset.muDenOk; delete C.den[alvo]; render(); acao(() => B().apagar('mural/denuncias/' + alvo)); return; }
-    if((b = q('[data-mu-ver]'))){ abrir(b.dataset.muVer); return; }
+    if((b = q('[data-mu-ver]'))){ const alvo = b.dataset.muAlvo; abrir(b.dataset.muVer); if(alvo){ const el = document.getElementById('mu-' + b.dataset.muVer + '-' + alvo); if(el){ el.scrollIntoView({block:'center'}); el.classList.add('mu-destaque'); setTimeout(() => el.classList.remove('mu-destaque'), 2200); } } return; }
   });
   // botão do mural no cabeçalho: destaque na página e ponto quando há novidade de outras pessoas
   const VISTO = 'av-mural-visto';

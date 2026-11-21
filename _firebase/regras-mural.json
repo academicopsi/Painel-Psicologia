@@ -30,7 +30,7 @@
         ".write": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
         "$uid": {
           ".write": "auth != null && $uid === auth.uid && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists()",
-          ".validate": "newData.val() === true"
+          ".validate": "newData.val() === true || (newData.hasChildren(['t', 'em']) && newData.child('t').isString() && newData.child('t').val().matches(/^(curtir|concordo|haha|amei|psiu)$/) && newData.child('em').val() <= now + 60000)"
         }
       }
     },
