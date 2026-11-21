@@ -4322,6 +4322,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: '1º período', desc: 'O 1º período ganhou conteúdo próprio, carregado só quando você abre uma disciplina dele: 6 resumos (41 abas com quiz), 233 questões de simulado, 33 discursivas, 2 estudos dirigidos, ferramentas de exercício e um laboratório de Estatística com tabela de frequências, medidas, curva normal e teste t.', link: {url:'#disc-11'}},
   {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Estudo dirigido da N2 com as 7 perguntas respondidas: memória no envelhecimento, PPA, Kübler-Ross, suicídio na velhice, eutanásia, cuidados paliativos e diagnóstico diferencial.', link: {url:'#disc-05'}},
   {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Slides das aulas no resumo e no simulado: história da aposentadoria, fatores de ajuste, como funciona um PPA, memória e linguagem no envelhecimento, diagnóstico diferencial, cuidados paliativos, eutanásia e diretivas antecipadas. 20 questões novas no simulado (agora são 63).', link: {url:'#simulado-idoso-n2'}},
   {date: '2026-11-20', disc: 'Neuroanatomia Humana', desc: '16 casos clínicos comentados no simulado (parte Casos clínicos), cada um com a explicação neuroanatômica e a conexão com a Psicologia. E uma aba nova no resumo: Do sintoma à estrutura. Agora são 131 questões.', link: {url:'#simulado-neuro-n2'}},
@@ -15080,7 +15081,7 @@ function renderFeed(items){
   }).join('');
 }
 
-const P1_VERSAO = '1';
+const P1_VERSAO = '2';
 function DISC_TODAS(){ return DISC[2].concat(DISC[1]); }
 const ALL_DISC = [...DISC[1].map(d=>({...d, sem:'1º sem.'})), ...DISC[2].map(d=>({...d, sem:'2º sem.'}))];
 
