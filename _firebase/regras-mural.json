@@ -1,0 +1,54 @@
+{
+  "perfis": {
+    ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
+    "$uid": {
+      ".write": "auth != null && $uid === auth.uid && root.child('acesso/' + auth.uid).val() === true",
+      ".validate": "newData.child('nome').isString() && newData.child('nome').val().length <= 60 && (!newData.child('foto').exists() || newData.child('foto').val().length <= 20000)"
+    }
+  },
+  "mural": {
+    "posts": {
+      ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
+      "$pid": {
+        ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists()) || (!newData.exists() && (data.child('uid').val() === auth.uid || auth.token.email === 'thiagodentalbeauty@gmail.com')))",
+        ".validate": "newData.hasChildren(['uid', 'nome', 'texto', 'em']) && newData.child('texto').isString() && newData.child('texto').val().length > 0 && newData.child('texto').val().length <= 600 && newData.child('nome').val().length <= 60 && newData.child('em').val() <= now + 60000"
+      }
+    },
+    "comentarios": {
+      ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
+      "$pid": {
+        ".write": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
+        "$cid": {
+          ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists() && root.child('mural/posts/' + $pid).exists()) || (!newData.exists() && (data.child('uid').val() === auth.uid || auth.token.email === 'thiagodentalbeauty@gmail.com')))",
+          ".validate": "newData.hasChildren(['uid', 'nome', 'texto', 'em']) && newData.child('texto').isString() && newData.child('texto').val().length > 0 && newData.child('texto').val().length <= 300 && newData.child('em').val() <= now + 60000"
+        }
+      }
+    },
+    "curtidas": {
+      ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
+      "$pid": {
+        ".write": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
+        "$uid": {
+          ".write": "auth != null && $uid === auth.uid && root.child('acesso/' + auth.uid).val() === true && !root.child('mural/bloqueados/' + auth.uid).exists()",
+          ".validate": "newData.val() === true"
+        }
+      }
+    },
+    "denuncias": {
+      ".read": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
+      "$alvo": {
+        ".write": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
+        "$uid": {
+          ".write": "auth != null && $uid === auth.uid && root.child('acesso/' + auth.uid).val() === true",
+          ".validate": "newData.hasChildren(['em'])"
+        }
+      }
+    },
+    "bloqueados": {
+      ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
+      "$uid": {
+        ".write": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'"
+      }
+    }
+  }
+}

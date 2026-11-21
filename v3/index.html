@@ -2986,6 +2986,88 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ap-comp .apoiador li::before{content:'★'; position:absolute; left:0; color:var(--ochre);}
   .ap-comp small{display:block; margin-top:6px; color:var(--ink-soft); font-size:12px;}
   @media (max-width:420px){ .ap-comp{grid-template-columns:1fr;} }
+  /* ===== mural da turma ===== */
+  .mu-page{max-width:640px; margin:0 auto;}
+  .mu-topo{display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin:6px 0 18px; padding:22px 20px; border-radius:18px; color:#F4EFE3; background:radial-gradient(120% 140% at 100% 0%, rgba(201,154,62,.22) 0%, rgba(201,154,62,0) 55%), linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 10px 30px rgba(14,46,44,.18);}
+  .mu-topo .eyebrow{background:rgba(201,154,62,.18); color:#E6C27A; border-color:transparent;}
+  .mu-topo h1{margin:8px 0 6px; color:#fff;}
+  .mu-topo p{margin:0; font-size:14.5px; color:rgba(244,239,227,.82); line-height:1.5;}
+  .mu-atualizar{flex:none; margin-top:2px; background:rgba(255,255,255,.1) !important; border-color:rgba(255,255,255,.18) !important; color:#fff !important;}
+  .mu-atualizar svg{width:18px; height:18px;}
+  .mu-regras{background:var(--paper); border:1px solid var(--rule); border-left:4px solid var(--petrol); border-radius:14px; padding:16px 18px; margin-bottom:16px;}
+  .mu-regras b{font-size:16px;}
+  .mu-regras ul{margin:8px 0 14px; padding-left:18px; font-size:14px; line-height:1.55; color:var(--ink-soft);}
+  .mu-novo{display:flex; gap:12px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:14px; box-shadow:0 1px 2px var(--shadow); margin-bottom:16px;}
+  .mu-novo-c{flex:1; min-width:0;}
+  .mu-novo textarea{width:100%; box-sizing:border-box; font:inherit; font-size:15px; line-height:1.5; color:var(--ink); background:var(--paper-alt); border:1px solid var(--rule); border-radius:10px; padding:10px 12px; resize:vertical; min-height:76px;}
+  .mu-novo textarea:focus{outline:2px solid var(--petrol-line); border-color:var(--petrol);}
+  .mu-novo-r{display:flex; justify-content:space-between; align-items:center; margin-top:8px;}
+  .mu-novo-r small{font-size:12px; color:var(--ink-faint);}
+  .mu-novo-r .btn{padding:8px 18px;}
+  .mu-av{flex:none; width:42px; height:42px; border-radius:50%; object-fit:cover; display:inline-flex; align-items:center; justify-content:center; background:var(--petrol); color:#fff; font-size:15px; font-weight:700;}
+  .mu-av-p{width:32px; height:32px; font-size:12px;}
+  .mu-av-g{width:76px; height:76px; font-size:26px; box-shadow:0 0 0 4px var(--paper);}
+  .mu-feed{display:flex; flex-direction:column; gap:12px;}
+  .mu-post{background:var(--paper); border:1px solid var(--rule); border-radius:14px; box-shadow:0 1px 2px var(--shadow); padding:14px 16px 6px;}
+  .mu-cab{display:flex; align-items:flex-start; justify-content:space-between; gap:8px;}
+  .mu-quem{display:flex; align-items:center; gap:11px; background:none; border:0; padding:0; font:inherit; color:var(--ink); text-align:left; cursor:pointer; min-width:0;}
+  .mu-quem b{display:block; font-size:15px;}
+  .mu-quem small{display:block; font-size:12.5px; color:var(--ink-faint); margin-top:1px;}
+  .mu-quem .ap-selo{font-size:10px; padding:1px 5px;}
+  .mu-mais-box{position:relative; flex:none;}
+  .mu-mais{width:34px; height:34px; border-radius:8px; border:0; background:none; color:var(--ink-faint); cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  .mu-mais:hover{background:var(--paper-alt); color:var(--ink);}
+  .mu-mais svg{width:18px; height:18px;}
+  .mu-menu{position:absolute; right:0; top:38px; z-index:20; min-width:210px; padding:6px; background:var(--paper); border:1px solid var(--rule); border-radius:var(--radius, 12px); box-shadow:0 18px 40px var(--shadow-lg);}
+  .mu-menu button{display:flex; align-items:center; gap:8px; width:100%; text-align:left; font:inherit; font-size:14px; color:var(--ink); background:none; border:0; border-radius:8px; padding:9px 10px; cursor:pointer;}
+  .mu-menu button:hover{background:var(--paper-alt);}
+  .mu-menu svg{width:16px; height:16px;}
+  .mu-perigo{color:#A32D2D !important;}
+  .mu-texto{font-size:15px; line-height:1.6; margin:10px 0 8px; white-space:normal; overflow-wrap:anywhere;}
+  .mu-acoes{display:flex; gap:4px; border-top:1px solid var(--rule); margin:0 -8px; padding-top:4px;}
+  .mu-acao{display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-radius:8px; padding:8px 10px; cursor:pointer;}
+  .mu-acao:hover{background:var(--paper-alt);}
+  .mu-acao svg{width:18px; height:18px;}
+  .mu-acao.on{color:#B5435A;}
+  .mu-coms{border-top:1px solid var(--rule); margin:4px -16px 0; padding:12px 16px 8px; background:var(--paper-alt); border-radius:0 0 14px 14px;}
+  .mu-com{display:flex; gap:9px; margin-bottom:10px;}
+  .mu-com-bolha{flex:1; min-width:0; background:var(--paper); border:1px solid var(--rule); border-radius:4px 12px 12px 12px; padding:8px 11px;}
+  .mu-com-nome{font:inherit; font-size:13.5px; font-weight:700; color:var(--ink); background:none; border:0; padding:0; cursor:pointer;}
+  .mu-com-bolha p{margin:2px 0 4px; font-size:14px; line-height:1.5; overflow-wrap:anywhere;}
+  .mu-com-bolha small{font-size:12px; color:var(--ink-faint);}
+  .mu-link{font:inherit; font-size:12px; color:var(--ink-faint); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer;}
+  .mu-com-form{display:flex; align-items:center; gap:8px; margin:4px 0 4px;}
+  .mu-com-form input{flex:1; min-width:0; font:inherit; font-size:14px; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:999px; padding:9px 14px;}
+  .mu-com-form button{flex:none; font:inherit; font-size:13.5px; font-weight:700; color:var(--petrol); background:none; border:0; cursor:pointer; padding:6px 4px;}
+  .mu-vazio b{display:block; font-size:16px; margin-bottom:4px;}
+  .mu-vazio p{margin:0; color:var(--ink-soft); font-size:14px;}
+  .mu-erro{background:#FBEAEA; color:#8E1F1F; border-radius:10px; padding:10px 12px; font-size:14px;}
+  .mu-den{background:#FBF1EF; border:1px solid #E7C2BB; border-radius:14px; padding:14px 16px; margin-bottom:16px;}
+  body.dark .mu-den{background:#2A1E1C; border-color:#5A3A33;}
+  .mu-den h3{display:flex; align-items:center; gap:8px; margin:0 0 10px; font-size:16px;}
+  .mu-den-item{border-top:1px solid #E7C2BB; padding:10px 0;}
+  .mu-den-item small{font-size:12.5px; color:var(--ink-soft);}
+  .mu-den-txt{margin:4px 0 8px; font-size:14px; line-height:1.5;}
+  .mu-den-bts{display:flex; flex-wrap:wrap; gap:8px;}
+  .mu-den-bts button{font:inherit; font-size:13px; font-weight:600; padding:6px 12px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); cursor:pointer;}
+  .mu-perfil-caixa{text-align:center;}
+  .mu-pf-topo{position:relative; height:150px; margin:-8px -8px 0; border-radius:14px; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%);}
+  .mu-pf-psiu{position:absolute; right:14px; top:12px; width:96px; height:96px;}
+  .mu-pf-psiu svg{width:100%; height:100%;}
+  .mu-pf-topo .mu-av-g{position:absolute; left:50%; bottom:-38px; transform:translateX(-50%);}
+  .mu-pf-topo{margin-bottom:46px;}
+  .mu-perfil-caixa .mu-pf-nome{margin:0 0 4px; font-size:24px;}
+  .mu-perfil-caixa .conta-fechar{z-index:2; color:#fff;}
+  .mu-pf-sub{margin:0 0 14px; font-size:14px; color:var(--ink-soft);}
+  .mu-pf-nums{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:6px;}
+  .mu-pf-nums div{background:var(--paper-alt); border-radius:10px; padding:10px 6px;}
+  .mu-pf-nums b{display:block; font-family:var(--serif, Georgia, serif); font-size:22px;}
+  .mu-pf-nums b small{font-size:14px; color:var(--ink-faint);}
+  .mu-pf-nums span{font-size:12px; color:var(--ink-soft);}
+  .mu-pf-post{display:block; width:100%; text-align:left; font:inherit; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:10px 12px; margin-bottom:8px; cursor:pointer;}
+  .mu-pf-post p{margin:0 0 4px; font-size:14px; line-height:1.5;}
+  .mu-pf-post small{font-size:12px; color:var(--ink-faint);}
+  .mu-perfil-caixa .ma-grupo-t{text-align:left;}
   /* turma (painel do administrador) */
   .tm-hero{margin:18px 0 0; padding:18px; border-radius:14px; color:#fff; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 6px 16px var(--shadow); position:relative; overflow:hidden;}
   .tm-hero::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
@@ -3101,6 +3183,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <button class="nav-link nav-trigger" aria-expanded="false">Sua conta <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="nav-group-label">Sua conta</div>
         <div class="nav-dropdown">
+          <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span><span class="ni-text"><strong>Mural da turma</strong><small>Publique, comente e curta</small></span></button>
           <button class="nav-item" data-page="viewHoje" data-ma-ir="hoje"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg></span><span class="ni-text"><strong>Minha área</strong><small>Plano do dia, progresso e treinos</small></span></button>
           <button class="nav-item nav-ap" data-page="viewHoje" data-ma-ir="ferramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/></svg></span><span class="ni-text"><strong>Recursos de apoiador <span class="ap-selo">★</span></strong><small id="navApSub">Veja as prévias e o que o apoio libera</small></span></button>
           <button class="nav-item" data-apoio data-nav-apoio><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg></span><span class="ni-text"><strong id="navApoioT">Apoiar o Arquivo Vivo</strong><small id="navApoioSub">Pix de valor livre, vale 30 dias</small></span></button>
@@ -3319,6 +3402,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
 <!-- ============ PÁGINA: SOBRE O SITE ============ -->
 <div class="wrap" id="viewHoje" style="display:none;"><div id="hojePage" class="hj-page"></div></div>
+<div class="wrap" id="viewMural" style="display:none;"><div id="muralPage" class="mu-page"></div></div>
+<div class="conta-fundo" id="muPerfilFundo" hidden><div class="conta-caixa mu-perfil-caixa" role="dialog" aria-modal="true" aria-label="Perfil"><button class="conta-fechar" data-mu-fechar aria-label="Fechar">×</button><div id="muPerfilCorpo"></div></div></div>
 
 <div class="wrap" id="viewErros" style="display:none;">
   <button class="back-link" id="backFromErros">← Voltar ao Arquivo Vivo</button>
@@ -4624,6 +4709,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: 'Geral', desc: 'Mural da turma: publique, comente e curta, sempre com o seu nome. Cada pessoa tem um perfil com foto, semestre e o Psiu que montou. Só contas liberadas participam, e qualquer conteúdo pode ser denunciado.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Ficou mais claro o que é de apoiador: selo ★ Apoiador nos recursos exclusivos, aba Apoiador na Minha área com prévias para todos e uma comparação entre o que é grátis e o que o apoio libera.'},
   {date: '2026-11-21', disc: 'Geral', desc: 'O semestre escolhido na Minha área agora vale para o site todo: Drive das disciplinas, exercícios, glossário, busca e atualizações mostram só o seu semestre. Um link discreto deixa ver o outro quando quiser.'},
   {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Simulado em PDF corrigido no app instalado no iPhone: em vez de abrir a impressão, que não funciona ali, o site gera o PDF e abre a opção de salvar ou compartilhar.'},
@@ -15617,11 +15703,11 @@ if(document.body.classList.contains('dark')){
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
 // endereços amigáveis para compartilhar (os antigos #viewX continuam funcionando)
-const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'minha-area'};
+const PAGE_SLUG = {viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'minha-area', viewMural:'mural'};
 const SLUG_PAGE = Object.fromEntries(Object.entries(PAGE_SLUG).map(([k, v])=>[v, k]));
 SLUG_PAGE['simulados'] = 'viewSimulados';
 SLUG_PAGE['hoje'] = 'viewHoje';
-const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros', 'viewHoje'];
+const ALL_PAGES = ['top', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros', 'viewHoje', 'viewMural'];
 let currentPage = 'top';
 
 function closeMenus(){
@@ -22576,6 +22662,9 @@ onAuthStateChanged(auth, u=>{
   verificar(u);
 });
 document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden' && usuario) enviar(); });
+// mural da turma: leitura e escrita no banco, e quem é a pessoa logada
+window.avBanco = { ler: p => get(ref(db, p)).then(x => x.val()), gravar: (p, v) => set(ref(db, p), v), apagar: p => remove(ref(db, p)) };
+window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || primeiroNome(usuario) || 'Colega').trim(), admin: ehAdmin(usuario), liberado: liberado || ehAdmin(usuario), foto: fotoAtual()} : null;
 </script>
 
 <div class="conta-fundo" id="apoioFundo" hidden>
@@ -23196,6 +23285,12 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   };
   const vestidoSVG = () => { const v = vestidos(), prog = progresso(); return SLOTS.map(([sl]) => { const a = A.find(x => x.id === v[sl]); return a && liberado(a, prog) ? a.svg : ''; }).join(''); };
   window.avPsiuMini = () => { const e = estilo(); return mini(vestidoSVG(), (CORES.find(x => x.id === e.cor && pode(x)) || {}).id, (FUNDOS.find(x => x.id === e.fundo && pode(x)) || {}).id); };
+  // para o perfil público do mural: o Psiu como a pessoa montou e quantas conquistas ela tem
+  window.avPsiuPerfil = () => { const e = estilo(), v = vestidos(), prog = progresso();
+    const acc = SLOTS.map(([sl]) => { const a = A.find(x => x.id === v[sl]); return a && liberado(a, prog) ? a.id : null; }).filter(Boolean);
+    const conqs = A.filter(a => a.grupo === 'conquista');
+    return {acc, cor: (CORES.find(x => x.id === e.cor && pode(x)) || {}).id || 'rosa', fundo: (FUNDOS.find(x => x.id === e.fundo && pode(x)) || {}).id || 'nenhum', conq: conqs.filter(a => liberado(a, prog)).length, conqT: conqs.length}; };
+  window.avPsiuDe = cfg => { cfg = cfg || {}; const svg = SLOTS.map(([sl]) => { const a = A.find(x => x.slot === sl && (cfg.acc || []).includes(x.id)); return a ? a.svg : ''; }).join(''); return mini(svg, cfg.cor, cfg.fundo); };
   let aba = 'acessorios';
   function vitrine(){
     const prog = progresso(), v = vestidos(), e = estilo();
@@ -23965,6 +24060,161 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   // a página pode ter aberto antes deste script carregar
   // primeira tela: quem já tem acesso liberado neste aparelho abre no Hoje assim que o site carrega
   setTimeout(() => { const v = document.getElementById('viewHoje'); if(v && v.style.display !== 'none') renderHoje(); if(/^#disc-/.test(location.hash) && !document.getElementById('dpDiscursiva') && typeof routeFromHash === 'function') routeFromHash(); }, 0);
+})();
+</script>
+<script>
+// ===== Mural da turma: publicações, comentários, curtidas e perfis (só contas liberadas; tudo com nome) =====
+(function(){
+  const LIM_POST = 600, LIM_COM = 300;
+  let C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}}, estado = 'nada', abertos = new Set(), menuAberto = null, erro = '';
+  const B = () => window.avBanco, EU = () => window.avEu && window.avEu();
+  const esc = t => escHTML(t == null ? '' : t);
+  const texto = t => esc(t).replace(/\n{3,}/g, '\n\n').replace(/\n/g, '<br>');
+  const novoId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  const quando = ts => { const d = (Date.now() - ts) / 1000; if(d < 60) return 'agora'; if(d < 3600) return 'há ' + Math.floor(d / 60) + ' min'; if(d < 86400) return 'há ' + Math.floor(d / 3600) + ' h'; if(d < 172800) return 'ontem'; return new Date(ts).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}); };
+  const perfil = (uid, fallback) => C.perfis[uid] || {nome: fallback || 'Colega'};
+  const iniciais = n => (n || '?').trim().split(/\s+/).slice(0, 2).map(x => x[0]).join('').toUpperCase();
+  const avatar = (uid, nome, cls) => { const p = perfil(uid, nome); return p.foto ? `<img class="mu-av ${cls || ''}" src="${esc(p.foto)}" alt="">` : `<span class="mu-av mu-av-ini ${cls || ''}">${esc(iniciais(p.nome || nome))}</span>`; };
+  const ICO = {
+    curtir:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/>',
+    com:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/>',
+    mais:'<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
+    atual:'<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
+    bandeira:'<path d="M4 21V4M4 4h12l-2 4 2 4H4"/>'
+  };
+  const ic = (k, f) => `<svg viewBox="0 0 24 24" fill="${f ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[k]}</svg>`;
+  // foto do perfil: miniatura leve para não pesar o banco
+  function miniFoto(f){
+    return new Promise(ok => {
+      if(!f) return ok(''); if(/^https?:/.test(f)) return ok(f.slice(0, 500));
+      const img = new Image(); img.onload = () => { const cv = document.createElement('canvas'); cv.width = cv.height = 96; cv.getContext('2d').drawImage(img, 0, 0, 96, 96); ok(cv.toDataURL('image/jpeg', 0.72)); }; img.onerror = () => ok(''); img.src = f;
+    });
+  }
+  async function salvarPerfil(){
+    const eu = EU(); if(!eu || !eu.liberado) return;
+    const p = {nome: eu.nome.slice(0, 60), sem: typeof avSemestre === 'function' ? avSemestre() : '2', ap: !!window.avApoiador, em: Date.now()};
+    const f = await miniFoto(eu.foto); if(f) p.foto = f;
+    if(window.avPsiuPerfil){ const ps = window.avPsiuPerfil(); p.psiu = {acc: ps.acc, cor: ps.cor, fundo: ps.fundo}; p.conq = ps.conq; p.conqT = ps.conqT; }
+    const ant = JSON.stringify(Object.assign({}, C.perfis[eu.uid] || {}, {em: 0})), nov = JSON.stringify(Object.assign({}, p, {em: 0}));
+    C.perfis[eu.uid] = p;
+    if(ant !== nov){ try{ await B().gravar('perfis/' + eu.uid, p); }catch(e){} }
+  }
+  async function carregar(){
+    const eu = EU(); if(!eu || !B()) return;
+    estado = estado === 'pronto' ? 'atualizando' : 'carregando'; erro = ''; render();
+    try{
+      const [posts, curt, com, perfis, bloq] = await Promise.all(['mural/posts', 'mural/curtidas', 'mural/comentarios', 'perfis', 'mural/bloqueados'].map(p => B().ler(p)));
+      C = {posts: posts || {}, curt: curt || {}, com: com || {}, perfis: perfis || {}, bloq: bloq || {}, den: {}};
+      if(eu.admin){ try{ C.den = await B().ler('mural/denuncias') || {}; }catch(e){} }
+      estado = 'pronto'; salvarPerfil();
+    }catch(e){ estado = 'pronto'; erro = 'Não deu para carregar o mural agora. Confira a internet e toque em Atualizar.'; }
+    render();
+  }
+  // ---------- desenho ----------
+  function postHTML(id, p, eu){
+    const pf = perfil(p.uid, p.nome), curtidas = Object.keys(C.curt[id] || {}), curti = curtidas.includes(eu.uid);
+    const coms = Object.entries(C.com[id] || {}).sort((a, b) => a[1].em - b[1].em), aberto = abertos.has(id), meu = p.uid === eu.uid;
+    const menu = menuAberto === id ? `<div class="mu-menu" role="menu">
+        ${!meu ? `<button data-mu-denunciar="${id}">${ic('bandeira')} Denunciar</button>` : ''}
+        ${meu || eu.admin ? `<button data-mu-apagar="${id}" class="mu-perigo">Apagar publicação</button>` : ''}
+        ${eu.admin && !meu ? `<button data-mu-bloquear="${esc(p.uid)}" class="mu-perigo">Bloquear quem publicou</button>` : ''}
+      </div>` : '';
+    return `<article class="mu-post" id="mu-${id}">
+      <header class="mu-cab"><button class="mu-quem" data-mu-perfil="${esc(p.uid)}">${avatar(p.uid, p.nome)}<span><b>${esc(pf.nome || p.nome)}${pf.ap ? ' <span class="ap-selo">★</span>' : ''}</b><small>${pf.sem ? pf.sem + 'º semestre · ' : ''}${quando(p.em)}</small></span></button>
+        <div class="mu-mais-box"><button class="mu-mais" data-mu-menu="${id}" aria-label="Mais opções" aria-expanded="${menuAberto === id}">${ic('mais', 1)}</button>${menu}</div></header>
+      <p class="mu-texto">${texto(p.texto)}</p>
+      <footer class="mu-acoes">
+        <button class="mu-acao${curti ? ' on' : ''}" data-mu-curtir="${id}" aria-pressed="${curti}">${ic('curtir', curti)}<span>${curtidas.length || 'Curtir'}</span></button>
+        <button class="mu-acao" data-mu-abrir="${id}" aria-expanded="${aberto}">${ic('com')}<span>${coms.length ? coms.length + (coms.length === 1 ? ' comentário' : ' comentários') : 'Comentar'}</span></button>
+      </footer>
+      ${aberto ? `<div class="mu-coms">
+        ${coms.map(([cid, c]) => { const cp = perfil(c.uid, c.nome); return `<div class="mu-com">${avatar(c.uid, c.nome, 'mu-av-p')}<div class="mu-com-bolha"><button class="mu-com-nome" data-mu-perfil="${esc(c.uid)}">${esc(cp.nome || c.nome)}</button><p>${texto(c.texto)}</p><small>${quando(c.em)}${c.uid !== eu.uid ? ` · <button class="mu-link" data-mu-denunciar="${id}~${cid}">Denunciar</button>` : ''}${c.uid === eu.uid || eu.admin ? ` · <button class="mu-link" data-mu-apagar-com="${id}~${cid}">Apagar</button>` : ''}</small></div></div>`; }).join('')}
+        ${C.bloq[eu.uid] ? '' : `<form class="mu-com-form" data-mu-comentar="${id}">${avatar(eu.uid, eu.nome, 'mu-av-p')}<input name="t" maxlength="${LIM_COM}" placeholder="Escreva um comentário…" autocomplete="off" aria-label="Comentário"><button type="submit" aria-label="Enviar">Enviar</button></form>`}
+      </div>` : ''}
+    </article>`;
+  }
+  function denunciasHTML(){
+    const alvos = Object.entries(C.den || {}); if(!alvos.length) return '';
+    return `<section class="mu-den"><h3>Denúncias para analisar <span class="ma-badge ma-badge-red">${alvos.length}</span></h3>${alvos.map(([alvo, quem]) => {
+      const [pid, cid] = alvo.split('~'), item = cid ? (C.com[pid] || {})[cid] : C.posts[pid], n = Object.keys(quem || {}).length;
+      if(!item) return `<div class="mu-den-item"><p class="mu-den-txt">Conteúdo já apagado.</p><div class="mu-den-bts"><button data-mu-den-ok="${alvo}">Limpar</button></div></div>`;
+      return `<div class="mu-den-item"><small>${cid ? 'Comentário' : 'Publicação'} de <b>${esc(perfil(item.uid, item.nome).nome || item.nome)}</b> · ${n} ${n === 1 ? 'denúncia' : 'denúncias'}</small><p class="mu-den-txt">${texto(item.texto)}</p>
+        <div class="mu-den-bts"><button class="mu-perigo" data-mu-den-apagar="${alvo}">Apagar</button><button data-mu-den-ok="${alvo}">Manter</button><button class="mu-perigo" data-mu-bloquear="${esc(item.uid)}">Bloquear autor</button></div></div>`; }).join('')}</section>`;
+  }
+  function render(){
+    const el = document.getElementById('muralPage'); if(!el) return;
+    const eu = EU();
+    if(!eu || !eu.liberado){ el.innerHTML = `<header class="mu-topo"><div class="eyebrow">Turma</div><h1>Mural da turma</h1></header><section class="hj-card"><p class="hj-vazio">O mural é só para contas liberadas. Entre na sua conta para participar.</p></section>`; return; }
+    if(estado === 'nada'){ carregar(); return; }
+    let combinado = false; try{ combinado = !!localStorage.getItem('av-mural-ok'); }catch(e){}
+    const lista = Object.entries(C.posts).filter(([, p]) => p && p.texto).sort((a, b) => b[1].em - a[1].em).slice(0, 80);
+    const bloqueado = !!C.bloq[eu.uid];
+    el.innerHTML = `<header class="mu-topo"><div class="mu-topo-l"><div class="eyebrow">Turma</div><h1>Mural da turma</h1><p>Um espaço para a turma conversar, tirar dúvidas, elogiar e sugerir. Tudo é publicado com o seu nome.</p></div>
+        <button class="icon-btn mu-atualizar" data-mu-atualizar aria-label="Atualizar"${estado !== 'pronto' ? ' disabled' : ''}>${ic('atual')}</button></header>
+      ${eu.admin ? denunciasHTML() : ''}
+      ${!combinado ? `<section class="mu-regras"><b>Combinados do mural</b><ul><li>Tudo aparece com o seu nome e a sua foto.</li><li>Respeito com colegas, professores e a faculdade. Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas, como telefone, endereço ou prints de conversas.</li><li>Qualquer pessoa pode denunciar. Quem desrespeitar os combinados pode ser bloqueado.</li></ul><button class="btn btn-primary" data-mu-combinado>Combinado</button></section>`
+        : bloqueado ? '<section class="hj-card"><p class="hj-vazio">A sua conta está sem permissão para publicar no mural. Se achar que é um engano, fale com o representante da turma.</p></section>'
+        : `<form class="mu-novo" data-mu-publicar>${avatar(eu.uid, eu.nome)}<div class="mu-novo-c"><textarea name="t" maxlength="${LIM_POST}" rows="3" placeholder="Compartilhe algo com a turma…" aria-label="Nova publicação"></textarea><div class="mu-novo-r"><small data-mu-cont>0/${LIM_POST}</small><button class="btn btn-primary" type="submit">Publicar</button></div></div></form>`}
+      ${erro ? `<p class="mu-erro">${esc(erro)}</p>` : ''}
+      ${estado === 'carregando' ? '<p class="hj-vazio mu-carregando">Carregando o mural…</p>' : lista.length ? `<div class="mu-feed">${lista.map(([id, p]) => postHTML(id, p, eu)).join('')}</div>` : '<section class="hj-card mu-vazio"><b>O mural ainda está vazio</b><p>Que tal começar? Conte como está a preparação para as provas ou deixe uma dica para a turma.</p></section>'}`;
+  }
+  function perfilAbrir(uid){
+    const p = C.perfis[uid] || {}, f = document.getElementById('muPerfilFundo'), c = document.getElementById('muPerfilCorpo'); if(!f) return;
+    const posts = Object.entries(C.posts).filter(([, x]) => x.uid === uid).sort((a, b) => b[1].em - a[1].em);
+    const curt = posts.reduce((n, [id]) => n + Object.keys(C.curt[id] || {}).length, 0);
+    c.innerHTML = `<div class="mu-pf-topo"><div class="mu-pf-psiu">${window.avPsiuDe ? window.avPsiuDe(p.psiu) : ''}</div>${avatar(uid, p.nome, 'mu-av-g')}</div>
+      <h2 class="mu-pf-nome">${esc(p.nome || 'Colega')}</h2>
+      <p class="mu-pf-sub">${p.sem ? p.sem + 'º semestre de Psicologia' : 'Psicologia'}${p.ap ? ' · <span class="ap-selo">★ Apoiador</span>' : ''}</p>
+      <div class="mu-pf-nums"><div><b>${posts.length}</b><span>${posts.length === 1 ? 'publicação' : 'publicações'}</span></div><div><b>${curt}</b><span>curtidas recebidas</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
+      ${posts.length ? `<div class="ma-grupo-t">Últimas publicações</div>${posts.slice(0, 3).map(([id, x]) => `<button class="mu-pf-post" data-mu-ir="${id}"><p>${texto(x.texto.length > 160 ? x.texto.slice(0, 157) + '…' : x.texto)}</p><small>${quando(x.em)}</small></button>`).join('')}` : '<p class="hj-vazio">Ainda não publicou no mural.</p>'}`;
+    f.hidden = false;
+  }
+  // ---------- ações ----------
+  async function acao(fn){ try{ await fn(); }catch(e){ erro = 'Não deu para concluir agora. Tente de novo em instantes.'; render(); } }
+  document.addEventListener('submit', e => {
+    const fp = e.target.closest('[data-mu-publicar]'), fc = e.target.closest('[data-mu-comentar]');
+    if(!fp && !fc) return; e.preventDefault();
+    const eu = EU(); if(!eu) return;
+    if(fp){ const t = fp.t.value.trim(); if(!t) return; const id = novoId(), p = {uid: eu.uid, nome: eu.nome.slice(0, 60), texto: t.slice(0, LIM_POST), em: Date.now()};
+      C.posts[id] = p; render(); acao(async () => { await salvarPerfil(); await B().gravar('mural/posts/' + id, p); }); }
+    if(fc){ const pid = fc.dataset.muComentar, t = fc.t.value.trim(); if(!t) return; const cid = novoId(), c = {uid: eu.uid, nome: eu.nome.slice(0, 60), texto: t.slice(0, LIM_COM), em: Date.now()};
+      (C.com[pid] = C.com[pid] || {})[cid] = c; render(); document.querySelector(`[data-mu-comentar="${pid}"] input`)?.focus(); acao(() => B().gravar(`mural/comentarios/${pid}/${cid}`, c)); }
+  });
+  document.addEventListener('input', e => { if(e.target.closest('[data-mu-publicar]')){ const k = document.querySelector('[data-mu-cont]'); if(k) k.textContent = e.target.value.length + '/' + LIM_POST; } });
+  document.addEventListener('click', e => {
+    const q = s => e.target.closest(s), eu = EU();
+    if(q('[data-mu-fechar]') || e.target.id === 'muPerfilFundo'){ document.getElementById('muPerfilFundo').hidden = true; return; }
+    if(!q('#viewMural') && !q('#muPerfilFundo')) return;
+    if(!eu) return;
+    let b;
+    if(menuAberto && !q('.mu-mais-box')){ menuAberto = null; render(); }
+    if(q('[data-mu-combinado]')){ try{ localStorage.setItem('av-mural-ok', '1'); }catch(_){} render(); return; }
+    if(q('[data-mu-atualizar]')){ carregar(); return; }
+    if((b = q('[data-mu-menu]'))){ menuAberto = menuAberto === b.dataset.muMenu ? null : b.dataset.muMenu; render(); return; }
+    if((b = q('[data-mu-perfil]'))){ perfilAbrir(b.dataset.muPerfil); return; }
+    if((b = q('[data-mu-ir]'))){ document.getElementById('muPerfilFundo').hidden = true; const id = b.dataset.muIr; abertos.add(id); render(); document.getElementById('mu-' + id)?.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+    if((b = q('[data-mu-abrir]'))){ const id = b.dataset.muAbrir; abertos.has(id) ? abertos.delete(id) : abertos.add(id); render(); if(abertos.has(id)) document.querySelector(`[data-mu-comentar="${id}"] input`)?.focus(); return; }
+    if((b = q('[data-mu-curtir]'))){ if(C.bloq[eu.uid]) return; const id = b.dataset.muCurtir, m = C.curt[id] = C.curt[id] || {};
+      if(m[eu.uid]){ delete m[eu.uid]; render(); acao(() => B().apagar(`mural/curtidas/${id}/${eu.uid}`)); } else { m[eu.uid] = true; render(); acao(() => B().gravar(`mural/curtidas/${id}/${eu.uid}`, true)); } return; }
+    if((b = q('[data-mu-denunciar]'))){ const alvo = b.dataset.muDenunciar; menuAberto = null;
+      if(!confirm('Denunciar este conteúdo para a moderação? Quem publicou não fica sabendo quem denunciou.')){ render(); return; }
+      acao(async () => { await B().gravar(`mural/denuncias/${alvo}/${eu.uid}`, {em: Date.now()}); erro = ''; render(); alert('Denúncia enviada. Obrigado por ajudar a manter o mural um bom lugar.'); }); return; }
+    if((b = q('[data-mu-apagar]'))){ const id = b.dataset.muApagar; menuAberto = null; if(!confirm('Apagar esta publicação? Não dá para desfazer.')){ render(); return; }
+      delete C.posts[id]; render(); acao(async () => { await B().apagar('mural/posts/' + id); if(eu.admin){ try{ await B().apagar('mural/comentarios/' + id); await B().apagar('mural/curtidas/' + id); await B().apagar('mural/denuncias/' + id); }catch(_){} } }); return; }
+    if((b = q('[data-mu-apagar-com]'))){ const [pid, cid] = b.dataset.muApagarCom.split('~'); if(!confirm('Apagar este comentário?')) return;
+      if(C.com[pid]) delete C.com[pid][cid]; render(); acao(async () => { await B().apagar(`mural/comentarios/${pid}/${cid}`); if(eu.admin){ try{ await B().apagar(`mural/denuncias/${pid}~${cid}`); }catch(_){} } }); return; }
+    if((b = q('[data-mu-bloquear]'))){ const uid = b.dataset.muBloquear; menuAberto = null; if(!confirm('Bloquear esta pessoa no mural? Ela continua usando o site, mas não publica, não comenta e não curte.')){ render(); return; }
+      C.bloq[uid] = true; render(); acao(() => B().gravar('mural/bloqueados/' + uid, true)); return; }
+    if((b = q('[data-mu-den-apagar]'))){ const alvo = b.dataset.muDenApagar, [pid, cid] = alvo.split('~'); if(!confirm('Apagar este conteúdo?')) return;
+      if(cid){ if(C.com[pid]) delete C.com[pid][cid]; } else delete C.posts[pid]; delete C.den[alvo]; render();
+      acao(async () => { await B().apagar(cid ? `mural/comentarios/${pid}/${cid}` : 'mural/posts/' + pid); await B().apagar('mural/denuncias/' + alvo); }); return; }
+    if((b = q('[data-mu-den-ok]'))){ const alvo = b.dataset.muDenOk; delete C.den[alvo]; render(); acao(() => B().apagar('mural/denuncias/' + alvo)); return; }
+  });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape'){ const f = document.getElementById('muPerfilFundo'); if(f && !f.hidden) f.hidden = true; } });
+  // abre e recarrega o mural sempre que a página é aberta
+  const _sp = window.switchPage;
+  if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewMural'){ estado = estado === 'pronto' ? 'pronto' : 'nada'; render(); if(estado === 'pronto') carregar(); } return r; }; }
+  setTimeout(() => { const v = document.getElementById('viewMural'); if(v && v.style.display !== 'none') render(); }, 1500);
 })();
 </script>
 </body>
