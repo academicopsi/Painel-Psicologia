@@ -2823,9 +2823,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-conta b{font-size:14.5px;}
   .ma-conta small{font-size:12.5px; color:var(--ink-soft);}
   /* ===== Minha área: redesenho (nov/2026) ===== */
-  #hojePage .ma-ola{gap:14px; margin:4px 0 16px;}
-  #hojePage .ma-psiu{width:52px; height:52px; border-radius:14px; background:var(--paper); border:1px solid var(--rule); padding:4px; box-sizing:border-box;}
-  #hojePage .ma-ola h1{font-size:30px !important; line-height:1.15;}
+  :is(#hojePage, #muralPage) .ma-ola{gap:14px; margin:4px 0 16px;}
+  :is(#hojePage, #muralPage) .ma-psiu{width:52px; height:52px; border-radius:14px; background:var(--paper); border:1px solid var(--rule); padding:4px; box-sizing:border-box;}
+  :is(#hojePage, #muralPage) .ma-ola h1{font-size:30px !important; line-height:1.15;}
   #hojePage .ma-selo{display:inline-flex; align-items:center; gap:4px; margin-top:6px; padding:2px 9px; border-radius:999px; background:var(--ochre-soft); font-size:12px;}
   .ma-status{display:flex; align-items:stretch; gap:10px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:12px 14px; box-shadow:0 1px 2px var(--shadow);}
   .ma-prova{flex:1; min-width:0; display:flex; align-items:center; gap:11px;}
@@ -2839,13 +2839,13 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-seg{display:inline-flex; background:var(--paper-alt); border-radius:8px; padding:3px;}
   .ma-seg button{font:inherit; font-size:13px; font-weight:600; min-width:38px; padding:5px 9px; border:0; border-radius:6px; background:none; color:var(--ink-soft); cursor:pointer;}
   .ma-seg button[aria-pressed="true"]{background:var(--paper); color:var(--petrol); box-shadow:0 1px 3px var(--shadow-lg);}
-  #hojePage .ma-abas{display:flex; gap:6px; justify-content:space-between; background:none; border:0; border-bottom:1px solid var(--rule); border-radius:0; padding:0; margin:22px 0 4px; overflow-x:auto; scrollbar-width:none;}
-  #hojePage .ma-abas::-webkit-scrollbar{display:none;}
-  #hojePage .ma-abas button{flex:0 1 auto; position:relative; font-size:14px; font-weight:600; color:var(--ink-faint); background:none; border-radius:0; padding:10px 0 12px;}
-  #hojePage .ma-abas button[aria-selected="true"]{background:none; color:var(--ink);}
-  #hojePage .ma-abas button[aria-selected="true"]::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2.5px; border-radius:2px; background:var(--petrol);}
+  :is(#hojePage, #muralPage) .ma-abas{display:flex; gap:6px; justify-content:space-between; background:none; border:0; border-bottom:1px solid var(--rule); border-radius:0; padding:0; margin:22px 0 4px; overflow-x:auto; scrollbar-width:none;}
+  :is(#hojePage, #muralPage) .ma-abas::-webkit-scrollbar{display:none;}
+  :is(#hojePage, #muralPage) .ma-abas button{flex:0 1 auto; position:relative; font-size:14px; font-weight:600; color:var(--ink-faint); background:none; border-radius:0; padding:10px 0 12px;}
+  :is(#hojePage, #muralPage) .ma-abas button[aria-selected="true"]{background:none; color:var(--ink);}
+  :is(#hojePage, #muralPage) .ma-abas button[aria-selected="true"]::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2.5px; border-radius:2px; background:var(--petrol);}
   .ma-grupo-t{font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin:22px 4px 8px;}
-  #hojePage .hj-card{border-radius:14px; padding:16px 18px; box-shadow:0 1px 2px var(--shadow);}
+  :is(#hojePage, #muralPage) .hj-card{border-radius:14px; padding:16px 18px; box-shadow:0 1px 2px var(--shadow);}
   .ma-corpo > .ma-grupo-t + .hj-card{margin-top:0;}
   .ma-corpo > .hj-card:first-child{margin-top:18px;}
   .ma-lista{padding:4px 0 !important; overflow:hidden;}
@@ -2999,7 +2999,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ap-comp small{display:block; margin-top:6px; color:var(--ink-soft); font-size:12px;}
   @media (max-width:420px){ .ap-comp{grid-template-columns:1fr;} }
   /* ===== mural da turma (comunidade) ===== */
-  .mu-page{max-width:1040px; margin:0 auto;}
   .mu-av{flex:none; width:42px; height:42px; border-radius:50%; object-fit:cover; display:inline-flex; align-items:center; justify-content:center; background:#1F5C56; color:#fff; font-size:15px; font-weight:700; letter-spacing:.02em;}
   .mu-av-pp{width:22px; height:22px; font-size:9px;}
   .mu-av-p{width:32px; height:32px; font-size:12px;}
@@ -3011,36 +3010,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-pilha .mu-av:last-child{margin-left:0;}
   .mu-pilha-p .mu-av{margin-left:-6px;}
   /* capa da comunidade */
-  .mu-capa{position:relative; background:var(--paper); border:1px solid var(--rule); border-radius:20px; overflow:hidden; margin:6px 0 18px; box-shadow:0 1px 2px var(--shadow), 0 12px 30px rgba(14,46,44,.08);}
-  .mu-capa-banner{position:relative; height:118px; background:radial-gradient(90% 160% at 100% 0%, rgba(201,154,62,.38) 0%, rgba(201,154,62,0) 55%), radial-gradient(60% 120% at 0% 100%, rgba(92,194,181,.25) 0%, rgba(92,194,181,0) 60%), linear-gradient(150deg, #1F5C56 0%, #123B37 100%);}
-  .mu-capa-banner::after{content:''; position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,.12) 1px, transparent 1.2px); background-size:16px 16px; opacity:.6;}
-  .mu-capa-atual{position:absolute; z-index:1; right:14px; top:14px; width:38px; height:38px; border-radius:12px; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.12); color:#fff; display:grid; place-items:center; cursor:pointer; backdrop-filter:blur(6px);}
-  .mu-capa-atual svg{width:18px; height:18px;}
-  .mu-capa-atual:disabled svg{animation:muGira 1s linear infinite;}
   @keyframes muGira{to{transform:rotate(360deg);}}
-  .mu-capa-c{display:flex; align-items:flex-start; gap:14px; padding:0 20px; margin-top:-34px; position:relative;}
-  .mu-capa-ic{flex:none; width:76px; height:76px; border-radius:20px; display:grid; place-items:center; color:#fff; background:linear-gradient(145deg, #C99A3E, #A8752B); box-shadow:0 0 0 4px var(--paper), 0 8px 18px rgba(0,0,0,.15);}
-  .mu-capa-ic svg{width:36px; height:36px;}
-  .mu-capa-t{padding-top:46px; min-width:0;}
-  .mu-capa-t h1{margin:0; font-size:clamp(24px, 5.5vw, 30px); line-height:1.1;}
-  .mu-capa-t p{margin:4px 0 0; font-size:13.5px; color:var(--ink-soft);}
-  .mu-capa-pe{display:flex; align-items:center; gap:10px; padding:14px 20px 0; font-size:13.5px; color:var(--ink-soft);}
-  .mu-capa-pe b{color:var(--ink);}
-  .mu-abas{display:flex; gap:4px; padding:10px 14px 0; margin-top:12px; border-top:1px solid var(--rule); overflow-x:auto; scrollbar-width:none;}
-  .mu-abas::-webkit-scrollbar{display:none;}
-  .mu-abas button{flex:none; white-space:nowrap;}
-  .mu-abas button{font:inherit; font-size:14.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-bottom:3px solid transparent; padding:8px 12px 11px; cursor:pointer;}
-  .mu-abas button[aria-selected=true]{color:var(--ink); border-bottom-color:#B7791F;}
   /* grade */
-  .mu-grid{display:grid; grid-template-columns:minmax(0, 1fr) 300px; gap:20px; align-items:start;}
-  .mu-grid-foco{grid-template-columns:minmax(0, 680px); justify-content:center;}
   .mu-main{min-width:0;}
-  .mu-lado{position:sticky; top:84px; display:flex; flex-direction:column; gap:14px;}
-  .mu-so-cel{display:none;}
-  .mu-box{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:16px;}
-  .mu-box h3{margin:0 0 10px; font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); font-family:inherit;}
-  .mu-box p{margin:0 0 10px; font-size:14px; line-height:1.55; color:var(--ink-soft);}
-  .mu-box p:last-child{margin:0;}
   .mu-regras-l{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:7px;}
   .mu-regras-l li{position:relative; padding-left:20px; font-size:13.5px; line-height:1.45;}
   .mu-regras-l li::before{content:''; position:absolute; left:3px; top:6px; width:8px; height:8px; border-radius:2px; background:#B7791F; transform:rotate(45deg);}
@@ -3059,69 +3031,21 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-ativos em{color:#C4492F;}
   .mu-ativos em svg{width:16px; height:16px;}
   /* abrir tópico */
-  .mu-abrir{display:flex; align-items:center; gap:12px; width:100%; font:inherit; text-align:left; background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:12px 14px; margin-bottom:14px; cursor:pointer; box-shadow:0 1px 2px var(--shadow);}
-  .mu-abrir-t{flex:1; min-width:0; font-size:15px; color:var(--ink-faint); background:var(--paper-alt); border-radius:999px; padding:11px 16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .mu-abrir:hover .mu-abrir-t{color:var(--ink-soft);}
-  .mu-abrir i{flex:none; width:42px; height:42px; border-radius:50%; display:grid; place-items:center; color:#fff; background:#1F5C56;}
-  .mu-abrir i svg{width:19px; height:19px;}
-  .mu-filtros{display:flex; flex-direction:column; gap:10px; margin-bottom:14px;}
-  .mu-ordem{display:inline-flex; align-self:flex-start; padding:3px; border-radius:12px; background:var(--paper-alt); border:1px solid var(--rule);}
-  .mu-ordem button{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-radius:9px; padding:7px 13px; cursor:pointer;}
-  .mu-ordem button svg{width:15px; height:15px;}
-  .mu-ordem button[aria-selected=true]{background:var(--paper); color:var(--ink); box-shadow:0 1px 3px var(--shadow);}
-  .mu-chips{display:flex; gap:7px; overflow-x:auto; scrollbar-width:none; margin:0 -2px; padding:0 2px;}
-  .mu-chips::-webkit-scrollbar{display:none;}
-  .mu-chip{flex:none; display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; font-weight:600; color:var(--ink-soft); background:var(--paper); border:1px solid var(--rule); border-radius:999px; padding:6px 12px; cursor:pointer;}
-  .mu-chip i{width:8px; height:8px; border-radius:50%; background:var(--c);}
-  .mu-chip.on{background:var(--ink); border-color:var(--ink); color:var(--paper);}
   /* cards do feed */
   .mu-feed{display:flex; flex-direction:column; gap:12px;}
-  .mu-card{position:relative; background:var(--paper); border:1px solid var(--rule); border-radius:18px; padding:16px 18px 10px; cursor:pointer; box-shadow:0 1px 2px var(--shadow); transition:border-color .15s, box-shadow .15s, transform .15s;}
-  .mu-card:hover{border-color:color-mix(in srgb, var(--ink) 22%, var(--rule)); box-shadow:0 8px 24px var(--shadow);}
-  .mu-card:focus-visible{outline:2px solid #1F5C56; outline-offset:2px;}
-  .mu-card.fixo{border-color:rgba(183,121,31,.5); background:linear-gradient(180deg, rgba(183,121,31,.06), transparent 60%), var(--paper);}
-  .mu-fixo{display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; color:#B7791F; margin:-2px 0 10px;}
-  .mu-fixo svg{width:13px; height:13px;}
-  .mu-autor-l{display:flex; align-items:center; gap:11px; min-width:0;}
-  .mu-autor-l > div{flex:1; min-width:0; line-height:1.25;}
-  .mu-autor-l small{display:block; font-size:12.5px; color:var(--ink-faint); margin-top:2px;}
   .mu-nome{font:inherit; font-size:14.5px; font-weight:700; color:var(--ink); background:none; border:0; padding:0; cursor:pointer;}
   .mu-nome:hover{text-decoration:underline;}
   .mu-tag{flex:none; display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:700; color:var(--c); background:color-mix(in srgb, var(--c) 11%, transparent); border-radius:999px; padding:3px 10px; white-space:nowrap;}
   body.dark .mu-tag{color:color-mix(in srgb, var(--c) 50%, #fff); background:color-mix(in srgb, var(--c) 22%, transparent);}
   .mu-tag::before{content:''; width:6px; height:6px; border-radius:50%; background:currentColor;}
-  .mu-card-tag{margin-top:12px;}
-  .mu-card-t{margin:8px 0 4px; font-family:inherit; font-size:17.5px; font-weight:700; line-height:1.3; overflow-wrap:anywhere;}
-  .mu-novo-b{display:inline-block; vertical-align:2px; font-size:10.5px; font-weight:700; letter-spacing:.03em; color:#fff; background:#C4492F; border-radius:999px; padding:2px 7px;}
-  .mu-card-x{margin:0; font-size:14.5px; line-height:1.55; color:var(--ink-soft); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere;}
-  .mu-card-pe{display:flex; align-items:center; gap:2px; margin:10px -8px 0; padding-top:6px; border-top:1px solid var(--rule);}
-  .mu-acao{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-radius:10px; padding:8px 10px; cursor:pointer;}
   button.mu-acao:hover{background:var(--paper-alt);}
-  .mu-acao svg{width:18px; height:18px;}
-  .mu-acao.on{color:#C0395A;}
-  .mu-card-quem{margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--ink-faint); padding-right:8px; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .mu-esqueleto{display:flex; flex-direction:column; gap:12px;}
-  .mu-esqueleto i{display:block; height:150px; border-radius:18px; background:linear-gradient(90deg, var(--paper) 0%, var(--paper-alt) 50%, var(--paper) 100%); background-size:200% 100%; animation:muBrilho 1.2s ease-in-out infinite; border:1px solid var(--rule);}
   @keyframes muBrilho{to{background-position:-200% 0;}}
-  .mu-vazio{display:flex; flex-direction:column; align-items:center; text-align:center; background:var(--paper); border:1px solid var(--rule); border-radius:18px; padding:30px 20px;}
-  .mu-vazio > svg{width:40px; height:40px; color:#B7791F; margin-bottom:8px;}
-  .mu-vazio b{font-size:17px; margin-bottom:4px;}
-  .mu-vazio p{margin:0 0 14px; max-width:40ch; color:var(--ink-soft); font-size:14px; line-height:1.5;}
-  .mu-vazio p:last-child{margin:0;}
   /* tópico aberto */
-  .mu-voltar{display:inline-flex; align-items:center; gap:4px; font:inherit; font-size:14px; font-weight:600; color:var(--ink-soft); background:var(--paper); border:1px solid var(--rule); border-radius:999px; padding:7px 14px 7px 9px; margin:6px 0 14px; cursor:pointer;}
-  .mu-voltar svg{width:17px; height:17px;}
-  .mu-post{background:var(--paper); border:1px solid var(--rule); border-radius:20px; padding:18px 20px 8px; box-shadow:0 1px 2px var(--shadow), 0 12px 30px rgba(14,46,44,.07);}
-  .mu-post .mu-autor-l{margin-bottom:14px;}
-  .mu-post-t{margin:10px 0 8px; font-size:clamp(22px, 5vw, 27px); line-height:1.22; overflow-wrap:anywhere;}
   .mu-post-x{font-size:16px; line-height:1.65; overflow-wrap:anywhere;}
   .mu-curt-l{display:flex; align-items:center; gap:6px; margin:14px 0 0; font-size:13px; color:var(--ink-soft);}
   .mu-curt-l svg{width:15px; height:15px; color:#C0395A;}
   .mu-post-pe{display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:12px -10px 0; padding-top:6px; border-top:1px solid var(--rule);}
-  .mu-acao-g{display:flex; align-items:center; justify-content:center; gap:8px; font:inherit; font-size:14.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-radius:12px; padding:10px; cursor:pointer;}
-  .mu-acao-g:hover{background:var(--paper-alt);}
-  .mu-acao-g svg{width:19px; height:19px;}
-  .mu-acao-g.on{color:#C0395A;}
   .mu-mencao{color:var(--petrol); font-weight:600;}
   .mu-thread{margin-top:18px; padding:0 2px;}
   .mu-thread-t{margin:0 0 12px; font-family:inherit; font-size:15px; font-weight:700;}
@@ -3153,7 +3077,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-re svg{width:100%; height:100%; display:block;}
   .mu-re-s{width:19px; height:19px;}
   .mu-reac-box{position:relative; display:inline-flex;}
-  .mu-acao.on, .mu-acao-g.on, .mu-r-btn.on{color:var(--rc, #C0395A);}
   .mu-r-btn{font:inherit; font-size:12.5px; font-weight:700; color:var(--ink-soft); background:none; border:0; padding:2px 0; cursor:pointer;}
   .mu-r-btn:hover{text-decoration:underline;}
   .mu-reac-pick{position:absolute; left:-6px; bottom:calc(100% + 8px); z-index:30; display:flex; gap:2px; padding:6px; background:var(--paper); border:1px solid var(--rule); border-radius:999px; box-shadow:0 14px 34px var(--shadow-lg, rgba(0,0,0,.2)); animation:muSobe .16s ease-out;}
@@ -3168,8 +3091,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-re-pilha{display:inline-flex;}
   .mu-re-pilha .mu-re{width:19px; height:19px; margin-left:-5px; box-shadow:0 0 0 2px var(--paper); border-radius:50%;}
   .mu-re-pilha .mu-re:first-child{margin-left:0;}
-  .mu-card-pe .mu-reac-res{margin-left:auto;}
-  .mu-card-pe .mu-reac-res ~ .mu-card-quem{margin-left:6px;}
   .mu-curt-l{display:flex; align-items:center; gap:2px; margin:12px -8px 0;}
   .mu-link-quem{font:inherit; font-size:13px; color:var(--ink-soft); background:none; border:0; padding:0; cursor:pointer; text-align:left;}
   .mu-link-quem:hover{text-decoration:underline;}
@@ -3187,7 +3108,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-sug button span small{font-size:12px; color:var(--ink-faint);}
   .mu-form, .mu-barra-resp{position:relative;}
   .mu-aba-n{display:inline-grid; place-items:center; min-width:18px; height:18px; padding:0 5px; margin-left:4px; border-radius:999px; background:#C4492F; color:#fff; font-size:11px; font-style:normal; font-weight:700; vertical-align:1px;}
-  .mu-notifs{background:var(--paper); border:1px solid var(--rule); border-radius:18px; overflow:hidden;}
+  .mu-notifs{background:var(--paper); border:1px solid var(--rule); border-radius:14px; overflow:hidden; box-shadow:0 1px 2px var(--shadow);}
   .mu-notif{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; font:inherit; color:var(--ink); background:none; border:0; border-top:1px solid var(--rule); padding:13px 16px; cursor:pointer;}
   .mu-notif:first-child{border-top:0;}
   .mu-notif:hover{background:var(--paper-alt);}
@@ -3202,7 +3123,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-notif-c{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; font-size:14px; line-height:1.4;}
   .mu-notif-c small{font-size:12px; color:var(--ink-faint);}
   .mu-notif-c .mu-notif-x{font-size:13.5px; color:var(--ink-soft); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
-  .mu-push{display:flex; gap:14px; margin-bottom:14px; border-color:rgba(183,121,31,.45); background:linear-gradient(135deg, rgba(183,121,31,.08), transparent 60%), var(--paper);}
+  .mu-push{display:flex; gap:14px; margin:0 0 14px !important; border-color:rgba(183,121,31,.45); background:linear-gradient(135deg, rgba(183,121,31,.08), transparent 60%), var(--paper);}
   .mu-push-ic{flex:none; width:44px; height:44px; border-radius:14px; display:grid; place-items:center; color:#fff; background:linear-gradient(145deg, #C99A3E, #A8752B);}
   .mu-push-ic svg{width:22px; height:22px;}
   .mu-push b{font-size:15.5px;}
@@ -3244,11 +3165,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-membro small{font-size:12.5px; color:var(--ink-faint);}
   .mu-membro span{margin-top:6px; font-size:12px; color:var(--ink-soft); background:var(--paper-alt); border-radius:999px; padding:3px 10px;}
   /* boas-vindas */
-  .mu-boasvindas{text-align:center; background:var(--paper); border:1px solid var(--rule); border-radius:20px; padding:26px 22px; max-width:560px; margin:0 auto;}
-  .mu-boasvindas .mu-capa-ic{margin:0 auto 12px; box-shadow:0 8px 18px rgba(0,0,0,.12);}
-  .mu-boasvindas h2{margin:0 0 6px; font-size:23px;}
-  .mu-boasvindas p{margin:0 0 10px; color:var(--ink-soft);}
-  .mu-boasvindas ul{text-align:left; margin:0 0 18px; padding-left:20px; font-size:14.5px; line-height:1.55;}
   /* menus, avisos, denúncias */
   .mu-mais-box{position:relative; flex:none;}
   .mu-mais{width:32px; height:32px; border-radius:50%; border:0; background:none; color:var(--ink-faint); cursor:pointer; display:flex; align-items:center; justify-content:center;}
@@ -3290,27 +3206,98 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-pf-post small{font-size:12px; color:var(--ink-faint);}
   .mu-perfil-caixa .ma-grupo-t{text-align:left;}
   @media (max-width:900px){
-    .mu-grid{grid-template-columns:minmax(0, 1fr);}
     .mu-main > .mu-den ~ *, .mu-main{min-width:0;}
-    .mu-grid > .mu-lado{display:none;}
-    .mu-lado-cel{position:static; display:flex;}
-    .mu-so-cel{display:inline-block;}
   }
   @media (max-width:560px){
-    .mu-capa{border-radius:18px;}
-    .mu-capa-banner{height:96px;}
-    .mu-capa-c{padding:0 16px; gap:12px; margin-top:-28px;}
-    .mu-capa-t{padding-top:38px;}
-    .mu-capa-ic{width:64px; height:64px; border-radius:17px;}
-    .mu-capa-ic svg{width:30px; height:30px;}
-    .mu-capa-pe{padding:12px 16px 0;}
-    .mu-capa-t p{font-size:12.5px;}
-    .mu-card{padding:14px 15px 8px; border-radius:16px;}
-    .mu-card-quem{display:none;}
-    .mu-post{padding:16px 16px 6px; border-radius:18px;}
     .mu-pf-nums{grid-template-columns:repeat(2, 1fr);}
     .mu-barra-resp{bottom:10px;}
   }
+  /* mural no padrão visual da Minha área */
+  .mu-page{max-width:720px; margin:0 auto;}
+  .mu-head{margin-bottom:6px;}
+  .mu-st{font:inherit; text-align:left; background:none; border:0; padding:0; color:inherit; cursor:pointer;}
+  div.mu-st{cursor:default;}
+  .mu-st .ma-cont small{text-transform:none;}
+  .mu-st-quem{font:inherit; background:none; border-top:0; border-right:0; border-bottom:0; cursor:pointer; color:inherit;}
+  .mu-st-quem .mu-pilha{margin-top:2px;}
+  .mu-st-quem .mu-av-p{width:28px; height:28px; font-size:10.5px;}
+  .mu-main{min-width:0; margin-top:16px;}
+  .mu-acoes{margin:0 0 4px;}
+  .mu-acoes .ma-acao{min-height:150px;}
+  .mu-sec{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:22px 4px 8px;}
+  .mu-sec .ma-grupo-t{margin:0;}
+  .mu-ordem{display:inline-flex; padding:3px; border-radius:999px; background:var(--paper); border:1px solid var(--rule);}
+  .mu-ordem button{font:inherit; font-size:12.5px; font-weight:600; color:var(--ink-faint); background:none; border:0; border-radius:999px; padding:5px 12px; cursor:pointer;}
+  .mu-ordem button[aria-selected=true]{background:var(--petrol); color:#fff;}
+  body.dark .mu-ordem button[aria-selected=true]{background:#2a6b63;}
+  .mu-chips{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:2px 2px 12px; margin:0 -2px;}
+  .mu-chips::-webkit-scrollbar{display:none;}
+  .mu-chip{flex:none; display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink); background:color-mix(in srgb, var(--c, var(--petrol)) 8%, var(--paper)); border:1px solid color-mix(in srgb, var(--c, var(--petrol)) 22%, var(--rule)); border-radius:999px; padding:7px 13px; cursor:pointer;}
+  .mu-chip i{width:9px; height:9px; border-radius:50%; background:var(--c);}
+  .mu-chip.on{background:var(--c, var(--petrol)); border-color:var(--c, var(--petrol)); color:#fff;}
+  .mu-chip.on i{background:#fff;}
+  /* cards */
+  .mu-feed{display:flex; flex-direction:column; gap:12px;}
+  .mu-card{position:relative; overflow:hidden; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:16px 18px 14px 21px; box-shadow:0 1px 2px var(--shadow); cursor:pointer; transition:box-shadow .15s, transform .15s;}
+  .mu-card::before{content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--c);}
+  .mu-card:hover{box-shadow:0 10px 26px var(--shadow); transform:translateY(-1px);}
+  .mu-card:focus-visible{outline:2px solid var(--petrol); outline-offset:2px;}
+  .mu-card.fixo{background:linear-gradient(160deg, var(--ochre-soft) 0%, var(--paper) 55%); border-color:rgba(183,121,31,.35);}
+  body.dark .mu-card.fixo{background:linear-gradient(160deg, rgba(183,121,31,.14) 0%, var(--paper) 55%);}
+  .mu-card-top{display:flex; align-items:center; flex-wrap:wrap; gap:7px;}
+  .mu-card-quando{margin-left:auto; font-size:12.5px; color:var(--ink-faint);}
+  .mu-tag{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:700; letter-spacing:.03em; color:var(--c); background:color-mix(in srgb, var(--c) 11%, transparent); border-radius:999px; padding:3px 10px; white-space:nowrap;}
+  body.dark .mu-tag{color:color-mix(in srgb, var(--c) 50%, #fff); background:color-mix(in srgb, var(--c) 22%, transparent);}
+  .mu-tag::before{content:''; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .mu-fixo{display:inline-flex; align-items:center; gap:4px; font-size:11.5px; font-weight:700; color:var(--ochre);}
+  .mu-fixo svg{width:12px; height:12px;}
+  .mu-novo-b{font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#fff; background:linear-gradient(160deg, #C98F45, #A8702F); border-radius:999px; padding:2px 8px;}
+  .mu-card-t{margin:10px 0 6px; font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600; line-height:1.25; letter-spacing:-.005em; overflow-wrap:anywhere;}
+  .mu-card-x{margin:0; font-size:14.5px; line-height:1.55; color:var(--ink-soft); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere;}
+  .mu-card-pe{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);}
+  .mu-card-autor{display:inline-flex; align-items:center; gap:8px; min-width:0; font-size:13.5px;}
+  .mu-card-autor b{font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .mu-card-autor .mu-av-pp{width:26px; height:26px; font-size:10px;}
+  .mu-card-num{flex:none; display:inline-flex; align-items:center; gap:4px;}
+  .mu-card-num .mu-reac-res{padding:4px 6px;}
+  .mu-stat{display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--ink-soft); padding:4px 2px 4px 6px;}
+  .mu-stat > svg{width:17px; height:17px;}
+  .mu-stat .mu-av-pp{width:22px; height:22px; font-size:8.5px;}
+  .mu-esqueleto{display:flex; flex-direction:column; gap:12px;}
+  .mu-esqueleto i{display:block; height:150px; border-radius:14px; border:1px solid var(--rule); background:linear-gradient(90deg, var(--paper) 0%, var(--paper-alt) 50%, var(--paper) 100%); background-size:200% 100%; animation:muBrilho 1.2s ease-in-out infinite;}
+  .mu-vazio{display:flex; flex-direction:column; align-items:center; text-align:center; padding:26px 20px !important;}
+  .mu-vazio .ma-psiu{width:64px; height:64px; margin-bottom:8px;}
+  .mu-vazio > svg{width:36px; height:36px; color:var(--ochre); margin-bottom:8px;}
+  .mu-vazio b{font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600; margin-bottom:4px;}
+  .mu-vazio p{margin:0; max-width:42ch; color:var(--ink-soft); font-size:14px; line-height:1.55;}
+  /* tópico aberto e novo tópico */
+  .mu-post{position:relative; overflow:visible; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:18px 20px 6px; box-shadow:0 1px 2px var(--shadow);}
+  .mu-post::before{content:''; position:absolute; left:18px; right:18px; top:-1px; height:3px; border-radius:0 0 3px 3px; background:var(--c);}
+  .mu-autor-l{display:flex; align-items:center; gap:11px; min-width:0;}
+  .mu-autor-l > div{flex:1; min-width:0; line-height:1.25;}
+  .mu-autor-l small{display:block; font-size:12.5px; color:var(--ink-faint); margin-top:2px;}
+  .mu-post .mu-autor-l{margin-bottom:14px;}
+  .mu-post-t{margin:10px 0 8px; font-family:var(--serif, Georgia, serif); font-size:clamp(24px, 5.6vw, 30px); font-weight:600; line-height:1.18; letter-spacing:-.01em; overflow-wrap:anywhere;}
+  .mu-acao{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-radius:10px; padding:8px 10px; cursor:pointer;}
+  .mu-acao svg{width:18px; height:18px;}
+  .mu-form .mu-autor-l{margin-bottom:2px;}
+  .mu-boasvindas{text-align:center; padding:26px 22px !important;}
+  .mu-boasvindas .ma-psiu{width:64px; height:64px; margin:0 auto 10px;}
+  .mu-boasvindas h2{font-family:var(--serif, Georgia, serif); margin:0 0 6px; font-size:23px;}
+  .mu-boasvindas p{margin:0 0 10px; color:var(--ink-soft);}
+  .mu-boasvindas ul{text-align:left; margin:0 0 18px; padding-left:20px; font-size:14.5px; line-height:1.55;}
+  .mu-acao-g{flex:1; display:flex; align-items:center; justify-content:center; gap:8px; width:100%; font:inherit; font-size:14.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-radius:12px; padding:10px; cursor:pointer;}
+  .mu-acao-g:hover{background:var(--paper-alt);}
+  .mu-acao-g svg{width:19px; height:19px;}
+  .mu-post-pe .mu-reac-box{display:flex;}
+  .mu-acao.on, .mu-acao-g.on{color:var(--rc, #C0395A);}
+  /* aba Sobre */
+  .mu-lado{display:flex; flex-direction:column; gap:0;}
+  .mu-box h3{margin:0 0 10px; font-family:var(--serif, Georgia, serif); font-size:19px; font-weight:600;}
+  .mu-box p{margin:0 0 10px; font-size:14px; line-height:1.55; color:var(--ink-soft);}
+  .mu-box p:last-child{margin:0;}
+  .mu-head .ma-abas button{display:inline-flex; align-items:center;}
+  .mu-head .ma-status{margin-top:0;}
   /* turma (painel do administrador) */
   .tm-hero{margin:18px 0 0; padding:18px; border-radius:14px; color:#fff; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 6px 16px var(--shadow); position:relative; overflow:hidden;}
   .tm-hero::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
@@ -3391,8 +3378,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pg-mais:hover{background:var(--paper-alt);}
   @media (max-width:380px){ .pg-modos{grid-template-columns:1fr;} }
   #hojePage .hj-card-top h2{font-size:21px;}
-  @media (min-width:601px){ #hojePage .ma-abas{justify-content:flex-start; gap:28px;} }
-  @media (max-width:420px){ #hojePage .ma-ola h1{font-size:26px !important;} .ma-sem-box{padding-left:10px;} }
+  @media (min-width:601px){ :is(#hojePage, #muralPage) .ma-abas{justify-content:flex-start; gap:28px;} }
+  @media (max-width:420px){ :is(#hojePage, #muralPage) .ma-ola h1{font-size:26px !important;} .ma-sem-box{padding-left:10px;} }
   .ma-pend{font-style:normal; font-size:11.5px; background:#A32D2D; color:#fff; border-radius:999px; padding:1px 7px; margin-left:4px;}
   .hj-topo > *{height:32px; box-sizing:border-box;}
   .hj-inicio{display:inline-flex; align-items:center; font:inherit; font-size:12.5px; font-weight:600; line-height:normal; letter-spacing:.02em; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:5px 12px; cursor:pointer;}
@@ -24463,51 +24450,55 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function notifHTML(eu){
     const L = notificacoes(eu), v = notifVisto;
     const pushAtivo = window.avPushAtivo && window.avPushAtivo();
-    const convite = !pushAtivo && window.avPushHTML ? `<section class="mu-box mu-push"><div class="mu-push-ic">${ic('sino')}</div><div><b>Saiba na hora no celular</b><p>Ative as notificações para receber quando responderem o seu tópico ou marcarem você. Só o que é com você, sem o barulho do grupo.</p>${window.avPushHTML().replace('<b>Notificações</b>', '')}</div></section>` : '';
+    const convite = !pushAtivo && window.avPushHTML ? `<section class="hj-card mu-push"><div class="mu-push-ic">${ic('sino')}</div><div><b>Saiba na hora no celular</b><p>Ative as notificações para receber quando responderem o seu tópico ou marcarem você. Só o que é com você, sem o barulho do grupo.</p>${window.avPushHTML().replace('<b>Notificações</b>', '')}</div></section>` : '';
     if(!L.length) return convite + `<section class="mu-vazio">${ic('sino')}<b>Nada por aqui ainda</b><p>Quando alguém responder, reagir ou marcar você no mural, aparece aqui.</p></section>`;
     return convite + `<div class="mu-notifs">${L.map(n => `<button class="mu-notif${n.em > v ? ' nova' : ''}" data-mu-ver="${n.pid}"${n.cid ? ` data-mu-alvo="${n.cid}"` : ''}>
       <span class="mu-notif-av">${avatar(n.uid, nomeDe(n.uid))}${n.ic === 'reacao' ? reIc(n.t, 'mu-re-canto') : `<span class="mu-notif-ic mu-notif-${n.ic}">${ic(n.ic === 'mencao' ? 'arroba' : 'com', 1)}</span>`}</span>
       <span class="mu-notif-c"><span><b>${esc(nomeDe(n.uid))}</b> ${esc(n.txt)} <b>“${esc(n.tit)}”</b></span>${n.x ? `<small class="mu-notif-x">${esc(n.x.length > 110 ? n.x.slice(0, 107) + '…' : n.x)}</small>` : ''}<small>${quando(n.em)}</small></span>
     </button>`).join('')}</div>`;
   }
-  function capaHTML(eu){
+  const psiuMini = () => window.avPsiuMini ? `<span class="ma-psiu">${window.avPsiuMini()}</span>` : '';
+  function topoHTML(eu, eyebrow, acao){
+    return `<div class="hj-topo"><div class="eyebrow">${eyebrow}</div>${acao || ''}</div>`;
+  }
+  function cabecaHTML(eu){
+    const lib = eu && eu.liberado;
+    const atual = lib ? `<button class="hj-inicio" data-mu-atualizar${estado !== 'pronto' ? ' disabled' : ''}>${estado === 'pronto' ? 'Atualizar' : 'Atualizando…'}</button>` : '';
+    if(!lib) return `<header class="hj-head mu-head">${topoHTML(eu, 'Turma', '')}<div class="ma-ola">${psiuMini()}<div><h1>Mural da turma</h1></div></div></header>`;
+    const semana = Date.now() - 7 * 86400000, nl = naoLidas(eu);
+    const tSem = Object.values(C.posts).filter(p => p && p.texto && p.em > semana).length;
+    const rSem = Object.values(C.com).reduce((n, o) => n + Object.values(o || {}).filter(c => c && c.em > semana).length, 0);
     const at = atividade(), membros = Object.keys(C.perfis).filter(u => C.perfis[u] && C.perfis[u].nome);
-    const ativos = Object.keys(at).sort((a, b) => at[b].ult - at[a].ult);
-    const pilha = (ativos.length ? ativos : membros).slice(0, 5);
-    const nTop = Object.values(C.posts).filter(p => p && p.texto).length, nResp = Object.values(C.com).reduce((n, o) => n + Object.keys(o || {}).length, 0);
-    return `<header class="mu-capa">
-      <div class="mu-capa-banner">${eu && eu.liberado ? `<button class="mu-capa-atual" data-mu-atualizar aria-label="Atualizar"${estado !== 'pronto' ? ' disabled' : ''}>${ic('atual')}</button>` : ''}</div>
-      <div class="mu-capa-c">
-        <div class="mu-capa-ic">${ic('grupo')}</div>
-        <div class="mu-capa-t"><h1>Mural da turma</h1></div>
-      </div>
-      ${eu && eu.liberado ? `<div class="mu-capa-pe"><div class="mu-pilha">${pilha.map(u => avatar(u, nomeDe(u), 'mu-av-p')).join('')}</div><span><b>${membros.length}</b> ${membros.length === 1 ? 'membro' : 'membros'} · <b>${nTop}</b> ${nTop === 1 ? 'tópico' : 'tópicos'} · <b>${nResp}</b> ${nResp === 1 ? 'resposta' : 'respostas'}</span></div>
-      <nav class="mu-abas" role="tablist"><button role="tab" aria-selected="${aba === 'topicos'}" data-mu-aba="topicos">Tópicos</button><button role="tab" aria-selected="${aba === 'avisos'}" data-mu-aba="avisos">Notificações${(() => { const n = naoLidas(eu); return n ? ` <i class="mu-aba-n">${n > 9 ? '9+' : n}</i>` : ''; })()}</button><button role="tab" aria-selected="${aba === 'membros'}" data-mu-aba="membros">Membros</button><button role="tab" aria-selected="${aba === 'sobre'}" data-mu-aba="sobre" class="mu-so-cel">Sobre</button></nav>` : ''}
+    const pilha = (Object.keys(at).sort((a, b) => at[b].ult - at[a].ult).concat(membros)).filter((u, k, a) => a.indexOf(u) === k).slice(0, 4);
+    const tile = nl ? `<span class="ma-cont"><b>${nl > 99 ? '99+' : nl}</b><small>${nl === 1 ? 'nova' : 'novas'}</small></span>` : `<span class="ma-cont"><b>${tSem}</b><small>${tSem === 1 ? 'tópico' : 'tópicos'}</small></span>`;
+    const txt = nl ? `<small>Para você</small><b>${nl === 1 ? 'Uma novidade' : nl + ' novidades'} no mural</b>` : `<small>Nesta semana</small><b>${plural(tSem, 'tópico', 'tópicos')} e ${plural(rSem, 'resposta', 'respostas')}</b>`;
+    const abas = [['topicos', 'Tópicos'], ['avisos', 'Notificações'], ['membros', 'Membros'], ['sobre', 'Sobre']];
+    return `<header class="hj-head mu-head">${topoHTML(eu, 'Turma', atual)}
+      <div class="ma-ola">${psiuMini()}<div><h1>Mural da turma</h1></div></div>
+      <div class="ma-status"><${nl ? 'button data-mu-aba="avisos"' : 'div'} class="ma-prova${nl ? ' perto' : ''} mu-st">${tile}<span>${txt}</span></${nl ? 'button' : 'div'}>
+        <button class="ma-sem-box mu-st-quem" data-mu-aba="membros"><small>${plural(membros.length, 'membro', 'membros')}</small><span class="mu-pilha">${pilha.map(u => avatar(u, nomeDe(u), 'mu-av-p')).join('')}</span></button></div>
+      <div class="ma-abas" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-mu-aba="${k}" aria-selected="${aba === k}">${t}${k === 'avisos' && nl ? ` <i class="mu-aba-n">${nl > 9 ? '9+' : nl}</i>` : ''}</button>`).join('')}</div>
     </header>`;
   }
   function ladoHTML(){
     const at = atividade(), sem = Object.keys(at).filter(u => at[u].s).sort((a, b) => at[b].s - at[a].s).slice(0, 5);
     const cont = {}; Object.values(C.posts).forEach(p => { if(p && p.texto){ const c = catDe(p.cat)[0]; cont[c] = (cont[c] || 0) + 1; } });
-    return `<section class="mu-box"><h3>Sobre o mural</h3><p>Espaço da turma para tirar dúvidas, dividir materiais, combinar trabalhos e conversar. Tudo aparece com o seu nome.</p>
+    return `<section class="hj-card mu-box"><h3>Sobre o mural</h3><p>Espaço da turma para tirar dúvidas, dividir materiais, combinar trabalhos e conversar. Tudo aparece com o seu nome.</p>
         <ul class="mu-regras-l"><li>Respeito com colegas, professores e a faculdade.</li><li>Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas.</li><li>Qualquer conteúdo pode ser denunciado.</li></ul></section>
-      <section class="mu-box"><h3>Categorias</h3><div class="mu-cat-l">${CATS.map(c => `<button data-mu-filtro="${c[0]}" class="${filtro === c[0] ? 'on' : ''}" style="--c:${c[2]}"><i></i>${esc(c[1])}<span>${cont[c[0]] || 0}</span></button>`).join('')}</div></section>
-      <section class="mu-box"><h3>Mais ativos na semana</h3>${sem.length ? `<div class="mu-ativos">${sem.map((u, i) => `<button data-mu-perfil="${esc(u)}">${avatar(u, nomeDe(u), 'mu-av-p')}<span class="mu-ativo-t"><b>${esc(nomeDe(u))}</b>${selo(u)}<small>${plural(at[u].s, 'participação', 'participações')}</small></span>${i === 0 ? `<em>${ic('fogo', 1)}</em>` : ''}</button>`).join('')}</div>` : '<p>Ninguém participou nesta semana ainda.</p>'}</section>`;
+      <section class="hj-card mu-box"><h3>Categorias</h3><div class="mu-cat-l">${CATS.map(c => `<button data-mu-filtro="${c[0]}" class="${filtro === c[0] ? 'on' : ''}" style="--c:${c[2]}"><i></i>${esc(c[1])}<span>${cont[c[0]] || 0}</span></button>`).join('')}</div></section>
+      <section class="hj-card mu-box"><h3>Mais ativos na semana</h3>${sem.length ? `<div class="mu-ativos">${sem.map((u, i) => `<button data-mu-perfil="${esc(u)}">${avatar(u, nomeDe(u), 'mu-av-p')}<span class="mu-ativo-t"><b>${esc(nomeDe(u))}</b>${selo(u)}<small>${plural(at[u].s, 'participação', 'participações')}</small></span>${i === 0 ? `<em>${ic('fogo', 1)}</em>` : ''}</button>`).join('')}</div>` : '<p>Ninguém participou nesta semana ainda.</p>'}</section>`;
   }
   function cardHTML(id, p, eu){
     const r = respostas(id), novo = Date.now() - ultimaEm(id, p) < 86400000;
-    const quem = [...new Set(r.map(([, c]) => c.uid))].filter(u => u !== p.uid);
-    const resumo = (p.texto || '').length > 220 ? p.texto.slice(0, 217).trim() + '…' : p.texto;
-    return `<article class="mu-card${C.fix[id] ? ' fixo' : ''}" data-mu-ver="${id}" tabindex="0">
-      ${C.fix[id] ? `<div class="mu-fixo">${ic('pino')} Fixado pela moderação</div>` : ''}
-      <header class="mu-autor-l">${avatar(p.uid, p.nome)}<div><button class="mu-nome" data-mu-perfil="${esc(p.uid)}">${esc(nomeDe(p.uid, p.nome))}</button>${selo(p.uid)}<small>${perfil(p.uid).sem ? perfil(p.uid).sem + 'º semestre · ' : ''}${quando(p.em)}</small></div></header>
-      <div class="mu-card-tag">${tag(p.cat)}</div>
-      <h3 class="mu-card-t">${esc(titulo(p))}${novo ? ' <span class="mu-novo-b">Novo</span>' : ''}</h3>
+    const resumo = (p.texto || '').length > 200 ? p.texto.slice(0, 197).trim() + '…' : p.texto;
+    const quem = [...new Set(r.map(([, c]) => c.uid))].filter(u => u !== p.uid).slice(-3);
+    return `<article class="mu-card${C.fix[id] ? ' fixo' : ''}" data-mu-ver="${id}" tabindex="0" style="--c:${catDe(p.cat)[2]}">
+      <div class="mu-card-top">${C.fix[id] ? `<span class="mu-fixo">${ic('pino')} Fixado</span>` : ''}${tag(p.cat)}${novo ? '<span class="mu-novo-b">Novo</span>' : ''}<span class="mu-card-quando">${quando(ultimaEm(id, p))}</span></div>
+      <h3 class="mu-card-t">${esc(titulo(p))}</h3>
       <p class="mu-card-x">${texto(resumo, p.men)}</p>
       <footer class="mu-card-pe">
-        ${botaoReagir(id, eu, 'mu-acao')}
-        <span class="mu-acao">${ic('com')}<span>${r.length || 'Responder'}</span></span>
-        ${resumoReac(id)}
-        <span class="mu-card-quem">${quem.length ? `<span class="mu-pilha mu-pilha-p">${quem.slice(0, 3).map(u => avatar(u, nomeDe(u), 'mu-av-pp')).join('')}</span>${esc(primeiro(nomeDe(quem[quem.length - 1])))}${quem.length > 1 ? ` e mais ${quem.length - 1}` : ''} · ${quando(ultimaEm(id, p))}` : r.length ? 'Autor respondeu' : 'Sem respostas ainda'}</span>
+        <span class="mu-card-autor">${avatar(p.uid, p.nome, 'mu-av-pp')}<b>${esc(nomeDe(p.uid, p.nome))}</b>${selo(p.uid)}</span>
+        <span class="mu-card-num">${resumoReac(id)}<span class="mu-stat">${quem.length ? `<span class="mu-pilha mu-pilha-p">${quem.map(u => avatar(u, nomeDe(u), 'mu-av-pp')).join('')}</span>` : ic('com')}${r.length}</span></span>
       </footer>
     </article>`;
   }
@@ -24516,19 +24507,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const pont = ([id, p]) => curtidasDe(id).length * 2 + respostas(id).length * 3 - (Date.now() - ultimaEm(id, p)) / 43200000;
     const lista = todos.filter(([, p]) => filtro === 'todos' || catDe(p.cat)[0] === filtro)
       .sort((a, b) => (C.fix[b[0]] ? 1 : 0) - (C.fix[a[0]] ? 1 : 0) || (ordem === 'alta' ? pont(b) - pont(a) : ultimaEm(b[0], b[1]) - ultimaEm(a[0], a[1])));
-    const bloqueado = !!C.bloq[eu.uid];
-    return `${eu.admin ? denunciasHTML() : ''}
-      ${bloqueado ? '' : `<button class="mu-abrir" data-mu-novo>${avatar(eu.uid, eu.nome)}<span class="mu-abrir-t">Abra um tópico para a turma, ${esc(primeiro(eu.nome))}…</span><i>${ic('lapis')}</i></button>`}
-      <div class="mu-filtros">
-        <div class="mu-ordem" role="tablist"><button aria-selected="${ordem === 'recentes'}" data-mu-ordem="recentes">${ic('relogio')} Recentes</button><button aria-selected="${ordem === 'alta'}" data-mu-ordem="alta">${ic('fogo')} Em alta</button></div>
-        <div class="mu-chips"><button class="mu-chip${filtro === 'todos' ? ' on' : ''}" data-mu-filtro="todos">Todas</button>${CATS.map(c => `<button class="mu-chip${filtro === c[0] ? ' on' : ''}" data-mu-filtro="${c[0]}" style="--c:${c[2]}"><i></i>${esc(c[1])}</button>`).join('')}</div>
-      </div>
-      ${estado === 'carregando' ? '<div class="mu-esqueleto"><i></i><i></i><i></i></div>'
-        : lista.length ? `<div class="mu-feed">${lista.map(([id, p]) => cardHTML(id, p, eu)).join('')}</div>`
-        : `<section class="mu-vazio">${ic('com')}<b>${todos.length ? 'Nada nesta categoria ainda' : 'Nenhum tópico ainda'}</b><p>${todos.length ? 'Que tal abrir o primeiro?' : 'Comece a conversa: uma dúvida da prova, um material que ajudou ou um aviso para a turma.'}</p>${bloqueado ? '' : '<button class="btn btn-primary" data-mu-novo>Abrir um tópico</button>'}</section>`}`;
+    const bloqueado = !!C.bloq[eu.uid], nl = naoLidas(eu);
+    const acoes = bloqueado ? '' : `<div class="ma-acoes mu-acoes">
+        <button class="ma-acao ma-acao-verde" data-mu-novo><span class="ma-acao-ic">${ic('lapis')}</span><b>Abrir um tópico</b><small>Pergunte, divida um material ou combine algo com a turma</small><span class="ma-acao-go">Escrever <span aria-hidden="true">→</span></span></button>
+        <button class="ma-acao ma-acao-ocre" data-mu-aba="avisos"><span class="ma-acao-ic">${ic('sino')}</span>${nl ? `<span class="ma-acao-num">${nl > 99 ? '99+' : nl}</span>` : ''}<b>Para você</b><small>${nl ? (nl === 1 ? 'Uma resposta, reação ou marcação nova' : nl + ' respostas, reações e marcações novas') : 'Tudo em dia: nada novo para você'}</small><span class="ma-acao-go">Ver <span aria-hidden="true">→</span></span></button>
+      </div>`;
+    const cab = `<div class="mu-sec"><span class="ma-grupo-t">Tópicos</span><div class="mu-ordem" role="tablist"><button aria-selected="${ordem === 'recentes'}" data-mu-ordem="recentes">Recentes</button><button aria-selected="${ordem === 'alta'}" data-mu-ordem="alta">Em alta</button></div></div>
+      <div class="mu-chips"><button class="mu-chip${filtro === 'todos' ? ' on' : ''}" data-mu-filtro="todos">Todas</button>${CATS.map(c => `<button class="mu-chip${filtro === c[0] ? ' on' : ''}" data-mu-filtro="${c[0]}" style="--c:${c[2]}"><i></i>${esc(c[1])}</button>`).join('')}</div>`;
+    const vazio = `<section class="hj-card mu-vazio">${psiuMini()}<b>${todos.length ? 'Nada nesta categoria ainda' : 'O mural está esperando o primeiro tópico'}</b><p>${todos.length ? 'Que tal abrir o primeiro?' : 'Uma dúvida da prova, um material que ajudou ou um aviso. Quem começar ganha o primeiro lugar na lista.'}</p></section>`;
+    return `${eu.admin ? denunciasHTML() : ''}${acoes}${cab}
+      ${estado === 'carregando' ? '<div class="mu-esqueleto"><i></i><i></i><i></i></div>' : lista.length ? `<div class="mu-feed">${lista.map(([id, p]) => cardHTML(id, p, eu)).join('')}</div>` : vazio}`;
   }
   function novoHTML(eu){
-    return `<button class="mu-voltar" data-mu-lista>${ic('voltar')} Voltar</button>
+    return `${topoHTML(eu, 'Mural da turma', '<button class="hj-inicio" data-mu-lista>← Voltar ao mural</button>')}
       <form class="mu-form" data-mu-publicar>
         <header class="mu-autor-l">${avatar(eu.uid, eu.nome)}<div><b class="mu-nome">${esc(eu.nome)}</b><small>Publicando no Mural da turma</small></div></header>
         <input class="mu-form-t" id="muTit" name="titulo" maxlength="${LIM_TIT}" placeholder="Título do tópico" value="${esc(rascunho.titulo)}" autocomplete="off" required aria-label="Título">
@@ -24542,8 +24533,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const r = respostas(id), rs = reacoes(id), eu_r = rs.some(x => x.uid === eu.uid);
     const outros = rs.filter(x => x.uid !== eu.uid).map(x => primeiro(nomeDe(x.uid)));
     const linhaReac = rs.length ? (eu_r ? (outros.length ? `Você e ${outros.length === 1 ? outros[0] : plural(outros.length, 'pessoa', 'pessoas')}` : 'Você') : outros.slice(0, 2).join(', ') + (outros.length > 2 ? ` e mais ${outros.length - 2}` : '')) : '';
-    return `<button class="mu-voltar" data-mu-lista>${ic('voltar')} Todos os tópicos</button>
-      <article class="mu-post">
+    return `${topoHTML(eu, 'Mural da turma', '<button class="hj-inicio" data-mu-lista>← Todos os tópicos</button>')}
+      <article class="mu-post" style="--c:${catDe(p.cat)[2]}">
         ${C.fix[id] ? `<div class="mu-fixo">${ic('pino')} Fixado pela moderação</div>` : ''}
         <header class="mu-autor-l">${avatar(p.uid, p.nome, 'mu-av-l')}<div><button class="mu-nome" data-mu-perfil="${esc(p.uid)}">${esc(nomeDe(p.uid, p.nome))}</button>${selo(p.uid)}<small>${perfil(p.uid).sem ? perfil(p.uid).sem + 'º semestre · ' : ''}${quando(p.em)}</small></div>${maisBtn(id, p.uid, eu, true)}</header>
         ${tag(p.cat)}
@@ -24583,21 +24574,21 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function render(){
     const el = document.getElementById('muralPage'); if(!el) return;
     const eu = EU();
-    if(!eu || !eu.liberado){ el.innerHTML = capaHTML(eu) + '<section class="mu-vazio"><b>Só para contas liberadas</b><p>Entre na sua conta para ver e participar do mural.</p></section>'; return; }
+    if(!eu || !eu.liberado){ el.innerHTML = cabecaHTML(eu) + '<section class="hj-card mu-vazio"><b>Só para contas liberadas</b><p>Entre na sua conta para ver e participar do mural.</p></section>'; return; }
     if(estado === 'nada'){ carregar(); return; }
     let combinado = false; try{ combinado = !!localStorage.getItem('av-mural-ok'); }catch(e){}
     const foco = document.activeElement && document.activeElement.closest && document.activeElement.closest('[data-mu-comentar]');
     let corpo;
-    if(!combinado) corpo = `<section class="mu-boasvindas"><div class="mu-capa-ic">${ic('grupo')}</div><h2>Boas-vindas ao Mural da turma</h2><p>Antes de entrar, os combinados:</p><ul><li>Tudo aparece com o seu nome e a sua foto.</li><li>Respeito com colegas, professores e a faculdade. Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas, como telefone, endereço ou prints de conversas.</li><li>Qualquer pessoa pode denunciar. Quem desrespeitar os combinados pode ser bloqueado.</li></ul><button class="btn btn-primary" data-mu-combinado>Combinado, quero entrar</button></section>`;
+    if(!combinado) corpo = `<section class="hj-card mu-boasvindas">${psiuMini()}<h2>Boas-vindas ao Mural da turma</h2><p>Antes de entrar, os combinados:</p><ul><li>Tudo aparece com o seu nome e a sua foto.</li><li>Respeito com colegas, professores e a faculdade. Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas, como telefone, endereço ou prints de conversas.</li><li>Qualquer pessoa pode denunciar. Quem desrespeitar os combinados pode ser bloqueado.</li></ul><button class="btn btn-primary" data-mu-combinado>Combinado, quero entrar</button></section>`;
     else if(vista === 'novo') corpo = C.bloq[eu.uid] ? '' : novoHTML(eu);
     else if(vista !== 'lista' && C.posts[vista]) corpo = topicoHTML(vista, eu);
     else if(aba === 'membros') corpo = membrosHTML(eu);
     else if(aba === 'avisos') corpo = notifHTML(eu);
-    else if(aba === 'sobre') corpo = `<div class="mu-lado mu-lado-cel">${ladoHTML()}</div>`;
+    else if(aba === 'sobre') corpo = `<div class="mu-lado">${ladoHTML()}</div>`;
     else corpo = listaHTML(eu);
     const avisos = (C.bloq[eu.uid] ? '<p class="mu-erro">A sua conta está sem permissão para escrever no mural. Se achar que é um engano, fale com o representante da turma.</p>' : '') + (erro ? `<div class="mu-erro"><span>${esc(erro)}</span><button data-mu-erro-ok aria-label="Fechar aviso">×</button></div>` : '');
     const naLista = combinado && vista === 'lista';
-    el.innerHTML = (naLista ? capaHTML(eu) : '') + `<div class="mu-grid${naLista ? '' : ' mu-grid-foco'}"><div class="mu-main">${avisos}${corpo}</div>${naLista ? `<aside class="mu-lado">${ladoHTML()}</aside>` : ''}</div>`;
+    el.innerHTML = (naLista ? cabecaHTML(eu) : '') + `<div class="mu-main">${avisos}${corpo}</div>`;
     if(foco){ const t = el.querySelector('[data-mu-comentar] textarea'); if(t){ t.focus(); t.setSelectionRange(t.value.length, t.value.length); } }
     el.querySelectorAll('[data-mu-comentar] textarea').forEach(cresce);
   }
