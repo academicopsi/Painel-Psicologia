@@ -2940,6 +2940,48 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-apoio-faixa small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.8);}
   .ma-apoio-faixa b{display:block; font-size:16px; margin:2px 0;}
   .ma-apoio-faixa span{font-size:13px; color:rgba(255,255,255,.85);}
+
+  /* atualizações: texto na largura toda, data e etiqueta numa linha */
+  .entry.entry2{display:block; padding:16px 20px;}
+  .entry2 .entry-top{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:8px;}
+  .entry2 .entry-data{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); font-variant-numeric:tabular-nums;}
+  .entry2 .tag{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt); padding:3px 10px 3px 8px; border-radius:999px; margin:0;}
+  .entry2 .tag::before{content:''; width:7px; height:7px; border-radius:50%; background:var(--acc, var(--petrol));}
+  .entry2 .new-badge{margin-left:0;}
+  .entry2 p{margin:0; font-size:14.5px; line-height:1.55; color:var(--ink);}
+  .entry2 .entry-go{display:inline-block; margin-top:8px; font-size:13.5px;}
+
+  /* selo único para recursos de apoiador */
+  .ap-selo{display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#9A6424; background:var(--ochre-soft); border:1px solid rgba(192,138,74,.35); padding:2px 8px; border-radius:999px; white-space:nowrap; vertical-align:middle; line-height:1.4;}
+  .ap-selo-claro{color:#FBE3BE; background:rgba(214,158,82,.18); border-color:rgba(214,158,82,.45);}
+  body.dark .ap-selo{color:#E9B877;}
+  .ma-row .ap-selo{flex:none;}
+  .ma-row.travado .ma-row-tx b{color:var(--ink-soft);}
+  .ma-cadeado{flex:none; width:18px; height:18px; color:var(--ink-faint);}
+  .ma-convite{display:flex; align-items:center; gap:14px; margin:18px 0 0; padding:16px 18px; border-radius:14px; color:#fff; background:linear-gradient(160deg, #C98F45 0%, #A06A2C 100%); box-shadow:0 6px 16px var(--shadow); position:relative; overflow:hidden;}
+  .ma-convite::after{content:''; position:absolute; right:-50px; top:-60px; width:160px; height:160px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.18), transparent 70%); pointer-events:none;}
+  .ma-convite > div{flex:1; position:relative;}
+  .ma-convite small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.85);}
+  .ma-convite b{display:block; font-size:16px; margin:2px 0 4px;}
+  .ma-convite span{font-size:13px; color:rgba(255,255,255,.88); line-height:1.4;}
+  .ma-convite button{position:relative; flex:none; font:inherit; font-size:13.5px; font-weight:700; color:#7A4D18; background:#fff; border:0; border-radius:999px; padding:9px 14px; cursor:pointer;}
+  .sg-convite{display:flex; align-items:center; justify-content:space-between; gap:10px; width:calc(100% + 36px); margin:12px -18px -16px; padding:13px 18px; font:inherit; text-align:left; background:var(--ochre-soft); border:0; border-top:1px solid rgba(192,138,74,.3); border-radius:0 0 14px 14px; cursor:pointer; color:var(--ink);}
+  .sg-convite b{display:block; font-size:14px;}
+  .sg-convite small{display:block; font-size:12.5px; color:var(--ink-soft);}
+  /* comparação na tela de apoio */
+  .ap-comp{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0 16px;}
+  .ap-comp > div{border-radius:12px; padding:12px 13px; font-size:13.5px; line-height:1.4;}
+  .ap-comp .gratis{background:var(--paper-alt); border:1px solid var(--rule);}
+  .ap-comp .apoiador{background:var(--ochre-soft); border:1px solid rgba(192,138,74,.4);}
+  .ap-comp b{display:block; font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:6px;}
+  .ap-comp .gratis b{color:var(--petrol);}
+  .ap-comp .apoiador b{color:#9A6424;}
+  .ap-comp ul{margin:0; padding:0; list-style:none;}
+  .ap-comp li{padding:3px 0 3px 18px; position:relative;}
+  .ap-comp .gratis li::before{content:'✓'; position:absolute; left:0; color:var(--petrol); font-weight:700;}
+  .ap-comp .apoiador li::before{content:'★'; position:absolute; left:0; color:var(--ochre);}
+  .ap-comp small{display:block; margin-top:6px; color:var(--ink-soft); font-size:12px;}
+  @media (max-width:420px){ .ap-comp{grid-template-columns:1fr;} }
   /* turma (painel do administrador) */
   .tm-hero{margin:18px 0 0; padding:18px; border-radius:14px; color:#fff; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 6px 16px var(--shadow); position:relative; overflow:hidden;}
   .tm-hero::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
@@ -4570,6 +4612,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Ficou mais claro o que é de apoiador: selo ★ Apoiador nos recursos exclusivos, aba Apoiador na Minha área com prévias para todos e uma comparação entre o que é grátis e o que o apoio libera.'},
   {date: '2026-11-21', disc: 'Geral', desc: 'O semestre escolhido na Minha área agora vale para o site todo: Drive das disciplinas, exercícios, glossário, busca e atualizações mostram só o seu semestre. Um link discreto deixa ver o outro quando quiser.'},
   {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Simulado em PDF corrigido no app instalado no iPhone: em vez de abrir a impressão, que não funciona ali, o site gera o PDF e abre a opção de salvar ou compartilhar.'},
   {date: '2026-11-21', disc: '1º semestre', desc: 'Glossário do 1º semestre reescrito: definições mais completas e um exemplo em cada termo.', link: {url:'#disc-11'}},
@@ -15314,12 +15357,10 @@ function renderFeed(items){
   feed.innerHTML = sorted.map(it=>{
     const s = fmtStamp(it.date);
     const lk = it.link ? ` data-link='${JSON.stringify(it.link)}' role="button" tabindex="0"` : '';
-    return `<div class="entry${it.link ? ' has-link' : ''}"${lk} data-search="${(it.disc + ' ' + it.desc).toLowerCase()}">
-      <div class="stamp"><div class="d">${s.d}</div><div class="m">${s.m}</div></div>
-      <div class="entry-body">
-        <span class="tag">${it.disc}</span>${newBadge(it.date)}
-        <p>${it.desc}</p>
-      </div>
+    const dd = discOf(it.disc);
+    return `<div class="entry entry2${it.link ? ' has-link' : ''}"${lk} data-search="${(it.disc + ' ' + it.desc).toLowerCase()}">
+      <div class="entry-top"><span class="entry-data">${s.d} ${s.m}</span>${newBadge(it.date)}<span class="tag"${dd ? ` data-d="${dd.n}"` : ''}>${it.disc}</span></div>
+      <p>${it.desc}</p>
       ${it.link ? `<span class="entry-go">${rotuloLink(it.link)}</span>` : ''}
     </div>`;
   }).join('');
@@ -20400,7 +20441,7 @@ function abrirEscolhaPDF(d){
   const capsSalvas = salvo.caps && salvo.caps[d.n];
   const item = (k, txt, extra) => `<label class="pdfo-item"><input type="checkbox" data-o="${k}"${marca(k)}><span>${txt}${extra ? ` <small>${extra}</small>` : ''}</span></label>`;
   const apoiaPDF = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
-  const itemA = (k, txt, extra) => apoiaPDF ? item(k, txt, extra) : `<label class="pdfo-item off"><input type="checkbox" disabled><span>${txt}${extra ? ` <small>${extra}</small>` : ''}</span></label>`;
+  const itemA = (k, txt, extra) => apoiaPDF ? item(k, txt, extra) : `<label class="pdfo-item off"><input type="checkbox" disabled><span>${txt} <span class="ap-selo">★ Apoiador</span>${extra ? ` <small>${extra}</small>` : ''}</span></label>`;
   let temas = '';
   res.forEach(([id, r])=> r.caps.forEach(cap=>{
     const k = id + ':' + cap.id, on = !capsSalvas || capsSalvas.includes(k);
@@ -22531,12 +22572,10 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     <div class="eyebrow apoio-eb">Apoie o Arquivo Vivo</div>
     <h2 id="apoioTitulo">Aberto para todos, mantido por quem acredita</h2>
     <p class="conta-sub">O Arquivo Vivo é feito por um colega, sem anúncios e sem patrocínio. Manter tudo funcionando custa tempo, ferramentas e muito café do Psiu. O site continua livre: quem quiser pode apoiar com um Pix de valor livre. Cada Pix libera os extras de apoiador por 30 dias, sem assinatura nem cobrança automática.</p>
-    <div class="ap-ben"><b>Quem apoia recebe</b>
-      <ul><li><strong>Plano de estudos</strong> automático, sugerido pelo site ou montado por você, com o que estudar em cada dia</li>
-      <li><strong>Marca-texto e notas</strong> nos resumos</li>
-      <li><strong>Resumão em PDF completo</strong>, com Teste-se, questões comentadas, estudo dirigido e suas anotações, e <strong>simulado em PDF</strong> para imprimir</li>
-      <li><strong>Seu desempenho</strong> e <strong>seu semestre em números</strong></li>
-      <li>Acessórios, cores e fundos especiais para o Psiu</li></ul></div>
+    <div class="ap-comp">
+      <div class="gratis"><b>Grátis para todos</b><ul><li>Resumos com Teste-se</li><li>Exercícios interativos</li><li>Simulados com correção</li><li>Glossário e comparações</li><li>Psiu, o colega virtual</li><li>Notificações de prova</li><li>Drive, prazos e calendário</li><li>Resumão em PDF básico</li></ul></div>
+      <div class="apoiador"><b>★ Apoiador</b><ul><li>Plano de estudos do dia e da semana</li><li>Seu desempenho por tema</li><li>Seu semestre em números</li><li>Marca-texto e notas nos resumos</li><li>Resumão em PDF completo</li><li>Simulado em PDF</li><li>Acessórios especiais do Psiu</li></ul><small>Cada Pix libera tudo por 30 dias.</small></div>
+    </div>
     <div class="ap-valores" role="tablist" aria-label="Valor do apoio"><button type="button" data-v="10">R$ 10</button><button type="button" data-v="15">R$ 15</button><button type="button" data-v="None">Livre</button></div>
     <div class="ap-qr" id="apQr"></div>
     <p class="ap-leg" id="apLeg"></p>
@@ -23323,7 +23362,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
         : meu ? (pl.discs.length ? '<p class="pg-vazio">Nada pendente nessas disciplinas. Tudo em dia!</p>' : '') : '<p class="pg-vazio">Nada planejado para hoje. Aproveite para revisar os erros ou descansar.</p>';
       plano = `<section class="hj-card pg">
         <div class="pg-topo">
-        <div class="pg-head"><span class="pg-ic">${maIc('lista')}</span><div><small>Guia de estudos</small><h2>Plano de hoje</h2></div></div>
+        <div class="pg-head"><span class="pg-ic">${maIc('lista')}</span><div><small>Guia de estudos <span class="ap-selo ap-selo-claro">★ Apoiador</span></small><h2>Plano de hoje</h2></div></div>
         <p class="pg-desc">Um roteiro do que estudar hoje. Siga a sugestão do site ou monte o seu.</p>
         ${modoBtns}</div>
         ${meu ? `<div class="pg-escolha"><p class="pg-pergunta">Escolha as disciplinas de hoje</p>${pl.chips(hojeISO()).replace(/data-hj-esc="[^|"]+\|(\d+)"/g, '$& data-d="$1"')}</div>` : ''}
@@ -23332,7 +23371,8 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     } else {
       const sg = sugestoes();
       if(sg.length) plano = `<section class="hj-card"><div class="hj-card-top"><h2>Sugestões para hoje</h2></div>
-        ${sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('')}</section>`;
+        ${sg.map(t => `<div class="hj-item"><span class="hj-ponto"></span><button data-hj-ir='${escHTML(JSON.stringify(t.ir))}'><b>${escHTML(t.t)}</b><span>${escHTML(t.s)}</span></button></div>`).join('')}
+        <button class="sg-convite" data-ben="plano"><span><b>Quer um guia de estudos completo?</b><small>Plano do dia e da semana, montado pelo site ou por você</small></span><span class="ap-selo">★ Apoiador</span></button></section>`;
     }
     // progresso por disciplina
     const tot = {caps:0, lidos:0, sims:0, simsTot:0};
@@ -23346,7 +23386,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     }).join('');
     const admin = window.avEhAdmin && window.avEhAdmin(), pend = window.avPendentes ? window.avPendentes() : '';
     const nErr = errLista('todas').length;
-    const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso']].concat(apoia ? [['ferramentas', 'Ferramentas']] : []).concat(admin ? [['turma', 'Turma']] : []).concat([['conta', 'Conta' + (admin && pend ? ` <i class="ma-pend">${pend}</i>` : '')]]);
+    const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso']].concat([['ferramentas', '★ Apoiador']]).concat(admin ? [['turma', 'Turma']] : []).concat([['conta', 'Conta' + (admin && pend ? ` <i class="ma-pend">${pend}</i>` : '')]]);
     if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
     let corpo = '';
     if(maAba === 'hoje') corpo = (plano || '') + `<div class="ma-grupo-t">Treinar</div><div class="ma-acoes">
@@ -23357,7 +23397,11 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     if(maAba === 'progresso') corpo = `<section class="ma-resumo"><div class="ma-anel" style="--p:${pctTot}"><b>${pctTot}%</b></div><div class="ma-resumo-tx"><small>Seu ${avSemestre()}º semestre</small><b>${tot.lidos} de ${tot.caps} partes de resumo lidas</b><span>${tot.sims} de ${tot.simsTot} simulados feitos</span></div></section>
       <div class="ma-grupo-t">Por disciplina</div><section class="hj-card ma-prog">${linhas}</section>`;
     const BEN_IC = {desempenho:['grafico', 'verde'], plano:['lista', 'cinza'], semestre:['estrela', 'ocre'], simpdf:['pdf', 'rosa'], notas:['nota', 'roxo']};
-    if(maAba === 'ferramentas') corpo = `<section class="ma-apoio-faixa"><span class="ma-apoio-estrela">★</span><div><small>Apoiador do Arquivo Vivo</small><b>Obrigado por manter o site no ar</b>${window.avApoioAte ? `<span>Seus recursos valem até ${new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</span>` : ''}</div></section><div class="ma-grupo-t">Recursos de apoiador</div><section class="hj-card ma-lista">${(window.avBeneficiosDados ? window.avBeneficiosDados() : []).map(b => maRow(`data-ben="${b.k}"`, (BEN_IC[b.k] || ['estrela'])[0], (BEN_IC[b.k] || [0, 'cinza'])[1], escHTML(b.t), escHTML(b.d))).join('')}</section>`;
+    if(maAba === 'ferramentas' && apoia) corpo = `<section class="ma-apoio-faixa"><span class="ma-apoio-estrela">★</span><div><small>Apoiador do Arquivo Vivo</small><b>Obrigado por manter o site no ar</b>${window.avApoioAte ? `<span>Seus recursos valem até ${new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</span>` : ''}</div></section><div class="ma-grupo-t">Recursos de apoiador</div><section class="hj-card ma-lista">${(window.avBeneficiosDados ? window.avBeneficiosDados() : []).map(b => maRow(`data-ben="${b.k}"`, (BEN_IC[b.k] || ['estrela'])[0], (BEN_IC[b.k] || [0, 'cinza'])[1], escHTML(b.t), escHTML(b.d))).join('')}</section>`;
+    const CAD = '<svg class="ma-cadeado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+    if(maAba === 'ferramentas' && !apoia) corpo = `<section class="ma-convite"><div><small>★ Recursos de apoiador</small><b>Estude com mais estratégia</b><span>Um Pix de valor livre libera tudo por 30 dias. O resto do site continua grátis.</span></div><button data-apoio>Quero apoiar</button></section>
+      <div class="ma-grupo-t">Veja uma prévia com os seus dados</div><section class="hj-card ma-lista">${(window.avBeneficiosDados ? window.avBeneficiosDados() : []).map(b => maRow(`data-ben="${b.k}"`, (BEN_IC[b.k] || ['estrela'])[0], (BEN_IC[b.k] || [0, 'cinza'])[1], escHTML(b.t), escHTML(b.d), CAD).replace('class="ma-row"', 'class="ma-row travado"')).join('')}</section>
+      <p class="hj-vazio" style="margin-top:12px">Também para apoiadores: marca-texto e notas nos resumos, Resumão em PDF completo e acessórios especiais do Psiu.</p>`;
     if(maAba === 'turma'){ corpo = '<div id="maTurma"><section class="hj-card"><p class="hj-vazio">Carregando os números da turma…</p></section></div>';
       setTimeout(async () => { const el2 = document.getElementById('maTurma'); if(!el2) return; const e = window.avLerTurma ? await window.avLerTurma() : null; el2.innerHTML = turmaHTML(e); }, 0); }
     if(maAba === 'conta') corpo = `<div class="ma-grupo-t">Perfil</div><section class="hj-card ma-perfil">${window.avFotoHTML ? window.avFotoHTML().replace('<b>Foto do perfil</b>', `<b>${escHTML(window.avNome || 'Sua conta')}</b>${window.avEmail ? `<small class="ma-email">${escHTML(window.avEmail)}</small>` : ''}`) : ''}</section>
