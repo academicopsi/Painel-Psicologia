@@ -60,7 +60,7 @@
 
   section.block{padding:84px 0 0;}
   .sec-head{max-width:640px; margin-bottom:34px;}
-  .sec-head h2{font-size:clamp(28px, 3.8vw, 40px); margin:10px 0 12px;}
+  .sec-head h2, .video-sec h2, .mural-sec h2{font-size:clamp(28px, 3.8vw, 40px); margin:10px 0 12px;}
   .sec-head p{color:var(--ink-soft); font-size:17px; margin:0;}
 
   /* problema */
@@ -185,8 +185,18 @@
   .psiu-sec .psiu-box{background:var(--paper); width:240px;}
   .psiu-sec h2{margin:8px 0 12px;}
   .psiu-lead{font-size:17px; color:var(--ink-soft); margin:0;}
+  .video-grid{display:grid; grid-template-columns:minmax(0, 1fr) 320px; gap:48px; align-items:center;}
+  .video-lead{font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:46ch; margin:0;}
+  .video-moldura{width:100%; max-width:320px; margin:0 auto; aspect-ratio:9/16; border-radius:26px; overflow:hidden; background:#0E2927; box-shadow:0 30px 60px rgba(0,0,0,.3), 0 0 0 1px rgba(0,0,0,.08);}
+  .video-moldura video{width:100%; height:100%; display:block; object-fit:cover; background:#0E2927;}
+  .mural-checks{margin:18px 0 0;}
+  .mural-checks li{color:var(--ink); font-size:15px;}
+  .mural-checks li::before{background:var(--petrol-soft); color:var(--petrol);}
+  @media (max-width:860px){
+    .video-grid{grid-template-columns:1fr; gap:24px;}
+    .video-moldura{max-width:280px;}
+  }
   .mural-grid{display:grid; grid-template-columns:minmax(0, 1fr) 300px; gap:48px; align-items:center;}
-  .mural-sec h2{margin:8px 0 12px;}
   .mural-lead{font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:56ch; margin:0;}
   .poderes.mural-poderes{grid-template-columns:repeat(2, 1fr); margin-top:24px;}
   .mural-nota{margin:16px 0 0; font-size:14px; color:var(--ink-soft);}
@@ -247,10 +257,9 @@
       <h1>Do resumo ao simulado, <em>com um caminho claro.</em></h1>
       <p class="lead">O Arquivo Vivo organiza o semestre por disciplina e guia o estudo em etapas: entender a matéria, praticar, se testar no estilo da prova e revisar exatamente o que errou.</p>
       <ul class="checks">
-        <li>Simulados com mais de 680 questões, separados por assunto</li>
-        <li>Revisão automática das questões que você errou</li>
+        <li>Simulados com mais de 680 questões e revisão do que você errou</li>
         <li>O Psiu, um colega virtual que tira dúvidas e lembra os prazos</li>
-        <li>O Mural da turma, para tirar dúvidas e trocar materiais com os colegas</li>
+        <li>O Mural da turma, para tirar dúvidas com os colegas</li>
       </ul>
       <div class="ctas">
         <a class="btn btn-light" data-site="#criar" href="../#criar">Criar minha conta</a>
@@ -263,6 +272,19 @@
 </section>
 
 <main class="wrap">
+
+  <section class="block video-sec" id="video">
+    <div class="video-grid">
+      <div>
+        <div class="eyebrow">Em um minuto e meio</div>
+        <h2>Veja o site <em>funcionando.</em></h2>
+        <p class="video-lead">A área de estudos, o Psiu, o Mural da turma, as notificações e os simulados, do jeito que aparecem no celular.</p>
+      </div>
+      <div class="video-moldura">
+        <video id="videoDiv" src="video/arquivo-vivo.mp4" poster="video/capa.jpg" muted playsinline loop preload="none" controls aria-label="Vídeo de apresentação do Arquivo Vivo, sem som"></video>
+      </div>
+    </div>
+  </section>
 
 
   <section class="block" id="como-funciona">
@@ -304,12 +326,10 @@
         <div class="eyebrow">Novo · Mural da turma</div>
         <h2>A dúvida resolvida <em>fica guardada.</em></h2>
         <p class="mural-lead">No grupo, a pergunta some no meio de duzentas mensagens. No Mural, cada dúvida vira um tópico com título e categoria, as respostas ficam juntas e quem perguntou marca a melhor. Quem estudar depois encontra tudo no lugar.</p>
-        <div class="poderes mural-poderes">
-          <div class="poder"><b>Tópicos e respostas</b><p>Dúvidas, provas e trabalhos, materiais e avisos, cada um na sua categoria.</p></div>
-          <div class="poder"><b>Melhor resposta</b><p>Quem perguntou escolhe a resposta que resolveu. O tópico ganha o selo Resolvida e quem ajudou recebe o crédito no perfil.</p></div>
-          <div class="poder"><b>Reações e @</b><p>Curtir, Concordo, Haha, Amei e o Psiu. Marque um colega com @ e ele fica sabendo.</p></div>
-          <div class="poder"><b>Só o que é com você</b><p>Aviso no celular quando responderem o seu tópico ou marcarem você. Sem o barulho do grupo.</p></div>
-        </div>
+        <ul class="checks mural-checks">
+          <li>Quem perguntou marca a melhor resposta, e o tópico fica como resolvido</li>
+          <li>Reações, marcação de colegas com @ e aviso no celular só do que é com você</li>
+        </ul>
         <p class="mural-nota">Só para contas liberadas da turma e sempre com nome e foto: nada de mensagens anônimas. Qualquer conteúdo pode ser denunciado.</p>
       </div>
       <div class="phone tilt-l"><img src="img/mural.jpg" alt="Um tópico no Mural da turma, com reações e respostas de colegas" loading="lazy"></div>
@@ -329,11 +349,8 @@
       </div>
     </div>
     <div class="poderes">
-      <div class="poder"><b>Tira dúvidas</b><p>"Quando é a prova de Experimental?" "O que é reforço negativo?" Ele responde com o que está no site.</p></div>
+      <div class="poder"><b>Tira dúvidas</b><p>"Quando é a prova de Experimental?" "O que é reforço negativo?" Ele responde e abre o resumo ou o simulado certo.</p></div>
       <div class="poder"><b>Lembra o que importa</b><p>Avisa quando uma prova ou entrega está chegando, sem você precisar abrir o calendário.</p></div>
-      <div class="poder"><b>Leva ao conteúdo certo</b><p>Pede um simulado de Neuro ou o resumo de Piaget e ele abre na hora.</p></div>
-      <div class="poder"><b>Testa você</b><p>Um desafio rápido de 3 perguntas do glossário, para revisar entre uma aula e outra.</p></div>
-      <div class="poder"><b>Estuda junto</b><p>Modo foco com tempo marcado: ele lê enquanto você estuda e toma um café na pausa.</p></div>
       <div class="poder"><b>Tem a cara da turma</b><p>Cochila de madrugada, chega atrasado na aula das sete, comemora quando você acerta. E você escolhe acessórios, cores e fundo.</p></div>
     </div>
   </section>
@@ -343,8 +360,7 @@
       <div>
         <div class="eyebrow">Apoie o Arquivo Vivo</div>
         <h2>Aberto para todos, <em>mantido por quem acredita.</em></h2>
-        <p>O Arquivo Vivo continua livre: ninguém precisa pagar para estudar. Quem quiser pode apoiar com um Pix de valor livre, que libera os extras de apoiador por 30 dias, e ajudar a manter a ferramenta atualizada a cada semestre.</p>
-        <p>O apoio é voluntário, sem assinatura nem cobrança automática. Quem não apoia continua com acesso a tudo.</p>
+        <p>Ninguém precisa pagar para estudar: todo o conteúdo é aberto. Quem quiser pode apoiar com um Pix de valor livre, sem assinatura nem cobrança automática, e recebe os extras de apoiador por 30 dias.</p>
         <h3 class="apoio-h3">Quem apoia recebe</h3>
         <ul class="apoio-lista">
           <li><b>Plano de estudos</b><span>Sugerido pelo site ou montado por você, até cada prova.</span></li>
@@ -381,7 +397,6 @@
       <details><summary>Dá para comentar anonimamente no Mural?</summary><p>Não. Tudo no Mural aparece com o nome e a foto da conta, justamente para evitar mensagens ofensivas ou erradas. Só quem tem a conta liberada participa, e qualquer conteúdo pode ser denunciado.</p></details>
       <details><summary>Meu progresso fica salvo?</summary><p>Sim, na sua conta: simulados feitos, resumos estudados e questões para revisar aparecem em qualquer aparelho em que você entrar.</p></details>
       <details><summary>Substitui as aulas ou o material dos professores?</summary><p>Não. O Arquivo Vivo é uma ferramenta de apoio. O conteúdo das aulas sempre prevalece como referência final.</p></details>
-      <details><summary>Preciso pagar para usar?</summary><p>Não. O apoio é opcional, por Pix e de valor livre, para quem quiser ajudar a manter o Arquivo Vivo.</p></details>
     </div>
   </section>
 
@@ -400,6 +415,9 @@
 </footer>
 
 <script>
+// vídeo: começa sozinho, sem som, quando aparece na tela
+(function(){ const v = document.getElementById('videoDiv'); if(!v || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ v.preload = 'auto'; v.play().catch(() => {}); } else v.pause(); }), {threshold:0.5}).observe(v); })();
 // os botões levam ao site certo: a V3 de teste (?de=v3) ou o site oficial
 (function(){ const base = new URLSearchParams(location.search).get('de') === 'v3' ? '../v3/' : '../';
   document.querySelectorAll('[data-site]').forEach(a => a.href = base + a.dataset.site); })();
