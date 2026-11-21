@@ -2986,61 +2986,110 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ap-comp .apoiador li::before{content:'★'; position:absolute; left:0; color:var(--ochre);}
   .ap-comp small{display:block; margin-top:6px; color:var(--ink-soft); font-size:12px;}
   @media (max-width:420px){ .ap-comp{grid-template-columns:1fr;} }
-  /* ===== mural da turma ===== */
-  .mu-page{max-width:640px; margin:0 auto;}
-  .mu-topo{display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin:6px 0 18px; padding:22px 20px; border-radius:18px; color:#F4EFE3; background:radial-gradient(120% 140% at 100% 0%, rgba(201,154,62,.22) 0%, rgba(201,154,62,0) 55%), linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 10px 30px rgba(14,46,44,.18);}
+  /* ===== mural da turma (fórum de tópicos) ===== */
+  .mu-page{max-width:760px; margin:0 auto;}
+  .mu-topo{display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin:6px 0 18px; padding:22px 20px; border-radius:18px; color:#F4EFE3; background:radial-gradient(120% 140% at 100% 0%, rgba(201,154,62,.24) 0%, rgba(201,154,62,0) 55%), linear-gradient(160deg, #1F5C56 0%, #123B37 100%); box-shadow:0 10px 30px rgba(14,46,44,.18);}
   .mu-topo .eyebrow{background:rgba(201,154,62,.18); color:#E6C27A; border-color:transparent;}
   .mu-topo h1{margin:8px 0 6px; color:#fff;}
-  .mu-topo p{margin:0; font-size:14.5px; color:rgba(244,239,227,.82); line-height:1.5;}
+  .mu-topo p{margin:0; font-size:14.5px; color:rgba(244,239,227,.82); line-height:1.5; max-width:46ch;}
   .mu-atualizar{flex:none; margin-top:2px; background:rgba(255,255,255,.1) !important; border-color:rgba(255,255,255,.18) !important; color:#fff !important;}
   .mu-atualizar svg{width:18px; height:18px;}
-  .mu-regras{background:var(--paper); border:1px solid var(--rule); border-left:4px solid var(--petrol); border-radius:14px; padding:16px 18px; margin-bottom:16px;}
+  .mu-regras{background:var(--paper); border:1px solid var(--rule); border-left:4px solid #1F5C56; border-radius:14px; padding:16px 18px; margin-bottom:16px;}
   .mu-regras b{font-size:16px;}
   .mu-regras ul{margin:8px 0 14px; padding-left:18px; font-size:14px; line-height:1.55; color:var(--ink-soft);}
-  .mu-novo{display:flex; gap:12px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:14px; box-shadow:0 1px 2px var(--shadow); margin-bottom:16px;}
-  .mu-novo-c{flex:1; min-width:0;}
-  .mu-novo textarea{width:100%; box-sizing:border-box; font:inherit; font-size:15px; line-height:1.5; color:var(--ink); background:var(--paper-alt); border:1px solid var(--rule); border-radius:10px; padding:10px 12px; resize:vertical; min-height:76px;}
-  .mu-novo textarea:focus{outline:2px solid var(--petrol-line); border-color:var(--petrol);}
-  .mu-novo-r{display:flex; justify-content:space-between; align-items:center; margin-top:8px;}
-  .mu-novo-r small{font-size:12px; color:var(--ink-faint);}
-  .mu-novo-r .btn{padding:8px 18px;}
-  .mu-av{flex:none; width:42px; height:42px; border-radius:50%; object-fit:cover; display:inline-flex; align-items:center; justify-content:center; background:var(--petrol); color:#fff; font-size:15px; font-weight:700;}
-  .mu-av-p{width:32px; height:32px; font-size:12px;}
+  .mu-av{flex:none; width:42px; height:42px; border-radius:50%; object-fit:cover; display:inline-flex; align-items:center; justify-content:center; background:#1F5C56; color:#fff; font-size:15px; font-weight:700;}
+  .mu-av-m{width:38px; height:38px; font-size:13.5px;}
   .mu-av-g{width:76px; height:76px; font-size:26px; box-shadow:0 0 0 4px var(--paper);}
-  .mu-feed{display:flex; flex-direction:column; gap:12px;}
-  .mu-post{background:var(--paper); border:1px solid var(--rule); border-radius:14px; box-shadow:0 1px 2px var(--shadow); padding:14px 16px 6px;}
-  .mu-cab{display:flex; align-items:flex-start; justify-content:space-between; gap:8px;}
-  .mu-quem{display:flex; align-items:center; gap:11px; background:none; border:0; padding:0; font:inherit; color:var(--ink); text-align:left; cursor:pointer; min-width:0;}
-  .mu-quem b{display:block; font-size:15px;}
-  .mu-quem small{display:block; font-size:12.5px; color:var(--ink-faint); margin-top:1px;}
-  .mu-quem .ap-selo{font-size:10px; padding:1px 5px;}
+  .mu-barra{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:4px 0 12px;}
+  .mu-barra b{display:block; font-family:var(--serif, Georgia, serif); font-size:21px;}
+  .mu-barra small{font-size:13px; color:var(--ink-faint);}
+  .mu-criar{display:inline-flex; align-items:center; gap:6px; padding:9px 16px; flex:none;}
+  .mu-criar svg{width:17px; height:17px;}
+  .mu-chips{display:flex; gap:7px; overflow-x:auto; padding:2px 0 12px; scrollbar-width:none;}
+  .mu-chips::-webkit-scrollbar{display:none;}
+  .mu-chip{flex:none; display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; font-weight:600; color:var(--ink-soft); background:var(--paper); border:1px solid var(--rule); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  .mu-chip i{width:8px; height:8px; border-radius:50%; background:var(--c);}
+  .mu-chip span{font-size:11.5px; color:var(--ink-faint);}
+  .mu-chip.on{background:#1F5C56; border-color:#1F5C56; color:#fff;}
+  .mu-chip.on span{color:rgba(255,255,255,.75);}
+  .mu-chip.on i{box-shadow:0 0 0 2px rgba(255,255,255,.7);}
+  .mu-lista{background:var(--paper); border:1px solid var(--rule); border-radius:16px; overflow:hidden; box-shadow:0 1px 2px var(--shadow);}
+  .mu-top{display:flex; align-items:center; gap:12px; width:100%; text-align:left; font:inherit; color:var(--ink); background:none; border:0; border-top:1px solid var(--rule); padding:14px 16px; cursor:pointer;}
+  .mu-top:first-child{border-top:0;}
+  .mu-top:hover{background:var(--paper-alt);}
+  .mu-top.fixo{background:linear-gradient(90deg, rgba(183,121,31,.09), rgba(183,121,31,0) 70%);}
+  .mu-top-c{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;}
+  .mu-top-l1{display:flex; flex-wrap:wrap; align-items:center; gap:6px;}
+  .mu-top-t{font-size:15.5px; line-height:1.35; overflow-wrap:anywhere;}
+  .mu-top-c small{font-size:12.5px; color:var(--ink-faint);}
+  .mu-top-n{flex:none; display:flex; flex-direction:column; align-items:center; min-width:62px; padding-left:10px; border-left:1px solid var(--rule);}
+  .mu-top-n b{font-family:var(--serif, Georgia, serif); font-size:21px; line-height:1;}
+  .mu-top-n small{font-size:11px; color:var(--ink-faint); margin-top:2px;}
+  .mu-top-n em{display:inline-flex; align-items:center; gap:3px; font-style:normal; font-size:11.5px; color:#B5435A; margin-top:4px;}
+  .mu-top-n em svg{width:11px; height:11px;}
+  .mu-tag{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:700; color:var(--c); background:color-mix(in srgb, var(--c) 11%, transparent); border-radius:999px; padding:2px 9px;}
+  body.dark .mu-tag{color:color-mix(in srgb, var(--c) 55%, #fff);}
+  .mu-tag::before{content:''; width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .mu-novo-b{font-size:11px; font-weight:700; color:#fff; background:#B7791F; border-radius:999px; padding:2px 8px;}
+  .mu-fixo{display:inline-flex; align-items:center; gap:4px; font-size:11.5px; font-weight:700; color:#B7791F;}
+  .mu-fixo svg{width:12px; height:12px;}
+  .mu-vazio{background:var(--paper); border:1px dashed var(--rule); border-radius:16px; padding:22px 18px; text-align:center;}
+  .mu-vazio b{display:block; font-size:16px; margin-bottom:4px;}
+  .mu-vazio p{margin:0 0 12px; color:var(--ink-soft); font-size:14px; line-height:1.5;}
+  .mu-vazio p:last-child{margin:0;}
+  .mu-voltar{display:inline-flex; align-items:center; gap:4px; font:inherit; font-size:14px; font-weight:600; color:var(--petrol); background:none; border:0; padding:4px 0; margin-bottom:10px; cursor:pointer;}
+  .mu-voltar svg{width:18px; height:18px;}
+  .mu-form{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:18px; box-shadow:0 1px 2px var(--shadow);}
+  .mu-form h2{margin:0 0 12px; font-size:22px;}
+  .mu-lbl{display:block; font-size:12.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint); margin:14px 0 6px;}
+  .mu-form input[name=titulo], .mu-form textarea, .mu-resp textarea{width:100%; box-sizing:border-box; font:inherit; font-size:15px; line-height:1.5; color:var(--ink); background:var(--paper-alt); border:1px solid var(--rule); border-radius:10px; padding:10px 12px;}
+  .mu-form input[name=titulo]{font-weight:600; font-size:16px;}
+  .mu-form textarea, .mu-resp textarea{resize:vertical;}
+  .mu-form input:focus, .mu-form textarea:focus, .mu-resp textarea:focus{outline:2px solid var(--petrol-line, rgba(31,92,86,.3)); border-color:var(--petrol);}
+  .mu-cats{display:flex; flex-wrap:wrap; gap:7px;}
+  .mu-cat input{position:absolute; opacity:0; pointer-events:none;}
+  .mu-cat span{display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt); border:1px solid var(--rule); border-radius:999px; padding:7px 13px; cursor:pointer;}
+  .mu-cat i{width:8px; height:8px; border-radius:50%; background:var(--c);}
+  .mu-cat input:checked + span{color:#fff; background:var(--c); border-color:var(--c);}
+  .mu-cat input:checked + span i{background:#fff;}
+  .mu-cat input:focus-visible + span{outline:2px solid var(--c); outline-offset:2px;}
+  .mu-form-r{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px;}
+  .mu-form-r > span{display:flex; gap:8px;}
+  .mu-form-r small{font-size:12px; color:var(--ink-faint);}
+  .mu-aviso{margin:10px 0 0; font-size:12.5px; color:var(--ink-faint);}
+  .mu-tp-cab{background:var(--paper); border:1px solid var(--rule); border-top:4px solid #B7791F; border-radius:16px; padding:16px 18px; margin-bottom:12px;}
+  .mu-tp-cab h2{margin:8px 0 6px; font-size:24px; line-height:1.25; overflow-wrap:anywhere;}
+  .mu-tp-cab p{margin:0 0 12px; font-size:13.5px; color:var(--ink-faint);}
+  .mu-link-nome{font:inherit; font-weight:700; color:var(--ink); background:none; border:0; padding:0; cursor:pointer;}
+  .mu-curtir{display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt); border:1px solid var(--rule); border-radius:999px; padding:7px 14px; cursor:pointer;}
+  .mu-curtir svg{width:17px; height:17px;}
+  .mu-curtir.on{color:#B5435A; border-color:rgba(181,67,90,.35); background:rgba(181,67,90,.08);}
+  .mu-msgs{display:flex; flex-direction:column; gap:10px;}
+  .mu-msg{display:flex; background:var(--paper); border:1px solid var(--rule); border-radius:14px;}
+  .mu-msg-1{border-color:rgba(183,121,31,.45);}
+  .mu-msg-quem{flex:none; width:128px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; font:inherit; color:var(--ink); background:var(--paper-alt); border:0; border-right:1px solid var(--rule); border-radius:13px 0 0 13px; padding:16px 10px; cursor:pointer;}
+  .mu-msg-1 .mu-msg-quem{background:rgba(183,121,31,.08);}
+  .mu-msg-quem b{display:block; font-size:13.5px; line-height:1.3;}
+  .mu-msg-quem small{display:block; font-size:11.5px; color:var(--ink-faint); margin-top:2px;}
+  .mu-msg-quem .ap-selo{font-size:9.5px; padding:1px 5px;}
+  .mu-msg-corpo{flex:1; min-width:0; padding:10px 14px 14px;}
+  .mu-msg-meta{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-faint);}
+  .mu-autor{font-weight:700; color:#B7791F;}
+  .mu-num{margin-left:auto; font-weight:600;}
+  .mu-msg-txt{font-size:15px; line-height:1.6; margin-top:6px; overflow-wrap:anywhere;}
+  .mu-sep{display:flex; align-items:center; gap:10px; font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin:6px 2px 0;}
+  .mu-sep::after{content:''; flex:1; height:1px; background:var(--rule);}
   .mu-mais-box{position:relative; flex:none;}
-  .mu-mais{width:34px; height:34px; border-radius:8px; border:0; background:none; color:var(--ink-faint); cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  .mu-mais{width:30px; height:30px; border-radius:8px; border:0; background:none; color:var(--ink-faint); cursor:pointer; display:flex; align-items:center; justify-content:center;}
   .mu-mais:hover{background:var(--paper-alt); color:var(--ink);}
-  .mu-mais svg{width:18px; height:18px;}
-  .mu-menu{position:absolute; right:0; top:38px; z-index:20; min-width:210px; padding:6px; background:var(--paper); border:1px solid var(--rule); border-radius:var(--radius, 12px); box-shadow:0 18px 40px var(--shadow-lg);}
+  .mu-mais svg{width:17px; height:17px;}
+  .mu-menu{position:absolute; right:0; top:34px; z-index:20; min-width:220px; padding:6px; background:var(--paper); border:1px solid var(--rule); border-radius:12px; box-shadow:0 18px 40px var(--shadow-lg);}
   .mu-menu button{display:flex; align-items:center; gap:8px; width:100%; text-align:left; font:inherit; font-size:14px; color:var(--ink); background:none; border:0; border-radius:8px; padding:9px 10px; cursor:pointer;}
   .mu-menu button:hover{background:var(--paper-alt);}
   .mu-menu svg{width:16px; height:16px;}
   .mu-perigo{color:#A32D2D !important;}
-  .mu-texto{font-size:15px; line-height:1.6; margin:10px 0 8px; white-space:normal; overflow-wrap:anywhere;}
-  .mu-acoes{display:flex; gap:4px; border-top:1px solid var(--rule); margin:0 -8px; padding-top:4px;}
-  .mu-acao{display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-radius:8px; padding:8px 10px; cursor:pointer;}
-  .mu-acao:hover{background:var(--paper-alt);}
-  .mu-acao svg{width:18px; height:18px;}
-  .mu-acao.on{color:#B5435A;}
-  .mu-coms{border-top:1px solid var(--rule); margin:4px -16px 0; padding:12px 16px 8px; background:var(--paper-alt); border-radius:0 0 14px 14px;}
-  .mu-com{display:flex; gap:9px; margin-bottom:10px;}
-  .mu-com-bolha{flex:1; min-width:0; background:var(--paper); border:1px solid var(--rule); border-radius:4px 12px 12px 12px; padding:8px 11px;}
-  .mu-com-nome{font:inherit; font-size:13.5px; font-weight:700; color:var(--ink); background:none; border:0; padding:0; cursor:pointer;}
-  .mu-com-bolha p{margin:2px 0 4px; font-size:14px; line-height:1.5; overflow-wrap:anywhere;}
-  .mu-com-bolha small{font-size:12px; color:var(--ink-faint);}
-  .mu-link{font:inherit; font-size:12px; color:var(--ink-faint); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer;}
-  .mu-com-form{display:flex; align-items:center; gap:8px; margin:4px 0 4px;}
-  .mu-com-form input{flex:1; min-width:0; font:inherit; font-size:14px; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:999px; padding:9px 14px;}
-  .mu-com-form button{flex:none; font:inherit; font-size:13.5px; font-weight:700; color:var(--petrol); background:none; border:0; cursor:pointer; padding:6px 4px;}
-  .mu-vazio b{display:block; font-size:16px; margin-bottom:4px;}
-  .mu-vazio p{margin:0; color:var(--ink-soft); font-size:14px;}
+  .mu-resp{display:flex; gap:12px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:14px; margin-top:14px;}
+  .mu-resp > div{flex:1; min-width:0;}
   .mu-erro{background:#FBEAEA; color:#8E1F1F; border-radius:10px; padding:10px 12px; font-size:14px;}
   .mu-den{background:#FBF1EF; border:1px solid #E7C2BB; border-radius:14px; padding:14px 16px; margin-bottom:16px;}
   body.dark .mu-den{background:#2A1E1C; border-color:#5A3A33;}
@@ -3051,11 +3100,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-den-bts{display:flex; flex-wrap:wrap; gap:8px;}
   .mu-den-bts button{font:inherit; font-size:13px; font-weight:600; padding:6px 12px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); cursor:pointer;}
   .mu-perfil-caixa{text-align:center;}
-  .mu-pf-topo{position:relative; height:150px; margin:-8px -8px 0; border-radius:14px; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%);}
+  .mu-pf-topo{position:relative; height:150px; margin:-8px -8px 46px; border-radius:14px; background:linear-gradient(160deg, #1F5C56 0%, #123B37 100%);}
   .mu-pf-psiu{position:absolute; right:14px; top:12px; width:96px; height:96px;}
   .mu-pf-psiu svg{width:100%; height:100%;}
   .mu-pf-topo .mu-av-g{position:absolute; left:50%; bottom:-38px; transform:translateX(-50%);}
-  .mu-pf-topo{margin-bottom:46px;}
   .mu-perfil-caixa .mu-pf-nome{margin:0 0 4px; font-size:24px;}
   .mu-perfil-caixa .conta-fechar{z-index:2; color:#fff;}
   .mu-pf-sub{margin:0 0 14px; font-size:14px; color:var(--ink-soft);}
@@ -3065,9 +3113,20 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-pf-nums b small{font-size:14px; color:var(--ink-faint);}
   .mu-pf-nums span{font-size:12px; color:var(--ink-soft);}
   .mu-pf-post{display:block; width:100%; text-align:left; font:inherit; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:10px 12px; margin-bottom:8px; cursor:pointer;}
-  .mu-pf-post p{margin:0 0 4px; font-size:14px; line-height:1.5;}
+  .mu-pf-post p{margin:6px 0 2px; font-size:14.5px; font-weight:600; line-height:1.4;}
   .mu-pf-post small{font-size:12px; color:var(--ink-faint);}
   .mu-perfil-caixa .ma-grupo-t{text-align:left;}
+  @media (max-width:560px){
+    .mu-msg{flex-direction:column;}
+    .mu-msg-quem{width:auto; flex-direction:row; text-align:left; border-right:0; border-bottom:1px solid var(--rule); border-radius:13px 13px 0 0; padding:10px 14px; gap:10px;}
+    .mu-msg-quem .mu-av{width:34px; height:34px; font-size:12.5px;}
+    .mu-msg-quem b, .mu-msg-quem small{display:inline;}
+    .mu-msg-quem small::before{content:' · ';}
+    .mu-top{padding:13px 14px; gap:10px;}
+    .mu-top > .mu-av{display:none;}
+    .mu-resp > .mu-av{display:none;}
+    .mu-form-r{flex-wrap:wrap;}
+  }
   /* turma (painel do administrador) */
   .tm-hero{margin:18px 0 0; padding:18px; border-radius:14px; color:#fff; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); box-shadow:0 6px 16px var(--shadow); position:relative; overflow:hidden;}
   .tm-hero::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
@@ -4709,7 +4768,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-21', disc: 'Geral', desc: 'Mural da turma: publique, comente e curta, sempre com o seu nome. Cada pessoa tem um perfil com foto, semestre e o Psiu que montou. Só contas liberadas participam, e qualquer conteúdo pode ser denunciado.', link: {url:'#mural'}},
+  {date: '2026-11-21', disc: 'Geral', desc: 'Mural da turma, no estilo das comunidades antigas: abra tópicos com título e categoria, responda os dos colegas e curta. Tudo sai com o seu nome, e cada pessoa tem um perfil com foto, semestre e o Psiu que montou. Só contas liberadas participam, e qualquer conteúdo pode ser denunciado.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Ficou mais claro o que é de apoiador: selo ★ Apoiador nos recursos exclusivos, aba Apoiador na Minha área com prévias para todos e uma comparação entre o que é grátis e o que o apoio libera.'},
   {date: '2026-11-21', disc: 'Geral', desc: 'O semestre escolhido na Minha área agora vale para o site todo: Drive das disciplinas, exercícios, glossário, busca e atualizações mostram só o seu semestre. Um link discreto deixa ver o outro quando quiser.'},
   {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Simulado em PDF corrigido no app instalado no iPhone: em vez de abrir a impressão, que não funciona ali, o site gera o PDF e abre a opção de salvar ou compartilhar.'},
@@ -24063,27 +24122,38 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
 })();
 </script>
 <script>
-// ===== Mural da turma: publicações, comentários, curtidas e perfis (só contas liberadas; tudo com nome) =====
+// ===== Mural da turma: fórum de tópicos com respostas, curtidas e perfis (só contas liberadas; tudo com nome) =====
 (function(){
-  const LIM_POST = 600, LIM_COM = 300;
-  let C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}}, estado = 'nada', abertos = new Set(), menuAberto = null, erro = '';
+  const LIM_TIT = 100, LIM_POST = 2000, LIM_COM = 1000;
+  const CATS = [['duvidas','Dúvidas','#2F6F9F'], ['provas','Provas e trabalhos','#A3472F'], ['materiais','Materiais','#1F5C56'], ['avisos','Avisos','#B7791F'], ['conversa','Conversa','#6B4E9B'], ['opiniao','Elogios e críticas','#8A6A2F']];
+  const catDe = id => CATS.find(c => c[0] === id) || ['conversa','Conversa','#6B4E9B'];
+  let C = {posts:{}, curt:{}, com:{}, perfis:{}, bloq:{}, den:{}, fix:{}}, estado = 'nada', vista = 'lista', filtro = 'todos', menuAberto = null, erro = '', rascunho = {titulo:'', cat:'', texto:''};
   const B = () => window.avBanco, EU = () => window.avEu && window.avEu();
   const esc = t => escHTML(t == null ? '' : t);
   const texto = t => esc(t).replace(/\n{3,}/g, '\n\n').replace(/\n/g, '<br>');
   const novoId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   const quando = ts => { const d = (Date.now() - ts) / 1000; if(d < 60) return 'agora'; if(d < 3600) return 'há ' + Math.floor(d / 60) + ' min'; if(d < 86400) return 'há ' + Math.floor(d / 3600) + ' h'; if(d < 172800) return 'ontem'; return new Date(ts).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}); };
+  const dataLonga = ts => new Date(ts).toLocaleDateString('pt-BR', {day:'2-digit', month:'short'}) + ', ' + new Date(ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
   const perfil = (uid, fallback) => C.perfis[uid] || {nome: fallback || 'Colega'};
+  const nomeDe = (uid, fb) => perfil(uid, fb).nome || fb || 'Colega';
+  const primeiro = n => (n || '').trim().split(/\s+/)[0];
   const iniciais = n => (n || '?').trim().split(/\s+/).slice(0, 2).map(x => x[0]).join('').toUpperCase();
-  const avatar = (uid, nome, cls) => { const p = perfil(uid, nome); return p.foto ? `<img class="mu-av ${cls || ''}" src="${esc(p.foto)}" alt="">` : `<span class="mu-av mu-av-ini ${cls || ''}">${esc(iniciais(p.nome || nome))}</span>`; };
+  const avatar = (uid, nome, cls) => { const p = perfil(uid, nome); return p.foto ? `<img class="mu-av ${cls || ''}" src="${esc(p.foto)}" alt="" referrerpolicy="no-referrer">` : `<span class="mu-av ${cls || ''}">${esc(iniciais(p.nome || nome))}</span>`; };
+  const titulo = p => (p.titulo || '').trim() || (p.texto || '').split('\n')[0].slice(0, 80);
+  const respostas = pid => Object.entries(C.com[pid] || {}).filter(([, c]) => c && c.texto).sort((a, b) => a[1].em - b[1].em);
+  const ultima = (pid, p) => { const r = respostas(pid); return r.length ? r[r.length - 1][1] : p; };
   const ICO = {
     curtir:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/>',
     com:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/>',
     mais:'<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
     atual:'<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
-    bandeira:'<path d="M4 21V4M4 4h12l-2 4 2 4H4"/>'
+    bandeira:'<path d="M4 21V4M4 4h12l-2 4 2 4H4"/>',
+    voltar:'<path d="M15 18l-6-6 6-6"/>',
+    mais2:'<path d="M12 5v14M5 12h14"/>',
+    pino:'<path d="M9 4h6l-1 6 4 4H6l4-4-1-6ZM12 14v7"/>'
   };
   const ic = (k, f) => `<svg viewBox="0 0 24 24" fill="${f ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[k]}</svg>`;
-  // foto do perfil: miniatura leve para não pesar o banco
+  const tag = id => { const c = catDe(id); return `<span class="mu-tag" style="--c:${c[2]}">${esc(c[1])}</span>`; };
   function miniFoto(f){
     return new Promise(ok => {
       if(!f) return ok(''); if(/^https?:/.test(f)) return ok(f.slice(0, 500));
@@ -24103,70 +24173,126 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const eu = EU(); if(!eu || !B()) return;
     estado = estado === 'pronto' ? 'atualizando' : 'carregando'; erro = ''; render();
     try{
-      const [posts, curt, com, perfis, bloq] = await Promise.all(['mural/posts', 'mural/curtidas', 'mural/comentarios', 'perfis', 'mural/bloqueados'].map(p => B().ler(p)));
-      C = {posts: posts || {}, curt: curt || {}, com: com || {}, perfis: perfis || {}, bloq: bloq || {}, den: {}};
+      const [posts, curt, com, perfis, bloq, fix] = await Promise.all(['mural/posts', 'mural/curtidas', 'mural/comentarios', 'perfis', 'mural/bloqueados', 'mural/fixados'].map(p => B().ler(p).catch(() => null)));
+      C = {posts: posts || {}, curt: curt || {}, com: com || {}, perfis: perfis || {}, bloq: bloq || {}, fix: fix || {}, den: {}};
       if(eu.admin){ try{ C.den = await B().ler('mural/denuncias') || {}; }catch(e){} }
       estado = 'pronto'; salvarPerfil();
+      if(vista !== 'lista' && vista !== 'novo' && !C.posts[vista]) vista = 'lista';
     }catch(e){ estado = 'pronto'; erro = 'Não deu para carregar o mural agora. Confira a internet e toque em Atualizar.'; }
     render();
   }
-  // ---------- desenho ----------
-  function postHTML(id, p, eu){
-    const pf = perfil(p.uid, p.nome), curtidas = Object.keys(C.curt[id] || {}), curti = curtidas.includes(eu.uid);
-    const coms = Object.entries(C.com[id] || {}).sort((a, b) => a[1].em - b[1].em), aberto = abertos.has(id), meu = p.uid === eu.uid;
-    const menu = menuAberto === id ? `<div class="mu-menu" role="menu">
-        ${!meu ? `<button data-mu-denunciar="${id}">${ic('bandeira')} Denunciar</button>` : ''}
-        ${meu || eu.admin ? `<button data-mu-apagar="${id}" class="mu-perigo">Apagar publicação</button>` : ''}
-        ${eu.admin && !meu ? `<button data-mu-bloquear="${esc(p.uid)}" class="mu-perigo">Bloquear quem publicou</button>` : ''}
-      </div>` : '';
-    return `<article class="mu-post" id="mu-${id}">
-      <header class="mu-cab"><button class="mu-quem" data-mu-perfil="${esc(p.uid)}">${avatar(p.uid, p.nome)}<span><b>${esc(pf.nome || p.nome)}${pf.ap ? ' <span class="ap-selo">★</span>' : ''}</b><small>${pf.sem ? pf.sem + 'º semestre · ' : ''}${quando(p.em)}</small></span></button>
-        <div class="mu-mais-box"><button class="mu-mais" data-mu-menu="${id}" aria-label="Mais opções" aria-expanded="${menuAberto === id}">${ic('mais', 1)}</button>${menu}</div></header>
-      <p class="mu-texto">${texto(p.texto)}</p>
-      <footer class="mu-acoes">
-        <button class="mu-acao${curti ? ' on' : ''}" data-mu-curtir="${id}" aria-pressed="${curti}">${ic('curtir', curti)}<span>${curtidas.length || 'Curtir'}</span></button>
-        <button class="mu-acao" data-mu-abrir="${id}" aria-expanded="${aberto}">${ic('com')}<span>${coms.length ? coms.length + (coms.length === 1 ? ' comentário' : ' comentários') : 'Comentar'}</span></button>
-      </footer>
-      ${aberto ? `<div class="mu-coms">
-        ${coms.map(([cid, c]) => { const cp = perfil(c.uid, c.nome); return `<div class="mu-com">${avatar(c.uid, c.nome, 'mu-av-p')}<div class="mu-com-bolha"><button class="mu-com-nome" data-mu-perfil="${esc(c.uid)}">${esc(cp.nome || c.nome)}</button><p>${texto(c.texto)}</p><small>${quando(c.em)}${c.uid !== eu.uid ? ` · <button class="mu-link" data-mu-denunciar="${id}~${cid}">Denunciar</button>` : ''}${c.uid === eu.uid || eu.admin ? ` · <button class="mu-link" data-mu-apagar-com="${id}~${cid}">Apagar</button>` : ''}</small></div></div>`; }).join('')}
-        ${C.bloq[eu.uid] ? '' : `<form class="mu-com-form" data-mu-comentar="${id}">${avatar(eu.uid, eu.nome, 'mu-av-p')}<input name="t" maxlength="${LIM_COM}" placeholder="Escreva um comentário…" autocomplete="off" aria-label="Comentário"><button type="submit" aria-label="Enviar">Enviar</button></form>`}
-      </div>` : ''}
+  // ---------- pedaços ----------
+  function menuHTML(alvo, uid, eu, ehTopico){
+    const meu = uid === eu.uid;
+    if(menuAberto !== alvo) return '';
+    return `<div class="mu-menu" role="menu">
+      ${ehTopico && eu.admin ? `<button data-mu-fixar="${alvo}">${ic('pino')} ${C.fix[alvo] ? 'Desafixar tópico' : 'Fixar no topo'}</button>` : ''}
+      ${!meu ? `<button data-mu-denunciar="${alvo}">${ic('bandeira')} Denunciar</button>` : ''}
+      ${meu || eu.admin ? `<button class="mu-perigo" ${ehTopico ? `data-mu-apagar="${alvo}"` : `data-mu-apagar-com="${alvo}"`}>${ehTopico ? 'Apagar tópico' : 'Apagar resposta'}</button>` : ''}
+      ${eu.admin && !meu ? `<button class="mu-perigo" data-mu-bloquear="${esc(uid)}">Bloquear quem escreveu</button>` : ''}
+    </div>`;
+  }
+  function msgHTML(alvo, m, n, autorTopico, eu, ehTopico){
+    const pf = perfil(m.uid, m.nome);
+    return `<article class="mu-msg${ehTopico ? ' mu-msg-1' : ''}" id="mu-${alvo.replace('~', '-')}">
+      <button class="mu-msg-quem" data-mu-perfil="${esc(m.uid)}">${avatar(m.uid, m.nome)}<span><b>${esc(nomeDe(m.uid, m.nome))}${pf.ap ? ' <span class="ap-selo">★</span>' : ''}</b><small>${pf.sem ? pf.sem + 'º semestre' : 'Psicologia'}</small></span></button>
+      <div class="mu-msg-corpo">
+        <div class="mu-msg-meta">${m.uid === autorTopico ? '<span class="mu-autor">Autor do tópico</span>' : ''}<span>${dataLonga(m.em)}</span><span class="mu-num">#${n}</span>
+          <div class="mu-mais-box"><button class="mu-mais" data-mu-menu="${alvo}" aria-label="Mais opções" aria-expanded="${menuAberto === alvo}">${ic('mais', 1)}</button>${menuHTML(alvo, m.uid, eu, ehTopico)}</div></div>
+        <div class="mu-msg-txt">${texto(m.texto)}</div>
+      </div>
     </article>`;
+  }
+  function listaHTML(eu){
+    const todos = Object.entries(C.posts).filter(([, p]) => p && p.texto);
+    const cont = {}; todos.forEach(([, p]) => { const c = catDe(p.cat)[0]; cont[c] = (cont[c] || 0) + 1; });
+    const lista = todos.filter(([, p]) => filtro === 'todos' || catDe(p.cat)[0] === filtro)
+      .sort((a, b) => (C.fix[b[0]] ? 1 : 0) - (C.fix[a[0]] ? 1 : 0) || ultima(b[0], b[1]).em - ultima(a[0], a[1]).em);
+    const chips = `<div class="mu-chips" role="tablist"><button class="mu-chip${filtro === 'todos' ? ' on' : ''}" data-mu-filtro="todos">Todos <span>${todos.length}</span></button>${CATS.map(c => `<button class="mu-chip${filtro === c[0] ? ' on' : ''}" data-mu-filtro="${c[0]}" style="--c:${c[2]}"><i></i>${esc(c[1])}${cont[c[0]] ? ` <span>${cont[c[0]]}</span>` : ''}</button>`).join('')}</div>`;
+    const linhas = lista.map(([id, p]) => {
+      const r = respostas(id), u = ultima(id, p), novo = Date.now() - u.em < 86400000, curt = Object.keys(C.curt[id] || {}).length;
+      return `<button class="mu-top${C.fix[id] ? ' fixo' : ''}" data-mu-ver="${id}">
+        ${avatar(p.uid, p.nome, 'mu-av-m')}
+        <span class="mu-top-c">
+          <span class="mu-top-l1">${C.fix[id] ? `<span class="mu-fixo">${ic('pino')} Fixado</span>` : ''}${tag(p.cat)}${novo ? '<span class="mu-novo-b">Novo</span>' : ''}</span>
+          <b class="mu-top-t">${esc(titulo(p))}</b>
+          <small>por ${esc(nomeDe(p.uid, p.nome))} · ${r.length ? `última resposta de ${esc(primeiro(nomeDe(u.uid, u.nome)))} ${quando(u.em)}` : quando(p.em)}</small>
+        </span>
+        <span class="mu-top-n"><b>${r.length}</b><small>${r.length === 1 ? 'resposta' : 'respostas'}</small>${curt ? `<em>${ic('curtir', 1)}${curt}</em>` : ''}</span>
+      </button>`; }).join('');
+    const bloqueado = !!C.bloq[eu.uid];
+    return `${eu.admin ? denunciasHTML() : ''}
+      <div class="mu-barra"><div><b>Tópicos</b><small>${todos.length ? `${todos.length} ${todos.length === 1 ? 'tópico' : 'tópicos'} na turma` : 'Nenhum tópico ainda'}</small></div>${bloqueado ? '' : `<button class="btn btn-primary mu-criar" data-mu-novo>${ic('mais2')} Novo tópico</button>`}</div>
+      ${todos.length ? chips : ''}
+      ${estado === 'carregando' ? '<p class="hj-vazio mu-carregando">Carregando o mural…</p>'
+        : lista.length ? `<div class="mu-lista">${linhas}</div>`
+        : todos.length ? '<section class="mu-vazio"><p>Nenhum tópico nesta categoria ainda.</p></section>'
+        : `<section class="mu-vazio"><b>O mural ainda está vazio</b><p>Crie o primeiro tópico: uma dúvida sobre a prova, um material que ajudou, um aviso ou só para puxar conversa.</p>${bloqueado ? '' : '<button class="btn btn-primary" data-mu-novo>Criar o primeiro tópico</button>'}</section>`}`;
+  }
+  function novoHTML(){
+    return `<button class="mu-voltar" data-mu-lista>${ic('voltar')} Todos os tópicos</button>
+      <form class="mu-form" data-mu-publicar>
+        <h2>Novo tópico</h2>
+        <label class="mu-lbl" for="muTit">Título</label>
+        <input id="muTit" name="titulo" maxlength="${LIM_TIT}" placeholder="Ex.: Quem vai fazer o trabalho de Experimental em dupla?" value="${esc(rascunho.titulo)}" autocomplete="off" required>
+        <span class="mu-lbl">Categoria</span>
+        <div class="mu-cats">${CATS.map(c => `<label class="mu-cat" style="--c:${c[2]}"><input type="radio" name="cat" value="${c[0]}"${rascunho.cat === c[0] ? ' checked' : ''} required><span><i></i>${esc(c[1])}</span></label>`).join('')}</div>
+        <label class="mu-lbl" for="muTxt">Mensagem</label>
+        <textarea id="muTxt" name="texto" maxlength="${LIM_POST}" rows="6" placeholder="Escreva o que quer compartilhar ou perguntar para a turma…" required>${esc(rascunho.texto)}</textarea>
+        <div class="mu-form-r"><small data-mu-cont>${rascunho.texto.length}/${LIM_POST}</small><span><button type="button" class="btn btn-ghost" data-mu-lista>Cancelar</button><button class="btn btn-primary" type="submit">Publicar tópico</button></span></div>
+        <p class="mu-aviso">O tópico aparece com o seu nome e a sua foto para toda a turma.</p>
+      </form>`;
+  }
+  function topicoHTML(id, eu){
+    const p = C.posts[id]; if(!p) return '';
+    const r = respostas(id), curtidas = Object.keys(C.curt[id] || {}), curti = curtidas.includes(eu.uid);
+    return `<button class="mu-voltar" data-mu-lista>${ic('voltar')} Todos os tópicos</button>
+      <header class="mu-tp-cab">
+        <div class="mu-top-l1">${C.fix[id] ? `<span class="mu-fixo">${ic('pino')} Fixado</span>` : ''}${tag(p.cat)}</div>
+        <h2>${esc(titulo(p))}</h2>
+        <p>Aberto por <button class="mu-link-nome" data-mu-perfil="${esc(p.uid)}">${esc(nomeDe(p.uid, p.nome))}</button> · ${quando(p.em)} · ${r.length} ${r.length === 1 ? 'resposta' : 'respostas'}</p>
+        <button class="mu-curtir${curti ? ' on' : ''}" data-mu-curtir="${id}" aria-pressed="${curti}">${ic('curtir', curti)}<span>${curtidas.length ? curtidas.length + (curtidas.length === 1 ? ' curtida' : ' curtidas') : 'Curtir tópico'}</span></button>
+      </header>
+      <div class="mu-msgs">
+        ${msgHTML(id, p, 1, p.uid, eu, true)}
+        ${r.length ? `<div class="mu-sep">${r.length} ${r.length === 1 ? 'resposta' : 'respostas'}</div>` : ''}
+        ${r.map(([cid, c], i) => msgHTML(id + '~' + cid, c, i + 2, p.uid, eu, false)).join('')}
+      </div>
+      ${C.bloq[eu.uid] ? '' : `<form class="mu-resp" data-mu-comentar="${id}">${avatar(eu.uid, eu.nome, 'mu-av-m')}<div><textarea name="t" rows="3" maxlength="${LIM_COM}" placeholder="Escreva a sua resposta…" aria-label="Resposta" required></textarea><div class="mu-form-r"><small>Responde como ${esc(eu.nome)}</small><button class="btn btn-primary" type="submit">Responder</button></div></div></form>`}`;
   }
   function denunciasHTML(){
     const alvos = Object.entries(C.den || {}); if(!alvos.length) return '';
     return `<section class="mu-den"><h3>Denúncias para analisar <span class="ma-badge ma-badge-red">${alvos.length}</span></h3>${alvos.map(([alvo, quem]) => {
       const [pid, cid] = alvo.split('~'), item = cid ? (C.com[pid] || {})[cid] : C.posts[pid], n = Object.keys(quem || {}).length;
       if(!item) return `<div class="mu-den-item"><p class="mu-den-txt">Conteúdo já apagado.</p><div class="mu-den-bts"><button data-mu-den-ok="${alvo}">Limpar</button></div></div>`;
-      return `<div class="mu-den-item"><small>${cid ? 'Comentário' : 'Publicação'} de <b>${esc(perfil(item.uid, item.nome).nome || item.nome)}</b> · ${n} ${n === 1 ? 'denúncia' : 'denúncias'}</small><p class="mu-den-txt">${texto(item.texto)}</p>
+      return `<div class="mu-den-item"><small>${cid ? 'Resposta' : 'Tópico'} de <b>${esc(nomeDe(item.uid, item.nome))}</b>${C.posts[pid] ? ` em “${esc(titulo(C.posts[pid]))}”` : ''} · ${n} ${n === 1 ? 'denúncia' : 'denúncias'}</small><p class="mu-den-txt">${texto(item.texto)}</p>
         <div class="mu-den-bts"><button class="mu-perigo" data-mu-den-apagar="${alvo}">Apagar</button><button data-mu-den-ok="${alvo}">Manter</button><button class="mu-perigo" data-mu-bloquear="${esc(item.uid)}">Bloquear autor</button></div></div>`; }).join('')}</section>`;
   }
   function render(){
     const el = document.getElementById('muralPage'); if(!el) return;
     const eu = EU();
-    if(!eu || !eu.liberado){ el.innerHTML = `<header class="mu-topo"><div class="eyebrow">Turma</div><h1>Mural da turma</h1></header><section class="hj-card"><p class="hj-vazio">O mural é só para contas liberadas. Entre na sua conta para participar.</p></section>`; return; }
+    const topo = `<header class="mu-topo"><div><div class="eyebrow">Turma</div><h1>Mural da turma</h1><p>Abra tópicos, responda os dos colegas e converse com a turma. Tudo aparece com o seu nome.</p></div>${eu && eu.liberado ? `<button class="icon-btn mu-atualizar" data-mu-atualizar aria-label="Atualizar"${estado !== 'pronto' ? ' disabled' : ''}>${ic('atual')}</button>` : ''}</header>`;
+    if(!eu || !eu.liberado){ el.innerHTML = topo + '<section class="mu-vazio"><p>O mural é só para contas liberadas. Entre na sua conta para participar.</p></section>'; return; }
     if(estado === 'nada'){ carregar(); return; }
     let combinado = false; try{ combinado = !!localStorage.getItem('av-mural-ok'); }catch(e){}
-    const lista = Object.entries(C.posts).filter(([, p]) => p && p.texto).sort((a, b) => b[1].em - a[1].em).slice(0, 80);
-    const bloqueado = !!C.bloq[eu.uid];
-    el.innerHTML = `<header class="mu-topo"><div class="mu-topo-l"><div class="eyebrow">Turma</div><h1>Mural da turma</h1><p>Um espaço para a turma conversar, tirar dúvidas, elogiar e sugerir. Tudo é publicado com o seu nome.</p></div>
-        <button class="icon-btn mu-atualizar" data-mu-atualizar aria-label="Atualizar"${estado !== 'pronto' ? ' disabled' : ''}>${ic('atual')}</button></header>
-      ${eu.admin ? denunciasHTML() : ''}
-      ${!combinado ? `<section class="mu-regras"><b>Combinados do mural</b><ul><li>Tudo aparece com o seu nome e a sua foto.</li><li>Respeito com colegas, professores e a faculdade. Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas, como telefone, endereço ou prints de conversas.</li><li>Qualquer pessoa pode denunciar. Quem desrespeitar os combinados pode ser bloqueado.</li></ul><button class="btn btn-primary" data-mu-combinado>Combinado</button></section>`
-        : bloqueado ? '<section class="hj-card"><p class="hj-vazio">A sua conta está sem permissão para publicar no mural. Se achar que é um engano, fale com o representante da turma.</p></section>'
-        : `<form class="mu-novo" data-mu-publicar>${avatar(eu.uid, eu.nome)}<div class="mu-novo-c"><textarea name="t" maxlength="${LIM_POST}" rows="3" placeholder="Compartilhe algo com a turma…" aria-label="Nova publicação"></textarea><div class="mu-novo-r"><small data-mu-cont>0/${LIM_POST}</small><button class="btn btn-primary" type="submit">Publicar</button></div></div></form>`}
-      ${erro ? `<p class="mu-erro">${esc(erro)}</p>` : ''}
-      ${estado === 'carregando' ? '<p class="hj-vazio mu-carregando">Carregando o mural…</p>' : lista.length ? `<div class="mu-feed">${lista.map(([id, p]) => postHTML(id, p, eu)).join('')}</div>` : '<section class="hj-card mu-vazio"><b>O mural ainda está vazio</b><p>Que tal começar? Conte como está a preparação para as provas ou deixe uma dica para a turma.</p></section>'}`;
+    let corpo;
+    if(!combinado) corpo = `<section class="mu-regras"><b>Combinados do mural</b><ul><li>Tudo aparece com o seu nome e a sua foto.</li><li>Respeito com colegas, professores e a faculdade. Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas, como telefone, endereço ou prints de conversas.</li><li>Qualquer pessoa pode denunciar. Quem desrespeitar os combinados pode ser bloqueado.</li></ul><button class="btn btn-primary" data-mu-combinado>Combinado</button></section>`;
+    else if(vista === 'novo') corpo = C.bloq[eu.uid] ? '' : novoHTML();
+    else if(vista !== 'lista' && C.posts[vista]) corpo = topicoHTML(vista, eu);
+    else corpo = listaHTML(eu);
+    const aviso = C.bloq[eu.uid] ? '<p class="mu-erro">A sua conta está sem permissão para escrever no mural. Se achar que é um engano, fale com o representante da turma.</p>' : '';
+    el.innerHTML = topo + aviso + (erro ? `<p class="mu-erro">${esc(erro)}</p>` : '') + corpo;
   }
+  function abrir(v){ vista = v; menuAberto = null; render(); const el = document.getElementById('viewMural'); if(el) window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 70)}); }
   function perfilAbrir(uid){
     const p = C.perfis[uid] || {}, f = document.getElementById('muPerfilFundo'), c = document.getElementById('muPerfilCorpo'); if(!f) return;
-    const posts = Object.entries(C.posts).filter(([, x]) => x.uid === uid).sort((a, b) => b[1].em - a[1].em);
-    const curt = posts.reduce((n, [id]) => n + Object.keys(C.curt[id] || {}).length, 0);
+    const tops = Object.entries(C.posts).filter(([, x]) => x.uid === uid).sort((a, b) => b[1].em - a[1].em);
+    let resps = 0; Object.values(C.com).forEach(o => Object.values(o || {}).forEach(x => { if(x && x.uid === uid) resps++; }));
     c.innerHTML = `<div class="mu-pf-topo"><div class="mu-pf-psiu">${window.avPsiuDe ? window.avPsiuDe(p.psiu) : ''}</div>${avatar(uid, p.nome, 'mu-av-g')}</div>
       <h2 class="mu-pf-nome">${esc(p.nome || 'Colega')}</h2>
       <p class="mu-pf-sub">${p.sem ? p.sem + 'º semestre de Psicologia' : 'Psicologia'}${p.ap ? ' · <span class="ap-selo">★ Apoiador</span>' : ''}</p>
-      <div class="mu-pf-nums"><div><b>${posts.length}</b><span>${posts.length === 1 ? 'publicação' : 'publicações'}</span></div><div><b>${curt}</b><span>curtidas recebidas</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
-      ${posts.length ? `<div class="ma-grupo-t">Últimas publicações</div>${posts.slice(0, 3).map(([id, x]) => `<button class="mu-pf-post" data-mu-ir="${id}"><p>${texto(x.texto.length > 160 ? x.texto.slice(0, 157) + '…' : x.texto)}</p><small>${quando(x.em)}</small></button>`).join('')}` : '<p class="hj-vazio">Ainda não publicou no mural.</p>'}`;
+      <div class="mu-pf-nums"><div><b>${tops.length}</b><span>${tops.length === 1 ? 'tópico' : 'tópicos'}</span></div><div><b>${resps}</b><span>${resps === 1 ? 'resposta' : 'respostas'}</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
+      ${tops.length ? `<div class="ma-grupo-t">Tópicos que abriu</div>${tops.slice(0, 4).map(([id, x]) => `<button class="mu-pf-post" data-mu-ir="${id}">${tag(x.cat)}<p>${esc(titulo(x))}</p><small>${quando(x.em)} · ${respostas(id).length} ${respostas(id).length === 1 ? 'resposta' : 'respostas'}</small></button>`).join('')}` : '<p class="hj-vazio">Ainda não abriu tópicos no mural.</p>'}`;
     f.hidden = false;
   }
   // ---------- ações ----------
@@ -24175,12 +24301,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const fp = e.target.closest('[data-mu-publicar]'), fc = e.target.closest('[data-mu-comentar]');
     if(!fp && !fc) return; e.preventDefault();
     const eu = EU(); if(!eu) return;
-    if(fp){ const t = fp.t.value.trim(); if(!t) return; const id = novoId(), p = {uid: eu.uid, nome: eu.nome.slice(0, 60), texto: t.slice(0, LIM_POST), em: Date.now()};
-      C.posts[id] = p; render(); acao(async () => { await salvarPerfil(); await B().gravar('mural/posts/' + id, p); }); }
+    if(fp){ const t = fp.titulo.value.trim(), x = fp.texto.value.trim(), cat = (fp.querySelector('[name=cat]:checked') || {}).value;
+      if(!t || !x || !cat) return;
+      const id = novoId(), p = {uid: eu.uid, nome: eu.nome.slice(0, 60), titulo: t.slice(0, LIM_TIT), cat, texto: x.slice(0, LIM_POST), em: Date.now()};
+      C.posts[id] = p; rascunho = {titulo:'', cat:'', texto:''}; abrir(id);
+      acao(async () => { await salvarPerfil(); await B().gravar('mural/posts/' + id, p); }); }
     if(fc){ const pid = fc.dataset.muComentar, t = fc.t.value.trim(); if(!t) return; const cid = novoId(), c = {uid: eu.uid, nome: eu.nome.slice(0, 60), texto: t.slice(0, LIM_COM), em: Date.now()};
-      (C.com[pid] = C.com[pid] || {})[cid] = c; render(); document.querySelector(`[data-mu-comentar="${pid}"] input`)?.focus(); acao(() => B().gravar(`mural/comentarios/${pid}/${cid}`, c)); }
+      (C.com[pid] = C.com[pid] || {})[cid] = c; render(); document.getElementById('mu-' + pid + '-' + cid)?.scrollIntoView({block:'center'});
+      acao(() => B().gravar(`mural/comentarios/${pid}/${cid}`, c)); }
   });
-  document.addEventListener('input', e => { if(e.target.closest('[data-mu-publicar]')){ const k = document.querySelector('[data-mu-cont]'); if(k) k.textContent = e.target.value.length + '/' + LIM_POST; } });
+  document.addEventListener('input', e => { const f = e.target.closest('[data-mu-publicar]'); if(!f) return;
+    rascunho = {titulo: f.titulo.value, cat: (f.querySelector('[name=cat]:checked') || {}).value || '', texto: f.texto.value};
+    const k = document.querySelector('[data-mu-cont]'); if(k) k.textContent = f.texto.value.length + '/' + LIM_POST; });
+  document.addEventListener('change', e => { const f = e.target.closest('[data-mu-publicar]'); if(f) rascunho.cat = (f.querySelector('[name=cat]:checked') || {}).value || ''; });
   document.addEventListener('click', e => {
     const q = s => e.target.closest(s), eu = EU();
     if(q('[data-mu-fechar]') || e.target.id === 'muPerfilFundo'){ document.getElementById('muPerfilFundo').hidden = true; return; }
@@ -24190,30 +24323,34 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(menuAberto && !q('.mu-mais-box')){ menuAberto = null; render(); }
     if(q('[data-mu-combinado]')){ try{ localStorage.setItem('av-mural-ok', '1'); }catch(_){} render(); return; }
     if(q('[data-mu-atualizar]')){ carregar(); return; }
+    if(q('[data-mu-novo]')){ abrir('novo'); document.getElementById('muTit')?.focus(); return; }
+    if(q('[data-mu-lista]')){ abrir('lista'); return; }
+    if((b = q('[data-mu-filtro]'))){ filtro = b.dataset.muFiltro; render(); return; }
+    if((b = q('[data-mu-ver]'))){ abrir(b.dataset.muVer); return; }
     if((b = q('[data-mu-menu]'))){ menuAberto = menuAberto === b.dataset.muMenu ? null : b.dataset.muMenu; render(); return; }
     if((b = q('[data-mu-perfil]'))){ perfilAbrir(b.dataset.muPerfil); return; }
-    if((b = q('[data-mu-ir]'))){ document.getElementById('muPerfilFundo').hidden = true; const id = b.dataset.muIr; abertos.add(id); render(); document.getElementById('mu-' + id)?.scrollIntoView({block:'center', behavior:'smooth'}); return; }
-    if((b = q('[data-mu-abrir]'))){ const id = b.dataset.muAbrir; abertos.has(id) ? abertos.delete(id) : abertos.add(id); render(); if(abertos.has(id)) document.querySelector(`[data-mu-comentar="${id}"] input`)?.focus(); return; }
+    if((b = q('[data-mu-ir]'))){ document.getElementById('muPerfilFundo').hidden = true; abrir(b.dataset.muIr); return; }
     if((b = q('[data-mu-curtir]'))){ if(C.bloq[eu.uid]) return; const id = b.dataset.muCurtir, m = C.curt[id] = C.curt[id] || {};
       if(m[eu.uid]){ delete m[eu.uid]; render(); acao(() => B().apagar(`mural/curtidas/${id}/${eu.uid}`)); } else { m[eu.uid] = true; render(); acao(() => B().gravar(`mural/curtidas/${id}/${eu.uid}`, true)); } return; }
+    if((b = q('[data-mu-fixar]'))){ const id = b.dataset.muFixar; menuAberto = null; if(C.fix[id]){ delete C.fix[id]; render(); acao(() => B().apagar('mural/fixados/' + id)); } else { C.fix[id] = true; render(); acao(() => B().gravar('mural/fixados/' + id, true)); } return; }
     if((b = q('[data-mu-denunciar]'))){ const alvo = b.dataset.muDenunciar; menuAberto = null;
-      if(!confirm('Denunciar este conteúdo para a moderação? Quem publicou não fica sabendo quem denunciou.')){ render(); return; }
+      if(!confirm('Denunciar este conteúdo para a moderação? Quem escreveu não fica sabendo quem denunciou.')){ render(); return; }
       acao(async () => { await B().gravar(`mural/denuncias/${alvo}/${eu.uid}`, {em: Date.now()}); erro = ''; render(); alert('Denúncia enviada. Obrigado por ajudar a manter o mural um bom lugar.'); }); return; }
-    if((b = q('[data-mu-apagar]'))){ const id = b.dataset.muApagar; menuAberto = null; if(!confirm('Apagar esta publicação? Não dá para desfazer.')){ render(); return; }
-      delete C.posts[id]; render(); acao(async () => { await B().apagar('mural/posts/' + id); if(eu.admin){ try{ await B().apagar('mural/comentarios/' + id); await B().apagar('mural/curtidas/' + id); await B().apagar('mural/denuncias/' + id); }catch(_){} } }); return; }
-    if((b = q('[data-mu-apagar-com]'))){ const [pid, cid] = b.dataset.muApagarCom.split('~'); if(!confirm('Apagar este comentário?')) return;
+    if((b = q('[data-mu-apagar]'))){ const id = b.dataset.muApagar; menuAberto = null; if(!confirm('Apagar este tópico? As respostas somem junto e não dá para desfazer.')){ render(); return; }
+      delete C.posts[id]; vista = 'lista'; render();
+      acao(async () => { try{ await B().apagar('mural/comentarios/' + id); }catch(_){} await B().apagar('mural/posts/' + id); if(eu.admin){ try{ await B().apagar('mural/curtidas/' + id); await B().apagar('mural/denuncias/' + id); await B().apagar('mural/fixados/' + id); }catch(_){} } }); return; }
+    if((b = q('[data-mu-apagar-com]'))){ const [pid, cid] = b.dataset.muApagarCom.split('~'); menuAberto = null; if(!confirm('Apagar esta resposta?')){ render(); return; }
       if(C.com[pid]) delete C.com[pid][cid]; render(); acao(async () => { await B().apagar(`mural/comentarios/${pid}/${cid}`); if(eu.admin){ try{ await B().apagar(`mural/denuncias/${pid}~${cid}`); }catch(_){} } }); return; }
-    if((b = q('[data-mu-bloquear]'))){ const uid = b.dataset.muBloquear; menuAberto = null; if(!confirm('Bloquear esta pessoa no mural? Ela continua usando o site, mas não publica, não comenta e não curte.')){ render(); return; }
+    if((b = q('[data-mu-bloquear]'))){ const uid = b.dataset.muBloquear; menuAberto = null; if(!confirm('Bloquear esta pessoa no mural? Ela continua usando o site, mas não cria tópicos, não responde e não curte.')){ render(); return; }
       C.bloq[uid] = true; render(); acao(() => B().gravar('mural/bloqueados/' + uid, true)); return; }
     if((b = q('[data-mu-den-apagar]'))){ const alvo = b.dataset.muDenApagar, [pid, cid] = alvo.split('~'); if(!confirm('Apagar este conteúdo?')) return;
       if(cid){ if(C.com[pid]) delete C.com[pid][cid]; } else delete C.posts[pid]; delete C.den[alvo]; render();
-      acao(async () => { await B().apagar(cid ? `mural/comentarios/${pid}/${cid}` : 'mural/posts/' + pid); await B().apagar('mural/denuncias/' + alvo); }); return; }
+      acao(async () => { await B().apagar(cid ? `mural/comentarios/${pid}/${cid}` : 'mural/posts/' + pid); if(!cid){ try{ await B().apagar('mural/comentarios/' + pid); }catch(_){} } await B().apagar('mural/denuncias/' + alvo); }); return; }
     if((b = q('[data-mu-den-ok]'))){ const alvo = b.dataset.muDenOk; delete C.den[alvo]; render(); acao(() => B().apagar('mural/denuncias/' + alvo)); return; }
   });
   document.addEventListener('keydown', e => { if(e.key === 'Escape'){ const f = document.getElementById('muPerfilFundo'); if(f && !f.hidden) f.hidden = true; } });
-  // abre e recarrega o mural sempre que a página é aberta
   const _sp = window.switchPage;
-  if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewMural'){ estado = estado === 'pronto' ? 'pronto' : 'nada'; render(); if(estado === 'pronto') carregar(); } return r; }; }
+  if(typeof _sp === 'function'){ window.switchPage = switchPage = function(id, o){ const r = _sp.apply(this, arguments); if(id === 'viewMural'){ if(estado === 'pronto') carregar(); else { estado = 'nada'; render(); } } return r; }; }
   setTimeout(() => { const v = document.getElementById('viewMural'); if(v && v.style.display !== 'none') render(); }, 1500);
 })();
 </script>
