@@ -2886,7 +2886,39 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-lista .ma-ben > button{border:0 !important; border-top:1px solid var(--rule) !important; border-radius:0 !important; background:none !important; padding:14px 16px !important; margin:0 !important;}
   .ma-lista .ma-ben > button:first-child{border-top:0 !important;}
   .ma-lista .ma-ben > button:hover{background:var(--paper-alt) !important;}
-  /* plano de hoje */
+  /* plano de hoje (guia de estudos) */
+  #hojePage .pg{padding:18px 18px 8px;}
+  .pg-head{display:flex; align-items:center; gap:12px;}
+  .pg-head small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--petrol);}
+  .pg-head h2{font-family:var(--serif, Georgia, serif); font-size:22px; font-weight:600; margin:1px 0 0; line-height:1.15;}
+  .pg-desc{font-size:14px; color:var(--ink-soft); line-height:1.5; margin:12px 0 14px;}
+  .pg-modos{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .pg-modos button{display:flex; align-items:flex-start; gap:10px; text-align:left; font:inherit; color:var(--ink); background:var(--paper); border:1.5px solid var(--rule); border-radius:12px; padding:12px; cursor:pointer; transition:border-color .15s, background .15s;}
+  .pg-modos button[aria-checked="true"]{border-color:var(--petrol); background:var(--petrol-soft);}
+  .pg-modos b{display:block; font-size:14px; line-height:1.25;}
+  .pg-modos small{display:block; font-size:12.5px; color:var(--ink-soft); line-height:1.35; margin-top:3px;}
+  .pg-radio{flex:none; width:18px; height:18px; margin-top:1px; border-radius:50%; border:2px solid var(--rule); box-sizing:border-box; position:relative;}
+  .pg-modos button[aria-checked="true"] .pg-radio{border-color:var(--petrol);}
+  .pg-modos button[aria-checked="true"] .pg-radio::after{content:''; position:absolute; inset:3px; border-radius:50%; background:var(--petrol);}
+  .pg-escolha{margin:16px 0 0;}
+  .pg-pergunta{font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 8px;}
+  #hojePage .pg .pl-chips{gap:8px;}
+  #hojePage .pg .pl-chips button{font-size:13.5px; font-weight:500; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:8px; padding:8px 12px 8px 10px; display:inline-flex; align-items:center; gap:7px;}
+  #hojePage .pg .pl-chips button::before{content:''; width:16px; height:16px; border-radius:4px; border:1.5px solid var(--ink-faint); box-sizing:border-box; flex:none;}
+  #hojePage .pg .pl-chips button[aria-pressed="true"]{border-color:var(--petrol); background:var(--petrol-soft); color:var(--petrol-dark);}
+  #hojePage .pg .pl-chips button[aria-pressed="true"]::before{border-color:var(--petrol); background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat;}
+  .pg-tarefas{margin:16px -18px 0; padding:14px 18px 2px; border-top:1px solid var(--rule); background:var(--paper-alt);}
+  .pg-prog{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:7px;}
+  .pg-prog b{color:var(--ink);}
+  .pg-tarefas .hj-bar{height:6px; background:var(--rule); margin-bottom:4px;}
+  .pg-tarefas .hj-item{border-top:1px solid var(--rule);}
+  .pg-tarefas .hj-item:first-of-type{border-top:0;}
+  .pg-tarefas .hj-item input{appearance:none; -webkit-appearance:none; width:20px; height:20px; border-radius:6px; border:1.5px solid var(--ink-faint); background:var(--paper); cursor:pointer; margin-top:1px;}
+  .pg-tarefas .hj-item input:checked{border-color:var(--petrol); background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/13px no-repeat;}
+  .pg-vazio{font-size:14px; color:var(--ink-soft); margin:16px 0 4px;}
+  .pg-mais{display:flex; justify-content:space-between; align-items:center; width:calc(100% + 36px); margin:14px -18px 0; padding:13px 18px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--petrol); background:none; border:0; border-top:1px solid var(--rule); cursor:pointer; text-align:left;}
+  .pg-mais:hover{background:var(--paper-alt);}
+  @media (max-width:380px){ .pg-modos{grid-template-columns:1fr;} }
   #hojePage .hj-card-top h2{font-size:21px;}
   @media (min-width:601px){ #hojePage .ma-abas{justify-content:flex-start; gap:28px;} }
   @media (max-width:420px){ #hojePage .ma-ola h1{font-size:26px !important;} .ma-sem-box{padding-left:10px;} }
@@ -23163,11 +23195,19 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
     const itemHTML = t => `<div class="hj-item${pl.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-hj-feito="${escHTML(t.k)}"${pl.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-hj-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`;
     if(pl){
       const feitos = pl.itens.filter(t => pl.feitos[t.k]).length, min = pl.itens.reduce((n, t) => n + t.min, 0);
-      const modoBtns = `<div class="pl-modo"><button data-hj-modo="auto" aria-pressed="${pl.modo !== 'meu'}">Sugerido pelo site</button><button data-hj-modo="meu" aria-pressed="${pl.modo === 'meu'}">Montado por mim</button></div>`;
-      plano = `<section class="hj-card"><div class="hj-card-top"><h2>Plano de hoje</h2>${pl.itens.length ? `<span>${feitos} de ${pl.itens.length} · ${min} min</span>` : ''}</div>${modoBtns}
-        ${pl.modo === 'meu' ? `<p class="pl-pergunta">O que você vai estudar hoje?</p>${pl.chips(hojeISO())}` : ''}
-        ${pl.itens.length ? `<div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>` + pl.itens.map(itemHTML).join('') : pl.modo === 'meu' ? (pl.discs.length ? '<p class="hj-vazio">Nada pendente nessas disciplinas. Tudo em dia!</p>' : '') : '<p class="hj-vazio">Nada planejado para hoje. Aproveite para revisar com calma ou descansar.</p>'}
-        <button class="hj-link" data-ben="plano">${pl.modo === 'meu' ? 'Planejar a semana' : 'Ver o plano completo'}</button></section>`;
+      const meu = pl.modo === 'meu';
+      const modoBtns = `<div class="pg-modos" role="radiogroup" aria-label="Como montar o guia">
+          <button role="radio" data-hj-modo="auto" aria-checked="${!meu}" aria-pressed="${!meu}"><span class="pg-radio"></span><span><b>Sugerido pelo site</b><small>Montado a partir das suas próximas provas</small></span></button>
+          <button role="radio" data-hj-modo="meu" aria-checked="${meu}" aria-pressed="${meu}"><span class="pg-radio"></span><span><b>Montado por mim</b><small>Você escolhe o que estudar em cada dia</small></span></button></div>`;
+      const tarefas = pl.itens.length ? `<div class="pg-tarefas"><div class="pg-prog"><span><b>${feitos} de ${pl.itens.length}</b> ${pl.itens.length === 1 ? 'tarefa feita' : 'tarefas feitas'}</span><span>cerca de ${min} min</span></div><div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>${pl.itens.map(itemHTML).join('')}</div>`
+        : meu ? (pl.discs.length ? '<p class="pg-vazio">Nada pendente nessas disciplinas. Tudo em dia!</p>' : '') : '<p class="pg-vazio">Nada planejado para hoje. Aproveite para revisar os erros ou descansar.</p>';
+      plano = `<section class="hj-card pg">
+        <div class="pg-head"><span class="ma-ic ma-ic-verde">${maIc('lista')}</span><div><small>Guia de estudos</small><h2>Plano de hoje</h2></div></div>
+        <p class="pg-desc">Um roteiro do que estudar hoje. Siga a sugestão do site ou monte o seu.</p>
+        ${modoBtns}
+        ${meu ? `<div class="pg-escolha"><p class="pg-pergunta">Escolha as disciplinas de hoje</p>${pl.chips(hojeISO())}</div>` : ''}
+        ${tarefas}
+        <button class="pg-mais" data-ben="plano">${meu ? 'Planejar a semana' : 'Ver o plano da semana'}<span aria-hidden="true">→</span></button></section>`;
     } else {
       const sg = sugestoes();
       if(sg.length) plano = `<section class="hj-card"><div class="hj-card-top"><h2>Sugestões para hoje</h2></div>
