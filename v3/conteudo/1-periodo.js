@@ -1,191 +1,12 @@
 /* Arquivo Vivo · conteúdo do 1º período (gerado a partir das fontes; edite com cuidado) */
 (function(){
 var extra = (function(){
-// ===== Código do 1º período: laboratório de Estatística e exercícios interativos =====
+// ===== Código do 1º período: exercícios interativos =====
 var esc = function(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
 var br = function(x, d){ if(d == null) d = 2; var v = Number(x.toFixed(d)); return v.toLocaleString('pt-BR', {minimumFractionDigits: 0, maximumFractionDigits: d}); };
 var sorteia = function(a){ return a[Math.floor(Math.random() * a.length)]; };
 
-// ---------- dados da lista de exercícios da professora ----------
-var LISTA_FREQ = [
-  {id:'q1', t:'Questão 1 · prova de Português (70 alunos)', k:7, d:[60,65,71,78,84,90,53,69,74,84,47,66,77,80,69,70,75,90,82,79,54,64,81,80,72,50,80,79,64,49,69,52,79,85,89,68,52,60,74,79,78,80,81,90,65,69,76,66,60,78,80,84,63,53,50,67,77,82,83,71,65,89,65,88,72,64,73,63,70,93]},
-  {id:'q3', t:'Questão 3 · habilidade numérica (70 alunos)', k:7, d:[79,65,71,78,84,53,53,69,74,84,46,66,77,84,77,70,75,51,82,66,54,50,81,80,72,74,80,77,64,49,66,62,79,75,87,68,49,88,74,79,78,70,81,90,65,69,76,66,74,78,80,89,63,53,50,67,77,82,83,71,55,59,65,88,94,64,60,63,80,90]},
-  {id:'q5', t:'Questão 5 · raciocínio lógico-abstrato (60 alunos)', k:7, d:[70,65,71,78,88,90,53,74,89,64,89,79,77,80,61,70,75,91,82,79,69,52,79,85,89,68,52,60,74,79,70,80,81,90,65,69,70,66,60,76,86,84,61,53,50,67,77,82,83,71,65,47,47,88,72,64,73,63,84,93]},
-  {id:'q7', t:'Questão 7 · raciocínio mecânico (50 alunos)', k:6, d:[80,70,60,82,62,55,40,85,57,45,50,80,63,43,89,64,56,64,79,79,45,85,79,77,81,69,71,66,69,44,37,48,69,51,50,39,78,72,80,56,72,30,47,65,73,65,49,60,70,89]}
-];
-var LISTA_MED = [
-  {id:'q9', t:'Questão 9 · prova de Português (30 alunos)', x:[3,4,5,6,8,9,10], f:[3,4,5,6,5,4,3]},
-  {id:'q16', t:'Questão 16 · prova de Ciências (42 alunos)', x:[1,2,4,5,6,7,9], f:[5,6,7,9,7,5,3]}
-];
-var LISTA_T = [
-  {id:'q80', t:'Questão 80 · atmosfera de trabalho', a:'Autocrática', b:'Democrática', alfa:0.05, A:[7.5,8,9,5.5,6.5,6,8.5,7,9], B:[5,7,5.5,6.5,7.5,7.5,6,8,8.5]},
-  {id:'q81', t:'Questão 81 · idade e autoestima', a:'Adolescentes', b:'Adultos', alfa:0.05, A:[50,60,45,65,70,50,62,34], B:[30,87,67,55,60,38,70,60]},
-  {id:'q82', t:'Questão 82 · comunicação e imagem dos políticos', a:'Persuasiva', b:'Não persuasiva', alfa:0.05, A:[12,8,11,10,7,12,9,11,8,9,12], B:[7,8,5,7,9,4,4,6,7,10,7]},
-  {id:'q83', t:'Questão 83 · ruído e tarefa mental', a:'Com ruído', b:'Sem ruído', alfa:0.01, A:[5,6,8,10,4,6,4,8,9,7], B:[4,5,7,5,4,5,6,7,3,6]},
-  {id:'q84', t:'Questão 84 · estímulos e leitura', a:'Textuais', b:'Pictóricos', alfa:0.01, A:[7,8,9,11,5,6,4,7,8,7], B:[4,2,8,5,9,8,10,9,9,10]}
-];
-var TCRIT = {1:[12.706,63.657],2:[4.303,9.925],3:[3.182,5.841],4:[2.776,4.604],5:[2.571,4.032],6:[2.447,3.707],7:[2.365,3.499],8:[2.306,3.355],9:[2.262,3.250],10:[2.228,3.169],11:[2.201,3.106],12:[2.179,3.055],13:[2.160,3.012],14:[2.145,2.977],15:[2.131,2.947],16:[2.120,2.921],17:[2.110,2.898],18:[2.101,2.878],19:[2.093,2.861],20:[2.086,2.845],21:[2.080,2.831],22:[2.074,2.819],23:[2.069,2.807],24:[2.064,2.797],25:[2.060,2.787],26:[2.056,2.779],27:[2.052,2.771],28:[2.048,2.763],29:[2.045,2.756],30:[2.042,2.750],40:[2.021,2.704],60:[2.000,2.660],120:[1.980,2.617]};
-function tCritico(gl, alfa){ var ks = Object.keys(TCRIT).map(Number); var k = ks.filter(function(x){ return x <= gl; }).pop() || 1; return TCRIT[k][alfa === 0.01 ? 1 : 0]; }
-
-// ---------- cálculos ----------
-function tabelaFreq(dados, k){
-  var n = dados.length, min = Math.min.apply(null, dados), max = Math.max.apply(null, dados), at = max - min;
-  var h = Math.ceil(at / k); if(h * k <= at) h++;
-  var cl = [];
-  for(var i = 0; i < k; i++){ var li = min + i * h, ls = li + h - 1; cl.push({li:li, ls:ls, lir:li - 0.5, lsr:ls + 0.5, xm:(li + ls) / 2, f: dados.filter(function(x){ return x >= li && x <= ls; }).length}); }
-  var ac = 0; cl.forEach(function(c){ ac += c.f; c.Fab = ac; });
-  ac = 0; for(var j = k - 1; j >= 0; j--){ ac += cl[j].f; cl[j].Fac = ac; }
-  cl.forEach(function(c){ c.fr = c.f / n; c.Frab = c.Fab / n; c.Frac = c.Fac / n; });
-  return {n:n, min:min, max:max, at:at, k:k, h:h, cl:cl};
-}
-function medidas(x, f){
-  var n = f.reduce(function(a, b){ return a + b; }, 0), soma = 0; x.forEach(function(v, i){ soma += v * f[i]; });
-  var media = soma / n, todos = []; x.forEach(function(v, i){ for(var j = 0; j < f[i]; j++) todos.push(v); }); todos.sort(function(a, b){ return a - b; });
-  var med = n % 2 ? todos[(n - 1) / 2] : (todos[n / 2 - 1] + todos[n / 2]) / 2;
-  var fmax = Math.max.apply(null, f), modas = x.filter(function(v, i){ return f[i] === fmax; });
-  var sq = 0; x.forEach(function(v, i){ sq += f[i] * Math.pow(v - media, 2); });
-  var vari = sq / (n - 1);
-  return {n:n, soma:soma, media:media, med:med, modas:modas, fmax:fmax, amp:Math.max.apply(null, x) - Math.min.apply(null, x), sq:sq, vari:vari, dp:Math.sqrt(vari)};
-}
-function grupo(v){ var n = v.length, m = v.reduce(function(a, b){ return a + b; }, 0) / n, sq = v.reduce(function(a, b){ return a + Math.pow(b - m, 2); }, 0); return {n:n, m:m, vari:sq / (n - 1)}; }
-function testeT(A, B, alfa){
-  var a = grupo(A), b = grupo(B), gl = a.n + b.n - 2, sc = ((a.n - 1) * a.vari + (b.n - 1) * b.vari) / gl, ep = Math.sqrt(sc * (1 / a.n + 1 / b.n)), t = (a.m - b.m) / ep, tc = tCritico(gl, alfa);
-  return {a:a, b:b, gl:gl, sc:sc, ep:ep, t:t, tc:tc, rejeita: Math.abs(t) >= tc};
-}
-function erf(x){ var s = x < 0 ? -1 : 1; x = Math.abs(x); var t = 1 / (1 + 0.3275911 * x); var y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x); return s * y; }
-function Phi(z){ return 0.5 * (1 + erf(z / Math.SQRT2)); }
-
-// ---------- estado do laboratório ----------
-var lab = {aba:'freq', freq:'q1', fdados:null, fq:null, med:'q9', mx:null, nm:{m:100, dp:15, a:85, b:115}, tt:'q80', tdados:null};
-function novosDados(){ var n = sorteia([50, 60, 70]), base = sorteia([60, 65, 70, 75]), d = []; for(var i = 0; i < n; i++){ var u = 0; for(var j = 0; j < 6; j++) u += Math.random(); d.push(Math.max(20, Math.min(99, Math.round(base + (u - 3) * 12)))); } return {t:'Notas novas (' + n + ' alunos)', k: n >= 60 ? 7 : 6, d:d}; }
-function novaTabelaMed(){ var xs = [], v = sorteia([1, 2, 3]); while(xs.length < 7){ v += sorteia([1, 1, 2]); if(v > 10) break; xs.push(v); } if(xs.length < 5) xs = [3,4,5,6,8,9,10]; return {t:'Tabela nova', x:xs, f:xs.map(function(){ return 2 + Math.floor(Math.random() * 8); })}; }
-
-var PERG = [
-  {k:'fr', t:function(c){ return 'a frequência relativa da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].fr; }, d:4, ex:function(T, i){ return 'fr = f ÷ n = ' + T.cl[i].f + ' ÷ ' + T.n; }},
-  {k:'fp', t:function(c){ return 'a frequência percentual da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].fr * 100; }, d:2, u:'%', ex:function(T, i){ return 'f% = f ÷ n × 100 = ' + T.cl[i].f + ' ÷ ' + T.n + ' × 100'; }},
-  {k:'Fab', t:function(c){ return 'a frequência acumulada "abaixo de" da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].Fab; }, d:0, ex:function(T, i){ return 'soma da 1ª até a ' + (i + 1) + 'ª classe: ' + T.cl.slice(0, i + 1).map(function(c){ return c.f; }).join(' + '); }},
-  {k:'Fac', t:function(c){ return 'a frequência acumulada "acima de" da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].Fac; }, d:0, ex:function(T, i){ return 'soma da ' + (i + 1) + 'ª até a última classe: ' + T.cl.slice(i).map(function(c){ return c.f; }).join(' + '); }},
-  {k:'Frab', t:function(c){ return 'a frequência acumulada relativa "abaixo de" da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].Frab; }, d:4, ex:function(T, i){ return 'acumulada "abaixo de" ÷ n = ' + T.cl[i].Fab + ' ÷ ' + T.n; }},
-  {k:'Frac', t:function(c){ return 'a frequência acumulada relativa "acima de" da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].Frac; }, d:4, ex:function(T, i){ return 'acumulada "acima de" ÷ n = ' + T.cl[i].Fac + ' ÷ ' + T.n; }},
-  {k:'Fpab', t:function(c){ return 'a frequência acumulada relativa percentual "abaixo de" da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].Frab * 100; }, d:2, u:'%', ex:function(T, i){ return T.cl[i].Fab + ' ÷ ' + T.n + ' × 100'; }},
-  {k:'Fpac', t:function(c){ return 'a frequência acumulada relativa percentual "acima de" da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].Frac * 100; }, d:2, u:'%', ex:function(T, i){ return T.cl[i].Fac + ' ÷ ' + T.n + ' × 100'; }},
-  {k:'xm', t:function(c){ return 'o ponto médio da ' + c + 'ª classe (use os limites reais)'; }, v:function(T, i){ return T.cl[i].xm; }, d:1, ex:function(T, i){ return '(' + br(T.cl[i].lir, 1) + ' + ' + br(T.cl[i].lsr, 1) + ') ÷ 2'; }},
-  {k:'lir', t:function(c){ return 'o limite inferior real da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].lir; }, d:1, ex:function(T, i){ return T.cl[i].li + ' − 0,5'; }},
-  {k:'lsr', t:function(c){ return 'o limite superior real da ' + c + 'ª classe'; }, v:function(T, i){ return T.cl[i].lsr; }, d:1, ex:function(T, i){ return T.cl[i].ls + ' + 0,5'; }},
-  {k:'abx', t:function(c, T, i){ return 'quantos alunos obtiveram notas abaixo de ' + T.cl[i].li; }, v:function(T, i){ return i ? T.cl[i - 1].Fab : 0; }, d:0, min:1, ex:function(T, i){ return 'abaixo de ' + T.cl[i].li + ' = acumulada "abaixo de" da ' + i + 'ª classe (limite real ' + br(T.cl[i].lir, 1) + ')'; }},
-  {k:'acx', t:function(c, T, i){ return 'quantos alunos, em termos percentuais, obtiveram notas a partir de ' + T.cl[i].li; }, v:function(T, i){ return T.cl[i].Frac * 100; }, d:2, u:'%', ex:function(T, i){ return 'acumulada "acima de" da ' + (i + 1) + 'ª classe: ' + T.cl[i].Fac + ' ÷ ' + T.n + ' × 100'; }},
-  {k:'ent', t:function(c, T, i){ return 'quantos alunos obtiveram notas entre ' + T.cl[i].li + ' e ' + T.cl[i].ls; }, v:function(T, i){ return T.cl[i].f; }, d:0, ex:function(T, i){ return 'é a frequência simples da ' + (i + 1) + 'ª classe'; }}
-];
-function novaPergunta(T){ var p = sorteia(PERG), i = Math.floor(Math.random() * T.k); if(p.min && i < p.min) i = p.min; return {p:p, i:i}; }
-
-function htmlFreq(){
-  var base = lab.freq === 'novo' ? lab.fdados : LISTA_FREQ.filter(function(x){ return x.id === lab.freq; })[0];
-  var T = tabelaFreq(base.d, base.k); if(!lab.fq) lab.fq = novaPergunta(T);
-  var q = lab.fq, val = q.p.v(T, q.i);
-  return escolha('Dados', LISTA_FREQ.map(function(x){ return [x.id, x.t.split(' · ')[0]]; }).concat([['novo', 'Notas novas']]), 'freq', lab.freq)
-    + '<p class="lb-sub">' + esc(base.t.split(' · ').slice(1).join(' · ') || base.t) + '</p><details class="lb-det"><summary>Ver as ' + T.n + ' notas</summary><p class="lb-notas">' + base.d.join(', ') + '</p></details>'
-    + '<div class="prompt-box lb-perg"><div class="plabel">Calcule</div><div class="pfrase">' + esc(q.p.t(q.i + 1, T, q.i)) + '.</div></div>'
-    + '<div class="lb-resp"><input type="text" inputmode="decimal" id="lbFreqIn" placeholder="Sua resposta" autocomplete="off" aria-label="Sua resposta"><button class="correct-btn" data-lb-conf="freq">Conferir</button></div><button class="shuffle-btn" data-lb-nova="freq">🔀 Outra pergunta</button><div id="lbFreqFb" class="pfeedback" aria-live="polite"></div>'
-    + '<details class="lb-det lb-tab"><summary>Ver a tabela completa (com todas as respostas)</summary>'
-    + '<p class="lb-passos">Amplitude total = ' + T.max + ' − ' + T.min + ' = ' + T.at + ' · ' + T.k + ' classes · razão (amplitude de cada classe) = ' + T.at + ' ÷ ' + T.k + ' = ' + br(T.at / T.k) + ' → ' + T.h + '</p>'
-    + '<div class="lb-rolar"><table><thead><tr><th>Classe</th><th>Limites reais</th><th>xm</th><th>f</th><th>fr</th><th>f%</th><th>"abaixo de"</th><th>"acima de"</th></tr></thead><tbody>'
-    + T.cl.map(function(c, i){ return '<tr><td>' + (i + 1) + 'ª · ' + c.li + '–' + c.ls + '</td><td>' + br(c.lir, 1) + ' a ' + br(c.lsr, 1) + '</td><td>' + br(c.xm, 1) + '</td><td>' + c.f + '</td><td>' + br(c.fr, 4) + '</td><td>' + br(c.fr * 100) + '%</td><td>' + c.Fab + ' (' + br(c.Frab * 100) + '%)</td><td>' + c.Fac + ' (' + br(c.Frac * 100) + '%)</td></tr>'; }).join('')
-    + '</tbody></table></div><p class="lb-nota">Convenção usada: a 1ª classe começa no menor valor, e a amplitude de cada classe é a amplitude total dividida pelo número de classes, arredondada para cima. Se a sua anotação de aula usar outra convenção, siga a professora.</p></details>';
-}
-function htmlMed(){
-  var base = lab.med === 'novo' ? lab.mx : LISTA_MED.filter(function(x){ return x.id === lab.med; })[0];
-  var M = medidas(base.x, base.f), tipo = M.modas.length === 1 ? 'unimodal' : M.modas.length === 2 ? 'bimodal' : 'multimodal';
-  if(M.modas.length === base.x.length) tipo = 'amodal';
-  return escolha('Dados', LISTA_MED.map(function(x){ return [x.id, x.t.split(' · ')[0]]; }).concat([['novo', 'Tabela nova']]), 'med', lab.med)
-    + '<p class="lb-sub">' + esc(base.t) + '. Tente calcular antes de abrir cada medida.</p>'
-    + '<div class="lb-rolar"><table class="lb-mini"><thead><tr><th>Nota (x)</th>' + base.x.map(function(v){ return '<td>' + v + '</td>'; }).join('') + '<th>Total</th></tr></thead><tbody><tr><th>f</th>' + base.f.map(function(v){ return '<td>' + v + '</td>'; }).join('') + '<td>' + M.n + '</td></tr></tbody></table></div>'
-    + '<details class="lb-det"><summary>Média</summary><p>Σf·x = ' + base.x.map(function(v, i){ return base.f[i] + '·' + v; }).join(' + ') + ' = ' + M.soma + '. Média = ' + M.soma + ' ÷ ' + M.n + ' = <b>' + br(M.media) + '</b>.</p></details>'
-    + '<details class="lb-det"><summary>Mediana</summary><p>Com os ' + M.n + ' valores em ordem, ' + (M.n % 2 ? 'o valor central é o ' + ((M.n + 1) / 2) + 'º' : 'os centrais são o ' + (M.n / 2) + 'º e o ' + (M.n / 2 + 1) + 'º') + ': mediana = <b>' + br(M.med) + '</b>.</p></details>'
-    + '<details class="lb-det"><summary>Moda e tipo de distribuição</summary><p>Maior frequência: ' + M.fmax + '. Moda = <b>' + M.modas.join(' e ') + '</b>: distribuição <b>' + tipo + '</b>.</p></details>'
-    + '<details class="lb-det"><summary>Amplitude</summary><p>' + Math.max.apply(null, base.x) + ' − ' + Math.min.apply(null, base.x) + ' = <b>' + M.amp + '</b>.</p></details>'
-    + '<details class="lb-det"><summary>Variância e desvio-padrão (amostra)</summary><p>Σf·(x − média)² = ' + br(M.sq) + '. Variância = ' + br(M.sq) + ' ÷ (' + M.n + ' − 1) = <b>' + br(M.vari) + '</b>. Desvio-padrão = √' + br(M.vari) + ' = <b>' + br(M.dp) + '</b>.</p></details>'
-    + '<details class="lb-det"><summary>Quem ficou acima da média?</summary><p>Notas acima de ' + br(M.media) + ': ' + base.x.filter(function(v){ return v > M.media; }).join(', ') + ', somando ' + base.x.reduce(function(a, v, i){ return a + (v > M.media ? base.f[i] : 0); }, 0) + ' alunos. A discrepância de cada nota é x − ' + br(M.media) + '.</p></details>';
-}
-function curvaSVG(m, dp, a, b){
-  var W = 320, H = 130, x0 = 16, x1 = W - 16, za = (a - m) / dp, zb = (b - m) / dp;
-  var X = function(z){ return x0 + (z + 3.5) / 7 * (x1 - x0); }, Y = function(z){ return H - 22 - Math.exp(-z * z / 2) * (H - 36); };
-  var pts = [], area = [];
-  for(var z = -3.5; z <= 3.5001; z += 0.05){ pts.push(X(z).toFixed(1) + ',' + Y(z).toFixed(1)); if(z >= Math.max(-3.5, za) - 1e-9 && z <= Math.min(3.5, zb) + 1e-9) area.push(X(z).toFixed(1) + ',' + Y(z).toFixed(1)); }
-  var poly = area.length ? '<polygon points="' + X(Math.max(-3.5, za)).toFixed(1) + ',' + (H - 22) + ' ' + area.join(' ') + ' ' + X(Math.min(3.5, zb)).toFixed(1) + ',' + (H - 22) + '" class="lb-cv-area"/>' : '';
-  var marcas = [-3, -2, -1, 0, 1, 2, 3].map(function(z){ return '<line x1="' + X(z) + '" x2="' + X(z) + '" y1="' + (H - 22) + '" y2="' + (H - 18) + '" class="lb-cv-eixo"/><text x="' + X(z) + '" y="' + (H - 6) + '" font-size="9" text-anchor="middle" class="lb-cv-txt">' + br(m + z * dp, 1) + '</text>'; }).join('');
-  return '<svg viewBox="0 0 ' + W + ' ' + H + '" class="lb-curva" role="img" aria-label="Curva normal com a área pintada">' + poly + '<polyline points="' + pts.join(' ') + '" class="lb-cv-linha"/><line x1="' + x0 + '" x2="' + x1 + '" y1="' + (H - 22) + '" y2="' + (H - 22) + '" class="lb-cv-eixo"/>' + marcas + '</svg>';
-}
-function htmlNormal(){
-  var c = lab.nm, za = (c.a - c.m) / c.dp, zb = (c.b - c.m) / c.dp, area = (Phi(zb) - Phi(za)) * 100;
-  var lado = (za < 0 && zb > 0) ? 'Os dois valores estão em lados opostos da média: somam-se as duas áreas (' + br(Math.abs(Phi(za) - 0.5) * 100) + '% + ' + br(Math.abs(Phi(zb) - 0.5) * 100) + '%).' : 'Os dois valores estão do mesmo lado da média: subtrai-se a área menor da maior.';
-  return '<p class="lb-sub">Mude a média, o desvio-padrão e o intervalo. A área pintada é a porcentagem que cai entre os dois valores.</p>'
-    + '<div class="lb-campos"><label>Média<input type="number" step="any" data-lb-nm="m" value="' + c.m + '"></label><label>Desvio-padrão<input type="number" step="any" min="0.01" data-lb-nm="dp" value="' + c.dp + '"></label><label>De<input type="number" step="any" data-lb-nm="a" value="' + c.a + '"></label><label>Até<input type="number" step="any" data-lb-nm="b" value="' + c.b + '"></label></div>'
-    + curvaSVG(c.m, c.dp, Math.min(c.a, c.b), Math.max(c.a, c.b))
-    + '<div class="lb-res"><div><span>z de ' + br(c.a) + '</span><b>' + br(za) + '</b></div><div><span>z de ' + br(c.b) + '</span><b>' + br(zb) + '</b></div><div class="lb-res-area"><span>Área entre eles</span><b>' + br(Math.abs(area)) + '%</b></div></div>'
-    + '<p class="lb-nota">' + lado + ' A área é calculada pela fórmula da curva; pela tabela, os valores podem diferir na segunda casa decimal (ex.: 34,13% para 1 DP).</p>'
-    + '<div class="plabel lb-plabel">Carregar uma questão da lista</div><div class="viz-chips lb-chips">' + [['Questão 24', 100, 10, 100, 120], ['Questão 44', 100, 15, 85, 115], ['Questão 48', 80, 3, 77, 86], ['Questão 79 d', 5.5, 1.5, 2.5, 8.5]].map(function(e){ return '<button class="viz-chip" data-lb-nmx="' + e.slice(1).join(',') + '">' + e[0] + '</button>'; }).join('') + '</div>';
-}
-function htmlT(){
-  var base = lab.tt === 'novo' ? lab.tdados : LISTA_T.filter(function(x){ return x.id === lab.tt; })[0];
-  var R = testeT(base.A, base.B, base.alfa);
-  return escolha('Dados', LISTA_T.map(function(x){ return [x.id, x.t.split(' · ')[0]]; }), 'tt', lab.tt)
-    + '<p class="lb-sub">' + esc(base.t.split(' · ').slice(1).join(' · ') || base.t) + ' · α = ' + br(base.alfa) + '. Calcule e depois confira cada passo.</p>'
-    + '<div class="lb-rolar"><table class="lb-mini"><tbody><tr><th>' + esc(base.a) + '</th><td>' + base.A.map(function(v){ return br(v, 1); }).join(' · ') + '</td></tr><tr><th>' + esc(base.b) + '</th><td>' + base.B.map(function(v){ return br(v, 1); }).join(' · ') + '</td></tr></tbody></table></div>'
-    + '<details class="lb-det"><summary>1. Médias e variâncias de cada grupo</summary><p>' + esc(base.a) + ': n = ' + R.a.n + ', média = <b>' + br(R.a.m) + '</b>, variância = <b>' + br(R.a.vari) + '</b>.<br>' + esc(base.b) + ': n = ' + R.b.n + ', média = <b>' + br(R.b.m) + '</b>, variância = <b>' + br(R.b.vari) + '</b>.</p></details>'
-    + '<details class="lb-det"><summary>2. Variância combinada e erro-padrão</summary><p>s²c = [(' + R.a.n + ' − 1)·' + br(R.a.vari) + ' + (' + R.b.n + ' − 1)·' + br(R.b.vari) + '] ÷ ' + R.gl + ' = <b>' + br(R.sc) + '</b>. Erro-padrão = √[' + br(R.sc) + ' · (1/' + R.a.n + ' + 1/' + R.b.n + ')] = <b>' + br(R.ep, 3) + '</b>.</p></details>'
-    + '<details class="lb-det"><summary>3. O valor de t</summary><p>t = (' + br(R.a.m) + ' − ' + br(R.b.m) + ') ÷ ' + br(R.ep, 3) + ' = <b>' + br(R.t) + '</b>, com gl = ' + R.a.n + ' + ' + R.b.n + ' − 2 = <b>' + R.gl + '</b>.</p></details>'
-    + '<details class="lb-det"><summary>4. Decisão estatística e conclusão</summary><p>t crítico (bilateral, gl ' + R.gl + ', α ' + br(base.alfa) + ') = <b>' + br(R.tc, 3) + '</b>. |t| = ' + br(Math.abs(R.t)) + (R.rejeita ? ' ≥ ' : ' &lt; ') + br(R.tc, 3) + ': <b>' + (R.rejeita ? 'rejeita-se H0' : 'aceita-se H0') + '</b>.</p><p>' + (R.rejeita ? 'Conclusão: houve diferença significativa entre ' + esc(base.a.toLowerCase()) + ' e ' + esc(base.b.toLowerCase()) + '; a maior média foi a do grupo ' + esc((R.a.m > R.b.m ? base.a : base.b).toLowerCase()) + '.' : 'Conclusão: não houve diferença significativa entre ' + esc(base.a.toLowerCase()) + ' e ' + esc(base.b.toLowerCase()) + '; a diferença entre as médias pode ser atribuída ao acaso.') + '</p></details>'
-    + '<p class="lb-nota">Teste t para dois grupos independentes com variância combinada, bilateral (hipóteses não direcionadas, como nas questões da lista).</p>';
-}
-function escolha(rot, itens, chave, atual){
-  return '<div class="plabel lb-plabel">' + rot + '</div><div class="viz-chips lb-chips">' + itens.map(function(x){ return '<button class="viz-chip' + (x[0] === atual ? ' on' : '') + '" data-lb-' + chave + '="' + x[0] + '" aria-pressed="' + (x[0] === atual) + '">' + esc(x[1]) + '</button>'; }).join('') + '</div>';
-}
-function htmlLab(){
-  var abas = [['freq', 'Frequências'], ['med', 'Medidas'], ['normal', 'Curva normal'], ['t', 'Teste t']];
-  var corpo = lab.aba === 'freq' ? htmlFreq() : lab.aba === 'med' ? htmlMed() : lab.aba === 'normal' ? htmlNormal() : htmlT();
-  return '<div class="lb tool-card" id="lbEstat"><div class="lb-abas" role="tablist">' + abas.map(function(a){ return '<button role="tab" data-lb-aba="' + a[0] + '" aria-selected="' + (lab.aba === a[0]) + '">' + a[1] + '</button>'; }).join('') + '</div><div class="lb-corpo">' + corpo + '</div></div>';
-}
-function redesenhar(){ var el = document.getElementById('lbEstat'); if(el) el.outerHTML = htmlLab(); }
-function numero(t){ t = String(t).trim().replace('%', '').replace(/\s/g, ''); if(/,/.test(t)) t = t.replace(/\./g, '').replace(',', '.'); return parseFloat(t); }
-
-document.addEventListener('click', function(e){
-  var b;
-  if((b = e.target.closest('[data-lb-aba]'))){ lab.aba = b.dataset.lbAba; redesenhar(); return; }
-  if((b = e.target.closest('[data-lb-freq]'))){ lab.freq = b.dataset.lbFreq; if(lab.freq === 'novo') lab.fdados = novosDados(); lab.fq = null; redesenhar(); return; }
-  if((b = e.target.closest('[data-lb-nova="freq"]'))){ lab.fq = null; redesenhar(); return; }
-  if((b = e.target.closest('[data-lb-conf="freq"]'))){
-    var base = lab.freq === 'novo' ? lab.fdados : LISTA_FREQ.filter(function(x){ return x.id === lab.freq; })[0];
-    var T = tabelaFreq(base.d, base.k), q = lab.fq, val = q.p.v(T, q.i), r = numero(document.getElementById('lbFreqIn').value), fb = document.getElementById('lbFreqFb');
-    var tol = q.p.d === 0 ? 0.01 : q.p.d === 4 ? 0.006 : 0.06, ok = !isNaN(r) && (Math.abs(r - val) <= tol || (q.p.d === 4 && Math.abs(r - val * 100) <= 0.6));
-    fb.className = 'pfeedback show ' + (ok ? 'good' : 'bad');
-    fb.innerHTML = '<strong>' + (isNaN(r) ? 'Escreva um número.' : ok ? 'Certo!' : 'Ainda não.') + '</strong>Resposta: <b>' + br(val, q.p.d) + (q.p.u || '') + '</b>. Cálculo: ' + esc(q.p.ex(T, q.i)) + '.';
-    return;
-  }
-  if((b = e.target.closest('[data-lb-med]'))){ lab.med = b.dataset.lbMed; if(lab.med === 'novo') lab.mx = novaTabelaMed(); redesenhar(); return; }
-  if((b = e.target.closest('[data-lb-tt]'))){ lab.tt = b.dataset.lbTt; redesenhar(); return; }
-  if((b = e.target.closest('[data-lb-nmx]'))){ var v = b.dataset.lbNmx.split(',').map(Number); lab.nm = {m:v[0], dp:v[1], a:v[2], b:v[3]}; redesenhar(); return; }
-});
-document.addEventListener('change', function(e){
-  var i = e.target.closest('[data-lb-nm]'); if(!i) return;
-  var v = parseFloat(String(i.value).replace(',', '.')); if(isNaN(v)) return;
-  if(i.dataset.lbNm === 'dp' && v <= 0) return;
-  lab.nm[i.dataset.lbNm] = v; redesenhar();
-});
-document.addEventListener('keydown', function(e){ if(e.key === 'Enter' && e.target.id === 'lbFreqIn'){ var b = document.querySelector('[data-lb-conf="freq"]'); if(b) b.click(); } });
-
-var CSS = '.lb.tool-card{padding:0;overflow:hidden}'
-  + '.lb-abas{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--rule)}.lb-abas button{font:inherit;font-size:14px;font-weight:600;background:transparent;border:0;border-bottom:3px solid transparent;color:var(--ink-soft);padding:14px 6px 11px;cursor:pointer;line-height:1.25}.lb-abas button:hover{color:var(--petrol)}.lb-abas button[aria-selected="true"]{color:var(--petrol);border-bottom-color:var(--petrol)}'
-  + '.lb-corpo{padding:20px 22px 22px}.lb-plabel{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}.lb-chips{margin-bottom:14px}.lb-chips .viz-chip{font-size:13.5px;padding:7px 12px}'
-  + '.lb-sub{font-size:14.5px;color:var(--ink-soft);margin:0 0 12px;line-height:1.55}.lb-nota{font-size:13px;color:var(--ink-faint);margin-top:12px;line-height:1.55}'
-  + '.lb-perg{margin:14px 0 12px}.lb-resp{display:flex;gap:8px;align-items:stretch}.lb-resp input{font:inherit;font-size:15px;flex:1;min-width:0;border:1px solid var(--rule);border-radius:6px;padding:10px 12px;background:var(--paper);color:var(--ink)}.lb-resp input:focus{outline:2px solid var(--petrol-line);border-color:var(--petrol)}.lb-resp .correct-btn{flex:none}'
-  + '.lb-det{border-top:1px solid var(--rule);margin:0;padding:12px 0}.lb-det:last-of-type{border-bottom:1px solid var(--rule)}.lb-det + .lb-det{border-top:0}.lb-det summary{cursor:pointer;font-weight:600;font-size:14.5px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}.lb-det summary::-webkit-details-marker{display:none}.lb-det summary::after{content:"+";font-size:18px;color:var(--ink-faint);font-weight:400}.lb-det[open] summary::after{content:"−"}.lb-det summary:hover{color:var(--petrol)}.lb-det p{font-size:14.5px;line-height:1.6;margin:10px 0 0}'
-  + '.lb-perg + .lb-resp + .shuffle-btn + .pfeedback, .lb .pfeedback{margin-bottom:16px}.lb .shuffle-btn{margin-bottom:16px}.lb-notas{color:var(--ink-soft);word-spacing:2px}.lb-passos{font-size:14px}'
-  + '.lb-rolar{overflow-x:auto;margin:10px 0 4px;border:1px solid var(--rule);border-radius:8px}.lb table{border-collapse:collapse;font-size:13.5px;width:100%;font-variant-numeric:tabular-nums}.lb th,.lb td{border-bottom:1px solid var(--rule);padding:8px 10px;text-align:right;white-space:nowrap}.lb th:first-child,.lb td:first-child{text-align:left}.lb thead th{background:var(--paper-alt);font-size:12px;font-weight:600;letter-spacing:.03em;color:var(--ink-soft)}.lb tbody tr:last-child td,.lb tbody tr:last-child th{border-bottom:0}.lb tbody th{background:var(--paper-alt);font-weight:600}.lb-mini td,.lb-mini th{text-align:center}'
-  + '.lb-campos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:4px 0 6px}.lb-campos label{min-width:0;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);display:flex;flex-direction:column;gap:5px}.lb-campos input{font:inherit;font-size:15px;text-transform:none;letter-spacing:0;color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:9px 11px;background:var(--paper);width:100%;min-width:0;box-sizing:border-box}'
-  + '.lb-curva{width:100%;max-width:480px;display:block;margin:10px auto}.lb-cv-area{fill:var(--petrol);opacity:.22}.lb-cv-linha{fill:none;stroke:var(--petrol);stroke-width:2}.lb-cv-eixo{stroke:var(--ink-faint)}.lb-cv-txt{fill:var(--ink-soft)}'
-  + '.lb-res{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;margin:6px 0 4px}.lb-res > div{background:var(--paper-alt);border-radius:8px;padding:10px 12px}.lb-res span{display:block;font-size:12px;color:var(--ink-faint);margin-bottom:2px}.lb-res b{font-size:18px;font-variant-numeric:tabular-nums}.lb-res-area{background:var(--petrol-soft)!important}.lb-res-area b{color:var(--petrol)}'
-  + '@media (max-width:600px){.lb-corpo{padding:16px}.lb-abas button{font-size:12.5px;padding:12px 2px 9px;white-space:nowrap}.lb-res{grid-template-columns:1fr 1fr}.lb-res-area{grid-column:1 / -1}}';
-
+var CSS = '';
 CSS += '.ps-caixas{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}.ps-caixa{border:1.5px dashed var(--rule,#D9D4C7);border-radius:8px;padding:10px;min-height:86px;cursor:pointer;background:var(--paper,#fff)}.ps-caixa:hover{border-color:var(--petrol,#1F5C56)}.ps-cx-t{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft,#5b5a52);margin-bottom:8px}.ps-cx-itens{display:flex;flex-wrap:wrap;gap:6px}.ps-cx-itens .viz-chip{font-size:13px;padding:6px 10px}.ps-vazio{font-size:13px;color:var(--ink-soft,#5b5a52)}'
   + '.lg-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}.lg-col{display:flex;flex-direction:column;gap:6px}.lg-cols .viz-chip{font-size:13.5px}.lg-cols .viz-chip.feito{border-color:var(--petrol-line,#9DB8B3)}.lg-n{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--petrol,#1F5C56);color:#fff;font-size:11px;margin-right:6px}'
   + '.pfeedback ul{margin:6px 0 0 18px;padding:0}.pfeedback li{margin:3px 0;font-size:14px}';
@@ -195,9 +16,7 @@ function depois(){
   var st = document.createElement('style'); st.textContent = CSS + (window.avP1CSS || ''); document.head.appendChild(st);
   depoisLista.forEach(function(f){ try{ f(); }catch(e){ console.error(e); } });
 }
-var secoes = {
-  '11': {titulo:'Laboratório de Estatística', atalho:'Laboratório', meta:'com os dados da lista', html: htmlLab}
-};
+var secoes = {};
 
 
 // ---------- exercícios interativos (classificadores) na página Exercícios e na página da disciplina ----------
