@@ -4332,6 +4332,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-21', disc: 'Área do apoiador', desc: 'Simulado em PDF corrigido no app instalado no iPhone: em vez de abrir a impressão, que não funciona ali, o site gera o PDF e abre a opção de salvar ou compartilhar.'},
   {date: '2026-11-21', disc: '1º semestre', desc: 'Glossário do 1º semestre reescrito: definições mais completas e um exemplo em cada termo. O Laboratório de Estatística ganhou o mesmo visual das outras ferramentas.', link: {url:'#disc-11'}},
   {date: '2026-11-21', disc: '1º semestre', desc: 'Exercícios interativos novos no 1º semestre: monte o esquema do condicionamento, o caminho da memória, régua das idades, monte a ZDP, desmonte a obra (Vigotski), linha do tempo da filosofia e outros.', link: {url:'#exercicios'}},
   {date: '2026-11-21', disc: '1º semestre', desc: 'O 1º semestre ganhou conteúdo no mesmo padrão do 2º: 16 resumos (50 abas, cada tópico com Teste-se, e 297 perguntas de quiz), 249 questões de simulado, 35 discursivas, 2 estudos dirigidos, glossário com 208 termos, 21 comparações, ferramentas de exercício e um laboratório de Estatística. Na Minha área, escolha o seu semestre.', link: {url:'#disc-11'}},
@@ -19989,18 +19990,25 @@ function pdfQuebra(t, f, size, max){
   return out;
 }
 function pdfEsc(t){ let o = ''; for(let i=0;i<t.length;i++){ const c = t.charCodeAt(i); if(c === 40 || c === 41 || c === 92) o += '\\' + t[i]; else if(c > 126) o += '\\' + c.toString(8).padStart(3,'0'); else o += t[i]; } return o; }
-function pdfDoResumao(d, o){
-  const box = document.createElement('div'); box.innerHTML = resumaoHTML(d, o);
-  const txt = el => { const c = el.cloneNode(true); c.querySelectorAll('br').forEach(b=>b.replaceWith('\n')); return pdfTexto(c.textContent.replace(/[ \t\r]+/g,' ').replace(/ *\n */g,'\n').trim()); };
+function pdfDoResumao(d, o){ return pdfDeHTML(resumaoHTML(d, o), `Arquivo Vivo · Resumão · ${d.name} · criado e mantido por Thiago Monteiro`); }
+// transforma o HTML de impressão (resumão, simulado, caderno) num PDF de verdade, para o app instalado no iPhone, onde a impressão não funciona
+function pdfDeHTML(html, rodape){
+  const box = document.createElement('div'); box.innerHTML = html;
+  const txt = el => { const c = el.cloneNode(true); c.querySelectorAll('br').forEach(b=>b.replaceWith('\n')); c.querySelectorAll('div,p').forEach(b=>b.before('\n')); return pdfTexto(c.textContent.replace(/[ \t\r]+/g,' ').replace(/ *\n */g,'\n').trim()); };
   const blocos = [];
   (function andar(el, num){
     [...el.children].forEach(c=>{
       const tag = c.tagName;
-      if(c.classList.contains('pr-barra')) return;
+      if(c.classList.contains('pr-barra') || c.classList.contains('sp-bola')) return;
+      if(c.classList.contains('sp-gab') || c.classList.contains('cad-capa')){ if(blocos.length) blocos.push({k:'pag'}); andar(c, num); if(c.classList.contains('cad-capa')) blocos.push({k:'pag'}); return; }
+      if(c.classList.contains('sp-campos')){ blocos.push({k:'p', t:pdfTexto([...c.children].map(x => x.textContent.trim() + (x.querySelector('i.curto') ? '' : ' ______________')).join('     ').replace(/Acertos\s*\/\s*/, 'Acertos ____ / '))}); return; }
+      if(c.classList.contains('sp-grade')){ blocos.push({k:'p', t:pdfTexto([...c.children].map(x => x.querySelector('b').textContent + ') ' + x.textContent.slice(x.querySelector('b').textContent.length)).join('    '))}); return; }
+      if(tag === 'LI' && c.querySelector(':scope > ol')){ const en = c.cloneNode(true); en.querySelectorAll(':scope > ol').forEach(x => x.remove()); blocos.push({k:'li', t:txt(en), n: num ? (num.i = (num.i||0) + 1) : 0, forte:true}); andar(c.querySelector(':scope > ol'), {letra:true}); return; }
       if(/^H[1-4]$/.test(tag)) blocos.push({k:tag.toLowerCase(), t:txt(c)});
       else if(c.classList.contains('pr-marca')) blocos.push({k:'marca', t:txt(c)});
       else if(tag === 'P') blocos.push({k: (c.classList.contains('pr-nota') || c.closest('.pr-head')) ? 'small' : 'p', t:txt(c)});
-      else if(tag === 'LI') blocos.push({k:'li', t:txt(c), n: num ? (num.i = (num.i||0) + 1) : 0});
+      else if(tag === 'LI') blocos.push(num && num.letra ? {k:'op', t:txt(c), l:'abcdefgh'[(num.i = (num.i||0) + 1) - 1]} : {k:'li', t:txt(c), n: num ? (num.i = (num.i||0) + 1) : 0});
+      else if(tag === 'DIV' && !c.children.length && c.textContent.trim()) blocos.push({k:'p', t:txt(c)});
       else if(tag === 'DT') blocos.push({k:'dt', t:txt(c)});
       else if(tag === 'DD') blocos.push({k:'p', t:txt(c)});
       else if(tag === 'TABLE') blocos.push({k:'table', rows:[...c.querySelectorAll('tr')].map(tr=>[...tr.children].map(txt))});
@@ -20017,6 +20025,12 @@ function pdfDoResumao(d, o){
   const escreve = (t, f, size, x, yy, c)=>{ s += (c || cor(0.07,0.07,0.07)) + `BT /${f} ${size} Tf ${x.toFixed(1)} ${yy.toFixed(1)} Td (${pdfEsc(t)}) Tj ET\n`; };
   const ESTILO = {h1:['TB',22,27,10,[0.09,0.25,0.23]], h2:['TB',15,19,16,[0.09,0.25,0.23]], h3:['HB',12,16,10], h4:['HB',10.5,14,8], dt:['HB',10,13,6], p:['H',10,14,3], small:['H',8.5,11,2,[0.4,0.4,0.4]], marca:['HB',8.5,11,0,[0.12,0.36,0.34]]};
   blocos.forEach(b=>{
+    if(b.k === 'pag'){ novaPag(); return; }
+    if(b.k === 'op'){
+      const ls = pdfQuebra(b.t, 'H', 10, LW - 40);
+      ls.forEach((l,i)=>{ precisa(14); if(i === 0) escreve(b.l + ')', 'H', 10, M + 18, y - 10); escreve(l, 'H', 10, M + 32, y - 10); y -= 14; });
+      y -= 1; return;
+    }
     if(b.k === 'table'){
       const nc = Math.max(...b.rows.map(r=>r.length)); const first = LW * 0.28, rest = (LW - first) / Math.max(1, nc - 1);
       const larg = i => i === 0 ? first : rest;
@@ -20036,8 +20050,11 @@ function pdfDoResumao(d, o){
     }
     if(b.k === 'li'){
       const pre = b.n ? b.n + '. ' : '•  ';
-      const ls = pdfQuebra(b.t, 'H', 10, LW - 16);
-      ls.forEach((l,i)=>{ precisa(14); if(i === 0) escreve(pdfTexto(pre), 'H', 10, M + 2, y - 10); escreve(l, 'H', 10, M + 16, y - 10); y -= 14; });
+      const fl = b.forte ? 'HB' : 'H';
+      if(b.forte) { precisa(40); y -= 6; }
+      const ls = pdfQuebra(b.t, fl, 10, LW - 16);
+      const rec = b.n >= 10 ? 21 : 16; const ls2 = rec === 16 ? ls : pdfQuebra(b.t, fl, 10, LW - rec);
+      ls2.forEach((l,i)=>{ precisa(14); if(i === 0) escreve(pdfTexto(pre), fl, 10, M + 2, y - 10); escreve(l, fl, 10, M + rec, y - 10); y -= 14; });
       y -= 2; return;
     }
     const [f, sz, lh, antes, c] = ESTILO[b.k] || ESTILO.p;
@@ -20057,7 +20074,7 @@ function pdfDoResumao(d, o){
   const res = `<< /Font << ${Object.keys(fid).map(k=>`/${k} ${fid[k]} 0 R`).join(' ')} >> >>`;
   const kids = [];
   pags.forEach((conteudo, i)=>{
-    const rod = `0.5 0.5 0.5 rg\nBT /H 8 Tf ${M} 26 Td (${pdfEsc(pdfTexto(`Arquivo Vivo · Resumão · ${d.name} · criado e mantido por Thiago Monteiro`))}) Tj ET\nBT /H 8 Tf ${W-M-40} 26 Td (${i+1} / ${pags.length}) Tj ET\n`;
+    const rod = `0.5 0.5 0.5 rg\nBT /H 8 Tf ${M} 26 Td (${pdfEsc(pdfTexto(rodape))}) Tj ET\nBT /H 8 Tf ${W-M-40} 26 Td (${i+1} / ${pags.length}) Tj ET\n`;
     const st = conteudo + rod;
     const cid = add(`<< /Length ${st.length} >>\nstream\n${st}endstream`);
     kids.push(add(`<< /Type /Page /Parent ${pages} 0 R /MediaBox [0 0 ${W} ${H}] /Resources ${res} /Contents ${cid} 0 R >>`));
@@ -20072,12 +20089,14 @@ function pdfDoResumao(d, o){
   const bytes = new Uint8Array(out.length); for(let i=0;i<out.length;i++) bytes[i] = out.charCodeAt(i) & 255;
   return bytes;
 }
-function pdfEntregar(d, o){
-  const nome = `Resumao - ${d.name}.pdf`.normalize('NFD').replace(/[̀-ͯ]/g,'');
-  const blob = new Blob([pdfDoResumao(d, o)], {type:'application/pdf'});
+function pdfEntregar(d, o){ pdfBaixar(pdfDoResumao(d, o), `Resumão · ${d.name}`); }
+function pdfBaixar(bytes, titulo){
+  const nome = (titulo.replace(/[\/:*?"<>|·]+/g, '-').replace(/\s*-\s*/g, ' - ').trim() + '.pdf').normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const d = {name: titulo};
+  const blob = new Blob([bytes], {type:'application/pdf'});
   let file = null; try{ file = new File([blob], nome, {type:'application/pdf'}); }catch(e){}
   if(file && navigator.canShare && navigator.canShare({files:[file]})){
-    navigator.share({files:[file], title:`Resumão · ${d.name}`}).catch(()=>{});
+    navigator.share({files:[file], title:titulo}).catch(()=>{});
     return;
   }
   const url = URL.createObjectURL(blob);
@@ -22328,6 +22347,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
   function fechar(){ fundo.hidden = true; if(window.speechSynthesis) speechSynthesis.cancel(); }
   function imprimir(html, titulo){
     let area = document.getElementById('printArea'); if(!area){ area = document.createElement('div'); area.id = 'printArea'; document.body.appendChild(area); }
+    if(appInstalado()){ fechar(); pdfBaixar(pdfDeHTML(html, titulo + ' · criado e mantido por Thiago Monteiro'), titulo); return; }
     area.innerHTML = html; const antes = document.title; document.title = titulo;
     fechar(); document.body.classList.add('imprimindo'); setTimeout(() => window.print(), 80);
     const fim = () => { document.body.classList.remove('imprimindo'); document.title = antes; window.removeEventListener('afterprint', fim); };
