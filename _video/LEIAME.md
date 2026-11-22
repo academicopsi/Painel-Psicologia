@@ -6,7 +6,7 @@ Pasta de trabalho do vídeo de divulgação (não é publicada no site: o GitHub
 - `gravar.py`: abre a V3 num navegador de teste com uma conta fictícia ("Ana Clara", apoiadora), preenche dados de estudo de demonstração e grava a tela do site rodando (Page.startScreencast), com marcas de tempo por trecho.
 - `editar.py`: monta o vídeo vertical 1080×1920 a 30 fps: abertura, números do site, capítulos 01 a 08 (plano de estudos, simulado em PDF, desempenho e story, Psiu, Mural da turma, avisos no celular, simulados, 1º período) e encerramento. Efeitos: celular girando em 3D, cartões que saltam da tela, páginas do PDF em leque, o Psiu pulando para fora do celular e notificações que entram no aparelho.
 - `psiu.py`: desenha o Psiu neutro em PNG transparente, com as funções de desenho do próprio site.
-- `musica.py`: compõe a trilha synth-pop (125 bpm, G–D–Em–C, baixo em oitavas, sintetizadores largos, refrão com gancho e transições nos capítulos).
+- `musica.py`: compõe a trilha atual, pop acústico e ensolarado (108 bpm, Ré maior, violão dedilhado, piano, palmas, glockenspiel no gancho). A synth-pop da versão anterior ficou em `musica-synthpop.py`.
 - `mock_firebase.py`: troca o Firebase por uma versão falsa para gravar sem conta real.
 - `narracao.txt`: roteiro da narração com o segundo em que cada bloco começa.
 - `montar.sh`: roda tudo em sequência e gera `/tmp/vid/video_mudo.mp4` e `/tmp/vid/musica.wav` (juntar com `ffmpeg -i video_mudo.mp4 -i musica.wav -map 0:v -map 1:a -c:v copy -c:a aac -shortest`).

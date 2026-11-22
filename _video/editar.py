@@ -295,7 +295,7 @@ def _pags():
 _pags()
 AP_A,AP_B,AP_D=S['apoio']+1.0,S['psiu']-0.2,9.0
 APOIO=[(0,'Seu desempenho','Acertos por tema e o que revisar primeiro'),
-       (cena_t(AP_A,AP_B,AP_D,S['story']),'Seu semestre em números','Pronto para postar no story')]
+       (cena_t(AP_A,AP_B,AP_D,S['story']),'Seu semestre em números','Pronto para salvar e comparar com os seus dados no futuro')]
 def cena_apoio(t):
     im=FUNDO.copy(); src=AP_A+t*((AP_B-AP_A)/AP_D)
     a,b=balanco(t,-7,2,8)
