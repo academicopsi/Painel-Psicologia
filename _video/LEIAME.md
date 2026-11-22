@@ -5,7 +5,7 @@ Pasta de trabalho do vídeo de divulgação (não é publicada no site: o GitHub
 ## O que tem aqui
 - `gravar.py`: abre a V3 num navegador de teste com uma conta fictícia ("Ana Clara", apoiadora), preenche dados de estudo de demonstração e grava a tela do site rodando (Page.startScreencast), com marcas de tempo por trecho.
 - `editar.py`: monta o vídeo vertical 1080×1920 a 30 fps: abertura com a frase de efeito, números do site contando, capítulos 01 a 07 (área, apoiador, Psiu, Mural da turma, notificações, simulados, 1º período) com barra de progresso, celular com zoom de câmera e legendas animadas, encerramento.
-- `musica.py`: compõe a trilha lo-fi (78 bpm com swing, piano elétrico em Gm9–C13–Fmaj9–Dm9, baixo, bateria macia e chiado de vinil).
+- `musica.py`: compõe a trilha synth-pop (125 bpm, G–D–Em–C, baixo em oitavas, sintetizadores largos, refrão com gancho e transições nos capítulos).
 - `mock_firebase.py`: troca o Firebase por uma versão falsa para gravar sem conta real.
 - `narracao.txt`: roteiro da narração com o segundo em que cada bloco começa.
 - `montar.sh`: roda tudo em sequência e gera `/tmp/vid/video_mudo.mp4` e `/tmp/vid/musica.wav` (juntar com `ffmpeg -i video_mudo.mp4 -i musica.wav -map 0:v -map 1:a -c:v copy -c:a aac -shortest`).
