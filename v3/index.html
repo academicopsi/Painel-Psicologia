@@ -3425,16 +3425,19 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   #maTurma .tm-lista li small{flex:none; font-size:12.5px; color:var(--ink-faint);}
   @media (min-width:601px){ #maTurma .tm-kpis{grid-template-columns:repeat(4, 1fr);} #maTurma .tm-linha{grid-template-columns:1fr 200px 50px;} }
   /* plano de hoje (guia de estudos) */
-  #hojePage .pg{padding:0 18px 0; overflow:hidden; border-color:transparent;}
-  .pg-topo{position:relative; margin:0 -18px; padding:20px 18px 18px; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); color:#fff; overflow:hidden;}
-  .pg-topo::after{content:''; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
-  body.dark .pg-topo{background:linear-gradient(160deg, #1f4a46 0%, #183634 100%);}
+  #hojePage .pg{padding:0 18px 0; overflow:hidden;}
+  .pg-topo{position:relative; margin:0 -18px; padding:18px 18px 16px; background:var(--paper);}
+  .pg-ic{flex:none; width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:var(--petrol-soft); color:var(--petrol);}
+  .pg-head small{display:block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#A8702F;}
+  .pg-head h2{font-family:var(--serif, Georgia, serif); font-size:23px; font-weight:600; margin:1px 0 0; line-height:1.15; color:var(--ink);}
+  .pg-aviso{margin-top:14px; padding:13px 14px 14px; border-radius:14px; background:var(--petrol-soft); border:1px solid color-mix(in srgb, var(--petrol) 18%, transparent);}
+  .pg-aviso b{display:block; font-size:14.5px; color:var(--petrol);}
+  .pg-aviso p{margin:4px 0 12px; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
+  .pg-montar{font:inherit; font-size:13.5px; font-weight:700; color:#fff; background:var(--petrol); border:0; border-radius:10px; padding:9px 16px; cursor:pointer;}
+  .pg-montar:hover{background:var(--petrol-dark);}
+  .pg-aviso.meu .pg-montar{color:var(--petrol); background:var(--paper); box-shadow:inset 0 0 0 1.5px var(--petrol-line);}
   .pg-head{display:flex; align-items:center; gap:12px; position:relative;}
-  .pg-ic{flex:none; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.12); color:#fff;}
   .pg-ic svg{width:19px; height:19px;}
-  .pg-head small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#A9D3C8;}
-  .pg-head h2{font-family:var(--serif, Georgia, serif); font-size:24px; font-weight:600; margin:1px 0 0; line-height:1.15; color:#fff;}
-  .pg-desc{position:relative; font-size:14px; color:rgba(255,255,255,.78); line-height:1.5; margin:12px 0 14px;}
   .pg-tarefas{margin:16px -18px 0; padding:14px 18px 2px; border-top:1px solid var(--rule); background:var(--paper-alt);}
   .pg-prog{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:7px;}
   .pg-prog b{color:var(--ink);}
@@ -3446,6 +3449,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pg-vazio{font-size:14px; color:var(--ink-soft); margin:16px 0 4px;}
   .pg-topo + .pg-tarefas, .pg-topo + .pg-vazio + .pg-mais{margin-top:0;}
   .pg-topo + .pg-tarefas{border-top:0;}
+  .pg-tarefas + .pg-mais{margin-top:0;}
   .pg-mais{display:flex; justify-content:space-between; align-items:center; width:calc(100% + 36px); margin:14px -18px 0; padding:13px 18px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--petrol); background:none; border:0; border-top:1px solid var(--rule); cursor:pointer; text-align:left;}
   .pg-mais:hover{background:var(--paper-alt);}
   #hojePage .hj-card-top h2{font-size:21px;}
@@ -3637,9 +3641,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pl2-seg{display:flex; flex-wrap:wrap; gap:6px;}
   .pl2-seg button{font:inherit; font-size:13px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt); border:1px solid var(--rule); border-radius:999px; padding:6px 12px; cursor:pointer;}
   .pl2-seg button[aria-pressed="true"]{color:#fff; background:var(--petrol); border-color:var(--petrol);}
-  .pg-origem{display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:#fff; background:rgba(255,255,255,.12); border-radius:999px; padding:5px 12px 5px 10px;}
-  .pg-origem svg{width:14px; height:14px; flex:none;}
-  .pg-desc:has(.pg-origem){margin-bottom:0;}
   .pl2-chips{display:flex; flex-wrap:wrap; gap:6px;}
   .pl2-chips button{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; font-weight:600; color:var(--ink); background:color-mix(in srgb, var(--acc, var(--petrol)) 8%, var(--paper)); border:1px solid color-mix(in srgb, var(--acc, var(--petrol)) 30%, var(--rule)); border-radius:999px; padding:6px 12px; cursor:pointer;}
   .pl2-chips button::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--acc, var(--petrol));}
@@ -23694,8 +23695,9 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const b = BEN[tipo];
     abrir(EB('Área do apoiador') + `<h2>${b.t}</h2><p class="conta-sub">Escolha a disciplina.</p><div class="ben-escolha">${discsCom().filter(d => tipo !== 'simpdf' || SIM_JOGO.some(x => x.disc === d.n)).map(d => `<button data-ben-disc="${d.n}" data-ben-tipo="${tipo}"><b>${escHTML(d.name)}</b></button>`).join('')}</div>`);
   }
-  window.avPlanoDoDia = () => { const c = planoCfg(), pl = planoAtual(c), d = pl.dias.find(x => x.iso === hojeISO()); return {itens:d ? d.itens : [], provas:pl.provas, feitos:c.feitos, foco:c.foco.map(plCurto), provaNomes:[...new Set(pl.provas.map(p => plCurto(p.disc)))]}; };
+  window.avPlanoDoDia = () => { const c = planoCfg(), pl = planoAtual(c), d = pl.dias.find(x => x.iso === hojeISO()); return {itens:d ? d.itens : [], provas:pl.provas, feitos:c.feitos, min:c.min, nDias:c.dias.length, foco:c.foco.map(plCurto), provaNomes:[...new Set(pl.provas.map(p => plCurto(p.disc)))]}; };
   window.avPlanoMarcar = (k, v) => { const c = planoCfg(); if(v) c.feitos[k] = 1; else delete c.feitos[k]; gravarJ('av-plano', c); };
+  window.avPlanoAjustar = () => { window.avAbrirBeneficio('plano'); ajuste = true; escolhendo = planoCfg().foco.length > 0; abrir(planoHTML()); };
   window.avAbrirBeneficio = k => { const b = BEN[k]; if(!b) return; if(k === 'plano'){ ajuste = false; escolhendo = false; diaSel = null; } if(b.disc) escolherDisc(k); else abrir(b.html(), !ehApoio()); };
 
   document.addEventListener('click', e => {
@@ -24088,16 +24090,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       const feitos = pl.itens.filter(t => pl.feitos[t.k]).length, min = pl.itens.reduce((n, t) => n + t.min, 0);
       const meu = pl.foco.length > 0;
       const nomes = meu ? pl.foco : pl.provaNomes;
-      const lista = nomes.length > 2 ? nomes.slice(0, 2).join(', ') + ' e mais ' + (nomes.length - 2) : nomes.join(' e ');
-      const origem = meu ? `<span class="pg-origem">${maIc('discursiva')}Personalizado por você · ${escHTML(lista)}</span>` : nomes.length ? `<span class="pg-origem">${maIc('lista')}Sugerido pelo site · provas de ${escHTML(lista)}</span>` : '';
+      const lista = nomes.length > 1 ? nomes.slice(0, -1).join(', ') + ' e ' + nomes[nomes.length - 1] : nomes.join('');
+      const rotina = (pl.min >= 60 ? (pl.min % 60 ? Math.floor(pl.min / 60) + 'h' + String(pl.min % 60).padStart(2, '0') : pl.min / 60 + 'h') : pl.min + ' min') + ' por dia, ' + (pl.nDias === 7 ? 'todos os dias' : pl.nDias + (pl.nDias === 1 ? ' dia' : ' dias') + ' por semana');
+      const aviso = meu
+        ? `<div class="pg-aviso meu"><b>Este é o plano que você montou.</b><p>Disciplinas: ${escHTML(lista)}. Tempo: ${rotina}.</p><button class="pg-montar" data-hj-montar>Ajustar meu plano</button></div>`
+        : `<div class="pg-aviso"><b>Você está vendo o plano sugerido pelo site.</b><p>${nomes.length ? 'Ele foi montado a partir das próximas provas (' + escHTML(lista) + '). ' : ''}Como apoiador, você pode montar o seu: escolha as disciplinas que quer estudar, quanto tempo tem por dia e em quais dias estuda.</p><button class="pg-montar" data-hj-montar>Montar meu plano</button></div>`;
       const tarefas = pl.itens.length ? `<div class="pg-tarefas"><div class="pg-prog"><span><b>${feitos} de ${pl.itens.length}</b> ${pl.itens.length === 1 ? 'tarefa feita' : 'tarefas feitas'}</span><span>cerca de ${min} min</span></div><div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>${pl.itens.map(itemHTML).join('')}</div>`
         : meu ? '<p class="pg-vazio">Nada pendente nessas disciplinas para hoje. Tudo em dia!</p>' : pl.provas.length ? '<p class="pg-vazio">Nada planejado para hoje. Aproveite para revisar os erros ou descansar.</p>' : '<p class="pg-vazio">Nenhuma prova no calendário agora. Você pode escolher as disciplinas que quer estudar.</p>';
       plano = `<section class="hj-card pg">
         <div class="pg-topo">
-        <div class="pg-head"><span class="pg-ic">${maIc('lista')}</span><div><small>Guia de estudos <span class="ap-selo ap-selo-claro">★ Apoiador</span></small><h2>Plano de hoje</h2></div></div>
-        <p class="pg-desc">${origem || 'Um roteiro do que estudar hoje, montado pelo site.'}</p></div>
+        <div class="pg-head"><span class="pg-ic">${maIc('lista')}</span><div><small>Guia de estudos · ★ Apoiador</small><h2>Plano de hoje</h2></div></div>
+        ${aviso}</div>
         ${tarefas}
-        <button class="pg-mais" data-ben="plano">Ver a semana e ajustar<span aria-hidden="true">→</span></button></section>`;
+        <button class="pg-mais" data-ben="plano">Ver a semana completa<span aria-hidden="true">→</span></button></section>`;
     } else {
       const sg = sugestoes();
       if(sg.length) plano = `<section class="hj-card"><div class="hj-card-top"><h2>Sugestões para hoje</h2></div>
@@ -24660,6 +24665,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const md = e.target.closest('[data-ma-disc]'); if(md){ location.hash = '#disc-' + md.dataset.maDisc; return; }
     const mc = e.target.closest('[data-ma-conta]'); if(mc){ if(window.avAbrirConta) window.avAbrirConta(mc.dataset.maConta); return; }
     const he2 = e.target.closest('[data-hj-erros]'); if(he2){ switchPage('viewErros', {errDisc:he2.dataset.hjErros}); return; }
+    if(e.target.closest('[data-hj-montar]')){ if(window.avPlanoAjustar) window.avPlanoAjustar(); return; }
     const ir = e.target.closest('[data-hj-ir]');
     if(ir){ const t = JSON.parse(ir.dataset.hjIr); if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap || 0}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
   });
