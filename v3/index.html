@@ -22924,14 +22924,19 @@ const pushSuporte = () => 'serviceWorker' in navigator && 'PushManager' in windo
 const ehIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
 const instalado = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 async function lerPush(){ try{ pushInfo = (await get(ref(db, 'pedidos/' + usuario.uid + '/push'))).val(); }catch(_){ pushInfo = null; } }
+const chaveAparelho = t => { let h = 0; for(const c of t) h = (h * 31 + c.charCodeAt(0)) >>> 0; return 'a' + h.toString(36); };
+const descAparelho = () => { const u = navigator.userAgent, app = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
+  const so = /iPhone|iPad/.test(u) ? 'iPhone' : /Android/.test(u) ? 'Android' : /Mac/.test(u) ? 'Mac' : /Windows/.test(u) ? 'Windows' : 'Computador';
+  return so + (app ? ' (app)' : ' (navegador)'); };
 async function ativarPush(){
   if(await Notification.requestPermission() !== 'granted') throw {code:'negado'};
   const reg = await navigator.serviceWorker.register(raizSite + 'firebase-messaging-sw.js', {scope: raizSite});
   await navigator.serviceWorker.ready;
   const { getMessaging, getToken } = await import('https://www.gstatic.com/firebasejs/13.4.0/firebase-messaging.js');
   const token = await getToken(getMessaging(app), {vapidKey: VAPID, serviceWorkerRegistration: reg});
-  pushInfo = {token, email: usuario.email || '', provas: pushInfo ? pushInfo.provas !== false : true, avisos: pushInfo ? pushInfo.avisos !== false : true, em: Date.now()};
+  pushInfo = {token, email: usuario.email || '', provas: pushInfo ? pushInfo.provas !== false : true, avisos: pushInfo ? pushInfo.avisos !== false : true, mural: pushInfo ? pushInfo.mural !== false : true, em: Date.now()};
   await set(ref(db, 'pedidos/' + usuario.uid + '/push'), pushInfo);
+  try{ await set(ref(db, 'pedidos/' + usuario.uid + '/aparelhos/' + chaveAparelho(token)), {token, em: Date.now(), disp: descAparelho()}); }catch(_){}
 }
 window.avPushHTML = () => {
   if(!usuario) return '';
@@ -22955,7 +22960,7 @@ document.addEventListener('click', async e => {
   const box = e.target.closest('.pn'), er = box && box.querySelector('.pn-erro');
   try{
     if(at){ at.disabled = true; at.textContent = 'Ativando…'; await ativarPush(); }
-    else { await remove(ref(db, 'pedidos/' + usuario.uid + '/push')); pushInfo = null; }
+    else { const t = pushInfo && pushInfo.token; if(t){ try{ await remove(ref(db, 'pedidos/' + usuario.uid + '/aparelhos/' + chaveAparelho(t))); }catch(_){} } await remove(ref(db, 'pedidos/' + usuario.uid + '/push')); pushInfo = null; }
     pushRedesenhar();
   }catch(err){
     if(at){ at.disabled = false; at.textContent = 'Ativar notificações'; }

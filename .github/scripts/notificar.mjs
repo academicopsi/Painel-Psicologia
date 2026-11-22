@@ -19,13 +19,17 @@ async function destinos(tipo, publico){
   const pe = (await db.ref('pedidos').get()).val() || {};
   const comPush = Object.values(pe).filter(p => p && p.push && p.push.token);
   console.log(`::notice::Aparelhos com notificações ativadas: ${comPush.length} (e-mails: ${comPush.map(p => (p.push.email || p.email || '?').replace(/(.).*@/, '$1***@')).join(', ') || 'nenhum'})`);
-  const out = [];
+  const out = [], vistos = new Set();
   for(const [uid, p] of Object.entries(pe)){
     const pu = p && p.push; if(!pu || !pu.token) continue;
     if(publico === 'admin' && (pu.email || p.email) !== ADMIN_EMAIL) continue;
+    if(publico && publico.uid && publico.uid !== uid) continue;
     if(tipo === 'provas' && pu.provas === false) continue;
     if(tipo === 'avisos' && pu.avisos === false) continue;
-    out.push({uid, token: pu.token});
+    if(tipo === 'mural' && pu.mural === false) continue;
+    // o aparelho principal e os outros em que a pessoa também ativou (celular e computador)
+    const tokens = [[pu.token, null]].concat(Object.entries(p.aparelhos || {}).filter(([, a]) => a && a.token).map(([k, a]) => [a.token, k]));
+    for(const [token, chave] of tokens){ if(vistos.has(token)) continue; vistos.add(token); out.push({uid, token, chave}); }
   }
   return out;
 }
@@ -44,7 +48,9 @@ async function enviar(lista, titulo, mensagem, link, tag){
       const cod = x.error && x.error.code;
       console.log('::warning::Falhou: ' + cod + ' ' + ((x.error && x.error.message) || ''));
       if(cod === 'messaging/registration-token-not-registered' || cod === 'messaging/invalid-registration-token'){
-        await db.ref('pedidos/' + lista[i + j].uid + '/push').remove();
+        const d = lista[i + j];
+        if(d.chave) await db.ref('pedidos/' + d.uid + '/aparelhos/' + d.chave).remove();
+        else await db.ref('pedidos/' + d.uid + '/push').remove();
       }
     }));
     console.log(`::notice::Enviadas ${ok} de ${msgs.length}.`);
@@ -136,9 +142,9 @@ if(modo === 'aviso'){
     }
   }
   let n = 0;
+  const todosMural = await destinos('mural', 'todos');
   for(const [uid, msgs] of fila){
-    const pu = pe[uid] && pe[uid].push; if(!pu || !pu.token || pu.mural === false) continue;
-    const lista = [{uid, token: pu.token}];
+    const lista = todosMural.filter(d => d.uid === uid); if(!lista.length) continue;
     if(msgs.length > 3) await enviar(lista, `Psiu! ${msgs.length} novidades no mural`, msgs.slice(-3).map(m => m.titulo).join(' · '), BASE + '#mural', 'mural');
     else for(const m of msgs) await enviar(lista, m.titulo, m.corpo, m.link, m.tag);
     n += msgs.length;
