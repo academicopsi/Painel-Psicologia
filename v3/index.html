@@ -3456,42 +3456,126 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .hj-inicio{display:inline-flex; align-items:center; font:inherit; font-size:12.5px; font-weight:600; line-height:normal; letter-spacing:.02em; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:5px 12px; cursor:pointer;}
   /* plano de estudos */
   /* plano de estudos (painel) */
-  .ben-caixa:has(.pl4){max-width:920px !important; padding:0; overflow:hidden;}
-  .ben-caixa:has(.pl4) > .conta-fechar{color:#fff; z-index:3; background:rgba(255,255,255,.12); border-radius:50%; width:34px; height:34px; top:14px; right:14px;}
-  .conta-fundo:has(.pl4){padding-top:64px;}
-  .pl4{--r:16px;}
-  .pl4-hero{position:relative; overflow:hidden; color:#fff; padding:26px 28px 20px; background:linear-gradient(150deg, var(--petrol) 0%, var(--petrol-dark) 100%);}
+  .ben-caixa:has(.pl4){max-width:940px !important; padding:0; overflow:hidden; background:var(--paper-alt);}
+  .ben-caixa:has(.pl4) > .conta-fechar{color:#fff; z-index:3; background:rgba(255,255,255,.12); border-radius:50%; width:34px; height:34px; top:16px; right:16px;}
+  .conta-fundo:has(.pl4){padding-top:56px;}
+  .pl4{--r:18px; --gap:18px;}
+  .pl4-hero{position:relative; overflow:hidden; color:#fff; padding:28px 30px 22px; background:linear-gradient(150deg, var(--petrol) 0%, var(--petrol-dark) 100%);}
   body.dark .pl4-hero{background:linear-gradient(150deg, #1f4a46 0%, #152f2d 100%);}
-  .pl4-hero::before{content:''; position:absolute; right:-90px; top:-120px; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 68%); pointer-events:none;}
-  .pl4-hero::after{content:''; position:absolute; left:-60px; bottom:-140px; width:260px; height:260px; border-radius:50%; background:radial-gradient(circle, rgba(201,143,69,.20), transparent 70%); pointer-events:none;}
+  .pl4-hero::before{content:''; position:absolute; right:-90px; top:-130px; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.11), transparent 68%); pointer-events:none;}
+  .pl4-hero::after{content:''; position:absolute; left:-80px; bottom:-170px; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(201,143,69,.18), transparent 70%); pointer-events:none;}
   .pl4-hero > *{position:relative; z-index:1;}
-  .pl4-hero-top{display:flex; align-items:flex-start; justify-content:space-between; gap:20px; padding-right:40px;}
   .pl4-eb{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:#F1D3A6; background:rgba(201,143,69,.22); border:1px solid rgba(241,211,166,.35); border-radius:999px; padding:3px 10px;}
-  .pl4-hero h2{font-family:var(--serif, Georgia, serif); font-size:30px; font-weight:600; line-height:1.1; margin:10px 0 6px; color:#fff;}
-  .pl4-hero-t p{margin:0; max-width:46ch; font-size:14px; line-height:1.5; color:rgba(255,255,255,.78);}
-  .pl4-prog{flex:none; position:relative; width:84px; height:84px; margin-top:4px;}
-  .pl4-prog .pl4-ring{width:84px; height:84px;}
+  .pl4-hero h2{font-family:var(--serif, Georgia, serif); font-size:30px; font-weight:600; line-height:1.1; margin:10px 0 4px; color:#fff;}
+  .pl4-sub{margin:0; font-size:14px; line-height:1.5; color:rgba(255,255,255,.75);}
+  .pl4-stats{display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:10px; margin:20px 0 14px;}
+  .pl4-stat{display:flex; align-items:center; gap:10px; min-width:0; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:12px 14px;}
+  .pl4-stat > div{min-width:0;}
+  .pl4-stat small{display:block; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#A9D3C8;}
+  .pl4-stat b{display:block; font-family:var(--serif, Georgia, serif); font-size:21px; font-weight:600; margin:2px 0 1px; line-height:1.15;}
+  .pl4-stat span{display:block; font-size:12.5px; color:rgba(255,255,255,.7); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .pl4-mini{flex:none; width:40px; height:40px;}
+  .pl4-mini .pl4-ring{width:40px; height:40px; display:block;}
   .pl4-ring-f{stroke:rgba(255,255,255,.16);}
   .pl4-ring-v{stroke:#F1D3A6; transition:stroke-dashoffset .4s;}
-  .pl4-prog > span{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
-  .pl4-prog b{font-family:var(--serif, Georgia, serif); font-size:21px; font-weight:600; line-height:1;}
-  .pl4-prog small{font-size:10.5px; color:rgba(255,255,255,.7); margin-top:3px;}
-  .pl4-stats{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin:20px 0 16px;}
-  .pl4-stat{min-width:0; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.13); border-radius:14px; padding:11px 13px;}
-  .pl4-stat small .pl4-so-d{display:inline; font-style:normal;}
-  .pl4-stat small{display:block; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#A9D3C8;}
-  .pl4-stat b{display:block; font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600; margin:3px 0 1px; line-height:1.15;}
-  .pl4-stat span{display:block; font-size:12.5px; color:rgba(255,255,255,.72); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .pl4-cfg{display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
-  .pl4-cfg button{display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13px; font-weight:600; color:#fff; background:rgba(0,0,0,.16); border:1px solid rgba(255,255,255,.16); border-radius:999px; padding:6px 12px 6px 8px; cursor:pointer; transition:background .15s;}
-  .pl4-cfg button:hover{background:rgba(0,0,0,.26);}
-  .pl4-cfg button > span{display:grid; place-items:center;}
-  .pl4-cfg svg{width:15px; height:15px;}
-  .pl4-cfg .pl4-aj{margin-left:auto; color:var(--petrol-dark); background:var(--paper); border-color:transparent; padding:7px 15px 7px 12px; box-shadow:0 4px 14px rgba(0,0,0,.18);}
-  .pl4-cfg .pl4-aj:hover{background:#fff;}
-  .pl4-cfg button[aria-pressed="true"]{background:rgba(255,255,255,.2);}
-  /* ajuste */
-  .pl4-ajuste{padding:22px 28px 26px;}
+  .pl4-barcfg{display:flex; align-items:center; justify-content:space-between; gap:12px; background:rgba(0,0,0,.16); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:7px 7px 7px 14px;}
+  .pl4-barcfg > span{display:flex; align-items:center; gap:9px; min-width:0; font-size:13.5px; font-weight:600; color:rgba(255,255,255,.9);}
+  .pl4-barcfg > span svg{flex:none; width:16px; height:16px; color:#F1D3A6;}
+  .pl4-barcfg i{font-style:normal; margin:0 7px; color:rgba(255,255,255,.4);}
+  .pl4-aj{flex:none; display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:13.5px; font-weight:700; color:var(--petrol-dark); background:var(--paper); border:0; border-radius:10px; padding:8px 14px; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,.16);}
+  .pl4-aj svg{width:15px; height:15px;}
+  .pl4-aj:hover{background:#fff;}
+  .pl4-aj[aria-expanded="true"]{color:#fff; background:rgba(255,255,255,.16); box-shadow:none;}
+  /* corpo */
+  .pl4-corpo{padding:var(--gap) 30px 30px;}
+  .pl4-grade{display:grid; grid-template-columns:minmax(0, 1fr) 290px; gap:var(--gap); align-items:start;}
+  .pl4-card{background:var(--paper); border:1px solid var(--rule); border-radius:var(--r); box-shadow:0 1px 3px var(--shadow); padding:18px;}
+  .pl4-card-cab{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:14px;}
+  .pl4-card-cab h3{margin:0; font-family:var(--serif, Georgia, serif); font-size:19px; font-weight:600; color:var(--ink);}
+  .pl4-card-cab small{font-size:12.5px; color:var(--ink-faint);}
+  .pl4-corpo > .pl4-card{margin-top:var(--gap);}
+  /* tira de dias */
+  .pl4-semana{display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; padding:4px; margin:0 -4px; scroll-snap-type:x proximity;}
+  .pl4-semana::-webkit-scrollbar{display:none;}
+  .pl4-semana button{flex:1 0 56px; max-width:110px; scroll-snap-align:start; display:flex; flex-direction:column; align-items:center; gap:3px; font:inherit; color:var(--ink); background:var(--paper-alt); border:1px solid transparent; border-radius:14px; padding:9px 4px 8px; cursor:pointer; transition:background .15s, border-color .15s, box-shadow .15s;}
+  .pl4-semana button:hover{border-color:var(--rule); background:var(--paper);}
+  .pl4-semana small{font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
+  .pl4-semana b{font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600; line-height:1.1;}
+  .pl4-sd{display:flex; gap:3px; height:12px; align-items:center;}
+  .pl4-sd i{width:6px; height:6px; border-radius:50%; background:var(--acc, var(--petrol));}
+  .pl4-sd em{font-style:normal; font-size:9.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:#A8702F;}
+  .pl4-sd em.ok{font-size:12px; color:#2E7D4F;}
+  .pl4-semana button.livre b, .pl4-semana button.livre small{opacity:.5;}
+  .pl4-semana button.prova{background:var(--ochre-soft);}
+  .pl4-semana button.prova b, .pl4-semana button.prova small{opacity:1;}
+  .pl4-semana button[aria-selected="true"]{color:#fff; background:var(--petrol); border-color:var(--petrol); box-shadow:0 3px 8px rgba(31,92,86,.25);}
+  .pl4-semana button[aria-selected="true"] small, .pl4-semana button[aria-selected="true"] b{color:#fff; opacity:1;}
+  .pl4-semana button[aria-selected="true"] small{color:#A9D3C8;}
+  .pl4-semana button[aria-selected="true"] .pl4-sd i{background:#fff; opacity:.85;}
+  .pl4-semana button[aria-selected="true"] .pl4-sd em{color:#F1D3A6;}
+  .pl4-semana button[aria-selected="true"] .pl4-sd em.ok{color:#BFE8CF;}
+  /* dia */
+  .pl4-dia{margin-top:14px; padding-top:16px; border-top:1px solid var(--rule);}
+  .pl4-dia-cab{display:flex; align-items:flex-end; justify-content:space-between; gap:12px;}
+  .pl4-dia-cab > div b{display:block; font-size:17px; font-weight:700; color:var(--ink);}
+  .pl4-dia-cab > div small{font-size:13px; color:var(--ink-faint);}
+  .pl4-dia-n{text-align:right;}
+  .pl4-dia-n b{display:block; font-size:13.5px; color:var(--petrol);}
+  .pl4-dia-n small{font-size:12px; color:var(--ink-faint);}
+  .pl4-dia-n.ok b{color:#2E7D4F;}
+  body.dark .pl4-dia-n.ok b{color:#7FD3A0;}
+  .pl2-barra{height:5px; border-radius:999px; background:var(--paper-alt); margin:10px 0 12px; overflow:hidden;}
+  .pl2-barra i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--petrol), #3E8E83); transition:width .3s;}
+  .pl4-tarefas{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .pl4-tarefa{display:flex; align-items:center; gap:4px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:0 4px 0 12px; transition:border-color .15s, box-shadow .15s, background .15s;}
+  .pl4-tarefa:hover{border-color:color-mix(in srgb, var(--petrol) 35%, var(--rule)); box-shadow:0 4px 14px var(--shadow);}
+  .pl4-chk{flex:none; position:relative; width:26px; height:26px; cursor:pointer;}
+  .pl4-chk input{position:absolute; inset:0; opacity:0; margin:0; cursor:pointer;}
+  .pl4-chk span{position:absolute; inset:0; border-radius:50%; border:2px solid color-mix(in srgb, var(--acc, var(--petrol)) 70%, var(--rule)); background:var(--paper); transition:background .15s, border-color .15s;}
+  .pl4-chk:hover span{background:color-mix(in srgb, var(--acc, var(--petrol)) 10%, var(--paper));}
+  .pl4-chk input:checked + span{border-color:#2E7D4F; background:#2E7D4F url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/14px no-repeat;}
+  .pl4-chk input:focus-visible + span{outline:2px solid var(--petrol); outline-offset:2px;}
+  .pl4-t-c{flex:1; min-width:0; display:flex; align-items:center; gap:10px; font:inherit; text-align:left; color:var(--ink); background:none; border:0; padding:13px 8px 13px 8px; cursor:pointer;}
+  .pl4-t-txt{flex:1; min-width:0;}
+  .pl4-t-txt b{display:block; font-size:15px; font-weight:600; line-height:1.35;}
+  .pl4-t-txt small{display:block; margin-top:3px; font-size:12.5px; color:var(--ink-faint);}
+  .pl4-t-txt small i{display:inline-block; vertical-align:1px; margin-right:6px; width:7px; height:7px; border-radius:50%; background:var(--acc, var(--petrol));}
+  .pl4-abrir{flex:none; display:inline-flex; align-items:center; gap:4px; font-size:12.5px; font-weight:700; color:var(--petrol); padding:5px 8px; border-radius:8px; transition:background .15s;}
+  .pl4-abrir span{font-size:17px; line-height:1;}
+  .pl4-t-c:hover .pl4-abrir{background:var(--petrol-soft);}
+  .pl4-tarefa.vesp{background:linear-gradient(90deg, var(--ochre-soft), var(--paper) 70%); border-color:rgba(201,143,69,.4);}
+  .pl4-tarefa.feito{background:var(--paper-alt); box-shadow:none;}
+  .pl4-tarefa.feito .pl4-t-txt b{color:var(--ink-faint); text-decoration:line-through; text-decoration-color:color-mix(in srgb, var(--ink-faint) 60%, transparent);}
+  .pl4-tarefa.feito .pl4-abrir{color:var(--ink-faint);}
+  .pl4-faixa{display:flex; gap:12px; align-items:flex-start; margin:4px 0 12px; padding:12px 14px; border-radius:12px; background:var(--ochre-soft);}
+  .pl4-faixa svg{flex:none; width:20px; height:20px; color:#A8702F; margin-top:1px;}
+  .pl4-faixa span{font-size:13px; line-height:1.45; color:var(--ink-soft);}
+  .pl4-faixa b{display:block; font-size:14px; color:var(--ink);}
+  .pl4-livre{display:flex; flex-direction:column; align-items:center; text-align:center; gap:3px; padding:18px 10px 10px;}
+  .pl4-livre b{font-size:15px;}
+  .pl4-livre span{font-size:13.5px; color:var(--ink-faint);}
+  /* radar */
+  .pl4-radar{list-style:none; margin:0 -8px; padding:0;}
+  .pl4-radar button{width:100%; display:flex; gap:12px; align-items:center; font:inherit; text-align:left; color:var(--ink); background:none; border:0; border-radius:12px; padding:9px 8px; cursor:pointer; transition:background .15s;}
+  .pl4-radar button:hover, .pl4-radar button[aria-current="true"]{background:var(--paper-alt);}
+  .pl4-r-t{flex:1; min-width:0;}
+  .pl4-r-t > b{display:block; font-size:14.5px;}
+  .pl4-r-t > small{display:block; font-size:12px; color:var(--ink-faint);}
+  .pl4-cd{flex:none; width:46px; height:50px; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:color-mix(in srgb, var(--acc, var(--petrol)) 12%, var(--paper)); border:1px solid color-mix(in srgb, var(--acc, var(--petrol)) 26%, transparent);}
+  .pl4-cd b{font-family:var(--serif, Georgia, serif); font-size:19px; font-weight:600; line-height:1; color:var(--ink);}
+  .pl4-cd small{font-size:10.5px; color:var(--ink-faint);}
+  .pl4-cd.perto{background:var(--acc, var(--petrol)); border-color:transparent;}
+  .pl4-cd.perto b, .pl4-cd.perto small{color:#fff;}
+  .pl4-prep{display:flex; align-items:center; gap:8px; margin-top:6px;}
+  .pl4-prep > span{flex:1; height:5px; border-radius:999px; background:var(--paper-alt); overflow:hidden;}
+  .pl4-radar button:hover .pl4-prep > span, .pl4-radar button[aria-current="true"] .pl4-prep > span{background:var(--paper);}
+  .pl4-prep > span i{display:block; height:100%; background:var(--acc, var(--petrol)); border-radius:inherit;}
+  .pl4-prep em{flex:none; font-style:normal; font-size:11.5px; font-weight:700; color:var(--ink-soft);}
+  .pl4-prep em.lg{font-weight:600; color:var(--ink-faint);}
+  .pl4-sobra{display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin:12px -18px -18px; padding:14px 18px; border-top:1px solid var(--rule); background:var(--ochre-soft); border-radius:0 0 var(--r) var(--r); font-size:13px; line-height:1.45; color:var(--ink-soft);}
+  .pl4-sobra b{color:var(--ink);}
+  .pl4-sobra button{font:inherit; font-size:13px; font-weight:700; color:#8A5A1F; background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px;}
+  .pl4 > .pl4-corpo > .pl2-vazio{margin:0;}
   .pl4-aj-cab b{display:block; font-family:var(--serif, Georgia, serif); font-size:21px; font-weight:600;}
   .pl4-aj-cab small{font-size:13px; color:var(--ink-faint);}
   .pl4-passo{display:flex; gap:14px; padding:18px 0; border-bottom:1px solid var(--rule);}
@@ -3512,125 +3596,37 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pl3-dica{margin:8px 0 0; font-size:12.5px; color:#8A5A1F;}
   .pl3-pronto{display:block; width:100%; margin-top:18px; font:inherit; font-size:14.5px; font-weight:700; color:#fff; background:var(--petrol); border:0; border-radius:12px; padding:12px; cursor:pointer;}
   .pl3-pronto:hover{background:var(--petrol-dark);}
-  .pl4 > .pl2-vazio{margin:20px 28px;}
   .pl2-vazio .pl3-pronto{max-width:260px; margin:16px auto 0;}
-  /* grade */
-  .pl4-grade{display:grid; grid-template-columns:minmax(0, 1fr) 280px; gap:22px; padding:22px 28px 28px; align-items:start;}
-  .pl4-semana{display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; padding:2px 4px 16px; margin:0 -4px -2px; scroll-snap-type:x proximity;}
-  .pl4-semana::-webkit-scrollbar{display:none;}
-  .pl4-semana button{flex:1 0 54px; max-width:96px; scroll-snap-align:start; display:flex; flex-direction:column; align-items:center; gap:2px; font:inherit; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:9px 4px 8px; cursor:pointer; transition:border-color .15s, background .15s, transform .15s;}
-  .pl4-semana button:hover{border-color:color-mix(in srgb, var(--petrol) 40%, var(--rule));}
-  .pl4-semana small{font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint);}
-  .pl4-semana b{font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600; line-height:1.1;}
-  .pl4-sd{display:flex; gap:3px; height:8px; align-items:center;}
-  .pl4-sd i{width:6px; height:6px; border-radius:50%; background:var(--acc, var(--petrol));}
-  .pl4-sd .pl4-flag{width:auto; height:auto; background:none; font-style:normal;}
-  .pl4-sd .pl4-flag::before{content:'Prova'; font-size:9.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; color:#A8702F;}
-  .pl4-sd .pl4-okd{width:12px; height:8px; border-radius:0; background:none; border-left:2px solid #2E7D4F; border-bottom:2px solid #2E7D4F; transform:rotate(-45deg) translate(1px,-1px); width:8px; height:4px;}
-  .pl4-semana button.livre{background:var(--paper-alt); border-style:dashed;}
-  .pl4-semana button.livre b{color:var(--ink-faint);}
-  .pl4-semana button.prova{border-color:rgba(201,143,69,.55); background:var(--ochre-soft);}
-  .pl4-semana button[aria-selected="true"]{color:#fff; background:var(--petrol); border-color:var(--petrol); border-style:solid; box-shadow:0 6px 16px rgba(31,92,86,.22);}
-  .pl4-semana button[aria-selected="true"] small{color:#A9D3C8;}
-  .pl4-semana button[aria-selected="true"] b{color:#fff;}
-  .pl4-semana button[aria-selected="true"] .pl4-sd i{background:#fff; opacity:.85;}
-  .pl4-semana button[aria-selected="true"] .pl4-flag::before{color:#F1D3A6;}
-  .pl4-semana button[aria-selected="true"] .pl4-okd{border-color:#BFE8CF;}
-  .pl4-dia{background:var(--paper); border:1px solid var(--rule); border-radius:var(--r); padding:16px 16px 10px; box-shadow:0 1px 2px var(--shadow);}
-  .pl4-dia-cab{display:flex; align-items:flex-end; justify-content:space-between; gap:12px;}
-  .pl4-dia-cab > div b{display:block; font-family:var(--serif, Georgia, serif); font-size:22px; font-weight:600; line-height:1.15; color:var(--petrol);}
-  .pl4-dia-cab > div small{font-size:13px; color:var(--ink-faint);}
-  .pl4-dia-n{text-align:right;}
-  .pl4-dia-n b{display:block; font-size:13.5px; color:var(--ink);}
-  .pl4-dia-n small{font-size:12px; color:var(--ink-faint);}
-  .pl4-dia-n.ok b{color:#2E7D4F;}
-  body.dark .pl4-dia-n.ok b{color:#7FD3A0;}
-  .pl2-barra{height:6px; border-radius:999px; background:var(--paper-alt); margin:12px 0 12px; overflow:hidden;}
-  .pl2-barra i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--petrol), #3E8E83); transition:width .3s;}
-  .pl4-tarefas{display:flex; flex-direction:column; gap:8px; padding-bottom:6px;}
-  .pl4-tarefa{position:relative; display:flex; align-items:center; gap:8px; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:4px 10px 4px 4px; overflow:hidden; transition:border-color .15s, box-shadow .15s;}
-  .pl4-tarefa::before{content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--acc, var(--petrol));}
-  .pl4-tarefa:hover{border-color:color-mix(in srgb, var(--acc, var(--petrol)) 45%, var(--rule)); box-shadow:0 4px 14px var(--shadow);}
-  .pl4-t-c{flex:1; min-width:0; display:flex; align-items:center; gap:12px; font:inherit; text-align:left; color:var(--ink); background:none; border:0; padding:10px 4px 10px 12px; cursor:pointer;}
-  .pl2-tipo{flex:none; width:38px; height:38px; border-radius:11px; display:grid; place-items:center; color:var(--acc, var(--petrol)); background:color-mix(in srgb, var(--acc, var(--petrol)) 13%, transparent);}
-  .pl2-tipo svg{width:18px; height:18px;}
-  .pl2-t-vesp{color:#fff !important; background:linear-gradient(150deg, #C98F45, #A8702F) !important;}
-  .pl4-t-txt{flex:1; min-width:0;}
-  .pl4-t-txt > b{display:block; font-size:15px; font-weight:600; line-height:1.35;}
-  .pl4-tags{display:flex; flex-wrap:wrap; gap:5px; margin-top:6px;}
-  .pl4-tags em{font-style:normal; font-size:11.5px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt); border-radius:999px; padding:2px 8px; white-space:nowrap;}
-  .pl4-tags .pl4-tag-d{display:inline-flex; align-items:center; gap:5px; color:var(--ink); background:color-mix(in srgb, var(--acc, var(--petrol)) 12%, var(--paper));}
-  .pl4-tags .pl4-tag-d i{width:6px; height:6px; border-radius:50%; background:var(--acc, var(--petrol));}
-  .pl4-tarefa.vesp{border-color:rgba(201,143,69,.45); background:linear-gradient(90deg, var(--ochre-soft), var(--paper) 60%);}
-  .pl4-feito{flex:none; position:relative; display:inline-flex; align-items:center; gap:6px; cursor:pointer;}
-  .pl4-feito input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer;}
-  .pl4-feito span{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; color:var(--petrol); border:1.5px solid var(--petrol-line); border-radius:999px; padding:6px 11px 6px 8px;}
-  .pl4-feito span::before{content:''; width:15px; height:15px; border-radius:50%; border:1.5px solid currentColor; box-sizing:border-box;}
-  .pl4-feito input:checked + span{color:#fff; background:#2E7D4F; border-color:#2E7D4F;}
-  .pl4-feito input:checked + span::before{border-color:#fff; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232E7D4F' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/10px no-repeat;}
-  .pl4-feito input:focus-visible + span{outline:2px solid var(--petrol); outline-offset:2px;}
-  .pl4-tarefa.feito{background:var(--paper-alt);}
-  .pl4-tarefa.feito .pl4-t-txt > b{color:var(--ink-faint); text-decoration:line-through; text-decoration-color:rgba(0,0,0,.25);}
-  .pl4-tarefa.feito .pl2-tipo, .pl4-tarefa.feito .pl4-tags{opacity:.55;}
-  .pl4-faixa{display:flex; gap:12px; align-items:flex-start; margin:4px 0 12px; padding:12px 14px; border-radius:12px; background:var(--ochre-soft); color:var(--ink);}
-  .pl4-faixa svg{flex:none; width:20px; height:20px; color:#A8702F; margin-top:1px;}
-  .pl4-faixa span{font-size:13px; line-height:1.45; color:var(--ink-soft);}
-  .pl4-faixa b{display:block; font-size:14px; color:var(--ink);}
-  .pl4-livre{display:flex; flex-direction:column; align-items:center; text-align:center; gap:3px; padding:22px 10px 16px;}
-  .pl4-livre svg{width:26px; height:26px; color:var(--ochre); margin-bottom:4px;}
-  .pl4-livre b{font-family:var(--serif, Georgia, serif); font-size:18px; font-weight:600;}
-  .pl4-livre span{font-size:13.5px; color:var(--ink-faint);}
-  /* lateral */
-  .pl4-lado{display:flex; flex-direction:column; gap:14px;}
-  .pl4-lado-c{background:var(--paper); border:1px solid var(--rule); border-radius:var(--r); padding:16px;}
-  .pl4-lado-c h3, .pl4 > .pl4-lado-c h3{margin:0 0 12px; font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); font-family:inherit;}
-  .pl4 > .pl4-lado-c{margin:0 28px 28px;}
-  .pl4-radar{list-style:none; margin:0; padding:0; display:flex; flex-direction:column;}
-  .pl4-radar li{display:flex; gap:12px; align-items:center; padding:11px 0; border-top:1px solid var(--rule);}
-  .pl4-radar li:first-child{border-top:0; padding-top:2px;}
-  .pl4-radar li > div{flex:1; min-width:0;}
-  .pl4-radar li > div > b{display:block; font-size:14.5px;}
-  .pl4-radar li > div > small{display:block; font-size:12px; color:var(--ink-faint);}
-  .pl4-cd{flex:none; width:48px; height:52px; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:color-mix(in srgb, var(--acc, var(--petrol)) 12%, var(--paper)); border:1px solid color-mix(in srgb, var(--acc, var(--petrol)) 28%, transparent);}
-  .pl4-cd b{font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600; line-height:1; color:var(--ink);}
-  .pl4-cd small{font-size:10.5px; color:var(--ink-faint);}
-  .pl4-cd.perto{background:var(--acc, var(--petrol)); border-color:transparent;}
-  .pl4-cd.perto b, .pl4-cd.perto small{color:#fff;}
-  .pl4-prep{display:flex; align-items:center; gap:8px; margin-top:6px;}
-  .pl4-prep > span{flex:1; height:5px; border-radius:999px; background:var(--paper-alt); overflow:hidden;}
-  .pl4-prep > span i{display:block; height:100%; background:var(--acc, var(--petrol)); border-radius:inherit;}
-  .pl4-prep em{flex:none; font-style:normal; font-size:11.5px; font-weight:600; color:var(--ink-soft);}
-  .pl4-sobra{background:var(--ochre-soft); border-radius:var(--r); padding:14px 16px; font-size:13px; line-height:1.45; color:var(--ink-soft);}
-  .pl4-sobra b{display:block; font-size:13.5px; color:var(--ink); margin-bottom:2px;}
-  .pl4-sobra button{margin-top:10px; font:inherit; font-size:13px; font-weight:700; color:#fff; background:#A8702F; border:0; border-radius:999px; padding:7px 14px; cursor:pointer;}
-  @media (max-width:760px){
-    .pl4-grade{grid-template-columns:minmax(0, 1fr); gap:14px;}
+  .pl4-ajuste{padding:22px 30px 28px; background:var(--paper);}
+  @media (max-width:780px){
+    .pl4-grade{grid-template-columns:minmax(0, 1fr);}
+    .pl4-stats{grid-template-columns:repeat(2, minmax(0, 1fr));}
   }
   @media (max-width:560px){
-    .conta-fundo:has(.pl4){padding:56px 8px 12px;}
-    .pl4-hero{padding:22px 18px 18px;}
-    .pl4-hero h2{font-size:26px;}
-    .pl4-hero-t p{font-size:13.5px;}
-    .pl4-prog, .pl4-prog .pl4-ring{width:66px; height:66px;}
-    .pl4-prog b{font-size:17px;}
-    .pl4-hero-top{padding-right:30px; gap:12px;}
-    .pl4-stats{gap:6px; margin:16px 0 14px;}
-    .pl4-stat{padding:9px 10px;}
-    .pl4-stat b{font-size:17px;}
-    .pl4-stat span{font-size:11.5px; white-space:normal; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
+    .pl4{--gap:12px; --r:16px;}
+    .conta-fundo:has(.pl4){padding:52px 8px 12px;}
+    .pl4-hero{padding:22px 16px 16px;}
+    .pl4-hero h2{font-size:25px; padding-right:40px;}
+    .pl4-sub{font-size:13.5px;}
+    .pl4-stats{gap:8px; margin:16px 0 12px;}
+    .pl4-stat{padding:10px 11px; gap:8px;}
+    .pl4-stat b{font-size:18px;}
+    .pl4-stat span{font-size:11.5px;}
     .pl4-stat small{font-size:9.5px;}
-    .pl4-stat small .pl4-so-d{display:none;}
-    .pl4-cfg{gap:6px;}
-    .pl4-cfg button{font-size:12.5px; padding:5px 10px 5px 7px;}
-    .pl4-cfg .pl4-aj{margin:4px 0 0; width:100%; justify-content:center; padding:10px; font-size:14px;}
-    .pl4-grade, .pl4-ajuste{padding:16px 14px 20px;}
-    .pl4 > .pl2-vazio{margin:16px 14px;}
-    .pl4 > .pl4-lado-c{margin:0 14px 20px;}
-    .pl4-dia{padding:14px 12px 8px;}
-    .pl4-t-c{padding:10px 2px 10px 10px; gap:10px;}
-    .pl2-tipo{width:34px; height:34px;}
-    .pl4-feito span{font-size:0; gap:0; padding:7px;}
-    .pl4-feito span::before{width:18px; height:18px;}
+    .pl4-mini, .pl4-mini .pl4-ring{width:32px; height:32px;}
+    .pl4-barcfg{padding:8px 8px 8px 12px;}
+    .pl4-barcfg > span{font-size:12.5px; line-height:1.4;}
+    .pl4-barcfg > span > svg{display:none;}
+    .pl4-barcfg > span > span{display:block;}
+    .pl4-barcfg i{margin:0 4px;}
+    .pl4-aj{padding:9px 12px;}
+    .pl4-corpo{padding:var(--gap) 10px 16px;}
+    .pl4-card{padding:14px 12px;}
+    .pl4-sobra{margin:12px -12px -14px; padding:12px;}
+    .pl4-tarefa{padding-left:10px;}
+    .pl4-abrir{font-size:0; gap:0; padding:5px;}
+    .pl4-abrir span{font-size:20px; color:var(--ink-faint);}
+    .pl4-ajuste{padding:18px 14px 22px;}
     .pl4-op{grid-template-columns:1fr;}
     .pl4-passo{gap:10px;}
     .pl4-ajuste .pl3-pronto{max-width:none;}
@@ -23432,24 +23428,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const minT = pl.dias.reduce((n, d) => n + d.min, 0), prox = pl.provas[0];
     const proxN = prox ? pl.provas.filter(p => p.data === prox.data).map(p => plCurto(p.disc)) : [];
     const hoje = pl.dias.find(d => d.iso === hojeISO());
-    const stat = (rot, val, sub) => `<div class="pl4-stat"><small>${rot.replace('Próxima prova', 'Próxima<i class="pl4-so-d"> prova</i>')}</small><b>${val}</b><span>${sub}</span></div>`;
+    const stat = (rot, val, sub, extra = '') => `<div class="pl4-stat">${extra}<div><small>${rot}</small><b>${val}</b><span>${sub}</span></div></div>`;
+    const rotina = [meu ? 'Escolhido por você' : 'Sugerido pelo site', plMin(cfg.min) + ' por dia', nd === 7 ? 'todos os dias' : nd + (nd === 1 ? ' dia' : ' dias') + ' por semana'];
     return `<header class="pl4-hero">
-      <div class="pl4-hero-top">
-        <div class="pl4-hero-t"><span class="pl4-eb">★ Área do apoiador</span><h2>Plano de estudos</h2>
-          <p>${meu ? 'Montado com as disciplinas que você escolheu. O site distribui o que falta estudar em cada uma.' : 'Montado pelo site a partir das datas das provas, do que você já estudou e dos seus erros.'}</p></div>
-        ${itens.length ? `<div class="pl4-prog">${plRing(pc)}<span><b>${pc}%</b><small>${feitos} de ${itens.length}</small></span></div>` : ''}
-      </div>
+      <span class="pl4-eb">★ Área do apoiador</span><h2>Plano de estudos</h2>
+      <p class="pl4-sub">${meu ? 'Montado com as disciplinas que você escolheu.' : 'Montado pelo site a partir das datas das provas e do que você já estudou.'}</p>
       <div class="pl4-stats">
-        ${stat('Próxima prova', prox ? plQuando(plDiasAte(prox.data)).replace(/^./, c => c.toUpperCase()) : 'Sem data', prox ? escHTML(proxN.join(' e ')) : 'Nenhuma no calendário')}
-        ${stat('Hoje', hoje ? hoje.itens.length + (hoje.itens.length === 1 ? ' tarefa' : ' tarefas') : 'Folga', hoje ? 'cerca de ' + plMin(hoje.min) : 'Descanse ou revise erros')}
+        ${stat('Semana', pc + '%', feitos + ' de ' + itens.length + ' tarefas', `<span class="pl4-mini">${plRing(pc, 15, 4)}</span>`)}
+        ${stat('Hoje', hoje ? hoje.itens.length + (hoje.itens.length === 1 ? ' tarefa' : ' tarefas') : 'Folga', hoje ? plMin(hoje.min) : 'nada marcado')}
+        ${stat('Próxima prova', prox ? plQuando(plDiasAte(prox.data)).replace(/^./, c => c.toUpperCase()) : 'Sem data', prox ? escHTML(proxN.join(' e ')) : 'nenhuma no calendário')}
         ${stat('No plano', minT ? plMin(minT) : '0 min', pl.dias.length + (pl.dias.length === 1 ? ' dia de estudo' : ' dias de estudo'))}
       </div>
-      <div class="pl4-cfg" role="group" aria-label="Configuração do plano">
-        <button data-pl-ajuste${ajuste ? ' aria-pressed="true"' : ''}><span>${plIc(meu ? 'meu' : 'auto')}</span>${meu ? 'Escolhido por você' : 'Sugerido pelo site'}</button>
-        <button data-pl-ajuste${ajuste ? ' aria-pressed="true"' : ''}><span>${plIc('rel')}</span>${plMin(cfg.min)} por dia</button>
-        <button data-pl-ajuste${ajuste ? ' aria-pressed="true"' : ''}><span>${plIc('cal')}</span>${nd === 7 ? 'Todos os dias' : nd + (nd === 1 ? ' dia' : ' dias') + ' por semana'}</button>
-        ${ajuste ? '' : `<button class="pl4-aj" data-pl-ajuste>${plIc('meu')}Ajustar plano</button>`}
-      </div>
+      <div class="pl4-barcfg"><span>${plIc(meu ? 'meu' : 'auto')}<span>${rotina.map(escHTML).join('<i>·</i>')}</span></span>
+        <button class="pl4-aj" data-pl-ajuste aria-expanded="${ajuste}">${ajuste ? 'Fechar ajustes' : plIc('meu') + 'Ajustar'}</button></div>
     </header>`;
   }
   function plAjuste(cfg){
@@ -23467,14 +23458,14 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     </section>`;
   }
   function plCard(t, cfg){
-    const [k, rot] = plTipo(t), feito = !!cfg.feitos[t.k];
-    return `<div class="pl4-tarefa${feito ? ' feito' : ''}${t.vesp ? ' vesp' : ''}" data-d="${escHTML(t.disc || '')}">
+    const [, rot] = plTipo(t), feito = !!cfg.feitos[t.k];
+    return `<li class="pl4-tarefa${feito ? ' feito' : ''}${t.vesp ? ' vesp' : ''}" data-d="${escHTML(t.disc || '')}">
+      <label class="pl4-chk" title="Marcar como feito"><input type="checkbox" data-pl-feito="${escHTML(t.k)}"${feito ? ' checked' : ''} aria-label="Marcar ${escHTML(plTitulo(t.t))} como feito"><span></span></label>
       <button class="pl4-t-c" data-pl-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap, disc:t.disc}))}'>
-        <span class="pl2-tipo pl2-t-${k}">${plIc(k)}</span>
-        <span class="pl4-t-txt"><b>${escHTML(plTitulo(t.t))}</b><span class="pl4-tags"><em class="pl4-tag-d"><i></i>${escHTML(plCurto(t.disc))}</em><em>${rot} · ${plMin(t.min)}</em></span></span>
+        <span class="pl4-t-txt"><b>${escHTML(plTitulo(t.t))}</b><small><i></i>${escHTML(plCurto(t.disc))} · ${rot} · ${plMin(t.min)}</small></span>
+        <span class="pl4-abrir">${feito ? 'Rever' : 'Abrir'}<span aria-hidden="true">›</span></span>
       </button>
-      <label class="pl4-feito" title="Marcar como feito"><input type="checkbox" data-pl-feito="${escHTML(t.k)}"${feito ? ' checked' : ''} aria-label="Marcar como feito"><span>${feito ? 'Feito' : 'Marcar'}</span></label>
-    </div>`;
+    </li>`;
   }
   function plSemana(cfg, pl){
     const hoje = hojeISO(), ult = pl.dias.length ? pl.dias[pl.dias.length - 1].iso : hoje;
@@ -23488,40 +23479,40 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const SEM = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
     return `<div class="pl4-semana" role="tablist" aria-label="Dias do plano">${out.map(x => `<button role="tab" data-pl-sel="${x.iso}" aria-selected="${x.iso === diaSel}" class="${x.dia ? '' : 'livre'}${x.prova.length ? ' prova' : ''}${x.ok ? ' ok' : ''}">
       <small>${x.iso === hoje ? 'Hoje' : SEM[x.d.getDay()]}</small><b>${x.d.getDate()}</b>
-      <span class="pl4-sd">${x.prova.length ? `<i class="pl4-flag" title="Prova"></i>` : x.ok ? '<i class="pl4-okd"></i>' : x.dia ? [...new Set(x.dia.itens.map(t => t.disc))].slice(0, 3).map(dn => `<i data-d="${dn}"></i>`).join('') : ''}</span></button>`).join('')}</div>`;
+      <span class="pl4-sd">${x.prova.length ? '<em>Prova</em>' : x.ok ? '<em class="ok">✓</em>' : x.dia ? [...new Set(x.dia.itens.map(t => t.disc))].slice(0, 3).map(dn => `<i data-d="${dn}"></i>`).join('') : ''}</span></button>`).join('')}</div>`;
   }
   function plDetalhe(cfg, pl){
     const dia = pl.dias.find(x => x.iso === diaSel), prova = pl.provas.filter(p => p.data === diaSel);
     const [nome, sub] = plDiaNome(diaSel);
-    const faixa = prova.length ? `<div class="pl4-faixa">${plIc('vesp')}<span><b>Dia de prova: ${escHTML(prova.map(p => plCurto(p.disc)).join(' e '))}</b>Boa prova! Revise só os pontos que você marcou como difíceis.</span></div>` : '';
-    if(!dia) return `<section class="pl4-dia"><header class="pl4-dia-cab"><div><b>${nome}</b><small>${sub}</small></div></header>${faixa || `<div class="pl4-livre">${plIc('rel')}<b>Dia livre</b><span>${cfg.dias.includes(new Date(diaSel + 'T12:00:00').getDay()) ? 'Nada pendente para este dia.' : 'Você deixou este dia de folga na sua rotina.'}</span></div>`}</section>`;
-    const f = dia.itens.filter(t => cfg.feitos[t.k]).length, n = dia.itens.length;
-    return `<section class="pl4-dia">
-      <header class="pl4-dia-cab"><div><b>${nome}</b><small>${sub}</small></div><span class="pl4-dia-n${f === n ? ' ok' : ''}"><b>${f === n ? 'Tudo feito' : f + ' de ' + n + ' feitas'}</b><small>${plMin(dia.min)} de estudo</small></span></header>
-      <div class="pl2-barra"><i style="width:${Math.round(f / n * 100)}%"></i></div>
-      ${faixa}<div class="pl4-tarefas">${dia.itens.map(t => plCard(t, cfg)).join('')}</div>
-    </section>`;
+    const faixa = prova.length ? `<div class="pl4-faixa">${plIc('vesp')}<span><b>Dia de prova: ${escHTML(prova.map(p => plCurto(p.disc)).join(' e '))}</b>Boa prova! Revise só o que você marcou como difícil.</span></div>` : '';
+    let corpo;
+    if(!dia) corpo = faixa || `<div class="pl4-livre"><b>Dia livre</b><span>${cfg.dias.includes(new Date(diaSel + 'T12:00:00').getDay()) ? 'Nada pendente para este dia.' : 'Este dia está de folga na sua rotina.'}</span></div>`;
+    else corpo = faixa + `<ul class="pl4-tarefas">${dia.itens.map(t => plCard(t, cfg)).join('')}</ul>`;
+    const f = dia ? dia.itens.filter(t => cfg.feitos[t.k]).length : 0, n = dia ? dia.itens.length : 0;
+    return `<div class="pl4-dia-cab"><div><b>${nome}</b><small>${sub}</small></div>${n ? `<span class="pl4-dia-n${f === n ? ' ok' : ''}"><b>${f === n ? 'Tudo feito' : f + ' de ' + n}</b><small>${plMin(dia.min)}</small></span>` : ''}</div>
+      ${n ? `<div class="pl2-barra"><i style="width:${Math.round(f / n * 100)}%"></i></div>` : ''}${corpo}`;
   }
-  function plRadar(cfg, pl){
+  function plRadar(cfg, pl, sobra){
     if(!pl.provas.length) return '';
-    return `<section class="pl4-lado-c"><h3>Provas no radar</h3><ol class="pl4-radar">${pl.provas.map(p => {
-      const its = pl.dias.flatMap(d => d.itens).filter(t => t.disc === p.disc && (!t.vesp || t.k.endsWith(p.data))), f = its.filter(t => cfg.feitos[t.k]).length, pc = its.length ? Math.round(f / its.length * 100) : 0, dn = plDiasAte(p.data);
-      return `<li data-d="${escHTML(p.disc)}"><span class="pl4-cd${dn <= 3 ? ' perto' : ''}"><b>${dn === 0 ? 'Hoje' : dn}</b>${dn === 0 ? '' : `<small>${dn === 1 ? 'dia' : 'dias'}</small>`}</span>
-        <div><b>${escHTML(plCurto(p.disc))}</b><small>${dataBR(p.data, {weekday:'long', day:'2-digit', month:'2-digit'})}</small>
-        ${its.length ? `<span class="pl4-prep"><span><i style="width:${pc}%"></i></span><em>${pc}% da preparação</em></span>` : `<span class="pl4-prep"><em>${cfg.foco.length && !cfg.foco.includes(p.disc) ? 'Fora das disciplinas escolhidas' : 'Preparação em dia'}</em></span>`}</div></li>`; }).join('')}</ol></section>`;
+    return `<section class="pl4-card pl4-radar-c"><header class="pl4-card-cab"><h3>Provas no radar</h3></header><ol class="pl4-radar">${pl.provas.map(p => {
+      const its = pl.dias.flatMap(d => d.itens).filter(t => t.disc === p.disc), f = its.filter(t => cfg.feitos[t.k]).length, pc = its.length ? Math.round(f / its.length * 100) : 0, dn = plDiasAte(p.data);
+      return `<li><button data-pl-sel="${p.data}" data-d="${escHTML(p.disc)}"${p.data === diaSel ? ' aria-current="true"' : ''}><span class="pl4-cd${dn <= 3 ? ' perto' : ''}"><b>${dn === 0 ? 'Hoje' : dn}</b>${dn === 0 ? '' : `<small>${dn === 1 ? 'dia' : 'dias'}</small>`}</span>
+        <span class="pl4-r-t"><b>${escHTML(plCurto(p.disc))}</b><small>${dataBR(p.data, {weekday:'short', day:'2-digit', month:'2-digit'})}</small>
+        <span class="pl4-prep">${its.length ? `<span><i style="width:${pc}%"></i></span><em>${pc}%</em>` : `<em class="lg">${cfg.foco.length && !cfg.foco.includes(p.disc) ? 'Fora das escolhidas' : 'Preparação em dia'}</em>`}</span></span></button></li>`; }).join('')}</ol>
+      ${sobra ? `<footer class="pl4-sobra"><span><b>${sobra} ${sobra === 1 ? 'atividade ficou' : 'atividades ficaram'} de fora</b> por falta de tempo.</span><button data-pl-ajuste>Aumentar tempo</button></footer>` : ''}</section>`;
   }
   function planoHTML(){
     const cfg = planoCfg(), pl = planoAtual(cfg);
     let h = `<div class="pl4">` + plHero(cfg, pl);
     if(ajuste) return h + plAjuste(cfg) + '</div>';
     if(!pl.dias.length){
-      h += !cfg.foco.length && !pl.provas.length
+      h += `<div class="pl4-corpo">` + (!cfg.foco.length && !pl.provas.length
         ? `<div class="pl2-vazio">${plIc('auto')}<b>Nenhuma prova no calendário agora</b><p>Quando as próximas provas entrarem em Prazos, o plano se monta sozinho. Se quiser estudar antes disso, escolha as disciplinas.</p><button class="pl3-pronto" data-pl-escolher>Escolher disciplinas</button></div>`
-        : `<div class="pl2-vazio">${plIc('vesp')}<b>Tudo em dia</b><p>Não sobrou nada pendente ${cfg.foco.length ? 'nessas disciplinas' : 'antes da próxima prova'}. Use o simulado e a revisão dos erros para a reta final.</p></div>`;
-      return h + plRadar(cfg, pl) + '</div>';
+        : `<div class="pl2-vazio">${plIc('vesp')}<b>Tudo em dia</b><p>Não sobrou nada pendente ${cfg.foco.length ? 'nessas disciplinas' : 'antes da próxima prova'}. Use o simulado e a revisão dos erros para a reta final.</p></div>`);
+      return h + plRadar(cfg, pl, 0) + '</div></div>';
     }
-    const sobra = pl.sobra ? `<div class="pl4-sobra"><b>${pl.sobra} ${pl.sobra === 1 ? 'atividade não coube' : 'atividades não couberam'} no tempo que você tem.</b><span>Mais minutos por dia ou mais dias de estudo deixam o plano completo.</span><button data-pl-ajuste>Ajustar tempo</button></div>` : '';
-    h += `<div class="pl4-grade"><div class="pl4-princ">${plSemana(cfg, pl)}${plDetalhe(cfg, pl)}</div><aside class="pl4-lado">${plRadar(cfg, pl)}${sobra}</aside></div>`;
+    const semana = plSemana(cfg, pl);
+    h += `<div class="pl4-corpo pl4-grade"><section class="pl4-card pl4-princ"><header class="pl4-card-cab"><h3>Sua semana</h3><small>Escolha um dia</small></header>${semana}<div class="pl4-dia">${plDetalhe(cfg, pl)}</div></section><aside class="pl4-lado">${plRadar(cfg, pl, pl.sobra && !cfg.foco.length ? pl.sobra : 0)}</aside></div>`;
     return h + '</div>';
   }
 
@@ -23719,12 +23710,12 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const sm = e.target.closest('[data-ben-sim]'); if(sm){ fechar(); location.hash = '#simulado-' + sm.dataset.benSim; return; }
     // plano
     const plRe = () => { const f = document.getElementById('benFundo'), y = f.scrollTop; abrir(planoHTML()); f.scrollTop = y; if(window.avRenderHoje) window.avRenderHoje(); };
-    if(e.target.closest('[data-pl-ajuste]')){ ajuste = !ajuste || !e.target.closest('.pl4-cfg'); if(!ajuste){ abrir(planoHTML()); return; } escolhendo = planoCfg().foco.length > 0; abrir(planoHTML()); return; }
+    if(e.target.closest('[data-pl-ajuste]')){ ajuste = !ajuste || !e.target.closest('.pl4-barcfg'); escolhendo = ajuste && planoCfg().foco.length > 0; abrir(planoHTML()); return; }
     if(e.target.closest('[data-pl-escolher]')){ ajuste = true; escolhendo = true; abrir(planoHTML()); return; }
     if(e.target.closest('[data-pl-pronto]')){ ajuste = false; escolhendo = false; const c = planoCfg(); gravarJ('av-plano', c); abrir(planoHTML()); if(window.avRenderHoje) window.avRenderHoje(); return; }
     const pf = e.target.closest('[data-pl-foco]'); if(pf){ if(pf.dataset.plFoco === 'auto'){ escolhendo = false; window.avPlanoFoco(null); } else escolhendo = true; plRe(); return; }
     const pc = e.target.closest('[data-pl-disc]'); if(pc){ window.avPlanoFoco(pc.dataset.plDisc); plRe(); return; }
-    const ps = e.target.closest('[data-pl-sel]'); if(ps){ diaSel = ps.dataset.plSel; const sx = ps.parentNode.scrollLeft; plRe(); const w = document.querySelector('.pl4-semana'); if(w) w.scrollLeft = sx; return; }
+    const ps = e.target.closest('[data-pl-sel]'); if(ps){ diaSel = ps.dataset.plSel; const w0 = document.querySelector('.pl4-semana'), sx = w0 ? w0.scrollLeft : 0, doRadar = !!ps.closest('.pl4-radar'); plRe(); const w = document.querySelector('.pl4-semana'); if(w){ w.scrollLeft = sx; const sel = w.querySelector('[aria-selected="true"]'); if(sel) w.scrollLeft = Math.max(0, Math.min(w.scrollLeft, sel.offsetLeft - 8), sel.offsetLeft + sel.offsetWidth - w.clientWidth + 8); if(doRadar) w.closest('.pl4-card').scrollIntoView({behavior:'smooth', block:'start'}); } return; }
     const pb = e.target.closest('[data-pl-minb]'); if(pb){ const c = planoCfg(); c.min = +pb.dataset.plMinb; gravarJ('av-plano', c); plRe(); return; }
     const pd = e.target.closest('[data-pl-dia]'); if(pd){ const c = planoCfg(); const i = +pd.dataset.plDia; c.dias = c.dias.includes(i) ? c.dias.filter(x => x !== i) : c.dias.concat(i); if(!c.dias.length) c.dias = [i]; gravarJ('av-plano', c); plRe(); return; }
     const pi = e.target.closest('[data-pl-ir]'); if(pi){ const t = JSON.parse(pi.dataset.plIr); fechar();
