@@ -23176,11 +23176,10 @@ window.avPushHTML = () => {
   else if(!pushSuporte()) corpo = '<p class="pn-txt">Este navegador não recebe notificações. No Android, use o Chrome.</p>';
   else if(Notification.permission === 'denied') corpo = '<p class="pn-txt">As notificações estão bloqueadas neste aparelho. Libere nas configurações do navegador para o site e volte aqui.</p>';
   else if(pushInfo && pushInfo.token && Notification.permission === 'granted') corpo = `<p class="pn-txt pn-ok">Ativadas neste aparelho.</p>
-      <label class="pn-op"><input type="checkbox" data-pn-pref="provas"${pushInfo.provas !== false ? ' checked' : ''}><span>Lembretes de provas e entregas</span></label>
       <label class="pn-op"><input type="checkbox" data-pn-pref="avisos"${pushInfo.avisos !== false ? ' checked' : ''}><span>Avisos da turma</span></label>
       <label class="pn-op"><input type="checkbox" data-pn-pref="mural"${pushInfo.mural !== false ? ' checked' : ''}><span>Mural: respostas e marcações</span></label>
       <button class="conta-link pn-link" data-pn-desativar>Desativar notificações</button>`;
-  else corpo = '<p class="pn-txt">Receba no celular os lembretes de provas, os avisos da turma e as respostas e marcações do mural, mesmo com o site fechado.</p><button class="conta-btn pn-ativar" data-pn-ativar>Ativar notificações</button>';
+  else corpo = '<p class="pn-txt">Receba no celular os avisos da turma e as respostas e marcações do mural, mesmo com o site fechado.</p><button class="conta-btn pn-ativar" data-pn-ativar>Ativar notificações</button>';
   return `<div class="pn"><b>Notificações</b>${corpo}<p class="pn-erro" hidden></p></div>`;
 };
 const pushRedesenhar = () => { if(window.avRenderHoje && document.getElementById('viewHoje').style.display !== 'none') window.avRenderHoje(); if(window.avMuralRender) window.avMuralRender(); };
@@ -25322,8 +25321,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
           <button class="btn btn-primary" type="submit"${envio.publico === 'pessoas' && !Object.keys(envio.uids).length ? ' disabled' : ''}>Enviar aviso</button>
         </form></section>
       <div class="ma-grupo-t">Últimos avisos</div>
-      <section class="hj-card adm-hist">${lista.length ? lista.map(([id, f]) => histHTML(id, f)).join('') : '<p class="hj-vazio">Nenhum aviso enviado por aqui ainda.</p>'}</section>
-      <p class="adm-ajuda">Os lembretes de prova e de entrega saem sozinhos à noite, a partir dos prazos do site, só para o semestre de cada prazo.</p>`;
+      <section class="hj-card adm-hist">${lista.length ? lista.map(([id, f]) => histHTML(id, f)).join('') : '<p class="hj-vazio">Nenhum aviso enviado por aqui ainda.</p>'}</section>`;
   }
   function desenharCorpo(){
     const c = document.getElementById('admCorpo'); if(!c) return;

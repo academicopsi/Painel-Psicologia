@@ -1,7 +1,7 @@
 // Envia notificações do Arquivo Vivo pelo Firebase Cloud Messaging.
 // Modos:
 //   aviso      → mensagem escrita (arquivo notificacoes/*.json ou disparo manual)
-//   lembretes  → todo dia: provas e entregas de amanhã, e provas em 3 dias
+//   (lembretes automáticos de prazos: desligados; a função lembretes() fica guardada para religar se quiser)
 //   mural      → a cada 5 min: avisos escritos no Painel do administrador, respostas e marcações do mural
 import fs from 'node:fs';
 import vm from 'node:vm';
@@ -103,7 +103,7 @@ if(modo === 'aviso'){
   if(!p.mensagem){ console.log('Sem mensagem.'); process.exit(0); }
   await enviar(await destinos('avisos', p.publico), p.titulo || 'Psiu!', p.mensagem, p.link, p.tag);
 } else if(modo === 'mural'){
-  await lembretes();
+  // lembretes automáticos desligados a pedido do administrador: todos os avisos saem pelo painel
   // avisos escritos no Painel do administrador: fila em pedidos/<uid do administrador>/fila
   {
     let admUid = null;
@@ -165,7 +165,5 @@ if(modo === 'aviso'){
   }
   await marco.set(agora);
   console.log(`::notice::Mural: ${n} notificações para ${fila.size} pessoas.`);
-} else {
-  await lembretes();
 }
 process.exit(0);

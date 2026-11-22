@@ -4,9 +4,10 @@ O GitHub atrasa muito os agendamentos de repositórios com pouco movimento (já 
 Por isso a tarefa "Mural (notificações)" é disparada de fora, a cada 5 minutos, pelo cron-job.org.
 
 Cada disparo faz, nesta ordem:
-1. Lembretes de provas e entregas do dia (uma vez por dia, entre 18h07 e 23h).
-2. Avisos escritos no Painel do administrador.
-3. Respostas, marcações e melhores respostas do mural.
+1. Avisos escritos no Painel do administrador (toda a turma, um semestre ou pessoas escolhidas).
+2. Respostas, marcações e melhores respostas do mural.
+
+Não há lembretes automáticos de prazos: todos os avisos saem pelo painel.
 
 Configuração no cron-job.org:
 - URL: https://api.github.com/repos/academicopsi/Painel-Psicologia/actions/workflows/mural.yml/dispatches
