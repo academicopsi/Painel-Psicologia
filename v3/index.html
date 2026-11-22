@@ -3430,10 +3430,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pg-ic{flex:none; width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:var(--petrol-soft); color:var(--petrol);}
   .pg-head small{display:block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#A8702F;}
   .pg-head h2{font-family:var(--serif, Georgia, serif); font-size:23px; font-weight:600; margin:1px 0 0; line-height:1.15; color:var(--ink);}
-  .pg-aviso{margin-top:14px; padding:13px 14px 14px; border-radius:14px; background:var(--petrol-soft); border:1px solid color-mix(in srgb, var(--petrol) 18%, transparent);}
-  .pg-aviso b{display:block; font-size:14.5px; color:var(--petrol);}
-  .pg-aviso p{margin:4px 0 12px; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
-  .pg-montar{font:inherit; font-size:13.5px; font-weight:700; color:#fff; background:var(--petrol); border:0; border-radius:10px; padding:9px 16px; cursor:pointer;}
+  .pg-aviso{display:flex; align-items:center; gap:12px; margin-top:12px; padding:9px 9px 9px 13px; border-radius:12px; background:var(--petrol-soft);}
+  .pg-aviso p{flex:1; margin:0; font-size:13px; line-height:1.45; color:var(--ink-soft);}
+  .pg-aviso b{color:var(--petrol);}
+  .pg-montar{flex:none; font:inherit; font-size:13px; font-weight:700; color:#fff; background:var(--petrol); border:0; border-radius:9px; padding:8px 12px; cursor:pointer; white-space:nowrap;}
   .pg-montar:hover{background:var(--petrol-dark);}
   .pg-aviso.meu .pg-montar{color:var(--petrol); background:var(--paper); box-shadow:inset 0 0 0 1.5px var(--petrol-line);}
   .pg-head{display:flex; align-items:center; gap:12px; position:relative;}
@@ -24093,8 +24093,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       const lista = nomes.length > 1 ? nomes.slice(0, -1).join(', ') + ' e ' + nomes[nomes.length - 1] : nomes.join('');
       const rotina = (pl.min >= 60 ? (pl.min % 60 ? Math.floor(pl.min / 60) + 'h' + String(pl.min % 60).padStart(2, '0') : pl.min / 60 + 'h') : pl.min + ' min') + ' por dia, ' + (pl.nDias === 7 ? 'todos os dias' : pl.nDias + (pl.nDias === 1 ? ' dia' : ' dias') + ' por semana');
       const aviso = meu
-        ? `<div class="pg-aviso meu"><b>Este é o plano que você montou.</b><p>Disciplinas: ${escHTML(lista)}. Tempo: ${rotina}.</p><button class="pg-montar" data-hj-montar>Ajustar meu plano</button></div>`
-        : `<div class="pg-aviso"><b>Você está vendo o plano sugerido pelo site.</b><p>${nomes.length ? 'Ele foi montado a partir das próximas provas (' + escHTML(lista) + '). ' : ''}Como apoiador, você pode montar o seu: escolha as disciplinas que quer estudar, quanto tempo tem por dia e em quais dias estuda.</p><button class="pg-montar" data-hj-montar>Montar meu plano</button></div>`;
+        ? `<div class="pg-aviso meu"><p><b>Montado por você:</b> ${escHTML(lista)}, ${rotina.replace(' por dia', '/dia')}.</p><button class="pg-montar" data-hj-montar>Ajustar</button></div>`
+        : `<div class="pg-aviso"><p><b>Sugerido pelo site</b> a partir das suas próximas provas.</p><button class="pg-montar" data-hj-montar>Montar o meu</button></div>`;
       const tarefas = pl.itens.length ? `<div class="pg-tarefas"><div class="pg-prog"><span><b>${feitos} de ${pl.itens.length}</b> ${pl.itens.length === 1 ? 'tarefa feita' : 'tarefas feitas'}</span><span>cerca de ${min} min</span></div><div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>${pl.itens.map(itemHTML).join('')}</div>`
         : meu ? '<p class="pg-vazio">Nada pendente nessas disciplinas para hoje. Tudo em dia!</p>' : pl.provas.length ? '<p class="pg-vazio">Nada planejado para hoje. Aproveite para revisar os erros ou descansar.</p>' : '<p class="pg-vazio">Nenhuma prova no calendário agora. Você pode escolher as disciplinas que quer estudar.</p>';
       plano = `<section class="hj-card pg">
