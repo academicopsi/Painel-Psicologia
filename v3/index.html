@@ -3435,22 +3435,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pg-head small{display:block; font-size:11.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#A9D3C8;}
   .pg-head h2{font-family:var(--serif, Georgia, serif); font-size:24px; font-weight:600; margin:1px 0 0; line-height:1.15; color:#fff;}
   .pg-desc{position:relative; font-size:14px; color:rgba(255,255,255,.78); line-height:1.5; margin:12px 0 14px;}
-  .pg-modos{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:4px; border-radius:12px; background:rgba(0,0,0,.18);}
-  .pg-modos button{display:flex; align-items:flex-start; gap:9px; text-align:left; font:inherit; color:#fff; background:transparent; border:0; border-radius:9px; padding:11px 11px; cursor:pointer; transition:background .15s, color .15s;}
-  .pg-modos button[aria-checked="true"]{background:var(--paper); color:var(--ink); box-shadow:0 2px 8px rgba(0,0,0,.18);}
-  .pg-modos b{display:block; font-size:14px; line-height:1.25;}
-  .pg-modos small{display:block; font-size:12.5px; color:rgba(255,255,255,.7); line-height:1.35; margin-top:3px;}
-  .pg-modos button[aria-checked="true"] small{color:var(--ink-soft);}
-  .pg-radio{flex:none; width:17px; height:17px; margin-top:1px; border-radius:50%; border:2px solid rgba(255,255,255,.55); box-sizing:border-box; position:relative;}
-  .pg-modos button[aria-checked="true"] .pg-radio{border-color:var(--petrol);}
-  .pg-modos button[aria-checked="true"] .pg-radio::after{content:''; position:absolute; inset:2.5px; border-radius:50%; background:var(--petrol);}
-  .pg-escolha{margin:18px 0 4px;}
-  .pg-pergunta{font-size:12px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 10px;}
-  #hojePage .pg .pl-chips{gap:8px;}
-  #hojePage .pg .pl-chips button{position:relative; font-size:13.5px; font-weight:600; color:var(--ink); background:color-mix(in srgb, var(--acc, var(--petrol)) 8%, var(--paper)); border:1px solid color-mix(in srgb, var(--acc, var(--petrol)) 30%, transparent); border-radius:999px; padding:8px 14px 8px 12px; display:inline-flex; align-items:center; gap:8px;}
-  #hojePage .pg .pl-chips button::before{content:''; width:9px; height:9px; border-radius:50%; flex:none; background:var(--acc, var(--petrol));}
-  #hojePage .pg .pl-chips button[aria-pressed="true"]{background:var(--acc, var(--petrol)); border-color:var(--acc, var(--petrol)); color:#fff;}
-  #hojePage .pg .pl-chips button[aria-pressed="true"]::before{width:16px; height:16px; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/10px no-repeat;}
   .pg-tarefas{margin:16px -18px 0; padding:14px 18px 2px; border-top:1px solid var(--rule); background:var(--paper-alt);}
   .pg-prog{display:flex; justify-content:space-between; font-size:13px; color:var(--ink-soft); margin-bottom:7px;}
   .pg-prog b{color:var(--ink);}
@@ -3464,7 +3448,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pg-topo + .pg-tarefas{border-top:0;}
   .pg-mais{display:flex; justify-content:space-between; align-items:center; width:calc(100% + 36px); margin:14px -18px 0; padding:13px 18px 11px; font:inherit; font-size:14px; font-weight:600; color:var(--petrol); background:none; border:0; border-top:1px solid var(--rule); cursor:pointer; text-align:left;}
   .pg-mais:hover{background:var(--paper-alt);}
-  @media (max-width:380px){ .pg-modos{grid-template-columns:1fr;} }
   #hojePage .hj-card-top h2{font-size:21px;}
   @media (min-width:601px){ :is(#hojePage, #muralPage, #adminPage) .ma-abas{justify-content:flex-start; gap:28px;} }
   @media (max-width:420px){ :is(#hojePage, #muralPage, #adminPage) .ma-ola h1{font-size:26px !important;} .ma-sem-box{padding-left:10px;} }
@@ -3472,29 +3455,59 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .hj-topo > *{height:32px; box-sizing:border-box;}
   .hj-inicio{display:inline-flex; align-items:center; font:inherit; font-size:12.5px; font-weight:600; line-height:normal; letter-spacing:.02em; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:5px 12px; cursor:pointer;}
   /* plano de estudos */
-  .pl2-modos{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:4px 0 14px;}
-  .pl2-modo{position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:4px; text-align:left; font:inherit; color:var(--ink); background:var(--paper); border:1.5px solid var(--rule); border-radius:16px; padding:14px 14px 13px; cursor:pointer; transition:border-color .15s, box-shadow .15s, background .15s;}
-  .pl2-modo:hover{border-color:color-mix(in srgb, var(--petrol) 40%, var(--rule));}
-  .pl2-modo b{font-size:15px; margin-top:4px;}
-  .pl2-modo small{font-size:12.5px; line-height:1.45; color:var(--ink-soft);}
-  .pl2-modo-ic{width:36px; height:36px; border-radius:11px; display:grid; place-items:center; color:var(--petrol); background:var(--petrol-soft);}
-  .pl2-modo-ic svg{width:19px; height:19px;}
-  .pl2-modo-ok{position:absolute; top:12px; right:12px; width:20px; height:20px; border-radius:50%; border:1.5px solid var(--rule); background:var(--paper);}
-  .pl2-modo[aria-checked="true"]{border-color:var(--petrol); background:linear-gradient(160deg, var(--petrol-soft), var(--paper) 70%); box-shadow:0 6px 18px rgba(31,92,86,.12);}
-  .pl2-modo[aria-checked="true"] .pl2-modo-ic{color:#fff; background:var(--petrol);}
-  .pl2-modo[aria-checked="true"] .pl2-modo-ok{border-color:var(--petrol); background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat;}
-  .pl2-rotina{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:14px; margin:0 0 6px;}
-  .pl2-rot-cab{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
-  .pl2-rot-cab b{display:block; font-size:14.5px;}
-  .pl2-rot-cab small{font-size:12.5px; color:var(--ink-faint);}
-  .pl2-rot-ic{width:32px; height:32px; border-radius:10px; display:grid; place-items:center; color:var(--ochre); background:var(--ochre-soft);}
-  .pl2-rot-ic svg{width:17px; height:17px;}
   .pl2-campo{display:flex; flex-direction:column; gap:6px; margin-top:10px;}
   .pl2-campo > span{font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
   .pl2-seg{display:flex; flex-wrap:wrap; gap:6px;}
   .pl2-seg button{font:inherit; font-size:13px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt); border:1px solid var(--rule); border-radius:999px; padding:6px 12px; cursor:pointer;}
   .pl2-seg button[aria-pressed="true"]{color:#fff; background:var(--petrol); border-color:var(--petrol);}
   .pl2-dias button{min-width:44px; padding:6px 8px;}
+  .pl3-resumo{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:6px 0 14px; padding:15px 16px; border-radius:16px; color:#fff; background:linear-gradient(160deg, var(--petrol) 0%, var(--petrol-dark) 100%); position:relative; overflow:hidden;}
+  .pl3-resumo::after{content:''; position:absolute; right:-60px; top:-70px; width:190px; height:190px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%); pointer-events:none;}
+  body.dark .pl3-resumo{background:linear-gradient(160deg, #1f4a46 0%, #183634 100%);}
+  .pl3-resumo.aberto{border-radius:16px 16px 0 0; margin-bottom:0;}
+  .pl3-res-l{display:flex; align-items:center; gap:12px; min-width:0; position:relative;}
+  .pl3-res-ic{flex:none; width:38px; height:38px; border-radius:11px; display:grid; place-items:center; background:rgba(255,255,255,.13);}
+  .pl3-res-ic svg{width:19px; height:19px;}
+  .pl3-res-l small{display:block; font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#A9D3C8;}
+  .pl3-res-l b{display:block; font-size:15px; line-height:1.35; margin-top:2px;}
+  .pl3-res-l em{display:block; font-style:normal; font-size:12.5px; color:rgba(255,255,255,.72); margin-top:2px;}
+  .pl3-ajustar{flex:none; position:relative; font:inherit; font-size:13.5px; font-weight:700; color:var(--petrol-dark); background:var(--paper); border:0; border-radius:999px; padding:8px 15px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.15);}
+  .pl3-ajuste{background:var(--paper); border:1px solid var(--rule); border-top:0; border-radius:0 0 16px 16px; padding:6px 16px 16px; margin-bottom:12px;}
+  .pl3-ajuste .pl2-campo{margin-top:14px;}
+  .pl3-ajuste .pl2-chips{margin-top:8px;}
+  .pl3-op{display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:4px; border-radius:13px; background:var(--paper-alt); border:1px solid var(--rule);}
+  .pl3-op button{font:inherit; text-align:left; color:var(--ink-soft); background:none; border:0; border-radius:10px; padding:9px 11px; cursor:pointer;}
+  .pl3-op button b{display:block; font-size:14px; color:var(--ink);}
+  .pl3-op button small{display:block; font-size:12px; line-height:1.35; margin-top:1px;}
+  .pl3-op button[aria-checked="true"]{background:var(--paper); box-shadow:0 1px 4px var(--shadow), inset 0 0 0 1.5px var(--petrol);}
+  .pl3-op button[aria-checked="true"] b{color:var(--petrol);}
+  .pl3-dica{margin:8px 0 0; font-size:12.5px; color:var(--ochre-dark, #8A5A1F);}
+  .pl3-pronto{display:block; width:100%; margin-top:18px; font:inherit; font-size:14.5px; font-weight:700; color:#fff; background:var(--petrol); border:0; border-radius:12px; padding:12px; cursor:pointer;}
+  .pl3-pronto:hover{background:var(--petrol-dark);}
+  .pl2-vazio .pl3-pronto{max-width:260px; margin:16px auto 0;}
+  .pl3-folga{display:flex; flex-direction:column; gap:2px; background:var(--paper); border:1px dashed var(--rule); border-radius:16px; padding:14px 16px; margin-bottom:6px;}
+  .pl3-folga b{font-family:var(--serif, Georgia, serif); font-size:18px; font-weight:600;}
+  .pl3-folga span{font-size:13px; color:var(--ink-faint);}
+  .pl3-linha{background:var(--paper); border:1px solid var(--rule); border-radius:14px; margin-bottom:8px; overflow:hidden;}
+  .pl3-linha-c{width:100%; display:flex; align-items:center; gap:12px; font:inherit; text-align:left; color:var(--ink); background:none; border:0; padding:12px 14px; cursor:pointer;}
+  .pl3-linha-c:hover{background:var(--paper-alt);}
+  .pl3-l-dia{flex:1; min-width:0;}
+  .pl3-l-dia b{display:block; font-size:15px; font-weight:600;}
+  .pl3-l-dia small{font-size:12.5px; color:var(--ink-faint);}
+  .pl3-dots{display:flex; gap:4px;}
+  .pl3-dots i{width:8px; height:8px; border-radius:50%; background:var(--acc, var(--petrol));}
+  .pl3-l-n{flex:none; display:flex; flex-direction:column; align-items:flex-end; font-size:13px; font-weight:700; color:var(--ink-soft);}
+  .pl3-l-n em{font-style:normal; font-size:12px; font-weight:500; color:var(--ink-faint);}
+  .pl3-l-n.ok{color:#2E7D4F;}
+  body.dark .pl3-l-n.ok{color:#7FD3A0;}
+  .pl3-chev{flex:none; width:8px; height:8px; border-right:2px solid var(--ink-faint); border-bottom:2px solid var(--ink-faint); transform:rotate(45deg); margin:-4px 2px 0 0; transition:transform .2s;}
+  .pl3-linha.aberta .pl3-chev{transform:rotate(-135deg); margin-top:4px;}
+  .pl3-linha-itens{padding:0 12px 6px; border-top:1px solid var(--rule);}
+  .pl3-linha-itens .pl2-item:first-child{border-top:0;}
+  @media (max-width:420px){ .pl3-resumo{flex-wrap:wrap;} .pl3-ajustar{margin-left:50px;} .pl3-op button small{display:none;} }
+  .pg-origem{display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:#fff; background:rgba(255,255,255,.12); border-radius:999px; padding:5px 12px 5px 10px;}
+  .pg-origem svg{width:14px; height:14px; flex:none;}
+  .pg-desc:has(.pg-origem){margin-bottom:0;}
   .pl2-sec{display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:20px 2px 10px; font-size:11.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
   .pl2-info{font-size:12px; font-weight:500; letter-spacing:0; text-transform:none;}
   .pl2-provas{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px;}
@@ -3536,38 +3549,21 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pl2-item.feito .pl2-txt b{text-decoration:line-through; color:var(--ink-faint);}
   .pl2-item.feito .pl2-tipo{opacity:.5;}
   .pl2-item.vesp .pl2-rot{color:#A8702F;}
-  .pl2-rot-cab{width:100%; font:inherit; text-align:left; color:var(--ink); background:none; border:0; padding:0; cursor:pointer;}
-  .pl2-rotina:not(.aberta) .pl2-rot-cab{margin-bottom:0;}
-  .pl2-rot-t{flex:1; min-width:0;}
-  .pl2-rot-aj{flex:none; font-size:13px; font-weight:700; color:var(--petrol); background:var(--petrol-soft); border-radius:999px; padding:5px 12px;}
-  .pl2-rotina:not(.aberta){padding:12px 14px;}
   .pl2-txt .pl2-rot{display:flex; align-items:center; gap:6px; margin:3px 0 0; font-size:12px; font-weight:600; letter-spacing:0; color:var(--ink-faint);}
   .pl2-txt .pl2-rot i{flex:none; width:7px; height:7px; border-radius:50%; background:var(--acc, var(--petrol));}
   .pl2-item.vesp .pl2-txt .pl2-rot{color:#A8702F;}
   .pl2-seta{flex:none; font-size:22px; line-height:1; color:var(--ink-faint); padding:0 2px;}
-  .pl2-esc{margin:12px 0 4px;}
-  .pl2-esc > span{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:7px;}
   .pl2-chips{display:flex; flex-wrap:wrap; gap:6px;}
   .pl2-chips button{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; font-weight:600; color:var(--ink); background:color-mix(in srgb, var(--acc, var(--petrol)) 8%, var(--paper)); border:1px solid color-mix(in srgb, var(--acc, var(--petrol)) 30%, var(--rule)); border-radius:999px; padding:6px 12px; cursor:pointer;}
   .pl2-chips button::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--acc, var(--petrol));}
   .pl2-chips button[aria-pressed="true"]{color:#fff; background:var(--acc, var(--petrol)); border-color:var(--acc, var(--petrol));}
   .pl2-chips button[aria-pressed="true"]::before{background:#fff;}
-  .pl2-dica{margin:8px 0 6px; font-size:13px; color:var(--ink-faint); background:var(--paper-alt); border:1px dashed var(--rule); border-radius:10px; padding:9px 12px;}
-  .pl2-dica.ok{color:#2E7D4F; border-style:solid; border-color:rgba(46,125,79,.3); background:rgba(46,125,79,.07);}
-  .pl2-passos{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; list-style:none; margin:16px 0 0; padding:0;}
-  .pl2-passos li{display:flex; flex-direction:column; gap:6px; font-size:12.5px; line-height:1.35; color:var(--ink-soft); background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:10px;}
-  .pl2-passos b{width:22px; height:22px; border-radius:50%; display:grid; place-items:center; font-size:12px; color:#fff; background:var(--ochre);}
   .pl2-vazio{text-align:center; background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:22px 18px; margin-top:14px;}
   .pl2-vazio svg{width:30px; height:30px; color:var(--ochre);}
   .pl2-vazio b{display:block; font-family:var(--serif, Georgia, serif); font-size:18px; font-weight:600; margin:6px 0 4px;}
   .pl2-vazio p{margin:0; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
   .pl2-aviso{font-size:13.5px; line-height:1.5; background:var(--ochre-soft); border-radius:12px; padding:11px 14px; margin-top:12px;}
   @media (max-width:520px){
-    .pl2-modos{gap:8px;}
-    .pl2-modo{padding:12px 11px;}
-    .pl2-modo small{font-size:12px;}
-    .pl2-passos{grid-template-columns:1fr; gap:6px;}
-    .pl2-passos li{flex-direction:row; align-items:center;}
     .pl2-meta{flex-direction:column; align-items:flex-end; gap:0;}
     .pl2-meta i{display:none;}
   }
@@ -5130,7 +5126,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
-  {date: '2026-11-22', disc: 'Geral', desc: 'Plano de estudos de cara nova: escolha clara entre o plano sugerido pelo site e o montado por você, rotina ajustável com poucos toques, contagem para as próximas provas e o progresso de cada dia.', link: {url:'#minha-area'}},
+  {date: '2026-11-22', disc: 'Geral', desc: 'Plano de estudos mais simples: o site já entrega o plano pronto a partir das próximas provas, com o dia de hoje em destaque. Para personalizar, basta tocar em Ajustar e escolher as disciplinas, o tempo e os dias, tudo em uma tela só.', link: {url:'#minha-area'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Painel do administrador separado da área dos colegas, com acessos, avisos no celular escritos pelo próprio site, moderação do mural e números da turma.', link: {url:'#admin'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural: agora dá para editar os seus tópicos e respostas, e quem abriu uma dúvida pode marcar a melhor resposta. O tópico ganha o selo Resolvida e quem respondeu recebe o crédito no perfil.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural com reações (Curtir, Concordo, Haha, Amei e Psiu), marcação de colegas com @ e uma aba de Notificações. Quem ativar as notificações recebe no celular quando responderem o seu tópico ou marcarem você.', link: {url:'#mural'}},
@@ -23287,27 +23283,30 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const sobra = Object.values(fila).reduce((n, q) => n + q.length, 0);
     return {dias, provas, sobra};
   }
-  function planoCfg(){ return Object.assign({min:45, dias:[0, 1, 2, 3, 4, 5, 6], feitos:{}, modo:'auto', escolhas:{}}, lerJ('av-plano', {})); }
+  // foco: disciplinas escolhidas pelo aluno. Vazio = plano sugerido pelo site (a partir das provas)
+  function planoCfg(){
+    const c = Object.assign({min:45, dias:[0, 1, 2, 3, 4, 5, 6], feitos:{}}, lerJ('av-plano', {}));
+    if(!Array.isArray(c.foco)){ const hoje = hojeISO(); c.foco = c.modo === 'meu' ? [...new Set(Object.entries(c.escolhas || {}).filter(([k]) => k >= hoje).flatMap(([, v]) => v))] : []; }
+    delete c.modo; delete c.escolhas; return c;
+  }
   const isoDe = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   const discsPlano = () => DISC_MEU().filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n));
-  // plano montado pelo aluno: ele escolhe as disciplinas de cada dia e o site preenche com o que falta estudar nelas
+  // plano personalizado: as disciplinas escolhidas entram todo dia e o site preenche com o que falta estudar nelas
   function montarMeu(cfg){
-    const hoje = hojeISO(), fila = {}, dias = [];
-    Object.keys(cfg.escolhas).forEach(k => { if(k < hoje) delete cfg.escolhas[k]; });
+    const hoje = hojeISO(), discs = cfg.foco, fila = {}, dias = [];
+    discs.forEach(n => { fila[n] = tarefasDe(n); });
     for(let i = 0, d = new Date(hoje + 'T12:00:00'); dias.length < 7 && i < 21; i++, d.setDate(d.getDate() + 1)){
-      if(i > 0 && !cfg.dias.includes(d.getDay())) continue;
-      const iso = isoDe(d), discs = cfg.escolhas[iso] || [], dia = {iso, discs, itens:[], min:0};
-      discs.forEach(n => { if(!fila[n]) fila[n] = tarefasDe(n); });
+      if(!cfg.dias.includes(d.getDay())) continue;
+      const dia = {iso:isoDe(d), itens:[], min:0};
       let avancou = true;
       while(avancou){ avancou = false;
         for(const n of discs){ const q = fila[n]; if(q.length && (dia.min === 0 || dia.min + q[0].min <= cfg.min + 5)){ const t = q.shift(); t.disc = n; dia.itens.push(t); dia.min += t.min; avancou = true; } } }
-      dias.push(dia);
+      if(dia.itens.length) dias.push(dia);
     }
-    return {dias, provas:provasFuturas(), sobra:0};
+    return {dias, provas:provasFuturas(), sobra:Object.values(fila).reduce((n, q) => n + q.length, 0)};
   }
-  function chipsDia(iso, discs, attr){ return `<div class="pl-chips">${discsPlano().map(d => `<button ${attr}="${iso}|${d.n}" aria-pressed="${discs.includes(d.n)}">${escHTML(d.name)}</button>`).join('')}</div>`; }
-  window.avPlanoEscolher = (iso, n) => { const c = planoCfg(); const a = c.escolhas[iso] || []; c.escolhas[iso] = a.includes(n) ? a.filter(x => x !== n) : a.concat(n); if(!c.escolhas[iso].length) delete c.escolhas[iso]; gravarJ('av-plano', c); };
-  window.avPlanoModo = m => { const c = planoCfg(); c.modo = m; gravarJ('av-plano', c); };
+  const planoAtual = c => c.foco.length ? montarMeu(c) : montarPlano(c);
+  window.avPlanoFoco = n => { const c = planoCfg(); c.foco = n === null ? [] : c.foco.includes(n) ? c.foco.filter(x => x !== n) : c.foco.concat(n); gravarJ('av-plano', c); };
   // ---------- desenho do plano ----------
   const PL_IC = {
     auto:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/>',
@@ -23324,7 +23323,6 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const plCurto = n => { let t = plDisc(n).split(':').pop().trim().replace(/^Psicologia (da|do|de|e) /, '').replace(/^Psicologia /, '').replace(/ Humana$/, '').replace(/ Aplicada à Psicologia$/, '');
     if(t.length > 22){ const w = t.split(' '); t = w.slice(-3).join(' '); if(/^(e|de|da|do) /.test(t)) t = w.slice(-4).join(' '); }
     return t.charAt(0).toUpperCase() + t.slice(1); };
-  let rotinaAberta = null;
   const plTitulo = t => { const x = t.replace(/^Ler o resumo: /, '').replace(/^Simulado: /, '').replace(/^Véspera de .*?: /, ''); return x.charAt(0).toUpperCase() + x.slice(1); };
   const plTipo = t => t.vesp ? ['vesp', 'Véspera da prova'] : t.tipo === 'resumo' ? ['resumo', 'Resumo'] : t.tipo === 'simulado' ? ['simulado', 'Simulado'] : ['erros', 'Revisão dos erros'];
   function plDiaNome(iso){
@@ -23360,35 +23358,58 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       const dias = Math.round((new Date(p.data + 'T12:00:00') - hoje) / 864e5);
       return `<div class="pl2-prova" data-d="${escHTML(p.disc)}"><b>${dias === 0 ? 'Hoje' : dias === 1 ? 'Amanhã' : 'em ' + dias + ' dias'}</b><span>${escHTML(plCurto(p.disc))}</span><small>${dataBR(p.data, {weekday:'short', day:'2-digit', month:'2-digit'})}</small></div>`; }).join('')}</div>`;
   }
-  function planoHTML(){
-    const cfg = planoCfg(), meu = cfg.modo === 'meu';
-    const NOMES = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'], nd = cfg.dias.length;
-    if(rotinaAberta === null) rotinaAberta = !localStorage.getItem('av-plano');
-    const aberta = rotinaAberta;
-    let h = EB('Área do apoiador') + `<h2>Plano de estudos</h2><p class="conta-sub">Organize o que estudar até cada prova. Escolha como prefere montar o seu plano:</p>
-      <div class="pl2-modos" role="radiogroup" aria-label="Como montar o plano">
-        <button class="pl2-modo" role="radio" aria-checked="${!meu}" data-pl-modo="auto"><span class="pl2-modo-ic">${plIc('auto')}</span><b>Sugerido pelo site</b><small>O site monta tudo a partir das provas, do que você já estudou e dos seus erros. Você só segue.</small><i class="pl2-modo-ok" aria-hidden="true"></i></button>
-        <button class="pl2-modo" role="radio" aria-checked="${meu}" data-pl-modo="meu"><span class="pl2-modo-ic">${plIc('meu')}</span><b>Montado por mim</b><small>Você escolhe as disciplinas de cada dia e o site preenche com o que falta estudar nelas.</small><i class="pl2-modo-ok" aria-hidden="true"></i></button>
-      </div>
-      <section class="pl2-rotina${aberta ? ' aberta' : ''}"><button class="pl2-rot-cab" data-pl-rotina aria-expanded="${aberta}"><span class="pl2-rot-ic">${plIc('rel')}</span><span class="pl2-rot-t"><b>Sua rotina de estudo</b><small>${plMin(cfg.min)} por dia · ${nd === 7 ? 'todos os dias' : nd + (nd === 1 ? ' dia' : ' dias') + ' por semana'}</small></span><span class="pl2-rot-aj">${aberta ? 'Fechar' : 'Ajustar'}</span></button>
-        ${aberta ? `<div class="pl2-campo"><span>Tempo por dia</span><div class="pl2-seg">${[20, 30, 45, 60, 90, 120].map(m => `<button data-pl-minb="${m}" aria-pressed="${cfg.min === m}">${plMin(m)}</button>`).join('')}</div></div>
-        <div class="pl2-campo"><span>Dias de estudo</span><div class="pl2-seg pl2-dias">${[1, 2, 3, 4, 5, 6, 0].map(i => `<button data-pl-dia="${i}" aria-pressed="${cfg.dias.includes(i)}">${NOMES[i]}</button>`).join('')}</div></div>` : ''}
-      </section>`;
-    if(meu) return h + planoMeuHTML(cfg);
-    const pl = montarPlano(cfg);
-    if(!pl.provas.length) return h + `<div class="pl2-vazio">${plIc('auto')}<b>Nenhuma prova no calendário agora</b><p>Quando as próximas provas entrarem em Prazos, o site monta o plano sozinho aqui. Se quiser estudar antes disso, use o modo Montado por mim.</p></div>`;
-    h += plProvas(pl.provas) + `<div class="pl2-sec">Seu plano até a prova <span class="pl2-info">Atualiza sozinho conforme você estuda</span></div>`;
-    if(!pl.dias.length) h += `<div class="pl2-vazio"><b>Não sobrou nenhum dia antes da próxima prova</b><p>Use o simulado e a revisão dos erros para a reta final.</p></div>`;
-    h += pl.dias.map(d => plDia(d, cfg)).join('');
-    if(pl.sobra) h += `<p class="pl2-aviso"><b>${pl.sobra} ${pl.sobra === 1 ? 'atividade ficou' : 'atividades ficaram'} de fora por falta de tempo.</b> Aumente o tempo por dia ou marque mais dias na sua rotina para caber tudo.</p>`;
-    return h;
+  let ajuste = false, escolhendo = false, abertos = {};
+  function plResumo(cfg, pl){
+    const nd = cfg.dias.length, rotina = plMin(cfg.min) + ' por dia · ' + (nd === 7 ? 'todos os dias' : nd + (nd === 1 ? ' dia' : ' dias') + ' por semana');
+    const meu = cfg.foco.length > 0;
+    const nomes = (meu ? cfg.foco : [...new Set(pl.provas.map(p => p.disc))]).map(plCurto);
+    const sub = meu ? 'Foco nas disciplinas que você escolheu' : nomes.length ? 'Foco nas suas próximas provas' : 'Aguardando as próximas provas';
+    const det = (nomes.length ? nomes.join(' · ') + '<br>' : '') + rotina;
+    return `<section class="pl3-resumo${ajuste ? ' aberto' : ''}">
+      <div class="pl3-res-l"><span class="pl3-res-ic">${plIc(meu ? 'meu' : 'auto')}</span><div><small>${meu ? 'Personalizado por você' : 'Sugerido pelo site'}</small><b>${sub}</b><em>${escHTML(det).replace('&lt;br&gt;', '<br>')}</em></div></div>
+      ${ajuste ? '' : `<button class="pl3-ajustar" data-pl-ajuste>Ajustar</button>`}
+    </section>`;
   }
-  function planoMeuHTML(cfg){
-    const pl = montarMeu(cfg);
-    const chips = d => `<div class="pl2-esc"><span>O que você vai estudar?</span><div class="pl2-chips">${discsPlano().map(x => `<button data-pl-esc="${d.iso}|${x.n}" data-d="${x.n}" aria-pressed="${d.discs.includes(x.n)}">${escHTML(plCurto(x.n))}</button>`).join('')}</div></div>`;
-    const vazio = d => !d.discs.length ? '<p class="pl2-dica">Toque em uma ou mais disciplinas acima e o site monta as tarefas do dia.</p>' : !d.itens.length ? '<p class="pl2-dica ok">Nada pendente nessas disciplinas. Tudo em dia!</p>' : '';
-    return plProvas(pl.provas) + `<ol class="pl2-passos"><li><b>1</b>Escolha as disciplinas de cada dia</li><li><b>2</b>O site preenche com o que falta</li><li><b>3</b>Marque o que for fazendo</li></ol>
-      <div class="pl2-sec">Próximos 7 dias de estudo</div>` + pl.dias.map(d => plDia(d, cfg, chips(d) + vazio(d))).join('');
+  function plAjuste(cfg){
+    const NOMES = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'], meu = cfg.foco.length > 0 || escolhendo;
+    return `<section class="pl3-ajuste">
+      <div class="pl2-campo"><span>O que estudar</span>
+        <div class="pl3-op" role="radiogroup">
+          <button role="radio" aria-checked="${!meu}" data-pl-foco="auto"><b>Provas chegando</b><small>O site decide pelas datas das provas</small></button>
+          <button role="radio" aria-checked="${meu}" data-pl-foco="meu"><b>Eu escolho</b><small>Você marca as disciplinas</small></button>
+        </div>
+        ${meu ? `<div class="pl2-chips">${discsPlano().map(x => `<button data-pl-disc="${x.n}" data-d="${x.n}" aria-pressed="${cfg.foco.includes(x.n)}">${escHTML(plCurto(x.n))}</button>`).join('')}</div>${cfg.foco.length ? '' : '<p class="pl3-dica">Marque pelo menos uma disciplina.</p>'}` : ''}
+      </div>
+      <div class="pl2-campo"><span>Tempo por dia</span><div class="pl2-seg">${[20, 30, 45, 60, 90, 120].map(m => `<button data-pl-minb="${m}" aria-pressed="${cfg.min === m}">${plMin(m)}</button>`).join('')}</div></div>
+      <div class="pl2-campo"><span>Dias de estudo</span><div class="pl2-seg pl2-dias">${[1, 2, 3, 4, 5, 6, 0].map(i => `<button data-pl-dia="${i}" aria-pressed="${cfg.dias.includes(i)}">${NOMES[i]}</button>`).join('')}</div></div>
+      <button class="pl3-pronto" data-pl-pronto>Pronto, ver meu plano</button>
+    </section>`;
+  }
+  function plLinha(d, cfg){
+    const [nome, sub] = plDiaNome(d.iso), feitos = d.itens.filter(t => cfg.feitos[t.k]).length, n = d.itens.length, ab = !!abertos[d.iso];
+    const dots = [...new Set(d.itens.map(t => t.disc))].map(x => `<i data-d="${escHTML(x || '')}"></i>`).join('');
+    return `<section class="pl3-linha${ab ? ' aberta' : ''}">
+      <button class="pl3-linha-c" data-pl-abre="${d.iso}" aria-expanded="${ab}"><span class="pl3-l-dia"><b>${nome}</b><small>${sub}</small></span><span class="pl3-dots">${dots}</span><span class="pl3-l-n${feitos === n ? ' ok' : ''}">${feitos === n ? 'Feito' : n + (n === 1 ? ' tarefa' : ' tarefas')}<em>${plMin(d.min)}</em></span><span class="pl3-chev" aria-hidden="true"></span></button>
+      ${ab ? `<div class="pl3-linha-itens">${d.itens.map(t => plItem(t, cfg)).join('')}</div>` : ''}
+    </section>`;
+  }
+  function planoHTML(){
+    const cfg = planoCfg();
+    const pl = planoAtual(cfg), hoje = hojeISO();
+    let h = EB('Área do apoiador') + `<h2>Plano de estudos</h2>` + plResumo(cfg, pl) + (ajuste ? plAjuste(cfg) : '');
+    if(ajuste) return h;
+    if(!pl.dias.length){
+      h += !cfg.foco.length && !pl.provas.length
+        ? `<div class="pl2-vazio">${plIc('auto')}<b>Nenhuma prova no calendário agora</b><p>Quando as próximas provas entrarem em Prazos, o plano se monta sozinho. Se quiser estudar antes disso, escolha as disciplinas.</p><button class="pl3-pronto" data-pl-escolher>Escolher disciplinas</button></div>`
+        : `<div class="pl2-vazio">${plIc('vesp')}<b>Tudo em dia</b><p>Não sobrou nada pendente ${cfg.foco.length ? 'nessas disciplinas' : 'antes da próxima prova'}. Use o simulado e a revisão dos erros para a reta final.</p></div>`;
+      return h;
+    }
+    const dHoje = pl.dias[0].iso === hoje ? pl.dias[0] : null, resto = dHoje ? pl.dias.slice(1) : pl.dias;
+    h += dHoje ? plDia(dHoje, cfg) : `<div class="pl3-folga"><b>Hoje é folga</b><span>O próximo dia de estudo está logo abaixo.</span></div>`;
+    if(resto.length) h += `<div class="pl2-sec">Próximos dias <span class="pl2-info">Toque para ver as tarefas</span></div>` + resto.map(d => plLinha(d, cfg)).join('');
+    if(pl.sobra && !cfg.foco.length) h += `<p class="pl2-aviso"><b>${pl.sobra} ${pl.sobra === 1 ? 'atividade ficou' : 'atividades ficaram'} de fora por falta de tempo.</b> Toque em Ajustar e aumente o tempo ou os dias de estudo.</p>`;
+    h += plProvas(pl.provas);
+    return h;
   }
 
   // ================= Seu semestre em números =================
@@ -23569,9 +23590,9 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const b = BEN[tipo];
     abrir(EB('Área do apoiador') + `<h2>${b.t}</h2><p class="conta-sub">Escolha a disciplina.</p><div class="ben-escolha">${discsCom().filter(d => tipo !== 'simpdf' || SIM_JOGO.some(x => x.disc === d.n)).map(d => `<button data-ben-disc="${d.n}" data-ben-tipo="${tipo}"><b>${escHTML(d.name)}</b></button>`).join('')}</div>`);
   }
-  window.avPlanoDoDia = () => { const c = planoCfg(), pl = c.modo === 'meu' ? montarMeu(c) : montarPlano(c), d = pl.dias.find(x => x.iso === hojeISO()); return {itens:d ? d.itens : [], provas:pl.provas, feitos:c.feitos, modo:c.modo, discs:d && d.discs ? d.discs : [], chips:iso => chipsDia(iso, (c.escolhas[iso] || []), 'data-hj-esc')}; };
+  window.avPlanoDoDia = () => { const c = planoCfg(), pl = planoAtual(c), d = pl.dias.find(x => x.iso === hojeISO()); return {itens:d ? d.itens : [], provas:pl.provas, feitos:c.feitos, foco:c.foco.map(plCurto), provaNomes:[...new Set(pl.provas.map(p => plCurto(p.disc)))]}; };
   window.avPlanoMarcar = (k, v) => { const c = planoCfg(); if(v) c.feitos[k] = 1; else delete c.feitos[k]; gravarJ('av-plano', c); };
-  window.avAbrirBeneficio = k => { const b = BEN[k]; if(!b) return; if(b.disc) escolherDisc(k); else abrir(b.html(), !ehApoio()); };
+  window.avAbrirBeneficio = k => { const b = BEN[k]; if(!b) return; if(k === 'plano'){ ajuste = false; escolhendo = false; } if(b.disc) escolherDisc(k); else abrir(b.html(), !ehApoio()); };
 
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-ben]'); if(b){ window.avAbrirBeneficio(b.dataset.ben); return; }
@@ -23584,11 +23605,15 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(sp){ const op = JSON.parse(sp.dataset.spdf); if(ehApoio()) imprimir(simuladoPDF(op), 'Simulado · ' + nomeDisc((SIM_JOGO.find(x => x.id === op.id) || {}).disc) + ' · Arquivo Vivo'); else abrir(EB('Prévia') + `<div class="ben-pdf-previa">${simuladoPDF(op, true)}</div>`, true); return; }
     const sm = e.target.closest('[data-ben-sim]'); if(sm){ fechar(); location.hash = '#simulado-' + sm.dataset.benSim; return; }
     // plano
-    const pm = e.target.closest('[data-pl-modo]'); if(pm){ window.avPlanoModo(pm.dataset.plModo); abrir(planoHTML()); if(window.avRenderHoje) window.avRenderHoje(); return; }
-    const pe = e.target.closest('[data-pl-esc]'); if(pe){ const [iso, n] = pe.dataset.plEsc.split('|'); window.avPlanoEscolher(iso, n); const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; if(window.avRenderHoje) window.avRenderHoje(); return; }
-    if(e.target.closest('[data-pl-rotina]')){ rotinaAberta = !rotinaAberta; const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; return; }
-    const pb = e.target.closest('[data-pl-minb]'); if(pb){ const c = planoCfg(); c.min = +pb.dataset.plMinb; gravarJ('av-plano', c); const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; return; }
-    const pd = e.target.closest('[data-pl-dia]'); if(pd){ const c = planoCfg(); const i = +pd.dataset.plDia; c.dias = c.dias.includes(i) ? c.dias.filter(x => x !== i) : c.dias.concat(i); if(!c.dias.length) c.dias = [i]; gravarJ('av-plano', c); const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; return; }
+    const plRe = () => { const f = document.getElementById('benFundo'), y = f.scrollTop; abrir(planoHTML()); f.scrollTop = y; if(window.avRenderHoje) window.avRenderHoje(); };
+    if(e.target.closest('[data-pl-ajuste]')){ ajuste = true; escolhendo = planoCfg().foco.length > 0; abrir(planoHTML()); return; }
+    if(e.target.closest('[data-pl-escolher]')){ ajuste = true; escolhendo = true; abrir(planoHTML()); return; }
+    if(e.target.closest('[data-pl-pronto]')){ ajuste = false; escolhendo = false; const c = planoCfg(); gravarJ('av-plano', c); abrir(planoHTML()); if(window.avRenderHoje) window.avRenderHoje(); return; }
+    const pf = e.target.closest('[data-pl-foco]'); if(pf){ if(pf.dataset.plFoco === 'auto'){ escolhendo = false; window.avPlanoFoco(null); } else escolhendo = true; plRe(); return; }
+    const pc = e.target.closest('[data-pl-disc]'); if(pc){ window.avPlanoFoco(pc.dataset.plDisc); plRe(); return; }
+    const pa = e.target.closest('[data-pl-abre]'); if(pa){ const k = pa.dataset.plAbre; abertos[k] = !abertos[k]; plRe(); return; }
+    const pb = e.target.closest('[data-pl-minb]'); if(pb){ const c = planoCfg(); c.min = +pb.dataset.plMinb; gravarJ('av-plano', c); plRe(); return; }
+    const pd = e.target.closest('[data-pl-dia]'); if(pd){ const c = planoCfg(); const i = +pd.dataset.plDia; c.dias = c.dias.includes(i) ? c.dias.filter(x => x !== i) : c.dias.concat(i); if(!c.dias.length) c.dias = [i]; gravarJ('av-plano', c); plRe(); return; }
     const pi = e.target.closest('[data-pl-ir]'); if(pi){ const t = JSON.parse(pi.dataset.plIr); fechar();
       if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
     // semestre
@@ -23957,20 +23982,18 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const itemHTML = t => `<div class="hj-item${pl.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-hj-feito="${escHTML(t.k)}"${pl.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-hj-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`;
     if(pl){
       const feitos = pl.itens.filter(t => pl.feitos[t.k]).length, min = pl.itens.reduce((n, t) => n + t.min, 0);
-      const meu = pl.modo === 'meu';
-      const modoBtns = `<div class="pg-modos" role="radiogroup" aria-label="Como montar o guia">
-          <button role="radio" data-hj-modo="auto" aria-checked="${!meu}" aria-pressed="${!meu}"><span class="pg-radio"></span><span><b>Sugerido pelo site</b><small>Montado a partir das suas próximas provas</small></span></button>
-          <button role="radio" data-hj-modo="meu" aria-checked="${meu}" aria-pressed="${meu}"><span class="pg-radio"></span><span><b>Montado por mim</b><small>Você escolhe o que estudar em cada dia</small></span></button></div>`;
+      const meu = pl.foco.length > 0;
+      const nomes = meu ? pl.foco : pl.provaNomes;
+      const lista = nomes.length > 2 ? nomes.slice(0, 2).join(', ') + ' e mais ' + (nomes.length - 2) : nomes.join(' e ');
+      const origem = meu ? `<span class="pg-origem">${maIc('discursiva')}Personalizado por você · ${escHTML(lista)}</span>` : nomes.length ? `<span class="pg-origem">${maIc('lista')}Sugerido pelo site · provas de ${escHTML(lista)}</span>` : '';
       const tarefas = pl.itens.length ? `<div class="pg-tarefas"><div class="pg-prog"><span><b>${feitos} de ${pl.itens.length}</b> ${pl.itens.length === 1 ? 'tarefa feita' : 'tarefas feitas'}</span><span>cerca de ${min} min</span></div><div class="hj-bar"><i style="width:${Math.round(feitos / pl.itens.length * 100)}%"></i></div>${pl.itens.map(itemHTML).join('')}</div>`
-        : meu ? (pl.discs.length ? '<p class="pg-vazio">Nada pendente nessas disciplinas. Tudo em dia!</p>' : '') : '<p class="pg-vazio">Nada planejado para hoje. Aproveite para revisar os erros ou descansar.</p>';
+        : meu ? '<p class="pg-vazio">Nada pendente nessas disciplinas para hoje. Tudo em dia!</p>' : pl.provas.length ? '<p class="pg-vazio">Nada planejado para hoje. Aproveite para revisar os erros ou descansar.</p>' : '<p class="pg-vazio">Nenhuma prova no calendário agora. Você pode escolher as disciplinas que quer estudar.</p>';
       plano = `<section class="hj-card pg">
         <div class="pg-topo">
         <div class="pg-head"><span class="pg-ic">${maIc('lista')}</span><div><small>Guia de estudos <span class="ap-selo ap-selo-claro">★ Apoiador</span></small><h2>Plano de hoje</h2></div></div>
-        <p class="pg-desc">Um roteiro do que estudar hoje. Siga a sugestão do site ou monte o seu.</p>
-        ${modoBtns}</div>
-        ${meu ? `<div class="pg-escolha"><p class="pg-pergunta">Escolha as disciplinas de hoje</p>${pl.chips(hojeISO()).replace(/data-hj-esc="[^|"]+\|(\d+)"/g, '$& data-d="$1"')}</div>` : ''}
+        <p class="pg-desc">${origem || 'Um roteiro do que estudar hoje, montado pelo site.'}</p></div>
         ${tarefas}
-        <button class="pg-mais" data-ben="plano">${meu ? 'Planejar a semana' : 'Ver o plano da semana'}<span aria-hidden="true">→</span></button></section>`;
+        <button class="pg-mais" data-ben="plano">Ver a semana e ajustar<span aria-hidden="true">→</span></button></section>`;
     } else {
       const sg = sugestoes();
       if(sg.length) plano = `<section class="hj-card"><div class="hj-card-top"><h2>Sugestões para hoje</h2></div>
@@ -24529,8 +24552,6 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(e.target.closest('[data-ds-pular]')){ conferir(true); return; }
     if(e.target.closest('[data-ds-prox]')){ registrar(); if(ds.i < ds.qs.length - 1){ ds.i++; pergunta(); } else fim(); return; }
     if(e.target.closest('[data-ds-fechar]') || e.target === fundo){ fundo.hidden = true; return; }
-    const hm = e.target.closest('[data-hj-modo]'); if(hm){ window.avPlanoModo(hm.dataset.hjModo); renderHoje(); return; }
-    const he = e.target.closest('[data-hj-esc]'); if(he){ const [iso, n] = he.dataset.hjEsc.split('|'); window.avPlanoEscolher(iso, n); renderHoje(); return; }
     const ma = e.target.closest('[data-ma-aba]'); if(ma){ maAba = ma.dataset.maAba; renderHoje(); return; }
     const md = e.target.closest('[data-ma-disc]'); if(md){ location.hash = '#disc-' + md.dataset.maDisc; return; }
     const mc = e.target.closest('[data-ma-conta]'); if(mc){ if(window.avAbrirConta) window.avAbrirConta(mc.dataset.maConta); return; }
