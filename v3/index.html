@@ -3471,6 +3471,106 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-pend{font-style:normal; font-size:11.5px; background:#A32D2D; color:#fff; border-radius:999px; padding:1px 7px; margin-left:4px;}
   .hj-topo > *{height:32px; box-sizing:border-box;}
   .hj-inicio{display:inline-flex; align-items:center; font:inherit; font-size:12.5px; font-weight:600; line-height:normal; letter-spacing:.02em; color:var(--petrol-dark); background:var(--paper); border:1px solid var(--petrol-line); border-radius:999px; padding:5px 12px; cursor:pointer;}
+  /* plano de estudos */
+  .pl2-modos{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:4px 0 14px;}
+  .pl2-modo{position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:4px; text-align:left; font:inherit; color:var(--ink); background:var(--paper); border:1.5px solid var(--rule); border-radius:16px; padding:14px 14px 13px; cursor:pointer; transition:border-color .15s, box-shadow .15s, background .15s;}
+  .pl2-modo:hover{border-color:color-mix(in srgb, var(--petrol) 40%, var(--rule));}
+  .pl2-modo b{font-size:15px; margin-top:4px;}
+  .pl2-modo small{font-size:12.5px; line-height:1.45; color:var(--ink-soft);}
+  .pl2-modo-ic{width:36px; height:36px; border-radius:11px; display:grid; place-items:center; color:var(--petrol); background:var(--petrol-soft);}
+  .pl2-modo-ic svg{width:19px; height:19px;}
+  .pl2-modo-ok{position:absolute; top:12px; right:12px; width:20px; height:20px; border-radius:50%; border:1.5px solid var(--rule); background:var(--paper);}
+  .pl2-modo[aria-checked="true"]{border-color:var(--petrol); background:linear-gradient(160deg, var(--petrol-soft), var(--paper) 70%); box-shadow:0 6px 18px rgba(31,92,86,.12);}
+  .pl2-modo[aria-checked="true"] .pl2-modo-ic{color:#fff; background:var(--petrol);}
+  .pl2-modo[aria-checked="true"] .pl2-modo-ok{border-color:var(--petrol); background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat;}
+  .pl2-rotina{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:14px; margin:0 0 6px;}
+  .pl2-rot-cab{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .pl2-rot-cab b{display:block; font-size:14.5px;}
+  .pl2-rot-cab small{font-size:12.5px; color:var(--ink-faint);}
+  .pl2-rot-ic{width:32px; height:32px; border-radius:10px; display:grid; place-items:center; color:var(--ochre); background:var(--ochre-soft);}
+  .pl2-rot-ic svg{width:17px; height:17px;}
+  .pl2-campo{display:flex; flex-direction:column; gap:6px; margin-top:10px;}
+  .pl2-campo > span{font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+  .pl2-seg{display:flex; flex-wrap:wrap; gap:6px;}
+  .pl2-seg button{font:inherit; font-size:13px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt); border:1px solid var(--rule); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  .pl2-seg button[aria-pressed="true"]{color:#fff; background:var(--petrol); border-color:var(--petrol);}
+  .pl2-dias button{min-width:44px; padding:6px 8px;}
+  .pl2-sec{display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:20px 2px 10px; font-size:11.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
+  .pl2-info{font-size:12px; font-weight:500; letter-spacing:0; text-transform:none;}
+  .pl2-provas{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px;}
+  .pl2-provas::-webkit-scrollbar{display:none;}
+  .pl2-prova{flex:none; min-width:132px; position:relative; overflow:hidden; background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:10px 12px 10px 15px;}
+  .pl2-prova::before{content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--acc, var(--ochre));}
+  .pl2-prova b{display:block; font-family:var(--serif, Georgia, serif); font-size:17px; font-weight:600; color:var(--ink);}
+  .pl2-prova span{display:block; font-size:13px; font-weight:600; margin-top:2px;}
+  .pl2-prova small{font-size:12px; color:var(--ink-faint);}
+  .pl2-dia{background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:14px 14px 8px; margin-bottom:10px; box-shadow:0 1px 2px var(--shadow);}
+  .pl2-dia.hoje{border-color:color-mix(in srgb, var(--petrol) 45%, var(--rule)); box-shadow:0 6px 18px rgba(31,92,86,.10);}
+  .pl2-dia > header{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .pl2-dia > header b{display:block; font-family:var(--serif, Georgia, serif); font-size:19px; font-weight:600;}
+  .pl2-dia.hoje > header b{color:var(--petrol);}
+  .pl2-dia > header small{font-size:12.5px; color:var(--ink-faint);}
+  .pl2-dia-n{flex:none; display:flex; flex-direction:column; align-items:flex-end; font-size:13px; font-weight:700; color:var(--ink-soft);}
+  .pl2-dia-n em{font-style:normal; font-size:12px; font-weight:500; color:var(--ink-faint);}
+  .pl2-dia-n.ok{color:#2E7D4F;}
+  body.dark .pl2-dia-n.ok{color:#7FD3A0;}
+  .pl2-barra{height:5px; border-radius:999px; background:var(--paper-alt); margin:10px 0 6px; overflow:hidden;}
+  .pl2-barra i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--petrol), #3E8E83); transition:width .3s;}
+  .pl2-item{display:flex; align-items:center; gap:4px; border-top:1px solid var(--rule); padding:6px 0;}
+  .pl2-dia > .pl2-barra + .pl2-item, .pl2-dia > header + .pl2-item{border-top:0;}
+  .pl2-check{flex:none; position:relative; width:40px; height:40px; display:grid; place-items:center; cursor:pointer;}
+  .pl2-check input{position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer;}
+  .pl2-check span{width:24px; height:24px; border-radius:50%; border:2px solid color-mix(in srgb, var(--acc, var(--petrol)) 55%, var(--rule)); background:transparent; transition:background .15s, border-color .15s;}
+  .pl2-check input:checked + span{border-color:var(--petrol); background:var(--petrol) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/13px no-repeat;}
+  .pl2-check input:focus-visible + span{outline:2px solid var(--petrol); outline-offset:2px;}
+  .pl2-item-c{flex:1; min-width:0; display:flex; align-items:center; gap:10px; font:inherit; text-align:left; color:var(--ink); background:none; border:0; border-radius:12px; padding:6px 6px 6px 2px; cursor:pointer;}
+  .pl2-item-c:hover{background:var(--paper-alt);}
+  .pl2-tipo{flex:none; width:34px; height:34px; border-radius:10px; display:grid; place-items:center; color:var(--acc, var(--petrol)); background:color-mix(in srgb, var(--acc, var(--petrol)) 13%, transparent);}
+  .pl2-tipo svg{width:17px; height:17px;}
+  .pl2-t-vesp{color:#fff !important; background:linear-gradient(150deg, #C98F45, #A8702F) !important;}
+  .pl2-txt{flex:1; min-width:0;}
+  .pl2-txt b{display:block; font-size:14.5px; font-weight:600; line-height:1.35; overflow-wrap:anywhere;}
+  .pl2-rot{display:block; font-size:11.5px; font-weight:700; letter-spacing:.03em; color:var(--acc, var(--ink-faint)); margin-bottom:1px;}
+  .pl2-meta{flex:none; display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--ink-faint); white-space:nowrap;}
+  .pl2-meta i{font-style:normal; font-size:20px; line-height:1; color:var(--ink-faint);}
+  .pl2-item.feito .pl2-txt b{text-decoration:line-through; color:var(--ink-faint);}
+  .pl2-item.feito .pl2-tipo{opacity:.5;}
+  .pl2-item.vesp .pl2-rot{color:#A8702F;}
+  .pl2-rot-cab{width:100%; font:inherit; text-align:left; color:var(--ink); background:none; border:0; padding:0; cursor:pointer;}
+  .pl2-rotina:not(.aberta) .pl2-rot-cab{margin-bottom:0;}
+  .pl2-rot-t{flex:1; min-width:0;}
+  .pl2-rot-aj{flex:none; font-size:13px; font-weight:700; color:var(--petrol); background:var(--petrol-soft); border-radius:999px; padding:5px 12px;}
+  .pl2-rotina:not(.aberta){padding:12px 14px;}
+  .pl2-txt .pl2-rot{display:flex; align-items:center; gap:6px; margin:3px 0 0; font-size:12px; font-weight:600; letter-spacing:0; color:var(--ink-faint);}
+  .pl2-txt .pl2-rot i{flex:none; width:7px; height:7px; border-radius:50%; background:var(--acc, var(--petrol));}
+  .pl2-item.vesp .pl2-txt .pl2-rot{color:#A8702F;}
+  .pl2-seta{flex:none; font-size:22px; line-height:1; color:var(--ink-faint); padding:0 2px;}
+  .pl2-esc{margin:12px 0 4px;}
+  .pl2-esc > span{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:7px;}
+  .pl2-chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .pl2-chips button{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; font-weight:600; color:var(--ink); background:color-mix(in srgb, var(--acc, var(--petrol)) 8%, var(--paper)); border:1px solid color-mix(in srgb, var(--acc, var(--petrol)) 30%, var(--rule)); border-radius:999px; padding:6px 12px; cursor:pointer;}
+  .pl2-chips button::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--acc, var(--petrol));}
+  .pl2-chips button[aria-pressed="true"]{color:#fff; background:var(--acc, var(--petrol)); border-color:var(--acc, var(--petrol));}
+  .pl2-chips button[aria-pressed="true"]::before{background:#fff;}
+  .pl2-dica{margin:8px 0 6px; font-size:13px; color:var(--ink-faint); background:var(--paper-alt); border:1px dashed var(--rule); border-radius:10px; padding:9px 12px;}
+  .pl2-dica.ok{color:#2E7D4F; border-style:solid; border-color:rgba(46,125,79,.3); background:rgba(46,125,79,.07);}
+  .pl2-passos{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; list-style:none; margin:16px 0 0; padding:0;}
+  .pl2-passos li{display:flex; flex-direction:column; gap:6px; font-size:12.5px; line-height:1.35; color:var(--ink-soft); background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:10px;}
+  .pl2-passos b{width:22px; height:22px; border-radius:50%; display:grid; place-items:center; font-size:12px; color:#fff; background:var(--ochre);}
+  .pl2-vazio{text-align:center; background:var(--paper); border:1px solid var(--rule); border-radius:16px; padding:22px 18px; margin-top:14px;}
+  .pl2-vazio svg{width:30px; height:30px; color:var(--ochre);}
+  .pl2-vazio b{display:block; font-family:var(--serif, Georgia, serif); font-size:18px; font-weight:600; margin:6px 0 4px;}
+  .pl2-vazio p{margin:0; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
+  .pl2-aviso{font-size:13.5px; line-height:1.5; background:var(--ochre-soft); border-radius:12px; padding:11px 14px; margin-top:12px;}
+  @media (max-width:520px){
+    .pl2-modos{gap:8px;}
+    .pl2-modo{padding:12px 11px;}
+    .pl2-modo small{font-size:12px;}
+    .pl2-passos{grid-template-columns:1fr; gap:6px;}
+    .pl2-passos li{flex-direction:row; align-items:center;}
+    .pl2-meta{flex-direction:column; align-items:flex-end; gap:0;}
+    .pl2-meta i{display:none;}
+  }
   .pl-modo{display:inline-flex; background:var(--bg); border:1px solid var(--rule); border-radius:999px; padding:3px; margin:0 0 12px;}
   .pl-modo button{font:inherit; font-size:13px; font-weight:600; border:0; background:none; color:var(--ink-soft); padding:6px 12px; border-radius:999px; cursor:pointer;}
   .pl-modo button[aria-pressed="true"]{background:var(--petrol); color:#fff;}
@@ -5030,6 +5130,7 @@ const TASKS = [
      {url:'https://...'}                   qualquer link externo
    --------------------------------------------------------------------- */
 const UPDATES = [
+  {date: '2026-11-22', disc: 'Geral', desc: 'Plano de estudos de cara nova: escolha clara entre o plano sugerido pelo site e o montado por você, rotina ajustável com poucos toques, contagem para as próximas provas e o progresso de cada dia.', link: {url:'#minha-area'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Painel do administrador separado da área dos colegas, com acessos, avisos no celular escritos pelo próprio site, moderação do mural e números da turma.', link: {url:'#admin'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural: agora dá para editar os seus tópicos e respostas, e quem abriu uma dúvida pode marcar a melhor resposta. O tópico ganha o selo Resolvida e quem respondeu recebe o crédito no perfil.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: 'Geral', desc: 'Mural com reações (Curtir, Concordo, Haha, Amei e Psiu), marcação de colegas com @ e uma aba de Notificações. Quem ativar as notificações recebe no celular quando responderem o seu tópico ou marcarem você.', link: {url:'#mural'}},
@@ -23170,7 +23271,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       if(!cfg.dias.includes(d.getDay())) continue;
       const dia = {iso, itens:[], min:0};
       const vespera = provas.filter(p => { const v = new Date(p.data + 'T12:00:00'); v.setDate(v.getDate() - 1); return v.toDateString() === d.toDateString(); });
-      vespera.forEach(p => { dia.itens.push({k:`f:${p.disc}:${p.data}`, tipo:'simulado', id:(SIM_JOGO.find(x => x.disc === p.disc) || {}).id, t:`Véspera de ${nomeDisc(p.disc)}: simulado completo`, min:30, vesp:true}); dia.min += 30; });
+      vespera.forEach(p => { dia.itens.push({k:`f:${p.disc}:${p.data}`, tipo:'simulado', id:(SIM_JOGO.find(x => x.disc === p.disc) || {}).id, disc:p.disc, t:`Véspera de ${nomeDisc(p.disc)}: simulado completo`, min:30, vesp:true}); dia.min += 30; });
       // revezamento entre as provas ainda por vir, para nenhuma disciplina ficar de fora
       let avancou = true;
       while(avancou){
@@ -23207,30 +23308,87 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function chipsDia(iso, discs, attr){ return `<div class="pl-chips">${discsPlano().map(d => `<button ${attr}="${iso}|${d.n}" aria-pressed="${discs.includes(d.n)}">${escHTML(d.name)}</button>`).join('')}</div>`; }
   window.avPlanoEscolher = (iso, n) => { const c = planoCfg(); const a = c.escolhas[iso] || []; c.escolhas[iso] = a.includes(n) ? a.filter(x => x !== n) : a.concat(n); if(!c.escolhas[iso].length) delete c.escolhas[iso]; gravarJ('av-plano', c); };
   window.avPlanoModo = m => { const c = planoCfg(); c.modo = m; gravarJ('av-plano', c); };
+  // ---------- desenho do plano ----------
+  const PL_IC = {
+    auto:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/>',
+    meu:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    resumo:'<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2Z"/><path d="M4 19V5M8 7h6"/>',
+    simulado:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+    erros:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>',
+    vesp:'<path d="M12 2 15 8.5 22 9.3 17 14 18.3 21 12 17.6 5.7 21 7 14 2 9.3 9 8.5Z"/>',
+    rel:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+  };
+  const plIc = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${PL_IC[k]}</svg>`;
+  const plMin = m => m >= 60 ? (Math.floor(m / 60) + 'h' + (m % 60 ? String(m % 60).padStart(2, '0') : '')) : m + ' min';
+  const plDisc = n => { const d = DISC_TODAS().find(x => x.n === n); return d ? d.name : nomeDisc(n); };
+  const plCurto = n => { let t = plDisc(n).split(':').pop().trim().replace(/^Psicologia (da|do|de|e) /, '').replace(/^Psicologia /, '').replace(/ Humana$/, '').replace(/ Aplicada à Psicologia$/, '');
+    if(t.length > 22){ const w = t.split(' '); t = w.slice(-3).join(' '); if(/^(e|de|da|do) /.test(t)) t = w.slice(-4).join(' '); }
+    return t.charAt(0).toUpperCase() + t.slice(1); };
+  let rotinaAberta = null;
+  const plTitulo = t => { const x = t.replace(/^Ler o resumo: /, '').replace(/^Simulado: /, '').replace(/^Véspera de .*?: /, ''); return x.charAt(0).toUpperCase() + x.slice(1); };
+  const plTipo = t => t.vesp ? ['vesp', 'Véspera da prova'] : t.tipo === 'resumo' ? ['resumo', 'Resumo'] : t.tipo === 'simulado' ? ['simulado', 'Simulado'] : ['erros', 'Revisão dos erros'];
+  function plDiaNome(iso){
+    const hoje = hojeISO(), d = new Date(); d.setDate(d.getDate() + 1);
+    const sem = dataBR(iso, {weekday:'long'}), dm = dataBR(iso, {day:'2-digit', month:'2-digit'});
+    if(iso === hoje) return ['Hoje', sem + ', ' + dm];
+    if(iso === isoDe(d)) return ['Amanhã', sem + ', ' + dm];
+    return [sem.charAt(0).toUpperCase() + sem.slice(1), dm];
+  }
+  function plItem(t, cfg){
+    const [k, rot] = plTipo(t), feito = !!cfg.feitos[t.k];
+    return `<div class="pl2-item${feito ? ' feito' : ''}${t.vesp ? ' vesp' : ''}" data-d="${escHTML(t.disc || '')}">
+      <label class="pl2-check" title="Marcar como feito"><input type="checkbox" data-pl-feito="${escHTML(t.k)}"${feito ? ' checked' : ''} aria-label="Marcar como feito"><span></span></label>
+      <button class="pl2-item-c" data-pl-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap, disc:t.disc}))}'>
+        <span class="pl2-tipo pl2-t-${k}">${plIc(k)}</span>
+        <span class="pl2-txt"><b>${escHTML(plTitulo(t.t))}</b><small class="pl2-rot"><i></i>${rot} · ${escHTML(plCurto(t.disc))} · ${plMin(t.min)}</small></span>
+        <span class="pl2-seta" aria-hidden="true">›</span>
+      </button></div>`;
+  }
+  function plDia(d, cfg, extra){
+    const [nome, sub] = plDiaNome(d.iso), feitos = d.itens.filter(t => cfg.feitos[t.k]).length, n = d.itens.length;
+    const pc = n ? Math.round(feitos / n * 100) : 0;
+    return `<section class="pl2-dia${d.iso === hojeISO() ? ' hoje' : ''}">
+      <header><div><b>${nome}</b><small>${sub}</small></div>${n ? `<span class="pl2-dia-n${feitos === n ? ' ok' : ''}">${feitos === n ? 'Tudo feito' : feitos + ' de ' + n}<em>${plMin(d.min)}</em></span>` : ''}</header>
+      ${n ? `<div class="pl2-barra"><i style="width:${pc}%"></i></div>` : ''}
+      ${extra || ''}${d.itens.map(t => plItem(t, cfg)).join('')}
+    </section>`;
+  }
+  function plProvas(provas){
+    if(!provas.length) return '';
+    const hoje = new Date(hojeISO() + 'T12:00:00');
+    return `<div class="pl2-sec">Próximas provas</div><div class="pl2-provas">${provas.map(p => {
+      const dias = Math.round((new Date(p.data + 'T12:00:00') - hoje) / 864e5);
+      return `<div class="pl2-prova" data-d="${escHTML(p.disc)}"><b>${dias === 0 ? 'Hoje' : dias === 1 ? 'Amanhã' : 'em ' + dias + ' dias'}</b><span>${escHTML(plCurto(p.disc))}</span><small>${dataBR(p.data, {weekday:'short', day:'2-digit', month:'2-digit'})}</small></div>`; }).join('')}</div>`;
+  }
   function planoHTML(){
-    const cfg = planoCfg(), pl = montarPlano(cfg);
-    const meu = cfg.modo === 'meu';
-    let h = EB('Área do apoiador') + `<h2>Plano de estudos</h2><div class="pl-modo"><button data-pl-modo="auto" aria-pressed="${!meu}">Sugerido pelo site</button><button data-pl-modo="meu" aria-pressed="${meu}">Montado por mim</button></div>
-      <p class="conta-sub">${meu ? 'Escolha as disciplinas que você vai estudar em cada dia. O site preenche com o que ainda falta nelas: resumos não lidos, partes do simulado e questões erradas.' : 'Montado sozinho a partir das próximas provas, do que você já estudou e dos temas em que mais erra. Ele se atualiza conforme você avança.'}</p>
-      <div class="pl-cfg"><label>Tempo por dia <select data-pl-min>${[20, 30, 45, 60, 90, 120].map(m => `<option value="${m}"${cfg.min === m ? ' selected' : ''}>${{20:'20 min', 30:'30 min', 45:'45 min', 60:'1h', 90:'1h30', 120:'2h'}[m]}</option>`).join('')}</select></label>
-      <div class="pl-dias">${['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((l, i) => `<button data-pl-dia="${i}" aria-pressed="${cfg.dias.includes(i)}" title="${['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'][i]}">${l}</button>`).join('')}</div></div>`;
+    const cfg = planoCfg(), meu = cfg.modo === 'meu';
+    const NOMES = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'], nd = cfg.dias.length;
+    if(rotinaAberta === null) rotinaAberta = !localStorage.getItem('av-plano');
+    const aberta = rotinaAberta;
+    let h = EB('Área do apoiador') + `<h2>Plano de estudos</h2><p class="conta-sub">Organize o que estudar até cada prova. Escolha como prefere montar o seu plano:</p>
+      <div class="pl2-modos" role="radiogroup" aria-label="Como montar o plano">
+        <button class="pl2-modo" role="radio" aria-checked="${!meu}" data-pl-modo="auto"><span class="pl2-modo-ic">${plIc('auto')}</span><b>Sugerido pelo site</b><small>O site monta tudo a partir das provas, do que você já estudou e dos seus erros. Você só segue.</small><i class="pl2-modo-ok" aria-hidden="true"></i></button>
+        <button class="pl2-modo" role="radio" aria-checked="${meu}" data-pl-modo="meu"><span class="pl2-modo-ic">${plIc('meu')}</span><b>Montado por mim</b><small>Você escolhe as disciplinas de cada dia e o site preenche com o que falta estudar nelas.</small><i class="pl2-modo-ok" aria-hidden="true"></i></button>
+      </div>
+      <section class="pl2-rotina${aberta ? ' aberta' : ''}"><button class="pl2-rot-cab" data-pl-rotina aria-expanded="${aberta}"><span class="pl2-rot-ic">${plIc('rel')}</span><span class="pl2-rot-t"><b>Sua rotina de estudo</b><small>${plMin(cfg.min)} por dia · ${nd === 7 ? 'todos os dias' : nd + (nd === 1 ? ' dia' : ' dias') + ' por semana'}</small></span><span class="pl2-rot-aj">${aberta ? 'Fechar' : 'Ajustar'}</span></button>
+        ${aberta ? `<div class="pl2-campo"><span>Tempo por dia</span><div class="pl2-seg">${[20, 30, 45, 60, 90, 120].map(m => `<button data-pl-minb="${m}" aria-pressed="${cfg.min === m}">${plMin(m)}</button>`).join('')}</div></div>
+        <div class="pl2-campo"><span>Dias de estudo</span><div class="pl2-seg pl2-dias">${[1, 2, 3, 4, 5, 6, 0].map(i => `<button data-pl-dia="${i}" aria-pressed="${cfg.dias.includes(i)}">${NOMES[i]}</button>`).join('')}</div></div>` : ''}
+      </section>`;
     if(meu) return h + planoMeuHTML(cfg);
-    if(!pl.provas.length) return h + `<div class="de-vazio">Não há provas marcadas no calendário do site agora. Quando as próximas provas entrarem em Prazos, o plano aparece aqui.</div>`;
-    h += `<div class="pl-provas">${pl.provas.map(p => `<span>${escHTML(nomeDisc(p.disc))} <b>${dataBR(p.data)}</b></span>`).join('')}</div>`;
-    if(!pl.dias.length) h += `<div class="de-vazio">Não sobrou nenhum dia antes da próxima prova. Use o simulado e a revisão dos erros para a reta final.</div>`;
-    const hoje = hojeISO(), amanha = (() => { const d = new Date(); d.setDate(d.getDate() + 1); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); })();
-    h += pl.dias.map(d => `<div class="pl-dia"><h3>${d.iso === hoje ? 'Hoje' : d.iso === amanha ? 'Amanhã' : (t => t.charAt(0).toUpperCase() + t.slice(1))(dataBR(d.iso, {weekday:'long', day:'2-digit', month:'2-digit'}))}<small>${d.min} min</small></h3>
-      ${d.itens.map(t => `<div class="pl-item${cfg.feitos[t.k] ? ' feito' : ''}${t.vesp ? ' vesp' : ''}"><input type="checkbox" data-pl-feito="${escHTML(t.k)}"${cfg.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-pl-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap, disc:t.disc}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`).join('')}</div>`).join('');
-    if(pl.sobra) h += `<p class="pl-aviso">Ficaram ${pl.sobra} atividades de fora por falta de tempo. Aumente o tempo por dia ou marque mais dias para caber tudo.</p>`;
+    const pl = montarPlano(cfg);
+    if(!pl.provas.length) return h + `<div class="pl2-vazio">${plIc('auto')}<b>Nenhuma prova no calendário agora</b><p>Quando as próximas provas entrarem em Prazos, o site monta o plano sozinho aqui. Se quiser estudar antes disso, use o modo Montado por mim.</p></div>`;
+    h += plProvas(pl.provas) + `<div class="pl2-sec">Seu plano até a prova <span class="pl2-info">Atualiza sozinho conforme você estuda</span></div>`;
+    if(!pl.dias.length) h += `<div class="pl2-vazio"><b>Não sobrou nenhum dia antes da próxima prova</b><p>Use o simulado e a revisão dos erros para a reta final.</p></div>`;
+    h += pl.dias.map(d => plDia(d, cfg)).join('');
+    if(pl.sobra) h += `<p class="pl2-aviso"><b>${pl.sobra} ${pl.sobra === 1 ? 'atividade ficou' : 'atividades ficaram'} de fora por falta de tempo.</b> Aumente o tempo por dia ou marque mais dias na sua rotina para caber tudo.</p>`;
     return h;
   }
-
   function planoMeuHTML(cfg){
-    const pl = montarMeu(cfg), hoje = hojeISO(), amanha = (() => { const d = new Date(); d.setDate(d.getDate() + 1); return isoDe(d); })();
-    const item = t => `<div class="pl-item${cfg.feitos[t.k] ? ' feito' : ''}"><input type="checkbox" data-pl-feito="${escHTML(t.k)}"${cfg.feitos[t.k] ? ' checked' : ''} aria-label="Marcar como feito"><button data-pl-ir='${escHTML(JSON.stringify({tipo:t.tipo, id:t.id, cap:t.cap, disc:t.disc}))}'><b>${escHTML(t.t)}</b><span>${escHTML(nomeDisc(t.disc))} · ${t.min} min</span></button></div>`;
-    let h = pl.provas.length ? `<div class="pl-provas">${pl.provas.map(p => `<span>${escHTML(nomeDisc(p.disc))} <b>${dataBR(p.data)}</b></span>`).join('')}</div>` : '';
-    return h + pl.dias.map(d => `<div class="pl-dia"><h3>${d.iso === hoje ? 'Hoje' : d.iso === amanha ? 'Amanhã' : (t => t.charAt(0).toUpperCase() + t.slice(1))(dataBR(d.iso, {weekday:'long', day:'2-digit', month:'2-digit'}))}<small>${d.min ? d.min + ' min' : ''}</small></h3>
-      ${chipsDia(d.iso, d.discs, 'data-pl-esc')}${d.itens.map(item).join('')}${d.discs.length && !d.itens.length ? '<p class="pl-pergunta">Nada pendente nessas disciplinas. Tudo em dia!</p>' : ''}</div>`).join('');
+    const pl = montarMeu(cfg);
+    const chips = d => `<div class="pl2-esc"><span>O que você vai estudar?</span><div class="pl2-chips">${discsPlano().map(x => `<button data-pl-esc="${d.iso}|${x.n}" data-d="${x.n}" aria-pressed="${d.discs.includes(x.n)}">${escHTML(plCurto(x.n))}</button>`).join('')}</div></div>`;
+    const vazio = d => !d.discs.length ? '<p class="pl2-dica">Toque em uma ou mais disciplinas acima e o site monta as tarefas do dia.</p>' : !d.itens.length ? '<p class="pl2-dica ok">Nada pendente nessas disciplinas. Tudo em dia!</p>' : '';
+    return plProvas(pl.provas) + `<ol class="pl2-passos"><li><b>1</b>Escolha as disciplinas de cada dia</li><li><b>2</b>O site preenche com o que falta</li><li><b>3</b>Marque o que for fazendo</li></ol>
+      <div class="pl2-sec">Próximos 7 dias de estudo</div>` + pl.dias.map(d => plDia(d, cfg, chips(d) + vazio(d))).join('');
   }
 
   // ================= Seu semestre em números =================
@@ -23428,7 +23586,9 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     // plano
     const pm = e.target.closest('[data-pl-modo]'); if(pm){ window.avPlanoModo(pm.dataset.plModo); abrir(planoHTML()); if(window.avRenderHoje) window.avRenderHoje(); return; }
     const pe = e.target.closest('[data-pl-esc]'); if(pe){ const [iso, n] = pe.dataset.plEsc.split('|'); window.avPlanoEscolher(iso, n); const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; if(window.avRenderHoje) window.avRenderHoje(); return; }
-    const pd = e.target.closest('[data-pl-dia]'); if(pd){ const c = planoCfg(); const i = +pd.dataset.plDia; c.dias = c.dias.includes(i) ? c.dias.filter(x => x !== i) : c.dias.concat(i); gravarJ('av-plano', c); abrir(planoHTML()); return; }
+    if(e.target.closest('[data-pl-rotina]')){ rotinaAberta = !rotinaAberta; const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; return; }
+    const pb = e.target.closest('[data-pl-minb]'); if(pb){ const c = planoCfg(); c.min = +pb.dataset.plMinb; gravarJ('av-plano', c); const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; return; }
+    const pd = e.target.closest('[data-pl-dia]'); if(pd){ const c = planoCfg(); const i = +pd.dataset.plDia; c.dias = c.dias.includes(i) ? c.dias.filter(x => x !== i) : c.dias.concat(i); if(!c.dias.length) c.dias = [i]; gravarJ('av-plano', c); const y = document.getElementById('benFundo').scrollTop; abrir(planoHTML()); document.getElementById('benFundo').scrollTop = y; return; }
     const pi = e.target.closest('[data-pl-ir]'); if(pi){ const t = JSON.parse(pi.dataset.plIr); fechar();
       if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
     // semestre
@@ -23454,7 +23614,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(e.target.closest('#benCorpo [data-apoio]')) fechar();
   });
   document.addEventListener('change', e => { const m = e.target.closest('[data-pl-min]'); if(m){ const c = planoCfg(); c.min = +m.value; gravarJ('av-plano', c); abrir(planoHTML()); }
-    const f = e.target.closest('[data-pl-feito]'); if(f){ const c = planoCfg(); if(f.checked) c.feitos[f.dataset.plFeito] = 1; else delete c.feitos[f.dataset.plFeito]; gravarJ('av-plano', c); f.closest('.pl-item').classList.toggle('feito', f.checked); } });
+    const f = e.target.closest('[data-pl-feito]'); if(f){ const c = planoCfg(); if(f.checked) c.feitos[f.dataset.plFeito] = 1; else delete c.feitos[f.dataset.plFeito]; gravarJ('av-plano', c); const fd = document.getElementById('benFundo'); if(fd && f.closest('#benCorpo')){ const y = fd.scrollTop; abrir(planoHTML()); fd.scrollTop = y; } else { const it = f.closest('.pl-item, .pl2-item'); if(it) it.classList.toggle('feito', f.checked); } if(window.avRenderHoje) window.avRenderHoje(); } });
   document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fechar(); });
   function previaFerramenta(qual){
     if(qual === 'ouvir') return EB('Recurso do apoiador') + `<h2>Ouvir o resumo</h2><p class="conta-sub">O site lê o resumo em voz alta, parte por parte, destacando o trecho que está sendo lido. Dá para pausar e acelerar para 1,25x ou 1,5x. Bom para revisar no ônibus ou longe da tela.</p><div class="rs-ferr" style="pointer-events:none"><button>🔊 Ouvir</button><div class="rs-voz"><button>Pausar</button><button>1,25x</button><button>Parar</button></div></div>`;
