@@ -15,8 +15,9 @@ const ADMIN_EMAIL = 'thiagodentalbeauty@gmail.com';
 const SITE = process.env.SITE_ARQUIVO || 'v3/index.html';       // na virada para o oficial: index.html
 const BASE = process.env.SITE_URL || 'https://academicopsi.github.io/Painel-Psicologia/v3/';
 
+// publico: 'todos' | 'admin' | 'sem1' | 'sem2' | {uid} | {uids:{uid:true}}
 async function destinos(tipo, publico){
-  const pe = (await db.ref('pedidos').get()).val() || {};
+  const [pe, perfis] = await Promise.all([db.ref('pedidos').get(), db.ref('perfis').get()]).then(x => x.map(v => v.val() || {}));
   const comPush = Object.values(pe).filter(p => p && p.push && p.push.token);
   console.log(`::notice::Aparelhos com notificações ativadas: ${comPush.length} (e-mails: ${comPush.map(p => (p.push.email || p.email || '?').replace(/(.).*@/, '$1***@')).join(', ') || 'nenhum'})`);
   const out = [], vistos = new Set();
@@ -24,18 +25,23 @@ async function destinos(tipo, publico){
     const pu = p && p.push; if(!pu || !pu.token) continue;
     if(publico === 'admin' && (pu.email || p.email) !== ADMIN_EMAIL) continue;
     if(publico && publico.uid && publico.uid !== uid) continue;
+    if(publico && publico.uids && !publico.uids[uid]) continue;
+    const sem = String(pu.sem || (perfis[uid] && perfis[uid].sem) || '2');
+    if((publico === 'sem1' || publico === 'sem2') && 'sem' + sem !== publico) continue;
+    const nome = pu.nome || (perfis[uid] && perfis[uid].nome) || (pu.email || p.email || '').split('@')[0] || 'Sem nome';
     if(tipo === 'provas' && pu.provas === false) continue;
     if(tipo === 'avisos' && pu.avisos === false) continue;
     if(tipo === 'mural' && pu.mural === false) continue;
     // o aparelho principal e os outros em que a pessoa também ativou (celular e computador)
     const tokens = [[pu.token, null]].concat(Object.entries(p.aparelhos || {}).filter(([, a]) => a && a.token).map(([k, a]) => [a.token, k]));
-    for(const [token, chave] of tokens){ if(vistos.has(token)) continue; vistos.add(token); out.push({uid, token, chave}); }
+    for(const [token, chave] of tokens){ if(vistos.has(token)) continue; vistos.add(token); out.push({uid, token, chave, nome, sem}); }
   }
   return out;
 }
 
 async function enviar(lista, titulo, mensagem, link, tag){
-  if(!lista.length){ console.log('::notice::Ninguém para receber (nenhum aparelho ativado para este público).'); return; }
+  const entregues = [];
+  if(!lista.length){ console.log('::notice::Ninguém para receber (nenhum aparelho ativado para este público).'); return entregues; }
   const msgs = lista.map(d => ({ token: d.token,
     notification: { title: titulo, body: mensagem },
     data: { titulo, mensagem, link: link || BASE, tag: tag || '' },
@@ -44,7 +50,7 @@ async function enviar(lista, titulo, mensagem, link, tag){
     const r = await admin.messaging().sendEach(msgs.slice(i, i + 500));
     let ok = 0;
     await Promise.all(r.responses.map(async (x, j) => {
-      if(x.success){ ok++; return; }
+      if(x.success){ ok++; entregues.push(lista[i + j]); return; }
       const cod = x.error && x.error.code;
       console.log('::warning::Falhou: ' + cod + ' ' + ((x.error && x.error.message) || ''));
       if(cod === 'messaging/registration-token-not-registered' || cod === 'messaging/invalid-registration-token'){
@@ -55,6 +61,7 @@ async function enviar(lista, titulo, mensagem, link, tag){
     }));
     console.log(`::notice::Enviadas ${ok} de ${msgs.length}.`);
   }
+  return entregues;
 }
 
 function prazos(){
@@ -74,7 +81,8 @@ async function lembretes(){
   const amanha = isoBR(1), em3 = isoBR(3);
   const lista = prazos().filter(t => t.prazo === amanha || (t.prazo === em3 && /prova/i.test(t.tarefa)));
   if(!lista.length){ console.log('Nenhum prazo para lembrar hoje.'); return; }
-  const dest = await destinos('provas', 'todos');
+  // os prazos do site são do 2º semestre; um prazo pode marcar sem: '1' para ir só para o 1º
+  const porSem = {}, dest = async t => porSem[t.sem || '2'] || (porSem[t.sem || '2'] = await destinos('provas', 'sem' + (t.sem || '2')));
   const um = a => a[Math.floor(Math.random() * a.length)];
   for(const t of lista){
     const prova = /prova/i.test(t.tarefa), amanhaJa = t.prazo === amanha;
@@ -83,7 +91,7 @@ async function lembretes(){
       ? (amanhaJa ? um(['Um simulado hoje e você chega tranquilo. Já deixei o café pronto.', 'Bora revisar os erros? Eu seguro o cronômetro.', 'Respira, revisa o resumo e dorme cedo. Eu acredito em você!'])
                   : um(['Ainda dá tempo de estudar com calma. Que tal começar pelo resumo hoje?', 'Três dias: um resumo por dia e um simulado no fim. Topa?']))
       : (amanhaJa ? um(['Já está pronto? Se faltar algo, ainda dá tempo hoje.', 'Não deixa para a madrugada, hein. Eu cochilo e você não!']) : 'Começar hoje deixa tudo mais leve. Bora?');
-    await enviar(dest, titulo, corpo, BASE, 'prazo-' + t.prazo + '-' + t.materia);
+    await enviar(await dest(t), titulo, corpo, BASE, 'prazo-' + t.prazo + '-' + t.materia);
   }
 }
 
@@ -105,10 +113,16 @@ if(modo === 'aviso'){
       for(const [id, a] of Object.entries(f)){
         if(!a || a.status !== 'pendente' || !a.mensagem) continue;
         try{
-          const lista = await destinos('avisos', a.publico === 'admin' ? 'admin' : 'todos');
-          await enviar(lista, String(a.titulo || 'Psiu!').slice(0, 60), String(a.mensagem).slice(0, 180), BASE + (a.link || ''), 'aviso-' + id);
-          await filaRef.child(id).update({status: 'enviado', enviadoEm: Date.now(), n: lista.length});
-          console.log(`::notice::Aviso do painel enviado para ${lista.length} aparelho(s).`);
+          const pub = a.publico === 'pessoas' ? {uids: a.uids || {}} : ['admin', 'sem1', 'sem2'].includes(a.publico) ? a.publico : 'todos';
+          const lista = await destinos('avisos', pub);
+          const ok = await enviar(lista, String(a.titulo || 'Psiu!').slice(0, 60), String(a.mensagem).slice(0, 180), BASE + (a.link || ''), 'aviso-' + id);
+          // quem recebeu: uma entrada por pessoa (a mesma pessoa pode ter celular e computador)
+          const rec = {}, alvo = {};
+          for(const d of lista) alvo[d.uid] = {n: String(d.nome).slice(0, 60), s: d.sem};
+          for(const d of ok) rec[d.uid] = alvo[d.uid];
+          const falhou = Object.keys(alvo).filter(u => !rec[u]).reduce((o, u) => (o[u] = alvo[u], o), {});
+          await filaRef.child(id).update({status: 'enviado', enviadoEm: Date.now(), n: ok.length, rec, falhou});
+          console.log(`::notice::Aviso do painel entregue para ${Object.keys(rec).length} pessoa(s), ${ok.length} aparelho(s).`);
         }catch(e){ await filaRef.child(id).update({status: 'erro', erro: String(e.message || e).slice(0, 200)}); }
       }
     }

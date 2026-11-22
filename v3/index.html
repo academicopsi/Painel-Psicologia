@@ -3369,8 +3369,45 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .adm-msg{background:rgba(46,125,79,.12); color:#235F3D; border-radius:12px; padding:10px 14px; font-size:14px; margin:0 0 12px;}
   body.dark .adm-msg{color:#9FE0B8;}
   .adm-hist{padding:4px 16px !important;}
+  .adm-pub{border:0; margin:0; padding:0; min-width:0;}
+  .adm-pub legend{font-size:12.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; padding:0;}
+  .adm-aviso-form .adm-pub-ops label, .adm-aviso-form .adm-p-lista label{flex:none; flex-direction:row; gap:10px; text-transform:none; letter-spacing:0; font-weight:inherit; font-size:14px; color:var(--ink);}
+  .adm-aviso-form .adm-pub-ops input{padding:0; border:0; width:100%; height:100%;}
+  .adm-aviso-form .adm-p-lista input{flex:none; padding:0; width:18px; height:18px;}
+  .adm-pub-ops{display:flex; flex-wrap:wrap; gap:6px;}
+  .adm-pub-ops label{position:relative; margin:0; cursor:pointer;}
+  .adm-pub-ops input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer;}
+  .adm-pub-ops span{display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt); border:1.5px solid var(--rule); border-radius:999px; padding:7px 13px;}
+  .adm-pub-ops span em{font-style:normal; font-size:11.5px; font-weight:700; color:var(--ink-faint); background:var(--paper); border-radius:999px; padding:1px 7px;}
+  .adm-pub-ops input:checked + span{color:#fff; background:var(--petrol); border-color:var(--petrol);}
+  .adm-pub-ops input:checked + span em{color:var(--petrol); background:#fff;}
+  .adm-pub-ops input:focus-visible + span{outline:2px solid var(--petrol); outline-offset:2px;}
+  .adm-alvo{margin:10px 0 0; font-size:13px; color:var(--ink-soft);}
+  .adm-alvo b{color:var(--petrol);}
+  .adm-pessoas{margin-top:10px; border:1px solid var(--rule); border-radius:12px; overflow:hidden; background:var(--paper);}
+  .adm-p-cab{display:flex; align-items:center; gap:10px; padding:8px; border-bottom:1px solid var(--rule); background:var(--paper-alt);}
+  .adm-p-cab input{flex:1; min-width:0; font:inherit; font-size:14px; padding:8px 10px; border:1px solid var(--rule); border-radius:9px; background:var(--paper); color:var(--ink);}
+  .adm-p-cab span{flex:none; font-size:12.5px; font-weight:700; color:var(--petrol);}
+  .adm-p-lista{max-height:260px; overflow-y:auto;}
+  .adm-p-lista label{display:flex; align-items:center; gap:10px; margin:0; padding:10px 12px; border-top:1px solid var(--rule); cursor:pointer; font-size:14px; color:var(--ink);}
+  .adm-p-lista label:first-child{border-top:0;}
+  .adm-p-lista label[hidden]{display:none;}
+  .adm-p-lista input{width:18px; height:18px; accent-color:var(--petrol); margin:0;}
+  .adm-p-lista span{flex:1;}
+  .adm-p-lista small, .adm-quem li small{font-size:11.5px; color:var(--ink-faint);}
+  .adm-hist-t{display:flex; justify-content:space-between; gap:12px; align-items:flex-start;}
+  .adm-hist-t > div{min-width:0;}
+  .adm-quem{margin-top:8px;}
+  .adm-quem summary{font-size:13px; font-weight:700; color:var(--petrol); cursor:pointer; list-style:none;}
+  .adm-quem summary::-webkit-details-marker{display:none;}
+  .adm-quem summary::after{content:' ›'; display:inline-block; transition:transform .15s;}
+  .adm-quem[open] summary::after{transform:rotate(90deg);}
+  .adm-quem ul{list-style:none; margin:8px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:6px;}
+  .adm-quem li{display:inline-flex; align-items:center; gap:6px; font-size:13px; background:var(--paper-alt); border-radius:999px; padding:4px 10px;}
+  .adm-quem-f{margin:10px 0 0; font-size:12.5px; color:#9A4A3A;}
   .adm-hist-i{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:12px 0; border-top:1px solid var(--rule);}
   .adm-hist-i:first-child{border-top:0;}
+  .adm-hist-i{display:block;}
   .adm-hist-i b{font-size:14.5px;}
   .adm-hist-i p{margin:2px 0 4px; font-size:14px; line-height:1.45; color:var(--ink-soft); overflow-wrap:anywhere;}
   .adm-hist-i small{font-size:12px; color:var(--ink-faint);}
@@ -22913,7 +22950,7 @@ async function puxar(){
       _set.call(localStorage, 'av-sync-ts', String(remoto.atualizadoEm)); ultimaSync = remoto.atualizadoEm;
     }
     try{ { const v = (await get(ref(db, 'apoiadores/' + usuario.uid))).val(); const ate = apoioAte(v); apoiador = ate > Date.now(); window.avApoioAte = ate; window.avApoioConf = apoioConf(v); window.avApoioRecusado = (v && typeof v === 'object' && v.recusado) || 0; } }catch(e){ apoiador = false; }
-    await lerPush();
+    await lerPush(); pushSincronizar();
     window.avApoiador = apoiador; window.avNome = usuario.displayName || ''; window.avEmail = usuario.email || '';
     try{ if(apoiador) localStorage.setItem('av-apoiador-cache', String(window.avApoioAte)); else localStorage.removeItem('av-apoiador-cache'); }catch(e){}
     document.dispatchEvent(new Event('av-apoio'));
@@ -23111,13 +23148,23 @@ const chaveAparelho = t => { let h = 0; for(const c of t) h = (h * 31 + c.charCo
 const descAparelho = () => { const u = navigator.userAgent, app = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
   const so = /iPhone|iPad/.test(u) ? 'iPhone' : /Android/.test(u) ? 'Android' : /Mac/.test(u) ? 'Mac' : /Windows/.test(u) ? 'Windows' : 'Computador';
   return so + (app ? ' (app)' : ' (navegador)'); };
+const pushNome = () => (usuario.displayName || primeiroNome(usuario) || '').trim().slice(0, 60);
+const pushSem = () => (typeof avSemestre === 'function' ? avSemestre() : '2');
+// mantém nome e semestre em dia para os avisos separados por semestre
+async function pushSincronizar(){
+  if(!usuario || !pushInfo || !pushInfo.token) return;
+  const up = {}; if(pushInfo.sem !== pushSem()) up.sem = pushSem(); if(pushNome() && pushInfo.nome !== pushNome()) up.nome = pushNome();
+  if(!Object.keys(up).length) return;
+  try{ for(const [k, v] of Object.entries(up)) await set(ref(db, 'pedidos/' + usuario.uid + '/push/' + k), v); Object.assign(pushInfo, up); }catch(_){}
+}
+document.addEventListener('av-semestre', pushSincronizar);
 async function ativarPush(){
   if(await Notification.requestPermission() !== 'granted') throw {code:'negado'};
   const reg = await navigator.serviceWorker.register(raizSite + 'firebase-messaging-sw.js', {scope: raizSite});
   await navigator.serviceWorker.ready;
   const { getMessaging, getToken } = await import('https://www.gstatic.com/firebasejs/13.4.0/firebase-messaging.js');
   const token = await getToken(getMessaging(app), {vapidKey: VAPID, serviceWorkerRegistration: reg});
-  pushInfo = {token, email: usuario.email || '', provas: pushInfo ? pushInfo.provas !== false : true, avisos: pushInfo ? pushInfo.avisos !== false : true, mural: pushInfo ? pushInfo.mural !== false : true, em: Date.now()};
+  pushInfo = {token, email: usuario.email || '', nome: pushNome(), sem: pushSem(), provas: pushInfo ? pushInfo.provas !== false : true, avisos: pushInfo ? pushInfo.avisos !== false : true, mural: pushInfo ? pushInfo.mural !== false : true, em: Date.now()};
   await set(ref(db, 'pedidos/' + usuario.uid + '/push'), pushInfo);
   try{ await set(ref(db, 'pedidos/' + usuario.uid + '/aparelhos/' + chaveAparelho(token)), {token, em: Date.now(), disp: descAparelho()}); }catch(_){}
 }
@@ -25193,7 +25240,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
 // ===== Painel do administrador: página separada, só para o administrador =====
 (function(){
   const EU = () => window.avEu && window.avEu(), B = () => window.avBanco, esc = t => escHTML(t == null ? '' : t);
-  let aba = 'acessos', cont = null, fila = {}, aparelhos = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos'}, msg = '';
+  let aba = 'acessos', cont = null, fila = {}, aparelhos = null, pessoas = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}, msg = '';
   const ABAS = [['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Mural'], ['turma', 'Turma']];
   const LINKS = [['', 'Página inicial'], ['#minha-area', 'Minha área'], ['#mural', 'Mural da turma'], ['#modo-prova', 'Simulados'], ['#resumos', 'Resumos'], ['#prazos', 'Prazos']];
   const IC = {escudo:'<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/>', sino:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'};
@@ -25205,10 +25252,15 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   }
   async function lerAvisos(){
     try{
-      const [f, pe] = await Promise.all([B().ler(filaPath()), B().ler('pedidos')]);
+      const [f, pe, pf] = await Promise.all([B().ler(filaPath()), B().ler('pedidos'), B().ler('perfis').catch(() => null)]);
       fila = f || {};
       aparelhos = Object.values(pe || {}).filter(p => p && p.push && p.push.token);
-    }catch(_){ fila = {}; aparelhos = null; }
+      // quem pode receber avisos: notificações ativadas e a opção "Avisos da turma" ligada
+      pessoas = Object.entries(pe || {}).filter(([, p]) => p && p.push && p.push.token && p.push.avisos !== false).map(([uid, p]) => {
+        const pr = (pf || {})[uid] || {};
+        return {uid, nome: p.push.nome || pr.nome || (p.push.email || p.email || '').split('@')[0] || 'Sem nome', sem: String(p.push.sem || pr.sem || '2')};
+      }).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    }catch(_){ fila = {}; aparelhos = null; pessoas = null; }
     if(aba === 'avisos') desenharCorpo();
   }
   function topoHTML(){
@@ -25217,24 +25269,61 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     return `<div class="adm-sts">${st(cont && cont.aguardando, 'aguardando liberação', 'acessos')}${st(cont && cont.pix, 'Pix para conferir', 'acessos')}${st(den, den === 1 ? 'denúncia no mural' : 'denúncias no mural', 'mural')}</div>`;
   }
   function desenharTopo(){ const t = document.getElementById('admTopo'); if(t) t.innerHTML = topoHTML(); }
+  const PUBS = [['todos', 'Toda a turma'], ['sem1', '1º semestre'], ['sem2', '2º semestre'], ['pessoas', 'Escolher pessoas'], ['admin', 'Só para mim (teste)']];
+  function alvoDe(pub, uids){
+    if(!pessoas) return null;
+    if(pub === 'todos') return pessoas.length;
+    if(pub === 'sem1' || pub === 'sem2') return pessoas.filter(x => 'sem' + x.sem === pub).length;
+    if(pub === 'pessoas') return Object.keys(uids || {}).length;
+    return 1;
+  }
+  function pubTexto(f){
+    if(f.publico === 'admin') return 'só para você';
+    if(f.publico === 'sem1') return '1º semestre';
+    if(f.publico === 'sem2') return '2º semestre';
+    if(f.publico === 'pessoas'){ const n = Object.keys(f.uids || {}).length; return n + (n === 1 ? ' pessoa escolhida' : ' pessoas escolhidas'); }
+    return 'toda a turma';
+  }
+  function histHTML(id, f){
+    const rec = Object.values(f.rec || {}).sort((a, b) => a.n.localeCompare(b.n, 'pt-BR')), fal = Object.values(f.falhou || {});
+    const nomes = l => l.map(x => `<li>${esc(x.n)}<small>${x.s === '1' ? '1º' : '2º'} sem.</small></li>`).join('');
+    let st;
+    if(f.status === 'erro') st = '<span class="adm-tag er">Não saiu</span>';
+    else if(f.status !== 'enviado') st = '<span class="adm-tag pend">Na fila, sai em até 5 min</span>';
+    else if(f.rec || f.falhou) st = `<span class="adm-tag ok">Entregue a ${rec.length} ${rec.length === 1 ? 'pessoa' : 'pessoas'}</span>`;
+    else st = `<span class="adm-tag ok">Enviado · ${f.n || 0} ${f.n === 1 ? 'aparelho' : 'aparelhos'}</span>`;
+    const quem = f.status === 'enviado' && (rec.length || fal.length) ? `<details class="adm-quem"><summary>Ver quem recebeu</summary>
+        ${rec.length ? `<ul>${nomes(rec)}</ul>` : '<p>Ninguém recebeu.</p>'}
+        ${fal.length ? `<p class="adm-quem-f">Não chegou para ${fal.length === 1 ? 'esta pessoa' : 'estas pessoas'} (o aparelho saiu do ar ou desativou as notificações):</p><ul>${nomes(fal)}</ul>` : ''}</details>` : '';
+    return `<div class="adm-hist-i"><div class="adm-hist-t"><div><b>${esc(f.titulo || 'Psiu!')}</b><p>${esc(f.mensagem)}</p><small>${quando(f.em)} · ${pubTexto(f)}${f.enviadoEm ? ' · saiu ' + quando(f.enviadoEm) : ''}</small></div>${st}</div>${quem}</div>`;
+  }
+  function pessoasHTML(){
+    if(!pessoas) return '<p class="adm-ajuda">Carregando a lista…</p>';
+    if(!pessoas.length) return '<p class="adm-ajuda">Ninguém ativou os avisos ainda.</p>';
+    const n = Object.keys(envio.uids).length;
+    return `<div class="adm-pessoas"><div class="adm-p-cab"><input type="search" data-adm-busca placeholder="Buscar pelo nome" aria-label="Buscar pelo nome"><span data-adm-sel>${n} ${n === 1 ? 'escolhida' : 'escolhidas'}</span></div>
+      <div class="adm-p-lista">${pessoas.map(x => `<label data-nome="${esc(x.nome.toLowerCase())}"><input type="checkbox" data-adm-pessoa="${esc(x.uid)}"${envio.uids[x.uid] ? ' checked' : ''}><span>${esc(x.nome)}</span><small>${x.sem}º sem.</small></label>`).join('')}</div></div>`;
+  }
   function avisosHTML(){
     const lista = Object.entries(fila).sort((a, b) => b[1].em - a[1].em).slice(0, 12);
-    const nTodos = aparelhos ? aparelhos.filter(p => p.push.avisos !== false).length : null;
-    const st = f => f.status === 'enviado' ? `<span class="adm-tag ok">Enviado ${quando(f.enviadoEm)} · ${f.n || 0} ${f.n === 1 ? 'aparelho' : 'aparelhos'}</span>` : f.status === 'erro' ? '<span class="adm-tag er">Não saiu</span>' : '<span class="adm-tag pend">Na fila, sai em até 15 min</span>';
+    const alvo = alvoDe(envio.publico, envio.uids);
+    const cont = k => { const n = alvoDe(k, envio.uids); return n == null || k === 'admin' || k === 'pessoas' ? '' : `<em>${n}</em>`; };
     return `${msg ? `<p class="adm-msg">${esc(msg)}</p>` : ''}
       <section class="hj-card adm-aviso-form"><h3>Novo aviso no celular</h3>
-        <p class="adm-ajuda">${nTodos == null ? 'Contando aparelhos…' : `<b>${nTodos}</b> ${nTodos === 1 ? 'aparelho recebe' : 'aparelhos recebem'} avisos da turma.`} O envio sai em até 15 minutos.</p>
+        <p class="adm-ajuda">Sai em até 5 minutos. Só chega para quem ativou as notificações e deixou ligada a opção "Avisos da turma".</p>
         <form data-adm-aviso>
           <label>Título<input name="titulo" maxlength="60" placeholder="Psiu!" value="${esc(envio.titulo)}"></label>
           <label>Mensagem<textarea name="mensagem" maxlength="180" rows="3" required placeholder="Ex.: A prova de Neuro foi adiada para quinta.">${esc(envio.mensagem)}</textarea></label>
-          <div class="adm-linha"><label>Ao tocar, abre<select name="link">${LINKS.map(([v, t]) => `<option value="${v}"${envio.link === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
-          <label>Para quem<select name="publico"><option value="todos"${envio.publico === 'todos' ? ' selected' : ''}>Toda a turma</option><option value="admin"${envio.publico === 'admin' ? ' selected' : ''}>Só para mim (teste)</option></select></label></div>
+          <label>Ao tocar, abre<select name="link">${LINKS.map(([v, t]) => `<option value="${v}"${envio.link === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
+          <fieldset class="adm-pub"><legend>Para quem</legend><div class="adm-pub-ops">${PUBS.map(([k, t]) => `<label><input type="radio" name="publico" value="${k}"${envio.publico === k ? ' checked' : ''}><span>${t}${cont(k)}</span></label>`).join('')}</div>
+            ${envio.publico === 'pessoas' ? pessoasHTML() : ''}
+            <p class="adm-alvo">${alvo == null ? 'Contando quem recebe…' : envio.publico === 'admin' ? 'Vai só para os seus aparelhos.' : alvo ? `Vai para <b>${alvo}</b> ${alvo === 1 ? 'pessoa' : 'pessoas'}.` : envio.publico === 'pessoas' ? 'Marque quem vai receber.' : 'Ninguém deste grupo ativou os avisos ainda.'}</p></fieldset>
           <div class="adm-prev"><small>Prévia</small><div class="adm-prev-n"><span class="adm-prev-ic">AV</span><div><b data-prev-t>${esc(envio.titulo || 'Psiu!')}</b><span data-prev-m>${esc(envio.mensagem || 'A mensagem aparece aqui.')}</span></div></div></div>
-          <button class="btn btn-primary" type="submit">Enviar aviso</button>
+          <button class="btn btn-primary" type="submit"${envio.publico === 'pessoas' && !Object.keys(envio.uids).length ? ' disabled' : ''}>Enviar aviso</button>
         </form></section>
       <div class="ma-grupo-t">Últimos avisos</div>
-      <section class="hj-card adm-hist">${lista.length ? lista.map(([id, f]) => `<div class="adm-hist-i"><div><b>${esc(f.titulo || 'Psiu!')}</b><p>${esc(f.mensagem)}</p><small>${quando(f.em)} · ${f.publico === 'admin' ? 'só para você' : 'toda a turma'}</small></div>${st(f)}</div>`).join('') : '<p class="hj-vazio">Nenhum aviso enviado por aqui ainda.</p>'}</section>
-      <p class="adm-ajuda">Os lembretes de prova e de entrega continuam saindo sozinhos às 18h07, a partir dos prazos do site.</p>`;
+      <section class="hj-card adm-hist">${lista.length ? lista.map(([id, f]) => histHTML(id, f)).join('') : '<p class="hj-vazio">Nenhum aviso enviado por aqui ainda.</p>'}</section>
+      <p class="adm-ajuda">Os lembretes de prova e de entrega saem sozinhos à noite, a partir dos prazos do site, só para o semestre de cada prazo.</p>`;
   }
   function desenharCorpo(){
     const c = document.getElementById('admCorpo'); if(!c) return;
@@ -25268,19 +25357,34 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     aba = b.dataset.admAba; msg = ''; document.querySelectorAll('#viewAdmin .ma-abas [data-adm-aba]').forEach(x => x.setAttribute('aria-selected', x.dataset.admAba === aba));
     desenharCorpo(); if(aba === 'avisos') lerAvisos();
   });
+  const lerForm = f => { envio = Object.assign(envio, {titulo: f.titulo.value, mensagem: f.mensagem.value, link: f.link.value, publico: f.publico.value || 'todos'}); };
   document.addEventListener('input', e => { const f = e.target.closest('[data-adm-aviso]'); if(!f) return;
-    envio = {titulo: f.titulo.value, mensagem: f.mensagem.value, link: f.link.value, publico: f.publico.value};
+    const bu = e.target.closest('[data-adm-busca]');
+    if(bu){ const q = bu.value.trim().toLowerCase(); f.querySelectorAll('.adm-p-lista label').forEach(l => { l.hidden = q && !l.dataset.nome.includes(q); }); return; }
+    lerForm(f);
     const pt = f.querySelector('[data-prev-t]'), pm = f.querySelector('[data-prev-m]'); if(pt) pt.textContent = envio.titulo || 'Psiu!'; if(pm) pm.textContent = envio.mensagem || 'A mensagem aparece aqui.'; });
-  document.addEventListener('change', e => { const f = e.target.closest('[data-adm-aviso]'); if(f) envio = {titulo: f.titulo.value, mensagem: f.mensagem.value, link: f.link.value, publico: f.publico.value}; });
+  document.addEventListener('change', e => { const f = e.target.closest('[data-adm-aviso]'); if(!f) return;
+    const pc = e.target.closest('[data-adm-pessoa]');
+    if(pc){ if(pc.checked) envio.uids[pc.dataset.admPessoa] = true; else delete envio.uids[pc.dataset.admPessoa];
+      const n = Object.keys(envio.uids).length, sel = f.querySelector('[data-adm-sel]'), al = f.querySelector('.adm-alvo'), bt = f.querySelector('[type=submit]');
+      if(sel) sel.textContent = n + (n === 1 ? ' escolhida' : ' escolhidas');
+      if(al) al.innerHTML = n ? `Vai para <b>${n}</b> ${n === 1 ? 'pessoa' : 'pessoas'}.` : 'Marque quem vai receber.';
+      if(bt) bt.disabled = !n; return; }
+    lerForm(f);
+    if(e.target.name === 'publico'){ const y = window.scrollY; desenharCorpo(); window.scrollTo(0, y); } });
   document.addEventListener('submit', async e => {
     const f = e.target.closest('[data-adm-aviso]'); if(!f) return; e.preventDefault();
     const eu = EU(); if(!eu || !eu.admin) return;
     const m = f.mensagem.value.trim(); if(!m) return;
-    const todos = f.publico.value === 'todos';
-    if(todos && !confirm('Enviar este aviso para o celular de toda a turma?')) return;
-    const id = Date.now().toString(36), item = {titulo: f.titulo.value.trim().slice(0, 60) || 'Psiu!', mensagem: m.slice(0, 180), link: f.link.value, publico: todos ? 'todos' : 'admin', em: Date.now(), status: 'pendente'};
+    lerForm(f);
+    const pub = PUBS.some(([k]) => k === envio.publico) ? envio.publico : 'todos', teste = pub === 'admin';
+    if(pub === 'pessoas' && !Object.keys(envio.uids).length) return;
+    const n = alvoDe(pub, envio.uids);
+    if(!teste && !confirm(`Enviar este aviso para ${pub === 'todos' ? 'toda a turma' : pub === 'pessoas' ? 'as pessoas escolhidas' : 'o ' + pubTexto({publico:pub})}${n != null ? ' (' + n + (n === 1 ? ' pessoa)' : ' pessoas)') : ''}?`)) return;
+    const id = Date.now().toString(36), item = {titulo: f.titulo.value.trim().slice(0, 60) || 'Psiu!', mensagem: m.slice(0, 180), link: f.link.value, publico: pub, em: Date.now(), status: 'pendente'};
+    if(pub === 'pessoas') item.uids = Object.assign({}, envio.uids);
     f.querySelector('[type=submit]').disabled = true;
-    try{ await B().gravar(filaPath() + '/' + id, item); fila[id] = item; envio = {titulo:'', mensagem:'', link:'', publico:'todos'}; msg = todos ? 'Aviso na fila. Sai para a turma em até 15 minutos.' : 'Teste na fila. Chega no seu celular em até 15 minutos.'; }
+    try{ await B().gravar(filaPath() + '/' + id, item); fila[id] = item; envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}; msg = teste ? 'Teste na fila. Chega no seu celular em até 5 minutos.' : 'Aviso na fila. Sai em até 5 minutos. Depois é só abrir "Ver quem recebeu" no histórico.'; }
     catch(_){ msg = 'Não deu para colocar o aviso na fila. Confira a internet e tente de novo.'; }
     desenharCorpo();
   });
