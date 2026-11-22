@@ -23,31 +23,6 @@ def mkfundo():
         for y in range(27,H,54): d.ellipse((x,y,x+3,y+3),fill=(48,98,92))
     return im
 FUNDO=mkfundo()
-# ---------- gravação ----------
-REC=json.load(open('/tmp/vid/rec.json')); FR=REC['frames']; FT=[t for _,t in FR]; T0=FT[0]
-SEG={n:t-T0 for n,t in REC['segs']}
-_cache={}
-def tela(ts):
-    i=max(0,bisect.bisect_right(FT,ts+T0)-1); f=FR[i][0]
-    if f not in _cache:
-        if len(_cache)>40: _cache.clear()
-        _cache[f]=Image.open(f).convert('RGB')
-    return _cache[f]
-SCALE=0.84; SW,SH=int(780*SCALE),int(1560*SCALE)
-MASK=Image.new('L',(SW,SH),0); ImageDraw.Draw(MASK).rounded_rectangle((0,0,SW,SH),radius=48,fill=255)
-PW,PH=SW+32,SH+32
-BEZ=Image.new('RGBA',(PW,PH),(0,0,0,0)); ImageDraw.Draw(BEZ).rounded_rectangle((0,0,PW-1,PH-1),radius=62,fill=(13,26,25,255),outline=(70,110,104,255),width=3)
-SOMB=Image.new('L',(W,H),0)
-def celular(base, shot, cx, cy, zoom, focy=None):
-    # monta o celular e aplica zoom de câmera ao redor de (cx, focy)
-    ph=BEZ.copy(); s=shot.resize((SW,SH),Image.BILINEAR); ph.paste(s,(16,16),MASK)
-    pw,phh=int(PW*zoom),int(PH*zoom)
-    ph=ph.resize((pw,phh),Image.BILINEAR) if zoom!=1 else ph
-    fy = phh/2 if focy is None else (16+focy*SCALE)*zoom
-    x=int(cx-pw/2); y=int(cy-fy)
-    sh=Image.new('L',(pw+120,phh+120),0); ImageDraw.Draw(sh).rounded_rectangle((60,80,pw+60,phh+70),radius=int(62*zoom),fill=130); sh=sh.filter(ImageFilter.GaussianBlur(34))
-    base.paste((4,14,13),(x-60,y-60),sh)
-    base.paste(ph,(x,y),ph)
 # ---------- texto ----------
 def quebra(txt,font,larg):
     d=ImageDraw.Draw(Image.new('L',(1,1))); linhas=[];l=''
@@ -76,20 +51,6 @@ def topo_escuro(base, h=560):
     g=Image.new('L',(1,h)); 
     for y in range(h): g.putpixel((0,y), int(200*(1-y/h)**1.4))
     g=g.resize((W,h)); base.paste((10,34,32),(0,0),g)
-# ---------- barra de progresso e capítulos ----------
-TOTAL=102.6
-CAPS=[(15.6,'01'),(30.0,'02'),(39.6,'03'),(55.2,'04'),(71.4,'05'),(79.8,'06'),(87.0,'07')]
-FIM=96.6
-def hud(base,t):
-    d=ImageDraw.Draw(base)
-    d.rectangle((0,0,W,9),fill=(20,52,49)); d.rectangle((0,0,int(W*t/TOTAL),9),fill=OCRE)
-    if 15.6<=t<FIM:
-        f=fnt(INTER_B,26); x=W-80-len(CAPS)*58
-        for i,(ti,n) in enumerate(CAPS):
-            on = t>=ti and (i==len(CAPS)-1 or t<CAPS[i+1][0]); past=t>=ti
-            c = OCRE if on else ((120,165,155) if past else (60,100,94))
-            d.rounded_rectangle((x+i*58,40,x+i*58+48,76),radius=8,fill=(255,255,255,0) if not on else (60,48,30),outline=c,width=2)
-            tw=d.textlength(n,font=f); d.text((x+i*58+24-tw/2,43),n,font=f,fill=c)
 # ---------- cenas ----------
 def cena_hook(t):
     im=FUNDO.copy(); d=ImageDraw.Draw(im)
@@ -114,14 +75,6 @@ def cena_hook(t):
             d.text((90,y2+236+40*(1-k2)),'de estudos.',font=f2,fill='white')
             k3=ease((t-3.2)/0.6); d.rounded_rectangle((92,y2+225,92+int(560*k3),y2+233),radius=4,fill=OCRE)
     return im
-def cena_home(t, dur):
-    im=FUNDO.copy(); src=SEG['home']+t*(7.3/dur)
-    z=1.0+0.06*ease_io(t/dur)
-    celular(im, tela(src), W//2, 1130, z)
-    topo_escuro(im,620)
-    if t<2.9: cola_legenda(im,'Apresentando','Arquivo Vivo, a nova versão',t)
-    else: cola_legenda(im,'Tudo num lugar só','Materiais, prazos, resumos e simulados das disciplinas',t-2.9)
-    return im
 def cena_numeros(t):
     im=FUNDO.copy(); d=ImageDraw.Draw(im)
     fe=fnt(INTER_SB,32); d.text((90,300),'O QUE TEM DENTRO',font=fe,fill=MINT); d.rounded_rectangle((90,352,150,358),radius=3,fill=OCRE)
@@ -142,24 +95,6 @@ def cena_capitulo(t, num, titulo, sub):
     y=900
     for ln in quebra(titulo,ft,900): d.text((90,y+40*(1-k)),ln,font=ft,fill='white'); y+=100
     d.text((90,y+20),sub,font=fs,fill=MINT)
-    return im
-def cena_gravada(t, dur, a, b, plano):
-    # plano: lista de (t_ini, eyebrow, titulo, zoom, focy)
-    im=FUNDO.copy(); src=a+t*((b-a)/dur)
-    atual=plano[0]
-    for p in plano:
-        if t>=p[0]: atual=p
-    i=plano.index(atual); prox=plano[i+1][0] if i+1<len(plano) else dur
-    z0=plano[i-1][3] if i>0 else 1.0; f0=plano[i-1][4] if i>0 else None
-    k=ease_io((t-atual[0])/0.7)
-    z=z0+(atual[3]-z0)*k
-    fa = atual[4] if atual[4] is not None else 780
-    fb = f0 if f0 is not None else 780
-    focy=fb+(fa-fb)*k
-    cy = 1160 if z<=1.02 else 1180
-    celular(im, tela(src), W//2, cy - (focy-780)*SCALE*0 , z, focy)
-    topo_escuro(im,640)
-    cola_legenda(im, atual[1], atual[2], t-atual[0])
     return im
 def cena_fim(t):
     im=FUNDO.copy(); d=ImageDraw.Draw(im)
@@ -213,66 +148,291 @@ def card_notif(titulo, corpo):
     for ln in lt: d.text((122,y),ln,font=ft,fill=(20,20,24)); y+=36
     for ln in lb: d.text((122,y),ln,font=fb,fill=(55,55,62)); y+=35
     return c
+
+# =====================================================================
+# V2 do vídeo: telas novas e efeitos (celular em 3D, cartões saltando da tela, Psiu saindo do celular)
+# =====================================================================
+import numpy as np
+REC=json.load(open('/tmp/vid/rec.json')); FR=REC['frames']; FT=[t for _,t in FR]; T0=FT[0]
+SEG={n:t-T0 for n,t in REC['segs']}; S=SEG
+_cache={}
+def tela(ts):
+    i=max(0,bisect.bisect_right(FT,ts+T0)-1); f=FR[i][0]
+    if f not in _cache:
+        if len(_cache)>60: _cache.clear()
+        _cache[f]=Image.open(f).convert('RGB')
+    return _cache[f]
+SCALE=0.84; SW,SH=int(780*SCALE),int(1560*SCALE)
+MASK=Image.new('L',(SW,SH),0); ImageDraw.Draw(MASK).rounded_rectangle((0,0,SW,SH),radius=48,fill=255)
+PW,PH=SW+32,SH+32
+BEZ=Image.new('RGBA',(PW,PH),(0,0,0,0)); ImageDraw.Draw(BEZ).rounded_rectangle((0,0,PW-1,PH-1),radius=62,fill=(13,26,25,255),outline=(70,110,104,255),width=3)
+def phone(shot):
+    ph=BEZ.copy(); ph.paste(shot.resize((SW,SH),Image.BILINEAR),(16,16),MASK); return ph
+def ease_back(k):
+    k=max(0,min(1,k)); c=1.6; return 1+(c+1)*(k-1)**3+c*(k-1)**2
+def lerp(a,b,k): return a+(b-a)*k
+# ---------- 3D ----------
+F3=2600
+def _pts(w,h,ry,rx,rz,s):
+    cr,sr=math.cos(rz),math.sin(rz); out=[]
+    def m(x,y):
+        x,y=x*cr-y*sr, x*sr+y*cr
+        z=x*math.sin(ry); x=x*math.cos(ry)
+        y2=y*math.cos(rx)-z*math.sin(rx); z2=y*math.sin(rx)+z*math.cos(rx)
+        k=F3/(F3+z2); return (x*k*s, y2*k*s)
+    return m
+def _coef(dst,src):
+    A=[];B=[]
+    for (x,y),(u,v) in zip(dst,src):
+        A.append([x,y,1,0,0,0,-u*x,-u*y]); B.append(u)
+        A.append([0,0,0,x,y,1,-v*x,-v*y]); B.append(v)
+    return np.linalg.solve(np.array(A,float),np.array(B,float)).tolist()
+def place(base, img, cx, cy, ry=0, rx=0, rz=0, s=1.0, sombra=0.55, alpha=1.0):
+    """desenha img (RGBA) com rotação 3D, centro em (cx,cy). Devolve função tela->quadro."""
+    w,h=img.size; m=_pts(w,h,math.radians(ry),math.radians(rx),math.radians(rz),s)
+    def mapa(u,v): x,y=m(u-w/2,v-h/2); return (cx+x, cy+y)
+    q=[m(-w/2,-h/2),m(w/2,-h/2),m(w/2,h/2),m(-w/2,h/2)]
+    mx=min(p[0] for p in q); my=min(p[1] for p in q); Mx=max(p[0] for p in q); My=max(p[1] for p in q)
+    ow,oh=int(Mx-mx)+2,int(My-my)+2
+    dst=[(p[0]-mx,p[1]-my) for p in q]
+    if abs(ry)<0.05 and abs(rx)<0.05 and abs(rz)<0.05:
+        im=img.resize((max(1,int(w*s)),max(1,int(h*s))),Image.BILINEAR) if abs(s-1)>1e-3 else img
+    else:
+        im=img.transform((ow,oh),Image.PERSPECTIVE,_coef(dst,[(0,0),(w,0),(w,h),(0,h)]),Image.BICUBIC)
+    x0=int(cx+mx); y0=int(cy+my)
+    if sombra>0:
+        sc=4; pad=60
+        sh=Image.new('L',(ow//sc+2*pad//sc+2,oh//sc+2*pad//sc+2),0)
+        ImageDraw.Draw(sh).polygon([((p[0])/sc+pad/sc,(p[1])/sc+pad/sc) for p in dst],fill=int(255*sombra*alpha))
+        sh=sh.filter(ImageFilter.GaussianBlur(9)).resize(((ow//sc+2*pad//sc+2)*sc,(oh//sc+2*pad//sc+2)*sc),Image.BILINEAR)
+        base.paste((3,12,11),(x0-pad+18,y0-pad+46),sh)
+    if alpha<1:
+        im=im.copy(); im.putalpha(im.getchannel('A').point(lambda v:int(v*alpha)))
+    base.paste(im,(x0,y0),im)
+    return mapa
+def celular3d(base, shot, cx=W//2, cy=1180, ry=0, rx=0, rz=0, s=1.0):
+    return place(base, phone(shot), cx, cy, ry, rx, rz, s)
+def balanco(t, a=6, b=2.5, per=8.0):
+    return a*math.sin(2*math.pi*t/per), b*math.sin(2*math.pi*t/(per*1.37)+1.1)
+# cartão recortado da tela, com cantos arredondados
+def recorte(shot, box, raio=26):
+    c=shot.crop(box).convert('RGBA'); m=Image.new('L',c.size,0); ImageDraw.Draw(m).rounded_rectangle((0,0,c.size[0]-1,c.size[1]-1),radius=raio,fill=255)
+    c.putalpha(m); fr=Image.new('RGBA',(c.size[0]+8,c.size[1]+8),(0,0,0,0)); ImageDraw.Draw(fr).rounded_rectangle((0,0,fr.size[0]-1,fr.size[1]-1),radius=raio+4,fill=(255,255,255,235))
+    fr.paste(c,(4,4),c); return fr
+_rc={}
+def salta(base, mapa, ts_src, box, t, t0, t1, alvo, sc, ry=-10, rx=4, rz=-2):
+    """cartão que sai da tela do celular em 3D e volta"""
+    if t<t0 or t>t1: return 0
+    k_in=ease_back((t-t0)/0.75); k_out=ease_io((t1-t)/0.55) if t>t1-0.55 else 1
+    k=min(k_in,k_out)
+    key=(ts_src,box)
+    if key not in _rc: _rc[key]=recorte(tela(ts_src),box)
+    card=_rc[key]
+    ox,oy=mapa(16+(box[0]+box[2])/2*SCALE, 16+(box[1]+box[3])/2*SCALE)
+    s0=SCALE*0.98
+    cx=lerp(ox,alvo[0],k); cy=lerp(oy,alvo[1],k); s=lerp(s0,sc,k)
+    # escurece o fundo para destacar
+    if k>0.01:
+        ov=Image.new('L',base.size,int(110*min(1,k))); base.paste((6,22,20),(0,0),ov)
+    place(base, card, cx, cy, ry*k, rx*k, rz*k, s, sombra=0.6*k)
+    return k
+# ---------- legendas por tempo ----------
+def legenda_em(base, plano, t, y=150):
+    atual=plano[0]
+    for p in plano:
+        if t>=p[0]: atual=p
+    cola_legenda(base, atual[1], atual[2], t-atual[0], y)
+def srcm(a,b,dur): return lambda t: a+t*((b-a)/dur)
+def ts(nome,dt=0.0): return S[nome]+dt
+def cena_t(a,b,dur,tsrc): return (tsrc-a)*dur/(b-a)   # tempo de origem -> tempo da cena
+# ---------- cenas ----------
+def cena_home(t, dur):
+    im=FUNDO.copy(); src=S['home']+t*(7.3/dur)
+    k=ease(t/1.3); ry=lerp(55,-6,k)+2*math.sin(t*1.2)*(k); rx=lerp(10,2,k); s=lerp(0.75,1.0,k)
+    celular3d(im, tela(src), W//2, 1190, ry, rx, 0, s)
+    topo_escuro(im,620)
+    if t<2.7: cola_legenda(im,'Apresentando','Arquivo Vivo, a nova versão',t)
+    else: cola_legenda(im,'Tudo num lugar só','Materiais, prazos, resumos e simulados das disciplinas',t-2.7)
+    return im
+PL_A,PL_B,PL_D=S['plano_card'],S['plano_fim'],17.0
+def plt(n,dt=0): return cena_t(PL_A,PL_B,PL_D,S[n]+dt)
+PLANO=[(0,'Plano de hoje','Seu plano do dia já vem pronto quando você entra'),
+       (plt('plano_abre',0.4),'Plano de estudos','A semana inteira num painel só'),
+       (plt('plano_dias'),'Sua semana','Toque no dia e marque o que já estudou'),
+       (plt('plano_radar'),'Provas no radar','Quanto falta e quanto da preparação já foi feita'),
+       (plt('plano_ajuste'),'Do seu jeito','Escolha as disciplinas, o tempo por dia e os dias de estudo')]
+def cena_plano(t):
+    im=FUNDO.copy(); src=PL_A+t*((PL_B-PL_A)/PL_D)
+    a,b=balanco(t,7,2.5,9)
+    mapa=celular3d(im, tela(src), W//2, 1190, a, b)
+    topo_escuro(im,640)
+    # números do painel saltam da tela
+    t0=plt('plano_abre',1.5); salta(im,mapa,ts('plano_abre',1.5),(36,385,744,735),t,t0,t0+2.6,(540,1090),1.32,ry=-16,rx=8,rz=-3)
+    t0=plt('plano_dias',0.15); salta(im,mapa,ts('plano_dias',0.15),(24,1040,760,1215),t,t0,t0+1.9,(540,1180),1.36,ry=14,rx=10,rz=3)
+    legenda_em(im,PLANO,t)
+    return im
+def cena_pdf(t, dur):
+    im=FUNDO.copy(); shot=tela(ts('apoio',2.2))
+    k=ease(t/0.8); ry=lerp(0,24,k)+2*math.sin(t*1.3); cx=lerp(W//2,330,k)
+    mapa=celular3d(im, shot, cx, 1200, ry, 3, 0, lerp(1.0,0.86,k))
+    topo_escuro(im,600)
+    cola_legenda(im,'Simulado em PDF','Prova sorteada para imprimir, com gabarito na última folha',t)
+    ox,oy=mapa(16+390*SCALE, 16+1190*SCALE)
+    alvos=[((690,1000),-6,-22),((810,1150),6,-16),((730,1320),-2,-12)]
+    for i,(pg_,(alvo,rz,ry_)) in reversed(list(enumerate(zip(PAGS,alvos)))):
+        t0=0.7+i*0.42; kk=ease_back((t-t0)/0.9)
+        if t<t0: continue
+        fl=4*math.sin((t-t0)*1.6+i)
+        place(im, pg_, lerp(ox,alvo[0],kk), lerp(oy,alvo[1],kk)+fl*(kk), ry_*kk, 6*kk, rz*kk, lerp(0.12,1.0,kk), sombra=0.55)
+    return im
+PAGS=[]
+def _pags():
+    import glob
+    fs=sorted(glob.glob('/tmp/vid/pdfh-*.png'))
+    for f in [fs[0],fs[1],fs[-1]]:
+        p=Image.open(f).convert('RGBA'); p=p.resize((600,int(600*p.size[1]/p.size[0])),Image.LANCZOS)
+        PAGS.append(p)
+_pags()
+AP_A,AP_B,AP_D=S['apoio']+1.0,S['psiu']-0.2,9.0
+APOIO=[(0,'Seu desempenho','Acertos por tema e o que revisar primeiro'),
+       (cena_t(AP_A,AP_B,AP_D,S['story']),'Seu semestre em números','Pronto para postar no story')]
+def cena_apoio(t):
+    im=FUNDO.copy(); src=AP_A+t*((AP_B-AP_A)/AP_D)
+    a,b=balanco(t,-7,2,8)
+    mapa=celular3d(im, tela(src), W//2, 1190, a, b)
+    topo_escuro(im,640)
+    t0=cena_t(AP_A,AP_B,AP_D,S['story']+1.4); salta(im,mapa,ts('story',1.4),(88,528,692,1560),t,t0,AP_D+1,(560,1220),0.98,ry=-18,rx=6,rz=-4)
+    legenda_em(im,APOIO,t)
+    return im
+PSIU=Image.open('/tmp/vid/psiu.png').convert('RGBA')
+_psc={}
+def psiu_img(larg):
+    larg=int(larg)
+    if larg not in _psc:
+        if len(_psc)>80: _psc.clear()
+        _psc[larg]=PSIU.resize((larg,int(larg*PSIU.size[1]/PSIU.size[0])),Image.LANCZOS)
+    return _psc[larg]
+def balao(base, x, y, txt, k):
+    if k<=0: return
+    f=fnt(INTER_B,38); d=ImageDraw.Draw(Image.new('L',(1,1))); tw=d.textlength(txt,font=f)
+    b=Image.new('RGBA',(int(tw)+70,120),(0,0,0,0)); dd=ImageDraw.Draw(b)
+    dd.rounded_rectangle((0,0,b.size[0]-1,92),radius=30,fill=(255,255,255,245)); dd.polygon([(40,88),(70,88),(30,118)],fill=(255,255,255,245))
+    dd.text((35,22),txt,font=f,fill=(30,60,56))
+    place(base,b,x+b.size[0]/2,y,0,0,-3*(1-k),lerp(0.4,1,ease_back(k)),sombra=0.3,alpha=min(1,k*2))
+PS_A,PS_B,PS_D=S['psiu'],S['mural']-0.2,10.5
+PSIUL=[(0,'Conheça o Psiu','O colega virtual da turma pula da tela para te ajudar'),
+       (3.2,'Pergunte ao Psiu','Datas das provas, prazos e conceitos das aulas')]
+def cena_psiu(t):
+    im=FUNDO.copy(); src=PS_A+t*((PS_B-PS_A)/PS_D)
+    a,b=balanco(t,6,2,9)
+    mapa=celular3d(im, tela(src), W//2+70, 1190, a, b)
+    topo_escuro(im,640); legenda_em(im,PSIUL,t)
+    # Psiu sai do botão no canto da tela
+    ox,oy=mapa(16+688*SCALE,16+1462*SCALE)
+    k=ease_back((t-0.25)/0.9)
+    if t>=0.25:
+        larg=lerp(70,400,k) if t<2.6 else lerp(400,300,ease_io((t-2.6)/0.8))
+        cx=lerp(ox,250,k) if t<2.6 else lerp(250,190,ease_io((t-2.6)/0.8))
+        cy=lerp(oy,1290,k) if t<2.6 else lerp(1290,1650,ease_io((t-2.6)/0.8))
+        bob=math.sin(t*3.2)*10*k; rz=lerp(25,-6,k)+math.sin(t*2.1)*4
+        sq=1+0.06*math.sin(t*6.4)*max(0,1-(t-1.1)) if t>1.1 else 1
+        p=psiu_img(larg)
+        place(im,p.resize((p.size[0],int(p.size[1]*sq))),cx,cy+bob,ry=-8*k,rx=0,rz=rz,s=1.0,sombra=0.4)
+        if 1.0<t<3.0: balao(im, cx+60, cy-larg*0.62, 'Psiu! Pode perguntar.', min(1,(t-1.0)/0.4)*(1 if t<2.6 else max(0,(3.0-t)/0.4)))
+    return im
+MU_A,MU_B,MU_D=S['mural'],S['mural_fim'],11.0
+MURAL=[(0,'Mural da turma','Tópicos com título e categoria, sempre com o seu nome'),
+       (cena_t(MU_A,MU_B,MU_D,S['mural_reac']),'Reações','Curtir, Concordo, Haha, Amei e o Psiu'),
+       (cena_t(MU_A,MU_B,MU_D,S['mural_marca']),'Marque colegas','Digite @ e a pessoa recebe uma notificação')]
+def cena_mural(t):
+    im=FUNDO.copy(); src=MU_A+t*((MU_B-MU_A)/MU_D)
+    a,b=balanco(t,-6,2,8.5)
+    celular3d(im, tela(src), W//2, 1190, a, b)
+    topo_escuro(im,640); legenda_em(im,MURAL,t); return im
+def cena_rec(a,b_,dur,plano,sinal=1):
+    def f(t):
+        im=FUNDO.copy(); src=a+t*((b_-a)/dur)
+        x,y=balanco(t,6*sinal,2,8)
+        celular3d(im, tela(src), W//2, 1190, x, y)
+        topo_escuro(im,640); legenda_em(im,plano,t); return im
+    return f
+# ---------- notificações ----------
+NOTIFS=[('Psiu! Aviso da turma','A prova de Neuro foi adiada para quinta. Bora aproveitar para revisar!'),
+        ('Júlia respondeu ao seu tópico','“Quem topa revisar Neuro na segunda?”: Eu vou! Fico com o trigêmeo e o facial.'),
+        ('Bruno marcou você no mural','“@Ana levo o resumo do vago!”')]
+_lock=None
+def lock_fundo():
+    global _lock
+    if _lock is None:
+        im=Image.new('RGB',(780,1560)); d=ImageDraw.Draw(im)
+        for y in range(1560):
+            tt=y/1560; d.line([(0,y),(780,y)],fill=tuple(int(a+(b-a)*tt) for a,b in zip((0x2B,0x55,0x6E),(0x12,0x1C,0x2E))))
+        g=Image.new('L',(780,1560),0); ImageDraw.Draw(g).ellipse((-200,900,700,1800),fill=90); g=g.filter(ImageFilter.GaussianBlur(120)); im.paste((0x3E,0x8E,0x82),(0,0),g)
+        d=ImageDraw.Draw(im); fd=fnt(INTER_SB,30); fh=fnt(INTER_B,170)
+        tx='segunda-feira, 23 de novembro'; d.text(((780-d.textlength(tx,font=fd))/2,170),tx,font=fd,fill=(235,240,245))
+        tx='19:30'; d.text(((780-d.textlength(tx,font=fh))/2,205),tx,font=fh,fill=(240,244,248))
+        _lock=im
+    return _lock
 _cards=None
 def cena_notif(t, dur):
     global _cards
     if _cards is None: _cards=[card_notif(a,b) for a,b in NOTIFS]
-    scr=lock_fundo().copy(); y=520
-    # cada nova notificação entra por cima e empurra as anteriores
-    chegadas=[0.5,2.4,4.3]
-    vis=[i for i,c in enumerate(chegadas) if t>=c]
-    for ordem,i in enumerate(reversed(vis)):
-        c=_cards[i]; k=ease((t-chegadas[i])/0.45)
-        yy=y if ordem==0 else y
-        if ordem==0: yy=int(y-(c.size[1]+40)*(1-k)); a=k
-        else:
-            yy=y; a=1
-        if a<1:
-            c2=c.copy(); c2.putalpha(c2.getchannel('A').point(lambda v:int(v*a))); scr.paste(c2,(30,yy),c2)
-        else: scr.paste(c,(30,yy),c)
-        y=yy+c.size[1]+16 if ordem==0 else y+c.size[1]+16
-    im=FUNDO.copy(); z=1.0+0.05*ease_io(t/dur)
-    celular(im, scr, W//2, 1180, z)
+    chegadas=[0.6,2.4,4.2]
+    scr=lock_fundo().copy(); y=520; ys={}
+    vis=[i for i,c in enumerate(chegadas) if t>=c+0.55]
+    for i in reversed(vis):
+        scr.paste(_cards[i],(30,y),_cards[i]); ys[i]=y; y+=_cards[i].size[1]+16
+    im=FUNDO.copy(); ry=lerp(-22,10,ease_io(t/dur)); rx=4
+    mapa=celular3d(im, scr, W//2, 1200, ry, rx)
     topo_escuro(im,640)
-    if t<3.6: cola_legenda(im,'Notificações','Lembretes de prova, avisos e respostas do mural no celular',t)
-    else: cola_legenda(im,'Notificações','Chegam mesmo com o site fechado. Você escolhe o que receber.',t-3.6)
+    if t<3.4: cola_legenda(im,'Avisos no celular','Os avisos da turma chegam na hora, mesmo com o site fechado',t)
+    else: cola_legenda(im,'Avisos no celular','E você fica sabendo quando respondem ou marcam você no mural',t-3.4)
+    # cada notificação chega grande, na frente, e entra no celular
+    for i,c in enumerate(chegadas):
+        if c<=t<c+0.6:
+            k=ease_io((t-c)/0.6); dx,dy=mapa(16+(30+360)*SCALE,16+(520+_cards[i].size[1]/2)*SCALE)
+            place(im,_cards[i],lerp(540,dx,k),lerp(760,dy,k),lerp(-8,ry,k),lerp(10,rx,k),lerp(-3,0,k),lerp(1.32,SCALE,k),sombra=0.5)
     return im
-# ---------- linha do tempo ----------
-S=SEG
-AREA=[(0,'Área logada','A contagem regressiva até a sua próxima prova',1.32,300),
-      (1.5,'Guia de estudos','Um plano do dia que se monta sozinho, ou do seu jeito',1.0,None),
-      (7.3,'Treinar','Discursiva com correção e revisão dos seus erros',1.0,None),
-      (9.4,'Progresso','Veja o quanto você já estudou em cada disciplina',1.0,None)]
-APOIO=[(0,'Para apoiadores','Seu desempenho por tema e o que revisar primeiro',1.0,None),
-       (4.4,'Para apoiadores','Seu semestre em números, pronto para o story',1.0,None),]
-PSIU=[(0,'Psiu, o colega virtual','Pergunte: ele sabe as datas, os prazos e os conceitos',1.0,None),
-      (7.5,'Psiu, o colega virtual','E também sabe descontrair',1.0,None)]
-MURAL_DUR=15.0
-def _mt(n): return (S[n]-S['mural'])*MURAL_DUR/(S['mural_fim']-S['mural'])
-MURAL=[(0,'Novo · Mural da turma','Tópicos com título e categoria, sempre com o seu nome',1.0,None),
-       (_mt('mural_reac'),'Reações','Curtir, Concordo, Haha, Amei e o Psiu',1.0,None),
-       (_mt('mural_marca'),'Marque colegas','Digite @ e a pessoa fica sabendo na hora',1.0,None),
-       (_mt('mural_melhor'),'Dúvida resolvida','Quem perguntou marca a melhor resposta',1.0,None)]
-SIM=[(0,'Simulados','Escolha o tema, responda e veja a explicação na hora',1.0,None)]
-P1=[(0,'1º período','Vai ter aula das disciplinas do 1º período? Vocês não ficaram de fora!',1.0,None)]
+SIM=[(0,'Simulados','Escolha o tema, responda e veja a explicação na hora')]
+P1=[(0,'1º período','Vai ter aula das disciplinas do 1º período? Vocês não ficaram de fora!')]
+TOTAL=None
+CAPS=[]
 CENAS=[('hook',4.8,lambda t:cena_hook(t)),
- ('home',6.0,lambda t:cena_home(t,6.0)),
- ('numeros',4.8,lambda t:cena_numeros(t)),
- ('c1',1.2,lambda t:cena_capitulo(t,'01','Sua área de estudos','Feita para você estudar todo dia')),
- ('area',13.2,lambda t:cena_gravada(t,13.2,S['area_topo'],S['apoio'],AREA)),
- ('c2',1.2,lambda t:cena_capitulo(t,'02','Área do apoiador','Recursos extras para quem apoia')),
- ('apoio',8.4,lambda t:cena_gravada(t,8.4,S['apoio'],S['psiu'],APOIO)),
- ('c3',1.2,lambda t:cena_capitulo(t,'03','Conheça o Psiu','O colega virtual da turma')),
- ('psiu',14.4,lambda t:cena_gravada(t,14.4,S['psiu'],S['mural']-0.2,PSIU)),
- ('c4',1.2,lambda t:cena_capitulo(t,'04','Mural da turma','Dúvidas, materiais e conversa com a turma')),
- ('mural',MURAL_DUR,lambda t:cena_gravada(t,MURAL_DUR,S['mural'],S['mural_fim'],MURAL)),
- ('c5',1.2,lambda t:cena_capitulo(t,'05','Notificações','O site agora te avisa')),
- ('notif',7.2,lambda t:cena_notif(t,7.2)),
- ('c6',1.2,lambda t:cena_capitulo(t,'06','Simulados','688 questões, separadas por tema')),
- ('sim',6.0,lambda t:cena_gravada(t,6.0,S['sim'],S['p1']-0.3,SIM)),
- ('c7',1.2,lambda t:cena_capitulo(t,'07','1º período','Vocês não ficaram de fora')),
- ('p1',8.4,lambda t:cena_gravada(t,8.4,S['p1'],S['fim'],P1)),
+ ('home',5.4,lambda t:cena_home(t,5.4)),
+ ('numeros',4.5,lambda t:cena_numeros(t)),
+ ('c1',1.0,lambda t:cena_capitulo(t,'01','Plano de estudos','Pronto sozinho ou do seu jeito')),
+ ('plano',PL_D,lambda t:cena_plano(t)),
+ ('c2',1.0,lambda t:cena_capitulo(t,'02','Simulado em PDF','Para imprimir, com gabarito')),
+ ('pdf',6.0,lambda t:cena_pdf(t,6.0)),
+ ('c3',1.0,lambda t:cena_capitulo(t,'03','Seu desempenho','E o seu semestre em números')),
+ ('apoio',AP_D,lambda t:cena_apoio(t)),
+ ('c4',1.0,lambda t:cena_capitulo(t,'04','Conheça o Psiu','O colega virtual da turma')),
+ ('psiu',PS_D,lambda t:cena_psiu(t)),
+ ('c5',1.0,lambda t:cena_capitulo(t,'05','Mural da turma','Conversa, materiais e elogios')),
+ ('mural',MU_D,lambda t:cena_mural(t)),
+ ('c6',1.0,lambda t:cena_capitulo(t,'06','Avisos no celular','O site agora te avisa')),
+ ('notif',7.0,lambda t:cena_notif(t,7.0)),
+ ('c7',1.0,lambda t:cena_capitulo(t,'07','Simulados','688 questões, separadas por tema')),
+ ('sim',6.0,cena_rec(S['sim'],S['p1']-0.3,6.0,SIM)),
+ ('c8',1.0,lambda t:cena_capitulo(t,'08','1º período','Vocês não ficaram de fora')),
+ ('p1',7.0,cena_rec(S['p1'],S['fim'],7.0,P1,-1)),
  ('fim',6.0,lambda t:cena_fim(t))]
+_ini=0
+for n,dur,_ in CENAS:
+    if n.startswith('c') and n[1:].isdigit(): CAPS.append((_ini,n[1:].zfill(2)))
+    if n=='fim': FIM=_ini
+    _ini+=dur
+TOTAL=_ini
+def hud(base,t):
+    d=ImageDraw.Draw(base)
+    d.rectangle((0,0,W,9),fill=(20,52,49)); d.rectangle((0,0,int(W*t/TOTAL),9),fill=OCRE)
+    if CAPS[0][0]<=t<FIM:
+        f=fnt(INTER_B,24); x=W-70-len(CAPS)*54
+        for i,(ti,n) in enumerate(CAPS):
+            on = t>=ti and (i==len(CAPS)-1 or t<CAPS[i+1][0]); past=t>=ti
+            c = OCRE if on else ((120,165,155) if past else (60,100,94))
+            d.rounded_rectangle((x+i*54,40,x+i*54+44,74),radius=8,fill=None if not on else (60,48,30),outline=c,width=2)
+            tw=d.textlength(n,font=f); d.text((x+i*54+22-tw/2,43),n,font=f,fill=c)
 def render(nome):
     inicio=0
     for n,dur,fn in CENAS:
@@ -280,7 +440,7 @@ def render(nome):
         inicio+=dur
     dur,fn=[(d,f) for n,d,f in CENAS if n==nome][0]
     tmp=f'/tmp/vid/ed/{nome}.tmp.mp4'
-    pr=subprocess.Popen(['ffmpeg','-y','-loglevel','error','-f','rawvideo','-pix_fmt','rgb24','-s',f'{W}x{H}','-r','30','-i','-','-c:v','libx264','-crf','19','-preset','veryfast','-pix_fmt','yuv420p',tmp],stdin=subprocess.PIPE)
+    pr=subprocess.Popen(['ffmpeg','-y','-loglevel','error','-f','rawvideo','-pix_fmt','rgb24','-s',f'{W}x{H}','-r','30','-i','-','-c:v','libx264','-crf','20','-preset','veryfast','-pix_fmt','yuv420p',tmp],stdin=subprocess.PIPE)
     n=round(dur*FPS)
     for i in range(n):
         t=i/FPS; im=fn(t); hud(im,inicio+t)
@@ -289,10 +449,15 @@ def render(nome):
     pr.stdin.close(); assert pr.wait()==0; os.replace(tmp,f'/tmp/vid/ed/{nome}.mp4'); print(nome,'ok',flush=True)
 if __name__=='__main__':
     os.makedirs('/tmp/vid/ed',exist_ok=True)
-    if sys.argv[1]=='frame':
-        nome=sys.argv[2]; t=float(sys.argv[3]); inicio=0
+    if sys.argv[1]=='tempos':
+        json.dump({'total':TOTAL,'fim':FIM,'caps':[c for c,_ in CAPS],'t0':CENAS[0][1]},open('/tmp/vid/tempos.json','w')); print(TOTAL,FIM,CAPS)
+    elif sys.argv[1]=='frame':
+        nome=sys.argv[2]; inicio=0
         for n,dur,fn in CENAS:
-            if n==nome: im=fn(t); hud(im,inicio+t); im.save(sys.argv[4],quality=88); break
+            if n==nome:
+                for k,tt in enumerate(sys.argv[3].split(',')):
+                    im=fn(float(tt)); hud(im,inicio+float(tt)); im.save(f'/tmp/vid/fr_{nome}_{k}.jpg',quality=85)
+                break
             inicio+=dur
     else:
         for nome in sys.argv[1:]: render(nome)

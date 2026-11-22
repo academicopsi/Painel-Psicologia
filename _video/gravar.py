@@ -30,7 +30,7 @@ MURAL_SEED = r"""(()=>{
   sessionStorage.setItem('fakeDB', JSON.stringify(d)); localStorage.setItem('av-mural-ok', '1');
 })()"""
 with sync_playwright() as p:
-    b=p.chromium.launch(executable_path='/usr/bin/google-chrome')
+    b=p.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--force-device-scale-factor=2'])   # sem isto o screencast sai em 390×780
     ctx=b.new_context(viewport={'width':390,'height':780}, device_scale_factor=2, service_workers='block'); pg=ctx.new_page()
     errs=[]; pg.on('pageerror', lambda e: errs.append(str(e)))
     def r(route, _q=None):
@@ -63,39 +63,42 @@ with sync_playwright() as p:
     def digita(sel, txt):
         pg.click(sel)
         for ch in txt: pg.keyboard.type(ch); W(55)
+    def rola(dy, ms=900):
+        pg.evaluate("""([dy,ms])=>{const f0=document.getElementById('benFundo');const y0=f0.scrollTop,t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;f0.scrollTop=y0+dy*e;if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}""", [dy, ms]); W(ms+120)
     # HOME
     pg.evaluate("location.hash='#top'"); W(800); pg.evaluate("scrollTo(0,0)"); W(300)
     seg('home'); W(900); suave(560, 1500); W(500); suave(1150, 1300); W(500); suave(0, 1000); W(300)
-    # ÁREA LOGADA
+    # ÁREA + PLANO
     pg.evaluate("switchPage('viewHoje')"); W(700); pg.evaluate("scrollTo(0,0)"); W(200)
-    seg('area_topo'); W(1600)
-    seg('area_plano'); ate('.pg', 90, 900); W(500)
-    toque('[data-hj-modo="meu"]', espera=700); toque('.pg .pl-chips button', idx=1, espera=500); toque('.pg .pl-chips button', idx=4, espera=600)
-    ate('.pg-tarefas', 200, 700); toque('.pg-tarefas .hj-item input', espera=900)
-    seg('area_treino'); ate('.ma-acoes', 260, 900); W(1300)
-    seg('area_prog'); ate('.ma-abas', 70, 700); toque('[data-ma-aba="progresso"]', espera=1400); suave(pg.evaluate("scrollY")+330, 1000); W(800)
-    # APOIADOR
-    seg('apoio'); ate('.ma-abas', 70, 600); toque('[data-ma-aba="ferramentas"]', espera=1300)
+    seg('area_topo'); W(1500)
+    seg('plano_card'); ate('.pg', 80, 900); W(900)
+    toque('.pg-tarefas .hj-item input', espera=900)
+    seg('plano_abre'); toque('.pg-mais', espera=1600)
+    seg('plano_dias'); toque('[data-pl-sel]', idx=1, espera=900); toque('[data-pl-sel]', idx=2, espera=900)
+    rola(380, 900); W(300); toque('.pl4-chk', espera=900)
+    seg('plano_radar'); rola(560, 1000); W(1100)
+    seg('plano_ajuste'); pg.evaluate("document.getElementById('benFundo').scrollTop=0"); W(200); toque('.pl4-aj', espera=900)
+    rola(260, 700); toque('[data-pl-foco=meu]', espera=700); toque('[data-pl-disc]', idx=1, espera=450); toque('[data-pl-disc]', idx=4, espera=500)
+    toque('[data-pl-minb="60"]', espera=600); toque('[data-pl-pronto]', espera=1500)
+    seg('plano_fim'); pg.keyboard.press('Escape'); W(500)
+    # APOIADOR: desempenho e story
+    pg.evaluate("scrollTo(0,0)"); W(200)
+    seg('apoio'); ate('.ma-abas', 70, 600); toque('[data-ma-aba="ferramentas"]', espera=1200)
     toque('[data-ben="desempenho"]', espera=1500)
-    pg.evaluate("document.querySelector('#benFundo .ben-corpo, #benFundo [class*=corpo]')?.scrollBy({top:260,behavior:'smooth'})"); W(1100)
-    pg.keyboard.press('Escape'); W(500)
-    toque('[data-ben="semestre"]', espera=2200)
+    rola(300, 1000); W(600)
     pg.keyboard.press('Escape'); W(400)
-    # PSIU
+    seg('story'); toque('[data-ben="semestre"]', espera=2400)
+    pg.keyboard.press('Escape'); W(400)
+    # PSIU (sem a piada)
     seg('psiu'); pg.evaluate("location.hash='#top'"); W(700); pg.evaluate("scrollTo(0,0)"); W(300)
     toque('#botFab', espera=900)
-    digita('#botInput', 'Quando é a prova de neuro?'); pg.keyboard.press('Enter'); W(2600)
-    digita('#botInput', 'O que é reforço negativo?'); pg.keyboard.press('Enter'); W(3000)
-    seg('psiu2')
-    pg.evaluate("window.__rnd=Math.random; Math.random=()=>0.4")
-    digita('#botInput', 'Me conta uma piada'); pg.keyboard.press('Enter'); W(2800)
-    pg.evaluate("Math.random=window.__rnd")
-    digita('#botInput', 'tô cansado'); pg.keyboard.press('Enter'); W(3200)
+    digita('#botInput', 'Quando é a prova de neuro?'); pg.keyboard.press('Enter'); W(2700)
+    digita('#botInput', 'O que é reforço negativo?'); pg.keyboard.press('Enter'); W(3200)
     pg.click('#botFechar'); W(300)
     # MURAL
     pg.evaluate("location.hash='#top'"); W(500); pg.evaluate("scrollTo(0,0)"); W(300)
     seg('mural'); W(400); toque('#muralBtn', espera=1800)
-    ate('.mu-feed', 230, 1100); W(1000)
+    ate('.mu-feed', 230, 1100); W(900)
     toque('[data-mu-ver=x1] .mu-card-t', espera=1300)
     seg('mural_reac'); toque('[data-mu-reagir=x1]', espera=900); toque('[data-mu-reac="x1|psiu"]', espera=1000)
     seg('mural_marca'); ate('.mu-thread', 120, 800)
@@ -104,7 +107,6 @@ with sync_playwright() as p:
     W(900); toque('[data-mu-sug]', espera=400)
     for ch in 'levo o resumo do vago!': pg.keyboard.type(ch); W(45)
     W(300); toque('[data-mu-comentar] button[type=submit]', espera=1300)
-    seg('mural_melhor'); toque('[data-mu-melhor="x1~k1"]', espera=900); ate('.mu-post', 90, 900); W(1500)
     seg('mural_fim')
     # SIMULADO
     pg.evaluate("location.hash='#disc-02'"); W(1600); ate('.sim-card', 260, 10); W(300)
@@ -119,4 +121,10 @@ with sync_playwright() as p:
     seg('fim'); W(300)
     cdp.send('Page.stopScreencast'); W(300)
     json.dump({'frames':frames,'segs':segs}, open('/tmp/vid/rec.json','w'))
+    # PDF do simulado (o arquivo de verdade que o apoiador baixa)
+    pg.evaluate("location.hash='#top'"); W(600); pg.evaluate("window.print=()=>{}")
+    pg.evaluate("localStorage.setItem('av-semestre','2'); switchPage('viewHoje')"); W(600)
+    pg.click('[data-ma-aba="ferramentas"]'); W(600); pg.click('[data-ben="simpdf"]'); W(600)
+    pg.click('[data-ben-disc="02"]'); W(600); pg.click('[data-spdf]'); W(800)
+    pg.emulate_media(media='print'); pg.pdf(path='/tmp/vid/simulado.pdf', format='A4', print_background=True); pg.emulate_media(media='screen')
     print(len(frames), 'frames', [(s[0], round(s[1]-segs[0][1],1)) for s in segs], 'errs', errs[:3]); b.close()

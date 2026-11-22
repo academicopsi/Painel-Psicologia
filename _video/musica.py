@@ -3,8 +3,11 @@ import numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, lfilter, sosfilt, fftconvolve
 SR=44100; BPM=125; BEAT=60/BPM; BAR=4*BEAT; S16=BEAT/4
-DUR=104.7; T0=4.8; FIM=96.6
-CAPS=[15.6,30.0,39.6,55.2,71.4,79.8,87.0]
+import json, os
+# tempos vêm do editar.py (python3 editar.py tempos); sem o arquivo, usa os da primeira versão
+_tp=json.load(open('/tmp/vid/tempos.json')) if os.path.exists('/tmp/vid/tempos.json') else {'total':102.6,'fim':96.6,'caps':[15.6,30.0,39.6,55.2,71.4,79.8,87.0],'t0':4.8}
+T0=_tp['t0']; FIM=_tp['fim']; DUR=_tp['total']+2.1
+CAPS=_tp['caps']
 N=int(SR*DUR); L=np.zeros(N); R=np.zeros(N); RV=np.zeros(N); SC=np.ones(N)
 rng=np.random.default_rng(7)
 def nota(m): return 440*2**((m-69)/12)
