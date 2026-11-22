@@ -3557,7 +3557,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   /* radar */
   .pl4-radar{list-style:none; margin:0 -8px; padding:0;}
   .pl4-radar button{width:100%; display:flex; gap:12px; align-items:center; font:inherit; text-align:left; color:var(--ink); background:none; border:0; border-radius:12px; padding:9px 8px; cursor:pointer; transition:background .15s;}
-  .pl4-radar button:hover, .pl4-radar button[aria-current="true"]{background:var(--paper-alt);}
+  .pl4-radar button:hover{background:var(--paper-alt);}
   .pl4-r-t{flex:1; min-width:0;}
   .pl4-r-t > b{display:block; font-size:14.5px;}
   .pl4-r-t > small{display:block; font-size:12px; color:var(--ink-faint);}
@@ -3568,10 +3568,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .pl4-cd.perto b, .pl4-cd.perto small{color:#fff;}
   .pl4-prep{display:flex; align-items:center; gap:8px; margin-top:6px;}
   .pl4-prep > span{flex:1; height:5px; border-radius:999px; background:var(--paper-alt); overflow:hidden;}
-  .pl4-radar button:hover .pl4-prep > span, .pl4-radar button[aria-current="true"] .pl4-prep > span{background:var(--paper);}
+  .pl4-radar button:hover .pl4-prep > span{background:var(--paper);}
   .pl4-prep > span i{display:block; height:100%; background:var(--acc, var(--petrol)); border-radius:inherit;}
   .pl4-prep em{flex:none; font-style:normal; font-size:11.5px; font-weight:700; color:var(--ink-soft);}
-  .pl4-prep em.lg{font-weight:600; color:var(--ink-faint);}
+  .pl4-prep em.pl4-prep-txt{font-weight:600; color:var(--ink-faint); white-space:normal;}
   .pl4-sobra{display:flex; flex-direction:column; align-items:flex-start; gap:8px; margin:12px -18px -18px; padding:14px 18px; border-top:1px solid var(--rule); background:var(--ochre-soft); border-radius:0 0 var(--r) var(--r); font-size:13px; line-height:1.45; color:var(--ink-soft);}
   .pl4-sobra b{color:var(--ink);}
   .pl4-sobra button{font:inherit; font-size:13px; font-weight:700; color:#8A5A1F; background:none; border:0; padding:0; cursor:pointer; text-decoration:underline; text-underline-offset:3px;}
@@ -23498,7 +23498,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       const its = pl.dias.flatMap(d => d.itens).filter(t => t.disc === p.disc), f = its.filter(t => cfg.feitos[t.k]).length, pc = its.length ? Math.round(f / its.length * 100) : 0, dn = plDiasAte(p.data);
       return `<li><button data-pl-sel="${p.data}" data-d="${escHTML(p.disc)}"${p.data === diaSel ? ' aria-current="true"' : ''}><span class="pl4-cd${dn <= 3 ? ' perto' : ''}"><b>${dn === 0 ? 'Hoje' : dn}</b>${dn === 0 ? '' : `<small>${dn === 1 ? 'dia' : 'dias'}</small>`}</span>
         <span class="pl4-r-t"><b>${escHTML(plCurto(p.disc))}</b><small>${dataBR(p.data, {weekday:'short', day:'2-digit', month:'2-digit'})}</small>
-        <span class="pl4-prep">${its.length ? `<span><i style="width:${pc}%"></i></span><em>${pc}%</em>` : `<em class="lg">${cfg.foco.length && !cfg.foco.includes(p.disc) ? 'Fora das escolhidas' : 'Preparação em dia'}</em>`}</span></span></button></li>`; }).join('')}</ol>
+        <span class="pl4-prep">${its.length ? `<span><i style="width:${pc}%"></i></span><em>${pc}%</em>` : `<em class="pl4-prep-txt">${cfg.foco.length && !cfg.foco.includes(p.disc) ? 'Fora das escolhidas' : 'Preparação em dia'}</em>`}</span></span></button></li>`; }).join('')}</ol>
       ${sobra ? `<footer class="pl4-sobra"><span><b>${sobra} ${sobra === 1 ? 'atividade ficou' : 'atividades ficaram'} de fora</b> por falta de tempo.</span><button data-pl-ajuste>Aumentar tempo</button></footer>` : ''}</section>`;
   }
   function planoHTML(){
