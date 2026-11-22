@@ -58,6 +58,29 @@ function prazos(){
 }
 function isoBR(somaDias){ const d = new Date(Date.now() - 3 * 3600e3 + somaDias * 864e5); return d.toISOString().slice(0, 10); }
 
+// lembretes de prazos: uma vez por dia, entre 18h07 e 23h (Brasília), nunca repetidos no mesmo dia
+async function lembretes(){
+  const agoraBR = new Date(Date.now() - 3 * 3600e3), min = agoraBR.getUTCHours() * 60 + agoraBR.getUTCMinutes(), hoje = isoBR(0);
+  if(min < 18 * 60 + 7 || min > 23 * 60){ console.log('Fora do horário dos lembretes (18h07 às 23h).'); return; }
+  const marca = db.ref('pedidos/_lembretes/ultimo');
+  if((await marca.get()).val() === hoje){ console.log('Lembretes de hoje já enviados.'); return; }
+  await marca.set(hoje);
+  const amanha = isoBR(1), em3 = isoBR(3);
+  const lista = prazos().filter(t => t.prazo === amanha || (t.prazo === em3 && /prova/i.test(t.tarefa)));
+  if(!lista.length){ console.log('Nenhum prazo para lembrar hoje.'); return; }
+  const dest = await destinos('provas', 'todos');
+  const um = a => a[Math.floor(Math.random() * a.length)];
+  for(const t of lista){
+    const prova = /prova/i.test(t.tarefa), amanhaJa = t.prazo === amanha;
+    const titulo = `Psiu! ${amanhaJa ? 'Amanhã' : 'Em 3 dias'}: ${t.tarefa} de ${t.materia}`;
+    const corpo = prova
+      ? (amanhaJa ? um(['Um simulado hoje e você chega tranquilo. Já deixei o café pronto.', 'Bora revisar os erros? Eu seguro o cronômetro.', 'Respira, revisa o resumo e dorme cedo. Eu acredito em você!'])
+                  : um(['Ainda dá tempo de estudar com calma. Que tal começar pelo resumo hoje?', 'Três dias: um resumo por dia e um simulado no fim. Topa?']))
+      : (amanhaJa ? um(['Já está pronto? Se faltar algo, ainda dá tempo hoje.', 'Não deixa para a madrugada, hein. Eu cochilo e você não!']) : 'Começar hoje deixa tudo mais leve. Bora?');
+    await enviar(dest, titulo, corpo, BASE, 'prazo-' + t.prazo + '-' + t.materia);
+  }
+}
+
 const modo = process.env.MODO || 'aviso';
 if(modo === 'aviso'){
   const arq = process.env.ARQUIVO;
@@ -66,6 +89,7 @@ if(modo === 'aviso'){
   if(!p.mensagem){ console.log('Sem mensagem.'); process.exit(0); }
   await enviar(await destinos('avisos', p.publico), p.titulo || 'Psiu!', p.mensagem, p.link, p.tag);
 } else if(modo === 'mural'){
+  await lembretes();
   // avisos escritos no Painel do administrador: fila em pedidos/<uid do administrador>/fila
   {
     let admUid = null;
@@ -122,19 +146,6 @@ if(modo === 'aviso'){
   await marco.set(agora);
   console.log(`::notice::Mural: ${n} notificações para ${fila.size} pessoas.`);
 } else {
-  const amanha = isoBR(1), em3 = isoBR(3);
-  const lista = prazos().filter(t => t.prazo === amanha || (t.prazo === em3 && /prova/i.test(t.tarefa)));
-  if(!lista.length){ console.log('Nenhum prazo para lembrar hoje.'); process.exit(0); }
-  const dest = await destinos('provas', 'todos');
-  const um = a => a[Math.floor(Math.random() * a.length)];
-  for(const t of lista){
-    const prova = /prova/i.test(t.tarefa), amanhaJa = t.prazo === amanha;
-    const titulo = `Psiu! ${amanhaJa ? 'Amanhã' : 'Em 3 dias'}: ${t.tarefa} de ${t.materia}`;
-    const corpo = prova
-      ? (amanhaJa ? um(['Um simulado hoje e você chega tranquilo. Já deixei o café pronto.', 'Bora revisar os erros? Eu seguro o cronômetro.', 'Respira, revisa o resumo e dorme cedo. Eu acredito em você!'])
-                  : um(['Ainda dá tempo de estudar com calma. Que tal começar pelo resumo hoje?', 'Três dias: um resumo por dia e um simulado no fim. Topa?']))
-      : (amanhaJa ? um(['Já está pronto? Se faltar algo, ainda dá tempo hoje.', 'Não deixa para a madrugada, hein. Eu cochilo e você não!']) : 'Começar hoje deixa tudo mais leve. Bora?');
-    await enviar(dest, titulo, corpo, BASE, 'prazo-' + t.prazo + '-' + t.materia);
-  }
+  await lembretes();
 }
 process.exit(0);
