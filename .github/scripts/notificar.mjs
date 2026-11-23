@@ -39,6 +39,36 @@ async function destinos(tipo, publico){
   return out;
 }
 
+// alertas só para o administrador: pedido de liberação de conta e aviso de Pix de apoiador.
+// Guarda o que já foi avisado em admNotif (fora de pedidos, para não aparecer na lista de acessos).
+async function alertasAdmin(admUid){
+  const [pe, ac, mk, pf] = await Promise.all(['pedidos', 'acesso', 'admNotif', 'perfis'].map(k => db.ref(k).get().then(v => v.val())));
+  const pedidos = pe || {}, acesso = ac || {}, marca = mk || {}, primeira = !mk;
+  const novos = {acesso: [], pix: []}, grava = {};
+  for(const [uid, p] of Object.entries(pedidos)){
+    if(!p || uid === admUid) continue;
+    const nome = (p.nome || (p.push && p.push.nome) || ((pf || {})[uid] || {}).nome || (p.email || '').split('@')[0] || 'Alguém').trim();
+    // conta nova esperando liberação: avisa uma vez por pessoa
+    if(p.email && acesso[uid] !== true && !(marca.acesso && marca.acesso[uid])){ novos.acesso.push(nome); grava['acesso/' + uid] = Date.now(); }
+    // "Já fiz o Pix": avisa a cada aviso novo
+    const a = p.apoio;
+    if(a && a.em && !(marca.pix && marca.pix[uid] >= a.em)){ novos.pix.push({nome, valor: a.valor}); grava['pix/' + uid] = a.em; }
+  }
+  if(primeira) grava.ini = Date.now();
+  if(!Object.keys(grava).length) return;
+  await db.ref('admNotif').update(grava);
+  if(primeira){ console.log('::notice::Alertas do administrador ativados (pendências antigas marcadas como vistas).'); return; }
+  const dest = await destinos(null, 'admin');
+  if(novos.acesso.length){
+    const n = novos.acesso.length;
+    await enviar(dest, n === 1 ? 'Pedido de acesso' : n + ' pedidos de acesso', (n === 1 ? novos.acesso[0] + ' criou a conta e espera ser liberado.' : novos.acesso.slice(0, 3).join(', ') + (n > 3 ? ' e mais ' + (n - 3) : '') + ' esperam liberação.') + ' Toque para abrir Acessos.', BASE + '#admin', 'adm-acesso');
+  }
+  for(const x of novos.pix){
+    await enviar(dest, 'Pix de apoiador', `${x.nome} avisou que fez o Pix${x.valor ? ' de R$ ' + x.valor : ''}. Confira e libere o selo.`, BASE + '#admin', 'adm-pix-' + x.nome);
+  }
+  console.log(`::notice::Alertas do administrador: ${novos.acesso.length} acesso(s), ${novos.pix.length} Pix.`);
+}
+
 async function enviar(lista, titulo, mensagem, link, tag){
   const entregues = [];
   if(!lista.length){ console.log('::notice::Ninguém para receber (nenhum aparelho ativado para este público).'); return entregues; }
@@ -108,6 +138,7 @@ if(modo === 'aviso'){
   {
     let admUid = null;
     try{ admUid = (await admin.auth().getUserByEmail(ADMIN_EMAIL)).uid; }catch(e){ console.log('::warning::Conta do administrador não encontrada: ' + e.message); }
+    if(admUid) await alertasAdmin(admUid);
     if(admUid){
       const filaRef = db.ref('pedidos/' + admUid + '/fila'), f = (await filaRef.get()).val() || {};
       for(const [id, a] of Object.entries(f)){
