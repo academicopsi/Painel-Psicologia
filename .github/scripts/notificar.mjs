@@ -12,6 +12,8 @@ if(!SA){ console.log('Segredo FIREBASE_SERVICE_ACCOUNT ainda não configurado. N
 admin.initializeApp({ credential: admin.credential.cert(JSON.parse(SA)), databaseURL: 'https://arquivo-vivo-psi-default-rtdb.firebaseio.com' });
 const db = admin.database();
 const ADMIN_EMAIL = 'thiagodentalbeauty@gmail.com';
+let ADM_UID = null;
+try{ ADM_UID = (await admin.auth().getUserByEmail(ADMIN_EMAIL)).uid; }catch(_){}
 const SITE = process.env.SITE_ARQUIVO || 'v3/index.html';       // na virada para o oficial: index.html
 const BASE = process.env.SITE_URL || 'https://academicopsi.github.io/Painel-Psicologia/v3/';
 
@@ -23,7 +25,8 @@ async function destinos(tipo, publico){
   const out = [], vistos = new Set();
   for(const [uid, p] of Object.entries(pe)){
     const pu = p && p.push; if(!pu || !pu.token) continue;
-    if(publico === 'admin' && (pu.email || p.email) !== ADMIN_EMAIL) continue;
+    // o administrador é reconhecido pela conta (uid), não pelo e-mail gravado em pedidos, que o próprio usuário consegue editar
+    if(publico === 'admin' && (ADM_UID ? uid !== ADM_UID : (pu.email || p.email) !== ADMIN_EMAIL)) continue;
     if(publico && publico.uid && publico.uid !== uid) continue;
     if(publico && publico.uids && !publico.uids[uid]) continue;
     const sem = String(pu.sem || (perfis[uid] && perfis[uid].sem) || '2');
@@ -137,7 +140,7 @@ if(modo === 'aviso'){
   // avisos escritos no Painel do administrador: fila em pedidos/<uid do administrador>/fila
   {
     let admUid = null;
-    try{ admUid = (await admin.auth().getUserByEmail(ADMIN_EMAIL)).uid; }catch(e){ console.log('::warning::Conta do administrador não encontrada: ' + e.message); }
+    try{ admUid = ADM_UID = (await admin.auth().getUserByEmail(ADMIN_EMAIL)).uid; }catch(e){ console.log('::warning::Conta do administrador não encontrada: ' + e.message); }
     if(admUid) await alertasAdmin(admUid);
     if(admUid){
       const filaRef = db.ref('pedidos/' + admUid + '/fila'), f = (await filaRef.get()).val() || {};
