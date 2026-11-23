@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Arquivo Vivo · acesso restrito</title><link rel="icon" type="image/png" sizes="32x32" href="../icons/icon-32.png">
+<style>
+  body{margin:0; min-height:100vh; display:grid; place-items:center; background:#F5F7F6; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color:#14211F;}
+  form{width:min(360px, calc(100vw - 40px)); background:#fff; border:1px solid #DFE6E4; border-radius:18px; padding:26px 22px; box-shadow:0 10px 30px rgba(20,33,31,.08);}
+  .eb{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#1F5C56; background:#E3EFEC; border-radius:999px; padding:3px 10px;}
+  h1{font-family:Georgia, serif; font-size:24px; margin:12px 0 6px;} p{margin:0 0 16px; font-size:14px; color:#5B6A67; line-height:1.5;}
+  input[type=password]{width:100%; box-sizing:border-box; font:inherit; font-size:16px; padding:12px 14px; border:1px solid #DFE6E4; border-radius:11px; background:#F0F4F3;}
+  label.lem{display:flex; align-items:center; gap:8px; margin:12px 0 16px; font-size:13.5px; color:#5B6A67;}
+  button{width:100%; font:inherit; font-size:15px; font-weight:700; color:#fff; background:#1F5C56; border:0; border-radius:11px; padding:12px; cursor:pointer;}
+  #msg{min-height:20px; margin-top:10px; font-size:13px; color:#B5432E;}
+</style></head><body>
+<form id="f" autocomplete="off"><span class="eb">Acesso restrito</span><h1>Página privada</h1><p>Esta página é protegida por senha. Sem ela, o conteúdo não pode ser lido.</p>
+<input type="password" id="s" placeholder="Senha" autocomplete="current-password" required>
+<label class="lem"><input type="checkbox" id="l" checked> Lembrar neste aparelho</label>
+<button type="submit">Entrar</button><div id="msg"></div></form>
+<script>
+const P = __PACOTE__;
+const b64 = t => Uint8Array.from(atob(t), c => c.charCodeAt(0));
+async function abrir(senha){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(senha), 'PBKDF2', false, ['deriveKey']);
+  const k = await crypto.subtle.deriveKey({name:'PBKDF2', salt:b64(P.s), iterations:P.i, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  const html = new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM', iv:b64(P.n)}, k, b64(P.c)));
+  document.open(); document.write(html); document.close();
+}
+const LS = 'av-priv-exp';
+(async () => { let s = null; try{ s = localStorage.getItem(LS); }catch(_){} if(s){ try{ await abrir(s); return; }catch(_){ try{ localStorage.removeItem(LS); }catch(e){} } } })();
+document.getElementById('f').addEventListener('submit', async e => {
+  e.preventDefault(); const s = document.getElementById('s').value, m = document.getElementById('msg'); m.textContent = 'Abrindo…';
+  try{ if(document.getElementById('l').checked){ try{ localStorage.setItem(LS, s); }catch(_){} } await abrir(s); }
+  catch(_){ try{ localStorage.removeItem(LS); }catch(e){} m.textContent = 'Senha incorreta.'; }
+});
+</script></body></html>
