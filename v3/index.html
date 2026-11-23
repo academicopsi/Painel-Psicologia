@@ -24936,6 +24936,11 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     C.perfis[eu.uid] = p;
     if(ant !== nov){ try{ await B().gravar('perfis/' + eu.uid, p); }catch(e){} }
   }
+  // todo colega liberado entra em Membros ao abrir o site, mesmo sem abrir o mural (uma vez por visita)
+  let perfilAuto = false;
+  const perfilAoEntrar = () => { if(perfilAuto) return; const eu = EU(); if(!eu || !eu.liberado || !B()) return; perfilAuto = true; clearInterval(perfilTimer); setTimeout(salvarPerfil, 2500); };
+  const perfilTimer = setInterval(perfilAoEntrar, 3000);
+  document.addEventListener('av-apoio', perfilAoEntrar);
   async function carregar(){
     const eu = EU(); if(!eu || !B()) return;
     estado = estado === 'pronto' ? 'atualizando' : 'carregando'; erro = ''; render();
@@ -25110,7 +25115,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   }
   function membrosHTML(eu){
     const at = atividade(), lista = Object.keys(C.perfis).filter(u => C.perfis[u] && C.perfis[u].nome).sort((a, b) => ((at[b] || {}).ult || 0) - ((at[a] || {}).ult || 0) || nomeDe(a).localeCompare(nomeDe(b)));
-    if(!lista.length) return '<section class="mu-vazio"><b>Ninguém por aqui ainda</b><p>Os membros aparecem quando abrem o mural pela primeira vez.</p></section>';
+    if(!lista.length) return '<section class="mu-vazio"><b>Ninguém por aqui ainda</b><p>Os colegas aparecem aqui quando entram no site.</p></section>';
     return `<div class="mu-membros">${lista.map(u => { const p = C.perfis[u], a = at[u] || {t:0, r:0};
       return `<button class="mu-membro" data-mu-perfil="${esc(u)}">${avatar(u, p.nome, 'mu-av-l')}<b>${esc(p.nome)}${selo(u)}</b><small>${p.sem ? p.sem + 'º semestre' : 'Psicologia'}${u === eu.uid ? ' · você' : ''}</small><span class="mu-membro-n">${plural(a.t, 'tópico', 'tópicos')} · ${plural(a.r, 'resposta', 'respostas')}</span>${a.m ? `<em class="mu-resolvida">${ic('certo')} ${plural(a.m, 'melhor resposta', 'melhores respostas')}</em>` : ''}</button>`; }).join('')}</div>`;
   }
