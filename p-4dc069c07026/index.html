@@ -2545,6 +2545,11 @@ function exhFolhaHTML(){
       ${st.ps.length > 1 ? `<button type="button" class="link-btn exh-limpar" data-exh-remover>Remover ${escHTML(sigla)}</button>` : ''}
       <button type="button" class="link-btn exh-limpar" data-exh-limpar>Limpar a folha de ${escHTML(sigla)}</button>
     </div>
+    <h4 class="rt-h">Trabalho completo nas normas da ABNT</h4>
+    <p class="exh-nota" style="margin-top:0;">Monta o relatório inteiro com os seus dados: capa, folha de rosto, resumo, sumário, introdução, método, resultados com tabela e gráfico, discussão, considerações finais, referências e apêndices (instrução, lista de verbos, folha de registro e entrevista). Usa o nome e a matrícula de cima; as respostas da entrevista vêm das 3 perguntas da folha.</p>
+    <div class="exh-campos">${campo('titulo','Título','Reforço positivo e comportamento verbal')}${campo('subtitulo','Subtítulo (opcional)','efeito do elogio sobre o uso do pronome…')}${campo('prof','Professora','Ana Carolina Miranda')}${campo('inst','Instituição','Afya Universidade Unigranrio')}${campo('cidade','Cidade','Rio de Janeiro')}${campo('ano','Ano', String(new Date().getFullYear()))}</div>
+    <div class="exh-acoes"><label class="btn" style="cursor:pointer;">Logo da faculdade para a capa (opcional)<input type="file" accept="image/*" data-exh-logo hidden></label>${f.logo ? '<button type="button" class="link-btn exh-limpar" data-exh-logo-tirar>Tirar a logo</button>' : ''}<small id="exhLogoOk">${f.logo ? 'Logo salva.' : 'Sem logo: a capa usa o nome da instituição.'}</small></div>
+    <div class="exh-acoes"><button type="button" class="btn btn-primary" data-exh-abnt>Gerar o trabalho completo (ABNT)</button></div>
     <p class="exh-nota">Tudo fica salvo só neste aparelho. As contas e os gráficos seguem o modelo dos vídeos da pasta: frequência relativa = frequência absoluta × 100 ÷ 10 na linha de base (LB) e ÷ 30 na intervenção (INT), e gráfico de colunas LB × INT por pronome.</p>`;
 }
 function exhResumoTexto(st){ return st.ps.map((p,i)=> `${exhSigla(st, i)}: ${exhCalc(p).registradas} de 40`).join(' · '); }
@@ -2631,6 +2636,270 @@ document.getElementById('discPage').addEventListener('change', e=>{ if(e.target.
 
 document.getElementById('discPage').innerHTML = exhHTML();
 document.getElementById('exh').open = true;
+</script>
+<script>
+// ===== Trabalho completo nas normas da ABNT, montado com os dados da folha =====
+// Monta capa, folha de rosto, resumo, sumário, seções, referências e apêndices; pagina em A4 no próprio navegador
+// (margens 3/2 cm, Times 12, 1,5, numeração no canto superior direito a partir da introdução, contando desde a folha de rosto).
+function abntEsc(t){ return escHTML(t == null ? '' : String(t)); }
+function abntFalta(rot){ return `<mark>[preencher:&nbsp;${String(rot).replace(/ /g, '&nbsp;')}]</mark>`; }
+function abntPct(n){ return exhFmt(n) + '%'; }
+function abntLista(a){ return a.length <= 1 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' e ' + a[a.length - 1]; }
+function abntSexo(s){ s = String(s || '').trim().toLowerCase(); if(!s) return ''; if(/^f/.test(s)) return 'do sexo feminino'; if(/^m/.test(s)) return 'do sexo masculino'; return s; }
+function abntConteudo(st, idx){
+  const f = st.f || {}, ano = (f.ano || String(new Date().getFullYear())).trim();
+  const inst = (f.inst || 'Afya Universidade Unigranrio').trim(), disc = (f.disc || 'Análise Experimental e Aplicada ao Comportamento II').trim();
+  const prof = (f.prof || 'Ana Carolina Miranda').trim(), cidade = (f.cidade || 'Rio de Janeiro').trim();
+  const autor = f.nome ? abntEsc(f.nome) : abntFalta('seu nome completo');
+  const mat = f.mat ? ' - ' + abntEsc(f.mat) : '';
+  const ps = idx.map(i => { const p = st.ps[i], k = exhCalc(p); return {i, p, k, sigla: exhSigla(st, i), alvo: k.alvo >= 0 ? EXH.pronomes[k.alvo] : null}; });
+  const alvos = [...new Set(ps.map(x => x.alvo).filter(Boolean))];
+  const alvoTxt = alvos.length ? abntLista(alvos.map(a => a.toUpperCase())) : 'EU ou NÓS';
+  const titulo = abntEsc((f.titulo || 'Reforço positivo e comportamento verbal').trim());
+  const sub = abntEsc((f.subtitulo || `efeito do elogio sobre o uso do pronome ${alvoTxt}`).trim());
+  const N = ps.length, plural = N > 1;
+  const cita = (a, ano_, pg) => `(${a}, ${ano_}${pg ? ', p. ' + pg : ''})`;
+  // resultado de cada participante
+  const res = ps.map(x => { if(x.k.alvo < 0) return Object.assign(x, {a: 0, b: 0, d: 0, tipo: 'sem'}); const a = x.k.lb.pct[x.k.alvo], b = x.k.rf.pct[x.k.alvo], d = b - a; return Object.assign(x, {a, b, d, tipo: d > 0 ? 'sobe' : d < 0 ? 'cai' : 'igual'}); });
+  const subiram = res.filter(x => x.tipo === 'sobe').length;
+  const pp = n => exhFmt(Math.abs(n)) + (Math.abs(n) === 1 ? ' ponto percentual' : ' pontos percentuais');
+  const fraseRes = x => x.tipo === 'sem' ? `${x.sigla}: ${abntFalta('pronome reforçado')}` :
+    `com ${x.sigla}, o pronome ${x.alvo.toUpperCase()} passou de ${abntPct(x.a)} na linha de base para ${abntPct(x.b)} na intervenção (${x.tipo === 'sobe' ? 'aumento de ' + pp(x.d) : x.tipo === 'cai' ? 'redução de ' + pp(x.d) : 'sem alteração'})`;
+  const partDesc = x => { const p = x.p, sx = abntSexo(p.sexo); const partes = [sx, p.idade ? abntEsc(p.idade) + ' anos' : '']; const t = partes.filter(Boolean).join(', ');
+    return `${x.sigla}, ${t || abntFalta('sexo e idade de ' + x.sigla)}`; };
+  const B = []; // blocos: {t:'h1'|'h2'|'p'|'html'|'tabela'|'quebra', ...}
+  const P = html => B.push({t: 'p', html}), H1 = (txt, extra) => B.push(Object.assign({t: 'h1', txt}, extra || {})), H2 = txt => B.push({t: 'h2', txt});
+  // ---------- elementos pré-textuais ----------
+  const logo = f.logo ? `<img class="logo" src="${f.logo}" alt="">` : `<div class="inst-txt">${abntEsc(inst.toUpperCase())}</div>`;
+  B.push({t: 'pagina', cls: 'capa', html: `${logo}<div class="capa-top">Psicologia<br>Disciplina: ${abntEsc(disc)}<br>Professor(a): ${abntEsc(prof)}</div>
+    <div class="capa-autor">DISCENTE:<br>${autor}${mat}</div>
+    <div class="capa-tit"><b>${titulo.toUpperCase()}</b><span>${sub.charAt(0).toUpperCase() + sub.slice(1)}</span></div>
+    <div class="capa-pe">${abntEsc(cidade)}<br>${abntEsc(ano)}</div>`});
+  B.push({t: 'pagina', cls: 'rosto', html: `<div class="capa-autor rosto-autor">${autor}</div>
+    <div class="capa-tit"><b>${titulo.toUpperCase()}</b><span>${sub.charAt(0).toUpperCase() + sub.slice(1)}</span></div>
+    <div class="natureza">Relatório de experimento apresentado à disciplina ${abntEsc(disc)}, do curso de Psicologia da ${abntEsc(inst)}${f.uni ? ', unidade ' + abntEsc(f.uni) : ''}, como requisito parcial para avaliação.<br><br>Professora: ${abntEsc(prof)}.</div>
+    <div class="capa-pe">${abntEsc(cidade)}<br>${abntEsc(ano)}</div>`});
+  const resumoRes = res.map(fraseRes).join('; ');
+  const resumoConcl = subiram === N ? 'O aumento do pronome reforçado indica efeito do reforço positivo verbal sobre a escolha do pronome, o que está de acordo com a literatura sobre condicionamento operante do comportamento verbal.'
+    : subiram === 0 ? 'Como o pronome reforçado não aumentou, discutem-se variáveis que podem ter impedido o efeito do reforço, como a função do elogio para o participante e a formulação de regras durante a tarefa.'
+    : 'Os resultados variaram entre os participantes, o que é discutido à luz da história de cada um e das variáveis de controle do procedimento.';
+  B.push({t: 'pagina', cls: 'resumo', html: `<h1 class="pre">RESUMO</h1><p class="resumo-txt">Este relatório descreve um experimento de análise do comportamento verbal realizado na disciplina ${abntEsc(disc)}. O objetivo foi verificar se elogios verbais apresentados logo após frases iniciadas por um pronome escolhido aumentam a frequência de uso desse pronome. ${plural ? `Participaram ${N} pessoas` : 'Participou uma pessoa'}, que não ${plural ? 'eram estudantes' : 'era estudante'} de Psicologia. Com base no procedimento descrito por Matos e Tomanari (2002), foram apresentados 40 slides, cada um com um verbo no infinitivo e a lista dos pronomes pessoais do caso reto, e o participante formava em voz alta uma frase que começasse por um dos pronomes e contivesse o verbo. Nas 10 primeiras tentativas (linha de base), nenhuma frase foi seguida de consequência; nas 30 seguintes (intervenção), as frases iniciadas pelo pronome ${alvoTxt} foram seguidas de elogios como "Certo" e "Muito bem". Os dados foram analisados pela frequência relativa de cada pronome em cada fase: ${resumoRes}. ${resumoConcl}</p>
+    <p class="palavras"><b>Palavras-chave:</b> análise do comportamento; reforço positivo; comportamento verbal; condicionamento operante.</p>`});
+  B.push({t: 'sumario'});
+  // ---------- 1 INTRODUÇÃO ----------
+  H1('1 INTRODUÇÃO', {novaPag: true, conta: true});
+  P(`A análise do comportamento estuda as relações entre o que um organismo faz e o ambiente em que isso acontece. No comportamento operante, a probabilidade de uma resposta voltar a ocorrer depende das consequências que ela produziu no passado ${cita('Skinner', 2003)}. Essa relação é descrita pela contingência tríplice: uma situação antecedente, uma resposta do organismo e uma consequência produzida no ambiente ${cita('Moreira; Medeiros', 2007)}.`);
+  P(`Chama-se reforço positivo a consequência que, acrescentada ao ambiente logo após uma resposta, aumenta a frequência dessa resposta. Entre seres humanos, muitas das consequências mais poderosas são sociais: atenção, aprovação e elogio funcionam como reforçadores condicionados, porque foram associados ao longo da história de cada pessoa a muitos outros reforçadores ${cita('Skinner', 2003)}.`);
+  P(`O comportamento verbal também é operante: falar é uma resposta mantida pelas consequências fornecidas por quem ouve. Por isso, pequenas reações do ouvinte podem alterar o que é dito. Greenspoon (1955) mostrou que um simples "mm-hmm" dito pelo experimentador depois de substantivos no plural aumentou a frequência dessas palavras. Taffel (1955) criou uma tarefa em que os participantes formavam frases com um verbo e um de seis pronomes pessoais; quando as frases iniciadas por "eu" ou "nós" eram seguidas da palavra "bom", esses pronomes passaram a ser escolhidos com mais frequência.`);
+  P(`Matos e Tomanari (2002) adaptaram esse procedimento para o laboratório didático de análise do comportamento, em uma atividade que permite observar com segurança ética os efeitos do reforço sobre o comportamento humano. O presente trabalho reproduz essa atividade.`);
+  P(`O objetivo foi verificar se o elogio verbal, apresentado de forma contingente ao uso do pronome ${alvoTxt}, aumenta a frequência relativa desse pronome na intervenção, em comparação com a linha de base.`);
+  // ---------- 2 MÉTODO ----------
+  H1('2 MÉTODO', {novaPag: true});
+  H2('2.1 Participante' + (plural ? 's' : ''));
+  P(`${plural ? 'Participaram do experimento ' + abntLista(ps.map(partDesc)) + '.' : 'Participou do experimento ' + partDesc(ps[0]) + '.'} Seguindo os critérios da atividade, ${plural ? 'nenhum participante era estudante' : 'o participante não era estudante'} de Psicologia nem ${plural ? 'tinha' : 'tinha'} menos de 10 anos. Para preservar o anonimato, ${plural ? 'os participantes são identificados' : 'o participante é identificado'} apenas por sigla.`);
+  H2('2.2 Material');
+  P(`Foi usada uma apresentação de 40 slides. Cada slide trazia um verbo no infinitivo, retirado da lista de Matos e Tomanari (2002, p. 236), e a lista dos pronomes pessoais do caso reto: Eu, Tu, Ele/Ela, Nós, Vós e Eles/Elas. A lista completa dos verbos, na ordem de apresentação, está no Apêndice B. As respostas foram anotadas em uma folha de registro (Apêndice C), e as respostas à entrevista final, em roteiro próprio (Apêndice D).`);
+  H2('2.3 Procedimento');
+  P(`A sessão foi única e individual. Antes de começar, o participante foi informado de que se tratava de um trabalho da disciplina, de que poderia interromper a qualquer momento sem nenhum prejuízo, e só se iniciou a tarefa após sua concordância. Em seguida, o experimentador leu uma instrução padronizada (Apêndice A), que pedia que o participante dissesse em voz alta uma frase começando por um dos pronomes do slide e contendo o verbo apresentado, em qualquer tempo verbal. O experimentador ficou ao lado do participante, controlando a passagem dos slides.`);
+  P(`O experimento teve duas fases, aplicadas em sequência na mesma sessão. Na Fase I, linha de base (LB), que correspondeu aos verbos 1 a 10, nenhuma frase foi seguida de consequência: o experimentador apenas registrava o pronome usado e passava ao slide seguinte. Na Fase II, intervenção (INT), que correspondeu aos verbos 11 a 40, toda frase iniciada pelo pronome escolhido foi seguida, logo após o seu término, de um elogio verbal ("Certo", "Muito bem", "Ótimo" ou "Muito bom"), variado ao acaso e dito de forma natural. As frases com os demais pronomes não tiveram consequência programada, e o experimentador evitou sorrisos, acenos ou olhares de aprovação que pudessem funcionar como reforço não planejado.`);
+  P(`O pronome reforçado foi escolhido entre EU e NÓS depois da linha de base, com a condição de ter aparecido pelo menos duas vezes nessa fase. ${ps.filter(x => x.alvo).map(x => `Para ${x.sigla}, o pronome reforçado foi ${x.alvo.toUpperCase()}`).join('; ') || abntFalta('pronome reforçado')}. Frases sem pronome ou sem o verbo seriam anuladas; quando o participante se corrigia, registrava-se a segunda resposta. Ao final, o participante respondeu a três perguntas sobre como construiu as frases (Apêndice D).`);
+  H2('2.4 Análise dos dados');
+  P(`Para cada fase, calculou-se a frequência absoluta de cada pronome (número de vezes em que foi usado) e a frequência relativa, em porcentagem, dividindo a frequência absoluta pelo número de tentativas da fase e multiplicando por 100 (÷ 10 na linha de base e ÷ 30 na intervenção). A frequência relativa permite comparar fases de tamanhos diferentes. Os resultados foram organizados em tabela e em gráfico de colunas.`);
+  // ---------- 3 RESULTADOS ----------
+  H1('3 RESULTADOS', {novaPag: true});
+  let nT = 0, nG = 0;
+  res.forEach(x => {
+    const k = x.k, Pn = EXH.pronomes;
+    const lbMax = Math.max(...k.lb.c), lbTop = Pn.filter((_, j) => k.lb.c[j] === lbMax && lbMax > 0);
+    const outros = Pn.map((n, j) => ({n, j, d: k.rf.pct[j] - k.lb.pct[j]})).filter(o => o.j !== k.alvo && o.d < 0).sort((a, b) => a.d - b.d);
+    if(plural) H2(`3.${res.indexOf(x) + 1} Participante ${x.sigla}`);
+    P(`Na linha de base, ${x.sigla} usou com mais frequência ${lbTop.length ? (lbTop.length > 1 ? 'os pronomes ' : 'o pronome ') + abntLista(lbTop) + ' (' + abntPct(lbMax * 10) + (lbTop.length > 1 ? ' cada' : '') + ')' : abntFalta('registros da linha de base')}. A Tabela ${nT + 1} apresenta a frequência absoluta e relativa de cada pronome nas duas fases.`);
+    nT++;
+    B.push({t: 'tabela', titulo: `Tabela ${nT} – Frequência absoluta (FA) e relativa (FR) dos pronomes na linha de base (LB) e na intervenção (INT) – ${x.sigla}${x.alvo ? ' (pronome reforçado: ' + x.alvo.toUpperCase() + ')' : ''}`,
+      cab: ['Pronome', 'FA LB', 'FR LB (%)', 'FA INT', 'FR INT (%)'],
+      linhas: Pn.map((n, j) => [n, k.lb.c[j], exhFmt(k.lb.pct[j]), k.rf.c[j], exhFmt(k.rf.pct[j])]).concat([['Total', k.lb.c.reduce((a, b) => a + b, 0), exhFmt(k.lb.pct.reduce((a, b) => a + b, 0)), k.rf.c.reduce((a, b) => a + b, 0), exhFmt(k.rf.pct.reduce((a, b) => a + b, 0))]]),
+      dest: k.alvo, fonte: `Elaborada pelo autor (${abntEsc(ano)}).`});
+    if(x.tipo !== 'sem'){
+      P(`O pronome reforçado, ${x.alvo.toUpperCase()}, apareceu ${k.lb.c[k.alvo]} ${k.lb.c[k.alvo] === 1 ? 'vez' : 'vezes'} na linha de base (${abntPct(x.a)}) e ${k.rf.c[k.alvo]} ${k.rf.c[k.alvo] === 1 ? 'vez' : 'vezes'} na intervenção (${abntPct(x.b)}), ${x.tipo === 'sobe' ? 'um aumento de ' + pp(x.d) : x.tipo === 'cai' ? 'uma redução de ' + pp(x.d) : 'sem alteração entre as fases'}.${outros.length && x.tipo === 'sobe' ? ` A maior redução ocorreu no pronome ${outros[0].n} (${exhFmt(Math.abs(outros[0].d))} pontos percentuais a menos), o que mostra que o aumento do pronome reforçado ocorreu à custa dos demais.` : ''} O Gráfico ${nG + 1} permite visualizar a comparação.`);
+    }
+    if(k.lb.anuladas + k.rf.anuladas) P(`Houve ${k.lb.anuladas + k.rf.anuladas} ${k.lb.anuladas + k.rf.anuladas === 1 ? 'tentativa anulada' : 'tentativas anuladas'} (frase sem pronome ou sem o verbo). Seguindo o modelo de cálculo da disciplina, a divisão foi mantida por 10 e por 30, de modo que os totais da Tabela ${nT} não chegam a 100%.`);
+    nG++;
+    B.push({t: 'figura', titulo: `Gráfico ${nG} – Frequência relativa (%) de cada pronome na linha de base e na intervenção – ${x.sigla}${x.alvo ? ' (' + x.alvo.toUpperCase() + ')' : ''}`, svg: exhGraficoModelo(x.p, exhTitulo(st, x.i)), fonte: `Elaborado pelo autor (${abntEsc(ano)}).`});
+  });
+  // ---------- 4 DISCUSSÃO ----------
+  H1('4 DISCUSSÃO', {novaPag: true});
+  if(subiram === N && N){
+    P(`O aumento da frequência relativa do pronome reforçado da linha de base para a intervenção é compatível com o efeito do reforço positivo descrito por Skinner (2003): a consequência apresentada logo após a resposta aumentou a probabilidade de respostas da mesma classe. Como os demais pronomes não foram seguidos de elogio e diminuíram, o resultado indica que a escolha do pronome passou a ser controlada pela contingência programada, e não apenas pela facilidade de formar frases com cada um.`);
+    P(`O resultado é semelhante ao relatado por Taffel (1955) e por Matos e Tomanari (2002). Ele também mostra que o elogio funcionou como reforçador condicionado: palavras como "Certo" e "Muito bem" não têm valor em si, mas adquiriram função reforçadora pela história do participante com a aprovação de outras pessoas ${cita('Moreira; Medeiros', 2007)}.`);
+  } else if(subiram === 0 && N){
+    P(`O pronome reforçado não aumentou da linha de base para a intervenção. Esse resultado não invalida o experimento: ele mostra que uma consequência só é reforçadora se, de fato, aumentar a frequência da resposta que a produz ${cita('Moreira; Medeiros', 2007)}. Para este participante, os elogios usados podem não ter funcionado como reforçadores, ou outras variáveis, como a facilidade de formar frases com certos verbos e o hábito de falar na terceira pessoa, podem ter tido mais controle sobre a escolha do pronome.`);
+    P(`Outra possibilidade é que o participante tenha formulado regras próprias sobre a tarefa. Quando uma pessoa cria uma hipótese sobre o que o experimentador quer (por exemplo, variar os pronomes), o comportamento pode passar a ser controlado por essa regra, e não pelas consequências imediatas ${cita('Skinner', 2003)}. As respostas à entrevista final (Apêndice D) ajudam a avaliar essa hipótese.`);
+  } else if(N){
+    P(`Os resultados variaram entre os participantes: houve aumento do pronome reforçado com ${abntLista(res.filter(x => x.tipo === 'sobe').map(x => x.sigla))}${res.some(x => x.tipo !== 'sobe' && x.tipo !== 'sem') ? ', mas não com ' + abntLista(res.filter(x => x.tipo !== 'sobe' && x.tipo !== 'sem').map(x => x.sigla)) : ''}. Onde houve aumento, o resultado é compatível com o efeito do reforço positivo ${cita('Skinner', 2003)}. Onde não houve, é possível que o elogio não tenha funcionado como reforçador para aquela pessoa ou que outras variáveis, como regras formuladas durante a tarefa, tenham controlado a escolha do pronome.`);
+  }
+  const qs = res.filter(x => (x.p.q || []).some(Boolean));
+  if(qs.length) P(`Na entrevista final, ${qs.map(x => { const q = x.p.q || []; const r3 = String(q[2] || q[1] || q[0] || '').trim(); return `${x.sigla} respondeu, sobre o que o levou a escolher os pronomes: "${abntEsc(r3.replace(/["“”]/g, ''))}"`; }).join('; ')}. ${subiram ? 'Esse relato ajuda a avaliar se o participante identificou a relação entre o pronome e o elogio. Na literatura sobre condicionamento verbal, discute-se se o efeito depende de o participante perceber essa relação; mesmo quando ela não é descrita, a mudança na frequência das respostas indica controle pelas consequências.' : 'Esse relato ajuda a entender quais variáveis controlaram a escolha dos pronomes.'}`);
+  else P(`As respostas à entrevista final ${abntFalta('respostas às 3 perguntas, na folha')} ajudam a avaliar se o participante identificou a relação entre o pronome e o elogio.`);
+  P(`Algumas limitações devem ser consideradas. O experimento teve ${plural ? 'poucos participantes' : 'um único participante'} e uma única sessão, e a linha de base teve apenas 10 tentativas, o que torna cada resposta responsável por 10 pontos percentuais. Também não houve uma fase de retirada do reforço, que permitiria verificar se a frequência do pronome voltaria aos níveis iniciais. Por fim, o experimentador pode ter fornecido, sem perceber, sinais de aprovação além dos elogios programados.`);
+  // ---------- 5 CONSIDERAÇÕES FINAIS ----------
+  H1('5 CONSIDERAÇÕES FINAIS', {novaPag: true});
+  P(`Este trabalho reproduziu, em situação didática, um experimento clássico de condicionamento do comportamento verbal. ${subiram === N && N ? 'Os resultados mostraram que o elogio apresentado logo após o uso de um pronome aumentou a frequência desse pronome, o que ilustra na prática o conceito de reforço positivo e a contingência tríplice.' : subiram === 0 && N ? 'Embora o pronome reforçado não tenha aumentado, a atividade permitiu discutir por que uma consequência nem sempre funciona como reforçador e quais variáveis podem competir com a contingência programada.' : 'A variação entre os participantes permitiu discutir tanto o efeito do reforço positivo quanto as variáveis que podem impedir esse efeito.'}`);
+  P(`A atividade também mostrou a importância do rigor no procedimento: a instrução padronizada, o registro tentativa a tentativa e o cuidado para não reforçar outros pronomes sem querer são o que permite atribuir a mudança no comportamento à variável manipulada. Para estudos futuros, sugere-se incluir mais participantes, uma linha de base mais longa e uma fase de extinção.`);
+  // ---------- REFERÊNCIAS ----------
+  H1('REFERÊNCIAS', {novaPag: true, semNum: true, centro: true});
+  B.push({t: 'refs', itens: [
+    'GREENSPOON, J. The reinforcing effect of two spoken sounds on the frequency of two responses. <b>The American Journal of Psychology</b>, v. 68, n. 3, p. 409-416, 1955.',
+    'MATOS, M. A.; TOMANARI, G. Y. <b>A análise do comportamento no laboratório didático</b>. Barueri: Manole, 2002.',
+    'MOREIRA, M. B.; MEDEIROS, C. A. <b>Princípios básicos de análise do comportamento</b>. Porto Alegre: Artmed, 2007.',
+    'SKINNER, B. F. <b>Ciência e comportamento humano</b>. Tradução de João Carlos Todorov e Rodolpho Azzi. 11. ed. São Paulo: Martins Fontes, 2003.',
+    'TAFFEL, C. Anxiety and the conditioning of verbal behavior. <b>The Journal of Abnormal and Social Psychology</b>, v. 51, n. 3, p. 496-501, 1955.']});
+  // ---------- APÊNDICES ----------
+  const passo = t => (EXH.passos.find(x => x.t.startsWith(t)) || {itens: []}).itens;
+  H1('APÊNDICE A – INSTRUÇÃO PADRONIZADA E CUIDADOS ÉTICOS', {novaPag: true, semNum: true, centro: true});
+  P('<b>Cuidados éticos adotados antes da sessão:</b>');
+  passo('Cuidados éticos').forEach(t => P(abntEsc(t)));
+  P('<b>Instrução lida ao participante:</b>');
+  P(abntEsc(passo('Instrução padronizada')[0] || ''));
+  P(`<b>Quando o participante pedia explicações ou formava frase fora da regra:</b> ${abntEsc((passo('Instrução padronizada')[2] || '') + ' ' + (passo('Instrução padronizada')[3] || ''))}`);
+  H1('APÊNDICE B – LISTA DE VERBOS E ESTRUTURA DOS SLIDES', {novaPag: true, semNum: true, centro: true});
+  P(`Cada um dos 40 slides apresentava um verbo no infinitivo, em destaque, e abaixo a lista de pronomes: ${EXH.pronomes.join(', ')}. Os verbos, retirados de Matos e Tomanari (2002, p. 236), foram apresentados na ordem abaixo.`);
+  B.push({t: 'tabela', titulo: 'Quadro 1 – Verbos apresentados em cada tentativa', cab: ['Nº', 'Verbo', 'Fase', 'Nº', 'Verbo', 'Fase'],
+    linhas: Array.from({length: 20}, (_, i) => [i + 1, EXH.verbos[i], i < 10 ? 'LB' : 'INT', i + 21, EXH.verbos[i + 20], 'INT']), fonte: 'Matos e Tomanari (2002, p. 236).', quadro: true});
+  ps.forEach((x, n) => {
+    H1(`APÊNDICE ${String.fromCharCode(67 + n * 2)} – FOLHA DE REGISTRO DE ${x.sigla}`, {novaPag: true, semNum: true, centro: true});
+    const r = x.p.r || {};
+    P(`Participante: ${x.sigla}${x.p.sexo ? ' · Sexo: ' + abntEsc(x.p.sexo) : ''}${x.p.idade ? ' · Idade: ' + abntEsc(x.p.idade) : ''}${x.p.data ? ' · Data: ' + abntEsc(x.p.data) : ''} · Pronome reforçado: ${x.alvo ? x.alvo.toUpperCase() : abntFalta('pronome')}. Experimentador: ${autor}.`);
+    B.push({t: 'tabela', titulo: `Quadro ${n + 2} – Registro tentativa a tentativa – ${x.sigla}`, cab: ['Nº', 'Verbo', 'Fase', 'Pronome usado', 'Elogio'],
+      linhas: EXH.verbos.map((v, i) => { const val = r[i]; const pron = val === 'x' ? 'Anulada' : val != null ? EXH.pronomes[val] : '—'; return [i + 1, v, i < 10 ? 'LB' : 'INT', pron, i >= 10 && val != null && val !== 'x' && val === x.k.alvo ? 'Sim' : '—']; }),
+      fonte: `Registro do autor (${abntEsc(ano)}).`, compacta: true});
+    H1(`APÊNDICE ${String.fromCharCode(68 + n * 2)} – ENTREVISTA PÓS-EXPERIMENTAL DE ${x.sigla}`, {novaPag: true, semNum: true, centro: true});
+    const perg = ['O que você achou do experimento?', 'Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais?', 'O que levou você a escolher este ou aquele pronome?'];
+    perg.forEach((q, j) => { P(`<b>${j + 1}. ${q}</b>`); P((x.p.q || [])[j] ? abntEsc(x.p.q[j]) : abntFalta('resposta ' + (j + 1))); });
+  });
+  return B;
+}
+
+function abntDocumento(B, titulo){
+  const css = `
+  @page{size:A4; margin:0;}
+  *{box-sizing:border-box;}
+  body{margin:0; background:#E9E7E1; font-family:"Times New Roman", Times, "Liberation Serif", serif; color:#000;}
+  .barra{position:sticky; top:0; z-index:5; display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; padding:10px; background:#1F5C56; color:#fff; font:14px/1.4 Arial, sans-serif;}
+  .barra button{font:600 14px Arial, sans-serif; border:0; border-radius:8px; padding:9px 16px; cursor:pointer; background:#fff; color:#1F5C56;}
+  .barra span{opacity:.85;}
+  #paginas{padding:16px 0 40px;}
+  .pg{position:relative; width:210mm; height:297mm; margin:0 auto 14px; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,.15); padding:30mm 20mm 20mm 30mm; overflow:hidden; font-size:12pt;}
+  .area{height:247mm; overflow:hidden;}
+  .num{position:absolute; top:20mm; right:20mm; font-size:10pt;}
+  p{margin:0; text-align:justify; line-height:1.5; text-indent:1.25cm;}
+  p.cont{text-indent:0;}
+  h1{font-size:12pt; font-weight:bold; margin:0 0 1.5em; line-height:1.5;}
+  h1.centro, h1.pre{text-align:center;}
+  h2{font-size:12pt; font-weight:bold; margin:1.5em 0 1.5em; line-height:1.5;}
+  h2:first-child{margin-top:0;}
+  .tab{margin:1em 0; break-inside:avoid;}
+  .tab .tt, .fig .tt{font-size:10pt; line-height:1.2; text-align:left; margin-bottom:4px;}
+  .tab .ft, .fig .ft{font-size:10pt; line-height:1.2; margin-top:4px;}
+  table{border-collapse:collapse; width:100%; font-size:10pt; line-height:1.15;}
+  th{border-top:1px solid #000; border-bottom:1px solid #000; padding:3px 6px; font-weight:bold;}
+  td{padding:2px 6px; text-align:center;}
+  td:first-child, th:first-child{text-align:left;}
+  tr.tot td{border-top:1px solid #000; font-weight:bold;} tbody tr:last-child td{border-bottom:1px solid #000;}
+  tr.dest td{font-weight:bold;}
+  .quadro th, .quadro td{border:1px solid #000;}
+  .compacta td{padding:1px 6px;}
+  .fig{margin:1em 0; break-inside:avoid;} .fig svg{width:100%; height:auto; display:block;}
+  .refs p{text-indent:0; text-align:left; line-height:1; margin-bottom:12pt;}
+  mark{background:#FFE58A; padding:0 2px;}
+  .capa, .rosto{display:flex; flex-direction:column; align-items:center; text-align:center; height:100%; line-height:1.5;}
+  .capa .logo{max-width:120mm; max-height:28mm; object-fit:contain; margin-bottom:8mm;}
+  .inst-txt{font-weight:bold; margin-bottom:6mm;}
+  .capa-autor{margin-top:16mm;}
+  .rosto .capa-autor{margin-top:0;}
+  .capa-tit{margin-top:auto; margin-bottom:auto; display:flex; flex-direction:column; gap:4mm;}
+  .capa-tit b{font-size:14pt;}
+  .natureza{align-self:flex-end; width:8.5cm; text-align:justify; font-size:11pt; line-height:1.2; margin-bottom:20mm;}
+  .capa-pe{margin-top:auto;}
+  .resumo-txt{text-indent:0; line-height:1;}
+  .palavras{text-indent:0; margin-top:12pt; line-height:1;}
+  .sum .lin{display:flex; align-items:baseline; gap:4px; line-height:1.5;}
+  .sum .lin .pt{flex:1; border-bottom:1px dotted #000; transform:translateY(-4px);}
+  .sum .lin.h2{padding-left:0;}
+  .sum .lin.p1 b{font-weight:bold;}
+  .medir{position:absolute; left:-9999px; top:0;}
+  @media screen and (max-width:820px){ #paginas{zoom:var(--z, .46);} }
+  @media print{ body{background:#fff;} .barra{display:none;} #paginas{padding:0; zoom:1 !important;} .pg{margin:0; box-shadow:none; break-after:page;} mark{background:none;} }`;
+  const pag = `
+  const B = window.__B; const C = document.getElementById('paginas');
+  function novaPag(cls){ const pg = document.createElement('section'); pg.className = 'pg' + (cls ? ' ' + cls : ''); const a = document.createElement('div'); a.className = 'area'; pg.appendChild(a); C.appendChild(pg); return a; }
+  function cheia(a){ return a.scrollHeight > a.clientHeight + 1; }
+  function el(html){ const d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstElementChild; }
+  function esc(t){ return String(t).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+  function tabelaHTML(b, linhas, cont){ return '<div class="tab' + (b.quadro ? ' quadro' : '') + (b.compacta ? ' compacta' : '') + '"><div class="tt">' + b.titulo + (cont ? ' (continuação)' : '') + '</div><table><thead><tr>' + b.cab.map(c => '<th>' + c + '</th>').join('') + '</tr></thead><tbody>' + linhas.map((l, i) => '<tr class="' + (l[0] === 'Total' ? 'tot' : '') + (b.dest != null && i === b.dest ? ' dest' : '') + '">' + l.map(v => '<td>' + esc(v) + '</td>').join('') + '</tr>').join('') + '</tbody></table><div class="ft">Fonte: ' + b.fonte + '</div></div>'; }
+  function montar(sumario){
+    C.innerHTML = ''; const marcas = []; let a = null, nPag = 0;
+    const abrir = cls => { a = novaPag(cls); nPag++; return a; };
+    for(const b of B){
+      if(b.t === 'pagina'){ const x = abrir(b.cls); x.innerHTML = '<div class="' + b.cls + '">' + b.html + '</div>'; x.dataset.n = nPag; a = null; continue; }
+      if(b.t === 'sumario'){ const x = abrir(); x.innerHTML = '<h1 class="pre">SUMÁRIO</h1><div class="sum">' + (sumario || []).map(s => '<div class="lin ' + (s.n2 ? 'h2' : 'p1') + '">' + (s.n2 ? '' : '<b>') + s.txt + (s.n2 ? '' : '</b>') + '<span class="pt"></span><span>' + s.pg + '</span></div>').join('') + '</div>'; a = null; continue; }
+      if(!a || b.novaPag) abrir();
+      if(b.t === 'h1' || b.t === 'h2'){
+        const h = el('<' + b.t + (b.centro ? ' class="centro"' : '') + '>' + b.txt + '</' + b.t + '>');
+        a.appendChild(h); if(cheia(a) || a.getBoundingClientRect().bottom - h.getBoundingClientRect().bottom < 60){ h.remove(); abrir(); a.appendChild(h); }
+        marcas.push({txt: b.txt, pg: nPag, n2: b.t === 'h2', conta: b.conta}); continue; }
+      if(b.t === 'p'){
+        let p = el('<p>' + b.html + '</p>'); a.appendChild(p);
+        if(!cheia(a)) continue;
+        // divide o parágrafo por palavras entre as páginas
+        const partes = b.html.split(/(\\s+)/); let lo = 0, hi = partes.length;
+        while(lo < hi){ const m = Math.ceil((lo + hi) / 2); p.innerHTML = partes.slice(0, m).join(''); if(cheia(a)) hi = m - 1; else lo = m; }
+        if(lo < 3){ p.remove(); abrir(); p = el('<p>' + b.html + '</p>'); a.appendChild(p); continue; }
+        p.innerHTML = partes.slice(0, lo).join(''); abrir(); const p2 = el('<p class="cont">' + partes.slice(lo).join('').trim() + '</p>'); a.appendChild(p2); continue; }
+      if(b.t === 'refs'){ for(const r of b.itens){ const d = el('<div class="refs"><p>' + r + '</p></div>'); a.appendChild(d); if(cheia(a)){ d.remove(); abrir(); a.appendChild(d); } } continue; }
+      if(b.t === 'figura'){ const d = el('<div class="fig"><div class="tt">' + b.titulo + '</div>' + b.svg + '<div class="ft">Fonte: ' + b.fonte + '</div></div>'); a.appendChild(d); if(cheia(a)){ d.remove(); abrir(); a.appendChild(d); } continue; }
+      if(b.t === 'tabela'){
+        let resto = b.linhas.slice(), cont = false;
+        while(resto.length){
+          let n = resto.length, d = el(tabelaHTML(b, resto, cont)); a.appendChild(d);
+          while(cheia(a) && n > 1){ n--; d.remove(); d = el(tabelaHTML(b, resto.slice(0, n), cont)); a.appendChild(d); }
+          if(cheia(a) || (n < Math.min(4, resto.length) && a.children.length > 1)){ d.remove(); abrir(); continue; }
+          resto = resto.slice(n); cont = true; if(resto.length) abrir();
+        }
+        continue; }
+    }
+    return marcas;
+  }
+  function numerar(){ // conta desde a folha de rosto; mostra a partir da introdução
+    const pgs = [...C.querySelectorAll('.pg')]; let ini = pgs.findIndex(p => p.querySelector('h1') && /^1 /.test(p.querySelector('h1').textContent));
+    pgs.forEach((p, i) => { if(i >= ini && ini >= 0){ const s = document.createElement('div'); s.className = 'num'; s.textContent = i; p.appendChild(s); } });
+    return pgs.length;
+  }
+  let m = montar([]); m = montar(m.map(x => ({txt: x.txt, pg: x.pg - 1, n2: x.n2}))); const tot = numerar();
+  document.getElementById('info').textContent = tot + ' páginas A4 prontas.';
+  const ajustar = () => document.getElementById('paginas').style.setProperty('--z', Math.min(1, (window.innerWidth - 12) / 794).toFixed(3)); ajustar(); window.addEventListener('resize', ajustar);`;
+  return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escHTML(titulo)}</title><style>${css}</style></head><body>
+    <div class="barra"><button onclick="window.print()">Imprimir ou salvar em PDF</button><span id="info">Montando as páginas…</span><span>Campos em amarelo ainda precisam ser preenchidos na folha.</span></div>
+    <div id="paginas"></div><script>window.__B = ${JSON.stringify(B).replace(/</g, '\\u003c')};<\/script><script>${pag}<\/script></body></html>`;
+}
+
+document.addEventListener('click', e => {
+  if(!e.target.closest('[data-exh-abnt]')) return;
+  const st = exhLoad();
+  const idx = st.ps.map((p, i) => i).filter(i => exhCalc(st.ps[i]).registradas);
+  if(!idx.length){ alert('Registre as respostas na folha antes de gerar o trabalho.'); return; }
+  const inc = idx.filter(i => exhCalc(st.ps[i]).registradas < 40);
+  if(inc.length && !confirm(`${inc.map(i => exhSigla(st, i)).join(', ')} ainda não tem os 40 verbos registrados. Gerar mesmo assim?`)) return;
+  const w = window.open('', '_blank'); if(!w){ alert('Libere as janelas pop-up deste site para gerar o trabalho.'); return; }
+  w.document.open(); w.document.write(abntDocumento(abntConteudo(st, idx), 'Trabalho ABNT - ' + (st.f.nome || 'Experimental'))); w.document.close();
+});
+document.addEventListener('change', e => {
+  const inp = e.target.closest('[data-exh-logo]'); if(!inp || !inp.files || !inp.files[0]) return;
+  const fr = new FileReader(); fr.onload = () => { const img = new Image(); img.onload = () => { const k = Math.min(1, 900 / img.width), cv = document.createElement('canvas'); cv.width = Math.round(img.width * k); cv.height = Math.round(img.height * k);
+    const cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height); cx.drawImage(img, 0, 0, cv.width, cv.height);
+    const st = exhLoad(); st.f.logo = cv.toDataURL('image/jpeg', 0.85); try{ exhSave(st); }catch(_){ } const ok = document.getElementById('exhLogoOk'); if(ok) ok.textContent = 'Logo salva.'; }; img.src = fr.result; }; fr.readAsDataURL(inp.files[0]);
+});
+document.addEventListener('click', e => { if(!e.target.closest('[data-exh-logo-tirar]')) return; const st = exhLoad(); delete st.f.logo; exhSave(st); const ok = document.getElementById('exhLogoOk'); if(ok) ok.textContent = 'Sem logo: a capa usa o nome da instituição.'; });
+
 </script>
 </body>
 </html>
