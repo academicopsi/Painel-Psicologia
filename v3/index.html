@@ -3448,7 +3448,14 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .adm-p-cab{display:flex; align-items:center; gap:10px; padding:8px; border-bottom:1px solid var(--rule); background:var(--paper-alt);}
   .adm-p-cab input{flex:1; min-width:0; font:inherit; font-size:14px; padding:8px 10px; border:1px solid var(--rule); border-radius:9px; background:var(--paper); color:var(--ink);}
   .adm-p-cab span{flex:none; font-size:12.5px; font-weight:700; color:var(--petrol);}
-  .adm-p-lista{max-height:260px; overflow-y:auto;}
+  .adm-p-lista{max-height:320px; overflow-y:auto;}
+  .adm-p-resumo{margin:0; padding:8px 12px; font-size:12.5px; color:var(--ink-soft); border-bottom:1px solid var(--rule);}
+  .adm-p-resumo b{color:var(--petrol);}
+  .adm-p-lista label.off{cursor:default; color:var(--ink-faint);}
+  .adm-p-lista label.off input{opacity:.35;}
+  .adm-p-lista label.off span{color:var(--ink-faint);}
+  .adm-p-lista span em{display:block; font-style:normal; font-size:11.5px; color:#A0453A; opacity:.8;}
+
   .adm-p-lista label{display:flex; align-items:center; gap:10px; margin:0; padding:10px 12px; border-top:1px solid var(--rule); cursor:pointer; font-size:14px; color:var(--ink);}
   .adm-p-lista label:first-child{border-top:0;}
   .adm-p-lista label[hidden]{display:none;}
@@ -25340,14 +25347,18 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   }
   async function lerAvisos(){
     try{
-      const [f, pe, pf] = await Promise.all([B().ler(filaPath()), B().ler('pedidos'), B().ler('perfis').catch(() => null)]);
+      const [f, pe, pf, ac] = await Promise.all([B().ler(filaPath()), B().ler('pedidos'), B().ler('perfis').catch(() => null), B().ler('acesso').catch(() => null)]);
       fila = f || {};
       aparelhos = Object.values(pe || {}).filter(p => p && p.push && p.push.token);
       // quem pode receber avisos: notificações ativadas e a opção "Avisos da turma" ligada
-      pessoas = Object.entries(pe || {}).filter(([, p]) => p && p.push && p.push.token && p.push.avisos !== false).map(([uid, p]) => {
-        const pr = (pf || {})[uid] || {};
-        return {uid, nome: p.push.nome || pr.nome || (p.push.email || p.email || '').split('@')[0] || 'Sem nome', sem: String(p.push.sem || pr.sem || '2')};
-      }).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+      // todos os liberados aparecem; quem não pode receber fica cinza, com o motivo
+      const uids = new Set([...Object.keys(ac || {}).filter(u => (ac || {})[u] === true), ...Object.entries(pe || {}).filter(([, p]) => p && p.push && p.push.token).map(([u]) => u)]);
+      pessoas = [...uids].map(uid => {
+        const p = (pe || {})[uid] || {}, pu = p.push || {}, pr = (pf || {})[uid] || {};
+        const pode = !!pu.token && pu.avisos !== false;
+        return {uid, nome: pu.nome || p.nome || pr.nome || (pu.email || p.email || '').split('@')[0] || 'Sem nome', sem: String(pu.sem || pr.sem || '2'), pode,
+          motivo: pode ? '' : pu.token ? 'desligou os avisos da turma' : 'não ativou as notificações'};
+      }).sort((a, b) => (b.pode - a.pode) || a.nome.localeCompare(b.nome, 'pt-BR'));
     }catch(_){ fila = {}; aparelhos = null; pessoas = null; }
     if(aba === 'avisos') desenharCorpo();
   }
@@ -25360,8 +25371,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   const PUBS = [['todos', 'Toda a turma'], ['sem1', '1º semestre'], ['sem2', '2º semestre'], ['pessoas', 'Escolher pessoas'], ['admin', 'Só para mim (teste)']];
   function alvoDe(pub, uids){
     if(!pessoas) return null;
-    if(pub === 'todos') return pessoas.length;
-    if(pub === 'sem1' || pub === 'sem2') return pessoas.filter(x => 'sem' + x.sem === pub).length;
+    if(pub === 'todos') return pessoas.filter(x => x.pode).length;
+    if(pub === 'sem1' || pub === 'sem2') return pessoas.filter(x => x.pode && 'sem' + x.sem === pub).length;
     if(pub === 'pessoas') return Object.keys(uids || {}).length;
     return 1;
   }
@@ -25387,10 +25398,11 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   }
   function pessoasHTML(){
     if(!pessoas) return '<p class="adm-ajuda">Carregando a lista…</p>';
-    if(!pessoas.length) return '<p class="adm-ajuda">Ninguém ativou os avisos ainda.</p>';
-    const n = Object.keys(envio.uids).length;
+    if(!pessoas.length) return '<p class="adm-ajuda">Ninguém liberado ainda.</p>';
+    const n = Object.keys(envio.uids).length, nPode = pessoas.filter(x => x.pode).length;
     return `<div class="adm-pessoas"><div class="adm-p-cab"><input type="search" data-adm-busca placeholder="Buscar pelo nome" aria-label="Buscar pelo nome"><span data-adm-sel>${n} ${n === 1 ? 'escolhida' : 'escolhidas'}</span></div>
-      <div class="adm-p-lista">${pessoas.map(x => `<label data-nome="${esc(x.nome.toLowerCase())}"><input type="checkbox" data-adm-pessoa="${esc(x.uid)}"${envio.uids[x.uid] ? ' checked' : ''}><span>${esc(x.nome)}</span><small>${x.sem}º sem.</small></label>`).join('')}</div></div>`;
+      <p class="adm-p-resumo"><b>${nPode} de ${pessoas.length}</b> ${pessoas.length === 1 ? 'pessoa liberada pode' : 'pessoas liberadas podem'} receber no celular.${nPode < pessoas.length ? ' Os nomes em cinza ainda não ativaram.' : ''}</p>
+      <div class="adm-p-lista">${pessoas.map(x => `<label data-nome="${esc(x.nome.toLowerCase())}"${x.pode ? '' : ' class="off"'}><input type="checkbox" data-adm-pessoa="${esc(x.uid)}"${envio.uids[x.uid] && x.pode ? ' checked' : ''}${x.pode ? '' : ' disabled'}><span>${esc(x.nome)}${x.pode ? '' : `<em>${x.motivo}</em>`}</span><small>${x.sem}º sem.</small></label>`).join('')}</div></div>`;
   }
   function avisosHTML(){
     const lista = Object.entries(fila).sort((a, b) => b[1].em - a[1].em).slice(0, 12);
