@@ -2138,7 +2138,8 @@
   .exh-alvo small{flex-basis:100%; font-weight:400; color:var(--ink-faint);}
   .exh-alvo-b, .exh-tipo-b{font:inherit; font-size:13.5px; font-weight:700; padding:6px 14px; border-radius:999px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); cursor:pointer;}
   .exh-alvo-b.on, .exh-tipo-b.on{background:var(--petrol); border-color:var(--petrol); color:#fff;}
-  .exh-aviso{background:var(--ochre-soft); border-left:3px solid var(--ochre); padding:8px 12px; border-radius:6px; font-size:13.5px;}
+  .exh-leitura{margin:12px 0; padding:11px 14px; border-radius:10px; font-size:14px; line-height:1.5; border-left:4px solid; background:#EEF4F2; border-color:#1F5C56;} .exh-leitura.igual{background:#F2F0EA; border-color:#8D8A80;} .exh-leitura.cai{background:#F7ECE8; border-color:#A0453A;} .exh-leitura.neutra{background:#F2F0EA; border-color:#C9C2B2; color:#5E6B68;} .exh-leitura small{color:#8A5A1F;}
+.exh-aviso{background:var(--ochre-soft); border-left:3px solid var(--ochre); padding:8px 12px; border-radius:6px; font-size:13.5px;}
   .exh-folha-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--rule); border-radius:6px;}
   .exh-folha{border-collapse:collapse; width:100%; min-width:560px; font-size:13px;}
   .exh-folha th{position:sticky; top:0; background:var(--paper-alt); font-size:11.5px; padding:6px 4px; border-bottom:1px solid var(--rule);}
@@ -2313,6 +2314,20 @@ function exhGrafico(p, sigla){
     g += `<text x="${cx}" y="${T+ph+20}" font-size="12.5" text-anchor="middle" fill="${TX}"${i === k_.alvo ? ' font-weight="700"' : ''}>${pr}</text>`; });
   g += `<text x="${L+pw/2}" y="${H-10}" font-size="11.5" text-anchor="middle" fill="${SUB}">Pronomes</text>`;
   return g + '</svg>';
+}
+// Leitura do resultado em uma frase: o pronome reforçado subiu, ficou igual ou caiu da LB para a INT?
+function exhLeituraHTML(p){
+  const k = exhCalc(p);
+  if(k.alvo < 0) return '<p class="exh-leitura neutra">Escolha o pronome reforçado (EU ou NÓS) para ver a leitura do resultado.</p>';
+  if(k.registradas < 40) return `<p class="exh-leitura neutra">A leitura do resultado aparece quando as 40 tentativas estiverem registradas (faltam ${40 - k.registradas}).</p>`;
+  const nome = EXH.pronomes[k.alvo].toUpperCase(), a = k.lb.pct[k.alvo], b = k.rf.pct[k.alvo], d = b - a;
+  const pp = n => exhFmt(Math.abs(n)) + (Math.abs(n) === 1 ? ' ponto percentual' : ' pontos percentuais');
+  let txt, cls;
+  if(d > 0){ cls = 'sobe'; txt = `<b>${nome}</b> foi de ${exhFmt(a)}% na linha de base para ${exhFmt(b)}% na intervenção: <b>aumentou ${pp(d)}</b>. Isso indica efeito do reforço positivo: o elogio logo depois da frase aumentou a frequência desse pronome.`; }
+  else if(d === 0){ cls = 'igual'; txt = `<b>${nome}</b> ficou em ${exhFmt(a)}% nas duas fases: <b>não mudou</b>. Com este participante, o reforço não teve efeito visível. Vale discutir por quê, usando as respostas das perguntas do final.`; }
+  else { cls = 'cai'; txt = `<b>${nome}</b> foi de ${exhFmt(a)}% na linha de base para ${exhFmt(b)}% na intervenção: <b>diminuiu ${pp(d)}</b>. O reforço não teve o efeito esperado com este participante. Vale discutir por quê: o elogio pode não ter funcionado como reforçador, ou ele pode ter percebido a regra (veja as respostas das perguntas do final).`; }
+  const aviso = k.lb.c[k.alvo] < 2 ? '<br><small>Atenção: o pronome reforçado precisa ter aparecido pelo menos 2 vezes na linha de base, e aqui apareceu ' + k.lb.c[k.alvo] + '.</small>' : '';
+  return `<p class="exh-leitura ${cls}">${txt}${aviso}</p>`;
 }
 function exhTabelaHTML(p){
   const k = exhCalc(p); const P = EXH.pronomes;
@@ -2510,6 +2525,7 @@ function exhFolhaHTML(){
     ${['O que você achou do experimento?','Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais?','O que levou você a escolher este ou aquele pronome?'].map((q,i)=>`<label class="exh-perg"><span>${i+1}. ${q}</span><textarea rows="2" data-exh-q="${i}">${escHTML((pa.q || [])[i] || '')}</textarea></label>`).join('')}
     <h4 class="rt-h">Resultado de ${escHTML(sigla)}</h4>
     ${exhTabelaHTML(pa)}
+    ${exhLeituraHTML(pa)}
     ${an ? `<p class="exh-aviso">${escHTML(sigla)} tem ${an} ${an === 1 ? 'tentativa anulada' : 'tentativas anuladas'}. A conta segue o modelo dos vídeos (× 100 ÷ 10 na LB e ÷ 30 na INT), então os totais não chegam a 100%. Confirme com a professora como tratar as anuladas.</p>` : ''}
     <h4 class="rt-h">Comparativo LB-INT</h4>
     <p class="exh-nota" style="margin-top:0;">Igual à aba "Comparativo LB-INT" dos vídeos: frequência relativa (%) de cada participante, com LB e INT lado a lado, e um gráfico por participante.</p>
