@@ -3349,40 +3349,49 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .adm-busca svg{flex:none; width:17px; height:17px; color:var(--ink-faint);}
   .adm-busca input{flex:1; min-width:0; font:inherit; font-size:14.5px; color:var(--ink); background:none; border:0; padding:11px 0; outline:none;}
   .adm2 #admLista{display:flex; flex-direction:column; gap:0; max-height:none; overflow:hidden; border:1px solid var(--rule); border-radius:14px; background:var(--paper);}
-  .adm2 .adm-item{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:12px; row-gap:8px; align-items:center; border:0; border-top:1px solid var(--rule); border-radius:0; padding:13px 14px; background:none;}
+  .adm2 .adm-item{display:block; border:0; border-top:1px solid var(--rule); border-radius:0; padding:0; background:none; transition:background .15s;}
   .adm2 .adm-item:first-child{border-top:0;}
-  .adm2 .adm-item.pend{background:linear-gradient(90deg, rgba(180,85,47,.07), transparent 70%);}
-  .adm2 .adm-item.pix{background:linear-gradient(90deg, var(--ochre-soft), transparent 75%);}
-  .adm-av{width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-size:14px; font-weight:700; color:#fff; align-self:start;}
-  .adm-pessoa{min-width:0;}
-  .adm-l1{display:flex; flex-wrap:wrap; align-items:center; gap:3px 8px; min-width:0;}
-  .adm-l1 b{font-size:15px; min-width:0; overflow-wrap:anywhere;}
-  .adm-l1 i{flex:none; font-style:normal; font-size:11px; font-weight:700; border-radius:999px; padding:2px 8px;}
-  .adm-l1 i.ok{background:var(--petrol-soft); color:var(--petrol-dark);}
-  .adm-l1 i.ag{background:rgba(180,85,47,.13); color:#9A4422;}
-  .adm-l1 i.ap{background:var(--ochre-soft); color:#8A5A1F;}
-  .adm-l1 i.venc{background:var(--paper-alt); color:var(--ink-faint);}
-  .adm-mail{display:block; font-size:13px; color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-  .adm-pessoa small{display:block; font-size:12px; color:var(--ink-faint); margin-top:1px;}
-  .adm-pix, .adm2 .adm-acoes{grid-column:2;}
-  .adm-pix{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-soft); background:var(--paper); border:1px solid rgba(201,143,69,.35); border-radius:10px; padding:8px 10px;}
-  .adm-pix svg{flex:none; width:16px; height:16px; color:#A8702F;}
-  .adm2 .adm-acoes{display:flex; flex-wrap:wrap; align-items:center; gap:4px 14px;}
-  .adm2 .adm-b{font-size:13.5px; border-radius:10px; padding:9px 14px;}
-  .adm2 .adm-b.txt{background:none; border:0; padding:6px 0; color:var(--petrol); font-weight:600;}
-  .adm2 .adm-b.txt:hover{text-decoration:underline; text-underline-offset:3px;}
-  .adm2 .adm-b.perigo{color:#A0453A;}
-  .adm2 .adm-item.pend .adm-acoes .adm-b, .adm2 .adm-item.pix .adm-acoes .adm-b:not(.txt){flex:0 0 auto;}
+  .adm-linha{display:flex; align-items:center; gap:12px; padding:12px 12px 12px 14px; cursor:pointer; -webkit-tap-highlight-color:transparent;}
+  .adm-linha:hover{background:var(--paper-alt);}
+  .adm-linha:focus-visible{outline:2px solid var(--petrol); outline-offset:-2px;}
+  .adm2 .adm-item.aberto{background:var(--paper-alt);}
+  .adm-av{flex:none; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-size:14px; font-weight:700; color:#fff;}
+  .adm2 .adm-item.pend .adm-av{box-shadow:0 0 0 2px var(--paper), 0 0 0 4px #C8673F;}
+  .adm2 .adm-item.pix .adm-av{box-shadow:0 0 0 2px var(--paper), 0 0 0 4px #C98F45;}
+  .adm-pessoa{flex:1; min-width:0;}
+  .adm-pessoa b{display:block; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .adm-mail{display:block; font-size:12.5px; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .adm-linha > i{flex:none; font-style:normal; font-size:11.5px; font-weight:700; border-radius:999px; padding:3px 9px;}
+  .adm-linha > i.ok{background:var(--petrol-soft); color:var(--petrol-dark);}
+  .adm-linha > i.ag{background:rgba(180,85,47,.13); color:#9A4422;}
+  .adm-linha > i.ap{background:var(--ochre-soft); color:#8A5A1F;}
+  .adm-linha > i.px{background:var(--ochre-soft); color:#8A5A1F;}
+  .adm-rap{flex:none; font:inherit; font-size:13px; font-weight:700; color:#fff; background:var(--petrol); border:0; border-radius:999px; padding:7px 14px; cursor:pointer;}
+  .adm-rap.ocre{background:#A8702F;}
+  .adm-chev{flex:none; display:grid; place-items:center; width:20px; color:var(--ink-faint); transition:transform .2s;}
+  .adm-chev svg{width:17px; height:17px;}
+  .adm2 .adm-item.aberto .adm-chev{transform:rotate(90deg);}
+  .adm-det{padding:0 14px 14px 66px; animation:admAbre .18s ease-out;}
+  @keyframes admAbre{from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:none;}}
+  .adm-det dl{margin:0 0 12px; display:grid; gap:6px;}
+  .adm-det dl div{display:flex; gap:10px; font-size:13px;}
+  .adm-det dt{flex:none; width:68px; color:var(--ink-faint);}
+  .adm-det dd{margin:0; min-width:0; color:var(--ink); overflow-wrap:anywhere;}
+  .adm-pix{display:flex; align-items:flex-start; gap:8px; margin-bottom:12px; font-size:13px; line-height:1.45; color:var(--ink-soft); background:var(--paper); border:1px solid rgba(201,143,69,.4); border-radius:10px; padding:9px 11px;}
+  .adm-pix svg{flex:none; width:16px; height:16px; color:#A8702F; margin-top:1px;}
+  .adm-acs{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .adm-ac{display:flex; align-items:center; justify-content:center; gap:6px; white-space:nowrap; font:inherit; font-size:13px; font-weight:700; border-radius:11px; padding:10px 6px; cursor:pointer; border:1px solid var(--rule); background:var(--paper); color:var(--ink);}
+  .adm-ac svg{flex:none; width:16px; height:16px;}
+  .adm-ac.pri{color:#fff; background:var(--petrol); border-color:var(--petrol);}
+  .adm-ac.sec{color:var(--petrol);}
+  .adm-ac.perigo{color:#A0453A; border-color:rgba(160,69,58,.3);}
+  .adm-ac[disabled]{opacity:.5;}
+  @media (max-width:420px){ .adm-det{padding-left:14px;} .adm-linha > i{display:none;} .adm2 .adm-item.pend .adm-linha > i, .adm2 .adm-item.pix .adm-linha > i{display:inline;} }
   .adm-vazio{padding:28px 16px; text-align:center; font-size:14px; color:var(--ink-faint);}
   @media (max-width:420px){
     .adm2 .adm-filtros button{font-size:13px; padding:9px 3px 10px; gap:4px;}
     .adm2 .adm-filtros button i{min-width:18px; padding:1px 5px;}
     .adm2 .adm-head h3{font-size:20px;}
-  }
-  @media (min-width:640px){
-    .adm2 .adm-item{grid-template-columns:auto minmax(0, 1fr) auto;}
-    .adm2 .adm-acoes{grid-column:3; grid-row:1; justify-content:flex-end;}
-    .adm-pix{grid-column:2 / 4;}
   }
   .adm-page{max-width:720px; margin:0 auto;}
   .adm-eyebrow{background:rgba(163,45,45,.1) !important; color:#8E2A2A !important;}
@@ -23104,7 +23113,7 @@ async function verificar(u, avisar){
 
 
 // ---------- painel do administrador ----------
-let admFiltro = 'aguardando', admDados = null, admBuscaTxt = '';
+let admFiltro = 'aguardando', admDados = null, admBuscaTxt = '', admAberto = null;
 async function lerTudo(){
   const [pe, ac, ap] = await Promise.all(['pedidos', 'acesso', 'apoiadores'].map(c => get(ref(db, c)).then(x => x.val() || {})));
   const sim = v => v === true || v === 'true' || v === 1, agora = Date.now();
@@ -23139,21 +23148,35 @@ function desenharPainel(){
   const ini = n => (n || '?').replace(/[^\p{L}\s]/gu, ' ').trim().split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase() || '?';
   const cor = u => ['#1F5C56', '#7A5A9E', '#A8702F', '#3E7CA6', '#9A4A5A', '#4E7A3E'][[...u].reduce((a, c) => a + c.charCodeAt(0), 0) % 6];
   const vazio = q ? 'Ninguém com esse nome ou e-mail.' : admFiltro === 'aguardando' ? 'Ninguém esperando liberação. Tudo em dia.' : admFiltro === 'apoio' ? 'Nenhum Pix para conferir.' : 'Nada por aqui.';
+  const IC = {
+    ok:'<path d="M20 6 9 17l-5-5"/>', estrela:'<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+    bloq:'<circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/>', x:'<path d="M18 6 6 18M6 6l12 12"/>', chev:'<path d="m9 6 6 6-6 6"/>', pix:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'};
+  const ic = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
+  const bt = (acao, k, t, cls = '') => `<button class="adm-ac ${cls}" data-acao="${acao}">${ic(k)}<span>${t}</span></button>`;
   document.getElementById('admLista').innerHTML = lista.length ? lista.map(x => {
-    const status = !x.ok ? '<i class="ag">Aguardando</i>' : x.apoia ? `<i class="ap">★ Apoiador até ${dia(x.ate)}</i>` : x.ate ? `<i class="venc">Apoio venceu ${dia(x.ate)}</i>` : '<i class="ok">Liberado</i>';
-    const pix = x.aviso ? `<div class="adm-pix"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Avisou que fez o Pix${x.aviso.valor && x.aviso.valor !== 'livre' ? ' de <b>R$ ' + esc(x.aviso.valor) + '</b>' : ''} em ${dia(x.aviso.em)}</span></div>` : '';
-    const acoes = !x.ok
-      ? `<button class="adm-b" data-acao="liberar">Liberar acesso</button>`
-      : x.aviso
-        ? `<button class="adm-b" data-acao="apoio">${x.apoia ? 'Confirmar renovação' : 'Confirmar apoiador'}</button><button class="adm-b txt" data-acao="ignorar">Não encontrei o Pix</button>`
-        : `<button class="adm-b txt" data-acao="${x.apoia ? 'tirar-apoio' : 'apoio'}">${x.apoia ? 'Tirar apoiador' : '★ Tornar apoiador'}</button><button class="adm-b txt perigo" data-acao="bloquear">Bloquear</button>`;
-    return `<div class="adm-item${!x.ok ? ' pend' : ''}${x.aviso ? ' pix' : ''}" data-uid="${esc(x.uid)}">
-      <span class="adm-av" style="background:${cor(x.uid)}">${esc(ini(x.nome || x.email))}</span>
-      <div class="adm-pessoa"><div class="adm-l1"><b>${esc(x.nome || 'Sem nome')}</b>${status}</div><span class="adm-mail">${esc(x.email)}</span>${x.em ? `<small>Cadastro em ${dia(x.em)}</small>` : ''}</div>
-      ${pix}<div class="adm-acoes">${acoes}</div>
+    const ab = admAberto === x.uid;
+    const status = !x.ok ? '<i class="ag">Aguardando</i>' : x.aviso ? '<i class="px">Pix avisado</i>' : x.apoia ? '<i class="ap">★ Apoiador</i>' : '<i class="ok">Liberado</i>';
+    const rapido = !x.ok ? `<button class="adm-rap" data-acao="liberar">Liberar</button>` : x.aviso ? `<button class="adm-rap ocre" data-abre>Conferir</button>` : '';
+    const info = [['Cadastro', x.em ? dia(x.em) : '—'], ['Apoio', x.apoia ? 'até ' + dia(x.ate) : x.ate ? 'venceu em ' + dia(x.ate) : 'não é apoiador']];
+    const pix = x.aviso ? `<div class="adm-pix">${ic('pix')}<span>Avisou que fez o Pix${x.aviso.valor && x.aviso.valor !== 'livre' ? ' de <b>R$ ' + esc(x.aviso.valor) + '</b>' : ''} em ${dia(x.aviso.em)}. Confira no extrato antes de confirmar.</span></div>` : '';
+    const acoes = !x.ok ? bt('liberar', 'ok', 'Liberar acesso', 'pri') + bt('ignorar-acesso', 'x', 'Agora não', 'sec')
+      : x.aviso ? bt('apoio', 'estrela', x.apoia ? 'Confirmar renovação' : 'Confirmar apoiador', 'pri') + bt('ignorar', 'x', 'Não achei o Pix', 'sec')
+      : (x.apoia ? bt('tirar-apoio', 'estrela', 'Tirar apoiador', 'sec') : bt('apoio', 'estrela', 'Tornar apoiador', 'sec')) + bt('bloquear', 'bloq', 'Bloquear', 'perigo');
+    return `<div class="adm-item${!x.ok ? ' pend' : ''}${x.aviso ? ' pix' : ''}${ab ? ' aberto' : ''}" data-uid="${esc(x.uid)}">
+      <div class="adm-linha" data-abre role="button" tabindex="0" aria-expanded="${ab}">
+        <span class="adm-av" style="background:${cor(x.uid)}">${esc(ini(x.nome || x.email))}</span>
+        <span class="adm-pessoa"><b>${esc(x.nome || 'Sem nome')}</b><span class="adm-mail">${esc(x.email || 'sem e-mail')}</span></span>
+        ${rapido || status}<span class="adm-chev">${ic('chev')}</span>
+      </div>
+      ${ab ? `<div class="adm-det">${pix}<dl>${info.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl><div class="adm-acs">${acoes}</div></div>` : ''}
     </div>`; }).join('') : `<div class="adm-vazio">${vazio}</div>`;
+  document.querySelectorAll('#admLista [data-abre]').forEach(el => {
+    const abre = e => { if(e.target.closest('[data-acao]')) return; const u = el.closest('[data-uid]').dataset.uid; admAberto = admAberto === u ? null : u; desenharPainel(); };
+    el.onclick = abre; el.onkeydown = e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); abre(e); } };
+  });
   document.querySelectorAll('#admLista [data-acao]').forEach(b => b.onclick = async () => {
     const uid = b.closest('[data-uid]').dataset.uid, a = b.dataset.acao, x1 = admDados.find(y => y.uid === uid);
+    if(a === 'ignorar-acesso'){ admAberto = null; desenharPainel(); return; }
     if(a === 'bloquear' && !confirm('Bloquear o acesso de ' + (x1.nome || x1.email) + '? A pessoa deixa de entrar no site até você liberar de novo.')) return;
     if(a === 'tirar-apoio' && !confirm('Tirar o selo de apoiador de ' + (x1.nome || x1.email) + '?')) return;
     b.disabled = true;
@@ -23166,6 +23189,7 @@ function desenharPainel(){
       if(a === 'ignorar'){ const x0 = admDados.find(y => y.uid === uid); const nv = {recusado: x0.aviso.em}; if(x0.ate) nv.ate = x0.ate; await set(ref(db, 'apoiadores/' + uid), nv); x0.aviso = null; }
       const x = admDados.find(y => y.uid === uid);
       if(a === 'liberar') x.ok = true; if(a === 'bloquear') x.ok = false; if(a === 'apoio'){ x.apoia = true; x.aviso = null; } if(a === 'tirar-apoio'){ x.apoia = false; x.ate = 0; }
+      if(['liberar', 'apoio', 'ignorar', 'bloquear', 'tirar-apoio'].includes(a)) admAberto = null;
       desenharPainel(); contarPendentes(); if(window.avAdminRender) window.avAdminRender(true);
     }catch(e){ b.disabled = false; alert('Não deu certo. Confira a internet e tente de novo.'); }
   });
