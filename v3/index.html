@@ -2449,9 +2449,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .adm-filtros button[aria-selected="true"]{background:var(--petrol); border-color:var(--petrol); color:#fff;}
   #admLista{display:grid; gap:8px; max-height:52vh; overflow:auto;}
   .adm-item{border:1px solid var(--rule); border-radius:10px; padding:11px 12px; background:var(--bg); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 12px;}
-  .adm-quem{min-width:0; flex:1 1 200px; font-size:14px;}
-  .adm-quem b{display:block;}
-  .adm-quem span{display:block; color:var(--ink-soft); font-size:13px; word-break:break-all;}
   .adm-tags{margin-top:5px;}
   .adm-tags i{font-style:normal; font-size:11.5px; font-weight:700; border-radius:999px; padding:2px 8px; margin-right:4px;}
   .adm-tags .ok{background:var(--petrol-soft); color:var(--petrol-dark);}
@@ -3335,6 +3332,58 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-head .ma-abas button{display:inline-flex; align-items:center;}
   .mu-head .ma-status{margin-top:0;}
   /* painel do administrador */
+  /* acessos (painel do administrador) */
+  .adm2{border-top:0; margin:0; padding-top:0; min-width:0; max-width:100%;}
+  .adm2 .adm-head{align-items:flex-start;}
+  .adm2 .adm-head h3{font-size:22px;}
+  .adm2 .adm-head small{display:block; font-size:13px; color:var(--ink-faint); margin-top:2px;}
+  .adm-atu{flex:none; display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; font-weight:600; color:var(--petrol); background:var(--paper-alt); border:1px solid var(--rule); border-radius:999px; padding:7px 12px; cursor:pointer;}
+  .adm-atu svg{width:15px; height:15px;}
+  .adm2 .adm-filtros{display:flex; flex-wrap:nowrap; gap:0; margin:16px 0 12px; border-bottom:1px solid var(--rule); overflow-x:auto; scrollbar-width:none;}
+  .adm2 .adm-filtros::-webkit-scrollbar{display:none;}
+  .adm2 .adm-filtros button{flex:1 0 auto; display:inline-flex; align-items:center; justify-content:center; gap:6px; font:inherit; font-size:14px; font-weight:600; color:var(--ink-faint); background:none; border:0; border-bottom:2.5px solid transparent; border-radius:0; padding:9px 10px 10px; margin-bottom:-1px; cursor:pointer;}
+  .adm2 .adm-filtros button i{font-style:normal; font-size:11.5px; font-weight:700; min-width:20px; text-align:center; color:var(--ink-soft); background:var(--paper-alt); border-radius:999px; padding:1px 6px;}
+  .adm2 .adm-filtros button i.alerta{color:#fff; background:#B4552F;}
+  .adm2 .adm-filtros button[aria-selected="true"]{color:var(--ink); background:none; border-bottom-color:var(--petrol);}
+  .adm-busca{display:flex; align-items:center; gap:8px; margin:0 0 12px; padding:0 12px; border:1px solid var(--rule); border-radius:12px; background:var(--paper-alt);}
+  .adm-busca svg{flex:none; width:17px; height:17px; color:var(--ink-faint);}
+  .adm-busca input{flex:1; min-width:0; font:inherit; font-size:14.5px; color:var(--ink); background:none; border:0; padding:11px 0; outline:none;}
+  .adm2 #admLista{display:flex; flex-direction:column; gap:0; max-height:none; overflow:hidden; border:1px solid var(--rule); border-radius:14px; background:var(--paper);}
+  .adm2 .adm-item{display:grid; grid-template-columns:auto minmax(0, 1fr); column-gap:12px; row-gap:8px; align-items:center; border:0; border-top:1px solid var(--rule); border-radius:0; padding:13px 14px; background:none;}
+  .adm2 .adm-item:first-child{border-top:0;}
+  .adm2 .adm-item.pend{background:linear-gradient(90deg, rgba(180,85,47,.07), transparent 70%);}
+  .adm2 .adm-item.pix{background:linear-gradient(90deg, var(--ochre-soft), transparent 75%);}
+  .adm-av{width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-size:14px; font-weight:700; color:#fff; align-self:start;}
+  .adm-pessoa{min-width:0;}
+  .adm-l1{display:flex; flex-wrap:wrap; align-items:center; gap:3px 8px; min-width:0;}
+  .adm-l1 b{font-size:15px; min-width:0; overflow-wrap:anywhere;}
+  .adm-l1 i{flex:none; font-style:normal; font-size:11px; font-weight:700; border-radius:999px; padding:2px 8px;}
+  .adm-l1 i.ok{background:var(--petrol-soft); color:var(--petrol-dark);}
+  .adm-l1 i.ag{background:rgba(180,85,47,.13); color:#9A4422;}
+  .adm-l1 i.ap{background:var(--ochre-soft); color:#8A5A1F;}
+  .adm-l1 i.venc{background:var(--paper-alt); color:var(--ink-faint);}
+  .adm-mail{display:block; font-size:13px; color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .adm-pessoa small{display:block; font-size:12px; color:var(--ink-faint); margin-top:1px;}
+  .adm-pix, .adm2 .adm-acoes{grid-column:2;}
+  .adm-pix{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-soft); background:var(--paper); border:1px solid rgba(201,143,69,.35); border-radius:10px; padding:8px 10px;}
+  .adm-pix svg{flex:none; width:16px; height:16px; color:#A8702F;}
+  .adm2 .adm-acoes{display:flex; flex-wrap:wrap; align-items:center; gap:4px 14px;}
+  .adm2 .adm-b{font-size:13.5px; border-radius:10px; padding:9px 14px;}
+  .adm2 .adm-b.txt{background:none; border:0; padding:6px 0; color:var(--petrol); font-weight:600;}
+  .adm2 .adm-b.txt:hover{text-decoration:underline; text-underline-offset:3px;}
+  .adm2 .adm-b.perigo{color:#A0453A;}
+  .adm2 .adm-item.pend .adm-acoes .adm-b, .adm2 .adm-item.pix .adm-acoes .adm-b:not(.txt){flex:0 0 auto;}
+  .adm-vazio{padding:28px 16px; text-align:center; font-size:14px; color:var(--ink-faint);}
+  @media (max-width:420px){
+    .adm2 .adm-filtros button{font-size:13px; padding:9px 3px 10px; gap:4px;}
+    .adm2 .adm-filtros button i{min-width:18px; padding:1px 5px;}
+    .adm2 .adm-head h3{font-size:20px;}
+  }
+  @media (min-width:640px){
+    .adm2 .adm-item{grid-template-columns:auto minmax(0, 1fr) auto;}
+    .adm2 .adm-acoes{grid-column:3; grid-row:1; justify-content:flex-end;}
+    .adm-pix{grid-column:2 / 4;}
+  }
   .adm-page{max-width:720px; margin:0 auto;}
   .adm-eyebrow{background:rgba(163,45,45,.1) !important; color:#8E2A2A !important;}
   body.dark .adm-eyebrow{background:rgba(220,110,110,.16) !important; color:#F0B1B1 !important;}
@@ -23055,7 +23104,7 @@ async function verificar(u, avisar){
 
 
 // ---------- painel do administrador ----------
-let admFiltro = 'aguardando', admDados = null;
+let admFiltro = 'aguardando', admDados = null, admBuscaTxt = '';
 async function lerTudo(){
   const [pe, ac, ap] = await Promise.all(['pedidos', 'acesso', 'apoiadores'].map(c => get(ref(db, c)).then(x => x.val() || {})));
   const sim = v => v === true || v === 'true' || v === 1, agora = Date.now();
@@ -23075,25 +23124,39 @@ async function carregarPainel(){
   desenharPainel();
   document.getElementById('admAtualizar').onclick = carregarPainel;
   box.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { admFiltro = b.dataset.f; desenharPainel(); });
+  const bu = document.getElementById('admBusca'); if(bu) bu.oninput = () => { admBuscaTxt = bu.value.trim().toLowerCase(); desenharPainel(); };
 }
 function desenharPainel(){
   const box = document.getElementById('adm'); if(!box || !admDados) return;
-  const nAg = admDados.filter(x => !x.ok).length, nOk = admDados.filter(x => x.ok).length, nAp = admDados.filter(x => x.aviso).length;
-  const rot = {aguardando:`Aguardando (${nAg})`, apoio:`Apoio avisado (${nAp})`, liberados:`Liberados (${nOk})`, todos:`Todos (${admDados.length})`};
-  box.querySelectorAll('[data-f]').forEach(b => { b.textContent = rot[b.dataset.f]; b.setAttribute('aria-selected', b.dataset.f === admFiltro); });
-  const lista = admDados.filter(x => admFiltro === 'todos' || (admFiltro === 'apoio' ? x.aviso : admFiltro === 'liberados' ? x.ok : !x.ok));
+  const nAg = admDados.filter(x => !x.ok).length, nOk = admDados.filter(x => x.ok).length, nAp = admDados.filter(x => x.aviso).length, nApoia = admDados.filter(x => x.apoia).length;
+  const rot = {aguardando:['Aguardando', nAg], apoio:['Pix', nAp], liberados:['Liberados', nOk], todos:['Todos', admDados.length]};
+  box.querySelectorAll('[data-f]').forEach(b => { const [t, n] = rot[b.dataset.f]; b.innerHTML = `${t}<i${(b.dataset.f === 'aguardando' || b.dataset.f === 'apoio') && n ? ' class="alerta"' : ''}>${n}</i>`; b.setAttribute('aria-selected', b.dataset.f === admFiltro); });
+  const res = document.getElementById('admResumo'); if(res) res.textContent = `${nOk} ${nOk === 1 ? 'pessoa liberada' : 'pessoas liberadas'} · ${nApoia} ${nApoia === 1 ? 'apoiador' : 'apoiadores'}${nAg ? ' · ' + nAg + ' aguardando' : ''}`;
+  const q = admBuscaTxt;
+  const lista = admDados.filter(x => admFiltro === 'todos' || (admFiltro === 'apoio' ? x.aviso : admFiltro === 'liberados' ? x.ok : !x.ok))
+    .filter(x => !q || (x.nome + ' ' + x.email).toLowerCase().includes(q));
   const dia = ts => ts ? new Date(ts).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : '';
-  document.getElementById('admLista').innerHTML = lista.length ? lista.map(x => `
-    <div class="adm-item" data-uid="${esc(x.uid)}">
-      <div class="adm-quem"><b>${esc(x.nome || 'Sem nome')}</b><span>${esc(x.email)}${x.em ? ' · pediu em ' + dia(x.em) : ''}</span>
-        <span class="adm-tags">${x.ok ? '<i class="ok">Liberado</i>' : '<i class="ag">Aguardando</i>'}${x.apoia ? `<i class="ap">Apoiador até ${dia(x.ate)}</i>` : x.ate ? `<i class="ag">Apoio venceu em ${dia(x.ate)}</i>` : ''}${x.aviso ? `<i class="av">Avisou Pix${x.aviso.valor && x.aviso.valor !== 'livre' ? ' de R$ ' + esc(x.aviso.valor) : ''} em ${dia(x.aviso.em)}</i>` : ''}</span></div>
-      <div class="adm-acoes">
-        ${x.ok ? '<button class="adm-b sec" data-acao="bloquear">Bloquear</button>' : '<button class="adm-b" data-acao="liberar">Liberar</button>'}
-        ${x.aviso ? `<button class="adm-b" data-acao="apoio">${x.apoia ? 'Confirmar renovação' : 'Confirmar apoiador'}</button>`+'<button class="adm-b sec" data-acao="ignorar">Não encontrei o Pix</button>' : `<button class="adm-b sec" data-acao="${x.apoia ? 'tirar-apoio' : 'apoio'}">${x.apoia ? 'Tirar apoiador' : 'Apoiador'}</button>`}
-      </div>
-    </div>`).join('') : `<p class="conta-sub">${admFiltro === 'aguardando' ? 'Ninguém aguardando liberação.' : admFiltro === 'apoio' ? 'Nenhum aviso de apoio para conferir.' : 'Nada por aqui.'}</p>`;
+  const ini = n => (n || '?').replace(/[^\p{L}\s]/gu, ' ').trim().split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase() || '?';
+  const cor = u => ['#1F5C56', '#7A5A9E', '#A8702F', '#3E7CA6', '#9A4A5A', '#4E7A3E'][[...u].reduce((a, c) => a + c.charCodeAt(0), 0) % 6];
+  const vazio = q ? 'Ninguém com esse nome ou e-mail.' : admFiltro === 'aguardando' ? 'Ninguém esperando liberação. Tudo em dia.' : admFiltro === 'apoio' ? 'Nenhum Pix para conferir.' : 'Nada por aqui.';
+  document.getElementById('admLista').innerHTML = lista.length ? lista.map(x => {
+    const status = !x.ok ? '<i class="ag">Aguardando</i>' : x.apoia ? `<i class="ap">★ Apoiador até ${dia(x.ate)}</i>` : x.ate ? `<i class="venc">Apoio venceu ${dia(x.ate)}</i>` : '<i class="ok">Liberado</i>';
+    const pix = x.aviso ? `<div class="adm-pix"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Avisou que fez o Pix${x.aviso.valor && x.aviso.valor !== 'livre' ? ' de <b>R$ ' + esc(x.aviso.valor) + '</b>' : ''} em ${dia(x.aviso.em)}</span></div>` : '';
+    const acoes = !x.ok
+      ? `<button class="adm-b" data-acao="liberar">Liberar acesso</button>`
+      : x.aviso
+        ? `<button class="adm-b" data-acao="apoio">${x.apoia ? 'Confirmar renovação' : 'Confirmar apoiador'}</button><button class="adm-b txt" data-acao="ignorar">Não encontrei o Pix</button>`
+        : `<button class="adm-b txt" data-acao="${x.apoia ? 'tirar-apoio' : 'apoio'}">${x.apoia ? 'Tirar apoiador' : '★ Tornar apoiador'}</button><button class="adm-b txt perigo" data-acao="bloquear">Bloquear</button>`;
+    return `<div class="adm-item${!x.ok ? ' pend' : ''}${x.aviso ? ' pix' : ''}" data-uid="${esc(x.uid)}">
+      <span class="adm-av" style="background:${cor(x.uid)}">${esc(ini(x.nome || x.email))}</span>
+      <div class="adm-pessoa"><div class="adm-l1"><b>${esc(x.nome || 'Sem nome')}</b>${status}</div><span class="adm-mail">${esc(x.email)}</span>${x.em ? `<small>Cadastro em ${dia(x.em)}</small>` : ''}</div>
+      ${pix}<div class="adm-acoes">${acoes}</div>
+    </div>`; }).join('') : `<div class="adm-vazio">${vazio}</div>`;
   document.querySelectorAll('#admLista [data-acao]').forEach(b => b.onclick = async () => {
-    const uid = b.closest('[data-uid]').dataset.uid, a = b.dataset.acao; b.disabled = true;
+    const uid = b.closest('[data-uid]').dataset.uid, a = b.dataset.acao, x1 = admDados.find(y => y.uid === uid);
+    if(a === 'bloquear' && !confirm('Bloquear o acesso de ' + (x1.nome || x1.email) + '? A pessoa deixa de entrar no site até você liberar de novo.')) return;
+    if(a === 'tirar-apoio' && !confirm('Tirar o selo de apoiador de ' + (x1.nome || x1.email) + '?')) return;
+    b.disabled = true;
     try{
       if(a === 'liberar') await set(ref(db, 'acesso/' + uid), true);
       if(a === 'bloquear') await remove(ref(db, 'acesso/' + uid));
@@ -23132,7 +23195,7 @@ function desenharConta(m){
 function ligarTema(){ const b = corpo.querySelector('[data-conta-tema]'); if(b) b.onclick = () => { document.getElementById('themeBtn').click(); b.setAttribute('aria-checked', document.body.classList.contains('dark')); }; }
 window.avAbrirConta = aba => { if(aba === 'acessos' && ehAdmin(usuario)){ window.avAdminAba = 'acessos'; switchPage('viewAdmin'); return; } contaAba = aba || 'conta'; desenharConta(); fundo.hidden = false; };
 // painel do administrador (página própria): acessos, contagens e a fila de avisos
-window.avAdmMontar = el => { if(!el || !ehAdmin(usuario)) return; el.innerHTML = '<div class="adm" id="adm"><div class="adm-head"><h3>Acessos da turma</h3><button class="conta-link" id="admAtualizar">Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="apoio">Apoio avisado</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>'; carregarPainel(); };
+window.avAdmMontar = el => { if(!el || !ehAdmin(usuario)) return; el.innerHTML = '<div class="adm adm2" id="adm"><div class="adm-head"><div><h3>Acessos da turma</h3><small id="admResumo">Carregando…</small></div><button class="adm-atu" id="admAtualizar" aria-label="Atualizar a lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>Atualizar</button></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="apoio">Pix</button><button data-f="liberados">Liberados</button><button data-f="todos">Todos</button></div><label class="adm-busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="admBusca" placeholder="Buscar por nome ou e-mail" aria-label="Buscar por nome ou e-mail"></label><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>'; carregarPainel(); };
 window.avAdmContar = async () => { if(!ehAdmin(usuario)) return null; try{ const t = await lerTudo(); return {aguardando: t.filter(x => !x.ok).length, pix: t.filter(x => x.aviso).length, liberados: t.filter(x => x.ok).length}; }catch(_){ return null; } };
 window.avAdmPainelRedesenhar = () => { try{ desenharPainel(); }catch(_){} };
 window.avEhAdmin = () => ehAdmin(usuario);
