@@ -239,6 +239,39 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   }
   .nav-mobile-cta{display:none !important;}
 
+  /* V3 · barra fixa embaixo no celular (Início, Drive, Disciplinas) */
+  .tabbar, .tb-folha{display:none;}
+  .ma-continuar{margin:0 0 18px;}
+  @media (max-width:880px){
+    :root{--tab-h:62px;}
+    .tabbar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:248; height:calc(var(--tab-h) + env(safe-area-inset-bottom)); padding:0 8px env(safe-area-inset-bottom); background:var(--paper); border-top:1px solid var(--rule); box-shadow:0 -6px 18px var(--shadow);}
+    .tabbar button{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; background:none; border:0; font:inherit; font-size:11.5px; font-weight:600; color:var(--ink-faint); cursor:pointer; -webkit-tap-highlight-color:transparent;}
+    .tabbar svg{width:22px; height:22px;}
+    .tabbar button.on{color:var(--petrol);}
+    .tabbar button.on::before{content:''; position:absolute; top:0; width:28px; height:2.5px; border-radius:0 0 2px 2px; background:var(--petrol);}
+    .tabbar button{position:relative;}
+    body{padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));}
+    .bot-fab{bottom:calc(var(--tab-h) + 12px + env(safe-area-inset-bottom)) !important;}
+    .off-aviso{bottom:calc(var(--tab-h) + 12px + env(safe-area-inset-bottom));}
+    .ps-toast, .p1-carregando{bottom:calc(var(--tab-h) + 14px);}
+    body:is(.nav-open, .search-open, .bot-aberto, .resumao-tela, .pdfo-aberta, .imprimindo) .tabbar,
+    body:has(.sim-jogo) .tabbar{display:none;}
+    body:has(.sim-jogo){padding-bottom:0;}
+    /* sem duplicatas: o que está na barra ou no topo sai da gaveta */
+    .nav-menu > [data-nav="top"], .nav-menu > .nav-drive, .nav-menu > .nav-g-disc{display:none;}
+    .nav-conta [data-page="viewMural"]{display:none;}
+    body.tem-apoio-topo .nav-conta [data-nav-apoio]{display:none;}
+    .tb-folha{display:block; position:fixed; inset:0; z-index:245;}
+    .tb-folha[hidden]{display:none;}
+    .tb-fundo{position:absolute; inset:0; background:rgba(10,20,18,.45); opacity:0; transition:opacity .2s ease;}
+    .tb-caixa{position:absolute; left:0; right:0; bottom:0; max-height:78dvh; overflow-y:auto; background:var(--paper); border-radius:18px 18px 0 0; padding:8px 12px calc(var(--tab-h) + 12px + env(safe-area-inset-bottom)); transform:translateY(100%); transition:transform .25s ease-out; box-shadow:0 -12px 32px rgba(0,0,0,.22);}
+    .tb-folha.in .tb-fundo{opacity:1;} .tb-folha.in .tb-caixa{transform:none;}
+    .tb-alca{width:40px; height:4px; border-radius:2px; background:var(--rule); margin:4px auto 10px;}
+    .tb-caixa h3{font-family:var(--serif); font-size:20px; margin:0 12px 8px;}
+    body.tb-aberta .bot-fab{display:none;}
+  }
+  @media print{ .tabbar, .tb-folha{display:none !important;} }
+
   /* =========================================================
      HOME · HERO
      ========================================================= */
@@ -3872,7 +3905,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       </div>
       <button class="nav-link" data-scroll="top" data-nav="top">Início</button>
       <button class="nav-link nav-drive" data-scroll="disciplinas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Drive</button>
-      <div class="nav-group">
+      <div class="nav-group nav-g-disc">
         <button class="nav-link nav-trigger" aria-expanded="false">Disciplinas <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="nav-group-label">Disciplinas</div>
         <div class="nav-dropdown nav-dd-disc">
@@ -3921,6 +3954,13 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     </div>
   </div>
 </header>
+
+<div class="tb-folha" id="tbFolha" hidden><div class="tb-fundo" data-tb-fechar></div><div class="tb-caixa" role="dialog" aria-label="Disciplinas"><div class="tb-alca"></div><h3>Disciplinas</h3><div class="tb-lista" id="tbLista"></div></div></div>
+<nav class="tabbar" id="tabBar" aria-label="Atalhos">
+  <button data-tb="inicio" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>Início</button>
+  <button data-tb="drive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg>Drive</button>
+  <button data-tb="disc" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Disciplinas</button>
+</nav>
 
 <div class="search-overlay" id="searchOverlay" hidden>
   <div class="search-box" role="dialog" aria-modal="true" aria-label="Buscar no site">
@@ -24281,6 +24321,16 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   };
   const maIc = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${MA_IC[k] || ''}</svg>`;
   const maRow = (attrs, ic, tom, titulo, sub, extra) => `<button class="ma-row" ${attrs}><span class="ma-ic ma-ic-${tom}">${maIc(ic)}</span><span class="ma-row-tx"><b>${titulo}</b>${sub ? `<small>${sub}</small>` : ''}</span>${extra || ''}<span class="ma-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></button>`;
+  // "Continue de onde parou": o último resumo ou exercício aberto, de qualquer disciplina do semestre
+  function maContinuar(){
+    try{
+      const ult = ultimoLer();
+      const d = DISC_MEU().filter(x => ult[x.n]).sort((x, y) => (ult[y.n].t || 0) - (ult[x.n].t || 0))[0];
+      if(!d) return '';
+      const h = continuarHTML(d); if(!h) return '';
+      return h.replace('class="dp-continue"', 'class="dp-continue ma-continuar"').replace('<span class="dp-cont-lbl">Continue de onde parou</span>', `<span class="dp-cont-lbl">Continue de onde parou · ${escHTML(d.name)}</span>`);
+    }catch(e){ return ''; }
+  }
   function renderHoje(){
     const el = document.getElementById('hojePage'); if(!el) return;
     const apoia = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
@@ -24337,7 +24387,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso'], ['ferramentas', '★ Apoiador'], ['conta', 'Conta']];
     if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
     let corpo = '';
-    if(maAba === 'hoje') corpo = (plano || '') + `<div class="ma-grupo-t">Treinar</div><div class="ma-acoes">
+    if(maAba === 'hoje') corpo = maContinuar() + (plano || '') + `<div class="ma-grupo-t">Treinar</div><div class="ma-acoes">
         <button class="ma-acao ma-acao-verde" data-ds-escolher><span class="ma-acao-ic">${maIc('discursiva')}</span><b>Treino de discursiva</b><small>Escreva e corrija perguntas de prova e casos</small><span class="ma-acao-go">Começar <span aria-hidden="true">→</span></span></button>
         <button class="ma-acao ma-acao-ocre" data-hj-ir='{"tipo":"erros"}'><span class="ma-acao-ic">${maIc('erros')}</span>${nErr ? `<span class="ma-acao-num">${nErr}</span>` : ''}<b>Revisão dos erros</b><small>${nErr ? (nErr === 1 ? '1 questão esperando revisão' : nErr + ' questões esperando revisão') : 'Tudo em dia: nenhum erro guardado'}</small><span class="ma-acao-go">${nErr ? 'Revisar' : 'Abrir'} <span aria-hidden="true">→</span></span></button>
       </div>`;
@@ -25701,6 +25751,54 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   document.addEventListener('av-apoio', () => { tent = 0; setTimeout(tentar, 1500); });
   fundo.addEventListener('click', e => { if(e.target === fundo || e.target.closest('[data-cv-fechar]')) fundo.hidden = true; });
   document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fundo.hidden = true; });
+})();
+</script>
+<script>
+// V3 · barra de baixo no celular: Início, Drive e Disciplinas
+(function(){
+  const bar = document.getElementById('tabBar'), folha = document.getElementById('tbFolha'), lista = document.getElementById('tbLista');
+  if(!bar || !folha) return;
+  function marcar(){
+    const pg = (typeof currentPage !== 'undefined') ? currentPage : 'top';
+    const aberta = !folha.hidden;
+    bar.querySelectorAll('[data-tb]').forEach(b => b.classList.remove('on'));
+    const k = aberta || pg === 'viewDisc' ? 'disc' : pg === 'top' ? (bar.dataset.drive === '1' ? 'drive' : 'inicio') : '';
+    if(k) bar.querySelector(`[data-tb="${k}"]`).classList.add('on');
+  }
+  function abrir(){
+    const fonte = document.querySelector('.site-nav .nav-dd-disc');
+    lista.innerHTML = fonte ? fonte.innerHTML : '';
+    lista.querySelectorAll('.active').forEach(x => x.classList.remove('active'));
+    if(typeof discAtual !== 'undefined' && currentPage === 'viewDisc') lista.querySelector(`[data-open-disc="${discAtual}"]`)?.classList.add('active');
+    if(typeof closeMenus === 'function') closeMenus();
+    document.body.classList.add('tb-aberta'); folha.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => folha.classList.add('in'))); marcar();
+  }
+  function fechar(){
+    if(folha.hidden) return;
+    folha.classList.remove('in'); document.body.classList.remove('tb-aberta'); setTimeout(() => { folha.hidden = true; marcar(); }, 220);
+  }
+  bar.addEventListener('click', e => {
+    const b = e.target.closest('[data-tb]'); if(!b) return;
+    const k = b.dataset.tb;
+    if(k === 'disc'){ folha.hidden ? abrir() : fechar(); return; }
+    fechar();
+    bar.dataset.drive = k === 'drive' ? '1' : '';
+    bar._ate = Date.now() + 1500;
+    scrollToSection(k === 'drive' ? 'disciplinas' : 'top');
+    setTimeout(marcar, 40);
+  });
+  folha.addEventListener('click', e => { if(e.target.closest('[data-tb-fechar], .nav-item')) fechar(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') fechar(); });
+  // voltar para o topo da página inicial devolve o destaque para Início
+  window.addEventListener('scroll', () => { if(bar.dataset.drive === '1' && window.scrollY < 80 && Date.now() > (bar._ate || 0)){ bar.dataset.drive = ''; marcar(); } }, {passive:true});
+  const orig = window.switchPage;
+  if(typeof orig === 'function') window.switchPage = switchPage = function(id){ const drv = bar.dataset.drive; const r = orig.apply(this, arguments); bar.dataset.drive = id === 'top' ? drv : ''; fechar(); marcar(); return r; };
+  window.addEventListener('popstate', () => setTimeout(marcar, 30));
+  // sem duplicata do Apoiar: se a estrela do topo está visível, ele sai da gaveta
+  const ap = document.getElementById('apoioBtn');
+  function apoio(){ document.body.classList.toggle('tem-apoio-topo', !!ap && !ap.hidden); }
+  if(ap){ new MutationObserver(apoio).observe(ap, {attributes:true, attributeFilter:['hidden']}); apoio(); }
+  marcar();
 })();
 </script>
 </body>
