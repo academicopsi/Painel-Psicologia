@@ -629,6 +629,15 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .wrap:not(#top) > header p,
   .cine-sub, .arena-sub{font-size:16.5px; line-height:1.6; color:var(--ink-soft); margin:0; max-width:64ch;}
   .wrap:not(#top) > header .notice{margin:20px 0 0;}
+  /* V3 · cabeçalho das páginas no estilo da Minha área: grupo, ícone da página e título em serifa */
+  .pg-tit{display:flex; align-items:center; gap:14px; margin:0 0 12px;}
+  .pg-tit-ic{flex:none; width:52px; height:52px; border-radius:14px; background:var(--paper); border:1px solid var(--rule); color:var(--petrol); display:grid; place-items:center; box-shadow:0 1px 2px var(--shadow);}
+  .pg-tit-ic svg{width:24px; height:24px;}
+  .wrap:not(#top) > header .pg-tit h1{margin:0; font-family:var(--serif, Georgia, serif); font-weight:600; letter-spacing:-.01em; font-size:clamp(28px, 4vw, 38px); line-height:1.12;}
+  .wrap:not(#top) > header > p{max-width:58ch;}
+  .wrap:not(#top) > header{border-bottom:1px solid var(--rule) !important;}
+  #viewPrazos > header .eyebrow #cntTasks{display:none;}
+  @media (max-width:600px){ .pg-tit-ic{width:46px; height:46px; border-radius:12px;} .pg-tit-ic svg{width:21px; height:21px;} .wrap:not(#top) > header{padding-bottom:22px; margin-bottom:24px;} }
   .wrap:not(#top) > p{font-size:15.5px; line-height:1.7; color:var(--ink); margin:0 0 16px;}
   .wrap:not(#top) h4{font-family:inherit !important; font-size:17px !important; font-weight:700; letter-spacing:-0.01em;}
 
@@ -4077,8 +4086,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromPrazos">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Prazos e tarefas · Arquivo Vivo <span id="cntTasks"></span></div>
-    <h1>Prazos e tarefas</h1>
+    <div class="eyebrow">Turma <span id="cntTasks"></span></div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><h1>Prazos e tarefas</h1></div>
     <p>Provas, trabalhos e entregas com data marcada. Itens vencidos passam para o cemitério, no fim da página.</p>
   </header>
 
@@ -4121,8 +4130,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromCursos">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Cursos extras · Arquivo Vivo</div>
-    <h1>Cursos extras</h1>
+    <div class="eyebrow">Estudo</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><h1>Cursos extras</h1></div>
     <p>Cursos complementares gratuitos, alguns com certificado, relacionados às disciplinas.</p>
   </header>
 
@@ -4140,9 +4149,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 <div class="wrap" id="viewErros" style="display:none;">
   <button class="back-link" id="backFromErros">← Voltar ao Arquivo Vivo</button>
   <header>
-    <div class="eyebrow">Estudo · Arquivo Vivo</div>
-    <h1>Revisão dos erros</h1>
-    <p>Questões erradas nos exercícios e nos quizzes dos resumos. Cada questão sai da lista quando é respondida corretamente, aqui ou no exercício de origem.</p>
+    <div class="eyebrow">Estudo</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></span><h1>Revisão dos erros</h1></div>
+    <p>As questões que você errou. Cada uma sai da lista quando você acerta, aqui ou no exercício de origem.</p>
   </header>
   <div id="errosBox"></div>
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
@@ -4151,8 +4160,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromSobre">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Sobre · Arquivo Vivo</div>
-    <h1>Sobre o site</h1>
+    <div class="eyebrow">Sobre</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><h1>Sobre o site</h1></div>
     <p>Site independente, mantido por um aluno, com o material das aulas de Psicologia e ferramentas de estudo.</p>
   </header>
 
@@ -4212,8 +4221,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromInstalar">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Instale o app · Arquivo Vivo</div>
-    <h1>Instale o app</h1>
+    <div class="eyebrow">Sobre</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><h1>Instale o app</h1></div>
     <p>O Arquivo Vivo pode ser instalado no celular e aberto como aplicativo, com ícone na tela inicial e sem a barra do navegador.</p>
   </header>
 
@@ -4290,9 +4299,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromFerramentas">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Exercícios · Arquivo Vivo</div>
-    <h1>Exercícios</h1>
-    <p>Exercícios das matérias, organizados por disciplina. <strong>Quiz</strong>: perguntas rápidas de múltipla escolha. <strong>Interativo</strong>: desenhos, linhas do tempo e montagens para explorar.</p>
+    <div class="eyebrow">Estudo</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span><h1>Exercícios</h1></div>
+    <p>Quizzes e atividades interativas, organizados por disciplina.</p>
     <div class="notice">
       <strong>Uso didático.</strong> Os exercícios servem para praticar conceitos e não se aplicam a diagnóstico, avaliação clínica ou decisões sobre pessoas reais. As respostas seguem as associações mais citadas na literatura; em caso de dúvida, vale a orientação do professor.
     </div>
@@ -5139,10 +5148,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <div class="filmstrip"></div>
   <button class="back-link cine-back" id="backFromVideos">← Voltar ao Arquivo Vivo</button>
 
-  <header class="cine-header">
-    <div class="cine-eyebrow">🎬 SALA DE PROJEÇÃO · SEGUNDO SEMESTRE</div>
-    <h1 class="cine-title">Vídeos</h1>
-    <p class="cine-sub">Vídeo-aulas e conteúdos em vídeo recomendados, organizados por disciplina. Clique numa disciplina para abrir.</p>
+  <header>
+    <div class="eyebrow">Estudo</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg></span><h1>Vídeos</h1></div>
+    <p>Vídeo-aulas recomendadas, organizadas por disciplina.</p>
   </header>
 
   <div id="videosAccordion"></div>
@@ -5155,9 +5164,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 <div class="wrap" id="viewSimulados" style="display:none;">
   <button class="back-link" id="backFromSimulados">← Voltar ao Arquivo Vivo</button>
   <header>
-    <div class="eyebrow">Estudo · Arquivo Vivo</div>
-    <h1>Simulados</h1>
-    <p>Um por disciplina, com treino por tema: uma questão por tela, tempo opcional, pontos e resultado por assunto no fim. As questões erradas vão para a Revisão dos erros.</p>
+    <div class="eyebrow">Estudo</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><h1>Simulados</h1></div>
+    <p>Um por disciplina, com treino por tema. As questões erradas vão para a Revisão dos erros.</p>
   </header>
   <div id="simuladosLista"></div>
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
@@ -5167,8 +5176,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 <div class="wrap" id="viewApoio" style="display:none;">
   <button class="back-link" id="backFromApoio">← Voltar ao Arquivo Vivo</button>
   <header>
-    <div class="eyebrow">Glossário e guias · Arquivo Vivo</div>
-    <h1>Glossário e guias</h1>
+    <div class="eyebrow">Estudo</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M9 2v8l2.5-1.8L14 10V2"/></svg></span><h1>Glossário e guias</h1></div>
     <p>Glossário das disciplinas, comparações entre conceitos, normas ABNT e guia de gráficos.</p>
     <div class="extras-index"><button data-goto="glossario" aria-expanded="false">Glossário</button><button data-goto="comparacoes" aria-expanded="false">Comparações</button><button data-goto="abnt" aria-expanded="false">Normas ABNT</button><button data-goto="graficos" aria-expanded="false">Gráficos</button></div>
     <p class="extras-hint" id="extrasHint">Escolha um item acima para abrir.</p>
@@ -5342,8 +5351,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromEstudar">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Resumos · Arquivo Vivo</div>
-    <h1>Resumos</h1>
+    <div class="eyebrow">Estudo</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><h1>Resumos</h1></div>
     <p>Resumos por disciplina, com perguntas de revisão e quiz ao fim de cada parte.</p>
   </header>
 
