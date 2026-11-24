@@ -25524,5 +25524,52 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const v = document.getElementById('viewAdmin'); if(eu && v && v.style.display !== 'none') render(); }, 1000);
 })();
 </script>
+<div class="conta-fundo" id="conviteFundo" hidden>
+  <div class="conta-caixa cv-caixa" role="dialog" aria-modal="true" aria-labelledby="cvTitulo">
+    <button class="conta-fechar" data-cv-fechar aria-label="Fechar">×</button>
+    <div class="eyebrow apoio-eb">Fim de semestre</div>
+    <h2 id="cvTitulo">O Arquivo Vivo te ajudou neste semestre?</h2>
+    <p class="conta-sub">Resumos, simulados, o Psiu, os guias dos trabalhos: tudo isso ficou no ar de agosto a novembro.</p>
+    <div class="cv-num"><span class="cv-num-v">quase R$ 500</span><span class="cv-num-l">de manutenção do site, de agosto a novembro</span></div>
+    <p class="conta-sub">Se ele fez diferença para você, que tal ajudar a manter o site vivo no próximo semestre? Qualquer valor conta, e quem apoia ainda libera os extras de apoiador.</p>
+    <div class="cv-acoes"><button class="conta-btn cv-sim" type="button" data-apoio data-cv-fechar>Quero ajudar</button><button class="conta-btn sec" type="button" data-cv-fechar>Agora não</button></div>
+    <p class="conta-priv">O site continua aberto para todos, apoiando ou não.</p>
+  </div>
+</div>
+<style>
+  .cv-caixa .conta-sub{margin-bottom:12px;}
+  .cv-num{display:flex; flex-direction:column; gap:2px; background:var(--ochre-soft); border:1px solid rgba(183,121,31,.28); border-radius:12px; padding:12px 14px; margin:0 0 14px;}
+  .cv-num-v{font-family:var(--serif, Georgia, serif); font-size:24px; font-weight:600; color:#9A6424; line-height:1.15;}
+  body.dark .cv-num-v{color:var(--ochre);}
+  .cv-num-l{font-size:13px; color:var(--ink-soft);}
+  .cv-acoes{display:flex; flex-direction:column; gap:8px; margin-top:4px;}
+  .cv-acoes .conta-btn{margin:0;}
+  .cv-sim{background:var(--ochre) !important;}
+  body.dark .cv-sim{color:#1E1A12 !important;}
+</style>
+<script>
+// Convite de fim de semestre: aparece uma vez por conta, para quem não é apoiador, de 26/11 (10h) até 03/12.
+(function(){
+  const INI = Date.parse('2026-11-26T10:00:00-03:00'), FIM = Date.parse('2026-12-04T00:00:00-03:00'), CHAVE = 'av-convite-2026-2';
+  const fundo = document.getElementById('conviteFundo'); let tent = 0;
+  function pode(){
+    const agora = Date.now(), eu = window.avEu && window.avEu();
+    if(agora < INI || agora >= FIM || !eu || !eu.liberado || window.avApoiador) return false;
+    if(document.documentElement.classList.contains('portao')) return false;
+    try{ if(localStorage.getItem(CHAVE)) return false; }catch(_){ return false; }
+    return true;
+  }
+  function tentar(){
+    if(!pode()) return;
+    const aberto = [...document.querySelectorAll('.conta-fundo')].some(x => x !== fundo && !x.hidden);
+    if(aberto){ if(++tent < 30) setTimeout(tentar, 4000); return; }
+    try{ localStorage.setItem(CHAVE, String(Date.now())); }catch(_){}
+    fundo.hidden = false;
+  }
+  document.addEventListener('av-apoio', () => setTimeout(tentar, 1500));
+  fundo.addEventListener('click', e => { if(e.target === fundo || e.target.closest('[data-cv-fechar]')) fundo.hidden = true; });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fundo.hidden = true; });
+})();
+</script>
 </body>
 </html>
