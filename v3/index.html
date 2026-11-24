@@ -2172,6 +2172,15 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .sim-ini-nota{font-size:13px; opacity:.65; line-height:1.45;}
   .sim-start{margin-top:8px; border:0; border-radius:12px; padding:16px; font-size:18px; font-weight:800; background:#7C5CFF; color:#fff; box-shadow:0 5px 0 #4B32B8;}
   .sim-start:active{transform:translateY(4px); box-shadow:0 1px 0 #4B32B8;}
+  .sim-card-selo{color:#B7791F; font-weight:700;}
+  .sim-seg-ap .sim-selo, .sim-prova-nota .sim-selo{font-style:normal; color:#F2C95B; margin-right:5px;}
+  .sim-seg button.sim-seg-ap{border-color:rgba(242,201,91,.55);}
+  .sim-seg button.sim-seg-ap.on .sim-selo{color:#B7791F;}
+  .sim-prova-nota{margin-top:10px; padding:12px 14px; border-radius:12px; background:rgba(242,201,91,.09); border:1px solid rgba(242,201,91,.35); font-size:14px; line-height:1.5;}
+  .sim-prova-nota b{display:block; font-size:14.5px; margin-bottom:4px;}
+  .sim-prova-nota p{margin:0 0 6px; opacity:.88;}
+  .sim-prova-nota .sim-prova-aviso{font-size:12.5px; opacity:.7; margin:0;}
+  .sim-start.sim-start-ap{background:#C4862A; box-shadow:0 5px 0 #8A5A14;}
   .sim-papel{display:flex; gap:12px; align-items:flex-start; text-align:left; margin-top:6px; padding:14px; border-radius:14px; border:1px dashed rgba(242,201,91,.55); background:rgba(242,201,91,.08); color:#fff; font:inherit; cursor:pointer;}
   .sim-papel:hover{background:rgba(242,201,91,.14);}
   .sim-papel-ic{flex:none; width:38px; height:38px; border-radius:10px; display:grid; place-items:center; background:rgba(242,201,91,.18); color:#F2C95B;}
@@ -20362,7 +20371,7 @@ function simHTMLCard(sim){
     <div class="sim-card-d">${escHTML(sim.desc)}</div>
     ${r ? `<div class="sim-card-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
     <button class="btn btn-primary sim-go" data-sim-abrir="${sim.id}">Começar simulado completo</button>
-    ${(sim.partes || []).length ? `<div class="sim-card-partes"><span>Ou só uma parte:</span>${sim.partes.map(p => `<button data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}">${escHTML(p.t)} <small>${p.n}</small></button>`).join('')}</div>` : ''}
+    ${(sim.partes || []).length ? `<div class="sim-card-partes"><span>Ou só uma parte:</span>${sim.partes.map(p => `<button data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}">${p.k === 'prova' ? '<b class="sim-card-selo" title="Para apoiadores">★</b> ' : ''}${escHTML(p.t)} <small>${p.n}</small></button>`).join('')}</div>` : ''}
   </div>`;
 }
 
@@ -20601,11 +20610,12 @@ function simRender(){
         <p>${escHTML(e.sim.desc)}</p>
         ${r ? `<div class="sim-ini-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
         <div class="sim-ini-g"><div class="sim-ini-l">Conteúdo</div>
-          <div class="sim-seg">${simTemas(e.sim).map(t=>`<button class="${e.parte === t.k ? 'on' : ''}" data-sim-parte="${t.k}">${t.t} <span>${t.n}</span></button>`).join('')}</div></div>
+          <div class="sim-seg">${simTemas(e.sim).map(t=>`<button class="${e.parte === t.k ? 'on' : ''}${t.k === 'prova' ? ' sim-seg-ap' : ''}" data-sim-parte="${t.k}">${t.k === 'prova' ? '<i class="sim-selo" aria-label="Para apoiadores">★</i>' : ''}${t.t} <span>${t.n}</span></button>`).join('')}</div>
+          ${e.parte === 'prova' ? `<div class="sim-prova-nota"><b><i class="sim-selo">★</i> Estilo prova · para apoiadores</b><p>Questões escritas seguindo o raciocínio que os professores usam nas provas: um caso ou uma pesquisa como contexto, um comando técnico e cinco alternativas que exigem leitura atenta.</p><p class="sim-prova-aviso">Não são questões de provas oficiais nem de banco de prova da faculdade: foram criadas pelo Arquivo Vivo a partir das aulas.</p></div>` : ''}</div>
         <div class="sim-ini-g"><div class="sim-ini-l">Tempo</div>
           <div class="sim-seg"><button class="${e.comTempo ? 'on' : ''}" data-sim-tempo="1">${SIM_TEMPO} s por questão</button><button class="${!e.comTempo ? 'on' : ''}" data-sim-tempo="0">Sem tempo</button></div>
           <div class="sim-ini-nota">${e.comTempo ? 'Acertar rápido vale mais pontos. Acertos seguidos dão bônus.' : 'Cada acerto vale 1.000 pontos. Acertos seguidos dão bônus.'}</div></div>
-        <button class="sim-start" data-sim-start>Começar</button>
+        ${e.parte === 'prova' && !window.avApoiador ? `<button class="sim-start sim-start-ap" data-sim-apoio>★ Liberar com apoio</button><div class="sim-ini-nota">Um Pix de valor livre libera o estilo prova e os outros recursos de apoiador por 30 dias. O resto do simulado continua grátis.</div>` : `<button class="sim-start" data-sim-start>Começar</button>`}
         <div class="sim-ini-nota">As alternativas mudam de ordem a cada partida. As questões erradas vão para a Revisão dos erros.</div>
         <button class="sim-papel" data-sim-papel><span class="sim-papel-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 15.5h7M9 19h4"/></svg></span><span><b>Prefere treinar no papel? <em>★ apoiador</em></b><small>Baixe uma prova em PDF com questões escritas como as da faculdade: caso ou pesquisa como contexto, comando técnico e cinco alternativas que exigem ler com atenção. Com discursivas, quadro de respostas e gabarito comentado.</small></span></button>
       </div>`;
@@ -20675,7 +20685,8 @@ function simClique(ev){
   if(t.closest('[data-sim-papel]')){ const disc = e.sim.disc; simSair(); setTimeout(() => { if(window.avAbrirSimPDF) window.avAbrirSimPDF(disc); }, 250); return; }
   const pa = t.closest('[data-sim-parte]'); if(pa){ e.parte = pa.dataset.simParte; simRender(); return; }
   const tp = t.closest('[data-sim-tempo]'); if(tp){ e.comTempo = tp.dataset.simTempo === '1'; simRender(); return; }
-  if(t.closest('[data-sim-start]')){ simComecar(simIndices(e.sim, e.parte)); return; }
+  if(t.closest('[data-sim-apoio]')){ simSair(); setTimeout(() => { const b = document.createElement('button'); b.setAttribute('data-apoio', ''); b.hidden = true; document.body.appendChild(b); b.click(); b.remove(); }, 250); return; }
+  if(t.closest('[data-sim-start]')){ if(e.parte === 'prova' && !window.avApoiador){ simRender(); return; } simComecar(simIndices(e.sim, e.parte)); return; }
   const op = t.closest('[data-sim-op]'); if(op && !op.disabled){ simResponder(+op.dataset.simOp); return; }
   if(t.closest('[data-sim-prox]')){ simProxima(); return; }
   if(t.closest('[data-sim-revisar]')){ const r = document.querySelector('#simOverlay .sim-rev'); r.hidden = !r.hidden; if(!r.hidden) r.scrollIntoView({behavior:'smooth', block:'start'}); return; }
