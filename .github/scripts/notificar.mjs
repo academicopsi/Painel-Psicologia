@@ -174,7 +174,7 @@ if(modo === 'aviso'){
   for(const [pid, p] of Object.entries(posts)){
     if(!p || !p.texto) continue;
     const tit = corta(p.titulo || p.texto, 60), link = BASE + '#mural-' + pid, tag = 'mural-' + pid;
-    if(p.em > desde && p.em <= agora) for(const u of (p.men || [])) add(u, p.uid, {chave: 'p' + pid, titulo: `${nome(p.uid, p.nome)} marcou você no mural`, corpo: `“${tit}”: ${corta(p.texto, 90)}`, link, tag});
+    if(p.em > desde && p.em <= agora) for(const u of (p.men || [])) add(u, p.uid, {chave: 'p' + pid, titulo: `${nome(p.uid, p.nome)} marcou você no Corredor`, corpo: `“${tit}”: ${corta(p.texto, 90)}`, link, tag});
     const rs = Object.entries(com[pid] || {}).filter(([, c]) => c && c.texto).sort((a, b) => a[1].em - b[1].em);
     const ml = p.melhor, mc = ml && (com[pid] || {})[ml.c];
     if(mc && ml.em > desde && ml.em <= agora) add(mc.uid, p.uid, {chave: 'm' + pid + ml.c, titulo: `${nome(p.uid, p.nome)} escolheu a sua resposta como a melhor`, corpo: `“${tit}”: ${corta(mc.texto, 90)}`, link, tag});
@@ -182,7 +182,7 @@ if(modo === 'aviso'){
     for(const [cid, c] of rs){
       if(c.em > desde && c.em <= agora){
         const quem = nome(c.uid, c.nome), corpo = `“${tit}”: ${corta(c.texto, 90)}`, chave = 'c' + cid;
-        for(const u of (c.men || [])) add(u, c.uid, {chave, titulo: `${quem} marcou você no mural`, corpo, link, tag});
+        for(const u of (c.men || [])) add(u, c.uid, {chave, titulo: `${quem} marcou você no Corredor`, corpo, link, tag});
         add(p.uid, c.uid, {chave, titulo: `${quem} respondeu ao seu tópico`, corpo, link, tag});
         for(const u of participantes) add(u, c.uid, {chave, titulo: `${quem} também respondeu`, corpo, link, tag});
       }
@@ -193,7 +193,7 @@ if(modo === 'aviso'){
   const todosMural = await destinos('mural', 'todos');
   for(const [uid, msgs] of fila){
     const lista = todosMural.filter(d => d.uid === uid); if(!lista.length) continue;
-    if(msgs.length > 3) await enviar(lista, `Psiu! ${msgs.length} novidades no mural`, msgs.slice(-3).map(m => m.titulo).join(' · '), BASE + '#mural', 'mural');
+    if(msgs.length > 3) await enviar(lista, `Psiu! ${msgs.length} novidades no Corredor`, msgs.slice(-3).map(m => m.titulo).join(' · '), BASE + '#mural', 'mural');
     else for(const m of msgs) await enviar(lista, m.titulo, m.corpo, m.link, m.tag);
     n += msgs.length;
   }

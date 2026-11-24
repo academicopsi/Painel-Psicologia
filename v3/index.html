@@ -3193,7 +3193,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-barra-resp button{flex:none; width:38px; height:38px; border-radius:50%; border:0; background:#1F5C56; color:#fff; display:grid; place-items:center; cursor:pointer;}
   .mu-barra-resp button svg{width:18px; height:18px; margin-left:-2px;}
   body:has(#viewMural[style*="block"] .mu-barra-resp) #botFab{display:none;}
-  /* reações, marcações e notificações do mural */
+  /* reações, marcações e notificações do corredor */
   .mu-re{display:inline-flex; width:20px; height:20px; border-radius:50%; flex:none;}
   .mu-re svg{width:100%; height:100%; display:block;}
   .mu-re-s{width:19px; height:19px;}
@@ -3914,7 +3914,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
           <button class="nav-item nav-apoio-dest" data-apoio data-nav-apoio><span class="ni-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.8l2.75 5.6 6.15.9-4.45 4.33 1.05 6.12L12 16.87l-5.5 2.88 1.05-6.12L3.1 9.3l6.15-.9z"/></svg></span><span class="ni-text"><strong id="navApoioT">Apoiar o Arquivo Vivo</strong><small id="navApoioSub">Pix de R$ 10 a R$ 50 ou livre · vale 30 dias</small></span></button>
           <button class="nav-item nav-ap" data-page="viewHoje" data-ma-ir="ferramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.6-1.7"/><circle cx="12" cy="16" r="1.2"/></svg></span><span class="ni-text"><strong>Recursos de apoiador <span class="ap-selo">★</span></strong><small id="navApSub">O que o apoio libera</small></span></button>
           <button class="nav-item" data-share-menu><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></span><span class="ni-text"><strong>Compartilhar o site</strong><small>Mande o link para a turma</small></span></button>
-          <button class="nav-item nav-admin" data-page="viewAdmin" hidden><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="ni-text"><strong>Painel do administrador</strong><small>Acessos, avisos, mural e turma</small></span></button>
+          <button class="nav-item nav-admin" data-page="viewAdmin" hidden><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="ni-text"><strong>Painel do administrador</strong><small>Acessos, avisos, corredor e turma</small></span></button>
         </div>
       </div>
       <button class="nav-link" data-scroll="top" data-nav="top">Início</button>
@@ -3944,7 +3944,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-group-label">Turma</div>
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewPrazos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="ni-text"><strong>Prazos e tarefas</strong><small>Calendário, provas e entregas</small></span></button>
-          <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg></span><span class="ni-text"><strong>Mural da turma</strong><small>Publique, comente e curta</small></span></button>
+          <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg></span><span class="ni-text"><strong>Corredor da turma</strong><small>Avisos, recados e conversa da turma</small></span></button>
         </div>
       </div>
       <div class="nav-group">
@@ -3961,7 +3961,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     <div class="nav-actions">
       <button class="icon-btn" id="searchBtn" data-open-search aria-label="Buscar no site" title="Buscar (atalho: /)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <button class="icon-btn" id="contaBtn" aria-label="Entrar ou criar conta" title="Sua conta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="conta-dot" hidden></span></button>
-      <button class="icon-btn hdr-mural" id="muralBtn" data-page="viewMural" aria-label="Mural da turma" title="Mural da turma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg><span class="hdr-dot" id="muralDot" hidden></span></button>
+      <button class="icon-btn hdr-mural" id="muralBtn" data-page="viewMural" aria-label="Corredor da turma" title="Corredor da turma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg><span class="hdr-dot" id="muralDot" hidden></span></button>
       <button class="icon-btn" id="themeBtn" hidden style="display:none" aria-label="Alternar modo escuro" title="Modo escuro"><span id="themeIcon" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span></button>
       <button class="icon-btn hdr-apoio" id="apoioBtn" data-apoio hidden aria-label="Apoiar o Arquivo Vivo" title="Apoiar o Arquivo Vivo"><span class="hdr-ap-estrela" aria-hidden="true">★</span><span class="hdr-ap-tx">Apoiar</span></button>
       <button class="icon-btn" id="shareBtn" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button>
@@ -3975,7 +3975,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button data-tb="inicio" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>Início</button>
   <a data-tb="drive" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg>Drive</a>
   <button data-tb="disc" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 4.5-9 4.5-9-4.5z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>Disciplinas</button>
-  <button data-tb="mural"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg><i class="tb-dot" hidden></i>Mural</button>
+  <button data-tb="mural"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg><i class="tb-dot" hidden></i>Corredor</button>
   <button data-tb="ma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Minha área</button>
 </nav>
 
@@ -5368,7 +5368,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       <p>Iniciativa voluntária, sem vínculo com a coordenação ou com a instituição. O conteúdo das aulas sempre prevalece como referência final.</p>
     </div>
     <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewSimulados">Simulados</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button><button data-page="viewCursos">Cursos extras</button></div>
-    <div class="footer-col"><h4>Turma</h4><a href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer">Drive das disciplinas</a><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewMural">Mural da turma</button></div>
+    <div class="footer-col"><h4>Turma</h4><a href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer">Drive das disciplinas</a><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewMural">Corredor da turma</button></div>
     <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button><button data-scroll="atualizacoes">Últimas atualizações</button><button data-apoio>Apoiar o Arquivo Vivo</button></div>
     <div class="qr-block"><div id="qrcode"></div><span>Aponte a câmera para abrir no celular</span></div>
   </div>
@@ -5453,7 +5453,7 @@ const UPDATES = [
   // só conteúdo e ferramentas, em uma ou duas linhas; ajustes de visual e correções ficam de fora
   {date: '2026-11-23', disc: 'Geral', desc: '15 conquistas novas para vestir o Psiu: estude, faça exercícios, refaça os erros e mantenha a constância para liberar boina, fone, gorro, chapéus e mais. Quem completar todas ganha o fundo Consultório do Psiu.', link: {url:'#minha-area'}},
   {date: '2026-11-22', disc: 'Área do apoiador', desc: 'Plano de estudos novo: já vem pronto a partir das suas próximas provas, mostra a semana e quanto falta para cada prova, e se ajusta às disciplinas e ao tempo que você tem.', link: {url:'#minha-area'}},
-  {date: '2026-11-21', disc: 'Geral', desc: 'Mural da turma: tópicos por categoria, respostas, reações, marcação de colegas com @ e melhor resposta. Quem ativar as notificações fica sabendo no celular quando responderem.', link: {url:'#mural'}},
+  {date: '2026-11-21', disc: 'Geral', desc: 'Corredor da turma: tópicos por categoria, respostas, reações, marcação de colegas com @ e melhor resposta. Quem ativar as notificações fica sabendo no celular quando responderem.', link: {url:'#mural'}},
   {date: '2026-11-21', disc: '1º semestre', desc: 'Conteúdo do 1º semestre: 16 resumos com Teste-se, 249 questões de simulado, 35 discursivas, 2 estudos dirigidos, glossário com 208 termos e exercícios interativos.', link: {url:'#disc-11'}},
   {date: '2026-11-20', disc: 'Desenvolvimento Adulto e Idoso', desc: 'Estudo dirigido da N2 respondido, conteúdo dos slides no resumo e 20 questões novas no simulado.', link: {url:'#disc-05'}},
   {date: '2026-11-20', disc: 'Neuroanatomia Humana', desc: 'Casos clínicos comentados no simulado e a aba Do sintoma à estrutura no resumo.', link: {url:'#simulado-neuro-n2'}},
@@ -21276,7 +21276,7 @@ const PAGINAS_BUSCA = [
   {t:'Sobre o site', s:'O projeto e a organização do Drive', l:{page:'viewSobre'}},
   {t:'Instale o app', s:'Instalação no celular', l:{page:'viewInstalar'}},
   {t:'Minha área', s:'Plano do dia, progresso e treinos', l:{page:'viewHoje'}},
-  {t:'Mural da turma', s:'Publique, comente e curta', l:{page:'viewMural'}},
+  {t:'Corredor da turma', s:'Avisos, recados e conversa da turma', l:{page:'viewMural'}},
 ];
 function indiceBusca(){
   const it = [];
@@ -23334,9 +23334,9 @@ window.avPushHTML = () => {
   else if(Notification.permission === 'denied') corpo = '<p class="pn-txt">As notificações estão bloqueadas neste aparelho. Libere nas configurações do navegador para o site e volte aqui.</p>';
   else if(pushInfo && pushInfo.token && Notification.permission === 'granted') corpo = `<p class="pn-txt pn-ok">Ativadas neste aparelho.</p>
       <label class="pn-op"><input type="checkbox" data-pn-pref="avisos"${pushInfo.avisos !== false ? ' checked' : ''}><span>Avisos da turma</span></label>
-      <label class="pn-op"><input type="checkbox" data-pn-pref="mural"${pushInfo.mural !== false ? ' checked' : ''}><span>Mural: respostas e marcações</span></label>
+      <label class="pn-op"><input type="checkbox" data-pn-pref="mural"${pushInfo.mural !== false ? ' checked' : ''}><span>Corredor: respostas e marcações</span></label>
       <button class="conta-link pn-link" data-pn-desativar>Desativar notificações</button>`;
-  else corpo = '<p class="pn-txt">Receba no celular os avisos da turma e as respostas e marcações do mural, mesmo com o site fechado.</p><button class="conta-btn pn-ativar" data-pn-ativar>Ativar notificações</button>';
+  else corpo = '<p class="pn-txt">Receba no celular os avisos da turma e as respostas e marcações do corredor, mesmo com o site fechado.</p><button class="conta-btn pn-ativar" data-pn-ativar>Ativar notificações</button>';
   return `<div class="pn"><b>Notificações</b>${corpo}<p class="pn-erro" hidden></p></div>`;
 };
 const pushRedesenhar = () => { if(window.avRenderHoje && document.getElementById('viewHoje').style.display !== 'none') window.avRenderHoje(); if(window.avMuralRender) window.avMuralRender(); };
@@ -24186,7 +24186,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   };
   const vestidoSVG = () => { const v = vestidos(), prog = progresso(); return SLOTS.map(([sl]) => { const a = A.find(x => x.id === v[sl]); return a && liberado(a, prog) ? a.svg : ''; }).join(''); };
   window.avPsiuMini = () => { const e = estilo(); return mini(vestidoSVG(), (CORES.find(x => x.id === e.cor && pode(x)) || {}).id, (FUNDOS.find(x => x.id === e.fundo && pode(x)) || {}).id); };
-  // para o perfil público do mural: o Psiu como a pessoa montou e quantas conquistas ela tem
+  // para o perfil público do corredor: o Psiu como a pessoa montou e quantas conquistas ela tem
   window.avPsiuPerfil = () => { const e = estilo(), v = vestidos(), prog = progresso();
     const acc = SLOTS.map(([sl]) => { const a = A.find(x => x.id === v[sl]); return a && liberado(a, prog) ? a.id : null; }).filter(Boolean);
     const conqs = A.filter(a => a.grupo === 'conquista');
@@ -24973,7 +24973,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
 })();
 </script>
 <script>
-// ===== Mural da turma: comunidade com tópicos, respostas, curtidas, membros e perfis (só contas liberadas; tudo com nome) =====
+// ===== Corredor da turma: comunidade com tópicos, respostas, curtidas, membros e perfis (só contas liberadas; tudo com nome) =====
 (function(){
   const LIM_TIT = 100, LIM_POST = 2000, LIM_COM = 1000;
   const CATS = [['duvidas','Dúvidas','#2F6F9F'], ['provas','Provas e trabalhos','#A3472F'], ['materiais','Materiais','#1F7A6E'], ['avisos','Avisos','#B7791F'], ['conversa','Conversa','#6B4E9B'], ['opiniao','Elogios e críticas','#8A6A2F']];
@@ -24991,7 +24991,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
           x1: {uid: 't2', nome: 'Carla Souza', titulo: 'Quem topa revisar Neuro na segunda depois da aula?', cat: 'provas', texto: 'Pensei em 1 hora na biblioteca, cada um leva um tema dos nervos cranianos. Quem vem?', em: h - 95 * m},
           x2: {uid: 't1', nome: 'Bruno Lima', titulo: 'Mapa mental das fases do luto', cat: 'materiais', texto: 'Montei um resumo visual de Kübler-Ross para a prova de Idoso. @' + ((eu && eu.nome || '').split(' ')[0] || 'Thiago') + ' dá uma olhada se ficou certo?', men: [uid], em: h - 40 * m},
           x3: {uid: 't3', nome: 'Diego Alves', titulo: 'O simulado de Experimental ajudou demais', cat: 'opiniao', texto: 'Só queria agradecer quem montou. Errei bastante no começo e acertei quase tudo na segunda vez.', em: h - 26 * 60 * m},
-          x4: {uid: uid, nome: eu ? eu.nome : 'Você', titulo: 'Testando o mural', cat: 'conversa', texto: 'Este é um tópico seu de exemplo, para testar apagar e ver as notificações.', em: h - 3 * 60 * m}
+          x4: {uid: uid, nome: eu ? eu.nome : 'Você', titulo: 'Testando o corredor', cat: 'conversa', texto: 'Este é um tópico seu de exemplo, para testar apagar e ver as notificações.', em: h - 3 * 60 * m}
         },
         comentarios: {
           x1: {k1: {uid: 't4', nome: 'Júlia Ramos', texto: 'Eu vou! Fico com o trigêmeo e o facial.', em: h - 80 * m}, k2: {uid: 't1', nome: 'Bruno Lima', texto: '@Júlia levo o vago então.', men: ['t4'], em: h - 60 * m}},
@@ -25099,7 +25099,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     C.perfis[eu.uid] = p;
     if(ant !== nov){ try{ await B().gravar('perfis/' + eu.uid, p); }catch(e){} }
   }
-  // todo colega liberado entra em Membros ao abrir o site, mesmo sem abrir o mural (uma vez por visita)
+  // todo colega liberado entra em Membros ao abrir o site, mesmo sem abrir o corredor (uma vez por visita)
   let perfilAuto = false;
   const perfilAoEntrar = () => { if(perfilAuto) return; const eu = EU(); if(!eu || !eu.liberado || !B()) return; perfilAuto = true; clearInterval(perfilTimer); setTimeout(salvarPerfil, 2500); };
   const perfilTimer = setInterval(perfilAoEntrar, 3000);
@@ -25165,7 +25165,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const L = notificacoes(eu), v = notifVisto;
     const pushAtivo = window.avPushAtivo && window.avPushAtivo();
     const convite = !pushAtivo && window.avPushHTML ? `<section class="hj-card mu-push"><div class="mu-push-ic">${ic('sino')}</div><div><b>Saiba na hora no celular</b><p>Ative as notificações para receber quando responderem o seu tópico ou marcarem você. Só o que é com você, sem o barulho do grupo.</p>${window.avPushHTML().replace('<b>Notificações</b>', '')}</div></section>` : '';
-    if(!L.length) return convite + `<section class="mu-vazio">${ic('sino')}<b>Nada por aqui ainda</b><p>Quando alguém responder, reagir ou marcar você no mural, aparece aqui.</p></section>`;
+    if(!L.length) return convite + `<section class="mu-vazio">${ic('sino')}<b>Nada por aqui ainda</b><p>Quando alguém responder, reagir ou marcar você no corredor, aparece aqui.</p></section>`;
     return convite + `<div class="mu-notifs">${L.map(n => `<button class="mu-notif${n.em > v ? ' nova' : ''}" data-mu-ver="${n.pid}"${n.cid ? ` data-mu-alvo="${n.cid}"` : ''}>
       <span class="mu-notif-av">${avatar(n.uid, nomeDe(n.uid))}${n.ic === 'reacao' ? reIc(n.t, 'mu-re-canto') : `<span class="mu-notif-ic mu-notif-${n.ic}">${ic(n.ic === 'mencao' ? 'arroba' : n.ic === 'melhor' ? 'certo' : 'com', n.ic !== 'melhor')}</span>`}</span>
       <span class="mu-notif-c"><span><b>${esc(nomeDe(n.uid))}</b> ${esc(n.txt)} <b>“${esc(n.tit)}”</b></span>${n.x ? `<small class="mu-notif-x">${esc(n.x.length > 110 ? n.x.slice(0, 107) + '…' : n.x)}</small>` : ''}<small>${quando(n.em)}</small></span>
@@ -25178,17 +25178,17 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function cabecaHTML(eu){
     const lib = eu && eu.liberado;
     const atual = lib ? `<button class="hj-inicio" data-mu-atualizar${estado !== 'pronto' ? ' disabled' : ''}>${estado === 'pronto' ? 'Atualizar' : 'Atualizando…'}</button>` : '';
-    if(!lib) return `<header class="hj-head mu-head">${topoHTML(eu, 'Turma', '')}<div class="ma-ola">${psiuMini()}<div><h1>Mural da turma</h1></div></div></header>`;
+    if(!lib) return `<header class="hj-head mu-head">${topoHTML(eu, 'Turma', '')}<div class="ma-ola">${psiuMini()}<div><h1>Corredor da turma</h1></div></div></header>`;
     const semana = Date.now() - 7 * 86400000, nl = naoLidas(eu);
     const tSem = Object.values(C.posts).filter(p => p && p.texto && p.em > semana).length;
     const rSem = Object.values(C.com).reduce((n, o) => n + Object.values(o || {}).filter(c => c && c.em > semana).length, 0);
     const at = atividade(), membros = Object.keys(C.perfis).filter(u => C.perfis[u] && C.perfis[u].nome);
     const pilha = (Object.keys(at).sort((a, b) => at[b].ult - at[a].ult).concat(membros)).filter((u, k, a) => a.indexOf(u) === k).slice(0, 4);
     const tile = nl ? `<span class="ma-cont"><b>${nl > 99 ? '99+' : nl}</b><small>${nl === 1 ? 'nova' : 'novas'}</small></span>` : `<span class="ma-cont"><b>${tSem}</b><small>${tSem === 1 ? 'tópico' : 'tópicos'}</small></span>`;
-    const txt = nl ? `<small>Para você</small><b>${nl === 1 ? 'Uma novidade' : nl + ' novidades'} no mural</b>` : `<small>Nesta semana</small><b>${plural(tSem, 'tópico', 'tópicos')} e ${plural(rSem, 'resposta', 'respostas')}</b>`;
+    const txt = nl ? `<small>Para você</small><b>${nl === 1 ? 'Uma novidade' : nl + ' novidades'} no corredor</b>` : `<small>Nesta semana</small><b>${plural(tSem, 'tópico', 'tópicos')} e ${plural(rSem, 'resposta', 'respostas')}</b>`;
     const abas = [['topicos', 'Tópicos'], ['avisos', 'Notificações'], ['membros', 'Membros'], ['sobre', 'Sobre']];
     return `<header class="hj-head mu-head">${topoHTML(eu, 'Turma', atual)}
-      <div class="ma-ola">${psiuMini()}<div><h1>Mural da turma</h1></div></div>
+      <div class="ma-ola">${psiuMini()}<div><h1>Corredor da turma</h1></div></div>
       <div class="ma-status"><${nl ? 'button data-mu-aba="avisos"' : 'div'} class="ma-prova${nl ? ' perto' : ''} mu-st">${tile}<span>${txt}</span></${nl ? 'button' : 'div'}>
         <button class="ma-sem-box mu-st-quem" data-mu-aba="membros"><small>${plural(membros.length, 'membro', 'membros')}</small><span class="mu-pilha">${pilha.map(u => avatar(u, nomeDe(u), 'mu-av-p')).join('')}</span></button></div>
       <div class="ma-abas" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-mu-aba="${k}" aria-selected="${aba === k}">${t}${k === 'avisos' && nl ? ` <i class="mu-aba-n">${nl > 9 ? '9+' : nl}</i>` : ''}</button>`).join('')}</div>
@@ -25197,7 +25197,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function ladoHTML(){
     const at = atividade(), sem = Object.keys(at).filter(u => at[u].s).sort((a, b) => at[b].s - at[a].s).slice(0, 5);
     const cont = {}; Object.values(C.posts).forEach(p => { if(p && p.texto){ const c = catDe(p.cat)[0]; cont[c] = (cont[c] || 0) + 1; } });
-    return `<section class="hj-card mu-box"><h3>Sobre o mural</h3><p>Espaço da turma para tirar dúvidas, dividir materiais, combinar trabalhos e conversar. Tudo aparece com o seu nome.</p>
+    return `<section class="hj-card mu-box"><h3>Sobre o corredor</h3><p>Espaço da turma para tirar dúvidas, dividir materiais, combinar trabalhos e conversar. Tudo aparece com o seu nome.</p>
         <ul class="mu-regras-l"><li>Respeito com colegas, professores e a faculdade.</li><li>Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas.</li><li>Qualquer conteúdo pode ser denunciado.</li></ul></section>
       <section class="hj-card mu-box"><h3>Categorias</h3><div class="mu-cat-l">${CATS.map(c => `<button data-mu-filtro="${c[0]}" class="${filtro === c[0] ? 'on' : ''}" style="--c:${c[2]}"><i></i>${esc(c[1])}<span>${cont[c[0]] || 0}</span></button>`).join('')}</div></section>
       <section class="hj-card mu-box"><h3>Mais ativos na semana</h3>${sem.length ? `<div class="mu-ativos">${sem.map((u, i) => `<button data-mu-perfil="${esc(u)}">${avatar(u, nomeDe(u), 'mu-av-p')}<span class="mu-ativo-t"><b>${esc(nomeDe(u))}</b>${selo(u)}<small>${plural(at[u].s, 'participação', 'participações')}</small></span>${i === 0 ? `<em>${ic('fogo', 1)}</em>` : ''}</button>`).join('')}</div>` : '<p>Ninguém participou nesta semana ainda.</p>'}</section>`;
@@ -25228,16 +25228,16 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       </div>`;
     const cab = `<div class="mu-sec"><span class="ma-grupo-t">Tópicos</span><div class="mu-ordem" role="tablist"><button aria-selected="${ordem === 'recentes'}" data-mu-ordem="recentes">Recentes</button><button aria-selected="${ordem === 'alta'}" data-mu-ordem="alta">Em alta</button></div></div>
       <div class="mu-chips"><button class="mu-chip${filtro === 'todos' ? ' on' : ''}" data-mu-filtro="todos">Todas</button><button class="mu-chip${filtro === 'resolvidas' ? ' on' : ''}" data-mu-filtro="resolvidas" style="--c:#2E7D4F"><i></i>Resolvidas</button><button class="mu-chip${filtro === 'abertas' ? ' on' : ''}" data-mu-filtro="abertas" style="--c:#6B7280"><i></i>Sem resposta</button>${CATS.map(c => `<button class="mu-chip${filtro === c[0] ? ' on' : ''}" data-mu-filtro="${c[0]}" style="--c:${c[2]}"><i></i>${esc(c[1])}</button>`).join('')}</div>`;
-    const vazio = `<section class="hj-card mu-vazio">${psiuMini()}<b>${todos.length ? 'Nada nesta categoria ainda' : 'O mural está esperando o primeiro tópico'}</b><p>${todos.length ? 'Que tal abrir o primeiro?' : 'Uma dúvida da prova, um material que ajudou ou um aviso. Quem começar ganha o primeiro lugar na lista.'}</p></section>`;
+    const vazio = `<section class="hj-card mu-vazio">${psiuMini()}<b>${todos.length ? 'Nada nesta categoria ainda' : 'O corredor está esperando o primeiro tópico'}</b><p>${todos.length ? 'Que tal abrir o primeiro?' : 'Uma dúvida da prova, um material que ajudou ou um aviso. Quem começar ganha o primeiro lugar na lista.'}</p></section>`;
     const nDen = eu.admin ? Object.keys(C.den || {}).length : 0;
     return `${nDen ? `<button class="mu-adm-aviso" data-adm-ir="mural"><b>${plural(nDen, 'denúncia', 'denúncias')} para analisar</b><span>Abrir no Painel do administrador →</span></button>` : ''}${acoes}${cab}
       ${estado === 'carregando' ? '<div class="mu-esqueleto"><i></i><i></i><i></i></div>' : lista.length ? `<div class="mu-feed">${lista.map(([id, p]) => cardHTML(id, p, eu)).join('')}</div>` : vazio}`;
   }
   function novoHTML(eu){
     const ed = editPid && C.posts[editPid];
-    return `${topoHTML(eu, 'Mural da turma', ed ? `<button class="hj-inicio" data-mu-ver="${editPid}">← Voltar ao tópico</button>` : '<button class="hj-inicio" data-mu-lista>← Voltar ao mural</button>')}
+    return `${topoHTML(eu, 'Corredor da turma', ed ? `<button class="hj-inicio" data-mu-ver="${editPid}">← Voltar ao tópico</button>` : '<button class="hj-inicio" data-mu-lista>← Voltar ao corredor</button>')}
       <form class="mu-form" data-mu-publicar${ed ? ` data-mu-edita="${editPid}"` : ''}>
-        <header class="mu-autor-l">${avatar(eu.uid, eu.nome)}<div><b class="mu-nome">${esc(eu.nome)}</b><small>${ed ? 'Editando o seu tópico' : 'Publicando no Mural da turma'}</small></div></header>
+        <header class="mu-autor-l">${avatar(eu.uid, eu.nome)}<div><b class="mu-nome">${esc(eu.nome)}</b><small>${ed ? 'Editando o seu tópico' : 'Publicando no Corredor da turma'}</small></div></header>
         <input class="mu-form-t" id="muTit" name="titulo" maxlength="${LIM_TIT}" placeholder="Título do tópico" value="${esc(rascunho.titulo)}" autocomplete="off" required aria-label="Título">
         <textarea class="mu-form-x" id="muTxt" name="texto" maxlength="${LIM_POST}" rows="6" placeholder="Escreva o que quer perguntar ou compartilhar com a turma… use @ para marcar colegas" required aria-label="Mensagem">${esc(rascunho.texto)}</textarea>
         <div class="mu-form-cats"><span>Categoria</span><div class="mu-cats">${CATS.map(c => `<label class="mu-cat" style="--c:${c[2]}"><input type="radio" name="cat" value="${c[0]}"${rascunho.cat === c[0] ? ' checked' : ''} required><span><i></i>${esc(c[1])}</span></label>`).join('')}</div></div>
@@ -25250,7 +25250,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const mid = melhorDe(id), mc = mid && (C.com[id] || {})[mid], souAutor = p.uid === eu.uid;
     const outros = rs.filter(x => x.uid !== eu.uid).map(x => primeiro(nomeDe(x.uid)));
     const linhaReac = rs.length ? (eu_r ? (outros.length ? `Você e ${outros.length === 1 ? outros[0] : plural(outros.length, 'pessoa', 'pessoas')}` : 'Você') : outros.slice(0, 2).join(', ') + (outros.length > 2 ? ` e mais ${outros.length - 2}` : '')) : '';
-    return `${topoHTML(eu, 'Mural da turma', '<button class="hj-inicio" data-mu-lista>← Todos os tópicos</button>')}
+    return `${topoHTML(eu, 'Corredor da turma', '<button class="hj-inicio" data-mu-lista>← Todos os tópicos</button>')}
       <article class="mu-post" style="--c:${catDe(p.cat)[2]}">
         ${C.fix[id] ? `<div class="mu-fixo">${ic('pino')} Fixado pela moderação</div>` : ''}
         <header class="mu-autor-l">${avatar(p.uid, p.nome, 'mu-av-l')}<div><button class="mu-nome" data-mu-perfil="${esc(p.uid)}">${esc(nomeDe(p.uid, p.nome))}</button>${selo(p.uid)}<small>${perfil(p.uid).sem ? perfil(p.uid).sem + 'º semestre · ' : ''}${quando(p.em)}</small></div>${maisBtn(id, p.uid, eu, true)}</header>
@@ -25293,33 +25293,33 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function render(){
     const el = document.getElementById('muralPage'); if(!el) return;
     const eu = EU();
-    if(!eu || !eu.liberado){ el.innerHTML = cabecaHTML(eu) + '<section class="hj-card mu-vazio"><b>Só para contas liberadas</b><p>Entre na sua conta para ver e participar do mural.</p></section>'; return; }
+    if(!eu || !eu.liberado){ el.innerHTML = cabecaHTML(eu) + '<section class="hj-card mu-vazio"><b>Só para contas liberadas</b><p>Entre na sua conta para ver e participar do corredor.</p></section>'; return; }
     if(estado === 'nada'){ carregar(); return; }
     let combinado = false; try{ combinado = !!localStorage.getItem('av-mural-ok'); }catch(e){}
     const foco = document.activeElement && document.activeElement.closest && document.activeElement.closest('[data-mu-comentar]');
     let corpo;
-    if(!combinado) corpo = `<section class="hj-card mu-boasvindas">${psiuMini()}<h2>Boas-vindas ao Mural da turma</h2><p>Antes de entrar, os combinados:</p><ul><li>Tudo aparece com o seu nome e a sua foto.</li><li>Respeito com colegas, professores e a faculdade. Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas, como telefone, endereço ou prints de conversas.</li><li>Qualquer pessoa pode denunciar. Quem desrespeitar os combinados pode ser bloqueado.</li></ul><button class="btn btn-primary" data-mu-combinado>Combinado, quero entrar</button></section>`;
+    if(!combinado) corpo = `<section class="hj-card mu-boasvindas">${psiuMini()}<h2>Boas-vindas ao Corredor da turma</h2><p>Antes de entrar, os combinados:</p><ul><li>Tudo aparece com o seu nome e a sua foto.</li><li>Respeito com colegas, professores e a faculdade. Críticas são bem-vindas, ofensas não.</li><li>Nada de dados pessoais de outras pessoas, como telefone, endereço ou prints de conversas.</li><li>Qualquer pessoa pode denunciar. Quem desrespeitar os combinados pode ser bloqueado.</li></ul><button class="btn btn-primary" data-mu-combinado>Combinado, quero entrar</button></section>`;
     else if(vista === 'novo') corpo = C.bloq[eu.uid] ? '' : novoHTML(eu);
     else if(vista !== 'lista' && C.posts[vista]) corpo = topicoHTML(vista, eu);
     else if(aba === 'membros') corpo = membrosHTML(eu);
     else if(aba === 'avisos') corpo = notifHTML(eu);
     else if(aba === 'sobre') corpo = `<div class="mu-lado">${ladoHTML()}</div>`;
     else corpo = listaHTML(eu);
-    const avisos = (emTeste() ? `<div class="mu-teste"><span><b>Modo de teste.</b> Tudo aqui fica só neste aparelho, a turma não vê.</span><button data-mu-teste="sair">Sair</button></div>` : '') + (C.bloq[eu.uid] ? '<p class="mu-erro">A sua conta está sem permissão para escrever no mural. Se achar que é um engano, fale com o representante da turma.</p>' : '') + (erro ? `<div class="mu-erro"><span>${esc(erro)}</span><button data-mu-erro-ok aria-label="Fechar aviso">×</button></div>` : '');
+    const avisos = (emTeste() ? `<div class="mu-teste"><span><b>Modo de teste.</b> Tudo aqui fica só neste aparelho, a turma não vê.</span><button data-mu-teste="sair">Sair</button></div>` : '') + (C.bloq[eu.uid] ? '<p class="mu-erro">A sua conta está sem permissão para escrever no corredor. Se achar que é um engano, fale com o representante da turma.</p>' : '') + (erro ? `<div class="mu-erro"><span>${esc(erro)}</span><button data-mu-erro-ok aria-label="Fechar aviso">×</button></div>` : '');
     const naLista = combinado && vista === 'lista';
     el.innerHTML = (naLista ? cabecaHTML(eu) : '') + `<div class="mu-main">${avisos}${corpo}</div>`;
     if(foco){ const t = el.querySelector('[data-mu-comentar] textarea'); if(t){ t.focus(); t.setSelectionRange(t.value.length, t.value.length); } }
     el.querySelectorAll('[data-mu-comentar] textarea').forEach(cresce);
   }
   const renderMural = render; render = function(){ renderMural(); if(window.avAdminRender) window.avAdminRender(true); };
-  // parte do mural que fica no Painel do administrador
+  // parte do corredor que fica no Painel do administrador
   window.avMuralAdmin = el => { const eu = EU(); if(!el || !eu || !eu.admin) return;
     if(estado === 'nada'){ carregar(); }
-    if(estado === 'carregando'){ el.innerHTML = '<section class="hj-card"><p class="hj-vazio">Carregando o mural…</p></section>'; return; }
+    if(estado === 'carregando'){ el.innerHTML = '<section class="hj-card"><p class="hj-vazio">Carregando o corredor…</p></section>'; return; }
     const blq = Object.keys(C.bloq || {});
-    el.innerHTML = `${emTeste() ? '<div class="mu-teste"><span><b>Modo de teste ligado.</b> O mural mostra colegas de exemplo só neste aparelho.</span><button data-mu-teste="sair">Sair</button></div>' : ''}
+    el.innerHTML = `${emTeste() ? '<div class="mu-teste"><span><b>Modo de teste ligado.</b> O corredor mostra colegas de exemplo só neste aparelho.</span><button data-mu-teste="sair">Sair</button></div>' : ''}
       <div class="ma-grupo-t">Denúncias</div>${denunciasHTML() || '<section class="hj-card"><p class="hj-vazio">Nenhuma denúncia para analisar.</p></section>'}
-      <div class="ma-grupo-t">Bloqueados no mural</div><section class="hj-card adm-bloqs">${blq.length ? blq.map(u => `<div class="adm-bloq">${avatar(u, nomeDe(u), 'mu-av-p')}<b>${esc(nomeDe(u))}</b><button class="adm-b sec" data-mu-desbloquear="${esc(u)}">Desbloquear</button></div>`).join('') : '<p class="hj-vazio">Ninguém bloqueado. Para bloquear, use o ⋯ de um tópico ou resposta da pessoa.</p>'}</section>
+      <div class="ma-grupo-t">Bloqueados no corredor</div><section class="hj-card adm-bloqs">${blq.length ? blq.map(u => `<div class="adm-bloq">${avatar(u, nomeDe(u), 'mu-av-p')}<b>${esc(nomeDe(u))}</b><button class="adm-b sec" data-mu-desbloquear="${esc(u)}">Desbloquear</button></div>`).join('') : '<p class="hj-vazio">Ninguém bloqueado. Para bloquear, use o ⋯ de um tópico ou resposta da pessoa.</p>'}</section>
       <div class="ma-grupo-t">Modo de teste</div><section class="hj-card mu-teste-card"><p>Experimente reações, marcações, denúncias e a moderação com colegas de exemplo. Tudo fica só neste aparelho: nada vai para o Firebase e a turma não vê.</p>${emTeste() ? '<div class="mu-teste-bts"><button class="btn btn-ghost" data-mu-teste="recomecar">Recomeçar o teste</button><button class="btn btn-primary" data-mu-teste="sair">Sair do teste</button></div>' : '<button class="btn btn-primary" data-mu-teste="entrar">Entrar no modo de teste</button>'}</section>`;
   };
   window.avMuralDenuncias = () => Object.keys(C.den || {}).length;
@@ -25335,7 +25335,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       <h2 class="mu-pf-nome">${esc(p.nome || 'Colega')}</h2>
       <p class="mu-pf-sub">${p.sem ? p.sem + 'º semestre de Psicologia' : 'Psicologia'}${p.ap ? ' · <span class="ap-selo">★ Apoiador</span>' : ''}</p>
       <div class="mu-pf-nums"><div><b>${a.t}</b><span>${a.t === 1 ? 'tópico' : 'tópicos'}</span></div><div><b>${a.r}</b><span>${a.r === 1 ? 'resposta' : 'respostas'}</span></div><div><b>${melhores}</b><span>${melhores === 1 ? 'melhor resposta' : 'melhores respostas'}</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
-      ${tops.length ? `<div class="ma-grupo-t">Tópicos que abriu</div>${tops.slice(0, 4).map(([id, x]) => `<button class="mu-pf-post" data-mu-ir="${id}">${tag(x.cat)}<p>${esc(titulo(x))}</p><small>${quando(x.em)} · ${plural(respostas(id).length, 'resposta', 'respostas')}</small></button>`).join('')}` : '<p class="hj-vazio">Ainda não abriu tópicos no mural.</p>'}`;
+      ${tops.length ? `<div class="ma-grupo-t">Tópicos que abriu</div>${tops.slice(0, 4).map(([id, x]) => `<button class="mu-pf-post" data-mu-ir="${id}">${tag(x.cat)}<p>${esc(titulo(x))}</p><small>${quando(x.em)} · ${plural(respostas(id).length, 'resposta', 'respostas')}</small></button>`).join('')}` : '<p class="hj-vazio">Ainda não abriu tópicos no corredor.</p>'}`;
     f.hidden = false;
   }
   function quemReagiu(alvo){
@@ -25350,7 +25350,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     catch(e){
       if(desfazer) desfazer();
       const eu = EU(), negado = /permission|denied/i.test(String((e && (e.code || e.message)) || ''));
-      erro = negado ? (eu && eu.admin ? 'O banco recusou a gravação: as regras do mural ainda não estão no Firebase. Cole o arquivo _firebase/regras-mural.json em Realtime Database, Regras, ou use o modo de teste no Painel do administrador.' : 'O mural ainda está sendo ativado. Tente de novo mais tarde.') : 'Não deu para salvar agora. Confira a internet e tente de novo.';
+      erro = negado ? (eu && eu.admin ? 'O banco recusou a gravação: as regras do corredor ainda não estão no Firebase. Cole o arquivo _firebase/regras-mural.json em Realtime Database, Regras, ou use o modo de teste no Painel do administrador.' : 'O corredor ainda está sendo ativado. Tente de novo mais tarde.') : 'Não deu para salvar agora. Confira a internet e tente de novo.';
       render(); window.scrollTo({top: Math.max(0, (document.getElementById('viewMural')?.offsetTop || 0) - 70), behavior:'smooth'});
     }
   }
@@ -25452,14 +25452,14 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if((b = q('[data-mu-fixar]'))){ const id = b.dataset.muFixar; menuAberto = null; if(C.fix[id]){ delete C.fix[id]; render(); acao(() => B().apagar('mural/fixados/' + id)); } else { C.fix[id] = true; render(); acao(() => B().gravar('mural/fixados/' + id, true), () => { delete C.fix[id]; }); } return; }
     if((b = q('[data-mu-denunciar]'))){ const alvo = b.dataset.muDenunciar; menuAberto = null;
       if(!confirm('Denunciar este conteúdo para a moderação? Quem escreveu não fica sabendo quem denunciou.')){ render(); return; }
-      acao(async () => { await B().gravar(`mural/denuncias/${alvo}/${eu.uid}`, {em: Date.now()}); if(eu.admin) (C.den[alvo] = C.den[alvo] || {})[eu.uid] = {em: Date.now()}; erro = ''; render(); alert('Denúncia enviada. Obrigado por ajudar a manter o mural um bom lugar.'); }); return; }
+      acao(async () => { await B().gravar(`mural/denuncias/${alvo}/${eu.uid}`, {em: Date.now()}); if(eu.admin) (C.den[alvo] = C.den[alvo] || {})[eu.uid] = {em: Date.now()}; erro = ''; render(); alert('Denúncia enviada. Obrigado por ajudar a manter o corredor um bom lugar.'); }); return; }
     if((b = q('[data-mu-apagar]'))){ const id = b.dataset.muApagar; menuAberto = null; if(!confirm('Apagar este tópico? As respostas somem junto e não dá para desfazer.')){ render(); return; }
       const ant = C.posts[id]; delete C.posts[id]; vista = 'lista'; render();
       acao(async () => { try{ await B().apagar('mural/comentarios/' + id); }catch(_){} await B().apagar('mural/posts/' + id); if(eu.admin){ try{ await B().apagar('mural/curtidas/' + id); await B().apagar('mural/denuncias/' + id); await B().apagar('mural/fixados/' + id); }catch(_){} } }, () => { C.posts[id] = ant; }); return; }
     if((b = q('[data-mu-apagar-com]'))){ const [pid, cid] = b.dataset.muApagarCom.split('~'); menuAberto = null; if(!confirm('Apagar esta resposta?')){ render(); return; }
       const ant = (C.com[pid] || {})[cid]; if(C.com[pid]) delete C.com[pid][cid]; render(); acao(async () => { await B().apagar(`mural/comentarios/${pid}/${cid}`); if(eu.admin){ try{ await B().apagar(`mural/denuncias/${pid}~${cid}`); }catch(_){} } }, () => { if(ant) C.com[pid][cid] = ant; }); return; }
     if((b = q('[data-mu-desbloquear]'))){ const uid = b.dataset.muDesbloquear; delete C.bloq[uid]; render(); acao(() => B().apagar('mural/bloqueados/' + uid), () => { C.bloq[uid] = true; }); return; }
-    if((b = q('[data-mu-bloquear]'))){ const uid = b.dataset.muBloquear; menuAberto = null; if(!confirm('Bloquear esta pessoa no mural? Ela continua usando o site, mas não cria tópicos, não responde e não curte.')){ render(); return; }
+    if((b = q('[data-mu-bloquear]'))){ const uid = b.dataset.muBloquear; menuAberto = null; if(!confirm('Bloquear esta pessoa no corredor? Ela continua usando o site, mas não cria tópicos, não responde e não curte.')){ render(); return; }
       C.bloq[uid] = true; render(); acao(() => B().gravar('mural/bloqueados/' + uid, true), () => { delete C.bloq[uid]; }); return; }
     if((b = q('[data-mu-den-apagar]'))){ const alvo = b.dataset.muDenApagar, [pid, cid] = alvo.split('~'); if(!confirm('Apagar este conteúdo?')) return;
       if(cid){ if(C.com[pid]) delete C.com[pid][cid]; } else delete C.posts[pid]; delete C.den[alvo]; render();
@@ -25467,7 +25467,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if((b = q('[data-mu-den-ok]'))){ const alvo = b.dataset.muDenOk; delete C.den[alvo]; render(); acao(() => B().apagar('mural/denuncias/' + alvo)); return; }
     if((b = q('[data-mu-ver]'))){ if(editPid){ editPid = null; rascunho = {titulo:'', cat:'', texto:''}; } editando = null; const alvo = b.dataset.muAlvo; abrir(b.dataset.muVer); if(alvo){ const el = document.getElementById('mu-' + b.dataset.muVer + '-' + alvo); if(el){ el.scrollIntoView({block:'center'}); el.classList.add('mu-destaque'); setTimeout(() => el.classList.remove('mu-destaque'), 2200); } } return; }
   });
-  // botão do mural no cabeçalho: destaque na página e ponto quando há novidade de outras pessoas
+  // botão do corredor no cabeçalho: destaque na página e ponto quando há novidade de outras pessoas
   const VISTO = 'av-mural-visto';
   const marcarVisto = () => { try{ localStorage.setItem(VISTO, String(Date.now())); }catch(_){} const d = document.getElementById('muralDot'); if(d) d.hidden = true; };
   async function checarNovidade(){
@@ -25494,8 +25494,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
 (function(){
   const EU = () => window.avEu && window.avEu(), B = () => window.avBanco, esc = t => escHTML(t == null ? '' : t);
   let aba = 'acessos', cont = null, fila = {}, aparelhos = null, pessoas = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}, msg = '';
-  const ABAS = [['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Mural'], ['turma', 'Turma']];
-  const LINKS = [['', 'Página inicial'], ['#minha-area', 'Minha área'], ['#mural', 'Mural da turma'], ['#modo-prova', 'Simulados'], ['#resumos', 'Resumos'], ['#prazos', 'Prazos']];
+  const ABAS = [['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Corredor'], ['turma', 'Turma']];
+  const LINKS = [['', 'Página inicial'], ['#minha-area', 'Minha área'], ['#mural', 'Corredor da turma'], ['#modo-prova', 'Simulados'], ['#resumos', 'Resumos'], ['#prazos', 'Prazos']];
   const IC = {escudo:'<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/>', sino:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'};
   const ic = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
   const quando = ts => ts ? new Date(ts).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : '';
@@ -25523,7 +25523,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function topoHTML(){
     const den = window.avMuralDenuncias ? window.avMuralDenuncias() : 0;
     const st = (n, t, k) => `<button class="adm-st${n ? ' tem' : ''}" data-adm-aba="${k}"><b>${n == null ? '–' : n}</b><span>${t}</span></button>`;
-    return `<div class="adm-sts">${st(cont && cont.aguardando, 'aguardando liberação', 'acessos')}${st(cont && cont.pix, 'Pix para conferir', 'acessos')}${st(den, den === 1 ? 'denúncia no mural' : 'denúncias no mural', 'mural')}</div>`;
+    return `<div class="adm-sts">${st(cont && cont.aguardando, 'aguardando liberação', 'acessos')}${st(cont && cont.pix, 'Pix para conferir', 'acessos')}${st(den, den === 1 ? 'denúncia no corredor' : 'denúncias no corredor', 'mural')}</div>`;
   }
   function desenharTopo(){ const t = document.getElementById('admTopo'); if(t) t.innerHTML = topoHTML(); }
   const PUBS = [['todos', 'Toda a turma'], ['sem1', '1º semestre'], ['sem2', '2º semestre'], ['pessoas', 'Escolher pessoas'], ['admin', 'Só para mim (teste)']];
