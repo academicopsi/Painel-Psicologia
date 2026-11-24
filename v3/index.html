@@ -19895,8 +19895,7 @@ const EXH = {
       'Agradeça e diga que o experimento terminou.',
       'O participante pode ter construído as frases seguindo alguma hipótese sobre o experimento. As perguntas abaixo servem para investigar se foi o caso.',
       'Pergunte e anote as respostas no verso da folha: 1) O que você achou do experimento? 2) Como você construiu suas frases? Você se baseou em algum critério? Qual ou quais? 3) O que levou você a escolher este ou aquele pronome?']},
-    {t:'O que entregar', itens:[
-      'Só um gráfico de frequência relativa (%) impresso, com nome completo, matrícula, nome da disciplina, unidade e data de entrega.',
+    {t:'Cálculo e gráfico', itens:[
       'Nos vídeos da pasta do Drive, a planilha tem três abas: Frequência absoluta (quantas vezes cada pronome apareceu na linha de base e na intervenção), Frequência relativa e Comparativo LB-INT.',
       'Pelos vídeos da pasta, a frequência relativa é a frequência absoluta × 100 ÷ 10 na linha de base (LB) e ÷ 30 na intervenção (INT), que são os totais de verbos de cada fase. As instruções escritas não explicam o que fazer com tentativas anuladas: se tiver alguma, confirme com a professora.',
       'O gráfico dos vídeos é de colunas: os pronomes no eixo horizontal, a frequência relativa no vertical, uma coluna para LB e outra para INT, e o título com o participante e o pronome reforçado (por exemplo, "P1 - Nós"). O passo a passo para montar a planilha e o gráfico está no passo 9.']}
@@ -19920,7 +19919,6 @@ const EXH = {
     'Calculei a frequência relativa dividindo por 10 na LB e por 30 na INT',
     'O gráfico é de colunas, com LB e INT para cada pronome',
     'O título tem o participante e o pronome reforçado (ex.: "P1 - Nós")',
-    'Coloquei nome completo, matrícula, disciplina, unidade e data de entrega',
     'Imprimi o gráfico'
   ]
 };
@@ -19994,7 +19992,7 @@ function exhGraficoHTML(){
         ${passo(4, 'Aba "Comparativo LB-INT"', '<p>Crie a terceira aba. Na linha 1, escreva o participante e o pronome (ex.: "P1 - Nós") em cima de duas colunas. Na linha 2, escreva "Pronomes", "LB" e "INT". Das linhas 3 a 8, coloque os valores da frequência relativa de cada pronome, sem o Total. É desta tabela que sai o gráfico.</p>')}
         ${passo(5, 'Insira o gráfico de colunas', '<p>Selecione a tabela do comparativo, da linha 2 até Eles/Elas. Vá em Inserir → Gráfico e, no editor, em Tipo de gráfico, escolha Gráfico de colunas. Os pronomes ficam embaixo, com uma coluna de LB e uma de INT para cada um. No Excel, o caminho é Inserir → Gráfico de Colunas → Colunas Agrupadas.</p>')}
         ${passo(6, 'Título, legenda e eixo', '<p>No modelo, o título do gráfico é o participante com o pronome (ex.: "P1 - Nós"), a legenda mostra LB e INT, e o eixo horizontal tem o título "Pronomes". No editor do gráfico: Personalizar → Títulos de gráficos e eixos. O eixo vertical pode ficar automático. Se aplicou com mais de uma pessoa, faça um gráfico por participante.</p>')}
-        ${passo(7, 'Cabeçalho e impressão', '<p>Coloque nome completo, matrícula, nome da disciplina, unidade e data de entrega junto do gráfico e imprima. Confira se as colunas de LB e INT ficam diferentes na impressão.</p>')}
+        ${passo(7, 'Impressão', '<p>Antes de imprimir, confira se as colunas de LB e INT ficam bem diferentes uma da outra no papel.</p>')}
         <h4 class="rt-h">Exemplo de como fica (números inventados)</h4>
         ${tab}
         <p class="rt-nota">Na tabela do exemplo: Nós na LB = 2 × 100 ÷ 10 = 20%. Nós na INT = 18 × 100 ÷ 30 = 60%.</p>
