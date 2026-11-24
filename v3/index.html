@@ -25536,11 +25536,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     </div>
     <div class="cv-corpo">
       <p class="cv-lead">De agosto a novembro, o site guardou os resumos, simulados e guias dos trabalhos da turma. Em novembro, ganhou até o Psiu.</p>
-      <div class="cv-recibo">
-        <div class="cv-rec-l"><span>Para manter tudo no ar</span><div class="cv-meses"><i>ago</i><i>set</i><i>out</i><i>nov</i></div></div>
-        <div class="cv-rec-v"><small>quase</small>R$ 500</div>
-      </div>
-      <p class="cv-txt">Se ele fez diferença para você, que tal ajudar a manter o site vivo no próximo semestre? Qualquer valor conta.</p>
+      <p class="cv-bast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><span>Nos bastidores, manter tudo isso no ar de agosto a novembro custou quase R$&nbsp;500.</span></p>
+      <p class="cv-txt">Se ele fez diferença para você, que tal ajudar a manter o site vivo no próximo semestre? Qualquer valor conta, até o de um café.</p>
       <p class="cv-extra"><span>★</span> Quem apoia ainda libera os extras de apoiador.</p>
       <button class="cv-sim" type="button" data-apoio data-cv-fechar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Quero ajudar</button>
       <button class="cv-nao" type="button" data-cv-fechar>Agora não</button>
@@ -25567,12 +25564,9 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   @media (prefers-reduced-motion:reduce){ .cv-psiu{animation:none;} }
   .cv-corpo{padding:20px 22px 18px; background:var(--paper);}
   .cv-lead{font-size:15px; line-height:1.55; color:var(--ink); margin:0 0 14px;}
-  .cv-recibo{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; margin:0 0 14px; border-radius:14px; background:var(--ochre-soft); border:1px dashed rgba(183,121,31,.45);}
-  .cv-rec-l span{display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:7px;}
-  .cv-meses{display:flex; gap:4px;}
-  .cv-meses i{font-style:normal; font-family:var(--mono, ui-monospace, monospace); font-size:10.5px; color:#9A6424; background:rgba(183,121,31,.14); border-radius:6px; padding:3px 6px;}
-  .cv-rec-v{font-family:var(--serif, Georgia, serif); font-size:30px; font-weight:600; color:#9A6424; line-height:1; white-space:nowrap; text-align:right;}
-  .cv-rec-v small{display:block; font-family:inherit; font-size:13px; font-weight:500; font-style:italic; color:var(--ink-soft); margin-bottom:3px;}
+  .cv-bast{display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.5; color:var(--ink-soft); background:rgba(31,92,86,.06); border-radius:12px; padding:11px 13px; margin:0 0 14px;}
+  .cv-bast svg{flex:none; width:18px; height:18px; margin-top:1px; color:var(--petrol); opacity:.8;}
+  body.dark .cv-bast{background:rgba(92,194,181,.08);}
   .cv-txt{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0 0 10px;}
   .cv-extra{font-size:13.5px; color:var(--ink-soft); margin:0 0 16px;}
   .cv-extra span{color:var(--ochre);}
@@ -25582,9 +25576,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   .cv-nao{display:block; width:100%; font:inherit; font-size:14.5px; font-weight:600; color:var(--ink-soft); background:transparent; border:0; padding:12px; margin-top:4px; cursor:pointer; border-radius:10px;}
   .cv-nao:hover{background:rgba(0,0,0,.04);}
   .cv-pe{font-size:12.5px; color:var(--ink-faint); text-align:center; margin:2px 0 0;}
-  body.dark .cv-rec-v, body.dark .cv-meses i{color:var(--ochre);}
   body.dark .cv-nao:hover{background:rgba(255,255,255,.06);}
-  @media (max-width:360px){ .cv-caixa .cv-topo h2{font-size:22px !important;} .cv-psiu{width:92px;} .cv-rec-v{font-size:26px;} }
+  @media (max-width:360px){ .cv-caixa .cv-topo h2{font-size:22px !important;} .cv-psiu{width:92px;} }
 </style>
 <script>
 // Convite de fim de semestre: aparece uma vez por conta, para quem não é apoiador, de 26/11 (10h) até 03/12.
