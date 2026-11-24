@@ -1408,6 +1408,17 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     .brand-mark{width:34px; height:34px;}
   }
   @media (max-width:350px){ #shareBtn{display:none;} }
+  /* apoio no topo: pílula com texto no computador, só a estrela no celular (o compartilhar vai para o menu) */
+  .hdr-apoio{width:auto; padding:0 12px; gap:6px; color:#9A6424; border-color:rgba(186,117,23,.45); background:rgba(242,201,91,.12); font:inherit; font-size:13px; font-weight:700;}
+  .hdr-apoio:hover{color:#7A4C12; border-color:#BA7517; background:rgba(242,201,91,.22);}
+  .hdr-ap-estrela{font-size:15px; line-height:1; color:#BA7517;}
+  .hdr-apoio.apoiador{background:#F2C95B; border-color:#D9A62C; padding:0; width:38px;}
+  .hdr-apoio.apoiador .hdr-ap-estrela{color:#5A3A08;}
+  .hdr-apoio.apoiador .hdr-ap-tx{display:none;}
+  body.dark .hdr-apoio{color:#F2C95B; background:rgba(242,201,91,.1);}
+  @media (max-width:1399px){ .hdr-apoio{width:38px; padding:0;} .hdr-ap-tx{display:none;} .hdr-apoio:not([hidden]) ~ #shareBtn{display:none;} }
+  .nav-apoio-dest .ni-icon{color:#BA7517;}
+  .nav-apoio-dest strong::before{content:'★ '; color:#BA7517;}
 
   .ord-list{display:flex; flex-direction:column; gap:8px;}
   .ord-item{display:flex; align-items:center; gap:12px; background:var(--paper-alt); border:1px solid var(--rule); border-radius:6px; padding:10px 12px;}
@@ -3849,11 +3860,12 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <button class="nav-link nav-trigger" aria-expanded="false">Sua conta <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="nav-group-label">Sua conta</div>
         <div class="nav-dropdown">
+          <button class="nav-item nav-apoio-dest" data-apoio data-nav-apoio><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg></span><span class="ni-text"><strong id="navApoioT">Apoiar o Arquivo Vivo</strong><small id="navApoioSub">Pix de valor livre, vale 30 dias</small></span></button>
           <button class="nav-item nav-admin" data-page="viewAdmin" hidden><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="ni-text"><strong>Painel do administrador</strong><small>Acessos, avisos, mural e turma</small></span></button>
           <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span><span class="ni-text"><strong>Mural da turma</strong><small>Publique, comente e curta</small></span></button>
           <button class="nav-item" data-page="viewHoje" data-ma-ir="hoje"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg></span><span class="ni-text"><strong>Minha área</strong><small>Plano do dia, progresso e treinos</small></span></button>
           <button class="nav-item nav-ap" data-page="viewHoje" data-ma-ir="ferramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/></svg></span><span class="ni-text"><strong>Recursos de apoiador <span class="ap-selo">★</span></strong><small id="navApSub">Veja as prévias e o que o apoio libera</small></span></button>
-          <button class="nav-item" data-apoio data-nav-apoio><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg></span><span class="ni-text"><strong id="navApoioT">Apoiar o Arquivo Vivo</strong><small id="navApoioSub">Pix de valor livre, vale 30 dias</small></span></button>
+          <button class="nav-item" data-share-menu><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></span><span class="ni-text"><strong>Compartilhar o site</strong><small>Mande o link para a turma</small></span></button>
         </div>
       </div>
       <button class="nav-link" data-scroll="top" data-nav="top">Início</button>
@@ -3901,6 +3913,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       <button class="icon-btn" id="contaBtn" aria-label="Entrar ou criar conta" title="Sua conta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="conta-dot" hidden></span></button>
       <button class="icon-btn hdr-mural" id="muralBtn" data-page="viewMural" aria-label="Mural da turma" title="Mural da turma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg><span class="hdr-dot" id="muralDot" hidden></span></button>
       <button class="icon-btn" id="themeBtn" hidden style="display:none" aria-label="Alternar modo escuro" title="Modo escuro"><span id="themeIcon" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span></button>
+      <button class="icon-btn hdr-apoio" id="apoioBtn" data-apoio hidden aria-label="Apoiar o Arquivo Vivo" title="Apoiar o Arquivo Vivo"><span class="hdr-ap-estrela" aria-hidden="true">★</span><span class="hdr-ap-tx">Apoiar</span></button>
       <button class="icon-btn" id="shareBtn" aria-label="Compartilhar no WhatsApp" title="Compartilhar no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button>
       <button class="icon-btn nav-burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
     </div>
@@ -24383,7 +24396,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       <p>O Arquivo Vivo é feito por um colega, sem anúncios. Manter tudo isso no ar tem custo. Se o site te ajudou neste semestre, que tal retribuir com um apoio do valor que quiser?</p>
       <div class="ah-bts"><button class="ah-sim" data-apoio>Quero apoiar</button><button class="ah-nao" data-apoio-adiar>Agora não</button></div></div></div>`;
   }
-  document.addEventListener('click', e => { if(e.target.closest('[data-apoio-adiar]')){ try{ localStorage.setItem('av-apoio-adiado', String(Date.now() + 21 * 864e5)); }catch(_){} apoioHome(); } });
+  document.addEventListener('click', e => { if(e.target.closest('[data-apoio-adiar]')){ try{ localStorage.setItem('av-apoio-adiado', String(Date.now() + 7 * 864e5)); }catch(_){} apoioHome(); } });
+  // botão de apoio no topo: aparece para quem já foi liberado; para apoiadores vira a estrela dourada
+  function apoioTopo(){
+    const b = document.getElementById('apoioBtn'); if(!b) return;
+    const eu = window.avEu && window.avEu();
+    const liberado = (eu && eu.liberado) || localStorage.getItem('av-acesso-ok');
+    b.hidden = !liberado;
+    const apoia = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache'));
+    b.classList.toggle('apoiador', apoia);
+    b.title = b.ariaLabel = apoia ? 'Você apoia o Arquivo Vivo' : 'Apoiar o Arquivo Vivo';
+  }
+  document.addEventListener('av-apoio', apoioTopo); apoioTopo();
+  document.addEventListener('click', e => { if(e.target.closest('[data-share-menu]')){ const sb = document.getElementById('shareBtn'); if(sb) sb.click(); } });
   document.addEventListener('av-apoio', apoioHome);
   setTimeout(apoioHome, 0);
   const _sp = window.switchPage;
