@@ -2172,6 +2172,13 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .sim-ini-nota{font-size:13px; opacity:.65; line-height:1.45;}
   .sim-start{margin-top:8px; border:0; border-radius:12px; padding:16px; font-size:18px; font-weight:800; background:#7C5CFF; color:#fff; box-shadow:0 5px 0 #4B32B8;}
   .sim-start:active{transform:translateY(4px); box-shadow:0 1px 0 #4B32B8;}
+  .sim-papel{display:flex; gap:12px; align-items:flex-start; text-align:left; margin-top:6px; padding:14px; border-radius:14px; border:1px dashed rgba(242,201,91,.55); background:rgba(242,201,91,.08); color:#fff; font:inherit; cursor:pointer;}
+  .sim-papel:hover{background:rgba(242,201,91,.14);}
+  .sim-papel-ic{flex:none; width:38px; height:38px; border-radius:10px; display:grid; place-items:center; background:rgba(242,201,91,.18); color:#F2C95B;}
+  .sim-papel-ic svg{width:21px; height:21px;}
+  .sim-papel b{display:block; font-size:15px; margin-bottom:3px;}
+  .sim-papel em{font-style:normal; font-size:12px; font-weight:700; color:#F2C95B; margin-left:4px;}
+  .sim-papel small{display:block; font-size:13px; line-height:1.45; opacity:.8;}
   .sim-sec{border:1px solid rgba(255,255,255,.25); border-radius:12px; padding:13px; font-size:15.5px; font-weight:600; background:rgba(255,255,255,.06); color:#fff;}
 
   .sim-fim{align-items:stretch; text-align:center;}
@@ -2660,35 +2667,55 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .nt-txt{background:var(--ochre-soft); border-left:3px solid var(--ochre); border-radius:4px; padding:7px 10px; font-size:14px; margin:4px 0; white-space:pre-wrap;}
   .nt-item{border:1px solid var(--rule); border-radius:10px; padding:10px 12px; margin:0 0 8px; font-size:14px; background:var(--bg);}
   .nt-item ul{margin:6px 0; padding-left:18px;}
-  /* simulado em PDF */
-  #printArea .sp-folha{font-family:Inter, Arial, sans-serif; color:#1B2422;}
-  #printArea .sp-cab{display:flex; justify-content:space-between; gap:20px; align-items:flex-end; border-bottom:2.5px solid #1F5C56; padding-bottom:10px; margin-bottom:12px;}
-  #printArea .sp-marca{font-size:9pt; letter-spacing:.14em; text-transform:uppercase; color:#1F5C56; font-weight:700;}
-  #printArea .sp-cab h1{font-family:'Lora', Georgia, serif; font-size:22pt; margin:2px 0;}
-  #printArea .sp-cab p{margin:0; color:#5C6560; font-size:10pt;}
-  #printArea .sp-campos{display:grid; gap:6px; font-size:10pt; min-width:220px;}
-  #printArea .sp-campos span{display:flex; gap:6px; align-items:flex-end;}
-  #printArea .sp-campos i{flex:1; border-bottom:1px solid #8D938B; height:14px;}
-  #printArea .sp-campos i.curto{flex:0 0 40px;}
-  #printArea .sp-instr{font-size:9.5pt; color:#5C6560; background:#F3F6F5; border-radius:6px; padding:6px 10px; margin:0 0 14px;}
-  #printArea .sp-qs{padding-left:22px; margin:0;}
-  #printArea .sp-q{margin:0 0 12px; page-break-inside:avoid; font-size:10.5pt;}
-  #printArea .sp-q::marker{font-weight:700; color:#1F5C56;}
-  #printArea .sp-ops{list-style:none; padding:0; margin:6px 0 0;}
-  #printArea .sp-ops li{display:flex; gap:8px; align-items:flex-start; margin:3px 0; counter-increment:op;}
-  #printArea .sp-ops{counter-reset:op;}
-  #printArea .sp-bola{flex:none; width:15px; height:15px; border:1.3px solid #5C6560; border-radius:50%; font-size:8pt; line-height:13px; text-align:center; margin-top:1px;}
-  #printArea .sp-bola::before{content:counter(op, lower-alpha);}
-  #printArea .sp-gab{page-break-before:always;}
-  #printArea .sp-grade{display:grid; grid-template-columns:repeat(10, 1fr); gap:4px; margin:0 0 16px;}
-  #printArea .sp-grade span{border:1px solid #C3D1C0; border-radius:4px; text-align:center; font-size:10pt; padding:3px 0;}
-  #printArea .sp-grade b{display:block; font-size:8pt; color:#8D938B;}
-  #printArea .sp-coment{font-size:9.5pt; padding-left:20px;}
-  #printArea .sp-coment li{margin:0 0 7px; page-break-inside:avoid;}
-  #printArea .sp-coment div{color:#5C6560;}
-  #printArea .sp-rod{font-size:8.5pt; color:#8D938B; margin-top:12px;}
-  .ben-pdf-previa .sp-cab{display:flex; justify-content:space-between; gap:12px; border-bottom:2px solid #1F5C56; margin-bottom:8px;}
-  .ben-pdf-previa .sp-ops{list-style:none; padding:0;}
+  /* simulado em PDF · formato das provas da faculdade */
+  #printArea .sp-folha, .ben-pdf-previa .sp-folha{font-family:Arial, Helvetica, sans-serif; color:#111; font-size:10.5pt; line-height:1.38;}
+  .sp-tab{width:100%; border-collapse:collapse; border:1.5px solid #111; margin:0 0 12px; font-size:9.5pt;}
+  .sp-tab td{border:1px solid #111; padding:4px 7px; vertical-align:top;}
+  .sp-tab i{font-style:normal; font-weight:700;}
+  .sp-tab-marca{width:58%;}
+  .sp-tab-marca b{display:block; font-family:Georgia, 'Times New Roman', serif; font-size:19pt; color:#163F3B; line-height:1.1;}
+  .sp-tab-marca small{display:block; font-size:8.5pt; color:#444; letter-spacing:.04em; text-transform:uppercase;}
+  .sp-obs{font-size:8.5pt; line-height:1.35;}
+  .sp-nota{height:46px;}
+  #printArea .sp-sec, .ben-pdf-previa .sp-sec{font-family:Arial, Helvetica, sans-serif; font-size:11.5pt; font-weight:700; text-align:center; color:#111; border:0; margin:12px 0 10px; padding:0;}
+  #printArea .sp-qs, .ben-pdf-previa .sp-qs{columns:2; column-gap:9mm; column-rule:.6px solid #bbb; padding-left:0; margin:0; list-style:none; counter-reset:spq;}
+  #printArea .sp-q, .ben-pdf-previa .sp-q{break-inside:avoid; page-break-inside:avoid; margin:0 0 11px; counter-increment:spq; text-align:justify;}
+  .sp-q .sp-enun::before{content:counter(spq) ". "; font-weight:700;}
+  .sp-pts{font-weight:700;}
+  #printArea .sp-ops, .ben-pdf-previa .sp-ops{list-style:none; padding:0; margin:4px 0 0;}
+  #printArea .sp-ops li, .ben-pdf-previa .sp-ops li{margin:2px 0; padding-left:24px; text-indent:-24px;}
+  .sp-let{display:inline-block; width:24px; text-indent:0;}
+  .sp-quadro{break-inside:avoid; page-break-inside:avoid; margin:14px auto 0; max-width:110mm; text-align:center;}
+  .sp-quadro-li{break-inside:avoid; page-break-inside:avoid; counter-increment:none; list-style:none;}
+  .sp-quadro-li .sp-quadro{margin-top:4px;}
+  .sp-quadro-li .sp-grade th, .sp-quadro-li .sp-grade td{width:10.5mm;}
+  .sp-quadro-li .sp-grade th{width:8mm;}
+  .sp-q-tit{font-weight:700; text-transform:uppercase; font-size:10pt; margin:8px 0 3px; text-decoration:underline;}
+  .sp-q-txt{font-size:9pt; margin:0 0 6px;}
+  .sp-grade{border-collapse:collapse; margin:0 auto; font-size:9.5pt;}
+  .sp-grade th, .sp-grade td{border:1px solid #111; width:13mm; padding:1.5px 0; text-align:center; font-weight:400;}
+  .sp-grade th{background:#eee; width:9mm;}
+  .sp-grade td.ok{background:#1F5C56; color:#fff; font-weight:700; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  #printArea .sp-disc{break-before:page; page-break-before:always;}
+  #printArea .sp-ds, .ben-pdf-previa .sp-ds{padding-left:0; list-style:none; margin:0; display:grid; grid-template-columns:1fr 1fr; gap:9mm;}
+  .sp-ds > li{counter-increment:none;}
+  .sp-ds .sp-enun{text-align:justify; margin-bottom:8px;}
+  .sp-linhas i{display:block; height:7.4mm; border-bottom:.8px solid #555;}
+  #printArea .sp-gab{break-before:page; page-break-before:always;}
+  #printArea .sp-gab .sp-marca{font-size:9pt; letter-spacing:.12em; text-transform:uppercase; color:#1F5C56; font-weight:700;}
+  #printArea .sp-gab h1{font-family:Georgia, serif; font-size:20pt; margin:2px 0; color:#163F3B;}
+  .sp-sub{margin:0 0 6px; color:#555; font-size:10pt;}
+  #printArea .sp-coment{font-size:9.5pt; padding-left:22px;}
+  #printArea .sp-coment li{margin:0 0 7px; break-inside:avoid; page-break-inside:avoid;}
+  #printArea .sp-coment div{color:#444;}
+  .sp-modelo{font-size:9.5pt; color:#333; background:#F3F6F5; border-radius:6px; padding:7px 10px;}
+  #printArea .sp-rod{font-size:8.5pt; color:#777; margin-top:14px;}
+  .ben-pdf-previa .sp-afya, .ben-pdf-previa .sp-disc{zoom:.41; width:700px; max-width:none;}
+  @media (min-width:640px){ .ben-pdf-previa .sp-afya, .ben-pdf-previa .sp-disc{zoom:.76;} }
+  .ben-pdf-previa:has(.sp-afya){overflow:hidden; padding:10px;}
+  .ben-pdf-previa .sp-ds{display:grid;}
+  .ben-pdf-previa .sp-ds > li{margin-bottom:14px;}
+  .ben-escolha .sp-op-destaque{border-color:var(--ochre) !important; background:var(--ochre-soft) !important;}
 
   .conta-abas-top{display:flex; gap:4px; border-bottom:1px solid var(--rule); margin:0 0 14px; overflow-x:auto;}
   .conta-abas-top button{font:inherit; font-size:14px; font-weight:600; color:var(--ink-soft); background:none; border:0; border-bottom:2.5px solid transparent; padding:8px 10px 9px; cursor:pointer; white-space:nowrap; margin-bottom:-1px;}
@@ -20655,6 +20682,7 @@ function simRender(){
           <div class="sim-ini-nota">${e.comTempo ? 'Acertar rápido vale mais pontos. Acertos seguidos dão bônus.' : 'Cada acerto vale 1.000 pontos. Acertos seguidos dão bônus.'}</div></div>
         <button class="sim-start" data-sim-start>Começar</button>
         <div class="sim-ini-nota">As alternativas mudam de ordem a cada partida. As questões erradas vão para a Revisão dos erros.</div>
+        <button class="sim-papel" data-sim-papel><span class="sim-papel-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 15.5h7M9 19h4"/></svg></span><span><b>Prefere treinar no papel? <em>★ apoiador</em></b><small>Baixe uma prova em PDF no formato das provas da faculdade: cabeçalho, objetivas de A a E com pontuação, discursivas, quadro de respostas e gabarito comentado.</small></span></button>
       </div>`;
     return;
   }
@@ -20719,6 +20747,7 @@ function simClique(ev){
   const e = simEst; if(!e) return;
   const t = ev.target;
   if(t.closest('[data-sim-sair]')){ simSair(); return; }
+  if(t.closest('[data-sim-papel]')){ const disc = e.sim.disc; simSair(); setTimeout(() => { if(window.avAbrirSimPDF) window.avAbrirSimPDF(disc); }, 250); return; }
   const pa = t.closest('[data-sim-parte]'); if(pa){ e.parte = pa.dataset.simParte; simRender(); return; }
   const tp = t.closest('[data-sim-tempo]'); if(tp){ e.comTempo = tp.dataset.simTempo === '1'; simRender(); return; }
   if(t.closest('[data-sim-start]')){ simComecar(simIndices(e.sim, e.parte)); return; }
@@ -21001,14 +21030,16 @@ function pdfDeHTML(html, rodape){
     [...el.children].forEach(c=>{
       const tag = c.tagName;
       if(c.classList.contains('pr-barra') || c.classList.contains('sp-bola')) return;
-      if(c.classList.contains('sp-gab') || c.classList.contains('cad-capa')){ if(blocos.length) blocos.push({k:'pag'}); andar(c, num); if(c.classList.contains('cad-capa')) blocos.push({k:'pag'}); return; }
+      if(c.classList.contains('sp-quadro-li')){ andar(c, null); return; }
+      if(c.classList.contains('sp-linhas')){ for(let k = 0; k < 12; k++) blocos.push({k:'p', t:pdfTexto('_'.repeat(92))}); return; }
+      if(c.classList.contains('sp-gab') || c.classList.contains('sp-disc') || c.classList.contains('cad-capa')){ if(blocos.length) blocos.push({k:'pag'}); andar(c, num); if(c.classList.contains('cad-capa')) blocos.push({k:'pag'}); return; }
       if(c.classList.contains('sp-campos')){ blocos.push({k:'p', t:pdfTexto([...c.children].map(x => x.textContent.trim() + (x.querySelector('i.curto') ? '' : ' ______________')).join('     ').replace(/Acertos\s*\/\s*/, 'Acertos ____ / '))}); return; }
-      if(c.classList.contains('sp-grade')){ blocos.push({k:'p', t:pdfTexto([...c.children].map(x => x.querySelector('b').textContent + ') ' + x.textContent.slice(x.querySelector('b').textContent.length)).join('    '))}); return; }
+      if(c.classList.contains('sp-grade') && tag !== 'TABLE'){ blocos.push({k:'p', t:pdfTexto([...c.children].map(x => x.querySelector('b').textContent + ') ' + x.textContent.slice(x.querySelector('b').textContent.length)).join('    '))}); return; }
       if(tag === 'LI' && c.querySelector(':scope > ol')){ const en = c.cloneNode(true); en.querySelectorAll(':scope > ol').forEach(x => x.remove()); blocos.push({k:'li', t:txt(en), n: num ? (num.i = (num.i||0) + 1) : 0, forte:true}); andar(c.querySelector(':scope > ol'), {letra:true}); return; }
       if(/^H[1-4]$/.test(tag)) blocos.push({k:tag.toLowerCase(), t:txt(c)});
       else if(c.classList.contains('pr-marca')) blocos.push({k:'marca', t:txt(c)});
       else if(tag === 'P') blocos.push({k: (c.classList.contains('pr-nota') || c.closest('.pr-head')) ? 'small' : 'p', t:txt(c)});
-      else if(tag === 'LI') blocos.push(num && num.letra ? {k:'op', t:txt(c), l:'abcdefgh'[(num.i = (num.i||0) + 1) - 1]} : {k:'li', t:txt(c), n: num ? (num.i = (num.i||0) + 1) : 0});
+      else if(tag === 'LI') blocos.push(num && num.letra ? {k:'op', t:txt(c).replace(/^\([A-H]\)\s*/, ''), l:'ABCDEFGH'[(num.i = (num.i||0) + 1) - 1]} : {k:'li', t:txt(c), n: num ? (num.i = (num.i||0) + 1) : 0});
       else if(tag === 'DIV' && !c.children.length && c.textContent.trim()) blocos.push({k:'p', t:txt(c)});
       else if(tag === 'DT') blocos.push({k:'dt', t:txt(c)});
       else if(tag === 'DD') blocos.push({k:'p', t:txt(c)});
@@ -21029,7 +21060,7 @@ function pdfDeHTML(html, rodape){
     if(b.k === 'pag'){ novaPag(); return; }
     if(b.k === 'op'){
       const ls = pdfQuebra(b.t, 'H', 10, LW - 40);
-      ls.forEach((l,i)=>{ precisa(14); if(i === 0) escreve(b.l + ')', 'H', 10, M + 18, y - 10); escreve(l, 'H', 10, M + 32, y - 10); y -= 14; });
+      ls.forEach((l,i)=>{ precisa(14); if(i === 0) escreve('(' + b.l + ')', 'H', 10, M + 12, y - 10); escreve(l, 'H', 10, M + 32, y - 10); y -= 14; });
       y -= 1; return;
     }
     if(b.k === 'table'){
@@ -23330,7 +23361,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     <p class="conta-sub">O Arquivo Vivo é feito por um colega, sem anúncios e sem patrocínio. Manter tudo funcionando custa tempo, ferramentas e muito café do Psiu. O site continua livre: quem quiser pode apoiar com um Pix de valor livre. Cada Pix libera os extras de apoiador por 30 dias, sem assinatura nem cobrança automática.</p>
     <div class="ap-comp">
       <div class="gratis"><b>Grátis para todos</b><ul><li>Resumos com Teste-se</li><li>Exercícios interativos</li><li>Simulados com correção</li><li>Glossário e comparações</li><li>Psiu, o colega virtual</li><li>Notificações de prova</li><li>Drive, prazos e calendário</li><li>Resumão em PDF básico</li></ul></div>
-      <div class="apoiador"><b>★ Apoiador</b><ul><li>Plano de estudos do dia e da semana</li><li>Seu desempenho por tema</li><li>Seu semestre em números</li><li>Marca-texto e notas nos resumos</li><li>Resumão em PDF completo</li><li>Simulado em PDF</li><li>Acessórios especiais do Psiu</li></ul><small>Cada Pix libera tudo por 30 dias.</small></div>
+      <div class="apoiador"><b>★ Apoiador</b><ul><li>Plano de estudos do dia e da semana</li><li>Seu desempenho por tema</li><li>Seu semestre em números</li><li>Marca-texto e notas nos resumos</li><li>Resumão em PDF completo</li><li>Simulado em PDF no formato da prova da faculdade</li><li>Acessórios especiais do Psiu</li></ul><small>Cada Pix libera tudo por 30 dias.</small></div>
     </div>
     <div class="ap-valores" role="tablist" aria-label="Valor do apoio"><button type="button" data-v="10">R$ 10</button><button type="button" data-v="15">R$ 15</button><button type="button" data-v="None">Livre</button></div>
     <div class="ap-qr" id="apQr"></div>
@@ -23704,26 +23735,55 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   // ================= Simulado em PDF =================
   function escolherSimPDF(disc){
     const sims = SIM_JOGO.filter(x => x.disc === disc);
-    return EB('Área do apoiador') + `<h2>Simulado em PDF</h2><p class="conta-sub">${escHTML(nomeDisc(disc))}: escolha o que vai para o papel. O gabarito sai numa folha separada, no fim.</p>
-      <div class="ben-escolha">${sims.map(sm => `<button data-spdf='${JSON.stringify({id:sm.id, modo:'sorteio'})}'><b>Prova sorteada · 20 questões</b><span>Questões de todos os temas, como numa prova real</span></button>
+    const nDs = window.avDiscursivasDe ? window.avDiscursivasDe(disc).length : 0;
+    return EB('Área do apoiador') + `<h2>Simulado em PDF</h2><p class="conta-sub">${escHTML(nomeDisc(disc))}: uma prova para imprimir, montada no mesmo formato das provas da faculdade. Cabeçalho, pontuação por questão, alternativas de A a E, quadro de respostas e gabarito comentado na última folha.</p>
+      <div class="ben-escolha">${sims.map(sm => `<button class="sp-op-destaque" data-spdf='${JSON.stringify({id:sm.id, modo:'prova'})}'><b>Prova no formato da faculdade · 30 pontos</b><span>${nDs >= 2 ? '10 objetivas (2,4 cada) + 2 discursivas (3,0 cada)' : '10 objetivas de 3,0 pontos'}, sorteadas de todos os temas. A cada vez, uma prova nova.</span></button>
         <button data-spdf='${JSON.stringify({id:sm.id, modo:'tudo'})}'><b>Simulado completo · ${sm.questoes.length} questões</b><span>${escHTML(sm.titulo)}</span></button>
         ${(sm.partes || []).map(p => `<button data-spdf='${JSON.stringify({id:sm.id, modo:'parte', k:p.k})}'><b>${escHTML(p.t)}</b><span>${p.n} questões</span></button>`).join('')}`).join('')}</div>`;
   }
+  const spNum = v => v.toFixed(1).replace('.', ',');
   function simuladoPDF(op, previa){
     const sm = SIM_JOGO.find(x => x.id === op.id); if(!sm) return '';
-    let qs = sm.questoes.slice(), titulo = sm.titulo;
+    const sorteia = a => a.map(q => [Math.random(), q]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+    let qs = sm.questoes.slice(), titulo = sm.titulo, ds = [], ptsObj = 0, ptsDs = 0;
     if(op.modo === 'parte'){ let ini = 0; for(const p of sm.partes){ if(p.k === op.k){ qs = sm.questoes.slice(ini, ini + p.n); titulo += ' · ' + p.t; break; } ini += p.n; } }
-    if(op.modo === 'sorteio'){ qs = qs.map(q => [Math.random(), q]).sort((a, b) => a[0] - b[0]).slice(0, 20).map(x => x[1]); titulo += ' · prova sorteada'; }
-    const L = 'abcdefgh';
-    const prova = `<section class="sp-folha"><header class="sp-cab"><div><div class="sp-marca">Arquivo Vivo · Simulado</div><h1>${escHTML(nomeDisc(sm.disc))}</h1><p>${escHTML(titulo)} · ${qs.length} questões</p></div>
-      <div class="sp-campos"><span>Nome <i></i></span><span>Data <i></i></span><span>Acertos <i class="curto"></i> / ${qs.length}</span></div></header>
-      <p class="sp-instr">Marque uma alternativa por questão. Faça sem consultar o material e confira no gabarito, na última folha.</p>
-      <ol class="sp-qs">${qs.map(q => `<li class="sp-q"><div class="sp-enun">${q.p}</div><ol class="sp-ops" type="a">${q.o.map(o => `<li><span class="sp-bola"></span>${o}</li>`).join('')}</ol></li>`).join('')}</ol></section>`;
+    if(op.modo === 'prova' || op.modo === 'sorteio'){
+      // 10 objetivas espalhadas pelos temas, como na prova
+      const porTema = {}; sorteia(qs).forEach(q => (porTema[q.tema] = porTema[q.tema] || []).push(q));
+      const temas = sorteia(Object.keys(porTema)); qs = [];
+      while(qs.length < 10 && temas.some(t => porTema[t].length)) temas.forEach(t => { if(qs.length < 10 && porTema[t].length) qs.push(porTema[t].shift()); });
+      const todasDs = window.avDiscursivasDe ? sorteia(window.avDiscursivasDe(sm.disc)) : [];
+      if(todasDs.length >= 2){ ds = todasDs.slice(0, 2); ptsObj = 2.4; ptsDs = 3; } else ptsObj = 3;
+    }
+    const total = ptsObj ? qs.length * ptsObj + ds.length * ptsDs : 0;
+    const modelo = 'AB'[Math.floor(Math.random() * 2)];
+    const L = 'ABCDEFGH', nome = window.avNome ? escHTML(window.avNome) : '';
+    const pts = v => v ? ` <span class="sp-pts">(${spNum(v)} pontos)</span>` : '';
+    const cab = `<table class="sp-tab"><tbody>
+      <tr><td class="sp-tab-marca" rowspan="2"><b>Arquivo Vivo</b><small>Simulado de estudo · Psicologia</small></td><td class="sp-tab-cel"><i>Campus:</i> Barra da Tijuca</td></tr>
+      <tr><td class="sp-tab-cel"><i>Curso:</i> Psicologia</td></tr>
+      <tr><td><i>Disciplina:</i> ${escHTML(nomeDisc(sm.disc))}</td><td><i>Código:</i> SIM.N2.2026/2.${modelo}</td></tr>
+      <tr><td><i>Tipo:</i> ☐ N1 &nbsp;☒ N2 &nbsp;☐ Exame &nbsp;· simulado</td><td><i>Data:</i> ____/____/________</td></tr>
+      <tr><td><i>Modelo de prova:</i> ${modelo}</td><td><i>Valor:</i> ${total ? spNum(total) + ' pontos' : qs.length + ' questões'}</td></tr>
+      <tr><td><i>Aluno(a):</i> ${nome || ''}</td><td><i>Matrícula:</i></td></tr>
+      <tr><td class="sp-obs"><b>OBS:</b> faça sem consultar o material e com o celular longe, como no dia da prova. Use caneta azul ou preta e marque só uma alternativa por questão no quadro de respostas. Leia todo o enunciado. Boa prova!</td><td class="sp-nota"><i>Nota:</i></td></tr>
+    </tbody></table>`;
+    const objTit = `<h2 class="sp-sec">Questões Objetivas${total ? ': ' + spNum(qs.length * ptsObj) + ' pontos' : ''}</h2>`;
+    const objs = `<ol class="sp-qs">${qs.map(q => `<li class="sp-q"><div class="sp-enun">${pts(ptsObj).trim() ? pts(ptsObj).trim() + ' ' : ''}${q.p}</div><ol class="sp-ops">${q.o.map((o, k) => `<li><span class="sp-let">(${L[k]})</span> ${o}</li>`).join('')}</ol></li>`).join('')}</ol>`;
+    const nOp = Math.max(...qs.map(q => q.o.length));
+    const quadro = (gab) => `<div class="sp-quadro">${gab ? '' : `<p class="sp-q-tit">Atenção ao cartão resposta</p><p class="sp-q-txt">Só valem as respostas marcadas neste quadro, a caneta. Pinte todo o retângulo. Resposta rasurada é desconsiderada.</p>`}
+      <p class="sp-q-tit">Quadro de respostas${gab ? ' · gabarito' : ''}</p>
+      <table class="sp-grade"><tbody>${qs.map((q, i) => `<tr><th>${i + 1}</th>${[...Array(nOp)].map((_, k) => `<td${gab && k === q.c ? ' class="ok"' : ''}>${L[k]}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    const discs = ds.length ? `<section class="sp-folha sp-disc"><h2 class="sp-sec">Questões Discursivas: ${spNum(ds.length * ptsDs)} pontos</h2>
+      <ol class="sp-ds" start="${qs.length + 1}">${ds.map(d => `<li><div class="sp-enun"><b>${qs.length + ds.indexOf(d) + 1}.</b>${pts(ptsDs)} ${d.caso ? escHTML(d.caso) + ' ' : ''}${escHTML(d.q)}</div><div class="sp-linhas">${'<i></i>'.repeat(16)}</div></li>`).join('')}</ol></section>` : '';
+    const prova = `<section class="sp-folha sp-afya">${cab}${objTit}${objs.replace(/<\/ol>$/, `<li class="sp-quadro-li">${quadro(false)}</li></ol>`)}</section>${discs}`;
     if(previa) return prova;
-    const gab = `<section class="sp-folha sp-gab"><header class="sp-cab"><div><div class="sp-marca">Gabarito comentado</div><h1>${escHTML(nomeDisc(sm.disc))}</h1><p>${escHTML(titulo)}</p></div></header>
-      <div class="sp-grade">${qs.map((q, i) => `<span><b>${i + 1}</b>${L[q.c]}</span>`).join('')}</div>
-      <ol class="sp-coment">${qs.map(q => `<li><b>${L[q.c]})</b> ${q.o[q.c]}${q.w ? `<div>${q.w}</div>` : ''}</li>`).join('')}</ol>
-      <p class="sp-rod">Material de apoiador do Arquivo Vivo. O conteúdo das aulas sempre prevalece como referência final.</p></section>`;
+    const gab = `<section class="sp-folha sp-gab"><div class="sp-marca">Gabarito comentado · modelo ${modelo}</div><h1>${escHTML(nomeDisc(sm.disc))}</h1><p class="sp-sub">${escHTML(titulo)}${total ? ' · ' + spNum(total) + ' pontos' : ''}</p>
+      ${quadro(true)}
+      <h2 class="sp-sec">Comentários das objetivas</h2>
+      <ol class="sp-coment">${qs.map(q => `<li><b>(${L[q.c]})</b> ${q.o[q.c]}${q.w ? `<div>${q.w}</div>` : ''}</li>`).join('')}</ol>
+      ${ds.length ? `<h2 class="sp-sec">Discursivas: o que a correção espera</h2>${ds.map((d, i) => `<h3>${qs.length + i + 1}. ${escHTML(d.tema || '')}</h3>${d.crit ? `<ul>${d.crit.map(c => `<li>${escHTML(c)}</li>`).join('')}</ul>` : ''}${d.modelo ? `<p class="sp-modelo"><b>Resposta-modelo:</b> ${escHTML(d.modelo)}</p>` : ''}`).join('')}` : ''}
+      <p class="sp-rod">Simulado de estudo do Arquivo Vivo, material de apoiador. Não é uma prova oficial da faculdade; o conteúdo das aulas sempre prevalece como referência final.</p></section>`;
     return prova + gab;
   }
 
@@ -23820,7 +23880,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     desempenho: {t:'Seu desempenho', d:'Acertos por tema e o que revisar primeiro', html:desempenhoHTML},
     plano: {t:'Plano de estudos', d:'Sugerido pelo site ou montado por você', html:planoHTML},
     semestre: {t:'Seu semestre em números', d:'Seu resumo do semestre, em formato de story', html:semestreHTML},
-    simpdf: {t:'Simulado em PDF', d:'Prova para imprimir, com gabarito separado', disc:true},
+    simpdf: {t:'Simulado em PDF', d:'Prova no formato da faculdade, com quadro de respostas e gabarito comentado', disc:true},
     notas: {t:'Minhas anotações', d:'Trechos marcados e notas dos resumos', html:anotacoesHTML}
   };
   window.avBeneficiosDados = () => Object.entries(BEN).map(([k, b]) => ({k, t:b.t, d:b.d}));
@@ -23832,6 +23892,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   window.avPlanoDoDia = () => { const c = planoCfg(), pl = planoAtual(c), d = pl.dias.find(x => x.iso === hojeISO()); return {itens:d ? d.itens : [], provas:pl.provas, feitos:c.feitos, min:c.min, nDias:c.dias.length, foco:c.foco.map(plCurto), provaNomes:[...new Set(pl.provas.map(p => plCurto(p.disc)))]}; };
   window.avPlanoMarcar = (k, v) => { const c = planoCfg(); if(v) c.feitos[k] = 1; else delete c.feitos[k]; gravarJ('av-plano', c); };
   window.avPlanoAjustar = () => { window.avAbrirBeneficio('plano'); ajuste = true; escolhendo = planoCfg().foco.length > 0; abrir(planoHTML()); };
+  window.avAbrirSimPDF = disc => abrir(escolherSimPDF(disc));
   window.avAbrirBeneficio = k => { const b = BEN[k]; if(!b) return; if(k === 'plano'){ ajuste = false; escolhendo = false; diaSel = null; } if(b.disc) escolherDisc(k); else abrir(b.html(), !ehApoio()); };
 
   document.addEventListener('click', e => {
@@ -24816,6 +24877,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   }
   window.avDiscursivaContar = disc => dsDe(disc).length;
   window.avDiscursivasAdd = arr => { arr.forEach(x => DISCURSIVAS.push(x)); };
+  window.avDiscursivasDe = disc => dsDe(disc).filter(q => q.q && (q.crit || q.modelo));
 
   document.addEventListener('click', e => {
     if(e.target.closest('[data-ds-escolher]')){ escolher(); return; }
