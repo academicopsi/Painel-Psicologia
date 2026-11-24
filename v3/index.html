@@ -25524,28 +25524,67 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const v = document.getElementById('viewAdmin'); if(eu && v && v.style.display !== 'none') render(); }, 1000);
 })();
 </script>
-<div class="conta-fundo" id="conviteFundo" hidden>
+<div class="conta-fundo cv-fundo" id="conviteFundo" hidden>
   <div class="conta-caixa cv-caixa" role="dialog" aria-modal="true" aria-labelledby="cvTitulo">
-    <button class="conta-fechar" data-cv-fechar aria-label="Fechar">×</button>
-    <div class="eyebrow apoio-eb">Fim de semestre</div>
-    <h2 id="cvTitulo">O Arquivo Vivo te ajudou neste semestre?</h2>
-    <p class="conta-sub">Resumos, simulados, o Psiu, os guias dos trabalhos: tudo isso ficou no ar de agosto a novembro.</p>
-    <div class="cv-num"><span class="cv-num-v">quase R$ 500</span><span class="cv-num-l">de manutenção do site, de agosto a novembro</span></div>
-    <p class="conta-sub">Se ele fez diferença para você, que tal ajudar a manter o site vivo no próximo semestre? Qualquer valor conta, e quem apoia ainda libera os extras de apoiador.</p>
-    <div class="cv-acoes"><button class="conta-btn cv-sim" type="button" data-apoio data-cv-fechar>Quero ajudar</button><button class="conta-btn sec" type="button" data-cv-fechar>Agora não</button></div>
-    <p class="conta-priv">O site continua aberto para todos, apoiando ou não.</p>
+    <button class="cv-x" data-cv-fechar aria-label="Fechar">×</button>
+    <div class="cv-topo">
+      <div class="cv-topo-txt">
+        <div class="cv-eb">Fim do semestre</div>
+        <h2 id="cvTitulo">O Arquivo Vivo te ajudou neste semestre?</h2>
+      </div>
+      <div class="cv-psiu" id="cvPsiu"></div>
+    </div>
+    <div class="cv-corpo">
+      <p class="cv-lead">De agosto a novembro, o site guardou os resumos, simulados e guias dos trabalhos da turma. Em novembro, ganhou até o Psiu.</p>
+      <div class="cv-recibo">
+        <div class="cv-rec-l"><span>Para manter tudo no ar</span><div class="cv-meses"><i>ago</i><i>set</i><i>out</i><i>nov</i></div></div>
+        <div class="cv-rec-v"><small>quase</small>R$ 500</div>
+      </div>
+      <p class="cv-txt">Se ele fez diferença para você, que tal ajudar a manter o site vivo no próximo semestre? Qualquer valor conta.</p>
+      <p class="cv-extra"><span>★</span> Quem apoia ainda libera os extras de apoiador.</p>
+      <button class="cv-sim" type="button" data-apoio data-cv-fechar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Quero ajudar</button>
+      <button class="cv-nao" type="button" data-cv-fechar>Agora não</button>
+      <p class="cv-pe">O site continua aberto para todos, apoiando ou não.</p>
+    </div>
   </div>
 </div>
 <style>
-  .cv-caixa .conta-sub{margin-bottom:12px;}
-  .cv-num{display:flex; flex-direction:column; gap:2px; background:var(--ochre-soft); border:1px solid rgba(183,121,31,.28); border-radius:12px; padding:12px 14px; margin:0 0 14px;}
-  .cv-num-v{font-family:var(--serif, Georgia, serif); font-size:24px; font-weight:600; color:#9A6424; line-height:1.15;}
-  body.dark .cv-num-v{color:var(--ochre);}
-  .cv-num-l{font-size:13px; color:var(--ink-soft);}
-  .cv-acoes{display:flex; flex-direction:column; gap:8px; margin-top:4px;}
-  .cv-acoes .conta-btn{margin:0;}
-  .cv-sim{background:var(--ochre) !important;}
-  body.dark .cv-sim{color:#1E1A12 !important;}
+  .cv-fundo{align-items:center; padding:16px; background:rgba(14,28,26,.55); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}
+  .cv-fundo:not([hidden]) .cv-caixa{animation:cvEntra .45s cubic-bezier(.2,.9,.3,1.15) both;}
+  @keyframes cvEntra{from{opacity:0; transform:translateY(18px) scale(.96);} to{opacity:1; transform:none;}}
+  @media (prefers-reduced-motion:reduce){ .cv-fundo:not([hidden]) .cv-caixa{animation:none;} }
+  .cv-caixa{max-width:390px; padding:0; overflow:hidden; border-radius:20px; border:0; box-shadow:0 30px 70px rgba(0,0,0,.28);}
+  .cv-x{position:absolute; top:12px; right:12px; z-index:3; width:34px; height:34px; border:0; border-radius:50%; background:rgba(255,255,255,.14); color:#fff; font-size:20px; line-height:1; cursor:pointer;}
+  .cv-x:hover{background:rgba(255,255,255,.24);}
+  .cv-topo{position:relative; display:flex; align-items:flex-end; gap:6px; padding:26px 18px 0 22px; color:#fff;
+    background:radial-gradient(circle at 88% 30%, rgba(224,169,74,.35), transparent 45%), radial-gradient(rgba(255,255,255,.09) 1px, transparent 1.4px) 0 0/14px 14px, linear-gradient(155deg, #23675F, #163F3B 70%);}
+  .cv-topo-txt{flex:1; padding-bottom:22px; min-width:0;}
+  .cv-eb{display:inline-block; font-family:var(--mono, ui-monospace, monospace); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:#F3D29A; background:rgba(243,210,154,.12); border:1px solid rgba(243,210,154,.3); border-radius:999px; padding:4px 10px; margin-bottom:10px;}
+  .cv-caixa .cv-topo h2{font-family:var(--serif, Georgia, serif); font-size:25px !important; line-height:1.18; font-weight:600; color:#fff; margin:0;}
+  .cv-psiu{flex:none; width:112px; margin:0 -6px -16px 0; filter:drop-shadow(0 8px 14px rgba(0,0,0,.25)); animation:cvBalanca 3.2s ease-in-out infinite; transform-origin:50% 100%;}
+  .cv-psiu svg{display:block; width:100%; height:auto;}
+  @keyframes cvBalanca{0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);}}
+  @media (prefers-reduced-motion:reduce){ .cv-psiu{animation:none;} }
+  .cv-corpo{padding:20px 22px 18px; background:var(--paper);}
+  .cv-lead{font-size:15px; line-height:1.55; color:var(--ink); margin:0 0 14px;}
+  .cv-recibo{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; margin:0 0 14px; border-radius:14px; background:var(--ochre-soft); border:1px dashed rgba(183,121,31,.45);}
+  .cv-rec-l span{display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:7px;}
+  .cv-meses{display:flex; gap:4px;}
+  .cv-meses i{font-style:normal; font-family:var(--mono, ui-monospace, monospace); font-size:10.5px; color:#9A6424; background:rgba(183,121,31,.14); border-radius:6px; padding:3px 6px;}
+  .cv-rec-v{font-family:var(--serif, Georgia, serif); font-size:30px; font-weight:600; color:#9A6424; line-height:1; white-space:nowrap; text-align:right;}
+  .cv-rec-v small{display:block; font-family:inherit; font-size:13px; font-weight:500; font-style:italic; color:var(--ink-soft); margin-bottom:3px;}
+  .cv-txt{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0 0 10px;}
+  .cv-extra{font-size:13.5px; color:var(--ink-soft); margin:0 0 16px;}
+  .cv-extra span{color:var(--ochre);}
+  .cv-sim{display:flex; align-items:center; justify-content:center; gap:9px; width:100%; font:inherit; font-size:16px; font-weight:700; color:#fff; background:linear-gradient(180deg, #C4862A, #A96E1C); border:0; border-radius:12px; padding:14px; cursor:pointer; box-shadow:0 6px 16px rgba(169,110,28,.3), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .15s;}
+  .cv-sim:hover{transform:translateY(-1px);}
+  .cv-sim svg{width:20px; height:20px;}
+  .cv-nao{display:block; width:100%; font:inherit; font-size:14.5px; font-weight:600; color:var(--ink-soft); background:transparent; border:0; padding:12px; margin-top:4px; cursor:pointer; border-radius:10px;}
+  .cv-nao:hover{background:rgba(0,0,0,.04);}
+  .cv-pe{font-size:12.5px; color:var(--ink-faint); text-align:center; margin:2px 0 0;}
+  body.dark .cv-rec-v, body.dark .cv-meses i{color:var(--ochre);}
+  body.dark .cv-nao:hover{background:rgba(255,255,255,.06);}
+  @media (max-width:360px){ .cv-caixa .cv-topo h2{font-size:22px !important;} .cv-psiu{width:92px;} .cv-rec-v{font-size:26px;} }
 </style>
 <script>
 // Convite de fim de semestre: aparece uma vez por conta, para quem não é apoiador, de 26/11 (10h) até 03/12.
@@ -25564,6 +25603,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const aberto = [...document.querySelectorAll('.conta-fundo')].some(x => x !== fundo && !x.hidden);
     if(aberto){ if(++tent < 30) setTimeout(tentar, 4000); return; }
     try{ localStorage.setItem(CHAVE, String(Date.now())); }catch(_){}
+    const ps = document.getElementById('cvPsiu'); try{ if(ps && window.avPsiuDe) ps.innerHTML = window.avPsiuDe({acc:['cafe']}); }catch(_){}
     fundo.hidden = false;
   }
   document.addEventListener('av-apoio', () => setTimeout(tentar, 1500));
