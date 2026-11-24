@@ -245,7 +245,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   @media (max-width:880px){
     :root{--tab-h:62px;}
     .tabbar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:248; height:calc(var(--tab-h) + env(safe-area-inset-bottom)); padding:0 8px env(safe-area-inset-bottom); background:var(--paper); border-top:1px solid var(--rule); box-shadow:0 -6px 18px var(--shadow);}
-    .tabbar button{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; background:none; border:0; font:inherit; font-size:11.5px; font-weight:600; color:var(--ink-faint); cursor:pointer; -webkit-tap-highlight-color:transparent;}
+    .tabbar button{flex:1; min-width:0; white-space:nowrap; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; background:none; border:0; font:inherit; font-size:11.5px; font-weight:600; color:var(--ink-faint); cursor:pointer; -webkit-tap-highlight-color:transparent;}
     .tabbar svg{width:22px; height:22px;}
     .tabbar button.on{color:var(--petrol);}
     .tabbar button.on::before{content:''; position:absolute; top:0; width:28px; height:2.5px; border-radius:0 0 2px 2px; background:var(--petrol);}
@@ -259,7 +259,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     body:has(.sim-jogo){padding-bottom:0;}
     /* sem duplicatas: o que está na barra ou no topo sai da gaveta */
     .nav-menu > [data-nav="top"], .nav-menu > .nav-drive, .nav-menu > .nav-g-disc{display:none;}
-    .nav-conta [data-page="viewMural"]{display:none;}
+    .nav-conta [data-page="viewMural"], .nav-conta [data-ma-ir="hoje"]{display:none;}
+    .hj-inicio{display:none !important;}
     .tb-folha{display:block; position:fixed; inset:0; z-index:245;}
     .tb-folha[hidden]{display:none;}
     .tb-fundo{position:absolute; inset:0; background:rgba(10,20,18,.45); opacity:0; transition:opacity .2s ease;}
@@ -3897,7 +3898,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
           <button class="nav-item" data-page="viewHoje" data-ma-ir="hoje"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg></span><span class="ni-text"><strong>Minha área</strong><small>Plano do dia, progresso e treinos</small></span></button>
           <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span><span class="ni-text"><strong>Mural da turma</strong><small>Publique, comente e curta</small></span></button>
           <button class="nav-item nav-apoio-dest" data-apoio data-nav-apoio><span class="ni-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.8l2.75 5.6 6.15.9-4.45 4.33 1.05 6.12L12 16.87l-5.5 2.88 1.05-6.12L3.1 9.3l6.15-.9z"/></svg></span><span class="ni-text"><strong id="navApoioT">Apoiar o Arquivo Vivo</strong><small id="navApoioSub">Pix de R$ 10 a R$ 50 ou livre · vale 30 dias</small></span></button>
-          <button class="nav-item nav-ap" data-page="viewHoje" data-ma-ir="ferramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7Z"/></svg></span><span class="ni-text"><strong>Recursos de apoiador <span class="ap-selo">★</span></strong><small id="navApSub">Veja as prévias e o que o apoio libera</small></span></button>
+          <button class="nav-item nav-ap" data-page="viewHoje" data-ma-ir="ferramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.6-1.7"/><circle cx="12" cy="16" r="1.2"/></svg></span><span class="ni-text"><strong>Recursos de apoiador <span class="ap-selo">★</span></strong><small id="navApSub">O que o apoio libera</small></span></button>
           <button class="nav-item" data-share-menu><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></span><span class="ni-text"><strong>Compartilhar o site</strong><small>Mande o link para a turma</small></span></button>
           <button class="nav-item nav-admin" data-page="viewAdmin" hidden><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="ni-text"><strong>Painel do administrador</strong><small>Acessos, avisos, mural e turma</small></span></button>
         </div>
@@ -3917,7 +3918,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewEstudar"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><span class="ni-text"><strong>Resumos</strong><small>Resumos interativos por disciplina</small></span></button>
           <button class="nav-item" data-page="viewFerramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="ni-text"><strong>Exercícios</strong><small>Quizzes e atividades por disciplina</small></span></button>
-          <button class="nav-item" data-page="viewSimulados"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><span class="ni-text"><strong>Modo prova</strong><small>Simulados no estilo vestibular</small></span></button>
+          <button class="nav-item" data-page="viewSimulados"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><span class="ni-text"><strong>Simulados</strong><small>Por disciplina e por tema</small></span></button>
           <button class="nav-item" data-page="viewErros"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></span><span class="ni-text"><strong>Revisão dos erros</strong><small>Questões erradas para treinar de novo</small></span></button>
           <button class="nav-item" data-page="viewApoio"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span><span class="ni-text"><strong>Glossário e guias</strong><small>Glossário, comparações e normas ABNT</small></span></button>
           <button class="nav-item" data-page="viewVideos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg></span><span class="ni-text"><strong>Vídeos</strong><small>Vídeo-aulas recomendadas</small></span></button>
@@ -3928,7 +3929,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-group-label">Turma</div>
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewPrazos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="ni-text"><strong>Prazos e tarefas</strong><small>Calendário, provas e entregas</small></span></button>
-          <button class="nav-item" data-scroll="atualizacoes"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><span class="ni-text"><strong>Últimas atualizações</strong><small>O que entrou no site</small></span></button>
           <button class="nav-item" data-page="viewCursos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span class="ni-text"><strong>Cursos extras</strong><small>Cursos gratuitos e com certificado</small></span></button>
         </div>
       </div>
@@ -3938,6 +3938,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewSobre"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="ni-text"><strong>Sobre o site</strong><small>O projeto e a organização do Drive</small></span></button>
           <button class="nav-item" data-page="viewInstalar"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><span class="ni-text"><strong>Instale o app</strong><small>Instalação no celular</small></span></button>
+          <button class="nav-item" data-scroll="atualizacoes"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><span class="ni-text"><strong>Últimas atualizações</strong><small>O que entrou no site</small></span></button>
         </div>
       </div>
     </nav>
@@ -3959,6 +3960,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button data-tb="inicio" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>Início</button>
   <button data-tb="drive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg>Drive</button>
   <button data-tb="disc" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Disciplinas</button>
+  <button data-tb="ma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Minha área</button>
 </nav>
 
 <div class="search-overlay" id="searchOverlay" hidden>
@@ -5147,8 +5149,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromSimulados">← Voltar ao Arquivo Vivo</button>
   <header>
     <div class="eyebrow">Estudo · Arquivo Vivo</div>
-    <h1>Modo prova</h1>
-    <p>Simulados no estilo vestibular, um por disciplina: uma questão por tela, tempo opcional, pontos e resultado por assunto no fim. As questões erradas vão para a Revisão dos erros.</p>
+    <h1>Simulados</h1>
+    <p>Um por disciplina, com treino por tema: uma questão por tela, tempo opcional, pontos e resultado por assunto no fim. As questões erradas vão para a Revisão dos erros.</p>
   </header>
   <div id="simuladosLista"></div>
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
@@ -5349,7 +5351,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       <button class="brand" data-scroll="top"><img class="brand-mark brand-logo" src="../icons/icon-192.png" alt="" width="36" height="36"><span class="brand-text"><strong>Arquivo Vivo</strong><small>Psicologia · de aluno para aluno</small></span></button>
       <p>Iniciativa voluntária, sem vínculo com a coordenação ou com a instituição. O conteúdo das aulas sempre prevalece como referência final.</p>
     </div>
-    <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewSimulados">Modo prova</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button></div>
+    <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewSimulados">Simulados</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button></div>
     <div class="footer-col"><h4>Turma</h4><button data-scroll="disciplinas">Drive das Disciplinas</button><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewPrazos" data-target="calendario">Calendário</button><button data-scroll="atualizacoes">Atualizações</button><button data-page="viewCursos">Cursos extras</button></div>
     <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button><button data-apoio>Apoie o Arquivo Vivo</button></div>
     <div class="qr-block"><div id="qrcode"></div><span>Aponte a câmera para abrir no celular</span></div>
@@ -16083,7 +16085,7 @@ function rotuloLink(l){
   if(l.url){ if(l.url.startsWith('#resumo-')) return 'Abrir resumo →'; if(l.url.startsWith('#disc-')) return 'Ver disciplina →'; if(l.url.startsWith('#roteiro-')) return 'Abrir roteiro →'; if(l.url.startsWith('#simulado-')) return 'Abrir simulado →'; if(l.url.startsWith('#')) return 'Ver →'; return 'Abrir link ↗'; }
   if(l.disc) return 'Ver disciplina →';
   if(l.scroll === 'disciplinas') return 'Ver disciplinas →';
-  const pg = {viewFerramentas:'Ver exercícios →', viewPrazos:'Ver prazos →', viewEstudar:'Ver resumos →', viewVideos:'Ver vídeos →', viewCursos:'Ver cursos →', viewApoio:'Ver extras →', viewSimulados:'Abrir o modo prova →'};
+  const pg = {viewFerramentas:'Ver exercícios →', viewPrazos:'Ver prazos →', viewEstudar:'Ver resumos →', viewVideos:'Ver vídeos →', viewCursos:'Ver cursos →', viewApoio:'Ver extras →', viewSimulados:'Abrir os simulados →'};
   return pg[l.page] || 'Ver →';
 }
 function renderFeed(items){
@@ -20446,7 +20448,7 @@ function simIndices(sim, parte){
 function simHTMLCard(sim){
   const r = simRec(sim.id);
   return `<div class="sim-card">
-    <div class="sim-card-top"><span class="sim-tag">Modo prova</span><span class="sim-n">${simN(sim)} questões</span></div>
+    <div class="sim-card-top"><span class="sim-tag">Simulado</span><span class="sim-n">${simN(sim)} questões</span></div>
     <div class="sim-card-t">${escHTML(sim.titulo)}</div>
     <div class="sim-card-d">${escHTML(sim.desc)}</div>
     ${r ? `<div class="sim-card-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
@@ -21247,7 +21249,7 @@ const PAGINAS_BUSCA = [
   {t:'Calendário de prazos', s:'Todas as datas do semestre', l:{page:'viewPrazos', target:'calendario'}},
   {t:'Resumos', s:'Resumos interativos por disciplina', l:{page:'viewEstudar'}},
   {t:'Exercícios', s:'Quizzes e atividades por disciplina', l:{page:'viewFerramentas'}},
-  {t:'Modo prova', s:'Simulados no estilo vestibular, por disciplina', l:{page:'viewSimulados'}},
+  {t:'Simulados', s:'Um por disciplina, com treino por tema', l:{page:'viewSimulados'}},
   {t:'Revisão dos erros', s:'Questões erradas para treinar de novo', l:{page:'viewErros'}},
   {t:'Glossário e guias', s:'Glossário, comparações, normas ABNT e gráficos', l:{page:'viewApoio'}},
   {t:'Glossário', s:'Termos das disciplinas', l:{page:'viewApoio', target:'glossario'}},
@@ -21403,7 +21405,7 @@ function irParaHash(h){
 
 // V3 · "Voltar" da disciplina leva para a tela de onde a pessoa veio (Resumos, Modo prova, Exercícios…), não sempre ao início
 (function(){
-  let anterior = 'top'; const NOMES = {top:'ao início', viewEstudar:'a Resumos', viewSimulados:'ao Modo prova', viewFerramentas:'a Exercícios', viewPrazos:'ao Calendário', viewErros:'à Revisão dos erros', viewVideos:'a Vídeos', viewApoio:'ao Glossário'};
+  let anterior = 'top'; const NOMES = {top:'ao início', viewEstudar:'a Resumos', viewSimulados:'a Simulados', viewFerramentas:'a Exercícios', viewPrazos:'ao Calendário', viewErros:'à Revisão dos erros', viewVideos:'a Vídeos', viewApoio:'ao Glossário'};
   const orig = switchPage;
   window.switchPage = switchPage = function(id, o){
     const atual = (typeof currentPage !== 'undefined') ? currentPage : null;
@@ -22135,7 +22137,7 @@ document.addEventListener('click', e=>{
       else h += ' Que tal começar por uma parte pequena, como um resumo ou algumas questões?';
       if(temFrase(q, ['nao aguento mais','to mal','estou mal','to triste','estou triste'])) h += '<br><small>Se não for só a prova e estiver pesado de verdade, o CVV atende pelo 188, de graça e a qualquer hora.</small>';
       const dn = p ? discDaTarefa(p) : null;
-      return {x:'acolhendo', h, a: dn ? [{label:'Revisar ' + nomeDisc(dn), l:{disc:dn}}, {label:'Modo prova', l:{page:'viewSimulados'}}] : [{label:'Resumos', l:{page:'viewEstudar'}}]};
+      return {x:'acolhendo', h, a: dn ? [{label:'Revisar ' + nomeDisc(dn), l:{disc:dn}}, {label:'Simulados', l:{page:'viewSimulados'}}] : [{label:'Resumos', l:{page:'viewEstudar'}}]};
     }
 
     // 7) assunto + continuação ("e a de neuro?")
@@ -22173,7 +22175,7 @@ document.addEventListener('click', e=>{
         else if(dn){ h += ' Dá tempo de ir com calma. Quer dar uma olhada no conteúdo?'; oferta = {disc:dn}; }
         return {h, oferta, a:(dn ? [{label:'Revisar ' + nomeDisc(dn), l:{disc:dn}}] : []).concat([calendario])};
       }
-      return {h:`${um(['Nossas provas', 'Olha o que vem por aí'])}${querSemana ? ' nos próximos 7 dias' : ''}:<ul>${lista.map(t=>linhaTarefa(t, !disc)).join('')}</ul>Bora treinar no modo prova?`, oferta:{page:'viewSimulados'}, a:[{label:'Modo prova', l:{page:'viewSimulados'}}, calendario]};
+      return {h:`${um(['Nossas provas', 'Olha o que vem por aí'])}${querSemana ? ' nos próximos 7 dias' : ''}:<ul>${lista.map(t=>linhaTarefa(t, !disc)).join('')}</ul>Bora treinar nos simulados?`, oferta:{page:'viewSimulados'}, a:[{label:'Simulados', l:{page:'viewSimulados'}}, calendario]};
     }
     if(it === 'prazo'){
       let lista = futuras(t => !disc || discDaTarefa(t) === disc);
@@ -22188,8 +22190,8 @@ document.addEventListener('click', e=>{
       return {h:`${um(['Separei os resumos', 'Os resumos que a gente tem'])}${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}:`, a:lista.slice(0, 6).map(s=>({label:s.titulo, l:{url:s.link}})).concat(disc ? [] : [{label:'Ver todos', l:{page:'viewEstudar'}}])};
     }
     if(it === 'exercicio'){
-      if(disc) return {h:`Os exercícios e o simulado de ${escHTML(nomeDisc(disc))} ficam na página da disciplina. Quer abrir?`, oferta:{disc}, a:[{label:'Página da disciplina', l:{disc}}, {label:'Modo prova', l:{page:'viewSimulados'}}]};
-      return {h:'Dá para treinar de três jeitos:', a:[{label:'Exercícios', l:{page:'viewFerramentas'}}, {label:'Modo prova', l:{page:'viewSimulados'}}, {label:'Revisão dos erros', l:{page:'viewErros'}}]};
+      if(disc) return {h:`Os exercícios e o simulado de ${escHTML(nomeDisc(disc))} ficam na página da disciplina. Quer abrir?`, oferta:{disc}, a:[{label:'Página da disciplina', l:{disc}}, {label:'Simulados', l:{page:'viewSimulados'}}]};
+      return {h:'Dá para treinar de três jeitos:', a:[{label:'Exercícios', l:{page:'viewFerramentas'}}, {label:'Simulados', l:{page:'viewSimulados'}}, {label:'Revisão dos erros', l:{page:'viewErros'}}]};
     }
     if(it === 'video'){
       const ns = disc ? [disc] : Object.keys(VIDEOS);
@@ -24470,7 +24472,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const na = g.querySelector('.nav-admin'); if(na){ const eu = window.avEu && window.avEu(); na.hidden = !(eu && eu.admin); }
     const ap = !!(window.avApoiador || localStorage.getItem('av-apoiador-cache')), ate = +(window.avApoioAte || 0);
     const dd = ate > 1 ? new Date(ate).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : '';
-    document.getElementById('navApSub').textContent = ap ? 'Plano de estudos, desempenho, PDFs e mais' : 'Veja as prévias e o que o apoio libera';
+    document.getElementById('navApSub').textContent = ap ? 'Plano de estudos, desempenho, PDFs e mais' : 'O que o apoio libera';
     document.getElementById('navApoioT').textContent = ap ? 'Meu apoio' : 'Apoiar o Arquivo Vivo';
     document.getElementById('navApoioSub').textContent = ap ? (dd ? 'Vale até ' + dd + ' · renove quando quiser' : 'Obrigado por apoiar!') : 'Pix de R$ 10 a R$ 50 ou livre · vale 30 dias';
   };
@@ -25761,7 +25763,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const pg = (typeof currentPage !== 'undefined') ? currentPage : 'top';
     const aberta = !folha.hidden;
     bar.querySelectorAll('[data-tb]').forEach(b => b.classList.remove('on'));
-    const k = aberta || pg === 'viewDisc' ? 'disc' : pg === 'top' ? (bar.dataset.drive === '1' ? 'drive' : 'inicio') : '';
+    const k = aberta || pg === 'viewDisc' ? 'disc' : pg === 'viewHoje' ? 'ma' : pg === 'top' ? (bar.dataset.drive === '1' ? 'drive' : 'inicio') : '';
     if(k) bar.querySelector(`[data-tb="${k}"]`).classList.add('on');
   }
   function abrir(){
@@ -25780,6 +25782,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const b = e.target.closest('[data-tb]'); if(!b) return;
     const k = b.dataset.tb;
     if(k === 'disc'){ folha.hidden ? abrir() : fechar(); return; }
+    if(k === 'ma'){ fechar(); document.getElementById('contaBtn')?.click(); setTimeout(marcar, 40); return; }
     fechar();
     bar.dataset.drive = k === 'drive' ? '1' : '';
     bar._ate = Date.now() + 1500;
