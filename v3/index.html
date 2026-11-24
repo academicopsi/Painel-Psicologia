@@ -2669,6 +2669,14 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .nt-item ul{margin:6px 0; padding-left:18px;}
   /* simulado em PDF · formato das provas da faculdade */
   #printArea .sp-folha, .ben-pdf-previa .sp-folha{font-family:Arial, Helvetica, sans-serif; color:#111; font-size:10.5pt; line-height:1.38;}
+  .sp-topo{display:flex; justify-content:space-between; align-items:flex-end; gap:16px; border-bottom:2px solid #163F3B; padding-bottom:8px; margin-bottom:8px;}
+  .sp-topo .sp-marca{font-size:8.5pt; letter-spacing:.1em; text-transform:uppercase; color:#1F5C56; font-weight:700;}
+  #printArea .sp-topo h1, .ben-pdf-previa .sp-topo h1{font-family:Georgia, serif; font-size:18pt; margin:2px 0 0; color:#163F3B;}
+  .sp-campos{display:grid; gap:5px; font-size:9.5pt; min-width:210px;}
+  .sp-campos span{display:flex; gap:6px; align-items:flex-end;}
+  .sp-campos i{flex:1; border-bottom:1px solid #777; min-height:14px; font-style:normal;}
+  .sp-campos i.curto{flex:0 0 60px;}
+  .sp-instr{font-size:9pt; color:#444; margin:0 0 4px;}
   .sp-tab{width:100%; border-collapse:collapse; border:1.5px solid #111; margin:0 0 12px; font-size:9.5pt;}
   .sp-tab td{border:1px solid #111; padding:4px 7px; vertical-align:top;}
   .sp-tab i{font-style:normal; font-weight:700;}
@@ -8938,6 +8946,424 @@ SIM_JOGO.push({
    o:["Giro frontal inferior dominante (área de Broca).", "Porção posterior do giro temporal superior dominante.", "Córtex visual primário do lobo occipital.", "Giro pós-central do lobo parietal.", "Núcleo ventral posterolateral do tálamo."],
    c:0, w:"A afasia não fluente, com fala trabalhosa e compreensão relativamente preservada, sugere comprometimento da rede frontal do hemisfério dominante ligada ao planejamento e à produção da linguagem (área de Broca). Compare com o caso 3: na área de Wernicke, a fala é fluente, mas a compreensão falha. <b>Na Psicologia:</b> A dificuldade de expressão pode gerar sofrimento, retraimento e perda de autonomia. Dar tempo para a resposta, fazer perguntas objetivas e oferecer recursos alternativos de comunicação, sem infantilizar o paciente."}
   ]
+});
+
+/* ---------------------------------------------------------------------
+   QUESTÕES NO ESTILO DA PROVA
+   Construídas como as provas da faculdade: um contexto (pesquisa, caso,
+   situação de trabalho do psicólogo), um comando técnico ("assinale a
+   alternativa que...", "qual mecanismo explica...", "está correto o que se
+   afirma em") e cinco alternativas longas, em que as erradas usam termos
+   certos em relações erradas. Cada simulado ganha a parte "Estilo prova".
+   --------------------------------------------------------------------- */
+const PROVA_ESTILO = {
+'bases-n2': [
+{tema:"Formação geral", p:"Uma reportagem afirma que pesquisadores teriam encontrado “o gene da ansiedade” e sugere que, no futuro, exames genéticos poderão indicar quem vai adoecer. Em uma roda de conversa com estudantes, a psicóloga é convidada a comentar a notícia à luz do que se sabe sobre genes, ambiente e comportamento.<br>Assinale a alternativa que expressa a postura técnica e ética mais adequada para a psicóloga.",
+ o:["Confirmar a notícia, explicando que comportamentos complexos são determinados por um único gene e que o ambiente apenas antecipa ou adia o aparecimento dos sintomas.",
+    "Defender que exames genéticos substituam a avaliação psicológica, já que o DNA é estável ao longo da vida e dispensa a escuta do sujeito.",
+    "Explicar que comportamentos e sofrimentos psíquicos resultam da interação entre fatores genéticos e ambientais, evitando reducionismos que possam rotular ou estigmatizar pessoas.",
+    "Negar qualquer influência biológica no comportamento humano, afirmando que a genética não tem relação com a Psicologia.",
+    "Recomendar que pessoas com familiares ansiosos evitem ter filhos, para reduzir a frequência do gene na população."],
+ c:2, w:"O comportamento resulta da interação entre genes e ambiente. Falar em “gene de” um comportamento complexo é reducionismo, e o uso de dados genéticos para rotular ou orientar decisões reprodutivas é eticamente problemático. Negar a biologia também é um erro."},
+{tema:"Fertilização", p:"Em um serviço de reprodução assistida, a psicóloga acompanha um casal que deseja entender por que a gravidez não acontece. O médico explica onde e como a fertilização ocorre naturalmente, para depois apresentar as alternativas de tratamento.<br>Do ponto de vista embriológico, assinale a alternativa que descreve corretamente o local habitual da fertilização e o que acontece logo em seguida.",
+ o:["Ocorre na cavidade uterina, e o zigoto se implanta imediatamente no endométrio, sem passar por divisões celulares prévias.",
+    "Ocorre no ovário, no momento da ovulação, e o ovócito já fertilizado é captado pelas fímbrias da tuba uterina.",
+    "Ocorre no istmo da tuba, e o espermatozoide completa a segunda divisão meiótica antes de penetrar a zona pelúcida.",
+    "Ocorre na ampola da tuba uterina; com a entrada do espermatozoide, o ovócito secundário completa a segunda divisão meiótica e forma-se o zigoto, diploide.",
+    "Ocorre na ampola da tuba, mas o zigoto formado é haploide, pois cada gameta contribui com metade de seus cromossomos ao longo das clivagens."],
+ c:3, w:"A fertilização costuma ocorrer na ampola. O ovócito secundário só completa a meiose II quando o espermatozoide entra, e a união dos pronúcleos forma o zigoto diploide, que inicia as clivagens a caminho do útero."},
+{tema:"Clivagem e blastocisto", p:"Ao estudar o desenvolvimento pré-natal, a Psicologia busca compreender como as primeiras etapas biológicas preparam a formação do organismo. Considere as afirmativas sobre a primeira semana após a fertilização:<br>I. Durante a clivagem, os blastômeros ficam menores a cada divisão, sem aumento significativo do tamanho total do concepto.<br>II. A zona pelúcida impede que o concepto se fixe na parede da tuba e precisa se desfazer (eclosão) antes da implantação no útero.<br>III. A compactação dos blastômeros acontece logo na primeira divisão, quando o concepto tem duas células.<br>Está correto o que se afirma em:",
+ o:["I, apenas.", "I e II, apenas.", "II e III, apenas.", "I e III, apenas.", "I, II e III."],
+ c:1, w:"I e II estão corretas. A compactação (III) ocorre por volta do estágio de 8 células e forma a mórula, não na primeira divisão."},
+{tema:"Clivagem e blastocisto", p:"Em uma aula sobre bases biológicas do desenvolvimento, o professor apresenta a imagem de um blastocisto por volta do 5º dia e pergunta à turma quais estruturas darão origem ao embrião e quais participarão da formação da placenta.<br>Assinale a alternativa que relaciona corretamente as estruturas do blastocisto ao seu destino.",
+ o:["O trofoblasto forma o embrião, e o embrioblasto forma a parte fetal da placenta.",
+    "A blastocele forma o embrião, e a zona pelúcida dá origem às membranas que revestem a placenta.",
+    "O embrioblasto (massa celular interna) dá origem ao embrião, e o trofoblasto participa da formação da parte fetal da placenta.",
+    "Embrioblasto e trofoblasto formam juntos o embrião, e a placenta é formada exclusivamente por tecido materno.",
+    "O embrioblasto forma o cordão umbilical, e o trofoblasto se diferencia diretamente nos três folhetos germinativos."],
+ c:2, w:"No blastocisto, a massa celular interna (embrioblasto) origina o embrião, e a camada externa (trofoblasto) participa da formação da placenta."},
+{tema:"Implantação e hCG", p:"Uma estudante pergunta por que um teste de gravidez de farmácia pode dar positivo poucos dias após o atraso menstrual. Para responder, é preciso relacionar o que acontece na implantação com a manutenção do endométrio.<br>Qual mecanismo explica corretamente a positividade do teste nas primeiras semanas?",
+ o:["O embrioblasto libera progesterona na urina, substituindo desde o início a função do corpo lúteo.",
+    "O sinciciotrofoblasto produz a hCG, que mantém o corpo lúteo ativo produzindo progesterona e é o hormônio detectado no teste.",
+    "O corpo lúteo passa a produzir hCG depois da ovulação, independentemente de ter havido fertilização.",
+    "O citotrofoblasto produz estrogênio, que destrói o corpo lúteo e sinaliza o início da gestação.",
+    "A zona pelúcida libera hCG ao se romper na eclosão, antes mesmo de o blastocisto chegar ao útero."],
+ c:1, w:"Durante a implantação, o sinciciotrofoblasto produz hCG. Ela mantém o corpo lúteo produzindo progesterona, o que preserva o endométrio, e é o hormônio que o teste detecta."},
+{tema:"Segunda semana", p:"No final da segunda semana, o concepto está imerso no endométrio, e a literatura costuma descrever esse período como a “semana dos dois”.<br>Assinale a alternativa que descreve corretamente as transformações desse período.",
+ o:["O trofoblasto se diferencia em citotrofoblasto e sinciciotrofoblasto; o embrioblasto forma o disco bilaminar (epiblasto e hipoblasto); surgem a cavidade amniótica e o saco vitelino.",
+    "O embrioblasto se diferencia em citotrofoblasto e sinciciotrofoblasto, enquanto o trofoblasto forma os três folhetos germinativos.",
+    "O disco embrionário passa a ser trilaminar, com ectoderma, mesoderma e endoderma, e o tubo neural se fecha.",
+    "O sinciciotrofoblasto forma o disco bilaminar, e o citotrofoblasto origina diretamente o coração embrionário.",
+    "Formam-se a mórula e o blastocisto, e a zona pelúcida passa a revestir a cavidade amniótica."],
+ c:0, w:"Na 2ª semana, tudo vem em dupla: trofoblasto em cito e sinciciotrofoblasto, embrioblasto em epiblasto e hipoblasto (disco bilaminar), e duas cavidades, a amniótica e o saco vitelino. O disco trilaminar é da 3ª semana."},
+{tema:"Gravidez ectópica", p:"Uma mulher com histórico de inflamação nas tubas uterinas sente dor abdominal intensa algumas semanas após a fertilização. O exame mostra que o concepto se implantou fora do útero.<br>Qual é a explicação embriológica mais adequada para esse quadro?",
+ o:["A inflamação acelerou a clivagem, e o blastocisto chegou ao útero antes de o endométrio estar preparado, migrando de volta para a tuba.",
+    "A zona pelúcida permaneceu intacta até o útero, o que impediu a implantação e fez o concepto se fixar no ovário.",
+    "O transporte do concepto pela tuba foi atrasado ou bloqueado, e o blastocisto, já sem a zona pelúcida, implantou-se na parede da própria tuba.",
+    "O espermatozoide fertilizou o ovócito dentro do útero, e o zigoto subiu pela tuba até encontrar um local de implantação.",
+    "A ausência de hCG impediu a formação do trofoblasto, e o embrioblasto se implantou diretamente na cavidade abdominal."],
+ c:2, w:"Quando a tuba está parcialmente obstruída, o concepto demora a chegar ao útero. Ao perder a zona pelúcida ainda na tuba, o blastocisto pode se implantar ali: é a gravidez ectópica tubária, a mais comum."},
+{tema:"Estrutura do DNA", p:"Em um laboratório de neurociências, uma pesquisadora explica a estudantes de Psicologia por que a dupla hélice do DNA é estável o suficiente para guardar informação, mas pode ser aberta durante a replicação e a transcrição.<br>Assinale a alternativa que descreve corretamente essa organização.",
+ o:["As bases nitrogenadas ficam na parte externa da hélice, ligadas por pontes de hidrogênio ao esqueleto de açúcar e fosfato.",
+    "As duas fitas são paralelas e unidas por ligações fosfodiéster entre as bases, o que impede a separação das fitas.",
+    "O esqueleto de açúcar e fosfato fica por fora, com ligações fosfodiéster fortes ao longo de cada fita; as bases ficam por dentro, pareadas por pontes de hidrogênio, que são fracas e permitem abrir a dupla fita.",
+    "Cada fita é formada por ribose e uracila, e as duas fitas são unidas por ligações covalentes entre adenina e guanina.",
+    "As pontes de hidrogênio unem os nucleotídeos de uma mesma fita, e as ligações fosfodiéster unem as duas fitas entre si."],
+ c:2, w:"Ligações fosfodiéster (covalentes, fortes) formam o esqueleto de cada fita, por fora. As bases ficam por dentro e se pareiam por pontes de hidrogênio, fracas, o que permite separar as fitas sem quebrar cada uma delas. As fitas são antiparalelas."},
+{tema:"Cálculo das bases", p:"Em um estudo sobre marcadores genéticos, um fragmento de DNA de fita dupla tem 200 bases no total. A análise mostrou que 30% dessas bases são timina.<br>De acordo com a regra de Chargaff, quantas bases desse fragmento são citosina?",
+ o:["30", "40", "60", "80", "120"],
+ c:1, w:"Se T = 30%, A = 30% (A pareia com T). Sobram 40% para C + G, e como C = G, cada uma tem 20%. 20% de 200 = 40 citosinas."},
+{tema:"Pontes de hidrogênio", p:"Dois fragmentos de DNA de mesmo comprimento foram aquecidos até a separação das fitas. Considere a fita mostrada de cada um:<br>I. 5'-ATATTA-3'<br>II. 5'-GCCGTA-3'<br>Assinale a alternativa que compara corretamente os dois fragmentos em dupla fita.",
+ o:["O fragmento I tem 18 pontes de hidrogênio e precisa de mais calor para se separar.",
+    "Os dois fragmentos têm o mesmo número de pontes de hidrogênio, porque têm o mesmo número de pares de bases.",
+    "O fragmento II tem 16 pontes de hidrogênio, e o I tem 12; por ter mais pares C-G, o II precisa de temperatura mais alta para se separar.",
+    "O fragmento II tem 12 pontes de hidrogênio, porque cada par C-G forma apenas duas pontes.",
+    "O fragmento I se separa a uma temperatura mais alta, pois pares A-T são unidos por ligações covalentes."],
+ c:2, w:"A-T forma 2 pontes e C-G forma 3. Fragmento I: 6 pares A-T = 12 pontes. Fragmento II: 4 pares C-G (12) + 2 pares A-T (4) = 16. Mais pontes, mais estável, maior temperatura de separação."},
+{tema:"Transcrição", p:"Em uma questão sobre a síntese de um neuropeptídeo, é dado o trecho da fita molde de DNA: 3'-TAC GGA-5'. A RNA polimerase lê a fita molde e produz um RNA mensageiro complementar e antiparalelo.<br>Assinale a sequência do RNAm escrita no sentido 5' → 3'.",
+ o:["5'-UAC GGA-3'", "5'-ATG CCT-3'", "5'-AUG CCU-3'", "5'-UCC GUA-3'", "5'-AGG CAU-3'"],
+ c:2, w:"O RNAm é complementar ao molde (T→A, A→U, C→G, G→C) e antiparalelo: o molde 3'-TAC GGA-5' gera 5'-AUG CCU-3'. Só trocar T por U (alternativa A) é o erro mais comum; ATG CCT é DNA, não RNA."},
+{tema:"Código genético", p:"Ao estudar como a informação genética é traduzida em proteínas no sistema nervoso, uma turma analisou as afirmativas abaixo sobre o código genético:<br>I. O código é degenerado: a maioria dos aminoácidos é codificada por mais de um códon.<br>II. O código é ambíguo: o mesmo códon pode codificar aminoácidos diferentes, conforme o tecido.<br>III. O código é praticamente universal: a mesma relação entre códons e aminoácidos aparece em quase todos os seres vivos.<br>Está correto o que se afirma em:",
+ o:["I, apenas.", "II, apenas.", "I e II, apenas.", "I e III, apenas.", "I, II e III."],
+ c:3, w:"O código é degenerado (I) e quase universal (III), mas não é ambíguo: cada códon corresponde a um único aminoácido, em qualquer tecido. Por isso II está errada."}
+],
+'experimental-n2': [
+{tema:"Formação geral", p:"Um estudante de Psicologia vai aplicar um experimento sobre reforço verbal com um voluntário. Antes de começar, precisa decidir como apresentar a atividade ao participante, considerando os cuidados éticos da pesquisa com seres humanos.<br>Assinale a alternativa que expressa a conduta ética mais adequada.",
+ o:["Não informar nada sobre a atividade, para que o participante não altere o comportamento, e explicar tudo só se ele perguntar no final.",
+    "Informar que se trata de uma atividade acadêmica, que a participação é voluntária e que ele pode interromper a qualquer momento sem nenhum prejuízo, iniciando só após a concordância.",
+    "Dizer que a atividade avalia a inteligência do participante, para aumentar o empenho dele nas respostas.",
+    "Pedir que o participante assine que não poderá desistir depois de iniciado o procedimento, para não perder os dados.",
+    "Aplicar o experimento com colegas de turma, que já conhecem o procedimento, evitando a necessidade de explicações."],
+ c:1, w:"A pesquisa com humanos exige informar o caráter da atividade, garantir a voluntariedade e o direito de interromper sem prejuízo, e só começar com a concordância. Enganar sobre o objetivo (dizer que mede inteligência) ou impedir a desistência viola esses cuidados."},
+{tema:"Três níveis de seleção", p:"Em uma família, observam-se três comportamentos: o bebê pisca quando um objeto se aproxima rápido do seu olho; o filho mais velho passou a estudar mais depois de ser elogiado pelas notas; e todos preparam a mesma receita de bolo que a bisavó ensinou há quatro gerações.<br>Segundo o modelo de seleção pelas consequências de Skinner (1981), esses comportamentos pertencem, respectivamente, aos níveis:",
+ o:["ontogenético, filogenético e cultural.",
+    "filogenético, cultural e ontogenético.",
+    "cultural, ontogenético e filogenético.",
+    "filogenético, ontogenético e cultural.",
+    "ontogenético, ontogenético e cultural."],
+ c:3, w:"Piscar diante de um objeto é reflexo selecionado na história da espécie (filogenético). Estudar mais após o elogio foi selecionado pela consequência na vida do indivíduo (ontogenético). A receita transmitida por gerações é prática cultural (3º nível)."},
+{tema:"Seleção pelas consequências", p:"Skinner aproximou o comportamento operante da seleção natural de Darwin, deixando para trás um modelo inspirado na Física. Essa mudança é central para entender por que a análise do comportamento fala em “seleção” e não em “causa mecânica”.<br>Assinale a alternativa que expressa corretamente essa analogia.",
+ o:["Na seleção natural e na operante, o ambiente provoca a resposta como uma força física provoca um movimento.",
+    "A seleção natural age durante a vida do indivíduo, e a operante age ao longo de gerações.",
+    "Assim como o ambiente seleciona as variações mais vantajosas de uma espécie entre gerações, as consequências selecionam, durante a vida do indivíduo, as respostas que se tornam mais frequentes.",
+    "A seleção operante dispensa a variabilidade, pois o organismo já nasce com o repertório definido.",
+    "Na seleção operante, o estímulo antecedente determina a resposta, e a consequência não tem papel no fortalecimento do comportamento."],
+ c:2, w:"Na seleção natural, variações vantajosas ficam mais frequentes entre gerações. No operante, respostas variam e as consequências selecionam as que se tornam mais frequentes, durante a vida. O modelo é de seleção, não de causa mecânica."},
+{tema:"Condicionamento respondente", p:"Uma paciente em quimioterapia passou a sentir náusea intensa depois de cada sessão. Algumas semanas depois, começou a sentir enjoo só de sentir o cheiro do hospital, antes mesmo da aplicação do medicamento.<br>Considerando o condicionamento respondente, assinale a alternativa que identifica corretamente os elementos do caso.",
+ o:["O medicamento é o CS, a náusea após a sessão é a CR, e o cheiro do hospital é o US.",
+    "O cheiro do hospital era NS e tornou-se CS; o medicamento é o US; a náusea provocada pelo medicamento é a UR; e a náusea diante do cheiro é a CR.",
+    "O cheiro do hospital é o US, pois provoca náusea sem nenhuma aprendizagem prévia.",
+    "A náusea diante do cheiro é a UR, porque é igual à náusea causada pelo medicamento.",
+    "O caso é de condicionamento operante, pois a náusea foi reforçada pelas consequências do tratamento."],
+ c:1, w:"O medicamento provoca náusea sem aprendizagem (US → UR). O cheiro, antes neutro (NS), foi pareado com o medicamento e passou a eliciar náusea sozinho (CS → CR). A resposta é parecida, mas a CR é aprendida."},
+{tema:"Extinção respondente", p:"Depois de levar várias injeções doloridas aplicadas por uma enfermeira de jaleco branco, um menino passou a chorar só de ver alguém de jaleco. Com o tempo, frequentando consultas em que pessoas de jaleco aparecem sem que haja qualquer procedimento doloroso, o choro diante do jaleco foi diminuindo até desaparecer.<br>Qual processo explica essa redução?",
+ o:["Punição positiva, pois o choro passou a ser seguido de um estímulo aversivo.",
+    "Extinção operante, pois o choro deixou de produzir a atenção dos adultos.",
+    "Extinção respondente: o CS (jaleco) passou a ser apresentado repetidamente sem o US (dor), e a CR (choro) foi enfraquecendo.",
+    "Generalização, pois o menino passou a responder a outros estímulos parecidos com o jaleco.",
+    "Reforçamento negativo, pois a retirada do jaleco aumentou a frequência do choro."],
+ c:2, w:"Na extinção respondente, o CS é apresentado sem o US repetidas vezes, e a CR perde força. É a lógica das exposições graduais usadas no manejo de medos."},
+{tema:"Experimento do pronome", p:"No experimento de Matos e Tomanari (2002) adaptado em aula, o participante forma frases com verbos e pronomes. Nos 10 primeiros verbos o experimentador apenas registra o pronome usado; a partir do 11º, passa a dizer “muito bem” sempre que a frase começa com o pronome escolhido.<br>Assinale a alternativa que descreve corretamente a função da primeira fase e a lógica do experimento.",
+ o:["A primeira fase é a linha de base: mede a frequência do pronome antes da introdução do elogio (variável independente), permitindo comparar com a fase de reforço diferencial.",
+    "A primeira fase serve para treinar o participante a usar o pronome escolhido, por isso o elogio deve começar já no primeiro verbo.",
+    "A primeira fase é o grupo controle, formado por outro participante que não recebe elogios.",
+    "Na primeira fase o elogio funciona como variável dependente, e a frequência do pronome como variável independente.",
+    "A primeira fase é dispensável, pois o aumento do pronome na segunda fase já prova o efeito do reforço."],
+ c:0, w:"A linha de base registra o comportamento antes da manipulação. O elogio é a VI, e a frequência do pronome é a VD. Sem a linha de base não haveria com o que comparar a fase de reforço diferencial."},
+{tema:"Contingência tríplice", p:"Em uma sala de espera, sempre que a recepcionista chama um nome, a pessoa chamada se levanta e é atendida pelo psicólogo. Analisando esse episódio pela contingência tríplice (Sᵈ – R – C), um estudante precisa identificar cada termo.<br>Assinale a alternativa correta.",
+ o:["Sᵈ: ser atendido; R: levantar-se; C: ouvir o próprio nome.",
+    "Sᵈ: levantar-se; R: ouvir o nome; C: ser atendido.",
+    "Sᵈ: a recepcionista chamar o nome; R: levantar-se; C: ser atendido.",
+    "Sᵈ: ser atendido; R: a recepcionista chamar o nome; C: levantar-se.",
+    "Não há contingência tríplice, pois o comportamento é um reflexo eliciado pelo som do nome."],
+ c:2, w:"O estímulo discriminativo (Sᵈ) sinaliza a ocasião: ouvir o nome. A resposta é levantar-se, e a consequência que mantém a resposta é ser atendido. É um operante, não um reflexo."},
+{tema:"Reforçamento negativo", p:"Sobre o reforçamento negativo, analise as situações:<br>I. Um estudante fecha a janela quando o barulho da obra começa a atrapalhar.<br>II. Uma pessoa sai de casa mais cedo para não pegar o trânsito pesado.<br>III. Uma criança deixa de fazer birra depois que o pai passa a ignorá-la.<br>Está correto o que se afirma em:",
+ o:["I é fuga e II é esquiva, ambas mantidas por reforçamento negativo; III não é reforçamento negativo.",
+    "I é esquiva e II é fuga, ambas mantidas por reforçamento positivo.",
+    "I, II e III são exemplos de reforçamento negativo, pois em todas há retirada de algo.",
+    "I é punição negativa, II é esquiva e III é reforçamento negativo.",
+    "Apenas III é reforçamento negativo, porque o comportamento diminuiu."],
+ c:0, w:"Na fuga (I), o aversivo já está presente e a resposta o remove. Na esquiva (II), a resposta evita que ele apareça. As duas aumentam a resposta por reforçamento negativo. Em III, a birra deixa de produzir atenção: é extinção."},
+{tema:"Operações motivadoras", p:"Em um experimento, dois grupos de ratos aprenderam a pressionar uma barra para receber comida. Antes do teste, um grupo ficou 22 horas sem comer e o outro acabou de ser alimentado à vontade. O primeiro grupo pressionou a barra com frequência muito maior.<br>Qual conceito explica corretamente essa diferença?",
+ o:["Reforçamento negativo, pois a privação é retirada quando a comida aparece.",
+    "Operação motivadora: a privação funcionou como operação estabelecedora, aumentando o valor da comida como reforçador e a frequência das respostas que a produzem.",
+    "Extinção, pois o grupo alimentado deixou de receber comida ao pressionar a barra.",
+    "Generalização do estímulo, porque os dois grupos estavam na mesma caixa.",
+    "Condicionamento respondente, já que a fome é uma resposta incondicionada à barra."],
+ c:1, w:"Operações motivadoras alteram momentaneamente o valor de um reforçador e a frequência das respostas ligadas a ele. A privação é estabelecedora; a saciação, abolidora."},
+{tema:"Tipos de reforçadores", p:"Em uma enfermaria, a equipe implantou um sistema em que os pacientes ganham fichas ao realizar atividades combinadas. As fichas podem ser trocadas por lanches, passeios, ligações telefônicas e outros itens.<br>Assinale a alternativa que classifica corretamente as fichas como reforçadores.",
+ o:["Reforçadores primários, pois satisfazem necessidades biológicas.",
+    "Reforçadores secundários simples, pois foram pareados com um único reforçador.",
+    "Reforçadores generalizados, pois foram pareados com muitos reforçadores diferentes e mantêm o efeito independentemente de uma privação específica.",
+    "Estímulos neutros, pois não têm valor em si mesmos.",
+    "Operações abolidoras, pois reduzem a vontade dos pacientes de realizar outras atividades."],
+ c:2, w:"As fichas, como o dinheiro, são trocadas por muitos reforçadores. Por isso são reforçadores condicionados generalizados, eficazes sem depender de uma privação específica."},
+{tema:"Extinção operante", p:"Em uma turma, um aluno fazia piadas durante a aula e os colegas sempre riam. A turma combinou de não rir mais. Nos primeiros dias, as piadas ficaram mais frequentes e mais altas; depois, foram desaparecendo.<br>Assinale a alternativa que explica corretamente o que aconteceu.",
+ o:["Houve punição positiva, pois a turma apresentou um estímulo aversivo após as piadas.",
+    "Houve reforçamento negativo, já que a retirada do riso aumentou as piadas no início.",
+    "Houve extinção operante: a resposta deixou de produzir o reforçador, e o aumento inicial é a explosão (surto) de extinção.",
+    "Houve extinção respondente, porque o riso funcionava como estímulo incondicionado.",
+    "Houve uma operação estabelecedora, que aumentou de forma permanente o valor do riso."],
+ c:2, w:"Na extinção operante, a resposta deixa de produzir o reforçador que a mantinha. É comum um aumento passageiro da resposta no início (explosão de extinção) antes da queda. Não se aplica aversivo."},
+{tema:"Contiguidade e contingência", p:"No experimento de Skinner (1948), pombos recebiam comida em intervalos fixos, independentemente do que fizessem, e passaram a repetir o que estavam fazendo quando a comida chegava. Um torcedor que usa sempre a mesma camisa “porque o time ganhou da última vez” mostra um padrão parecido.<br>Qual conclusão está de acordo com a análise do comportamento?",
+ o:["Os pombos e o torcedor mostram que o reforço só funciona quando há dependência real entre resposta e consequência.",
+    "Uma relação de mera proximidade temporal (contiguidade) pode selecionar e manter uma resposta, mesmo sem relação de dependência (contingência) entre ela e a consequência.",
+    "O comportamento supersticioso é um reflexo inato, selecionado no nível filogenético.",
+    "A camisa do torcedor é um reforçador primário, pois está ligada a uma necessidade biológica.",
+    "Contiguidade e contingência são sinônimos: ambas indicam que a resposta produz a consequência."],
+ c:1, w:"Contiguidade é proximidade no tempo; contingência é dependência. A coincidência temporal entre resposta e reforçador pode manter respostas sem relação real com a consequência: é o comportamento supersticioso."}
+],
+'idoso-n2': [
+{tema:"Formação geral", p:"Em uma unidade básica de saúde, uma idosa de 72 anos é encaminhada à psicóloga porque a família acha que ela “já não tem idade” para morar sozinha e decidir sobre o próprio dinheiro, embora não haja nenhum diagnóstico de perda cognitiva.<br>Assinale a alternativa que expressa a postura ética e técnica mais adequada.",
+ o:["Apoiar a família, já que a idade avançada justifica, por si só, retirar decisões da idosa.",
+    "Encaminhar a idosa diretamente para uma instituição de longa permanência, para garantir sua segurança.",
+    "Escutar a idosa, avaliar com critérios técnicos sua autonomia e funcionalidade e trabalhar com a família os estereótipos sobre a velhice, preservando o direito dela de decidir.",
+    "Evitar qualquer contato com a família, pois o atendimento deve tratar apenas de questões individuais.",
+    "Sugerir medicação para reduzir a resistência da idosa às decisões da família."],
+ c:2, w:"Idade não é critério para retirar autonomia. A conduta adequada é escutar a pessoa idosa, avaliar tecnicamente sua capacidade e funcionalidade e enfrentar os preconceitos ligados à idade, envolvendo a família e respeitando os direitos da idosa."},
+{tema:"Aposentadoria", p:"Seu Antônio se aposentou há seis meses depois de 35 anos na mesma empresa. Diz que sente falta dos colegas, que “ninguém mais pede a opinião dele” e que não sabe o que fazer com as manhãs. Segundo Silva e Carvalho (2019), a aposentadoria pode ter implicações psicossociais importantes.<br>Assinale a alternativa que interpreta corretamente o caso.",
+ o:["O sofrimento se explica apenas pela queda de renda, pois o trabalho tem função exclusivamente financeira.",
+    "O quadro indica demência inicial, já que a desorganização da rotina é o primeiro sinal da doença.",
+    "Como o trabalho ocupa lugar central na identidade, além de gerar renda, a aposentadoria pode trazer perdas de vínculos, de reconhecimento e de rotina.",
+    "A aposentadoria é sempre vivida como perda, por isso o psicólogo deve desaconselhá-la.",
+    "O caso mostra que a aposentadoria não tem relação com a identidade, e sim com traços de personalidade fixos."],
+ c:2, w:"Para Silva e Carvalho (2019), o trabalho é central na identidade e insere a pessoa no meio social. A aposentadoria pode ser ganho ou perda, e as perdas costumam envolver vínculos, status e rotina."},
+{tema:"Preparação para a aposentadoria", p:"Uma empresa quer criar um Programa de Preparação para a Aposentadoria (PPA) e pede orientação à psicóloga do RH. Considere as afirmativas:<br>I. Pelo Estatuto da Pessoa Idosa, a preparação para a aposentadoria deve começar com antecedência mínima de 1 ano.<br>II. Um PPA bem estruturado se apoia nos pilares psicológico, de atividades futuras e financeiro.<br>III. O papel do psicólogo é apenas informar as regras previdenciárias, sem trabalhar questões de identidade.<br>Está correto o que se afirma em:",
+ o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ c:2, w:"I e II estão corretas (art. 28 do Estatuto; pilares psicológico, de atividades futuras e financeiro). O psicólogo atua de forma preventiva, ajudando a planejar a nova fase e a reconstruir a identidade, não só com regras previdenciárias."},
+{tema:"Envelhecimento bem-sucedido", p:"Dona Helena, 79 anos, rege há décadas um coral. Ao perceber que se cansava mais e enxergava pior, passou a reger menos músicas por ensaio, escolheu as peças que domina melhor, ensaia mais cada uma delas e usa partituras ampliadas.<br>A estratégia de Dona Helena corresponde ao modelo:",
+ o:["da atividade, segundo o qual envelhecer bem é manter o maior número possível de ocupações.",
+    "do desengajamento, segundo o qual o idoso deve se afastar gradualmente de seus papéis sociais.",
+    "da seleção, otimização e compensação (Baltes): seleciona metas, otimiza recursos e compensa perdas.",
+    "da seletividade socioemocional (Carstensen), que trata da escolha de relações afetivas mais próximas.",
+    "da continuidade, que nega a existência de perdas no envelhecimento."],
+ c:2, w:"Selecionar o que é prioritário, otimizar o desempenho com mais ensaio e compensar perdas com recursos (partituras ampliadas) é o modelo SOC, de Baltes."},
+{tema:"Erikson", p:"Durante os atendimentos, Seu Ronaldo, 81 anos, revisita a própria história: lembra das escolhas, dos erros e das conquistas, e diz que, apesar de tudo, sente que sua vida “fez sentido”.<br>Segundo Erikson e o conceito de revisão de vida de Butler, assinale a alternativa correta.",
+ o:["O caso indica desespero, pois relembrar erros é sempre um sinal de sofrimento psíquico.",
+    "A revisão de vida é um sintoma de demência, já que o idoso perde a capacidade de pensar no presente.",
+    "O caso aponta para a integridade do ego, polo positivo do último estágio (integridade × desespero), e a revisão de vida é um processo esperado nessa fase.",
+    "O caso corresponde ao estágio de generatividade × estagnação, característico da velhice avançada.",
+    "A revisão de vida deve ser desencorajada pelo psicólogo, pois reforça o apego ao passado."],
+ c:2, w:"O último estágio de Erikson é integridade × desespero. Aceitar a própria trajetória como significativa é integridade. A revisão de vida (Butler) é um processo comum e esperado na velhice."},
+{tema:"Envelhecimento normal e demência", p:"Seu Jorge, 74 anos, conta com detalhes o próprio casamento e repete corretamente um número de telefone logo depois de ouvi-lo. Porém, tem dificuldade de lembrar o que almoçou no dia anterior, embora mantenha bom vocabulário e cuide sozinho das contas.<br>Considerando o que a aula apresentou sobre envelhecimento normal e demência, assinale a alternativa mais adequada.",
+ o:["O quadro confirma doença de Alzheimer, pois qualquer queixa de memória após os 70 anos indica demência.",
+    "O quadro é compatível com envelhecimento normal, em que a memória episódica recente declina mais que a semântica e a funcionalidade é preservada, mas convém acompanhar a evolução.",
+    "A preservação do vocabulário indica que a memória de trabalho está comprometida.",
+    "O quadro indica pseudodemência, já que toda perda de memória no idoso tem causa depressiva.",
+    "O diagnóstico deve ser fechado já na primeira consulta, sem necessidade de reavaliação."],
+ c:1, w:"No envelhecimento normal, a memória episódica sofre mais que a semântica, o vocabulário se mantém e a autonomia é preservada. Como não há marcador biológico seguro, o diagnóstico diferencial exige acompanhamento."},
+{tema:"Pseudodemência", p:"Dona Irene, 70 anos, passou a ir mal em testes de memória logo após a morte do marido. Apresentava tristeza intensa, insônia e perda de interesse pelas atividades. Damasceno (1999) alerta para o risco de rotular cedo demais um idoso como “demente”.<br>Qual é a principal justificativa para esse cuidado?",
+ o:["A demência sempre começa depois de uma perda importante, por isso o diagnóstico deve ser imediato.",
+    "Na pseudodemência depressiva, a causa é tratável e a cognição pode melhorar com o tratamento da depressão.",
+    "Os testes de memória não têm nenhuma utilidade no diagnóstico de demência.",
+    "A tristeza intensa é parte normal do envelhecimento e não interfere na cognição.",
+    "O luto impede qualquer avaliação neuropsicológica durante pelo menos cinco anos."],
+ c:1, w:"Na pseudodemência depressiva, o déficit cognitivo acompanha a depressão e pode regredir com o tratamento. Rotular como demência levaria a deixar de tratar uma causa reversível."},
+{tema:"Cuidadores idosos", p:"Oliveira et al. (2018) estudaram 75 cuidadores com 60 anos ou mais que cuidavam de pessoas com demência ou sequelas de AVC, usando o CASP-19 e a escala Zarit.<br>Assinale a alternativa que descreve corretamente os achados e sua interpretação.",
+ o:["A sobrecarga percebida, medida pela Zarit, foi o fator que mais se associou à pior qualidade de vida (CASP-19), o que expressa a dupla vulnerabilidade do idoso que cuida de outro idoso.",
+    "A escala Zarit mede qualidade de vida, e o CASP-19 mede sobrecarga; não houve relação entre as duas.",
+    "Os cuidadores idosos tiveram qualidade de vida melhor que a média, porque cuidar protege contra o envelhecimento.",
+    "A sobrecarga do cuidador depende apenas da renda familiar, sem relação com as perdas do próprio envelhecimento.",
+    "O estudo concluiu que idosos não devem ser cuidadores, por isso a família deve sempre contratar profissionais."],
+ c:0, w:"No estudo, a sobrecarga percebida (Zarit) foi o fator mais associado à pior qualidade de vida (CASP-19). O cuidador idoso soma as perdas do próprio envelhecimento à sobrecarga do cuidado: é a dupla vulnerabilidade."},
+{tema:"Depressão no idoso", p:"A filha de Seu Lauro, 80 anos, conta que ele anda triste, sem vontade de sair, dormindo mal e reclamando de dores, mas diz: “é normal, é coisa da idade”. A equipe da atenção primária discute como proceder.<br>Segundo Souza et al. (2023) e a aula, assinale a alternativa correta.",
+ o:["A filha está certa: a tristeza persistente faz parte do envelhecimento normal e não precisa de investigação.",
+    "A depressão é comum na velhice, mas não é normal; os sintomas podem se confundir com doenças físicas, e o rastreio pode ser feito com a Escala de Depressão Geriátrica (GDS).",
+    "Sintomas físicos como dor e alteração do sono descartam depressão, que se manifesta apenas por tristeza.",
+    "O rastreio de depressão em idosos deve ser feito exclusivamente por exames de imagem.",
+    "A depressão no idoso raramente deixa de ser reconhecida, pois os sintomas são sempre evidentes."],
+ c:1, w:"Depressão é frequente, mas não é parte normal da velhice. Ela costuma passar despercebida porque se mistura a queixas físicas e perda funcional. Na atenção primária, a GDS é usada para rastreio."},
+{tema:"Transtorno mental comum", p:"Borim et al. (2013) investigaram o transtorno mental comum (TMC) em idosos de Campinas, usando o instrumento SRQ-20, e analisaram hábitos de vida associados à sua ocorrência.<br>Assinale a alternativa que corresponde ao estudo.",
+ o:["O TMC reúne sintomas psicóticos graves, e a atividade física foi associada a maior prevalência do transtorno.",
+    "O TMC reúne sintomas não psicóticos, como ansiedade, insônia e queixas somáticas, e a atividade física no lazer se associou a menor prevalência.",
+    "O SRQ-20 é um exame de imagem cerebral usado para diagnosticar demência.",
+    "O estudo concluiu que hábitos de vida não têm relação com a saúde mental do idoso.",
+    "O TMC foi avaliado pela escala Zarit, que mede a sobrecarga do próprio idoso."],
+ c:1, w:"O TMC envolve sintomas não psicóticos (ansiedade, insônia, fadiga, queixas somáticas) e foi avaliado pelo SRQ-20. A atividade física no lazer se associou a menor prevalência."},
+{tema:"Luto", p:"Há dois anos, Clara cuida da mãe, que tem demência avançada e já não a reconhece. Ela diz que “já sente a falta da mãe”, embora a mãe esteja viva, e alterna momentos de raiva, tristeza e aceitação.<br>Assinale a alternativa que interpreta corretamente o caso.",
+ o:["Clara vive um luto antecipatório, e as reações de luto não seguem necessariamente uma ordem fixa, como já apontavam críticas ao modelo de Kübler-Ross.",
+    "Clara não pode estar em luto, porque o luto só começa após a morte.",
+    "Clara está na fase de aceitação de Kübler-Ross, que obrigatoriamente vem depois da raiva e da barganha.",
+    "As oscilações de Clara indicam transtorno psicótico, pois o luto é sempre linear.",
+    "O caso mostra luto patológico, já que toda tristeza antes da morte é sinal de doença."],
+ c:0, w:"O luto antecipatório acontece diante de perdas que se anunciam, como na demência avançada. As reações de luto variam e não seguem uma sequência rígida: os estágios de Kübler-Ross não são etapas obrigatórias."},
+{tema:"Morte e cuidados paliativos", p:"A família de um paciente idoso em fase terminal decide, com a equipe, suspender um suporte de vida que apenas prolongaria o processo de morrer, mantendo o controle da dor e o acolhimento da família.<br>Assinale a alternativa que nomeia corretamente essa decisão e descreve o objetivo dos cuidados paliativos.",
+ o:["Eutanásia ativa; os cuidados paliativos buscam acelerar a morte para reduzir custos.",
+    "Eutanásia passiva; os cuidados paliativos buscam aliviar dor e sofrimento e preservar a qualidade de vida até o fim, incluindo o apoio à família.",
+    "Suicídio assistido; os cuidados paliativos substituem o acompanhamento psicológico.",
+    "Distanásia; os cuidados paliativos têm como objetivo principal prolongar a vida a qualquer custo.",
+    "Procuração com vigência indeterminada; os cuidados paliativos só se aplicam a pacientes jovens."],
+ c:1, w:"Suspender um tratamento que só prolongaria a vida é chamado na aula de eutanásia passiva. Os cuidados paliativos visam aliviar dor e sofrimento e preservar a qualidade de vida até o fim, com atenção também à família."}
+],
+'neuro-n2': [
+{tema:"Formação geral", p:"Um jovem com sofrimento psíquico intenso chega a um Centro de Atenção Psicossocial (CAPS). A família pede que ele seja internado por tempo indeterminado “para não dar trabalho”. Desde a Lei 10.216/2001, a Reforma Psiquiátrica brasileira reorientou o modelo de cuidado em saúde mental.<br>Assinale a alternativa que expressa a conduta mais coerente com esse modelo.",
+ o:["Priorizar a internação de longa permanência, que é o principal recurso de tratamento previsto pela lei.",
+    "Construir um projeto terapêutico singular, com cuidado no território e em rede, envolvendo a família e recorrendo à internação só quando outros recursos forem insuficientes.",
+    "Restringir o atendimento à medicação, já que o sofrimento psíquico é exclusivamente biológico.",
+    "Encaminhar o jovem para atendimento particular, pois o CAPS não atende casos graves.",
+    "Atender apenas a família, sem envolver o jovem nas decisões sobre o próprio tratamento."],
+ c:1, w:"A Lei 10.216/2001 protege os direitos das pessoas com transtornos mentais e prioriza o cuidado em serviços comunitários, de base territorial. A internação é recurso excepcional, quando os extra-hospitalares forem insuficientes."},
+{tema:"Medula espinhal", p:"Após um acidente, um paciente deixou de sentir dor e temperatura em parte do corpo, mas continua percebendo o tato fino, a vibração e a posição dos membros nessa mesma região.<br>Qual estrutura da substância branca da medula foi mais provavelmente atingida?",
+ o:["O fascículo grácil, responsável pelo tato fino e pela propriocepção.",
+    "O tracto espinotalâmico, que conduz dor e temperatura até o tálamo.",
+    "O tracto corticoespinhal, que conduz informações sensitivas até o córtex.",
+    "A raiz ventral, que conduz informações sensitivas para dentro da medula.",
+    "O corno anterior da substância cinzenta, onde ficam os neurônios sensitivos."],
+ c:1, w:"Dor e temperatura sobem pelo tracto espinotalâmico. Tato fino, vibração e propriocepção seguem por outra via (fascículos grácil e cuneiforme), o que explica a perda dissociada."},
+{tema:"Meninges", p:"Uma gestante vai receber anestesia para o parto, e a equipe explica a diferença entre a raquianestesia e a anestesia peridural.<br>Assinale a alternativa que localiza corretamente o anestésico em cada técnica.",
+ o:["Na raqui, o anestésico vai ao espaço epidural; na peridural, ao espaço subaracnóideo, onde circula o líquor.",
+    "Nas duas técnicas, o anestésico é injetado dentro da própria medula espinhal.",
+    "Na raqui, o anestésico vai ao espaço subaracnóideo, junto ao líquor; na peridural, ao espaço epidural, por fora da dura-máter, sem contato com o líquor.",
+    "Na raqui, o anestésico é colocado entre a pia-máter e a medula; na peridural, entre a aracnoide e a pia-máter.",
+    "Na peridural, o anestésico fica no espaço subdural, entre a dura-máter e a aracnoide, junto ao líquor."],
+ c:2, w:"As meninges, de fora para dentro, são dura-máter, aracnoide e pia-máter. O líquor circula no espaço subaracnóideo, onde atua a raqui. A peridural é aplicada no espaço epidural, fora da dura-máter."},
+{tema:"Medula espinhal", p:"Em uma punção lombar, a agulha é introduzida entre as vértebras L3 e L4 para coletar líquor, com baixo risco de lesionar a medula espinhal.<br>Qual característica anatômica explica essa segurança?",
+ o:["A medula espinhal termina no cone medular, por volta de L1–L2, porque a coluna cresce mais que a medula; abaixo disso há a cauda equina, formada por raízes que se afastam da agulha.",
+    "A medula se estende até o sacro, mas é protegida pela dura-máter, que impede a passagem da agulha.",
+    "Na região lombar, a medula é formada apenas por substância branca, que não sofre lesão.",
+    "O líquor fica dentro da medula, e a agulha apenas toca a superfície da pia-máter.",
+    "Os segmentos medulares lombares ficam exatamente na altura das vértebras de mesmo número, o que facilita a localização."],
+ c:0, w:"Durante o desenvolvimento, a coluna cresce mais que a medula. Por isso a medula termina no cone medular (L1–L2) e, abaixo, só há raízes (cauda equina) e o filamento terminal, banhados em líquor."},
+{tema:"Sistema nervoso autônomo", p:"Minutos antes de uma prova, uma estudante percebe o coração acelerado, a boca seca, as pupilas dilatadas e a respiração mais rápida, e não sente nenhuma fome.<br>Assinale a alternativa que explica corretamente o quadro.",
+ o:["Predomínio do parassimpático, que prepara o corpo para o repouso e a digestão.",
+    "Ativação do sistema nervoso somático, que controla de forma voluntária a frequência cardíaca.",
+    "Predomínio do simpático, na resposta de luta ou fuga: aumento da frequência cardíaca, midríase, broncodilatação e redução da atividade digestiva.",
+    "Lesão do nervo vago, que impede o funcionamento do coração.",
+    "Ação exclusiva do hipocampo, responsável pela regulação das vísceras."],
+ c:2, w:"Diante de ameaça ou estresse, o simpático predomina: o coração acelera, as pupilas dilatam, os brônquios se abrem e a digestão e a salivação diminuem."},
+{tema:"Anatomia do SNA", p:"Sobre a organização anatômica do sistema nervoso autônomo, analise:<br>I. Os neurônios pré-ganglionares do simpático ficam na coluna lateral da medula, de T1 a L2.<br>II. A parte craniana do parassimpático segue pelos nervos cranianos III, VII, IX e X, e a sacral sai de S2 a S4.<br>III. Os gânglios parassimpáticos ficam ao lado da coluna vertebral, longe dos órgãos.<br>Está correto o que se afirma em:",
+ o:["I, apenas.", "I e II, apenas.", "II e III, apenas.", "I e III, apenas.", "I, II e III."],
+ c:1, w:"I e II estão corretas. São os gânglios do simpático que ficam perto da coluna (paravertebrais e pré-vertebrais); os do parassimpático ficam perto dos órgãos ou dentro deles."},
+{tema:"Nervos cranianos", p:"Um paciente com um aneurisma que comprime o nervo oculomotor apresenta pálpebra caída, olho desviado para fora e pupila dilatada.<br>Qual mecanismo explica a dilatação da pupila (midríase)?",
+ o:["O oculomotor leva fibras simpáticas ao músculo dilatador da pupila, que passa a se contrair mais com a compressão.",
+    "Com a lesão, perde-se a inervação parassimpática do músculo esfíncter da pupila, e o dilatador, de inervação simpática, predomina.",
+    "A compressão estimula o nervo óptico, que dilata a pupila para captar mais luz.",
+    "O nervo abducente passa a controlar a pupila quando o oculomotor é lesado.",
+    "A midríase é causada pela perda do nervo trigêmeo, responsável pela sensibilidade da córnea."],
+ c:1, w:"O oculomotor carrega fibras parassimpáticas para o esfíncter da pupila. Sem elas, a pupila não contrai, e o músculo dilatador (simpático) predomina: midríase."},
+{tema:"Nervos cranianos", p:"Um homem acorda com metade do rosto paralisada: não consegue fechar um olho nem sorrir desse lado. Ele também relata que a comida perdeu o gosto na parte da frente da língua, do mesmo lado.<br>Qual nervo explica o conjunto dos sintomas?",
+ o:["O trigêmeo, responsável pelos músculos da expressão facial e pela gustação de toda a língua.",
+    "O hipoglosso, que move a língua e conduz a gustação dos dois terços anteriores.",
+    "O facial (VII), que inerva os músculos da expressão facial e conduz a gustação dos dois terços anteriores da língua.",
+    "O glossofaríngeo, que inerva os músculos da face e a gustação do terço posterior.",
+    "O vago, que controla a mímica facial e o paladar."],
+ c:2, w:"O facial move os músculos da expressão facial e conduz a gustação dos dois terços anteriores da língua. O terço posterior é do glossofaríngeo, e a motricidade da língua é do hipoglosso."},
+{tema:"Linguagem", p:"Após um AVC, Paula fala de forma fluente, mas com frases sem sentido, e não parece entender comandos simples. Ela não percebe os próprios erros.<br>Assinale a alternativa que localiza corretamente a lesão e nomeia o quadro.",
+ o:["Área de Broca, no lobo frontal: afasia de expressão com compreensão preservada.",
+    "Área de Wernicke, na porção posterior do giro temporal superior do hemisfério dominante: afasia de compreensão, com fala fluente e sem sentido.",
+    "Cerebelo: alteração da coordenação da fala, com compreensão preservada.",
+    "Giro pós-central: perda da sensibilidade da boca, que impede a articulação.",
+    "Hipocampo: perda da memória das palavras aprendidas na infância."],
+ c:1, w:"Fala fluente sem sentido, com compreensão prejudicada e sem consciência dos erros, aponta para a área de Wernicke, no lobo temporal do hemisfério dominante (em geral, o esquerdo). Na lesão de Broca, a fala é difícil e a compreensão é preservada."},
+{tema:"Memória", p:"Uma estudante teve encefalite há alguns meses. Conversa normalmente e mantém os conhecimentos antigos, mas não consegue guardar o que aconteceu no mesmo dia nem aprender o caminho de um prédio novo.<br>Qual estrutura foi mais provavelmente afetada?",
+ o:["O cerebelo, responsável pela formação de novas memórias declarativas.",
+    "A amígdala, que armazena todas as memórias de longo prazo.",
+    "O hipocampo, na região temporal medial, que participa da formação de novas memórias declarativas e da orientação espacial.",
+    "O bulbo, que controla a consolidação da memória durante o sono.",
+    "A área de Broca, que guarda a memória das palavras."],
+ c:2, w:"O hipocampo é essencial para formar novas memórias declarativas e participa da orientação espacial. Lesões nele preservam memórias antigas, mas impedem a formação de novas (amnésia anterógrada)."},
+{tema:"Núcleos da base", p:"Dona Janilda, 70 anos, tem lentidão para iniciar movimentos, rigidez e tremor de repouso. O neurologista explica que o quadro se relaciona à perda de neurônios que liberam dopamina em uma estrutura do mesencéfalo.<br>Assinale a alternativa que identifica corretamente a estrutura e o circuito envolvidos.",
+ o:["Substância negra (parte compacta), que envia dopamina aos núcleos da base, circuito que regula o movimento voluntário: doença de Parkinson.",
+    "Cerebelo, que produz dopamina para coordenar o equilíbrio: ataxia cerebelar.",
+    "Hipocampo, que regula a força muscular: doença de Alzheimer.",
+    "Giro pré-central, que libera dopamina diretamente nos músculos: esclerose múltipla.",
+    "Tálamo, que perde a função de retransmitir o olfato: doença de Parkinson."],
+ c:0, w:"Na doença de Parkinson, há perda dos neurônios dopaminérgicos da substância negra (parte compacta), que modulam os núcleos da base. Resultam lentidão, rigidez e tremor de repouso."},
+{tema:"Cerebelo", p:"Luiz, 47 anos, faz uso abusivo de álcool há muitos anos. Apresenta marcha com base alargada, dificuldade para fazer movimentos alternados rápidos e tremor que aparece quando tenta alcançar um objeto.<br>Qual estrutura está mais provavelmente comprometida?",
+ o:["Tálamo, que retransmite as informações sensitivas ao córtex.",
+    "Hipotálamo, que regula temperatura, fome e sono.",
+    "Cerebelo, que coordena os movimentos e o equilíbrio.",
+    "Área de Wernicke, responsável pela compreensão da linguagem.",
+    "Medula espinhal sacral, que controla a bexiga."],
+ c:2, w:"Marcha com base alargada, dificuldade em movimentos alternados (disdiadococinesia) e tremor de intenção são sinais de lesão cerebelar, comum no uso abusivo crônico de álcool."}
+],
+'aprendizagem-n2': [
+{tema:"Formação geral", p:"Uma escola recebe um aluno com diagnóstico de transtorno do espectro autista e sugere à família que ele frequente apenas uma sala separada, “para não atrapalhar a turma”. A família procura a psicóloga escolar. A Lei Brasileira de Inclusão (Lei 13.146/2015) orienta a educação inclusiva.<br>Assinale a alternativa que expressa a postura mais adequada.",
+ o:["Concordar com a escola, pois a inclusão só é possível quando o aluno não precisa de nenhum apoio.",
+    "Trabalhar com escola e família para garantir a matrícula na turma comum, com as adaptações e os apoios necessários, sem reduzir o aluno ao diagnóstico.",
+    "Orientar a família a procurar uma escola exclusiva para pessoas com deficiência, já que a escola comum não tem obrigação de recebê-lo.",
+    "Recomendar que o aluno seja medicado para se adequar ao ritmo da turma.",
+    "Evitar qualquer intervenção, pois a questão é apenas pedagógica e não envolve a Psicologia."],
+ c:1, w:"A LBI garante o direito à educação inclusiva no ensino regular, com adaptações razoáveis e apoios. O psicólogo atua junto à escola e à família, sem patologizar nem segregar o aluno."},
+{tema:"Piaget", p:"Uma criança de 5 anos vê a mesma quantidade de suco ser passada de um copo largo e baixo para um copo fino e alto e afirma que agora “tem mais suco”. Uma criança de 8 anos explica que é a mesma quantidade, porque “dá para voltar para o outro copo”.<br>Segundo Piaget, assinale a alternativa que explica corretamente a diferença.",
+ o:["A criança de 5 anos está no período operatório-formal e raciocina por hipóteses; a de 8, no sensório-motor.",
+    "A criança de 5 anos, no período pré-operatório, se centra na altura e ainda não tem reversibilidade; a de 8, no operatório-concreto, já conserva a quantidade.",
+    "As duas estão no mesmo período, e a diferença se explica apenas pelo vocabulário.",
+    "A criança de 8 anos aprendeu a resposta por reforço do professor, sem mudança na estrutura do pensamento.",
+    "A criança de 5 anos tem um déficit de atenção, que deve ser investigado."],
+ c:1, w:"No pré-operatório, o pensamento é centrado no aspecto mais chamativo (a altura) e não é reversível. No operatório-concreto, a reversibilidade permite a conservação."},
+{tema:"Piaget", p:"Uma criança que só conhecia cachorros chama um gato de “au-au”. Depois que a mãe explica as diferenças, ela fica confusa por um momento e, em seguida, passa a separar os dois animais.<br>Assinale a alternativa que descreve corretamente esse processo segundo Piaget.",
+ o:["Ao chamar o gato de “au-au”, a criança acomoda; ao separar os animais, assimila.",
+    "Ao chamar o gato de “au-au”, a criança assimila o novo a um esquema que já tem; a confusão é o desequilíbrio; ao separar os animais, acomoda o esquema, chegando a um equilíbrio mais amplo (equilibração majorante).",
+    "O processo é apenas imitação da mãe, sem reorganização de esquemas.",
+    "A criança retorna ao mesmo equilíbrio inicial, pois a equilibração não modifica os esquemas.",
+    "Assimilação e acomodação são etapas fixas que só ocorrem no período formal."],
+ c:1, w:"Assimilar é incorporar o novo a um esquema existente; acomodar é modificar o esquema. O desequilíbrio entre eles leva a um novo equilíbrio, mais amplo que o anterior: a equilibração majorante, núcleo da teoria."},
+{tema:"Piaget", p:"Em uma discussão sobre teorias da aprendizagem, um estudante define aprendizagem como “modificação do comportamento resultante da experiência”. A professora lembra que Piaget rejeitava essa definição.<br>Qual é o motivo dessa rejeição?",
+ o:["Para Piaget, a experiência não tem nenhum papel na aprendizagem.",
+    "A definição supõe um organismo passivo, que apenas recebe as influências do meio, enquanto Piaget enfatiza a ação do sujeito na construção do conhecimento.",
+    "Piaget considerava que a aprendizagem acontece apenas pela maturação biológica, sem interação com o meio.",
+    "A definição é de Vygotsky, e Piaget rejeitava qualquer ideia vinda da teoria histórico-cultural.",
+    "Piaget defendia que aprender é decorar respostas corretas reforçadas pelo professor."],
+ c:1, w:"Piaget rejeita essa definição porque ela supõe um organismo passivo. Para ele, o sujeito age sobre a realidade e constrói conhecimento por assimilação, acomodação e equilibração."},
+{tema:"Vygotsky e ZDP", p:"Sozinha, Bia consegue ler palavras simples. Com a ajuda da professora, que faz perguntas e dá pistas, consegue ler pequenas frases. A professora quer planejar as próximas atividades com base em Vygotsky.<br>Assinale a alternativa que expressa a intervenção mais coerente com a teoria.",
+ o:["Propor apenas atividades que Bia já faz sozinha, para evitar frustração.",
+    "Propor textos muito acima do nível dela, sem nenhum apoio, para estimular a autonomia.",
+    "Trabalhar na zona de desenvolvimento proximal: atividades que Bia ainda não faz sozinha, mas realiza com mediação, retirando o apoio aos poucos.",
+    "Esperar que Bia amadureça biologicamente, pois a aprendizagem só acontece depois do desenvolvimento.",
+    "Separar Bia dos colegas, já que a interação social atrapalha o desenvolvimento das funções superiores."],
+ c:2, w:"A ZDP é a distância entre o que a criança faz sozinha e o que faz com ajuda. Para Vygotsky, o bom ensino atua nessa zona, com mediação, e a aprendizagem puxa o desenvolvimento."},
+{tema:"Vygotsky", p:"Um bebê estica o braço tentando pegar um brinquedo que está longe. A mãe interpreta o gesto como um pedido e entrega o brinquedo. Com o tempo, o bebê passa a apontar para pedir as coisas.<br>Esse exemplo ilustra, em Vygotsky:",
+ o:["a lei da dupla formação: as funções aparecem primeiro no plano social (interpsicológico) e depois no individual (intrapsicológico).",
+    "o período sensório-motor de Piaget, em que a socialização não tem papel.",
+    "a educação bancária, em que o adulto deposita o significado do gesto na criança.",
+    "um reflexo inato, que não depende da interação com o outro.",
+    "a equilibração majorante, pela qual a criança reorganiza esquemas sozinha."],
+ c:0, w:"O gesto ganha significado na relação com a mãe (social) e depois é internalizado pela criança (individual). É a lei da dupla formação, central em Vygotsky."},
+{tema:"Freire", p:"Em uma aula, o professor fala o tempo todo e dita definições, e os alunos copiam em silêncio para repetir na prova. Em outra turma, a professora parte de situações vividas pelos alunos, problematiza essas situações e constrói os conceitos com eles.<br>Segundo Paulo Freire, as duas práticas correspondem, respectivamente, a:",
+ o:["educação problematizadora e educação bancária.",
+    "educação bancária e educação problematizadora (libertadora).",
+    "educação bancária nas duas, já que em ambas há um professor.",
+    "educação dialógica e educação tecnicista.",
+    "consciência crítica e consciência ingênua."],
+ c:1, w:"Na educação bancária, o saber é “depositado” no aluno passivo. Na educação problematizadora, o conhecimento é construído no diálogo, a partir da realidade dos educandos."},
+{tema:"Freire", p:"Diante de uma enchente que se repete todo ano no bairro, um morador diz: “sempre foi assim, é a vontade de Deus, não adianta fazer nada”. Outro morador propõe reunir a vizinhança para entender as causas e cobrar obras da prefeitura.<br>Assinale a alternativa que interpreta corretamente as duas falas segundo Freire.",
+ o:["As duas falas expressam consciência crítica, pois ambos reconhecem o problema.",
+    "A primeira expressa consciência ingênua (ou mágica), que vê a realidade como imutável; a segunda aproxima-se da consciência crítica, que busca causas e possibilidades de transformação.",
+    "A primeira expressa consciência crítica, porque aceita a realidade como ela é.",
+    "As falas não têm relação com a educação, pois Freire tratava apenas da alfabetização.",
+    "A segunda fala expressa educação bancária, pois propõe uma ação coletiva."],
+ c:1, w:"Para Freire, a consciência ingênua vê os fatos como naturais ou mágicos. A consciência crítica busca as causas e enxerga a possibilidade de transformar a realidade, o que a educação problematizadora procura desenvolver."},
+{tema:"Dislexia", p:"Uma criança lê bem palavras inventadas, como “tafulo”, mas erra palavras familiares de escrita irregular, lendo letra por letra. Outra criança lê palavras conhecidas, mas não consegue ler palavras inventadas.<br>Pelo modelo de dupla rota (Coltheart), assinale a alternativa correta.",
+ o:["A primeira tem dislexia fonológica, com a rota fonológica comprometida; a segunda, dislexia superficial.",
+    "A primeira tem dislexia superficial, com a rota lexical comprometida; a segunda, dislexia fonológica, com a rota fonológica comprometida.",
+    "As duas têm o mesmo tipo de dislexia, que se explica apenas por problemas visuais.",
+    "A leitura de palavras inventadas depende da rota lexical, que consulta o vocabulário já conhecido.",
+    "O modelo de dupla rota não se aplica à dislexia, apenas à discalculia."],
+ c:1, w:"A rota lexical reconhece palavras conhecidas inteiras; a fonológica converte letras em sons, o que permite ler palavras inventadas. Na dislexia superficial falha a lexical; na fonológica, a fonológica."},
+{tema:"Discalculia", p:"Um estudante entende bem as quantidades e resolve problemas de cabeça, mas, ao armar as contas no papel, desalinha os números e mistura unidades com dezenas.<br>Assinale a alternativa que classifica corretamente a dificuldade.",
+ o:["Acalculia espacial, ligada à organização visuoespacial dos números.",
+    "Dislexia fonológica, ligada à conversão de letras em sons.",
+    "Discalculia por falta de conceito de quantidade, ligada ao hemisfério direito.",
+    "Subitizing alterado, já que o estudante não reconhece pequenas quantidades.",
+    "TDAH, pois toda dificuldade com números indica desatenção."],
+ c:0, w:"Quando a compreensão das quantidades está preservada, mas a organização espacial dos números falha (alinhamento, valor posicional), fala-se em acalculia espacial."},
+{tema:"TDAH", p:"Uma escola aplica a escala SNAP-IV em um aluno agitado e conclui, apenas com o resultado, que ele tem TDAH, sugerindo que a família procure medicação. Considere as afirmativas:<br>I. Escalas como a SNAP-IV ajudam no rastreio, mas não substituem a avaliação clínica.<br>II. O TDAH envolve alterações em circuitos do córtex pré-frontal e dos gânglios da base, e genes ligados à neurotransmissão dopaminérgica, como DAT1 e DRD4.<br>III. TDAH e dificuldade de aprendizagem são a mesma condição, por isso a escala basta para os dois diagnósticos.<br>Está correto o que se afirma em:",
+ o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ c:2, w:"I e II estão corretas. TDAH e dificuldades de aprendizagem são entidades diferentes, embora frequentemente associadas, e nenhuma escala fecha diagnóstico sozinha."},
+{tema:"TEA", p:"Em uma palestra, um familiar pergunta se o autismo seria causado pela “frieza” da mãe, ideia que ouviu de parentes mais velhos. O palestrante explica o que a ciência atual sabe sobre o transtorno do espectro autista.<br>Assinale a alternativa que expressa corretamente essa explicação.",
+ o:["A ideia está correta: o TEA é causado por pais pouco afetivos, como se afirmava nos anos 1940 e 1950.",
+    "O TEA tem causa única, ligada a um gene específico identificado em todos os casos.",
+    "A hipótese das mães pouco responsivas foi abandonada; hoje se entende o TEA como condição do neurodesenvolvimento, com forte peso genético somado a fatores ambientais, e com manifestações variáveis, por isso “espectro”.",
+    "O TEA é causado exclusivamente por fatores ambientais da gestação, sem influência genética.",
+    "O termo “espectro” indica que o TEA é sempre leve e não exige apoio."],
+ c:2, w:"A explicação pelos pais foi abandonada. O TEA é uma condição do neurodesenvolvimento, com peso genético importante (em geral, sem gene único) somado a fatores ambientais. “Espectro” indica a variação de intensidade e de características."}
+]
+};
+Object.entries(PROVA_ESTILO).forEach(([id, qs]) => {
+  const sm = SIM_JOGO.find(x => x.id === id); if(!sm) return;
+  sm.questoes.push(...qs);
+  sm.partes.push({k:'prova', t:'Estilo prova', n:qs.length});
 });
 
 const ROTEIROS = [
@@ -20682,7 +21108,7 @@ function simRender(){
           <div class="sim-ini-nota">${e.comTempo ? 'Acertar rápido vale mais pontos. Acertos seguidos dão bônus.' : 'Cada acerto vale 1.000 pontos. Acertos seguidos dão bônus.'}</div></div>
         <button class="sim-start" data-sim-start>Começar</button>
         <div class="sim-ini-nota">As alternativas mudam de ordem a cada partida. As questões erradas vão para a Revisão dos erros.</div>
-        <button class="sim-papel" data-sim-papel><span class="sim-papel-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 15.5h7M9 19h4"/></svg></span><span><b>Prefere treinar no papel? <em>★ apoiador</em></b><small>Baixe uma prova em PDF no formato das provas da faculdade: cabeçalho, objetivas de A a E com pontuação, discursivas, quadro de respostas e gabarito comentado.</small></span></button>
+        <button class="sim-papel" data-sim-papel><span class="sim-papel-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 15.5h7M9 19h4"/></svg></span><span><b>Prefere treinar no papel? <em>★ apoiador</em></b><small>Baixe uma prova em PDF com questões escritas como as da faculdade: caso ou pesquisa como contexto, comando técnico e cinco alternativas que exigem ler com atenção. Com discursivas, quadro de respostas e gabarito comentado.</small></span></button>
       </div>`;
     return;
   }
@@ -23361,7 +23787,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     <p class="conta-sub">O Arquivo Vivo é feito por um colega, sem anúncios e sem patrocínio. Manter tudo funcionando custa tempo, ferramentas e muito café do Psiu. O site continua livre: quem quiser pode apoiar com um Pix de valor livre. Cada Pix libera os extras de apoiador por 30 dias, sem assinatura nem cobrança automática.</p>
     <div class="ap-comp">
       <div class="gratis"><b>Grátis para todos</b><ul><li>Resumos com Teste-se</li><li>Exercícios interativos</li><li>Simulados com correção</li><li>Glossário e comparações</li><li>Psiu, o colega virtual</li><li>Notificações de prova</li><li>Drive, prazos e calendário</li><li>Resumão em PDF básico</li></ul></div>
-      <div class="apoiador"><b>★ Apoiador</b><ul><li>Plano de estudos do dia e da semana</li><li>Seu desempenho por tema</li><li>Seu semestre em números</li><li>Marca-texto e notas nos resumos</li><li>Resumão em PDF completo</li><li>Simulado em PDF no formato da prova da faculdade</li><li>Acessórios especiais do Psiu</li></ul><small>Cada Pix libera tudo por 30 dias.</small></div>
+      <div class="apoiador"><b>★ Apoiador</b><ul><li>Plano de estudos do dia e da semana</li><li>Seu desempenho por tema</li><li>Seu semestre em números</li><li>Marca-texto e notas nos resumos</li><li>Resumão em PDF completo</li><li>Simulado em PDF com questões no estilo da prova</li><li>Acessórios especiais do Psiu</li></ul><small>Cada Pix libera tudo por 30 dias.</small></div>
     </div>
     <div class="ap-valores" role="tablist" aria-label="Valor do apoio"><button type="button" data-v="10">R$ 10</button><button type="button" data-v="15">R$ 15</button><button type="button" data-v="None">Livre</button></div>
     <div class="ap-qr" id="apQr"></div>
@@ -23736,10 +24162,10 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   function escolherSimPDF(disc){
     const sims = SIM_JOGO.filter(x => x.disc === disc);
     const nDs = window.avDiscursivasDe ? window.avDiscursivasDe(disc).length : 0;
-    return EB('Área do apoiador') + `<h2>Simulado em PDF</h2><p class="conta-sub">${escHTML(nomeDisc(disc))}: uma prova para imprimir, montada no mesmo formato das provas da faculdade. Cabeçalho, pontuação por questão, alternativas de A a E, quadro de respostas e gabarito comentado na última folha.</p>
-      <div class="ben-escolha">${sims.map(sm => `<button class="sp-op-destaque" data-spdf='${JSON.stringify({id:sm.id, modo:'prova'})}'><b>Prova no formato da faculdade · 30 pontos</b><span>${nDs >= 2 ? '10 objetivas (2,4 cada) + 2 discursivas (3,0 cada)' : '10 objetivas de 3,0 pontos'}, sorteadas de todos os temas. A cada vez, uma prova nova.</span></button>
+    return EB('Área do apoiador') + `<h2>Simulado em PDF</h2><p class="conta-sub">${escHTML(nomeDisc(disc))}: uma prova para imprimir, com gabarito comentado na última folha.</p>
+      <div class="ben-escolha">${sims.map(sm => { const temProva = (sm.partes || []).some(p => p.k === 'prova'); return `${temProva ? `<button class="sp-op-destaque" data-spdf='${JSON.stringify({id:sm.id, modo:'prova'})}'><b>Prova no estilo da faculdade · 30 pontos</b><span>Questões escritas como as da prova: um caso ou uma pesquisa como contexto, um comando técnico e cinco alternativas longas, em que as erradas usam termos certos em relações erradas. Abre com uma questão de formação geral. ${nDs >= 2 ? '10 objetivas (2,4 cada) + 2 discursivas (3,0 cada).' : '10 objetivas de 3,0 pontos.'}</span></button>` : ''}
         <button data-spdf='${JSON.stringify({id:sm.id, modo:'tudo'})}'><b>Simulado completo · ${sm.questoes.length} questões</b><span>${escHTML(sm.titulo)}</span></button>
-        ${(sm.partes || []).map(p => `<button data-spdf='${JSON.stringify({id:sm.id, modo:'parte', k:p.k})}'><b>${escHTML(p.t)}</b><span>${p.n} questões</span></button>`).join('')}`).join('')}</div>`;
+        ${(sm.partes || []).filter(p => p.k !== 'prova').map(p => `<button data-spdf='${JSON.stringify({id:sm.id, modo:'parte', k:p.k})}'><b>${escHTML(p.t)}</b><span>${p.n} questões</span></button>`).join('')}`; }).join('')}</div>`;
   }
   const spNum = v => v.toFixed(1).replace('.', ',');
   function simuladoPDF(op, previa){
@@ -23748,10 +24174,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     let qs = sm.questoes.slice(), titulo = sm.titulo, ds = [], ptsObj = 0, ptsDs = 0;
     if(op.modo === 'parte'){ let ini = 0; for(const p of sm.partes){ if(p.k === op.k){ qs = sm.questoes.slice(ini, ini + p.n); titulo += ' · ' + p.t; break; } ini += p.n; } }
     if(op.modo === 'prova' || op.modo === 'sorteio'){
-      // 10 objetivas espalhadas pelos temas, como na prova
-      const porTema = {}; sorteia(qs).forEach(q => (porTema[q.tema] = porTema[q.tema] || []).push(q));
-      const temas = sorteia(Object.keys(porTema)); qs = [];
-      while(qs.length < 10 && temas.some(t => porTema[t].length)) temas.forEach(t => { if(qs.length < 10 && porTema[t].length) qs.push(porTema[t].shift()); });
+      // questões no estilo da prova: a de formação geral abre, as outras são sorteadas
+      let ini = 0, banco = null; for(const p of (sm.partes || [])){ if(p.k === 'prova'){ banco = sm.questoes.slice(ini, ini + p.n); break; } ini += p.n; }
+      if(banco){
+        const fg = banco.filter(q => q.tema === 'Formação geral'), resto = sorteia(banco.filter(q => q.tema !== 'Formação geral'));
+        qs = fg.slice(0, 1).concat(resto).slice(0, 10);
+        // embaralha as alternativas a cada impressão (menos as de I, II, III e as numéricas, que têm ordem natural)
+        qs = qs.map(q => { if(/afirma em/.test(q.p) || q.o.every(o => o.length < 14)) return q; const ord = sorteia(q.o.map((_, k) => k)); return Object.assign({}, q, {o:ord.map(k => q.o[k]), c:ord.indexOf(q.c)}); });
+        titulo += ' · estilo prova';
+      } else {
+        const porTema = {}; sorteia(qs).forEach(q => (porTema[q.tema] = porTema[q.tema] || []).push(q));
+        const temas = sorteia(Object.keys(porTema)); qs = [];
+        while(qs.length < 10 && temas.some(t => porTema[t].length)) temas.forEach(t => { if(qs.length < 10 && porTema[t].length) qs.push(porTema[t].shift()); });
+      }
       const todasDs = window.avDiscursivasDe ? sorteia(window.avDiscursivasDe(sm.disc)) : [];
       if(todasDs.length >= 2){ ds = todasDs.slice(0, 2); ptsObj = 2.4; ptsDs = 3; } else ptsObj = 3;
     }
@@ -23759,15 +24194,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const modelo = 'AB'[Math.floor(Math.random() * 2)];
     const L = 'ABCDEFGH', nome = window.avNome ? escHTML(window.avNome) : '';
     const pts = v => v ? ` <span class="sp-pts">(${spNum(v)} pontos)</span>` : '';
-    const cab = `<table class="sp-tab"><tbody>
-      <tr><td class="sp-tab-marca" rowspan="2"><b>Arquivo Vivo</b><small>Simulado de estudo · Psicologia</small></td><td class="sp-tab-cel"><i>Campus:</i> Barra da Tijuca</td></tr>
-      <tr><td class="sp-tab-cel"><i>Curso:</i> Psicologia</td></tr>
-      <tr><td><i>Disciplina:</i> ${escHTML(nomeDisc(sm.disc))}</td><td><i>Código:</i> SIM.N2.2026/2.${modelo}</td></tr>
-      <tr><td><i>Tipo:</i> ☐ N1 &nbsp;☒ N2 &nbsp;☐ Exame &nbsp;· simulado</td><td><i>Data:</i> ____/____/________</td></tr>
-      <tr><td><i>Modelo de prova:</i> ${modelo}</td><td><i>Valor:</i> ${total ? spNum(total) + ' pontos' : qs.length + ' questões'}</td></tr>
-      <tr><td><i>Aluno(a):</i> ${nome || ''}</td><td><i>Matrícula:</i></td></tr>
-      <tr><td class="sp-obs"><b>OBS:</b> faça sem consultar o material e com o celular longe, como no dia da prova. Use caneta azul ou preta e marque só uma alternativa por questão no quadro de respostas. Leia todo o enunciado. Boa prova!</td><td class="sp-nota"><i>Nota:</i></td></tr>
-    </tbody></table>`;
+    const cab = `<header class="sp-topo"><div><div class="sp-marca">Arquivo Vivo · Simulado de estudo${total ? ' · ' + spNum(total) + ' pontos' : ''}</div><h1>${escHTML(nomeDisc(sm.disc))}</h1></div><div class="sp-campos"><span>Nome <i>${nome}</i></span><span>Data <i></i></span><span>Nota <i class="curto"></i></span></div></header>
+      <p class="sp-instr">Faça sem consultar o material e com o celular longe, como no dia da prova. Marque uma alternativa por questão no quadro de respostas. Leia todo o enunciado.</p>`;
     const objTit = `<h2 class="sp-sec">Questões Objetivas${total ? ': ' + spNum(qs.length * ptsObj) + ' pontos' : ''}</h2>`;
     const objs = `<ol class="sp-qs">${qs.map(q => `<li class="sp-q"><div class="sp-enun">${pts(ptsObj).trim() ? pts(ptsObj).trim() + ' ' : ''}${q.p}</div><ol class="sp-ops">${q.o.map((o, k) => `<li><span class="sp-let">(${L[k]})</span> ${o}</li>`).join('')}</ol></li>`).join('')}</ol>`;
     const nOp = Math.max(...qs.map(q => q.o.length));
@@ -23778,7 +24206,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       <ol class="sp-ds" start="${qs.length + 1}">${ds.map(d => `<li><div class="sp-enun"><b>${qs.length + ds.indexOf(d) + 1}.</b>${pts(ptsDs)} ${d.caso ? escHTML(d.caso) + ' ' : ''}${escHTML(d.q)}</div><div class="sp-linhas">${'<i></i>'.repeat(16)}</div></li>`).join('')}</ol></section>` : '';
     const prova = `<section class="sp-folha sp-afya">${cab}${objTit}${objs.replace(/<\/ol>$/, `<li class="sp-quadro-li">${quadro(false)}</li></ol>`)}</section>${discs}`;
     if(previa) return prova;
-    const gab = `<section class="sp-folha sp-gab"><div class="sp-marca">Gabarito comentado · modelo ${modelo}</div><h1>${escHTML(nomeDisc(sm.disc))}</h1><p class="sp-sub">${escHTML(titulo)}${total ? ' · ' + spNum(total) + ' pontos' : ''}</p>
+    const gab = `<section class="sp-folha sp-gab"><div class="sp-marca">Gabarito comentado</div><h1>${escHTML(nomeDisc(sm.disc))}</h1><p class="sp-sub">${escHTML(titulo)}${total ? ' · ' + spNum(total) + ' pontos' : ''}</p>
       ${quadro(true)}
       <h2 class="sp-sec">Comentários das objetivas</h2>
       <ol class="sp-coment">${qs.map(q => `<li><b>(${L[q.c]})</b> ${q.o[q.c]}${q.w ? `<div>${q.w}</div>` : ''}</li>`).join('')}</ol>
@@ -23880,7 +24308,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     desempenho: {t:'Seu desempenho', d:'Acertos por tema e o que revisar primeiro', html:desempenhoHTML},
     plano: {t:'Plano de estudos', d:'Sugerido pelo site ou montado por você', html:planoHTML},
     semestre: {t:'Seu semestre em números', d:'Seu resumo do semestre, em formato de story', html:semestreHTML},
-    simpdf: {t:'Simulado em PDF', d:'Prova no formato da faculdade, com quadro de respostas e gabarito comentado', disc:true},
+    simpdf: {t:'Simulado em PDF', d:'Prova com questões no estilo da faculdade e gabarito comentado', disc:true},
     notas: {t:'Minhas anotações', d:'Trechos marcados e notas dos resumos', html:anotacoesHTML}
   };
   window.avBeneficiosDados = () => Object.entries(BEN).map(([k, b]) => ({k, t:b.t, d:b.d}));
