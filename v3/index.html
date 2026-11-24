@@ -147,6 +147,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
   .nav-menu{display:flex; align-items:center; gap:2px; flex:1;}
   .nav-link{
+    text-decoration:none;
     display:inline-flex; align-items:center; gap:5px;
     background:none; border:none; cursor:pointer;
     font-size:14px; font-weight:500; color:var(--ink-soft);
@@ -242,14 +243,19 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   /* V3 · barra fixa embaixo no celular (Início, Drive, Disciplinas) */
   .tabbar, .tb-folha{display:none;}
   .ma-continuar{margin:0 0 18px;}
+  .hj-inicio{display:none !important;}
   @media (max-width:880px){
     :root{--tab-h:62px;}
     .tabbar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:248; height:calc(var(--tab-h) + env(safe-area-inset-bottom)); padding:0 8px env(safe-area-inset-bottom); background:var(--paper); border-top:1px solid var(--rule); box-shadow:0 -6px 18px var(--shadow);}
-    .tabbar button{flex:1; min-width:0; white-space:nowrap; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; background:none; border:0; font:inherit; font-size:11.5px; font-weight:600; color:var(--ink-faint); cursor:pointer; -webkit-tap-highlight-color:transparent;}
+    .tabbar :is(button,a){flex:1; min-width:0; text-decoration:none; white-space:nowrap; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; background:none; border:0; font:inherit; font-size:11.5px; font-weight:600; color:var(--ink-faint); cursor:pointer; -webkit-tap-highlight-color:transparent;}
     .tabbar svg{width:22px; height:22px;}
-    .tabbar button.on{color:var(--petrol);}
-    .tabbar button.on::before{content:''; position:absolute; top:0; width:28px; height:2.5px; border-radius:0 0 2px 2px; background:var(--petrol);}
-    .tabbar button{position:relative;}
+    .tabbar .on{color:var(--petrol);}
+    .tb-dot{position:absolute; top:9px; left:calc(50% + 6px); width:8px; height:8px; border-radius:50%; background:#C2410C; box-shadow:0 0 0 2px var(--paper);}
+    .tb-dot[hidden]{display:none;}
+    #muralBtn{display:none !important;}
+    body:is(.nav-open, .search-open) .bot-fab{display:none;}
+    .tabbar .on::before{content:''; position:absolute; top:0; width:28px; height:2.5px; border-radius:0 0 2px 2px; background:var(--petrol);}
+    .tabbar :is(button,a){position:relative;}
     body{padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));}
     .bot-fab{bottom:calc(var(--tab-h) + 12px + env(safe-area-inset-bottom)) !important;}
     .off-aviso{bottom:calc(var(--tab-h) + 12px + env(safe-area-inset-bottom));}
@@ -259,8 +265,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     body:has(.sim-jogo){padding-bottom:0;}
     /* sem duplicatas: o que está na barra ou no topo sai da gaveta */
     .nav-menu > [data-nav="top"], .nav-menu > .nav-drive, .nav-menu > .nav-g-disc{display:none;}
-    .nav-conta [data-page="viewMural"], .nav-conta [data-ma-ir="hoje"]{display:none;}
-    .hj-inicio{display:none !important;}
+    .nav-menu [data-page="viewMural"], .nav-conta [data-ma-ir="hoje"]{display:none;}
     .tb-folha{display:block; position:fixed; inset:0; z-index:245;}
     .tb-folha[hidden]{display:none;}
     .tb-fundo{position:absolute; inset:0; background:rgba(10,20,18,.45); opacity:0; transition:opacity .2s ease;}
@@ -563,11 +568,12 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   }
   .footer-brand p{font-size:13.5px; color:var(--ink-soft); line-height:1.6; margin:14px 0 0; max-width:36ch;}
   .footer-col h4{font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin:4px 0 12px;}
-  .footer-col button{
+  .footer-col :is(button,a){
+    text-decoration:none;
     display:block; background:none; border:none; padding:5px 0; cursor:pointer;
     font-size:14px; color:var(--ink-soft); text-align:left;
   }
-  .footer-col button:hover{color:var(--petrol);}
+  .footer-col :is(button,a):hover{color:var(--petrol);}
   .qr-block{display:flex; flex-direction:column; align-items:flex-start; gap:10px;}
   .qr-block #qrcode{padding:6px; background:#fff; border:1px solid var(--rule); border-radius:6px; line-height:0;}
   .qr-block span{font-size:12px; color:var(--ink-faint); max-width:110px; line-height:1.4;}
@@ -588,7 +594,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     .footer-inner{grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px 12px; padding:26px 18px 18px;}
     .footer-brand p{font-size:13px; margin-top:10px; max-width:none;}
     .footer-col h4{font-size:11px; margin:0 0 6px;}
-    .footer-col button{font-size:13px; padding:4px 0; line-height:1.35;}
+    .footer-col :is(button,a){font-size:13px; padding:4px 0; line-height:1.35;}
     .footer-bottom{padding:14px 18px 22px; font-size:12px;}
   }
   /* rodapés antigos dentro de cada página: substituídos pelo global */
@@ -3895,8 +3901,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <button class="nav-link nav-trigger" aria-expanded="false">Sua conta <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="nav-group-label">Sua conta</div>
         <div class="nav-dropdown">
-          <button class="nav-item" data-page="viewHoje" data-ma-ir="hoje"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg></span><span class="ni-text"><strong>Minha área</strong><small>Plano do dia, progresso e treinos</small></span></button>
-          <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg></span><span class="ni-text"><strong>Mural da turma</strong><small>Publique, comente e curta</small></span></button>
+          <button class="nav-item" data-page="viewHoje" data-ma-ir="hoje"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><span class="ni-text"><strong>Minha área</strong><small>Plano do dia, progresso e treinos</small></span></button>
           <button class="nav-item nav-apoio-dest" data-apoio data-nav-apoio><span class="ni-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.8l2.75 5.6 6.15.9-4.45 4.33 1.05 6.12L12 16.87l-5.5 2.88 1.05-6.12L3.1 9.3l6.15-.9z"/></svg></span><span class="ni-text"><strong id="navApoioT">Apoiar o Arquivo Vivo</strong><small id="navApoioSub">Pix de R$ 10 a R$ 50 ou livre · vale 30 dias</small></span></button>
           <button class="nav-item nav-ap" data-page="viewHoje" data-ma-ir="ferramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.6-1.7"/><circle cx="12" cy="16" r="1.2"/></svg></span><span class="ni-text"><strong>Recursos de apoiador <span class="ap-selo">★</span></strong><small id="navApSub">O que o apoio libera</small></span></button>
           <button class="nav-item" data-share-menu><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></span><span class="ni-text"><strong>Compartilhar o site</strong><small>Mande o link para a turma</small></span></button>
@@ -3904,7 +3909,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         </div>
       </div>
       <button class="nav-link" data-scroll="top" data-nav="top">Início</button>
-      <button class="nav-link nav-drive" data-scroll="disciplinas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Drive</button>
+      <a class="nav-link nav-drive" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg> Drive</a>
       <div class="nav-group nav-g-disc">
         <button class="nav-link nav-trigger" aria-expanded="false">Disciplinas <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
         <div class="nav-group-label">Disciplinas</div>
@@ -3917,11 +3922,12 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-group-label">Estudo</div>
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewEstudar"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><span class="ni-text"><strong>Resumos</strong><small>Resumos interativos por disciplina</small></span></button>
-          <button class="nav-item" data-page="viewFerramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="ni-text"><strong>Exercícios</strong><small>Quizzes e atividades por disciplina</small></span></button>
+          <button class="nav-item" data-page="viewFerramentas"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span><span class="ni-text"><strong>Exercícios</strong><small>Quizzes e atividades por disciplina</small></span></button>
           <button class="nav-item" data-page="viewSimulados"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><span class="ni-text"><strong>Simulados</strong><small>Por disciplina e por tema</small></span></button>
           <button class="nav-item" data-page="viewErros"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg></span><span class="ni-text"><strong>Revisão dos erros</strong><small>Questões erradas para treinar de novo</small></span></button>
-          <button class="nav-item" data-page="viewApoio"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span><span class="ni-text"><strong>Glossário e guias</strong><small>Glossário, comparações e normas ABNT</small></span></button>
+          <button class="nav-item" data-page="viewApoio"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M9 2v8l2.5-1.8L14 10V2"/></svg></span><span class="ni-text"><strong>Glossário e guias</strong><small>Glossário, comparações e normas ABNT</small></span></button>
           <button class="nav-item" data-page="viewVideos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg></span><span class="ni-text"><strong>Vídeos</strong><small>Vídeo-aulas recomendadas</small></span></button>
+          <button class="nav-item" data-page="viewCursos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span class="ni-text"><strong>Cursos extras</strong><small>Cursos gratuitos e com certificado</small></span></button>
         </div>
       </div>
       <div class="nav-group">
@@ -3929,7 +3935,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-group-label">Turma</div>
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewPrazos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="ni-text"><strong>Prazos e tarefas</strong><small>Calendário, provas e entregas</small></span></button>
-          <button class="nav-item" data-page="viewCursos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span class="ni-text"><strong>Cursos extras</strong><small>Cursos gratuitos e com certificado</small></span></button>
+          <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg></span><span class="ni-text"><strong>Mural da turma</strong><small>Publique, comente e curta</small></span></button>
         </div>
       </div>
       <div class="nav-group">
@@ -3958,8 +3964,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 <div class="tb-folha" id="tbFolha" hidden><div class="tb-fundo" data-tb-fechar></div><div class="tb-caixa" role="dialog" aria-label="Disciplinas"><div class="tb-alca"></div><h3>Disciplinas</h3><div class="tb-lista" id="tbLista"></div></div></div>
 <nav class="tabbar" id="tabBar" aria-label="Atalhos">
   <button data-tb="inicio" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>Início</button>
-  <button data-tb="drive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg>Drive</button>
-  <button data-tb="disc" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Disciplinas</button>
+  <a data-tb="drive" href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2z"/></svg>Drive</a>
+  <button data-tb="disc" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 4.5-9 4.5-9-4.5z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>Disciplinas</button>
+  <button data-tb="mural"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2Z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg><i class="tb-dot" hidden></i>Mural</button>
   <button data-tb="ma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Minha área</button>
 </nav>
 
@@ -4021,10 +4028,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
   <section class="home-section" aria-label="Acesso rápido">
     <div class="quick-grid">
-      <button class="quick-card qc-feature" data-page="viewPrazos" data-target="calendario"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></span><span class="qc-body"><strong>Calendário</strong><span class="qc-desc">Todas as provas e entregas do semestre, mês a mês.</span></span><span class="qc-go">Abrir calendário →</span></button>
-      <button class="quick-card" data-page="viewFerramentas"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="qc-body"><strong>Exercícios</strong><span class="qc-desc">Quizzes e atividades organizados por disciplina.</span></span><span class="qc-go">Acessar →</span></button>
+      <button class="quick-card qc-feature" data-page="viewPrazos" data-target="calendario"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="qc-body"><strong>Calendário</strong><span class="qc-desc">Todas as provas e entregas do semestre, mês a mês.</span></span><span class="qc-go">Abrir calendário →</span></button>
+      <button class="quick-card" data-page="viewFerramentas"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span><span class="qc-body"><strong>Exercícios</strong><span class="qc-desc">Quizzes e atividades organizados por disciplina.</span></span><span class="qc-go">Acessar →</span></button>
       <button class="quick-card" data-page="viewEstudar"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><span class="qc-body"><strong>Resumos</strong><span class="qc-desc">A matéria em partes, com perguntas para se testar e quiz no fim.</span></span><span class="qc-go">Estudar →</span></button>
-      <button class="quick-card" data-page="viewApoio"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span><span class="qc-body"><strong>Glossário e guias</strong><span class="qc-desc">Glossário, comparações, normas ABNT e guias para os trabalhos.</span></span><span class="qc-go">Acessar →</span></button>
+      <button class="quick-card" data-page="viewApoio"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M9 2v8l2.5-1.8L14 10V2"/></svg></span><span class="qc-body"><strong>Glossário e guias</strong><span class="qc-desc">Glossário, comparações, normas ABNT e guias para os trabalhos.</span></span><span class="qc-go">Acessar →</span></button>
       <button class="quick-card" data-page="viewVideos"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg></span><span class="qc-body"><strong>Vídeos</strong><span class="qc-desc">Vídeo-aulas recomendadas para cada disciplina.</span></span><span class="qc-go">Acessar →</span></button>
       <button class="quick-card" data-page="viewCursos"><span class="qc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span class="qc-body"><strong>Cursos extras</strong><span class="qc-desc">Cursos complementares gratuitos e com certificado.</span></span><span class="qc-go">Acessar →</span></button>
     </div>
@@ -4070,8 +4077,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromPrazos">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Prazos e Tarefas · Arquivo Vivo <span id="cntTasks"></span></div>
-    <h1>Prazos e Tarefas</h1>
+    <div class="eyebrow">Prazos e tarefas · Arquivo Vivo <span id="cntTasks"></span></div>
+    <h1>Prazos e tarefas</h1>
     <p>Provas, trabalhos e entregas com data marcada. Itens vencidos passam para o cemitério, no fim da página.</p>
   </header>
 
@@ -4114,8 +4121,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromCursos">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Cursos Extras · Arquivo Vivo</div>
-    <h1>Cursos Extras</h1>
+    <div class="eyebrow">Cursos extras · Arquivo Vivo</div>
+    <h1>Cursos extras</h1>
     <p>Cursos complementares gratuitos, alguns com certificado, relacionados às disciplinas.</p>
   </header>
 
@@ -4145,7 +4152,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
   <header>
     <div class="eyebrow">Sobre · Arquivo Vivo</div>
-    <h1>Sobre o Arquivo Vivo</h1>
+    <h1>Sobre o site</h1>
     <p>Site independente, mantido por um aluno, com o material das aulas de Psicologia e ferramentas de estudo.</p>
   </header>
 
@@ -4205,8 +4212,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <button class="back-link" id="backFromInstalar">← Voltar ao Arquivo Vivo</button>
 
   <header>
-    <div class="eyebrow">Como Instalar · Arquivo Vivo</div>
-    <h1>Baixe o Aplicativo</h1>
+    <div class="eyebrow">Instale o app · Arquivo Vivo</div>
+    <h1>Instale o app</h1>
     <p>O Arquivo Vivo pode ser instalado no celular e aberto como aplicativo, com ícone na tela inicial e sem a barra do navegador.</p>
   </header>
 
@@ -5351,9 +5358,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       <button class="brand" data-scroll="top"><img class="brand-mark brand-logo" src="../icons/icon-192.png" alt="" width="36" height="36"><span class="brand-text"><strong>Arquivo Vivo</strong><small>Psicologia · de aluno para aluno</small></span></button>
       <p>Iniciativa voluntária, sem vínculo com a coordenação ou com a instituição. O conteúdo das aulas sempre prevalece como referência final.</p>
     </div>
-    <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewSimulados">Simulados</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button></div>
-    <div class="footer-col"><h4>Turma</h4><button data-scroll="disciplinas">Drive das Disciplinas</button><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewPrazos" data-target="calendario">Calendário</button><button data-scroll="atualizacoes">Atualizações</button><button data-page="viewCursos">Cursos extras</button></div>
-    <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button><button data-apoio>Apoie o Arquivo Vivo</button></div>
+    <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewSimulados">Simulados</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button><button data-page="viewCursos">Cursos extras</button></div>
+    <div class="footer-col"><h4>Turma</h4><a href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer">Drive das disciplinas</a><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewMural">Mural da turma</button></div>
+    <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button><button data-scroll="atualizacoes">Últimas atualizações</button><button data-apoio>Apoiar o Arquivo Vivo</button></div>
     <div class="qr-block"><div id="qrcode"></div><span>Aponte a câmera para abrir no celular</span></div>
   </div>
   <div class="footer-bottom"><span>Arquivo Vivo · criado e mantido por <strong class="foot-autor">Thiago Monteiro</strong></span><span id="footDate"></span></div>
@@ -21259,6 +21266,8 @@ const PAGINAS_BUSCA = [
   {t:'Cursos extras', s:'Cursos complementares', l:{page:'viewCursos'}},
   {t:'Sobre o site', s:'O projeto e a organização do Drive', l:{page:'viewSobre'}},
   {t:'Instale o app', s:'Instalação no celular', l:{page:'viewInstalar'}},
+  {t:'Minha área', s:'Plano do dia, progresso e treinos', l:{page:'viewHoje'}},
+  {t:'Mural da turma', s:'Publique, comente e curta', l:{page:'viewMural'}},
 ];
 function indiceBusca(){
   const it = [];
@@ -25763,7 +25772,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const pg = (typeof currentPage !== 'undefined') ? currentPage : 'top';
     const aberta = !folha.hidden;
     bar.querySelectorAll('[data-tb]').forEach(b => b.classList.remove('on'));
-    const k = aberta || pg === 'viewDisc' ? 'disc' : pg === 'viewHoje' ? 'ma' : pg === 'top' ? (bar.dataset.drive === '1' ? 'drive' : 'inicio') : '';
+    const k = aberta || pg === 'viewDisc' ? 'disc' : pg === 'viewHoje' ? 'ma' : pg === 'viewMural' ? 'mural' : pg === 'top' ? 'inicio' : '';
     if(k) bar.querySelector(`[data-tb="${k}"]`).classList.add('on');
   }
   function abrir(){
@@ -25783,24 +25792,40 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const k = b.dataset.tb;
     if(k === 'disc'){ folha.hidden ? abrir() : fechar(); return; }
     if(k === 'ma'){ fechar(); document.getElementById('contaBtn')?.click(); setTimeout(marcar, 40); return; }
-    fechar();
-    bar.dataset.drive = k === 'drive' ? '1' : '';
-    bar._ate = Date.now() + 1500;
-    scrollToSection(k === 'drive' ? 'disciplinas' : 'top');
-    setTimeout(marcar, 40);
+    if(k === 'drive'){ fechar(); return; }
+    if(k === 'mural'){ fechar(); switchPage('viewMural'); return; }
+    fechar(); scrollToSection('top'); setTimeout(marcar, 40);
   });
   folha.addEventListener('click', e => { if(e.target.closest('[data-tb-fechar], .nav-item')) fechar(); });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') fechar(); });
-  // voltar para o topo da página inicial devolve o destaque para Início
-  window.addEventListener('scroll', () => { if(bar.dataset.drive === '1' && window.scrollY < 80 && Date.now() > (bar._ate || 0)){ bar.dataset.drive = ''; marcar(); } }, {passive:true});
+  // bolinha de novidade do Mural acompanha a do topo
+  const md = document.getElementById('muralDot'), td = bar.querySelector('.tb-dot');
+  if(md && td){ const sync = () => { td.hidden = md.hidden; }; new MutationObserver(sync).observe(md, {attributes:true, attributeFilter:['hidden']}); sync(); }
   const orig = window.switchPage;
-  if(typeof orig === 'function') window.switchPage = switchPage = function(id){ const drv = bar.dataset.drive; const r = orig.apply(this, arguments); bar.dataset.drive = id === 'top' ? drv : ''; fechar(); marcar(); return r; };
+  if(typeof orig === 'function') window.switchPage = switchPage = function(id){ const r = orig.apply(this, arguments); fechar(); marcar(); return r; };
   window.addEventListener('popstate', () => setTimeout(marcar, 30));
   // sem duplicata do Apoiar: se a estrela do topo está visível, ele sai da gaveta
   const ap = document.getElementById('apoioBtn');
   function apoio(){ document.body.classList.toggle('tem-apoio-topo', !!ap && !ap.hidden); }
   if(ap){ new MutationObserver(apoio).observe(ap, {attributes:true, attributeFilter:['hidden']}); apoio(); }
   marcar();
+})();
+// V3 · um "Voltar" só: volta para a tela anterior dentro do site; sem histórico, vai para o início
+(function(){
+  let passos = 0;
+  const push = history.pushState.bind(history);
+  history.pushState = function(){ passos++; return push.apply(null, arguments); };
+  window.addEventListener('popstate', () => { if(passos > 0) passos--; });
+  const rotular = () => document.querySelectorAll('.back-link').forEach(b => { if(b.textContent !== '← Voltar') b.textContent = '← Voltar'; });
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.back-link'); if(!b) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    if(passos > 0) history.back(); else switchPage('top');
+  }, true);
+  const orig = window.switchPage;
+  window.switchPage = switchPage = function(){ const r = orig.apply(this, arguments); rotular(); return r; };
+  new MutationObserver(rotular).observe(document.getElementById('backFromResumo') || document.body, {childList:true, characterData:true, subtree:true});
+  rotular();
 })();
 </script>
 </body>
