@@ -25535,25 +25535,37 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
       <div class="cv-psiu" id="cvPsiu"></div>
     </div>
     <div class="cv-corpo">
-      <p class="cv-lead">De agosto a novembro, o site guardou os resumos, simulados e guias dos trabalhos da turma. Em novembro, ganhou até o Psiu.</p>
-      <p class="cv-bast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg><span>Nos bastidores, manter tudo isso no ar de agosto a novembro custou quase R$&nbsp;500.</span></p>
-      <p class="cv-txt">Se ele fez diferença para você, que tal ajudar a manter o site vivo no próximo semestre? Qualquer valor conta, até o de um café.</p>
-      <p class="cv-extra"><span>★</span> Quem apoia ainda libera os extras de apoiador.</p>
-      <button class="cv-sim" type="button" data-apoio data-cv-fechar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Quero ajudar</button>
-      <button class="cv-nao" type="button" data-cv-fechar>Agora não</button>
-      <p class="cv-pe">O site continua aberto para todos, apoiando ou não.</p>
+      <div class="cv-sec">A partir de agora, o Arquivo Vivo vira uma plataforma de estudos</div>
+      <ul class="cv-lista">
+        <li><span class="cv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/></svg></span><div><b>Sua agenda de estudos <em>★</em></b>Monte o plano com o tempo que você tem e as matérias que quer estudar.</div></li>
+        <li><span class="cv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/><path d="M12 8v4l3 2"/></svg></span><div><b>Estudo a partir dos seus erros</b>O que você errou nos simulados e exercícios vira a sua lista de revisão.</div></li>
+        <li><span class="cv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><div><b>Seu desempenho por tema <em>★</em></b>Veja onde está indo bem e onde vale reforçar.</div></li>
+        <li><span class="cv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 1 1 .9-8.9A6 6 0 0 1 19.5 11 3.5 3.5 0 0 1 18 18z"/></svg></span><div><b>Tudo salvo na sua conta</b>Seu progresso acompanha você em qualquer aparelho. E o Psiu segue por aqui.</div></li>
+      </ul>
+      <p class="cv-leg"><em>★</em> extras de apoiador</p>
+      <div class="cv-inv">
+        <div class="cv-inv-eb">Até aqui</div>
+        <div class="cv-inv-v"><small>quase</small> R$&nbsp;500</div>
+        <div class="cv-inv-l">investidos de agosto a novembro para o site existir e chegar até aqui.</div>
+      </div>
+      <p class="cv-txt">Se ele fez diferença para você, que tal ajudar a manter o site vivo no próximo semestre? <b>Qualquer valor conta, até o de um café.</b></p>
     </div>
+    <div class="cv-rodape">
+        <button class="cv-sim" type="button" data-apoio data-cv-fechar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Quero ajudar</button>
+        <button class="cv-nao" type="button" data-cv-fechar>Agora não</button>
+        <p class="cv-pe">O site continua aberto para todos, apoiando ou não.</p>
+      </div>
   </div>
 </div>
 <style>
-  .cv-fundo{align-items:center; padding:16px; background:rgba(14,28,26,.55); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}
+  .cv-fundo{align-items:safe center; padding:16px; background:rgba(14,28,26,.55); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}
   .cv-fundo:not([hidden]) .cv-caixa{animation:cvEntra .45s cubic-bezier(.2,.9,.3,1.15) both;}
   @keyframes cvEntra{from{opacity:0; transform:translateY(18px) scale(.96);} to{opacity:1; transform:none;}}
   @media (prefers-reduced-motion:reduce){ .cv-fundo:not([hidden]) .cv-caixa{animation:none;} }
-  .cv-caixa{max-width:390px; padding:0; overflow:hidden; border-radius:20px; border:0; box-shadow:0 30px 70px rgba(0,0,0,.28);}
+  .cv-caixa{display:flex; flex-direction:column; max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); max-width:390px; padding:0; overflow:hidden; border-radius:20px; border:0; box-shadow:0 30px 70px rgba(0,0,0,.28);}
   .cv-x{position:absolute; top:12px; right:12px; z-index:3; width:34px; height:34px; border:0; border-radius:50%; background:rgba(255,255,255,.14); color:#fff; font-size:20px; line-height:1; cursor:pointer;}
   .cv-x:hover{background:rgba(255,255,255,.24);}
-  .cv-topo{position:relative; display:flex; align-items:flex-end; gap:6px; padding:26px 18px 0 22px; color:#fff;
+  .cv-topo{flex:none; position:relative; display:flex; align-items:flex-end; gap:6px; padding:26px 18px 0 22px; color:#fff;
     background:radial-gradient(circle at 88% 30%, rgba(224,169,74,.35), transparent 45%), radial-gradient(rgba(255,255,255,.09) 1px, transparent 1.4px) 0 0/14px 14px, linear-gradient(155deg, #23675F, #163F3B 70%);}
   .cv-topo-txt{flex:1; padding-bottom:22px; min-width:0;}
   .cv-eb{display:inline-block; font-family:var(--mono, ui-monospace, monospace); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:#F3D29A; background:rgba(243,210,154,.12); border:1px solid rgba(243,210,154,.3); border-radius:999px; padding:4px 10px; margin-bottom:10px;}
@@ -25562,14 +25574,25 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   .cv-psiu svg{display:block; width:100%; height:auto;}
   @keyframes cvBalanca{0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);}}
   @media (prefers-reduced-motion:reduce){ .cv-psiu{animation:none;} }
-  .cv-corpo{padding:20px 22px 18px; background:var(--paper);}
-  .cv-lead{font-size:15px; line-height:1.55; color:var(--ink); margin:0 0 14px;}
-  .cv-bast{display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.5; color:var(--ink-soft); background:rgba(31,92,86,.06); border-radius:12px; padding:11px 13px; margin:0 0 14px;}
-  .cv-bast svg{flex:none; width:18px; height:18px; margin-top:1px; color:var(--petrol); opacity:.8;}
-  body.dark .cv-bast{background:rgba(92,194,181,.08);}
-  .cv-txt{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0 0 10px;}
-  .cv-extra{font-size:13.5px; color:var(--ink-soft); margin:0 0 16px;}
-  .cv-extra span{color:var(--ochre);}
+  .cv-corpo{flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:20px 22px 4px; background:var(--paper);}
+  .cv-sec{font-family:var(--serif, Georgia, serif); font-size:17px; font-weight:600; line-height:1.3; color:var(--ink); margin:0 0 12px;}
+  .cv-lista{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px;}
+  .cv-lista li{display:flex; gap:12px; align-items:flex-start; font-size:13.5px; line-height:1.45; color:var(--ink-soft);}
+  .cv-lista b{display:block; font-size:14.5px; color:var(--ink); margin-bottom:1px;}
+  .cv-lista em, .cv-leg em{font-style:normal; color:var(--ochre);}
+  .cv-ic{flex:none; width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:rgba(31,92,86,.09); color:var(--petrol);}
+  .cv-ic svg{width:18px; height:18px;}
+  body.dark .cv-ic{background:rgba(92,194,181,.12);}
+  .cv-leg{font-size:12px; color:var(--ink-faint); margin:10px 0 16px;}
+  .cv-inv{position:relative; padding:14px 16px 14px 18px; margin:0 0 14px; border-radius:14px; background:linear-gradient(135deg, rgba(31,92,86,.09), rgba(31,92,86,.03)); border-left:4px solid var(--petrol);}
+  body.dark .cv-inv{background:linear-gradient(135deg, rgba(92,194,181,.12), rgba(92,194,181,.04));}
+  .cv-inv-eb{font-family:var(--mono, ui-monospace, monospace); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--petrol); margin-bottom:4px;}
+  .cv-inv-v{font-family:var(--serif, Georgia, serif); font-size:30px; font-weight:600; line-height:1.05; color:var(--ink);}
+  .cv-inv-v small{font-size:15px; font-style:italic; font-weight:500; color:var(--ink-soft);}
+  .cv-inv-l{font-size:13.5px; line-height:1.45; color:var(--ink-soft); margin-top:4px;}
+  .cv-txt{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0 0 14px;}
+  .cv-txt b{color:var(--ink); font-weight:600;}
+  .cv-rodape{flex:none; padding:12px 22px 14px; background:var(--paper); box-shadow:0 -10px 18px -12px rgba(0,0,0,.18); position:relative; z-index:2;}
   .cv-sim{display:flex; align-items:center; justify-content:center; gap:9px; width:100%; font:inherit; font-size:16px; font-weight:700; color:#fff; background:linear-gradient(180deg, #C4862A, #A96E1C); border:0; border-radius:12px; padding:14px; cursor:pointer; box-shadow:0 6px 16px rgba(169,110,28,.3), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .15s;}
   .cv-sim:hover{transform:translateY(-1px);}
   .cv-sim svg{width:20px; height:20px;}
@@ -25584,22 +25607,25 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
 (function(){
   const INI = Date.parse('2026-11-26T10:00:00-03:00'), FIM = Date.parse('2026-12-04T00:00:00-03:00'), CHAVE = 'av-convite-2026-2';
   const fundo = document.getElementById('conviteFundo'); let tent = 0;
-  function pode(){
-    const agora = Date.now(), eu = window.avEu && window.avEu();
-    if(agora < INI || agora >= FIM || !eu || !eu.liberado || window.avApoiador) return false;
-    if(document.documentElement.classList.contains('portao')) return false;
-    try{ if(localStorage.getItem(CHAVE)) return false; }catch(_){ return false; }
-    return true;
+  // 0 = não mostrar mais; 1 = ainda não dá (tela de entrada, conta carregando, outra janela aberta); 2 = mostrar
+  function estado(){
+    const agora = Date.now();
+    if(agora < INI || agora >= FIM || window.avApoiador) return 0;
+    try{ if(localStorage.getItem(CHAVE)) return 0; }catch(_){ return 0; }
+    const eu = window.avEu && window.avEu();
+    if(!eu || !eu.liberado || document.documentElement.classList.contains('portao')) return 1;
+    if([...document.querySelectorAll('.conta-fundo')].some(x => x !== fundo && !x.hidden)) return 1;
+    return 2;
   }
   function tentar(){
-    if(!pode()) return;
-    const aberto = [...document.querySelectorAll('.conta-fundo')].some(x => x !== fundo && !x.hidden);
-    if(aberto){ if(++tent < 30) setTimeout(tentar, 4000); return; }
+    const e = estado();
+    if(e === 1){ if(++tent < 60) setTimeout(tentar, 3000); return; }
+    if(e !== 2 || !fundo.hidden) return;
     try{ localStorage.setItem(CHAVE, String(Date.now())); }catch(_){}
     const ps = document.getElementById('cvPsiu'); try{ if(ps && window.avPsiuDe) ps.innerHTML = window.avPsiuDe({acc:['cafe']}); }catch(_){}
     fundo.hidden = false;
   }
-  document.addEventListener('av-apoio', () => setTimeout(tentar, 1500));
+  document.addEventListener('av-apoio', () => { tent = 0; setTimeout(tentar, 1500); });
   fundo.addEventListener('click', e => { if(e.target === fundo || e.target.closest('[data-cv-fechar]')) fundo.hidden = true; });
   document.addEventListener('keydown', e => { if(e.key === 'Escape' && !fundo.hidden) fundo.hidden = true; });
 })();
