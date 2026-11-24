@@ -690,11 +690,21 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .study-card .study-title{font-size:17px; font-weight:700; line-height:1.3; letter-spacing:-0.01em;}
   .dp-temas{padding:0 14px 10px; margin-top:-4px;}
   #dpResumos .dp-tiles{grid-template-columns:1fr;}
-  .sim-card-partes{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.18);}
-  .sim-card-partes span{font-size:12.5px; opacity:.8; flex-basis:100%;}
-  .sim-card-partes button{font:inherit; font-size:12.5px; font-weight:600; color:#fff; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.28); border-radius:6px; padding:5px 10px; cursor:pointer; text-align:left;}
-  .sim-card-partes button:hover{background:rgba(255,255,255,.2);}
-  .sim-card-partes small{opacity:.7; font-weight:500; margin-left:3px;}
+  .sim-card-partes{margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.16);}
+  .sim-tp-rot{display:block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; opacity:.7; margin-bottom:10px;}
+  .sim-tp-grade{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px;}
+  @media (min-width:700px){ .sim-tp-grade{grid-template-columns:repeat(3, minmax(0, 1fr));} }
+  .sim-tp{position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:6px; min-height:64px; text-align:left; font:inherit; color:#fff; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:12px; padding:10px 22px 9px 11px; cursor:pointer; transition:background .15s, border-color .15s;}
+  .sim-tp:hover{background:rgba(255,255,255,.13); border-color:rgba(255,255,255,.3);}
+  .sim-tp b{font-size:13.5px; font-weight:600; line-height:1.28;}
+  .sim-tp small{font-size:12px; opacity:.65;}
+  .sim-tp i{position:absolute; right:8px; top:50%; transform:translateY(-50%); font-style:normal; font-size:20px; opacity:.45;}
+  .sim-tp-prova{flex-direction:row; align-items:center; justify-content:flex-start; gap:12px; width:100%; min-height:0; margin-top:8px; padding:13px 34px 13px 13px; background:linear-gradient(135deg, rgba(242,201,91,.16), rgba(242,201,91,.05)); border-color:rgba(242,201,91,.45);}
+  .sim-tp-prova:hover{background:linear-gradient(135deg, rgba(242,201,91,.24), rgba(242,201,91,.08)); border-color:rgba(242,201,91,.7);}
+  .sim-tp-selo{flex:none; width:36px; height:36px; border-radius:10px; display:grid; place-items:center; background:rgba(242,201,91,.2); color:#F2C95B; font-size:18px;}
+  .sim-tp-tx{display:flex; flex-direction:column; gap:3px;}
+  .sim-tp-prova em{font-style:normal; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#1E1430; background:#F2C95B; border-radius:999px; padding:2px 7px; margin-left:6px; vertical-align:2px;}
+  .sim-card .sim-go small{font-weight:500; opacity:.6; margin-left:6px;}
   .study-temas{display:flex; flex-direction:column; margin:10px 0 4px; border-top:1px solid var(--rule); counter-reset:tema;}
   .study-tema{counter-increment:tema; display:flex; align-items:baseline; gap:10px; width:100%; font:inherit; font-size:14.5px; font-weight:500; line-height:1.35; padding:10px 2px; border:0; border-bottom:1px solid var(--rule); background:transparent; color:var(--ink); cursor:pointer; text-align:left;}
   .study-tema::before{content:counter(tema, decimal-leading-zero); font-family:var(--mono, monospace); font-size:12px; color:var(--ink-faint); flex:none;}
@@ -2108,7 +2118,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .sim-card-t{font-family:var(--serif); font-size:21px; font-weight:600; line-height:1.25;}
   .sim-card-d{font-size:14.5px; opacity:.82; line-height:1.5;}
   .sim-card-rec{font-size:13.5px; opacity:.9;} .sim-card-rec b{color:#FFD166;}
-  .sim-card .sim-go{align-self:flex-start; margin-top:6px; background:#fff !important; color:#3B2357 !important; border-color:#fff !important; font-weight:700;}
+  .sim-card .sim-go{align-self:stretch; justify-content:center; margin-top:6px; background:#fff !important; color:#3B2357 !important; border-color:#fff !important; font-weight:700;}
 
   html.sim-aberto, html.sim-aberto body{overflow:hidden;}
   .sim-ov{position:fixed; inset:0; z-index:9999; background:#1E1430; background-image:radial-gradient(circle at 20% 0%, #3A2458 0%, transparent 55%), radial-gradient(circle at 100% 100%, #2B1C47 0%, transparent 50%); color:#fff; overflow-y:auto; -webkit-overflow-scrolling:touch;}
@@ -20371,7 +20381,9 @@ function simHTMLCard(sim){
     <div class="sim-card-d">${escHTML(sim.desc)}</div>
     ${r ? `<div class="sim-card-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
     <button class="btn btn-primary sim-go" data-sim-abrir="${sim.id}">Começar simulado completo</button>
-    ${(sim.partes || []).length ? `<div class="sim-card-partes"><span>Ou só uma parte:</span>${sim.partes.map(p => `<button data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}">${p.k === 'prova' ? '<b class="sim-card-selo" title="Para apoiadores">★</b> ' : ''}${escHTML(p.t)} <small>${p.n}</small></button>`).join('')}</div>` : ''}
+    ${(sim.partes || []).length ? `<div class="sim-card-partes"><span class="sim-tp-rot">Ou treine por tema</span>
+      <div class="sim-tp-grade">${sim.partes.filter(p => p.k !== 'prova').map(p => `<button class="sim-tp" data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}"><b>${escHTML(p.t)}</b><small>${p.n} questões</small><i aria-hidden="true">›</i></button>`).join('')}</div>
+      ${sim.partes.filter(p => p.k === 'prova').map(p => `<button class="sim-tp sim-tp-prova" data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}"><span class="sim-tp-selo" aria-hidden="true">★</span><span class="sim-tp-tx"><b>Estilo prova <em>apoiador</em></b><small>${p.n} questões no raciocínio usado pelos professores</small></span><i aria-hidden="true">›</i></button>`).join('')}</div>` : ''}
   </div>`;
 }
 
