@@ -244,6 +244,12 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .tabbar, .tb-folha{display:none;}
   .ma-continuar{margin:0 0 18px;}
   .hj-inicio{display:none !important;}
+  .adm-banco h3{margin:0 0 6px; font-family:var(--serif); font-size:19px;}
+  .adm-banco-nota{margin:0 0 14px; color:var(--ink-soft); font-size:14px; line-height:1.55;}
+  .adm-banco-lista{display:flex; flex-direction:column; gap:8px;}
+  .adm-banco-it{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:1px solid var(--rule); border-radius:12px; background:var(--paper);}
+  .adm-banco-it b{display:block; font-size:15px;} .adm-banco-it small{color:var(--ink-faint); font-size:12.5px;}
+  .adm-banco-it .conta-btn{flex:none; width:auto; margin:0; padding:9px 14px;}
   @media (max-width:880px){
     :root{--tab-h:62px;}
     .tabbar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:248; height:calc(var(--tab-h) + env(safe-area-inset-bottom)); padding:0 8px env(safe-area-inset-bottom); background:var(--paper); border-top:1px solid var(--rule); box-shadow:0 -6px 18px var(--shadow);}
@@ -8319,7 +8325,49 @@ const PROVA_ESTILO = {
     "Em eucariotos, o ribossomo reconhece o códon UAA, que codifica metionina e marca o início da leitura.",
     "Em procariotos, a tradução inicia no cap 5′, e em eucariotos, na sequência de Shine-Dalgarno.",
     "O início da tradução é determinado pela RNA polimerase, que transfere o RNAm diretamente ao sítio A."],
- c:1, w:"Em procariotos, a sequência de Shine-Dalgarno posiciona o ribossomo; em eucariotos, a subunidade menor reconhece o cap 5′ e avança até o AUG, que codifica metionina."}
+ c:1, w:"Em procariotos, a sequência de Shine-Dalgarno posiciona o ribossomo; em eucariotos, a subunidade menor reconhece o cap 5′ e avança até o AUG, que codifica metionina."},
+{tema:"Fertilização", p:"Em uma aula sobre reprodução humana, a professora relacionou dois procedimentos ao local habitual da fertilização: a laqueadura tubária, usada como método contraceptivo, e a fertilização in vitro (FIV), indicada para mulheres com as duas tubas uterinas obstruídas.<br>Do ponto de vista embriológico, assinale a alternativa que explica corretamente os dois procedimentos.",
+ o:["A laqueadura impede o encontro dos gametas na ampola, e na FIV a fertilização ocorre em laboratório, com o embrião transferido diretamente ao útero.",
+    "A laqueadura impede a ovulação, e a FIV estimula a tuba obstruída a transportar o ovócito até o útero.",
+    "A laqueadura impede a implantação do blastocisto no endométrio, e na FIV o embrião é colocado na ampola para completar a clivagem.",
+    "A laqueadura bloqueia a reação acrossômica, e na FIV o espermatozoide é injetado na cavidade uterina, onde ocorre a fertilização.",
+    "A laqueadura impede a produção de hCG, e na FIV o zigoto é mantido na tuba até a formação do blastocisto."],
+ c:0, w:"A ovulação continua após a laqueadura; o bloqueio das tubas impede que espermatozoide e ovócito se encontrem na ampola. Na FIV, os gametas se encontram em laboratório e o embrião vai para o útero sem depender das tubas."},
+{tema:"Fertilização", p:"A fertilização é descrita como uma sequência de etapas em que o espermatozoide precisa atravessar as camadas que envolvem o ovócito secundário. Em cada etapa atuam mecanismos diferentes, alguns dependentes de enzimas do acrossomo.<br>Assinale a alternativa que associa corretamente a etapa ao mecanismo envolvido.",
+ o:["Passagem pela coroa radiada: acrosina, que digere as glicoproteínas ZP2 e ZP3 da zona pelúcida.",
+    "Passagem pela coroa radiada: hialuronidase do acrossomo e movimento do flagelo; penetração da zona pelúcida: acrosina, esterases e neuraminidase.",
+    "Penetração da zona pelúcida: hialuronidase, que dispersa as células foliculares unidas por ácido hialurônico.",
+    "Fusão das membranas: grânulos corticais do espermatozoide, que abrem caminho até o citoplasma do ovócito.",
+    "Penetração da zona pelúcida: reação cortical, que torna a zona permeável ao primeiro espermatozoide."],
+ c:1, w:"Na coroa radiada atuam a hialuronidase e o movimento da cauda; na zona pelúcida, enzimas do acrossomo como acrosina, esterases e neuraminidase. Os grânulos corticais são do ovócito e agem depois da entrada do primeiro espermatozoide."},
+{tema:"Cálculo das bases", p:"Ao analisar diferentes amostras de DNA de fita dupla, um grupo de estudantes verificou que a composição de bases variava bastante entre as espécies. Mesmo assim, uma relação se manteve em todas as amostras, como prevê a regra de Chargaff.<br>Considere as igualdades:<br>I. [A] + [G] = [T] + [C].<br>II. [A] + [T] = [G] + [C].<br>III. [A] = [T] e [G] = [C].<br>É válido para qualquer DNA de fita dupla o que se afirma em:",
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e III, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
+ c:2, w:"Como A pareia com T e G com C, [A] = [T] e [G] = [C]; logo, purinas (A + G) igualam pirimidinas (T + C). A soma A + T só é igual a G + C quando a molécula tem exatamente 50% de A + T, o que não vale para qualquer DNA."},
+{tema:"Pontes de hidrogênio", p:"A estabilidade da dupla-hélice depende das pontes de hidrogênio entre as bases complementares, em número diferente para cada tipo de par. Um fragmento de DNA de fita dupla com 100 pares de bases apresenta 30% de adenina.<br>Qual é o número total de pontes de hidrogênio que unem as duas fitas desse fragmento?",
+ o:["200",
+    "230",
+    "240",
+    "260",
+    "300"],
+ c:2, w:"100 pares são 200 bases; 30% de adenina são 60 A, que formam 60 pares A–T. Os outros 40 pares são C–G. Pontes: 60 × 2 + 40 × 3 = 120 + 120 = 240."},
+{tema:"Tradução", p:"Na síntese de proteínas, o ribossomo coordena o encontro entre o RNA mensageiro e os RNA transportadores. A estrutura do ribossomo difere entre procariotos e eucariotos, e o alongamento da cadeia depende da ocupação ordenada de seus sítios.<br>Assinale a alternativa que descreve corretamente o ribossomo e o alongamento da tradução.",
+ o:["Eucariotos têm ribossomo 70S, e o RNAt que chega com o novo aminoácido ocupa o sítio P.",
+    "Procariotos têm ribossomo 80S, e a ligação peptídica ocorre no núcleo, antes da chegada do RNAm ao citoplasma.",
+    "Procariotos têm ribossomo 70S (50S + 30S) e eucariotos, 80S (60S + 40S); o RNAt com a cadeia em crescimento fica no sítio P, e o próximo RNAt chega ao sítio A.",
+    "Os ribossomos de procariotos e eucariotos são idênticos, e o ribossomo avança lendo o RNAm no sentido 3′ → 5′.",
+    "Eucariotos têm ribossomo 80S, e o RNAt vazio permanece ligado ao sítio A até o fim da tradução."],
+ c:2, w:"Ribossomos: 70S (50S + 30S) em procariotos e 80S (60S + 40S) em eucariotos. No alongamento, o RNAt com a cadeia fica no sítio P, o próximo chega ao sítio A, forma-se a ligação peptídica e o ribossomo avança um códon, lendo de 5′ para 3′."},
+{tema:"Tradução", p:"Em um exercício da aula, o seguinte RNA mensageiro foi apresentado para tradução:<br>5′ AUAUGUCAUUAGCACUCUUUUGACAUAGC 3′<br>Considerando o códon de iniciação, os códons de parada (UAA, UAG e UGA) e a leitura em trincas a partir do início, quantos aminoácidos terá o polipeptídeo formado?",
+ o:["5",
+    "6",
+    "7",
+    "9",
+    "10"],
+ c:1, w:"A leitura começa no primeiro AUG: AUG (metionina), UCA, UUA, GCA, CUC e UUU são 6 códons traduzidos; UGA é de parada e não codifica aminoácido. O trecho antes do AUG e o depois do UGA não são traduzidos."}
 ],
 'experimental-n2': [
 {tema:"Seleção pelas consequências", p:"Ao longo de sua obra, Skinner abandonou um modelo explicativo inspirado na mecânica newtoniana e passou a descrever o comportamento a partir de uma analogia com a teoria da evolução de Darwin.<br>Assinale a alternativa que expressa corretamente essa analogia.",
@@ -8464,7 +8512,56 @@ const PROVA_ESTILO = {
     "A conclusão é inválida porque o desempenho escolar não pode ser medido de forma objetiva.",
     "A crítica é desnecessária, porque correlação e contingência são o mesmo fenômeno.",
     "A conclusão seria válida se a amostra incluísse apenas crianças de uma mesma escola."],
- c:1, w:"Correlação não é causa. Para afirmar causa é preciso manipular a VI e controlar outras variáveis que possam explicar a relação."}
+ c:1, w:"Correlação não é causa. Para afirmar causa é preciso manipular a VI e controlar outras variáveis que possam explicar a relação."},
+{tema:"Seleção pelas consequências", p:"Ao estudar a obra de Skinner, os autores costumam apontar uma mudança importante no modelo explicativo adotado. Nos primeiros trabalhos, o comportamento era descrito em termos de relações mecânicas entre estímulos e respostas; a partir de 1938, o autor passou a utilizar outra referência.<br>Assinale a alternativa que descreve corretamente essa mudança.",
+ o:["De um modelo inspirado na seleção natural para um modelo inspirado na física.",
+    "De um modelo mentalista para um modelo baseado exclusivamente em reflexos inatos.",
+    "De um modelo inspirado na física para um modelo inspirado na seleção natural, com variação e seleção pelas consequências.",
+    "De um modelo baseado no condicionamento operante para um baseado apenas no respondente.",
+    "De um modelo experimental para um modelo introspectivo, centrado nos relatos verbais."],
+ c:2, w:"O Skinner 'jovem' buscava explicações mecânicas, inspiradas na física. A partir de 1938 há uma ruptura, e o modelo passa a ser o da seleção natural: o comportamento varia e é selecionado pelas consequências."},
+{tema:"Reforçamento", p:"Em uma escola, uma professora passou a elogiar em voz alta, diante da turma, um aluno sempre que ele participava das discussões. Ao longo das semanas seguintes, a participação desse aluno diminuiu, embora a professora considerasse o elogio algo agradável.<br>Considerando a definição de reforçamento na análise do comportamento, assinale a alternativa correta.",
+ o:["O elogio foi reforçador positivo, pois estímulos agradáveis sempre aumentam a frequência das respostas.",
+    "O elogio funcionou como reforçamento negativo, pois retirou o aluno da situação de exposição.",
+    "Não houve consequência, pois o elogio é um estímulo antecedente da participação.",
+    "O elogio não funcionou como reforçador para esse aluno, pois o reforçamento se define pelo efeito: aumento ou manutenção da frequência da resposta.",
+    "O resultado indica extinção, pois o elogio deixou de ser apresentado após a participação."],
+ c:3, w:"Reforçamento se define pelo efeito sobre a frequência da resposta, e não pelo que parece agradável. Como a participação diminuiu após o elogio público, ele não teve função reforçadora para esse aluno."},
+{tema:"Reforçamento negativo", p:"Considere duas situações do cotidiano:<br>I. Durante a aula, o barulho de uma obra está alto, e uma estudante fecha a janela.<br>II. Ao ver a previsão de chuva, um estudante leva o guarda-chuva ao sair de casa.<br>Nos dois casos, a resposta é mantida pela remoção ou pela prevenção de um estímulo aversivo.<br>Assinale a alternativa que classifica corretamente os comportamentos.",
+ o:["I é esquiva e II é fuga; ambos são punição negativa.",
+    "I e II são fuga; ambos são reforçamento positivo.",
+    "I é fuga e II é esquiva; ambos são punição positiva.",
+    "I e II são esquiva; ambos são extinção operante.",
+    "I é fuga e II é esquiva; ambos são reforçamento negativo."],
+ c:4, w:"Na fuga, o aversivo já está presente e a resposta o remove (fechar a janela). Na esquiva, a resposta impede que o aversivo apareça (levar o guarda-chuva). Os dois aumentam a frequência da resposta: reforçamento negativo."},
+{tema:"Operações motivadoras", p:"Laraway et al. (2003) descrevem dois efeitos das operações motivadoras sobre o comportamento operante. Considere o exemplo: logo depois do almoço, a comida perde força como reforçador, e a pessoa procura menos a geladeira.<br>Assinale a alternativa que analisa corretamente o exemplo.",
+ o:["A saciação é uma operação abolidora: diminui o valor do reforçador e tem efeito abativo sobre a frequência da resposta.",
+    "A saciação é uma operação estabelecedora, com efeito evocativo sobre a busca por comida.",
+    "A saciação é um estímulo discriminativo, que sinaliza a indisponibilidade da comida.",
+    "A saciação é uma punição negativa, pois retira o alimento após a resposta de comer.",
+    "A saciação é uma extinção operante, pois a resposta deixa de produzir o reforçador."],
+ c:0, w:"A OM altera o valor do reforçador e a frequência das respostas relacionadas. A saciação é operação abolidora (diminui o valor da comida), e o efeito sobre o comportamento é abativo (a busca fica menos frequente)."},
+{tema:"Operações motivadoras", p:"Em uma padaria, a placa “aberto” na porta e a fome de quem passa na calçada influenciam a entrada dos clientes, mas por razões diferentes. A análise do comportamento distingue esses dois tipos de variável que antecedem a resposta.<br>A placa e a fome correspondem, respectivamente, a:",
+ o:["operação motivadora e estímulo discriminativo.",
+    "estímulo discriminativo e operação motivadora.",
+    "estímulo incondicionado e resposta incondicionada.",
+    "reforçador condicionado e reforçador generalizado.",
+    "estímulo condicionado e operação abolidora."],
+ c:1, w:"O Sᵈ sinaliza que a resposta pode ser reforçada (a placa indica que a padaria está aberta). A operação motivadora altera momentaneamente o quanto o reforçador vale (a fome torna a comida mais reforçadora)."},
+{tema:"Extinção", p:"A extinção aparece tanto no condicionamento respondente quanto no operante, mas o procedimento é diferente em cada caso.<br>Analise as afirmativas:<br>I. Na extinção respondente, o estímulo condicionado passa a ser apresentado sem o estímulo incondicionado, e a resposta condicionada enfraquece.<br>II. Na extinção operante, a resposta deixa de produzir o reforçador que a mantinha.<br>III. Na extinção operante, aplica-se um estímulo aversivo após a resposta, o que a torna equivalente à punição.<br>Está correto o que se afirma em:",
+ o:["I, apenas.",
+    "III, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
+ c:2, w:"I e II estão corretas. A III confunde extinção com punição: na extinção não se aplica aversivo; o reforçador simplesmente deixa de vir. No início pode haver explosão de extinção."},
+{tema:"Método experimental", p:"Um pesquisador quer saber se o feedback imediato aumenta o número de acertos em uma tarefa de memória. Ele sorteia os participantes em dois grupos: um recebe feedback logo após cada resposta, e o outro realiza a mesma tarefa, nas mesmas condições, sem feedback. Ao final, compara o número de acertos.<br>Assinale a alternativa que identifica corretamente os elementos do delineamento.",
+ o:["VI: número de acertos; VD: presença de feedback; grupo controle: o que recebe feedback.",
+    "VI: tarefa de memória; VD: sorteio dos participantes; grupo controle: o que recebe feedback.",
+    "VI: presença ou ausência de feedback imediato; VD: número de acertos; grupo controle: o que realiza a tarefa sem feedback.",
+    "VI: número de acertos; VD: tarefa de memória; não há grupo controle, pois os dois grupos fazem a mesma tarefa.",
+    "VI: sorteio dos participantes; VD: presença de feedback; grupo controle: o que obtém mais acertos."],
+ c:2, w:"A VI é a variável manipulada pelo pesquisador (feedback imediato), e a VD é a medida que pode mudar com ela (acertos). O grupo controle recebe as mesmas condições, exceto a VI, permitindo atribuir a diferença ao feedback."}
 ],
 'idoso-n2': [
 {tema:"Aposentadoria", p:"Silva e Carvalho (2019) discutem as implicações psicossociais da aposentadoria a partir do lugar que o trabalho ocupa na vida adulta. Na prática clínica, é comum que aposentados relatem falta dos colegas, sensação de perda de utilidade e desorganização da rotina.<br>Assinale a alternativa que interpreta corretamente esses relatos à luz dos autores.",
@@ -8601,7 +8698,56 @@ const PROVA_ESTILO = {
     "Suicídio assistido; os cuidados paliativos substituem o acompanhamento psicológico.",
     "Distanásia; os cuidados paliativos visam prolongar a vida a qualquer custo.",
     "Procuração com vigência indeterminada; os cuidados paliativos aplicam-se apenas a pacientes jovens."],
- c:1, w:"Suspender um tratamento que só prolongaria a vida é chamado na aula de eutanásia passiva. Os cuidados paliativos visam aliviar o sofrimento e preservar a qualidade de vida até o fim."}
+ c:1, w:"Suspender um tratamento que só prolongaria a vida é chamado na aula de eutanásia passiva. Os cuidados paliativos visam aliviar o sofrimento e preservar a qualidade de vida até o fim."},
+{tema:"Aposentadoria", p:"Scortegagna e Oliveira (2012) discutem como a sociedade, ao valorizar o trabalho, constrói uma imagem do aposentado associada à inutilidade. Os autores relacionam essa imagem a reações frequentes entre pessoas que deixam o trabalho.<br>Assinale a alternativa que expressa corretamente a reação descrita pelos autores.",
+ o:["Os aposentados passam a valorizar a velhice como fase de sabedoria, independentemente do preconceito social.",
+    "Os aposentados tendem a ampliar a rede social, pois a aposentadoria elimina as perdas de status.",
+    "A aposentadoria não produz efeitos psicossociais, pois a renda é a única função do trabalho.",
+    "Diante da queda de renda e do preconceito, muitos aposentados negam a velhice e a própria idade, por medo de não serem aceitos nos grupos sociais.",
+    "O preconceito atinge apenas os aposentados por invalidez, e não os aposentados por idade."],
+ c:3, w:"Como a sociedade vê o aposentado como inútil e incapaz, muitos negam a velhice e até a idade, por receio de rejeição. A queda de renda e o preconceito estão entre os aspectos negativos da aposentadoria discutidos em aula."},
+{tema:"Envelhecimento cognitivo", p:"Na aula sobre envelhecimento cognitivo, foram apresentadas mudanças estruturais e funcionais observadas no envelhecimento normal, com destaque para a atrofia cerebral e para a linguagem.<br>Assinale a alternativa que descreve corretamente essas mudanças.",
+ o:["A atrofia cerebral cessa após os 60 anos, e o vocabulário costuma ser a primeira função a declinar.",
+    "A atrofia cerebral é idêntica no envelhecimento normal e na doença de Alzheimer, o que impede qualquer diferenciação.",
+    "A linguagem se mantém totalmente intacta, inclusive a lembrança de palavras, e a memória episódica melhora com a idade.",
+    "A atrofia atinge apenas o cerebelo, e o processamento sintático é a função mais comprometida.",
+    "A atrofia cerebral se acelera a partir dos 60 anos; na linguagem, vocabulário e sintaxe ficam relativamente preservados, e o que piora é a lembrança de palavras."],
+ c:4, w:"A atrofia cerebral se acelera a partir dos 60 anos e é mais acentuada na doença de Alzheimer. Na linguagem, vocabulário e processamento sintático ficam relativamente intactos; a lembrança de palavras é o que se altera."},
+{tema:"Envelhecimento cognitivo", p:"Damasceno (1999) discute o uso da neuroimagem na investigação de um idoso com queixas de memória, em que se considera a hipótese de doença de Alzheimer (DA) inicial.<br>Analise as afirmativas:<br>I. Atrofia ou hipoperfusão nas regiões entorrinal-hipocampal ou temporoparietais sugerem DA.<br>II. Esses achados podem não estar presentes no início da doença.<br>III. Uma neuroimagem normal na fase inicial é suficiente para descartar a DA.<br>Está correto o que se afirma em:",
+ o:["I, apenas.",
+    "III, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
+ c:2, w:"I e II estão corretas. Justamente porque os achados podem faltar no início, uma neuroimagem normal não descarta a DA; por isso o autor recomenda avaliação ampla e, se necessário, reavaliação em 4 a 6 meses."},
+{tema:"Saúde mental do idoso", p:"Resende et al. (2011) avaliaram 406 pessoas frequentadoras de um centro de convivência, com média de 66 anos, utilizando o QSG-12, uma escala de sintomas físicos e a Escala de Depressão Geriátrica.<br>Assinale a alternativa que corresponde aos resultados do estudo.",
+ o:["O grupo apresentou saúde mental positiva no geral; as mulheres relataram mais sintomas físicos, dor e ansiedade.",
+    "O grupo apresentou saúde mental negativa no geral, e os homens relataram mais ansiedade.",
+    "Não houve diferença entre homens e mulheres em nenhum dos instrumentos utilizados.",
+    "Os participantes com mais de 80 anos foram os únicos a relatar sintomas depressivos.",
+    "A prevalência de transtorno mental comum foi de 47,6%, medida pelo SRQ-20."],
+ c:0, w:"De modo geral, o grupo teve saúde mental positiva. As mulheres relataram mais sintomas físicos, mais dor e mais ansiedade. O SRQ-20 e os 47,6% pertencem ao estudo de Borim et al. (2013)."},
+{tema:"Luto e morte", p:"Vail et al. (2010), citados em Papalia e Martorell, investigaram como as pessoas reagem quando a própria morte se torna iminente, considerando o papel das crenças culturais e religiosas.<br>Assinale a alternativa que expressa corretamente a conclusão apresentada.",
+ o:["Diante da morte iminente, as pessoas tendem a abandonar a visão de mundo cultural e religiosa, por perderem a confiança nela.",
+    "Diante da morte iminente, as pessoas tendem a se apegar mais à sua visão de mundo cultural e religiosa, com crença mais forte no pós-vida, o que oferece conforto psicológico.",
+    "A proximidade da morte não altera as crenças, que permanecem estáveis em todas as culturas.",
+    "As reações à morte iminente são idênticas em todas as culturas, sem formas socialmente aceitas de expressão.",
+    "A adesão religiosa diante da morte é sinal de luto prolongado e deve ser tratada clinicamente."],
+ c:1, w:"Com a morte iminente, há maior adesão à visão de mundo cultural e religiosa e crença mais forte no pós-vida, o que traz conforto psicológico."},
+{tema:"Luto e morte", p:"Ao discutir as formas de viver o luto, Papalia e Martorell apresentam o modelo clássico do “trabalho de luto”, com choque e descrença, preocupação com a lembrança de quem morreu e resolução, e o comparam aos achados de pesquisas mais recentes.<br>Assinale a alternativa que expressa corretamente essa comparação.",
+ o:["As pesquisas confirmam que todos os enlutados percorrem as três fases na mesma ordem e no mesmo tempo.",
+    "As pesquisas mostram que o luto é sempre patológico quando não há choque inicial.",
+    "As pesquisas mostram padrões diferentes: muitos enlutados são resilientes, outros se recuperam aos poucos, e alguns têm luto prolongado.",
+    "As pesquisas indicam que a resolução do luto exige o esquecimento de quem morreu.",
+    "As pesquisas mostram que o luto só ocorre após a morte, nunca antes dela."],
+ c:2, w:"O modelo clássico descreve três momentos, mas as pesquisas mostram trajetórias diferentes: muitos são resilientes, outros se recuperam gradualmente e alguns têm luto prolongado. Também existe o luto antecipatório, que começa antes da morte."},
+{tema:"Cuidados no fim da vida", p:"Um idoso, ainda lúcido, deseja garantir que suas vontades sejam respeitadas caso fique incapacitado de decidir no fim da vida. Ele quer registrar por escrito quais tratamentos aceita e também indicar a filha para decidir por ele em situações não previstas.<br>Assinale a alternativa que nomeia corretamente os dois documentos.",
+ o:["Eutanásia passiva e eutanásia ativa.",
+    "Procuração com vigência indeterminada, com as instruções da própria pessoa, e testamento em vida, que nomeia o responsável pelas decisões.",
+    "Termo de hospice, que suspende o tratamento, e suicídio assistido, que transfere a decisão à família.",
+    "Testamento em vida (diretiva antecipada), com as instruções da própria pessoa, e procuração com vigência indeterminada, que nomeia alguém para decidir por ela.",
+    "Plano de cuidados paliativos, que proíbe o controle da dor, e diretiva antecipada, que nomeia o médico responsável."],
+ c:3, w:"A diretiva antecipada (testamento em vida) traz as instruções da própria pessoa sobre os tratamentos. A procuração com vigência indeterminada nomeia alguém para tomar decisões caso o autor fique incapacitado."}
 ],
 'neuro-n2': [
 {tema:"Medula espinhal", p:"Na organização do sistema nervoso central, a medula espinhal apresenta, em corte transversal, uma disposição característica de substância cinzenta e substância branca, com diferenças entre os níveis cervical, torácico e lombar.<br>Assinale a alternativa que descreve corretamente essa organização.",
@@ -8759,7 +8905,35 @@ const PROVA_ESTILO = {
     "Afasia de compreensão com fala fluente.",
     "Perda do olfato e da visão de um lado.",
     "Tremor de repouso com rigidez e lentidão para iniciar movimentos."],
- c:1, w:"Marcha atáxica, disdiadococinesia e tremor de intenção são sinais cerebelares. Tremor de repouso com rigidez é típico da doença de Parkinson."}
+ c:1, w:"Marcha atáxica, disdiadococinesia e tremor de intenção são sinais cerebelares. Tremor de repouso com rigidez é típico da doença de Parkinson."},
+{tema:"Lobos e córtex", p:"Após um traumatismo cranioencefálico, um homem de 34 anos passou a interromper conversas, fazer comentários socialmente inadequados e tomar decisões impulsivas. A memória autobiográfica e o reconhecimento de objetos estão relativamente preservados, mas a família relata mudança importante de comportamento.<br>Considerando as funções corticais, assinale a região mais associada às alterações descritas.",
+ o:["Giro pós-central, responsável pela sensibilidade do corpo.",
+    "Lobo occipital, responsável pelo processamento visual.",
+    "Cerebelo, responsável pela coordenação dos movimentos e pelo equilíbrio.",
+    "Córtex pré-frontal, associado ao planejamento, ao julgamento e ao controle inibitório.",
+    "Hipocampo, responsável pela formação de novas memórias declarativas."],
+ c:3, w:"O córtex pré-frontal, na parte anterior do lobo frontal, sustenta as funções executivas: planejamento, tomada de decisão, controle de impulsos e adequação social. Memória e reconhecimento preservados afastam hipocampo e áreas de associação visual."},
+{tema:"Neurônios e glia", p:"Uma paciente apresenta, em momentos diferentes, episódios de perda visual, formigamento nos membros e fraqueza. A ressonância mostra lesões em várias regiões do sistema nervoso central, sugestivas de processo desmielinizante.<br>Assinale a alternativa que identifica corretamente a célula que forma a mielina no SNC e a função dessa bainha.",
+ o:["Células de Schwann, que formam a mielina no SNC e reduzem a velocidade de condução do impulso.",
+    "Astrócitos, que formam a mielina em todo o sistema nervoso e armazenam neurotransmissores.",
+    "Micróglia, que forma a mielina no SNC e conduz o impulso pelas junções comunicantes.",
+    "Oligodendrócitos, que formam a mielina apenas nos nervos periféricos e participam da sinapse elétrica.",
+    "Oligodendrócitos, que formam a mielina no SNC; a bainha, interrompida nos nodos de Ranvier, acelera a condução do impulso."],
+ c:4, w:"No SNC, a mielina é formada pelos oligodendrócitos; no SNP, pelas células de Schwann. A bainha é interrompida nos nodos de Ranvier e torna a condução mais rápida; a desmielinização prejudica essa condução."},
+{tema:"Tronco encefálico", p:"Um homem de 23 anos chega à emergência com acidente vascular na porção inferior do tronco encefálico. Evolui com alterações do padrão respiratório, da pressão arterial e da frequência cardíaca.<br>Considerando a organização do encéfalo, assinale a alternativa que identifica a estrutura e a sua relação com os sinais observados.",
+ o:["Bulbo, porção inferior do tronco encefálico, com centros cardiovasculares e respiratórios essenciais à vida.",
+    "Mesencéfalo, que contém os colículos e regula os reflexos de orientação visual.",
+    "Ponte, que integra o cerebelo e controla diretamente a temperatura corporal.",
+    "Hipotálamo, parte do tronco encefálico que regula a respiração por meio da hipófise.",
+    "Tálamo, que retransmite ao córtex as informações sobre a respiração e os batimentos cardíacos."],
+ c:0, w:"O tronco encefálico tem, de cima para baixo, mesencéfalo, ponte e bulbo. O bulbo contém centros que regulam respiração, pressão arterial e frequência cardíaca. Hipotálamo e tálamo pertencem ao diencéfalo."},
+{tema:"Lobos e córtex", p:"Depois de um acidente vascular cerebral, uma paciente passou a não enxergar parte do campo visual. O exame oftalmológico mostrou olhos saudáveis, e a equipe concluiu que a alteração era cortical.<br>Assinale a alternativa que localiza corretamente a lesão e justifica a conclusão.",
+ o:["Lobo temporal, pois o giro temporal superior é o centro primário da visão.",
+    "Lobo occipital, centro do processamento visual; com os olhos saudáveis, a falha está no córtex que interpreta a informação.",
+    "Lobo parietal, pois o giro pós-central recebe a informação visual antes do tálamo.",
+    "Lobo frontal, pois o córtex pré-frontal processa o campo visual e a percepção de cores.",
+    "Cerebelo, pois a coordenação dos movimentos oculares determina a extensão do campo visual."],
+ c:1, w:"O lobo occipital, na parte posterior do cérebro, é o centro do processamento visual. Se os olhos estão saudáveis e a perda é de campo visual após AVC, a lesão está no córtex visual, e não no órgão sensorial."}
 ],
 'aprendizagem-n2': [
 {tema:"Piaget", p:"Na epistemologia genética de Piaget, a criança passa por períodos de desenvolvimento cognitivo com características próprias. Em uma prova clássica de conservação, uma criança afirma que há mais líquido em um copo fino e alto do que em um copo largo e baixo, embora tenha visto o mesmo líquido ser transferido de um para o outro.<br>Assinale a alternativa que explica corretamente a resposta da criança.",
@@ -8902,7 +9076,42 @@ const PROVA_ESTILO = {
     "A disconectividade indica mais conexões de longa distância e menos conexões locais.",
     "A macrocrania está presente em todas as pessoas com TEA, em qualquer idade.",
     "Os achados de neuroimagem bastam para estabelecer o diagnóstico de TEA."],
- c:0, w:"A hipoativação do giro fusiforme liga-se ao reconhecimento de faces; a disconectividade descreve menos conexões de longa distância e mais locais."}
+ c:0, w:"A hipoativação do giro fusiforme liga-se ao reconhecimento de faces; a disconectividade descreve menos conexões de longa distância e mais locais."},
+{tema:"Vygotsky", p:"Ao estudar a formação de conceitos, Vygotsky descreveu uma sequência que vai do pensamento sincrético ao pensamento conceitual adulto. Em uma das fases, a criança agrupa objetos de forma que, vista de fora, coincide com a classificação do adulto, embora o raciocínio que a produz seja diferente.<br>Assinale a alternativa que nomeia corretamente essa fase e a caracteriza.",
+ o:["Conceito potencial, que já corresponde ao conceito científico e dispensa a mediação do adulto.",
+    "Pensamento sincrético, em que a criança agrupa objetos por propriedades abstratas comuns.",
+    "Pseudoconceito, que se parece com o conceito adulto, mas ainda é pensamento por complexos; o verdadeiro conceito amadurece na puberdade.",
+    "Fala egocêntrica, em que a criança nomeia os objetos para regular a própria ação.",
+    "Zona de desenvolvimento proximal, em que a criança forma conceitos sozinha, sem ajuda."],
+ c:2, w:"O pseudoconceito é a ponte entre o pensamento por complexos e o pensamento adulto: o resultado parece igual ao do adulto, mas o processo ainda é por complexos. O conceito verdadeiro só amadurece na puberdade."},
+{tema:"Freire", p:"Na Pedagogia da Autonomia, Paulo Freire apresenta saberes necessários à prática educativa, entre eles a rigorosidade metódica e a criticidade. Ao discutir a criticidade, o autor descreve a passagem da curiosidade espontânea, própria do senso comum, para uma curiosidade que se aproxima do objeto de forma metódica.<br>Assinale a alternativa que expressa corretamente essa passagem.",
+ o:["A curiosidade ingênua deve ser eliminada pelo professor, que a substitui pela memorização dos conteúdos.",
+    "A curiosidade epistemológica é inata e independe da prática educativa e da reflexão sobre ela.",
+    "A criticidade surge da transferência de conhecimento do educador para o educando, como na educação bancária.",
+    "A curiosidade ingênua, ao se tornar crítica e metódica, transforma-se em curiosidade epistemológica, sem ruptura com o saber de experiência.",
+    "A curiosidade ingênua é superior à epistemológica, pois preserva a espontaneidade do educando."],
+ c:3, w:"Para Freire, a curiosidade ingênua, ao se criticizar, torna-se epistemológica. Não há ruptura com o saber de experiência, e sim superação, apoiada na rigorosidade metódica e na reflexão sobre a prática."},
+{tema:"Dislexia", p:"As pesquisas sobre dislexia buscam explicar por que algumas crianças apresentam dificuldades mais graves e persistentes do que outras. Uma das propostas discutidas em aula atribui a gravidade à combinação de dois déficits cognitivos.<br>Assinale a alternativa que descreve corretamente a teoria do duplo déficit.",
+ o:["A combinação de déficit visual e déficit auditivo, que impedem a percepção das letras e dos sons.",
+    "A combinação de déficit intelectual e escolarização inadequada, que produzem as formas mais graves.",
+    "A combinação de déficit de atenção e hiperatividade, que caracteriza a dislexia mista de Boder.",
+    "A combinação de déficit na via lexical e déficit motor, que caracteriza a dislexia superficial.",
+    "A combinação de déficit fonológico e déficit na nomeação rápida, que produz as formas mais graves de dislexia."],
+ c:4, w:"No duplo déficit, somam-se o déficit fonológico (processar fonemas e decodificar) e o déficit na nomeação rápida (recuperar nomes de letras, números e objetos). Juntos, produzem as formas mais graves."},
+{tema:"TDAH", p:"A etiologia do transtorno de déficit de atenção e hiperatividade é considerada multifatorial, com a participação de genes de pequeno efeito e de fatores que atuam em diferentes momentos do desenvolvimento.<br>Considere os fatores:<br>1. Exposição materna a substâncias tóxicas durante a gestação.<br>2. Prematuridade e sofrimento fetal.<br>3. Meningite após o nascimento.<br>Assinale a alternativa que associa corretamente os fatores aos períodos e indica genes citados na aula.",
+ o:["1 pré-natal, 2 perinatal, 3 pós-natal; genes ligados à dopamina, como DAT1 e DRD4.",
+    "1 perinatal, 2 pré-natal, 3 pós-natal; genes ligados à serotonina, como 5-HTT.",
+    "1 pré-natal, 2 pós-natal, 3 perinatal; genes ligados ao GABA.",
+    "1 pós-natal, 2 perinatal, 3 pré-natal; um único gene de grande efeito no cromossomo X.",
+    "1 pré-natal, 2 perinatal, 3 pós-natal; ausência de participação genética."],
+ c:0, w:"Pré-natal é durante a gestação, perinatal é em torno do parto, e pós-natal é depois do nascimento. A etiologia soma vários genes de pequeno efeito ligados à dopamina, como DAT1 e DRD4, a fatores pré, peri e pós-natais e ao ambiente."},
+{tema:"TEA", p:"Estudos com gêmeos e com famílias revisaram, nas últimas décadas, a contribuição dos fatores genéticos e ambientais para o transtorno do espectro autista. A aula também apresentou fatores de risco pré-natais, entre eles medicamentos teratógenos.<br>Assinale a alternativa que expressa corretamente a compreensão atual.",
+ o:["O TEA é cerca de 90% genético e causado por um único gene; o ambiente não participa.",
+    "A contribuição é estimada em cerca de 50% genética e 50% ambiental; o risco em irmãos é 15 a 20 vezes maior, e o ácido valproico eleva o risco em cerca de 7 vezes.",
+    "O TEA é causado pela frieza afetiva das mães, como se defendia nos anos 1940, e a genética tem papel secundário.",
+    "A contribuição é exclusivamente ambiental, e o risco entre irmãos é igual ao da população geral.",
+    "O risco depende apenas de fatores pós-natais, como a escolarização, sem influência pré-natal."],
+ c:1, w:"A ideia antiga de 90% genético foi revista para cerca de 50% genético e 50% ambiental. A etiologia é multifatorial; irmãos têm risco 15 a 20 vezes maior, e o ácido valproico é o teratógeno que eleva o risco em cerca de 7 vezes."}
 ]
 };
 /* Discursivas no padrão da prova: enunciado com contexto, itens A) B) ou "abordando obrigatoriamente",
@@ -23780,11 +23989,18 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
         ${(sm.partes || []).filter(p => p.k !== 'prova').map(p => `<button data-spdf='${JSON.stringify({id:sm.id, modo:'parte', k:p.k})}'><b>${escHTML(p.t)}</b><span>${p.n} questões</span></button>`).join('')}`; }).join('')}</div>`;
   }
   const spNum = v => v.toFixed(1).replace('.', ',');
+  window.avImprimirBanco = id => { const sm = SIM_JOGO.find(x => x.id === id); if(sm) imprimir(simuladoPDF({id, modo:'banco'}), 'Banco estilo prova · ' + nomeDisc(sm.disc) + ' · Arquivo Vivo'); };
+  window.avBancoResumo = () => SIM_JOGO.filter(sm => (sm.partes || []).some(p => p.k === 'prova')).map(sm => ({id:sm.id, disc:sm.disc, nome:nomeDisc(sm.disc), n:(sm.partes.find(p => p.k === 'prova') || {}).n || 0, ds:(typeof PROVA_DISC !== 'undefined' && PROVA_DISC[sm.id] || []).length}));
   function simuladoPDF(op, previa){
     const sm = SIM_JOGO.find(x => x.id === op.id); if(!sm) return '';
     const sorteia = a => a.map(q => [Math.random(), q]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
     let qs = sm.questoes.slice(0, simN(sm)), titulo = sm.titulo, ds = [], ptsObj = 0, ptsDs = 0;
     if(op.modo === 'parte'){ let ini = 0; for(const p of sm.partes){ if(p.k === op.k){ qs = sm.questoes.slice(ini, ini + p.n); titulo += ' · ' + p.t; break; } ini += p.n; } }
+    if(op.modo === 'banco'){
+      let ini = 0; for(const p of (sm.partes || [])){ if(p.k === 'prova'){ qs = sm.questoes.slice(ini, ini + p.n); break; } ini += p.n; }
+      ds = (typeof PROVA_DISC !== 'undefined' && PROVA_DISC[sm.id]) ? PROVA_DISC[sm.id].map(d => Object.assign({html:true}, d)) : [];
+      titulo += ' · banco completo no estilo prova';
+    }
     if(op.modo === 'prova' || op.modo === 'sorteio'){
       // questões no estilo da prova, sorteadas
       let ini = 0, banco = null; for(const p of (sm.partes || [])){ if(p.k === 'prova'){ banco = sm.questoes.slice(ini, ini + p.n); break; } ini += p.n; }
@@ -23807,17 +24023,18 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const L = 'ABCDEFGH', nome = window.avNome ? escHTML(window.avNome) : '';
     const pts = v => v ? ` <span class="sp-pts">(${spNum(v)} pontos)</span>` : '';
     const cab = `<header class="sp-topo"><div><div class="sp-marca">Arquivo Vivo · Simulado de estudo${total ? ' · ' + spNum(total) + ' pontos' : ''}</div><h1>${escHTML(nomeDisc(sm.disc))}</h1></div><div class="sp-campos"><span>Nome <i>${nome}</i></span><span>Data <i></i></span><span>Nota <i class="curto"></i></span></div></header>
-      <p class="sp-instr">Faça sem consultar o material. O gabarito comentado está na última folha.</p>`;
+      <p class="sp-instr">${op.modo === 'banco' ? 'Banco completo no estilo prova. O gabarito comentado e os critérios das discursivas estão no fim.' : 'Faça sem consultar o material. O gabarito comentado está na última folha.'}</p>`;
     const objTit = `<h2 class="sp-sec">Questões Objetivas${total ? ': ' + spNum(qs.length * ptsObj) + ' pontos' : ''}</h2>`;
     const objs = `<ol class="sp-qs">${qs.map(q => `<li class="sp-q"><div class="sp-enun">${pts(ptsObj).trim() ? pts(ptsObj).trim() + ' ' : ''}${q.p}</div><ol class="sp-ops">${q.o.map((o, k) => `<li><span class="sp-let">(${L[k]})</span> ${o}</li>`).join('')}</ol></li>`).join('')}</ol>`;
     const nOp = Math.max(...qs.map(q => q.o.length));
     // folha de respostas compacta: anote a letra escolhida e confira com o gabarito no fim
+    const blocos = []; for(let i = 0; i < qs.length; i += 14) blocos.push([i, qs.slice(i, i + 14)]);
     const quadro = () => `<div class="sp-quadro"><p class="sp-q-tit">Suas respostas</p>
-      <table class="sp-resp"><tbody><tr><th>Questão</th>${qs.map((_, i) => `<td>${i + 1}</td>`).join('')}</tr><tr><th>Letra</th>${qs.map(() => '<td></td>').join('')}</tr></tbody></table>
+      ${blocos.map(([b, parte]) => `<table class="sp-resp"><tbody><tr><th>Questão</th>${parte.map((_, i) => `<td>${b + i + 1}</td>`).join('')}</tr><tr><th>Letra</th>${parte.map(() => '<td></td>').join('')}</tr></tbody></table>`).join('')}
       <p class="sp-q-txt">Anote a letra escolhida e confira com o gabarito da última folha.</p></div>`;
     // gabarito em texto escuro sobre branco: aparece em qualquer impressora e no PDF do app
-    const chave = `<table class="sp-chave"><tbody><tr><th>Questão</th>${qs.map((_, i) => `<td>${i + 1}</td>`).join('')}</tr><tr><th>Resposta</th>${qs.map(q => `<td><b>${L[q.c]}</b></td>`).join('')}</tr></tbody></table>`;
-    const discs = ds.length ? `<section class="sp-folha sp-disc"><h2 class="sp-sec">Questões Discursivas: ${spNum(ds.length * ptsDs)} pontos</h2>
+    const chave = blocos.map(([b, parte]) => `<table class="sp-chave"><tbody><tr><th>Questão</th>${parte.map((_, i) => `<td>${b + i + 1}</td>`).join('')}</tr><tr><th>Resposta</th>${parte.map(q => `<td><b>${L[q.c]}</b></td>`).join('')}</tr></tbody></table>`).join('');
+    const discs = ds.length ? `<section class="sp-folha sp-disc"><h2 class="sp-sec">Questões Discursivas${ptsDs ? ': ' + spNum(ds.length * ptsDs) + ' pontos' : ''}</h2>
       <ol class="sp-ds" start="${qs.length + 1}">${ds.map(d => `<li><div class="sp-enun"><b>${qs.length + ds.indexOf(d) + 1}.</b>${pts(ptsDs)} ${d.html ? d.q : (d.caso ? escHTML(d.caso) + ' ' : '') + escHTML(d.q)}</div><div class="sp-linhas">${'<i></i>'.repeat(d.html ? 20 : 16)}</div></li>`).join('')}</ol></section>` : '';
     const prova = `<section class="sp-folha sp-afya">${cab}${objTit}${objs.replace(/<\/ol>$/, `<li class="sp-quadro-li">${quadro()}</li></ol>`)}</section>${discs}`;
     if(previa) return prova;
@@ -25494,7 +25711,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
 (function(){
   const EU = () => window.avEu && window.avEu(), B = () => window.avBanco, esc = t => escHTML(t == null ? '' : t);
   let aba = 'acessos', cont = null, fila = {}, aparelhos = null, pessoas = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}, msg = '';
-  const ABAS = [['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Corredor'], ['turma', 'Turma']];
+  const ABAS = [['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Corredor'], ['turma', 'Turma'], ['banco', 'Banco de questões']];
   const LINKS = [['', 'Página inicial'], ['#minha-area', 'Minha área'], ['#mural', 'Corredor da turma'], ['#modo-prova', 'Simulados'], ['#resumos', 'Resumos'], ['#prazos', 'Prazos']];
   const IC = {escudo:'<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/>', sino:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'};
   const ic = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
@@ -25587,6 +25804,12 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     if(aba === 'acessos'){ c.innerHTML = '<section class="hj-card adm-acessos" id="admAcessos"></section>'; if(window.avAdmMontar) window.avAdmMontar(document.getElementById('admAcessos')); }
     if(aba === 'avisos'){ c.innerHTML = avisosHTML(); }
     if(aba === 'mural'){ c.innerHTML = '<div id="admMural"></div>'; if(window.avMuralAdmin) window.avMuralAdmin(document.getElementById('admMural')); }
+    if(aba === 'banco'){
+      const b = window.avBancoResumo ? window.avBancoResumo() : [];
+      c.innerHTML = `<section class="hj-card adm-banco"><h3>Banco no estilo prova</h3><p class="adm-banco-nota">Imprime todas as objetivas e todas as discursivas da disciplina, com gabarito comentado e critérios de correção no fim. Ninguém além de você vê esta opção.</p>
+        <div class="adm-banco-lista">${b.map(x => `<div class="adm-banco-it"><div><b>${escHTML(x.nome)}</b><small>${x.n} objetivas · ${x.ds} discursivas</small></div><button class="conta-btn" data-adm-banco="${x.id}">Imprimir tudo</button></div>`).join('') || '<p class="hj-vazio">Nenhum banco encontrado.</p>'}</div></section>`;
+      c.querySelectorAll('[data-adm-banco]').forEach(bt => bt.onclick = () => window.avImprimirBanco && window.avImprimirBanco(bt.dataset.admBanco));
+    }
     if(aba === 'turma'){ c.innerHTML = '<div id="admTurma"><section class="hj-card"><p class="hj-vazio">Carregando os números da turma…</p></section></div>';
       (async () => { const e = window.avLerTurma ? await window.avLerTurma() : null; const el = document.getElementById('admTurma'); if(el && window.avTurmaHTML) el.innerHTML = window.avTurmaHTML(e); })(); }
   }
