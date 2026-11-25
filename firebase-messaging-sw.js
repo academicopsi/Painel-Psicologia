@@ -1,9 +1,9 @@
 // Arquivo Vivo · service worker
 // 1) guarda uma cópia do site para abrir sem internet (sempre tenta a internet primeiro)
 // 2) recebe as notificações com o site fechado
-const CACHE = 'av-offline-v1';
+const CACHE = 'av-offline-v2';
 const BASE = new URL(self.registration.scope).pathname;          // /Painel-Psicologia/
-const ESSENCIAIS = ['', 'v3/', 'icons/icon-192.png', 'icons/icon-180.png', 'manifest.webmanifest', 'v3/manifest.webmanifest'].map(x => BASE + x);
+const ESSENCIAIS = ['', 'icons/icon-192.png', 'icons/icon-180.png', 'manifest.webmanifest'].map(x => BASE + x);
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.all(ESSENCIAIS.map(u => c.add(new Request(u, {cache:'reload'})).catch(() => {})))).then(() => self.skipWaiting()));
@@ -35,7 +35,7 @@ self.addEventListener('fetch', e => {
       if(resp.ok) c.put(chave, resp.clone());
       return resp;
     }catch(_){
-      const guardado = await c.match(chave) || (pagina && (await c.match(new Request(u.origin + u.pathname.replace(/index\.html$/, ''))) || await c.match(new Request(u.origin + BASE + 'v3/'))));
+      const guardado = await c.match(chave) || (pagina && (await c.match(new Request(u.origin + u.pathname.replace(/index\.html$/, '')))));
       if(guardado) return guardado;
       return new Response('<meta charset="utf-8"><meta name="viewport" content="width=device-width"><p style="font-family:sans-serif;padding:24px">Sem internet e esta página ainda não foi guardada no aparelho. Abra o Arquivo Vivo uma vez com internet para ele funcionar offline.</p>', {status:503, headers:{'Content-Type':'text/html; charset=utf-8'}});
     }

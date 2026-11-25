@@ -14,8 +14,8 @@ const db = admin.database();
 const ADMIN_EMAIL = 'thiagodentalbeauty@gmail.com';
 let ADM_UID = null;
 try{ ADM_UID = (await admin.auth().getUserByEmail(ADMIN_EMAIL)).uid; }catch(_){}
-const SITE = process.env.SITE_ARQUIVO || 'v3/index.html';       // na virada para o oficial: index.html
-const BASE = process.env.SITE_URL || 'https://academicopsi.github.io/Painel-Psicologia/v3/';
+const SITE = process.env.SITE_ARQUIVO || 'index.html';       // na virada para o oficial: index.html
+const BASE = process.env.SITE_URL || 'https://academicopsi.github.io/Painel-Psicologia/';
 
 // publico: 'todos' | 'admin' | 'sem1' | 'sem2' | {uid} | {uids:{uid:true}}
 async function destinos(tipo, publico){
