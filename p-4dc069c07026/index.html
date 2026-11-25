@@ -2701,20 +2701,20 @@ document.getElementById('discPage').addEventListener('click', e=>{
     if(inc.length && !confirm(`${inc.map(i=> exhSigla(st, i)).join(', ')} ainda não tem os 40 verbos registrados. Imprimir mesmo assim?`)) return;
     const linha = (r, v)=> `<tr><th>${r}</th><td>${escHTML(v || '')}</td></tr>`;
     const w = window.open('', '_blank'); if(!w){ alert('Libere as janelas pop-up deste site para imprimir.'); return; }
-    w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Graficos - ${escHTML(f.nome || 'Trabalho N2')}</title><style>
+    w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>Graficos - ${escHTML(f.nome || 'Trabalho N2')}</title><link href="https://fonts.googleapis.com/css2?family=${EXH_ESTILOS[exhEstiloAtual()].fam}&display=swap" rel="stylesheet"><style>
       body{font-family:Arial,Helvetica,sans-serif; color:#111; margin:24px;} table.cab{border-collapse:collapse; margin-bottom:16px; font-size:13px;}
       .cab th{text-align:left; padding:3px 12px 3px 0; font-weight:bold;} .cab td{padding:3px 0;}
       h2{font-size:13px; margin:12px 0 5px; padding-bottom:3px; border-bottom:1px solid #ccc;}
       table.mt{border-collapse:collapse; font-size:10.5px;} .tabs{display:flex; flex-wrap:wrap; gap:4px 28px; align-items:flex-start;} .mt th,.mt td{border:1px solid #d9d8d4; padding:2px 8px; text-align:center;} .mt th{background:#f5f4f0; font-weight:600; color:#222;} .mt tbody tr:nth-child(even) td{background:#fbfbf9;}
       .mt td:first-child{text-align:left;} .mt .sp{border:none; background:none; width:12px; padding:0;} .mt tr.tot td{font-weight:bold;}
-      .graf{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;} .graf svg{width:100%; max-width:680px; border:1px solid #e4e3df; border-radius:8px; break-inside:avoid; page-break-inside:avoid;}
+      .graf{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;} .graf svg{width:100%; height:auto; max-width:680px; border:1px solid #e4e3df; border-radius:8px; break-inside:avoid; page-break-inside:avoid;}
       .sec{break-inside:avoid; page-break-inside:avoid;} @page{margin:12mm;}</style></head><body>
       <table class="cab">${linha('Nome completo:', f.nome)}${linha('Matrícula:', f.mat)}${linha('Disciplina:', f.disc)}${linha('Unidade:', f.uni)}${linha('Data de entrega:', f.entrega)}</table>
       <div class="tabs"><div class="sec"><h2>Frequencia Absoluta</h2>${exhAbsModeloHTML(st, idx)}</div>
       <div class="sec"><h2>Comparativo LB-INT</h2>${exhCompModeloHTML(st, idx)}</div></div>
       <div class="sec"><h2>Frequencia Relativa</h2>${exhRelModeloHTML(st, idx)}</div>
-      <div class="graf">${idx.map(i=> exhGraficoModelo(st.ps[i], exhTitulo(st, i))).join('')}</div>
-      <script>window.onload = function(){ window.print(); };<\/script></body></html>`);
+      <div class="graf">${idx.map(i=> exhGrafEstilo(st.ps[i], exhTitulo(st, i), exhEstiloAtual())).join('')}</div>
+      <script>window.onload = function(){ (document.fonts ? document.fonts.ready : Promise.resolve()).then(function(){ setTimeout(function(){ window.print(); }, 150); }); };<\/script></body></html>`);
     w.document.close();
   }
 });
