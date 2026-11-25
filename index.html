@@ -25972,94 +25972,81 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
 <div class="conta-fundo cv-fundo" id="conviteFundo" hidden>
   <div class="conta-caixa cv-caixa" role="dialog" aria-modal="true" aria-labelledby="cvTitulo">
     <button class="cv-x" data-cv-fechar aria-label="Fechar">×</button>
-    <div class="cv-topo">
-      <div class="cv-topo-txt">
-        <div class="cv-eb">Fim do semestre</div>
-        <h2 id="cvTitulo">O Arquivo Vivo te ajudou neste semestre?</h2>
-      </div>
-      <div class="cv-psiu" id="cvPsiu"></div>
-    </div>
     <div class="cv-corpo">
-      <p class="cv-lead">Ele esteve com você nas provas, nos trabalhos e nas revisões de última hora. Sem anúncios, sem patrocínio, feito de aluno para aluno.</p>
-      <div class="cv-inv">
-        <div class="cv-inv-eb">E para estar aqui, ele custou</div>
-        <div class="cv-inv-v"><small>quase</small> R$&nbsp;500</div>
-        <div class="cv-inv-l">de agosto a novembro, para manter tudo no ar.</div>
+      <div class="cv-hero">
+        <div class="cv-psiu" id="cvPsiu"></div>
+        <div class="cv-eb">Fim de semestre</div>
+        <h2 id="cvTitulo">O Arquivo Vivo te ajudou neste semestre?</h2>
+        <p class="cv-lead">Ele esteve com você nas provas, nos trabalhos e nas revisões de última hora. Feito de aluno para aluno.</p>
+      </div>
+      <div class="cv-fatos" aria-label="O semestre do Arquivo Vivo">
+        <div><b>4</b><span>meses no ar</span></div>
+        <div class="cv-fato-dest"><b><small>quase</small>R$&nbsp;500</b><span>de custo para manter</span></div>
+        <div><b>0</b><span>anúncios ou patrocínio</span></div>
       </div>
       <p class="cv-apelo">Agora ele conta com você.</p>
       <p class="cv-txt">Se o site fez diferença no seu semestre, ajuda a mantê-lo vivo no próximo? <b>Qualquer valor conta, até o de um café.</b></p>
-      <div class="cv-sec">E no próximo semestre ele vira uma plataforma de estudos:</div>
-      <ul class="cv-lista">
-        <li><span class="cv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3"/></svg></span><div><b>Sua agenda de estudos <em>★</em></b>Com o seu tempo e as matérias que você escolher.</div></li>
-        <li><span class="cv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/><path d="M12 8v4l3 2"/></svg></span><div><b>Estudo a partir dos seus erros</b>O que você errou nos simulados vira sua revisão.</div></li>
-        <li><span class="cv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><div><b>Seu desempenho por tema <em>★</em></b>Onde você vai bem e onde vale reforçar.</div></li>
-        <li><span class="cv-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 1 1 .9-8.9A6 6 0 0 1 19.5 11 3.5 3.5 0 0 1 18 18z"/></svg></span><div><b>Tudo salvo na sua conta</b>Em qualquer aparelho. E o Psiu segue junto.</div></li>
-      </ul>
-      <p class="cv-leg"><em>★</em> extras de apoiador</p>
+      <div class="cv-prox">
+        <p>No próximo semestre ele vira uma plataforma de estudos</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Agenda de estudos <em>★</em></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/></svg>Revisão dos seus erros</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Domínio por tema <em>★</em></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 1 1 .9-8.9A6 6 0 0 1 19.5 11 3.5 3.5 0 0 1 18 18z"/></svg>Tudo salvo na conta</li>
+        </ul>
+        <span class="cv-leg"><em>★</em> extras de apoiador</span>
+      </div>
     </div>
     <div class="cv-rodape">
-        <button class="cv-sim" type="button" data-apoio data-cv-fechar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Quero ajudar</button>
-        <button class="cv-nao" type="button" data-cv-fechar>Agora não</button>
-        <p class="cv-pe">O site continua aberto para todos, apoiando ou não.</p>
-      </div>
+      <button class="cv-sim" type="button" data-apoio data-cv-fechar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c-.6.8-.6 1.7 0 2.5M12 3.5c-.6.8-.6 1.7 0 2.5"/></svg>Quero ajudar</button>
+      <button class="cv-nao" type="button" data-cv-fechar>Agora não</button>
+      <p class="cv-pe">O site continua aberto para todos, apoiando ou não.</p>
+    </div>
   </div>
 </div>
 <style>
-  .cv-fundo{align-items:safe center; padding:16px; background:rgba(14,28,26,.55); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);}
-  .cv-fundo:not([hidden]) .cv-caixa{animation:cvEntra .45s cubic-bezier(.2,.9,.3,1.15) both;}
-  @keyframes cvEntra{from{opacity:0; transform:translateY(18px) scale(.96);} to{opacity:1; transform:none;}}
-  @media (prefers-reduced-motion:reduce){ .cv-fundo:not([hidden]) .cv-caixa{animation:none;} }
-  .cv-caixa{display:flex; flex-direction:column; max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); max-width:390px; padding:0; overflow:hidden; border-radius:20px; border:0; box-shadow:0 30px 70px rgba(0,0,0,.28);}
-  .cv-x{position:absolute; top:12px; right:12px; z-index:3; width:34px; height:34px; border:0; border-radius:50%; background:rgba(255,255,255,.14); color:#fff; font-size:20px; line-height:1; cursor:pointer;}
-  .cv-x:hover{background:rgba(255,255,255,.24);}
-  .cv-topo{flex:none; position:relative; display:flex; align-items:flex-end; gap:6px; padding:26px 18px 0 22px; color:#fff;
-    background:radial-gradient(circle at 88% 30%, rgba(224,169,74,.35), transparent 45%), radial-gradient(rgba(255,255,255,.09) 1px, transparent 1.4px) 0 0/14px 14px, linear-gradient(155deg, #23675F, #163F3B 70%);}
-  .cv-topo-txt{flex:1; padding-bottom:22px; min-width:0;}
-  .cv-eb{display:inline-block; font-family:var(--mono, ui-monospace, monospace); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:#F3D29A; background:rgba(243,210,154,.12); border:1px solid rgba(243,210,154,.3); border-radius:999px; padding:4px 10px; margin-bottom:10px;}
-  .cv-caixa .cv-topo h2{font-family:var(--serif, Georgia, serif); font-size:25px !important; line-height:1.18; font-weight:600; color:#fff; margin:0;}
-  .cv-psiu{flex:none; width:112px; margin:0 -6px -16px 0; filter:drop-shadow(0 8px 14px rgba(0,0,0,.25)); animation:cvBalanca 3.2s ease-in-out infinite; transform-origin:50% 100%;}
+  .cv-fundo{align-items:safe center; padding:16px; background:rgba(14,28,26,.55); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);}
+  .cv-fundo:not([hidden]) .cv-caixa{animation:cvEntra .45s cubic-bezier(.2,.9,.3,1.12) both;}
+  @keyframes cvEntra{from{opacity:0; transform:translateY(18px) scale(.97);} to{opacity:1; transform:none;}}
+  .cv-caixa{position:relative; display:flex; flex-direction:column; max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); max-width:380px; padding:0; overflow:hidden; border-radius:24px; border:0; background:var(--paper); box-shadow:0 30px 70px rgba(0,0,0,.3);}
+  .cv-x{position:absolute; top:12px; right:12px; z-index:3; width:34px; height:34px; border:0; border-radius:50%; background:var(--paper-alt); color:var(--ink-soft); font-size:20px; line-height:1; cursor:pointer;}
+  .cv-x:hover{background:var(--rule);}
+  .cv-corpo{flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:0 22px 6px;}
+  .cv-hero{text-align:center; padding:26px 4px 18px; margin:0 -22px; background:radial-gradient(120% 75% at 50% 0%, rgba(201,140,48,.16), transparent 70%);}
+  .cv-psiu{width:104px; margin:0 auto 6px; filter:drop-shadow(0 10px 14px rgba(120,70,20,.18)); animation:cvBalanca 3.4s ease-in-out infinite; transform-origin:50% 100%;}
   .cv-psiu svg{display:block; width:100%; height:auto;}
   @keyframes cvBalanca{0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);}}
-  @media (prefers-reduced-motion:reduce){ .cv-psiu{animation:none;} }
-  .cv-corpo{flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:20px 22px 4px; background:var(--paper);}
-  .cv-sec{font-family:var(--serif, Georgia, serif); font-size:17px; font-weight:600; line-height:1.3; color:var(--ink); margin:0 0 12px;}
-  .cv-lista{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px;}
-  .cv-lista li{display:flex; gap:12px; align-items:flex-start; font-size:13.5px; line-height:1.45; color:var(--ink-soft);}
-  .cv-lista b{display:block; font-size:14.5px; color:var(--ink); margin-bottom:1px;}
-  .cv-lista em, .cv-leg em{font-style:normal; color:var(--ochre);}
-  .cv-ic{flex:none; width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:rgba(31,92,86,.09); color:var(--petrol);}
-  .cv-ic svg{width:18px; height:18px;}
-  body.dark .cv-ic{background:rgba(92,194,181,.12);}
-  .cv-leg{font-size:12px; color:var(--ink-faint); margin:10px 0 16px;}
-  .cv-inv{position:relative; padding:14px 16px 14px 18px; margin:0 0 14px; border-radius:14px; background:linear-gradient(135deg, rgba(31,92,86,.09), rgba(31,92,86,.03)); border-left:4px solid var(--petrol);}
-  body.dark .cv-inv{background:linear-gradient(135deg, rgba(92,194,181,.12), rgba(92,194,181,.04));}
-  .cv-inv-eb{font-family:var(--mono, ui-monospace, monospace); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--petrol); margin-bottom:4px;}
-  .cv-inv-v{font-family:var(--serif, Georgia, serif); font-size:30px; font-weight:600; line-height:1.05; color:var(--ink);}
-  .cv-inv-v small{font-size:15px; font-style:italic; font-weight:500; color:var(--ink-soft);}
-  .cv-inv-l{font-size:13.5px; line-height:1.45; color:var(--ink-soft); margin-top:4px;}
-  .cv-txt{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0 0 14px;}
-  .cv-txt b{color:var(--ink); font-weight:600;}
-  .cv-rodape{flex:none; padding:12px 22px 14px; background:var(--paper); box-shadow:0 -10px 18px -12px rgba(0,0,0,.18); position:relative; z-index:2;}
-  .cv-lead{font-size:15px; line-height:1.55; color:var(--ink); margin:0 0 14px;}
+  @media (prefers-reduced-motion:reduce){ .cv-fundo:not([hidden]) .cv-caixa, .cv-psiu{animation:none;} }
+  .cv-eb{font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ochre); margin:0 0 8px;}
+  .cv-caixa .cv-hero h2{font-family:var(--serif, Georgia, serif); font-size:25px !important; line-height:1.18; font-weight:600; color:var(--ink); margin:0 auto 10px; max-width:15ch; text-wrap:balance;}
+  .cv-lead{font-size:14.5px; line-height:1.55; color:var(--ink-soft); margin:0 auto; max-width:30ch; text-wrap:balance;}
+  .cv-fatos{display:grid; grid-template-columns:1fr 1.35fr 1fr; align-items:stretch; margin:4px 0 20px; border:1px solid var(--rule); border-radius:16px; overflow:hidden; background:var(--paper);}
+  .cv-fatos > div{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:14px 6px 12px;}
+  .cv-fatos > div + div{border-left:1px solid var(--rule);}
+  .cv-fatos b{font-family:var(--serif, Georgia, serif); font-size:24px; font-weight:600; line-height:1; color:var(--ink);}
+  .cv-fatos span{font-size:11.5px; line-height:1.3; color:var(--ink-faint); margin-top:6px;}
+  .cv-fatos .cv-fato-dest{background:var(--ochre-soft);}
+  .cv-fato-dest b{font-size:26px; color:#8A5A17;}
+  body.dark .cv-fato-dest b{color:var(--ochre);}
+  .cv-fato-dest small{display:block; font-family:inherit; font-size:12px; font-style:italic; font-weight:500; color:var(--ink-soft); margin-bottom:3px;}
   .cv-apelo{font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600; line-height:1.25; color:var(--ink); margin:0 0 6px;}
-  .cv-sec{font-size:13px !important; font-family:inherit !important; font-weight:700 !important; color:var(--ink-soft) !important; text-transform:none; margin:0 0 10px !important; padding-top:14px; border-top:1px solid var(--rule);}
-  .cv-lista{gap:8px !important;}
-  .cv-lista li{font-size:13px !important;}
-  .cv-lista b{font-size:14px !important;}
-  .cv-ic{width:30px !important; height:30px !important; border-radius:9px !important;}
-  .cv-ic svg{width:16px !important; height:16px !important;}
-  .cv-leg{margin:10px 0 8px !important;}
-  .cv-inv{background:var(--ochre-soft) !important; border-left-color:var(--ochre) !important;}
-  .cv-inv-eb{color:#9A6424 !important; text-transform:none !important; letter-spacing:0 !important; font-family:inherit !important; font-size:13px !important; font-weight:600;}
-  body.dark .cv-inv-eb{color:var(--ochre) !important;}
-  .cv-sim{display:flex; align-items:center; justify-content:center; gap:9px; width:100%; font:inherit; font-size:16px; font-weight:700; color:#fff; background:linear-gradient(180deg, #C4862A, #A96E1C); border:0; border-radius:12px; padding:14px; cursor:pointer; box-shadow:0 6px 16px rgba(169,110,28,.3), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .15s;}
-  .cv-sim:hover{transform:translateY(-1px);}
+  .cv-txt{font-size:15px; line-height:1.55; color:var(--ink-soft); margin:0 0 18px;}
+  .cv-txt b{color:var(--ink); font-weight:600;}
+  .cv-prox{padding:14px 0 4px; border-top:1px solid var(--rule);}
+  .cv-prox p{font-size:13px; font-weight:700; color:var(--ink-soft); margin:0 0 10px;}
+  .cv-prox ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .cv-prox li{display:flex; align-items:center; gap:8px; padding:9px 10px; border-radius:12px; background:var(--paper-alt); font-size:12.5px; font-weight:600; line-height:1.25; color:var(--ink);}
+  .cv-prox li svg{flex:none; width:16px; height:16px; color:var(--petrol);}
+  .cv-prox em, .cv-leg em{font-style:normal; color:var(--ochre);}
+  .cv-leg{display:block; font-size:11.5px; color:var(--ink-faint); margin:8px 0 6px;}
+  .cv-rodape{flex:none; padding:12px 22px 14px; background:var(--paper); box-shadow:0 -10px 18px -12px rgba(0,0,0,.16); position:relative; z-index:2;}
+  .cv-sim{display:flex; align-items:center; justify-content:center; gap:9px; width:100%; font:inherit; font-size:16px; font-weight:700; color:#fff; background:linear-gradient(180deg, #C4862A, #A96E1C); border:0; border-radius:14px; padding:15px; cursor:pointer; box-shadow:0 8px 18px rgba(169,110,28,.28), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .15s ease;}
+  .cv-sim:hover{transform:translateY(-1px);} .cv-sim:active{transform:scale(.98);}
   .cv-sim svg{width:20px; height:20px;}
-  .cv-nao{display:block; width:100%; font:inherit; font-size:14.5px; font-weight:600; color:var(--ink-soft); background:transparent; border:0; padding:12px; margin-top:4px; cursor:pointer; border-radius:10px;}
-  .cv-nao:hover{background:rgba(0,0,0,.04);}
-  .cv-pe{font-size:12.5px; color:var(--ink-faint); text-align:center; margin:2px 0 0;}
-  body.dark .cv-nao:hover{background:rgba(255,255,255,.06);}
-  @media (max-width:360px){ .cv-caixa .cv-topo h2{font-size:22px !important;} .cv-psiu{width:92px;} }
+  .cv-nao{display:block; width:100%; font:inherit; font-size:14.5px; font-weight:600; color:var(--ink-soft); background:transparent; border:0; padding:11px; margin-top:4px; cursor:pointer; border-radius:10px;}
+  .cv-nao:hover{background:rgba(0,0,0,.04);} body.dark .cv-nao:hover{background:rgba(255,255,255,.06);}
+  .cv-pe{font-size:12px; color:var(--ink-faint); text-align:center; margin:0;}
+  @media (max-width:360px){ .cv-caixa .cv-hero h2{font-size:22px !important;} .cv-psiu{width:88px;} .cv-fatos b{font-size:21px;} .cv-fato-dest b{font-size:22px;} }
 </style>
 <script>
 // Convite de fim de semestre: aparece uma vez por conta, para quem não é apoiador, de 25/11 (18h, virada antecipada) até 03/12.
