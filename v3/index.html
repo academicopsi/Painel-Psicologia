@@ -242,7 +242,25 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
   /* V3 · barra fixa embaixo no celular (Início, Drive, Disciplinas) */
   .tabbar, .tb-folha{display:none;}
-  .ma-continuar{margin:0 0 18px;}
+  .ma-parou{margin:18px 0 6px; padding:14px 16px; border:1px solid var(--rule); border-radius:16px; background:var(--paper);}
+  .ma-parou-q{margin:0 0 8px; font-size:13px; color:var(--ink-soft);}
+  .ma-parou-l{display:flex; align-items:center; gap:14px;}
+  .ma-parou-tx{flex:1; min-width:0;}
+  .ma-parou-tx b{display:block; font-size:15px; line-height:1.35; color:var(--ink);}
+  .ma-parou-tx span{display:block; margin-top:2px; font-size:12.5px; color:var(--ink-faint); line-height:1.4;}
+  .ma-parou-go{flex:none; font:inherit; font-size:13.5px; font-weight:700; color:var(--petrol); background:var(--petrol-soft); border:0; border-radius:10px; padding:9px 14px; cursor:pointer;}
+  .ma-parou-go:hover{background:var(--petrol); color:#fff;}
+  .ma-reforco{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin:0 0 10px; padding:12px 14px; border:1px solid var(--rule); border-radius:14px; background:var(--paper);}
+  .ma-reforco > span b{display:block; font-size:14px;} .ma-reforco small{display:block; font-size:12px; color:var(--ink-faint); margin-top:2px;}
+  .ma-reforco div{display:flex; gap:6px; flex-wrap:wrap;}
+  .ma-reforco button{font:inherit; font-size:12.5px; font-weight:600; color:var(--ink); background:var(--paper-alt); border:1px solid var(--rule); border-radius:999px; padding:5px 10px; cursor:pointer;}
+  .ma-reforco button em{font-style:normal; color:#B4561E; font-weight:700; margin-left:2px;}
+  #hojePage .pg-aviso{background:none; padding:0; margin-top:10px;}
+  #hojePage .pg-aviso p{font-size:12.5px; color:var(--ink-faint);}
+  #hojePage .pg-aviso.meu .pg-montar, #hojePage .pg-montar{font-size:12.5px; padding:6px 11px; border-radius:8px;}
+  #hojePage .pg-tarefas{background:transparent;}
+  #hojePage .pg-ic{width:34px; height:34px; border-radius:10px;}
+  #hojePage .pg-head h2{font-size:21px;}
   .hj-inicio{display:none !important;}
   .adm-banco h3{margin:0 0 6px; font-family:var(--serif); font-size:19px;}
   .adm-banco-nota{margin:0 0 14px; color:var(--ink-soft); font-size:14px; line-height:1.55;}
@@ -752,6 +770,11 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .sim-tp:hover{background:rgba(255,255,255,.13); border-color:rgba(255,255,255,.3);}
   .sim-tp b{font-size:13.5px; font-weight:600; line-height:1.28;}
   .sim-tp small{font-size:12px; opacity:.65;}
+  .sim-tp small .nv{opacity:1;}
+  .nv{white-space:nowrap; font-weight:600;}
+  .nv::before{content:''; display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:4px; vertical-align:1px; background:currentColor;}
+  .sim-tp .nv-praticando{color:#F4B183;} .sim-tp .nv-bom{color:#9FDCCB;} .sim-tp .nv-dominado{color:#F2C95B;}
+  .ma-bits .nv-praticando, .ma-reforco .nv-praticando{color:#B4561E;} .ma-bits .nv-dominado{color:#9A6A12;}
   .sim-tp i{position:absolute; right:8px; top:50%; transform:translateY(-50%); font-style:normal; font-size:20px; opacity:.45;}
   .sim-tp-prova{flex-direction:row; align-items:center; justify-content:flex-start; gap:12px; width:100%; min-height:0; margin-top:8px; padding:13px 34px 13px 13px; background:linear-gradient(135deg, rgba(242,201,91,.16), rgba(242,201,91,.05)); border-color:rgba(242,201,91,.45);}
   .sim-tp-prova:hover{background:linear-gradient(135deg, rgba(242,201,91,.24), rgba(242,201,91,.08)); border-color:rgba(242,201,91,.7);}
@@ -5457,6 +5480,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   // só conteúdo e ferramentas, em uma ou duas linhas; ajustes de visual e correções ficam de fora
+  {date: '2026-11-25', disc: 'Geral', desc: 'Domínio por tema nos simulados: cada tema mostra se você está praticando, bom ou dominado, e os temas fracos ganham um treino próprio e entram primeiro no plano de estudos.'},
   {date: '2026-11-24', disc: 'Geral', desc: 'Três cursos novos em Cursos extras: violência de gênero e feminicídio, jogos de aposta na RAPS (Fiocruz) e metodologia da pesquisa científica (Fiocruz).'},
   {date: '2026-11-23', disc: 'Geral', desc: '15 conquistas novas para vestir o Psiu: estude, faça exercícios, refaça os erros e mantenha a constância para liberar boina, fone, gorro, chapéus e mais. Quem completar todas ganha o fundo Consultório do Psiu.', link: {url:'#minha-area'}},
   {date: '2026-11-22', disc: 'Área do apoiador', desc: 'Plano de estudos novo: já vem pronto a partir das suas próximas provas, mostra a semana e quanto falta para cada prova, e se ajusta às disciplinas e ao tempo que você tem.', link: {url:'#minha-area'}},
@@ -20650,6 +20674,37 @@ function desempLer(){ try{ return JSON.parse(localStorage.getItem('av-desempenho
 function desempSalvar(o){ try{ localStorage.setItem('av-desempenho', JSON.stringify(o)); }catch(e){} }
 function desempRegistrar(id, tema, certo){ const o = desempLer(); const s = o.sims[id] = o.sims[id] || {}; const t = s[tema || 'Geral'] = s[tema || 'Geral'] || {a:0, n:0}; t.n++; if(certo) t.a++; desempSalvar(o); }
 function desempPartida(id, pct, a, n, seq){ const o = desempLer(); o.hist = (o.hist || []).concat({id, pct, a, n, seq:seq || 0, t:Date.now()}).slice(-60); desempSalvar(o); }
+// ===== Domínio por tema: nível de cada parte do simulado a partir das últimas rodadas =====
+// Praticando: menos de 70% na última rodada · Bom: 70% ou mais · Dominado: 90% ou mais em duas rodadas feitas em dias diferentes
+const NIVEL_TX = {praticando:'Praticando', bom:'Bom', dominado:'Dominado'};
+function domLer(){ try{ return JSON.parse(localStorage.getItem('av-dominio')) || {}; }catch(e){ return {}; } }
+function domSalvar(o){ try{ localStorage.setItem('av-dominio', JSON.stringify(o)); }catch(e){} }
+function domHoje(){ const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function domFaixas(sim){ const f = {}; let ini = 0; for(const p of (sim.partes || [])){ if(p.sorteio) continue; f[p.k] = [ini, ini + p.n]; ini += p.n; } return f; }
+function domParteDe(sim, i){ const f = domFaixas(sim); for(const k in f) if(i >= f[k][0] && i < f[k][1]) return k; return null; }
+function domRegistrarRodada(sim, resp){
+  const por = {};
+  (resp || []).forEach(r => { const k = domParteDe(sim, r.i); if(!k) return; const x = por[k] = por[k] || {a:0, n:0}; x.n++; if(r.certo) x.a++; });
+  const o = domLer(), s = o[sim.id] = o[sim.id] || {}, hoje = domHoje();
+  Object.entries(por).forEach(([k, x]) => { const p = sim.partes.find(z => z.k === k); if(!p || x.n < Math.min(3, p.n)) return; s[k] = (s[k] || []).concat({d:hoje, a:x.a, n:x.n}).slice(-4); });
+  domSalvar(o);
+}
+function domPctAntigo(sim, k){
+  const f = domFaixas(sim)[k]; if(!f) return null;
+  const s = (desempLer().sims || {})[sim.id] || {}; const temas = new Set(sim.questoes.slice(f[0], f[1]).map(q => q.tema));
+  let a = 0, n = 0; temas.forEach(t => { if(s[t]){ a += s[t].a; n += s[t].n; } });
+  return n >= 3 ? Math.round(a / n * 100) : null;
+}
+function domNivel(sim, k){
+  const rs = (domLer()[sim.id] || {})[k] || [];
+  if(!rs.length){ const pc = domPctAntigo(sim, k); return pc === null ? null : pc >= 70 ? 'bom' : 'praticando'; }
+  const pct = r => r.a / r.n, ult = rs[rs.length - 1], ant = rs.slice(0, -1).reverse().find(r => r.d !== ult.d);
+  if(ant && pct(ult) >= .9 && pct(ant) >= .9) return 'dominado';
+  return pct(ult) >= .7 ? 'bom' : 'praticando';
+}
+function domTemas(sim){ return (sim.partes || []).filter(p => p.k !== 'prova' && !p.sorteio).map(p => ({p, nv:domNivel(sim, p.k)})); }
+function domFracos(sim){ return domTemas(sim).filter(x => x.nv === 'praticando').map(x => x.p); }
+window.avDominioDisc = n => { const out = {tot:0, dom:0, fracos:0, ini:0, sims:[]}; SIM_JOGO.filter(x => x.disc === n).forEach(sim => { const t = domTemas(sim); out.tot += t.length; out.ini += t.filter(x => x.nv).length; out.dom += t.filter(x => x.nv === 'dominado').length; const fr = t.filter(x => x.nv === 'praticando').length; out.fracos += fr; if(fr) out.sims.push(sim.id); }); return out; };
 function simRec(id){ try{ return JSON.parse(localStorage.getItem('av-simulado-' + id)) || null; }catch(e){ return null; } }
 function simRecSalvar(id, o){ try{ localStorage.setItem('av-simulado-' + id, JSON.stringify(o)); }catch(e){} }
 const SIM_TEMPO = 60; // segundos por questão no modo com tempo
@@ -20660,6 +20715,7 @@ var simPushou = false;
 function simN(sim){ const p = (sim.partes || []).find(x => x.k === 'prova'); return sim.questoes.length - (p ? p.n : 0); }
 function simTemas(sim){
   const out = [{k:'tudo', t:'Tudo', n:simN(sim)}];
+  const fr = domFracos(sim); if(fr.length) out.push({k:'fracos', t:'Temas para reforçar', n:Math.min(15, fr.reduce((s, p) => s + p.n, 0))});
   (sim.partes || []).forEach(p=> out.push({k:p.k, t:p.t, n:p.n}));
   return out;
 }
@@ -20675,6 +20731,7 @@ function simIndices(sim, parte){
     return out;
   }
   if(faixas[parte]) return faixas[parte];
+  if(parte === 'fracos'){ const fr = domFracos(sim); if(fr.length) return embaralhar(fr.flatMap(p => faixas[p.k] || [])).slice(0, 15); }
   return sim.questoes.map((_, i)=>i).slice(0, simN(sim));
 }
 
@@ -20687,7 +20744,7 @@ function simHTMLCard(sim){
     ${r ? `<div class="sim-card-rec">Seu melhor: <b>${r.pct}%</b> · ${r.pontos.toLocaleString('pt-BR')} pontos</div>` : ''}
     <button class="btn btn-primary sim-go" data-sim-abrir="${sim.id}">Começar simulado completo</button>
     ${(sim.partes || []).length ? `<div class="sim-card-partes"><span class="sim-tp-rot">Ou treine por tema</span>
-      <div class="sim-tp-grade">${sim.partes.filter(p => p.k !== 'prova').map(p => `<button class="sim-tp" data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}"><b>${escHTML(p.t)}</b><small>${p.n} questões</small><i aria-hidden="true">›</i></button>`).join('')}</div>
+      <div class="sim-tp-grade">${sim.partes.filter(p => p.k !== 'prova').map(p => `<button class="sim-tp" data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}"><b>${escHTML(p.t)}</b><small>${p.n} questões${(nv => nv ? ` · <span class="nv nv-${nv}">${NIVEL_TX[nv]}</span>` : '')(domNivel(sim, p.k))}</small><i aria-hidden="true">›</i></button>`).join('')}</div>
       ${sim.partes.filter(p => p.k === 'prova').map(p => `<button class="sim-tp sim-tp-prova" data-sim-abrir="${sim.id}" data-sim-parte-ini="${p.k}"><span class="sim-tp-selo" aria-hidden="true">★</span><span class="sim-tp-tx"><b>Estilo prova <em>apoiador</em></b><small>${p.n} questões no raciocínio usado pelos professores</small></span><i aria-hidden="true">›</i></button>`).join('')}</div>` : ''}
   </div>`;
 }
@@ -20812,6 +20869,7 @@ function simFinalizar(){
   e.pct = pct;
   if(window.avConquistaAntes) window.avConquistaAntes();
   desempPartida(e.sim.id, pct, e.acertos, e.fila.length, e.maxSeq);
+  domRegistrarRodada(e.sim, e.resp);
   if(window.avConquistaDepois) setTimeout(window.avConquistaDepois, 600);
   const r = simRec(e.sim.id);
   e.recorde = false;
@@ -21015,6 +21073,10 @@ function simClique(ev){
 document.addEventListener('click', ev=>{
   const a = ev.target.closest('[data-sim-abrir]'); if(!a) return;
   ev.preventDefault(); simAbrir(a.dataset.simAbrir, {push:true, parte:a.dataset.simParteIni});
+});
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-dom-reforcar]'); if(!b) return;
+  ev.preventDefault(); simAbrir(b.dataset.domReforcar, {push:true, parte:'fracos'});
 });
 document.addEventListener('keydown', ev=>{
   if(!simEst || document.getElementById('simOverlay')?.hidden) return;
@@ -23752,17 +23814,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     return n >= 3 ? Math.round(a / n * 100) : null;
   }
   function tarefasDe(disc){
-    const out = [];
+    const out = [], fracos = [];
     Object.entries(RESUMOS).filter(([, r]) => r.disc === disc).forEach(([id, r]) => r.caps.forEach((c, ci) => {
       const st = (rsEstado(id)[c.id]) || {}; const feitas = Object.keys(st).length;
       if(feitas < c.etapas.length) out.push({k:`r:${id}:${c.id}`, tipo:'resumo', id, cap:ci, t:'Ler o resumo: ' + limpa(c.titulo || c.aba), min:Math.min(30, 8 + 2 * (c.etapas.length - feitas))});
     }));
     SIM_JOGO.filter(x => x.disc === disc).forEach(sim => {
-      (sim.partes || []).map(p => ({p, pc:pctParte(sim, p)})).filter(x => x.pc === null || x.pc < 85).sort((a, b) => (a.pc ?? 60) - (b.pc ?? 60))
-        .forEach(({p, pc}) => out.push({k:`s:${sim.id}:${p.k}`, tipo:'simulado', id:sim.id, t:`Simulado: ${p.t}${pc !== null ? ` (você está com ${pc}%)` : ''}`, min:Math.max(10, Math.min(25, Math.round(p.n * 1.2)))}));
+      const ordem = {praticando:0, null:1, bom:2};
+      domTemas(sim).filter(x => x.nv !== 'dominado').sort((a, b) => ordem[a.nv] - ordem[b.nv])
+        .forEach(({p, nv}) => (nv === 'praticando' ? fracos : out).push({k:`s:${sim.id}:${p.k}`, tipo:'simulado', id:sim.id, parte:p.k, t:nv === 'praticando' ? `Reforçar o tema: ${p.t}` : `Simulado: ${p.t}`, min:Math.max(10, Math.min(25, Math.round(p.n * 1.2)))}));
     });
     const nErr = errLista(disc).length; if(nErr) out.push({k:`e:${disc}`, tipo:'erros', disc, t:`Revisar ${nErr} ${nErr === 1 ? 'questão errada' : 'questões erradas'}`, min:Math.min(25, 5 + nErr)});
-    return out;
+    // o plano se ajusta: temas em "Praticando" vêm antes de tudo
+    return fracos.concat(out);
   }
   function montarPlano(cfg){
     const provas = provasFuturas(); if(!provas.length) return {dias:[], provas, sobra:0};
@@ -24185,7 +24249,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const pb = e.target.closest('[data-pl-minb]'); if(pb){ const c = planoCfg(); c.min = +pb.dataset.plMinb; gravarJ('av-plano', c); plRe(); return; }
     const pd = e.target.closest('[data-pl-dia]'); if(pd){ const c = planoCfg(); const i = +pd.dataset.plDia; c.dias = c.dias.includes(i) ? c.dias.filter(x => x !== i) : c.dias.concat(i); if(!c.dias.length) c.dias = [i]; gravarJ('av-plano', c); plRe(); return; }
     const pi = e.target.closest('[data-pl-ir]'); if(pi){ const t = JSON.parse(pi.dataset.plIr); fechar();
-      if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap}); else if(t.tipo === 'simulado') location.hash = '#simulado-' + t.id; else switchPage('viewErros'); return; }
+      if(t.tipo === 'resumo') openResumo(t.id, {cap:t.cap}); else if(t.tipo === 'simulado') (t.parte ? simAbrir(t.id, {push:true, parte:t.parte}) : (location.hash = '#simulado-' + t.id)); else switchPage('viewErros'); return; }
     // semestre
     if(e.target.closest('[data-sn-salvar]')){ semestrePNG().then(bl => { const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = 'meu-semestre-arquivo-vivo.png'; a.click(); }); return; }
     if(e.target.closest('[data-sn-comp]')){ semestrePNG().then(async bl => { const f = new File([bl], 'meu-semestre-arquivo-vivo.png', {type:'image/png'}); if(navigator.canShare && navigator.canShare({files:[f]})){ try{ await navigator.share({files:[f], title:'Meu semestre no Arquivo Vivo'}); }catch(_){} } else { const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = f.name; a.click(); } }); return; }
@@ -24565,14 +24629,30 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
   };
   const maIc = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${MA_IC[k] || ''}</svg>`;
   const maRow = (attrs, ic, tom, titulo, sub, extra) => `<button class="ma-row" ${attrs}><span class="ma-ic ma-ic-${tom}">${maIc(ic)}</span><span class="ma-row-tx"><b>${titulo}</b>${sub ? `<small>${sub}</small>` : ''}</span>${extra || ''}<span class="ma-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></button>`;
-  // "Continue de onde parou": o último resumo ou exercício aberto, de qualquer disciplina do semestre
+  // "Você parou aqui": o último resumo ou exercício aberto, de qualquer disciplina do semestre
   function maContinuar(){
     try{
       const ult = ultimoLer();
       const d = DISC_MEU().filter(x => ult[x.n]).sort((x, y) => (ult[y.n].t || 0) - (ult[x.n].t || 0))[0];
       if(!d) return '';
       const h = continuarHTML(d); if(!h) return '';
-      return h.replace('class="dp-continue"', 'class="dp-continue ma-continuar"').replace('<span class="dp-cont-lbl">Continue de onde parou</span>', `<span class="dp-cont-lbl">Continue de onde parou · ${escHTML(d.name)}</span>`);
+      const tmp = document.createElement('div'); tmp.innerHTML = h; const b = tmp.firstElementChild; if(!b) return '';
+      const attrs = [...b.attributes].filter(a => a.name.startsWith('data-')).map(a => `${a.name}="${escHTML(a.value)}"`).join(' ');
+      const tit = (b.querySelector('.dp-cont-t') || {}).textContent || '';
+      const tipo = /^Exercício:/.test(tit) ? 'Exercício' : 'Resumo';
+      const sub = (b.querySelector('.dp-cont-s') || {}).textContent || '';
+      return `<section class="ma-parou"><p class="ma-parou-q">Você parou aqui no último estudo. Quer continuar?</p>
+        <div class="ma-parou-l"><div class="ma-parou-tx"><b>${escHTML(tit.replace(/^(Resumo|Exercício):\s*/, ''))}</b><span>${tipo} de ${escHTML(({'01':'Bases','02':'Neuro','03':'Aprendizagem','04':'Experimental','05':'Idoso'})[d.n] || d.name)}${sub ? ' · ' + escHTML(sub.replace(/^[^·]*·\s*/, '')) : ''}</span></div>
+        <button class="ma-parou-go" ${attrs}>Continuar</button></div></section>`;
+    }catch(e){ return ''; }
+  }
+  // temas em "Praticando" nos simulados: uma linha discreta, só quando existe
+  function maReforco(){
+    try{
+      const ds = DISC_MEU().map(d => ({d, m:window.avDominioDisc(d.n)})).filter(x => x.m.fracos);
+      if(!ds.length) return '';
+      return `<section class="ma-reforco"><span><b class="nv nv-praticando">Temas para reforçar</b><small>Os temas em que você acertou menos de 70% no último simulado</small></span>
+        <div>${ds.map(x => `<button data-dom-reforcar="${x.m.sims[0]}">${escHTML(({'01':'Bases','02':'Neuro','03':'Aprendizagem','04':'Experimental','05':'Idoso'})[x.d.n] || x.d.name.split(' ')[0])} <em>${x.m.fracos}</em></button>`).join('')}</div></section>`;
     }catch(e){ return ''; }
   }
   function renderHoje(){
@@ -24620,18 +24700,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || p
     const tot = {caps:0, lidos:0, sims:0, simsTot:0};
     const linhas = DISC_MEU().filter(d => Object.values(RESUMOS).some(r => r.disc === d.n) || SIM_JOGO.some(x => x.disc === d.n)).map(d => {
       const p = progressoDisc(d);
-      const bits = [p.caps ? `Resumos ${p.lidos}/${p.caps}` : '', p.temSim ? (p.melhor !== null ? `Simulado ${p.melhor}%` : 'Simulado não feito') : '', p.ds !== null ? `Discursiva ${p.ds}%` : ''].filter(Boolean);
+      const dm = window.avDominioDisc ? window.avDominioDisc(d.n) : {tot:0};
+      const bits = [p.caps ? `Resumos ${p.lidos}/${p.caps}` : '', p.temSim ? (p.melhor !== null ? `Simulado ${p.melhor}%` : 'Simulado não feito') : '', dm.ini ? (dm.dom ? `<span class="nv nv-dominado">${dm.dom}/${dm.tot} temas dominados</span>` : `Temas dominados 0/${dm.tot}`) : '', p.ds !== null ? `Discursiva ${p.ds}%` : ''].filter(Boolean);
       tot.caps += p.caps; tot.lidos += p.lidos; if(p.melhor !== null) tot.sims++; if(p.temSim) tot.simsTot++;
       return `<div class="ma-disc" data-d="${d.n}"><div class="ma-disc-top"><button class="ma-disc-nome" data-ma-disc="${d.n}">${escHTML(d.name)}</button><span class="ma-pct">${p.caps ? Math.round(p.lidos / p.caps * 100) : 0}%</span></div>
         <div class="ma-bar"><i style="width:${p.caps ? Math.round(p.lidos / p.caps * 100) : 0}%"></i></div>
-        <div class="ma-bits">${bits.map(b => `<span>${b}</span>`).join('')}${p.err ? `<button data-hj-erros="${d.n}">${p.err} ${p.err === 1 ? 'erro' : 'erros'} para revisar</button>` : ''}</div></div>`;
+        <div class="ma-bits">${bits.map(b => `<span>${b}</span>`).join('')}${dm.fracos ? `<button data-dom-reforcar="${dm.sims[0]}">Reforçar ${dm.fracos} ${dm.fracos === 1 ? 'tema' : 'temas'}</button>` : ''}${p.err ? `<button data-hj-erros="${d.n}">${p.err} ${p.err === 1 ? 'erro' : 'erros'} para revisar</button>` : ''}</div></div>`;
     }).join('');
     const admin = window.avEhAdmin && window.avEhAdmin(), pend = window.avPendentes ? window.avPendentes() : '';
     const nErr = errLista('todas').length;
     const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso'], ['ferramentas', '★ Apoiador'], ['conta', 'Conta']];
     if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
     let corpo = '';
-    if(maAba === 'hoje') corpo = maContinuar() + (plano || '') + `<div class="ma-grupo-t">Treinar</div><div class="ma-acoes">
+    if(maAba === 'hoje') corpo = (plano || '') + maContinuar() + `<div class="ma-grupo-t">Treinar</div>${maReforco()}<div class="ma-acoes">
         <button class="ma-acao ma-acao-verde" data-ds-escolher><span class="ma-acao-ic">${maIc('discursiva')}</span><b>Treino de discursiva</b><small>Escreva e corrija perguntas de prova e casos</small><span class="ma-acao-go">Começar <span aria-hidden="true">→</span></span></button>
         <button class="ma-acao ma-acao-ocre" data-hj-ir='{"tipo":"erros"}'><span class="ma-acao-ic">${maIc('erros')}</span>${nErr ? `<span class="ma-acao-num">${nErr}</span>` : ''}<b>Revisão dos erros</b><small>${nErr ? (nErr === 1 ? '1 questão esperando revisão' : nErr + ' questões esperando revisão') : 'Tudo em dia: nenhum erro guardado'}</small><span class="ma-acao-go">${nErr ? 'Revisar' : 'Abrir'} <span aria-hidden="true">→</span></span></button>
       </div>`;
