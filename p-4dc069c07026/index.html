@@ -7,7 +7,7 @@
 <title>Arquivo Vivo · Trabalho com humanos (prévia)</title>
 <link rel="icon" type="image/png" sizes="32x32" href="../icons/icon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Tinos:wght@400;700&family=Poppins:wght@400;500;700&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
   /* =========================================================
      ARQUIVO VIVO · identidade verde petróleo (clean)
@@ -2187,6 +2187,12 @@
   .exh-comp-wrap{border:none; margin:4px 0 12px;} .exh-comp{margin:0; min-width:0;} .exh-comp th{white-space:nowrap;} .exh-comp td.exh-c-alvo{font-weight:700; background:var(--petrol-soft, #E6F0EE);}
   .exh-grafs{display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:10px;}
   @media (max-width:420px){ .exh-grafs{grid-template-columns:1fr;} }
+  .exh-estilos{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px; margin:6px 0 14px;}
+  .exh-est{font:inherit; display:flex; flex-direction:column; gap:6px; padding:6px 6px 8px; border:1px solid var(--rule); border-radius:10px; background:var(--paper); color:var(--ink); cursor:pointer; text-align:left;}
+  .exh-est svg{width:100%; height:auto; display:block; border-radius:6px; border:1px solid #ECEBE7;}
+  .exh-est strong{font-size:13px; padding:0 3px;} .exh-est span{font-size:11.5px; color:var(--ink-faint); padding:0 3px; margin-top:-4px;}
+  .exh-est.on{border-color:var(--petrol); box-shadow:0 0 0 2px var(--petrol);}
+  .exh-graf-est{display:flex; flex-direction:column; gap:8px;} .exh-graf-est .exh-acoes{margin:0 4px 4px;}
 
   .prev-wrap{max-width:900px; margin:0 auto; padding:28px 18px 60px;}
   .prev-top{font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin-bottom:6px;}
@@ -2408,6 +2414,96 @@ function exhGraficoModelo(p, titulo, temaNome){
   return g + '</svg>';
 }
 function exhTemaAtual(){ try{ return localStorage.getItem('av-exh-tema') || 'petroleo'; }catch(e){ return 'petroleo'; } }
+// Gráfico para copiar e colar: o mesmo gráfico de colunas LB × INT em cinco visuais (fonte, cores e acabamento)
+const EXH_ESTILOS = {
+  academico: {nome:'Acadêmico', desc:'Times, preto e cinza', fam:'Tinos:wght@400;700', fT:"Tinos, 'Times New Roman', Times, serif",
+    bg:'#FFFFFF', LB:'#A9A9A9', INT:'#1A1A1A', tx:'#111111', sub:'#444444', grid:'#DDDDDD', raio:0, valores:'todos', centro:true, moldura:true, eixoY:true, legBaixo:true, pct:true},
+  moderno: {nome:'Moderno', desc:'Poppins, azul', fam:'Poppins:wght@400;500;700', fT:"Poppins, 'Helvetica Neue', Arial, sans-serif",
+    bg:'#FFFFFF', LB:'#C5D3F6', INT:'#2B59E0', tx:'#121826', sub:'#5B6477', grid:'#EDF0F6', raio:7, valores:'todos', eixoY:true, pct:true},
+  minimal: {nome:'Minimalista', desc:'DM Sans, preto e branco', fam:'DM+Sans:wght@400;500;700', fT:"'DM Sans', 'Helvetica Neue', Arial, sans-serif",
+    bg:'#FFFFFF', LB:'#D6D6D6', INT:'#111111', tx:'#111111', sub:'#8A8A8A', grid:null, raio:0, valores:'alvo', fino:true},
+  escuro: {nome:'Apresentação', desc:'Space Grotesk, fundo escuro', fam:'Space+Grotesk:wght@400;500;700', fT:"'Space Grotesk', 'Helvetica Neue', Arial, sans-serif",
+    bg:'#0F1B2A', LB:'#4A6482', INT:'#F2B84B', tx:'#F4F6F8', sub:'#9FB0C3', grid:'#22344A', raio:4, valores:'todos', pct:true},
+  revista: {nome:'Revista', desc:'Playfair, terracota', fam:'Playfair+Display:wght@700&family=Source+Sans+3:wght@400;600', fT:"'Playfair Display', Georgia, serif", fB:"'Source Sans 3', 'Helvetica Neue', Arial, sans-serif",
+    bg:'#FBF7F0', LB:'#DFCDB2', INT:'#B8502F', tx:'#2A1E16', sub:'#7A6A5C', grid:'#ECE2D2', raio:2, valores:'alvo', faixa:'#F3E6D3'}
+};
+function exhEstiloAtual(){ try{ const v = localStorage.getItem('av-exh-estilo'); return EXH_ESTILOS[v] ? v : 'academico'; }catch(e){ return 'academico'; } }
+function exhGrafEstilo(p, titulo, key, css){
+  const e = EXH_ESTILOS[key] || EXH_ESTILOS.academico; const k = exhCalc(p); const P = EXH.pronomes;
+  const W = 800, H = 480, L = e.eixoY ? 78 : 50, R = 28, T = e.legBaixo ? 104 : 126, B = e.legBaixo ? 92 : 58, ph = H-T-B, pw = W-L-R;
+  const fB = e.fB || e.fT; const fmt = v => (Math.round(v*10)/10).toLocaleString('pt-BR');
+  const mx = Math.max(10, ...k.lb.pct, ...k.rf.pct); const passo = mx > 60 ? 20 : 10; const top = Math.min(100, Math.ceil((mx*1.15)/passo)*passo) || 10;
+  const y = v => T + ph - v/top*ph; const gw = pw/P.length; const bw = e.fino ? Math.min(18, gw*0.18) : Math.min(34, gw*0.3); const gap = 4;
+  const alvo = k.alvo >= 0 ? P[k.alvo] : 'pronome reforçado';
+  let g = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family="${fB}">`;
+  if(css) g += `<style>${css}</style>`;
+  g += `<rect width="${W}" height="${H}" fill="${e.bg}"/>`;
+  if(e.moldura) g += `<rect x="0.5" y="0.5" width="${W-1}" height="${H-1}" fill="none" stroke="#000" stroke-width="1"/>`;
+  const tx = e.centro ? W/2 : 30, anc = e.centro ? 'middle' : 'start';
+  g += `<text x="${tx}" y="46" text-anchor="${anc}" font-family="${e.fT}" font-size="25" font-weight="700" fill="${e.tx}">${escHTML(titulo)}</text>`;
+  g += `<text x="${tx}" y="72" text-anchor="${anc}" font-size="14" fill="${e.sub}">Frequência relativa (%) de cada pronome · reforço do pronome “${escHTML(alvo)}” a partir do verbo 11</text>`;
+  const leg = (x, yy) => { const r = Math.min(3, e.raio);
+    return `<rect x="${x}" y="${yy-11}" width="14" height="14" rx="${r}" fill="${e.LB}"/><text x="${x+20}" y="${yy}" font-size="13.5" fill="${e.tx}">Linha de base (LB)</text>`
+      + `<rect x="${x+170}" y="${yy-11}" width="14" height="14" rx="${r}" fill="${e.INT}"/><text x="${x+190}" y="${yy}" font-size="13.5" fill="${e.tx}">Intervenção (INT)</text>`; };
+  g += e.legBaixo ? leg(W/2 - 155, H-20) : leg(30, 104);
+  if(e.faixa && k.alvo >= 0) g += `<rect x="${L + gw*k.alvo + 6}" y="${T-8}" width="${gw-12}" height="${ph+8}" rx="4" fill="${e.faixa}"/>`;
+  for(let v = passo; v <= top; v += passo){
+    if(e.grid) g += `<line x1="${L}" x2="${L+pw}" y1="${y(v)}" y2="${y(v)}" stroke="${e.grid}" stroke-width="1"/>`;
+    g += `<text x="${L-10}" y="${y(v)+4.5}" font-size="12.5" text-anchor="end" fill="${e.sub}">${v}${e.pct ? '%' : ''}</text>`;
+  }
+  g += `<text x="${L-10}" y="${y(0)+4.5}" font-size="12.5" text-anchor="end" fill="${e.sub}">0${e.pct ? '%' : ''}</text>`;
+  const col = (x, v, cor) => { const h = T+ph-y(v); if(h <= 0) return ''; const r = Math.min(e.raio, h, bw/2);
+    if(!r) return `<rect x="${x}" y="${y(v)}" width="${bw}" height="${h}" fill="${cor}"/>`;
+    return `<path d="M${x},${T+ph} V${y(v)+r} Q${x},${y(v)} ${x+r},${y(v)} H${x+bw-r} Q${x+bw},${y(v)} ${x+bw},${y(v)+r} V${T+ph} Z" fill="${cor}"/>`; };
+  P.forEach((pr, i) => { const cx = L + gw*(i+0.5); const x1 = cx - bw - gap/2, x2 = cx + gap/2;
+    g += col(x1, k.lb.pct[i], e.LB) + col(x2, k.rf.pct[i], e.INT);
+    const rot = (x, v, forte) => `<text x="${x+bw/2}" y="${y(v)-7}" font-size="12" text-anchor="middle"${forte ? ' font-weight="700"' : ''} fill="${forte ? e.tx : e.sub}">${fmt(v)}</text>`;
+    if(e.valores === 'todos'){ if(k.lb.pct[i] > 0) g += rot(x1, k.lb.pct[i], false); if(k.rf.pct[i] > 0) g += rot(x2, k.rf.pct[i], true); }
+    else if(i === k.alvo){ g += rot(x1, k.lb.pct[i], false) + rot(x2, k.rf.pct[i], true); }
+    g += `<text x="${cx}" y="${T+ph+24}" font-size="14.5" text-anchor="middle" fill="${e.tx}"${i === k.alvo ? ' font-weight="700"' : ''}>${pr}</text>`; });
+  g += `<line x1="${L}" x2="${L+pw}" y1="${y(0)}" y2="${y(0)}" stroke="${e.tx}" stroke-width="1.2"/>`;
+  if(e.eixoY){
+    if(e.moldura) g += `<line x1="${L}" x2="${L}" y1="${T-8}" y2="${y(0)}" stroke="${e.tx}" stroke-width="1.2"/>`;
+    g += `<text transform="translate(24 ${T+ph/2}) rotate(-90)" font-size="13" text-anchor="middle" fill="${e.sub}">Frequência relativa (%)</text>`;
+  }
+  g += e.legBaixo ? `<text x="${L+pw/2}" y="${T+ph+50}" font-size="13" text-anchor="middle" fill="${e.sub}">Pronomes</text>`
+    : `<text x="${L+pw}" y="${H-14}" font-size="12.5" text-anchor="end" fill="${e.sub}">Pronomes</text>`;
+  return g + '</svg>';
+}
+// Para a imagem copiada sair com a fonte certa, a fonte é embutida dentro do SVG antes de virar PNG
+const exhFontes = {};
+async function exhFonteCSS(key){
+  if(key in exhFontes) return exhFontes[key];
+  let out = '';
+  try{
+    const css = await (await fetch('https://fonts.googleapis.com/css2?family=' + EXH_ESTILOS[key].fam + '&display=swap')).text();
+    for(const bloco of (css.match(/\/\* latin \*\/\s*@font-face\s*\{[^}]*\}/g) || [])){
+      const m = bloco.match(/url\((https?:[^)]+)\)/); if(!m) continue;
+      const u8 = new Uint8Array(await (await fetch(m[1])).arrayBuffer()); let bin = '';
+      for(let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+      out += bloco.replace(/^\/\* latin \*\/\s*/, '').replace(m[1], 'data:font/woff2;base64,' + btoa(bin)) + '\n';
+    }
+  }catch(_){ out = ''; }
+  return exhFontes[key] = out;
+}
+async function exhPNG(i){
+  const st = exhLoad(); const key = exhEstiloAtual();
+  const svg = exhGrafEstilo(st.ps[i], exhTitulo(st, i), key, await exhFonteCSS(key));
+  const img = new Image(); img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  await img.decode(); await new Promise(r => setTimeout(r, 120));
+  const c = document.createElement('canvas'); c.width = 1600; c.height = 960;
+  c.getContext('2d').drawImage(img, 0, 0, 1600, 960);
+  return await new Promise((ok, erro) => c.toBlob(b => b ? ok(b) : erro(new Error('png')), 'image/png'));
+}
+function exhEstilosHTML(st){
+  const idx = st.ps.map((p, i) => i).filter(i => exhCalc(st.ps[i]).registradas);
+  if(!idx.length) return '<div class="exh-graf"><p class="exh-vazio">Os gráficos aparecem aqui assim que você marcar as respostas na folha.</p></div>';
+  const atual = exhEstiloAtual(); const ref = idx.includes(st.ativo) ? st.ativo : idx[0];
+  const opcoes = Object.keys(EXH_ESTILOS).map(key => `<button type="button" class="exh-est${key === atual ? ' on' : ''}" data-exh-estilo="${key}" aria-pressed="${key === atual}">${exhGrafEstilo(st.ps[ref], exhTitulo(st, ref), key)}<strong>${EXH_ESTILOS[key].nome}</strong><span>${EXH_ESTILOS[key].desc}</span></button>`).join('');
+  const grafs = idx.map(i => `<div class="exh-graf exh-graf-est">${exhGrafEstilo(st.ps[i], exhTitulo(st, i), atual).replace('<svg ', '<svg class="exh-svg" ')}
+    <div class="exh-acoes"><button type="button" class="btn btn-primary" data-exh-png="${i}" data-acao="copiar">Copiar imagem · ${escHTML(exhSigla(st, i))}</button><button type="button" class="btn" data-exh-png="${i}" data-acao="baixar">Baixar PNG</button></div></div>`).join('');
+  return `<div class="exh-estilos" role="group" aria-label="Visual do gráfico">${opcoes}</div><div class="exh-grafs">${grafs}</div>`;
+}
 // Versão formatada (HTML) das tabelas para colar no Google Planilhas: cabeçalhos mesclados, cores e bordas.
 // Cada número vai com data-sheets-value (número de verdade, sem depender de vírgula ou ponto) e, na
 // Frequencia Relativa e nos totais, com data-sheets-formula (a fórmula fica na célula, como no vídeo).
@@ -2532,6 +2628,9 @@ function exhFolhaHTML(){
     <p class="exh-nota" style="margin-top:0;">Igual à aba "Comparativo LB-INT" dos vídeos: frequência relativa (%) de cada participante, com LB e INT lado a lado, e um gráfico por participante.</p>
     ${exhComparativoHTML(st, 'rel')}
     <div class="exh-grafs">${comGraf || '<div class="exh-graf"><p class="exh-vazio">Os gráficos aparecem aqui assim que você marcar as respostas na folha.</p></div>'}</div>
+    <h4 class="rt-h">Gráfico para copiar e colar</h4>
+    <p class="exh-nota" style="margin-top:0;">Os mesmos dados em cinco visuais: muda a fonte, as cores e o acabamento. Escolha um e use "Copiar imagem" para colar no Word, no PowerPoint ou no Google Docs, ou baixe o PNG. Se o copiar não funcionar no seu navegador, a imagem é baixada.</p>
+    <div id="exhEstilosBox">${exhEstilosHTML(st)}</div>
     <h4 class="rt-h">Abas da planilha</h4>
     <p class="exh-nota" style="margin-top:0;">Copie cada tabela e cole na aba de mesmo nome da sua planilha (célula A1). O gráfico da planilha sai da tabela do Comparativo.</p>
     <div class="exh-acoes">
@@ -2626,6 +2725,20 @@ document.getElementById('discPage').addEventListener('input', e=>{
   if(pf){ const st = exhLoad(); st.ps[st.ativo][pf.dataset.exhPf] = pf.value; exhSave(st); return; }
   const q = e.target.closest('[data-exh-q]');
   if(q){ const st = exhLoad(); const pa = st.ps[st.ativo]; pa.q = pa.q || []; pa.q[+q.dataset.exhQ] = q.value; exhSave(st); }
+});
+document.getElementById('discPage').addEventListener('click', e=>{
+  const es = e.target.closest('[data-exh-estilo]');
+  if(es){ try{ localStorage.setItem('av-exh-estilo', es.dataset.exhEstilo); }catch(_){}
+    const box = document.getElementById('exhEstilosBox'); if(box) box.innerHTML = exhEstilosHTML(exhLoad()); return; }
+  const bp = e.target.closest('[data-exh-png]'); if(!bp) return;
+  const i = +bp.dataset.exhPng; const st = exhLoad(); const rot = bp.textContent;
+  const nome = `grafico-${exhSigla(st, i)}-${exhEstiloAtual()}.png`.replace(/[^\w.-]+/g, '_');
+  const aviso = t => { bp.textContent = t; setTimeout(() => bp.textContent = rot, 2000); };
+  const baixar = () => exhPNG(i).then(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); aviso('Baixado ✓'); }, () => aviso('Não deu, tente de novo'));
+  if(bp.dataset.acao === 'copiar' && navigator.clipboard && window.ClipboardItem){
+    bp.textContent = 'Gerando…';
+    navigator.clipboard.write([new ClipboardItem({'image/png': exhPNG(i)})]).then(() => aviso('Copiado ✓'), baixar);
+  } else baixar();
 });
 // a sigla do participante muda títulos e abas: redesenha ao sair do campo
 document.getElementById('discPage').addEventListener('change', e=>{ if(e.target.closest('[data-exh-pf="part"]')) exhRefazer(); });
