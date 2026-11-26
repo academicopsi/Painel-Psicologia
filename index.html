@@ -3351,7 +3351,11 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .mu-perfil-caixa .mu-pf-nome{margin:0 0 4px; font-size:24px;}
   .mu-perfil-caixa .conta-fechar{z-index:2; color:#fff;}
   .mu-pf-sub{margin:0 0 14px; font-size:14px; color:var(--ink-soft);}
-  .mu-pf-nums{display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-bottom:6px;}
+  .mu-pf-nums{display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-bottom:8px;}
+  .mu-pf-conq{margin:0 0 10px; padding:10px 12px; border-radius:12px; background:var(--ochre-soft); text-align:left;}
+  .mu-pf-conq span{display:block; font-size:13px; color:var(--ink-soft); margin-bottom:7px;}
+  .mu-pf-conq b{color:var(--ink);}
+  .mu-pf-conq i{display:block; height:6px; border-radius:99px; background:linear-gradient(90deg, var(--ochre) var(--p), color-mix(in srgb, var(--ochre) 18%, transparent) var(--p));}
   .mu-pf-nums div{background:var(--paper-alt); border-radius:12px; padding:10px 4px;}
   .mu-pf-nums b{display:block; font-family:var(--serif, Georgia, serif); font-size:21px;}
   .mu-pf-nums b small{font-size:13px; color:var(--ink-faint);}
@@ -3364,7 +3368,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     .mu-main > .mu-den ~ *, .mu-main{min-width:0;}
   }
   @media (max-width:560px){
-    .mu-pf-nums{grid-template-columns:repeat(2, 1fr);}
+    .mu-pf-nums{grid-template-columns:repeat(3, 1fr);} .mu-pf-nums span{font-size:11px;}
     .mu-barra-resp{bottom:10px;}
   }
   /* mural no padrão visual da Minha área */
@@ -25647,7 +25651,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     c.innerHTML = `<div class="mu-pf-topo"><div class="mu-pf-psiu">${window.avPsiuDe ? window.avPsiuDe(p.psiu) : ''}</div>${avatar(uid, p.nome, 'mu-av-g')}</div>
       <h2 class="mu-pf-nome">${esc(p.nome || 'Colega')}</h2>
       <p class="mu-pf-sub">${p.sem ? p.sem + 'º semestre de Psicologia' : 'Psicologia'}${p.ap ? ' · <span class="ap-selo">★ Apoiador</span>' : ''}</p>
-      <div class="mu-pf-nums"><div><b>${a.t}</b><span>${a.t === 1 ? 'tópico' : 'tópicos'}</span></div><div><b>${a.r}</b><span>${a.r === 1 ? 'resposta' : 'respostas'}</span></div><div><b>${melhores}</b><span>${melhores === 1 ? 'melhor resposta' : 'melhores respostas'}</span></div><div><b>${p.conq || 0}<small>/${p.conqT || 15}</small></b><span>conquistas do Psiu</span></div></div>
+      <div class="mu-pf-nums"><div><b>${a.t}</b><span>${a.t === 1 ? 'tópico' : 'tópicos'}</span></div><div><b>${a.r}</b><span>${a.r === 1 ? 'resposta' : 'respostas'}</span></div><div><b>${melhores}</b><span>${melhores === 1 ? 'melhor resposta' : 'melhores respostas'}</span></div></div>
+      ${(t => `<div class="mu-pf-conq"><span><b>${Math.min(p.conq || 0, t)} de ${t}</b> ${t === 1 ? 'conquista liberada' : 'conquistas liberadas'}</span><i style="--p:${Math.round(Math.min(p.conq || 0, t) / t * 100)}%"></i></div>`)(p.conqT || 15)}
       ${tops.length ? `<div class="ma-grupo-t">Tópicos que abriu</div>${tops.slice(0, 4).map(([id, x]) => `<button class="mu-pf-post" data-mu-ir="${id}">${tag(x.cat)}<p>${esc(titulo(x))}</p><small>${quando(x.em)} · ${plural(respostas(id).length, 'resposta', 'respostas')}</small></button>`).join('')}` : '<p class="hj-vazio">Ainda não abriu tópicos no corredor.</p>'}`;
     f.hidden = false;
   }
