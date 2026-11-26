@@ -23673,7 +23673,8 @@ onAuthStateChanged(auth, u=>{
 document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden' && usuario) enviar(); });
 // mural da turma: leitura e escrita no banco, e quem é a pessoa logada
 window.avBanco = { ler: p => get(ref(db, p)).then(x => x.val()), gravar: (p, v) => set(ref(db, p), v), apagar: p => remove(ref(db, p)) };
-window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || primeiroNome(usuario) || 'Colega').trim(), admin: ehAdmin(usuario), liberado: liberado || ehAdmin(usuario), foto: fotoAtual()} : null;
+// o nome público nunca sai do e-mail: sem nome cadastrado, aparece "Colega"
+window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || 'Colega').trim(), admin: ehAdmin(usuario), liberado: liberado || ehAdmin(usuario), foto: fotoAtual()} : null;
 </script>
 
 <div class="conta-fundo" id="apoioFundo" hidden>
