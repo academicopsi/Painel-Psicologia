@@ -1283,6 +1283,44 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .hero-sem button{font:inherit; font-size:12.5px; font-weight:600; border:1px solid currentColor; background:transparent; color:inherit; border-radius:999px; padding:3px 10px; cursor:pointer; opacity:.85;}
   .hero-sem button:hover{opacity:1;}
   @media (max-width:600px){ .hero-sem{background:rgba(255,255,255,.14); color:#fff;} }
+  /* seletor de semestre (1º, 2º, 3º) */
+  .hero-sem{gap:10px; padding:4px 4px 4px 14px;}
+  .hs-l{font-weight:600;}
+  .hs-seg{display:inline-flex; align-items:center; gap:2px; padding:3px; border-radius:999px; background:rgba(31,92,86,.10);}
+  .hero-sem .hs-seg button{display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:13px; font-weight:600; border:0; background:none; color:inherit; border-radius:999px; padding:5px 12px; cursor:pointer; opacity:.78; transition:background .2s ease, color .2s ease, opacity .2s ease;}
+  .hero-sem .hs-seg button:hover{opacity:1;}
+  .hero-sem .hs-seg button[aria-pressed="true"]{background:var(--petrol); color:#fff; opacity:1;}
+  .hero-sem .hs-seg .breve{opacity:1; padding-right:6px;}
+  .hs-seg .breve i{position:relative; font-style:normal; font-size:12px; font-weight:700; letter-spacing:.01em; color:#8A5A14; background:linear-gradient(135deg, #FBE7C2, #F3CF8A); border-radius:999px; padding:2px 8px 2px 18px; box-shadow:inset 0 0 0 1px rgba(183,121,31,.25);}
+  .hs-seg .breve i::before{content:"✦"; position:absolute; left:6px; top:50%; transform:translateY(-52%); font-size:10px; color:#B7791F; animation:s3brilho 2.4s ease-in-out infinite;}
+  @keyframes s3brilho{0%,100%{opacity:.55; transform:translateY(-52%) scale(.85);} 50%{opacity:1; transform:translateY(-52%) scale(1.15);}}
+  @media (prefers-reduced-motion:reduce){ .hs-seg .breve i::before{animation:none;} }
+  @media (max-width:600px){
+    /* no celular: uma linha só, ocupando a largura, sem o rótulo (os botões já dizem o que são) */
+    .hero-sem{display:flex; flex-wrap:nowrap; width:100%; padding:4px;}
+    .hs-l{display:none;}
+    .hs-seg{flex:1; display:flex; background:rgba(0,0,0,.22);}
+    .hero-sem .hs-seg button{flex:1; justify-content:center; padding:7px 6px;}
+    .hero-sem .hs-seg .breve{flex:2.2; padding-right:6px;}
+    .hero-sem .hs-seg button[aria-pressed="true"]{background:#fff; color:var(--petrol);}
+  }
+  .ma-seg .breve{display:inline-flex; align-items:center; gap:3px; color:#9A6A1A !important;}
+  .ma-seg .breve span{font-size:12px; color:#C98A2B; animation:s3brilho2 2.4s ease-in-out infinite;}
+  @keyframes s3brilho2{0%,100%{opacity:.5;} 50%{opacity:1;}}
+  /* prévia do 3º semestre */
+  .s3-caixa{max-width:430px;}
+  .s3-eb{display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8A5A14; background:linear-gradient(135deg, #FBE7C2, #F3CF8A); border-radius:999px; padding:5px 12px;}
+  .s3-brilho{color:#B7791F; animation:s3brilho2 2.4s ease-in-out infinite;}
+  .s3-caixa h2{font-family:var(--serif, Georgia, serif); font-size:26px; margin:12px 0 4px;}
+  .s3-lista{list-style:none; margin:14px 0 10px; padding:0; display:flex; flex-direction:column;}
+  .s3-lista li{display:flex; align-items:flex-start; gap:12px; padding:11px 0; border-top:1px solid var(--rule);}
+  .s3-lista li:first-child{border-top:0;}
+  .s3-dia{flex:none; width:40px; text-align:center; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--petrol); background:var(--petrol-soft); border-radius:8px; padding:6px 0;}
+  .s3-lista b{display:block; font-size:15px; line-height:1.3;}
+  .s3-lista small{display:block; margin-top:2px; font-size:12.5px; color:var(--ink-faint); line-height:1.4;}
+  .s3-lista .s3-h{display:block; font-weight:600; color:var(--ink-soft);}
+  .s3-nota{margin:4px 0 14px; font-size:13px; color:var(--ink-soft);}
+  body.dark .s3-eb, body.dark .hs-seg .breve i{color:#3B2708;}
   .ma-sem{display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:4px 0 14px; font-size:13px; color:var(--ink-2, #5b5a52);}
   .ma-sem span{margin-right:4px;}
   .ma-sem button{font:inherit; font-size:13px; padding:6px 12px; border-radius:999px; border:1px solid var(--rule, #E2E0D8); background:transparent; color:var(--ink, #1F2A28); cursor:pointer;}
@@ -16511,11 +16549,40 @@ document.querySelectorAll('.tab').forEach(btn=>{
   });
 });
 let gridSem = avSemestre();
+// 3º semestre: aparece como "em breve" até 01/02/2027 e até as disciplinas entrarem em DISC['3'].
+// Tocar nele abre só uma prévia, sem link do Drive (o link é liberado depois, com o material).
+const S3 = {inicio:'01/02', disc:[
+  ['seg', 'Projeto de Extensão II', 'Adriana de Souza Carvalho', '18h45 às 20h25'],
+  ['ter', 'Teorias e Técnicas Grupais', 'Flavio Lopes Guilhon', '18h às 20h25'],
+  ['ter', 'Psicologia e Saúde Mental', 'Flavio Lopes Guilhon', '20h25 às 21h55'],
+  ['qui', 'Psicologia Social', 'Thiago da Rocha Dionizio Rodrigues', '18h às 19h30'],
+  ['qui', 'Psicologia Escolar e Educacional', 'Patricia Castro de Oliveira e Silva', '19h40 às 21h10'],
+  ['sex', 'Psicometria e Testagem Psicológica', 'Edson Mello da Silva', '18h às 19h30']]};
+window.avS3Breve = () => !(typeof DISC !== 'undefined' && DISC['3'] && DISC['3'].length && Date.now() >= new Date('2027-02-01T00:00:00-03:00').getTime());
 function heroSemRender(){
   const el = document.getElementById('heroSem'); if(!el) return;
-  const sem = avSemestre(), outro = sem === '1' ? '2' : '1';
-  el.innerHTML = `<span>Você está no <b>${sem}º semestre</b></span><button type="button" data-hero-sem="${outro}">Trocar para o ${outro}º</button>`;
+  const sem = avSemestre(), breve = window.avS3Breve();
+  const bt = k => `<button type="button" data-hero-sem="${k}" aria-pressed="${sem === k}">${k}º</button>`;
+  el.innerHTML = `<span class="hs-l">Seu semestre</span><div class="hs-seg" role="group" aria-label="Seu semestre">${bt('1')}${bt('2')}${breve
+    ? `<button type="button" class="breve" data-s3-previa aria-label="3º semestre, em breve. Ver o que vem por aí">3º<i aria-hidden="true">em breve</i></button>` : bt('3')}</div>`;
 }
+window.avS3Previa = function(){
+  let f = document.getElementById('s3Fundo');
+  if(!f){ f = document.createElement('div'); f.className = 'conta-fundo'; f.id = 's3Fundo'; f.hidden = true; document.body.appendChild(f);
+    f.addEventListener('click', e => { if(e.target === f || e.target.closest('[data-s3-fechar]')) f.hidden = true; });
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') f.hidden = true; }); }
+  const DIA = {seg:'Segunda', ter:'Terça', qui:'Quinta', sex:'Sexta'};
+  f.innerHTML = `<div class="conta-caixa s3-caixa" role="dialog" aria-modal="true" aria-labelledby="s3Tit">
+    <button class="conta-fechar" data-s3-fechar aria-label="Fechar">×</button>
+    <div class="s3-eb"><span class="s3-brilho" aria-hidden="true">✦</span>3º semestre · começa em ${S3.inicio}</div>
+    <h2 id="s3Tit">O que vem por aí</h2>
+    <p class="conta-sub">As seis disciplinas do próximo período, com o dia e o horário de cada uma.</p>
+    <ul class="s3-lista">${S3.disc.map(([d, n, p, h]) => `<li><span class="s3-dia" title="${DIA[d]}">${d}</span><div><b>${n}</b><small><span class="s3-h">${h}</span>${p}</small></div></li>`).join('')}</ul>
+    <p class="s3-nota">O material de cada disciplina entra no site assim que as aulas começarem.</p>
+    <button class="conta-btn" data-s3-fechar type="button">Combinado</button></div>`;
+  f.hidden = false;
+};
+document.addEventListener('click', e => { if(e.target.closest('[data-s3-previa]')) window.avS3Previa(); });
 document.addEventListener('click', e => { const b = e.target.closest('[data-hero-sem]'); if(b) window.avSetSemestre(b.dataset.heroSem); });
 document.addEventListener('av-semestre', heroSemRender);
 function gridMostrar(sem){
@@ -25020,7 +25087,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     el.innerHTML = `
       <header class="hj-head"><div class="hj-topo"><div class="eyebrow">Minha área</div><button class="hj-inicio" data-page="top">Ir para o início →</button></div>
         <div class="ma-ola">${window.avPsiuMini ? `<span class="ma-psiu">${window.avPsiuMini()}</span>` : ''}<div><h1>${saud}${nome ? ', ' + escHTML(nome) : ''}</h1>${apoia ? '<span class="ma-selo">★ Apoiador</span>' : ''}</div></div>
-        <div class="ma-status">${chip}<div class="ma-sem-box"><small>Semestre</small><div class="ma-seg" role="group" aria-label="Seu semestre">${['1', '2'].map(k => `<button data-ma-sem="${k}" aria-pressed="${avSemestre() === k}">${k}º</button>`).join('')}</div></div></div></header>
+        <div class="ma-status">${chip}<div class="ma-sem-box"><small>Semestre</small><div class="ma-seg" role="group" aria-label="Seu semestre">${['1', '2'].map(k => `<button data-ma-sem="${k}" aria-pressed="${avSemestre() === k}">${k}º</button>`).join('')}${window.avS3Breve && window.avS3Breve() ? '<button class="breve" data-s3-previa aria-label="3º semestre, em breve">3º<span aria-hidden="true">✦</span></button>' : `<button data-ma-sem="3" aria-pressed="${avSemestre() === '3'}">3º</button>`}</div></div></div></header>
       <div class="ma-abas" role="tablist">${abas.map(([k, t]) => `<button role="tab" data-ma-aba="${k}" aria-selected="${maAba === k}">${t}</button>`).join('')}</div>
       <div class="ma-corpo">${corpo}</div>`;
   }
