@@ -268,7 +268,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   @media (max-width:520px){ .rg-faixas li{flex-direction:column; gap:2px;} .rg-faixas b{width:auto;} }
 
   .ma-parou{margin:18px 0 6px; padding:14px 16px; border:1px solid var(--rule); border-radius:16px; background:var(--paper);}
-  .ma-parou-q{margin:0 0 8px; font-size:13px; color:var(--ink-soft);}
+  .ma-parou-q{margin:0; font-size:13px; color:var(--ink-soft);}
+  .ma-parou-cab{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin:0 0 8px;}
+  .ma-parou-nao{flex:none; font:inherit; font-size:12.5px; font-weight:600; color:var(--ink-faint); background:none; border:0; padding:2px 0; cursor:pointer; text-decoration:underline; text-underline-offset:3px;}
+  .ma-parou-nao:hover{color:var(--ink);}
   .ma-parou-l{display:flex; align-items:center; gap:14px;}
   .ma-parou-tx{flex:1; min-width:0;}
   .ma-parou-tx b{display:block; font-size:15px; line-height:1.35; color:var(--ink);}
@@ -2803,13 +2806,19 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .rs-step.lendo{outline:2px solid var(--petrol-line); outline-offset:6px; border-radius:6px;}
   #resumoPage.modo-marca .rs-step ul > li{cursor:pointer;}
   #resumoPage.modo-marca .rs-step ul > li:hover{background:rgba(251,231,161,.35);}
-  .rs-step li.marcado, .nt-item mark{background:linear-gradient(transparent 12%, #FBE7A1 12%, #FBE7A1 88%, transparent 88%); color:inherit;}
+  .rs-step li.marcado, .an-item mark{background:linear-gradient(transparent 12%, #FBE7A1 12%, #FBE7A1 88%, transparent 88%); color:inherit;}
   .rs-nota{margin:8px 0 0;}
   .rs-nota button{font:inherit; font-size:12.5px; font-weight:600; color:var(--petrol); background:none; border:0; padding:4px 0; cursor:pointer; margin-right:10px;}
   .rs-nota textarea{width:100%; font:inherit; font-size:14.5px; border:1px solid var(--rule); border-radius:8px; padding:8px 10px; background:var(--bg); color:var(--ink);}
   .nt-txt{background:var(--ochre-soft); border-left:3px solid var(--ochre); border-radius:4px; padding:7px 10px; font-size:14px; margin:4px 0; white-space:pre-wrap;}
-  .nt-item{border:1px solid var(--rule); border-radius:10px; padding:10px 12px; margin:0 0 8px; font-size:14px; background:var(--bg);}
-  .nt-item ul{margin:6px 0; padding-left:18px;}
+  .an-item{border:1px solid var(--rule); border-radius:12px; padding:11px 13px; margin:0 0 8px; font-size:14px; background:var(--paper);}
+  .an-item ul{margin:6px 0; padding-left:18px;}
+  .an-topo{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+  .an-topo b{flex:1; min-width:0;}
+  .an-apagar{flex:none; display:inline-flex; align-items:center; gap:4px; font:inherit; font-size:12px; font-weight:600; color:var(--ink-faint); background:none; border:1px solid var(--rule); border-radius:8px; padding:4px 8px; cursor:pointer;}
+  .an-apagar svg{width:13px; height:13px;}
+  .an-apagar:hover{color:var(--danger); border-color:var(--danger);}
+  .an-apagar-tudo{display:block; margin:14px auto 2px; font:inherit; font-size:13px; font-weight:600; color:var(--danger); background:none; border:0; text-decoration:underline; text-underline-offset:3px; cursor:pointer;}
   /* simulado em PDF · formato das provas da faculdade */
   #printArea .sp-folha, .ben-pdf-previa .sp-folha{font-family:Arial, Helvetica, sans-serif; color:#111; font-size:10.5pt; line-height:1.38;}
   .sp-topo{display:flex; justify-content:space-between; align-items:flex-end; gap:16px; border-bottom:2px solid #163F3B; padding-bottom:8px; margin-bottom:8px;}
@@ -24399,19 +24408,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   const notasGravar = o => gravarJ('av-notas', o);
   function notaDe(rid, cid, i){ const o = notasLer(); return ((o[rid] || {})[cid] || {})[i] || {m:[], n:''}; }
   function notaPor(rid, cid, i, fn){ const o = notasLer(); o[rid] = o[rid] || {}; o[rid][cid] = o[rid][cid] || {}; const x = o[rid][cid][i] || {m:[], n:''}; fn(x); if(!x.m.length && !x.n) delete o[rid][cid][i]; else o[rid][cid][i] = x; notasGravar(o); }
-  function notasDe(disc){
+  function notasDe(disc, editar){
     const o = notasLer(); let h = '';
     Object.entries(RESUMOS).filter(([, r]) => r.disc === disc).forEach(([rid, r]) => r.caps.forEach(c => {
       const n = (o[rid] || {})[c.id]; if(!n) return;
       Object.entries(n).forEach(([i, x]) => { const e = c.etapas[i]; if(!e) return;
         const marc = (x.m || []).map(j => e.pontos[j]).filter(Boolean);
-        h += `<div class="nt-item"><b>${escHTML(limpa(c.titulo || c.aba))} · ${escHTML(limpa(e.titulo))}</b>${marc.length ? `<ul>${marc.map(p => `<li><mark>${p}</mark></li>`).join('')}</ul>` : ''}${x.n ? `<p class="nt-txt">${escHTML(x.n)}</p>` : ''}</div>`; });
+        h += `<div class="an-item"><div class="an-topo"><b>${escHTML(limpa(c.titulo || c.aba))} · ${escHTML(limpa(e.titulo))}</b>${editar ? `<button class="an-apagar" type="button" data-an-apagar="${escHTML(rid + '|' + c.id + '|' + i)}" aria-label="Apagar esta anotação"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>Apagar</button>` : ''}</div>${marc.length ? `<ul>${marc.map(p => `<li><mark>${p}</mark></li>`).join('')}</ul>` : ''}${x.n ? `<p class="nt-txt">${escHTML(x.n)}</p>` : ''}</div>`; });
     }));
     return h;
   }
   function anotacoesHTML(){
-    const blocos = discsCom().map(d => { const h = notasDe(d.n); return h ? `<h3 class="ps-g">${escHTML(d.name)}</h3>${h}` : ''; }).join('');
-    return EB('Área do apoiador') + `<h2>Minhas anotações</h2><p class="conta-sub">Os trechos que você marcou e as notas que escreveu nos resumos. Para marcar, abra um resumo e use os botões Marca-texto e Nota.</p>` + (blocos || '<div class="de-vazio">Você ainda não marcou nada. Abra um resumo, toque em Marca-texto e depois toque nos pontos que quer destacar.</div>');
+    const blocos = discsCom().map(d => { const h = notasDe(d.n, true); return h ? `<h3 class="ps-g">${escHTML(d.name)}</h3>${h}` : ''; }).join('');
+    return EB('Área do apoiador') + `<h2>Minhas anotações</h2><p class="conta-sub">Os trechos que você marcou e as notas que escreveu nos resumos. Para marcar, abra um resumo e use os botões Marca-texto e Nota.</p>` + (blocos ? blocos + '<button class="an-apagar-tudo" type="button" data-an-apagar="tudo">Apagar todas as anotações</button>' : '<div class="de-vazio">Você ainda não marcou nada. Abra um resumo, toque em Marca-texto e depois toque nos pontos que quer destacar.</div>');
   }
   let modoMarca = false, falando = null;
   window.avResumoExtras = function(rid, ci){
@@ -24477,6 +24486,14 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
       return; }
     const sp = e.target.closest('[data-spdf]');
     if(sp){ const op = JSON.parse(sp.dataset.spdf); if(ehApoio()) imprimir(simuladoPDF(op), 'Simulado · ' + nomeDisc((SIM_JOGO.find(x => x.id === op.id) || {}).disc) + ' · Arquivo Vivo'); else abrir(EB('Prévia') + `<div class="ben-pdf-previa">${simuladoPDF(op, true)}</div>`, true); return; }
+    const ap = e.target.closest('[data-an-apagar]');
+    if(ap){ const k = ap.dataset.anApagar;
+      if(k === 'tudo'){ if(!confirm('Apagar todas as suas anotações e marcações dos resumos? Não dá para desfazer.')) return; notasGravar({}); }
+      else { if(!confirm('Apagar esta anotação? Os trechos marcados e a nota deste ponto somem.')) return;
+        const [rid, cid, i] = k.split('|'), o = notasLer();
+        if(o[rid] && o[rid][cid]){ delete o[rid][cid][i]; if(!Object.keys(o[rid][cid]).length) delete o[rid][cid]; if(!Object.keys(o[rid]).length) delete o[rid]; }
+        notasGravar(o); }
+      corpo.innerHTML = anotacoesHTML(); return; }
     const sm = e.target.closest('[data-ben-sim]'); if(sm){ fechar(); location.hash = '#simulado-' + sm.dataset.benSim; return; }
     // plano
     const plRe = () => { const f = document.getElementById('benFundo'), y = f.scrollTop; abrir(planoHTML()); f.scrollTop = y; if(window.avRenderHoje) window.avRenderHoje(); };
@@ -24876,12 +24893,13 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
       const d = DISC_MEU().filter(x => ult[x.n]).sort((x, y) => (ult[y.n].t || 0) - (ult[x.n].t || 0))[0];
       if(!d) return '';
       const h = continuarHTML(d); if(!h) return '';
+      const assin = d.n + ':' + (ult[d.n].t || 0); try{ if(localStorage.getItem('av-parou-oculto') === assin) return ''; }catch(_){}
       const tmp = document.createElement('div'); tmp.innerHTML = h; const b = tmp.firstElementChild; if(!b) return '';
       const attrs = [...b.attributes].filter(a => a.name.startsWith('data-')).map(a => `${a.name}="${escHTML(a.value)}"`).join(' ');
       const tit = (b.querySelector('.dp-cont-t') || {}).textContent || '';
       const tipo = /^Exercício:/.test(tit) ? 'Exercício' : 'Resumo';
       const sub = (b.querySelector('.dp-cont-s') || {}).textContent || '';
-      return `<section class="ma-parou"><p class="ma-parou-q">Você parou aqui no último estudo. Quer continuar?</p>
+      return `<section class="ma-parou"><div class="ma-parou-cab"><p class="ma-parou-q">Você parou aqui no último estudo. Quer continuar?</p><button class="ma-parou-nao" type="button" data-parou-nao="${escHTML(assin)}" aria-label="Não quero continuar agora">Agora não</button></div>
         <div class="ma-parou-l"><div class="ma-parou-tx"><b>${escHTML(tit.replace(/^(Resumo|Exercício):\s*/, ''))}</b><span>${tipo} de ${escHTML(({'01':'Bases','02':'Neuro','03':'Aprendizagem','04':'Experimental','05':'Idoso'})[d.n] || d.name)}${sub ? ' · ' + escHTML(sub.replace(/^[^·]*·\s*/, '')) : ''}</span></div>
         <button class="ma-parou-go" ${attrs}>Continuar</button></div></section>`;
     }catch(e){ return ''; }
@@ -25523,6 +25541,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     if(e.target.closest('[data-ds-prox]')){ registrar(); if(ds.i < ds.qs.length - 1){ ds.i++; pergunta(); } else fim(); return; }
     if(e.target.closest('[data-ds-fechar]') || e.target === fundo){ fundo.hidden = true; return; }
     const ma = e.target.closest('[data-ma-aba]'); if(ma){ maAba = ma.dataset.maAba; renderHoje(); return; }
+    const pn = e.target.closest('[data-parou-nao]'); if(pn){ try{ localStorage.setItem('av-parou-oculto', pn.dataset.parouNao); }catch(_){} renderHoje(); return; }
     const md = e.target.closest('[data-ma-disc]'); if(md){ location.hash = '#disc-' + md.dataset.maDisc; return; }
     const mc = e.target.closest('[data-ma-conta]'); if(mc){ if(window.avAbrirConta) window.avAbrirConta(mc.dataset.maConta); return; }
     const he2 = e.target.closest('[data-hj-erros]'); if(he2){ switchPage('viewErros', {errDisc:he2.dataset.hjErros}); return; }
