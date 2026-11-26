@@ -36,6 +36,13 @@
         ".validate": "newData.child('nome').isString() && newData.child('nome').val().length <= 60 && (!newData.child('foto').exists() || newData.child('foto').val().length <= 20000)"
       }
     },
+    "online": {
+      ".read": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
+        ".validate": "newData.child('nome').isString() && newData.child('nome').val().length <= 60 && newData.child('em').isNumber() && newData.child('em').val() <= now + 60000"
+      }
+    },
     "mural": {
       "posts": {
         ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",

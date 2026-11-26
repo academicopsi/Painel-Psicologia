@@ -3562,7 +3562,19 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .adm-so{font-size:12px; font-weight:600; color:var(--ink-faint);}
   .adm-ic{flex:none; width:52px; height:52px; border-radius:16px; display:grid; place-items:center; color:#fff; background:linear-gradient(150deg, #2B3A38, #121B1A); box-shadow:0 6px 14px rgba(0,0,0,.15);}
   .adm-ic svg{width:26px; height:26px;}
-  .adm-sts{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;}
+  .adm-sts{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;}
+  @media (max-width:640px){ .adm-sts{grid-template-columns:repeat(2, 1fr);} }
+  .adm-st[data-adm-aba="online"].tem{border-color:rgba(62,155,106,.4); background:linear-gradient(160deg, rgba(62,155,106,.09), var(--paper) 70%);}
+  .adm-st[data-adm-aba="online"].tem b{color:#2F7D54;}
+  body.dark .adm-st[data-adm-aba="online"].tem b{color:#7FD0A3;}
+  .adm-online h3{margin:0 0 4px; font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600;}
+  .adm-on-lista{list-style:none; margin:0; padding:0; display:flex; flex-direction:column;}
+  .adm-on-lista li{display:flex; align-items:center; gap:10px; padding:10px 0; border-top:1px solid var(--rule);}
+  .adm-on-lista li:first-child{border-top:0;}
+  .adm-on-lista b{flex:1; min-width:0; font-weight:600; overflow-wrap:anywhere;}
+  .adm-on-lista b em{font-style:normal; font-weight:400; color:var(--ink-faint);}
+  .adm-on-lista small{font-size:12.5px; color:var(--ink-faint); white-space:nowrap;}
+  .adm-on-bola{flex:none; width:9px; height:9px; border-radius:50%; background:#3E9B6A; box-shadow:0 0 0 3px rgba(62,155,106,.18);}
   .adm-st{display:flex; flex-direction:column; align-items:flex-start; gap:2px; font:inherit; text-align:left; color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:12px 14px; cursor:pointer; box-shadow:0 1px 2px var(--shadow);}
   .adm-st b{font-family:var(--serif, Georgia, serif); font-size:26px; line-height:1;}
   .adm-st span{font-size:12.5px; line-height:1.3; color:var(--ink-soft);}
@@ -23679,6 +23691,31 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState 
 window.avBanco = { ler: p => get(ref(db, p)).then(x => x.val()), gravar: (p, v) => set(ref(db, p), v), apagar: p => remove(ref(db, p)) };
 // o nome público nunca sai do e-mail: sem nome cadastrado, aparece "Colega"
 window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || 'Colega').trim(), admin: ehAdmin(usuario), liberado: liberado || ehAdmin(usuario), foto: fotoAtual()} : null;
+// quem está on-line: cada conta liberada marca presença a cada minuto enquanto a aba está aberta.
+// a conexão abre só para gravar e fecha logo depois (limite de 100 conexões do plano grátis). Só o administrador lê a lista.
+(function(){
+  const PASSO = 60000;
+  let timer = null, marcado = null;
+  const pode = () => usuario && (liberado || ehAdmin(usuario));
+  function marcar(){
+    if(!pode() || document.visibilityState !== 'visible') return;
+    const nome = (usuario.displayName || (usuario.email || '').split('@')[0] || 'Sem nome').trim().slice(0, 60);
+    marcado = usuario.uid;
+    set(ref(db, 'online/' + usuario.uid), {nome, em: {'.sv': 'timestamp'}}).catch(() => {});
+  }
+  function sair(){ if(marcado){ remove(ref(db, 'online/' + marcado)).catch(() => {}); marcado = null; } }
+  function ligar(){ clearInterval(timer); timer = null; if(document.visibilityState === 'visible'){ marcar(); timer = setInterval(marcar, PASSO); } }
+  document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'visible') ligar(); else { clearInterval(timer); timer = null; sair(); } });
+  window.addEventListener('pagehide', sair);
+  onAuthStateChanged(auth, u => { if(!u) { marcado = null; clearInterval(timer); timer = null; } else setTimeout(ligar, 3000); });
+  // o administrador consulta: quem marcou presença nos últimos 3 minutos
+  window.avOnline = async () => {
+    const v = await get(ref(db, 'online')).then(x => x.val()).catch(() => null);
+    const limite = Date.now() - 3 * PASSO;
+    return Object.entries(v || {}).map(([uid, o]) => ({uid, nome: (o && o.nome) || 'Sem nome', em: (o && +o.em) || 0}))
+      .filter(x => x.em >= limite).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+  };
+})();
 </script>
 
 <div class="conta-fundo" id="apoioFundo" hidden>
@@ -25811,8 +25848,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
 // ===== Painel do administrador: página separada, só para o administrador =====
 (function(){
   const EU = () => window.avEu && window.avEu(), B = () => window.avBanco, esc = t => escHTML(t == null ? '' : t);
-  let aba = 'acessos', cont = null, fila = {}, aparelhos = null, pessoas = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}, msg = '';
-  const ABAS = [['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Corredor'], ['turma', 'Turma'], ['banco', 'Banco de questões']];
+  let aba = 'acessos', on = null, onTimer = null, cont = null, fila = {}, aparelhos = null, pessoas = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}, msg = '';
+  const ABAS = [['online', 'On-line'], ['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Corredor'], ['turma', 'Turma'], ['banco', 'Banco de questões']];
   const LINKS = [['', 'Página inicial'], ['#minha-area', 'Minha área'], ['#mural', 'Corredor da turma'], ['#modo-prova', 'Simulados'], ['#resumos', 'Resumos'], ['#prazos', 'Prazos']];
   const IC = {escudo:'<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/>', sino:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'};
   const ic = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
@@ -25841,9 +25878,25 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   function topoHTML(){
     const den = window.avMuralDenuncias ? window.avMuralDenuncias() : 0;
     const st = (n, t, k) => `<button class="adm-st${n ? ' tem' : ''}" data-adm-aba="${k}"><b>${n == null ? '–' : n}</b><span>${t}</span></button>`;
-    return `<div class="adm-sts">${st(cont && cont.aguardando, 'aguardando liberação', 'acessos')}${st(cont && cont.pix, 'Pix para conferir', 'acessos')}${st(den, den === 1 ? 'denúncia no corredor' : 'denúncias no corredor', 'mural')}</div>`;
+    return `<div class="adm-sts">${st(on && on.length, 'on-line agora', 'online')}${st(cont && cont.aguardando, 'aguardando liberação', 'acessos')}${st(cont && cont.pix, 'Pix para conferir', 'acessos')}${st(den, den === 1 ? 'denúncia no corredor' : 'denúncias no corredor', 'mural')}</div>`;
   }
   function desenharTopo(){ const t = document.getElementById('admTopo'); if(t) t.innerHTML = topoHTML(); }
+  const haQuanto = ts => { const m = Math.floor((Date.now() - ts) / 60000); return m < 1 ? 'agora' : 'há ' + m + ' min'; };
+  function onlineHTML(){
+    if(on == null) return '<section class="hj-card"><p class="hj-vazio">Vendo quem está on-line…</p></section>';
+    const eu = EU(), n = on.length;
+    return `<section class="hj-card adm-online"><h3>${n} ${n === 1 ? 'pessoa on-line agora' : 'pessoas on-line agora'}</h3>
+      <p class="adm-ajuda">Conta quem está com o site aberto na tela nos últimos 3 minutos. Quem não entrou na conta não aparece. Atualiza sozinho a cada 30 segundos.</p>
+      ${n ? `<ul class="adm-on-lista">${on.map(x => `<li><span class="adm-on-bola"></span><b>${esc(x.nome)}${eu && x.uid === eu.uid ? ' <em>(você)</em>' : ''}</b><small>${haQuanto(x.em)}</small></li>`).join('')}</ul>` : '<p class="hj-vazio">Ninguém on-line agora.</p>'}</section>`;
+  }
+  async function lerOnline(){
+    const v = document.getElementById('viewAdmin');
+    if(!v || v.style.display === 'none'){ clearInterval(onTimer); onTimer = null; return; }
+    if(document.visibilityState !== 'visible') return;
+    on = window.avOnline ? await window.avOnline() : [];
+    desenharTopo(); if(aba === 'online'){ const c = document.getElementById('admCorpo'); if(c) c.innerHTML = onlineHTML(); }
+  }
+  function vigiarOnline(){ lerOnline(); clearInterval(onTimer); onTimer = setInterval(lerOnline, 30000); }
   const PUBS = [['todos', 'Toda a turma'], ['sem1', '1º semestre'], ['sem2', '2º semestre'], ['pessoas', 'Escolher pessoas'], ['admin', 'Só para mim (teste)']];
   function alvoDe(pub, uids){
     if(!pessoas) return null;
@@ -25904,6 +25957,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     const c = document.getElementById('admCorpo'); if(!c) return;
     if(aba === 'acessos'){ c.innerHTML = '<section class="hj-card adm-acessos" id="admAcessos"></section>'; if(window.avAdmMontar) window.avAdmMontar(document.getElementById('admAcessos')); }
     if(aba === 'avisos'){ c.innerHTML = avisosHTML(); }
+    if(aba === 'online'){ c.innerHTML = onlineHTML(); }
     if(aba === 'mural'){ c.innerHTML = '<div id="admMural"></div>'; if(window.avMuralAdmin) window.avMuralAdmin(document.getElementById('admMural')); }
     if(aba === 'banco'){
       const b = window.avBancoResumo ? window.avBancoResumo() : [];
@@ -25924,7 +25978,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
         <div id="admTopo">${topoHTML()}</div></header>
       <div class="ma-abas" role="tablist">${ABAS.map(([k, t]) => `<button role="tab" data-adm-aba="${k}" aria-selected="${aba === k}">${t}</button>`).join('')}</div>
       <div id="admCorpo" class="adm-corpo"></div>`;
-    desenharCorpo(); contar();
+    desenharCorpo(); contar(); vigiarOnline();
     if(aba === 'avisos') lerAvisos();
   }
   window.avAdminRender = leve => {
