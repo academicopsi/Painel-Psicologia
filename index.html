@@ -5650,7 +5650,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   // só conteúdo e ferramentas, em uma ou duas linhas; ajustes de visual e correções ficam de fora
-  {date: '2026-11-26', disc: 'Geral', desc: 'Datas da segunda chamada (30/11 a 02/12) e da prova final (07 a 09/12) nos prazos. A calculadora de notas mostra o dia da sua prova final, e o lembrete de segunda chamada já diz a data.', link: {url:'#prazos'}},
+  {date: '2026-11-26', disc: 'Geral', desc: 'Datas da segunda chamada (30/11 a 02/12) e da prova final (07 a 09/12) nos prazos. O lembrete de segunda chamada já diz a data.', link: {url:'#prazos'}},
   {date: '2026-11-26', disc: 'Geral', desc: 'Calculadora “Quanto preciso tirar?” na Minha área (só você vê as suas notas), página Regras das provas com o regulamento da Unigranrio e lembrete de segunda chamada nas 48 horas depois de cada prova.'},
   {date: '2026-11-25', disc: 'Geral', desc: 'Domínio por tema nos simulados: cada tema mostra se você está praticando, bom ou dominado, e os temas fracos ganham um treino próprio e entram primeiro no plano de estudos.'},
   {date: '2026-11-24', disc: 'Geral', desc: 'Três cursos novos em Cursos extras: violência de gênero e feminicídio, jogos de aposta na RAPS (Fiocruz) e metodologia da pesquisa científica (Fiocruz).'},
@@ -26568,7 +26568,6 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   const num = v => v === '' || v == null || isNaN(+v) ? null : Math.max(0, +v);
   const fmt = n => String(Math.round(n * 10) / 10).replace('.', ',');
   const curto = d => ({'01':'Bases Biológicas','02':'Neuroanatomia','03':'Aprendizagem','04':'Experimental','05':'Adulto e Idoso','06':'Extensão'})[d.n] || d.name;
-  const finalDe = dd => { const nome = dd && typeof dd === 'object' ? dd.name : String(dd || ''); const t = TASKS.find(t => t.extra === 'final' && (t.materia === nome || String(nome).startsWith(t.materia) || t.materia.startsWith(nome))); return t ? ` · dia ${t.prazo.slice(8, 10)}/${t.prazo.slice(5, 7)}` : ''; };
   function situacao(x){
     const v = {}; CAMPOS.forEach(([k, , m]) => { const n = num(x[k]); v[k] = n === null ? null : Math.min(n, m); });
     const lanc = CAMPOS.filter(([k]) => v[k] !== null).length;
@@ -26600,7 +26599,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
       <div class="nt-corpo"><div class="nt-etapas">
         <div class="nt-etapa"><div class="nt-et-h"><b>N1</b><span class="nt-sub" data-nt-sub="n1">${fmt(sm.n1)} / 50</span></div><div class="nt-campos">${campo('a1', 'Atividades', 20, x)}${campo('p1', 'Prova', 30, x)}</div></div>
         <div class="nt-etapa"><div class="nt-et-h"><b>N2</b><span class="nt-sub" data-nt-sub="n2">${fmt(sm.n2)} / 50</span></div><div class="nt-campos">${campo('a2', 'Atividades', 20, x)}${campo('p2', 'Prova', 30, x)}</div></div></div>
-      <div class="nt-ex"${st.exame ? '' : ' hidden'}><div class="nt-et-h"><b>Prova final</b><span class="nt-sub">vale 100${finalDe(d)}</span></div>${campo('ex', 'Nota da prova final', 100, x)}</div>
+      <div class="nt-ex"${st.exame ? '' : ' hidden'}><div class="nt-et-h"><b>Prova final</b><span class="nt-sub">vale 100</span></div>${campo('ex', 'Nota da prova final', 100, x)}</div>
       <p class="nt-det">${st.d ? escHTML(st.d) : ''}</p></div></details>`;
   }
   function resumo(o){
