@@ -95,7 +95,7 @@
       }
     },
     "metaApoio": {
-      ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
+      ".read": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
       ".write": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
       "alvo": {
         ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() < 100000"
@@ -104,6 +104,13 @@
         "$mes": {
           ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() < 100000"
         }
+      }
+    },
+    "metaApoioPct": {
+      ".read": "auth != null && (root.child('acesso/' + auth.uid).val() === true || auth.token.email === 'thiagodentalbeauty@gmail.com')",
+      ".write": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
+      "$mes": {
+        ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
       }
     }
   }

@@ -23760,21 +23760,24 @@ const mesAtual = () => { const d = new Date(); return d.getFullYear() + '-' + St
 async function metaLer(){ const v = (await get(ref(db, 'metaApoio'))).val() || {}; const mes = mesAtual();
   return {alvo: +v.alvo > 0 ? +v.alvo : META_PADRAO, atingido: +((v.meses || {})[mes]) || 0, mes}; }
 const metaNum = t => { const n = parseFloat(String(t == null ? '' : t).replace(/[^\d,.]/g, '').replace(',', '.')); return n > 0 && n < 100000 ? Math.round(n * 100) / 100 : 0; };
-async function metaSomar(valor){ const n = metaNum(valor); if(!n) return; const m = await metaLer(); await set(ref(db, 'metaApoio/meses/' + m.mes), Math.round((m.atingido + n) * 100) / 100); }
-window.avMetaApoio = () => usuario ? metaLer() : Promise.reject(new Error('sem login'));
+async function metaSomar(valor){ const n = metaNum(valor); if(!n) return; const m = await metaLer(); m.atingido = Math.round((m.atingido + n) * 100) / 100; await set(ref(db, 'metaApoio/meses/' + m.mes), m.atingido); await metaPublicar(m); }
+// Público: só a porcentagem do mês. Os valores em reais ficam em metaApoio, que só o administrador lê.
+async function metaPublicar(m){ const pct = Math.min(100, Math.round(m.atingido / m.alvo * 100)); await set(ref(db, 'metaApoioPct/' + m.mes), pct); }
+window.avMetaApoio = async () => { if(!usuario) throw new Error('sem login'); const mes = mesAtual();
+  const v = (await get(ref(db, 'metaApoioPct/' + mes))).val(); return {mes, pct: Math.max(0, Math.min(100, +v || 0)), soPct: true}; };
 const brl = n => 'R$ ' + (Math.round(n * 100) / 100).toLocaleString('pt-BR', {minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2});
-window.avMetaHTML = m => { const pct = Math.min(100, Math.round(m.atingido / m.alvo * 100)), falta = Math.max(0, m.alvo - m.atingido);
+window.avMetaHTML = m => { const pct = m.soPct ? m.pct : Math.min(100, Math.round(m.atingido / m.alvo * 100)), falta = m.soPct ? 100 - pct : Math.max(0, m.alvo - m.atingido);
   const nomeMes = new Date(m.mes + '-15T12:00').toLocaleDateString('pt-BR', {month: 'long'});
   return `<div class="ap-meta" role="group" aria-label="Meta de apoio de ${nomeMes}"><div class="ap-meta-top"><span>Meta de ${nomeMes}</span><b>${pct}%</b></div>
     <div class="ap-meta-barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div>
-    <div class="ap-meta-num"><span><b>${brl(m.atingido)}</b> de ${brl(m.alvo)}</span><span>${falta ? 'faltam ' + brl(falta) : 'meta batida. Obrigado!'}</span></div></div>`; };
+    <div class="ap-meta-num">${m.soPct ? `<span>Para manter o site no ar</span><span>${falta > 0 ? 'faltam ' + falta + '%' : 'meta batida. Obrigado!'}</span>` : `<span><b>${brl(m.atingido)}</b> de ${brl(m.alvo)}</span><span>${falta ? 'faltam ' + brl(falta) : 'meta batida. Obrigado!'}</span>`}</div></div>`; };
 async function admMetaDesenhar(){ const el = document.getElementById('admMeta'); if(!el) return;
   let m; try{ m = await metaLer(); }catch(_){ el.innerHTML = '<p class="conta-priv">Não consegui ler a meta. Confira se as regras novas do banco foram publicadas.</p>'; return; }
-  el.innerHTML = window.avMetaHTML(m) + '<div class="adm-meta-ac"><button class="adm-ac sec" data-meta="alvo"><span>Mudar a meta</span></button><button class="adm-ac sec" data-meta="total"><span>Ajustar o total do mês</span></button></div><p class="conta-priv">Cada Pix confirmado aqui soma na barra. Os colegas veem só o total do mês, nunca quem apoiou.</p>';
+  el.innerHTML = window.avMetaHTML(m) + '<div class="adm-meta-ac"><button class="adm-ac sec" data-meta="alvo"><span>Mudar a meta</span></button><button class="adm-ac sec" data-meta="total"><span>Ajustar o total do mês</span></button></div><p class="conta-priv">Cada Pix confirmado aqui soma na barra. Os colegas veem só a porcentagem, sem valores em reais e sem saber quem apoiou.</p>';
   el.querySelectorAll('[data-meta]').forEach(b => b.onclick = async () => {
     const alvo = b.dataset.meta === 'alvo', r = prompt(alvo ? 'Meta mensal em reais:' : 'Total arrecadado em ' + m.mes + ' (em reais):', String(alvo ? m.alvo : m.atingido));
     if(r === null) return; const n = metaNum(r); if(!n && !(r.trim() === '0' && !alvo)) return;
-    try{ await set(ref(db, alvo ? 'metaApoio/alvo' : 'metaApoio/meses/' + m.mes), n); }catch(_){ alert('Não consegui salvar. Tente de novo.'); }
+    try{ await set(ref(db, alvo ? 'metaApoio/alvo' : 'metaApoio/meses/' + m.mes), n); if(alvo) m.alvo = n; else m.atingido = n; await metaPublicar(m); }catch(_){ alert('Não consegui salvar. Tente de novo.'); }
     admMetaDesenhar(); }); }
 window.avAdmMontar = el => { if(!el || !ehAdmin(usuario)) return; el.innerHTML = '<div class="adm adm2" id="adm"><div class="adm-head"><div><h3>Acessos da turma</h3><small id="admResumo">Carregando…</small></div><button class="adm-atu" id="admAtualizar" aria-label="Atualizar a lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>Atualizar</button></div><div class="adm-meta" id="admMeta"></div><div class="adm-filtros" role="tablist"><button data-f="aguardando">Aguardando</button><button data-f="apoio">Pix</button><button data-f="apoiadores">Apoiadores</button><button data-f="todos">Todos</button></div><label class="adm-busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" id="admBusca" placeholder="Buscar por nome ou e-mail" aria-label="Buscar por nome ou e-mail"></label><div id="admLista"><p class="conta-sub">Carregando…</p></div></div>'; carregarPainel(); admMetaDesenhar(); };
 window.avAdmContar = async () => { if(!ehAdmin(usuario)) return null; try{ const t = await lerTudo(); return {aguardando: t.filter(x => !x.ok).length, pix: t.filter(x => x.aviso).length, liberados: t.filter(x => x.ok).length}; }catch(_){ return null; } };
