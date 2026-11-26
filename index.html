@@ -22321,9 +22321,18 @@ document.addEventListener('click', e=>{
     const olhos = ex === 'feliz'
       ? '<path d="M44.5 60 Q48 56 51.5 60" fill="none" stroke="#14211F" stroke-width="2.4" stroke-linecap="round"/><path d="M68.5 60 Q72 56 75.5 60" fill="none" stroke="#14211F" stroke-width="2.4" stroke-linecap="round"/>'
       : `<circle class="psiu-olho" cx="${o[0]}" cy="${o[1]}" r="2.8" fill="#14211F"/><circle class="psiu-olho" cx="${o[2]}" cy="${o[3]}" r="2.8" fill="#14211F"/>`;
-    return `<svg class="psiu-av" data-ex="${ex}" viewBox="13 12 94 94" aria-hidden="true"><rect x="0" y="0" width="120" height="120" fill="#E3EFEC"/><g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g>${SOBRANCELHAS[ex] || ''}<circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/>${olhos}${BOCAS[ex]}<text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text></svg>`;
+    // usa a personalização do Psiu (cor, acessórios e fundo) também no chat
+    const acc = window.avPsiuAccSVG ? window.avPsiuAccSVG() : '';
+    let sv = `<g fill="#F4B9C1" stroke="#A8455A" stroke-width="2.8" stroke-linejoin="round"><path d="M60 26 C52 18 38 20 36 30 C26 32 21 44 27 52 C21 60 25 72 35 74 C37 85 51 88 60 81 Z"/><path d="M60 26 C68 18 82 20 84 30 C94 32 99 44 93 52 C99 60 95 72 85 74 C83 85 69 88 60 81 Z"/></g><g fill="none" stroke="#A8455A" stroke-width="2" stroke-linecap="round"><path d="M40 36 C45 32 50 38 55 34"/><path d="M33 66 C36 70 40 68 41 72"/><path d="M80 36 C75 32 70 38 65 34"/><path d="M87 66 C84 70 80 68 79 72"/></g>${SOBRANCELHAS[ex] || ''}<circle cx="48" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><circle cx="72" cy="58" r="9" fill="#FFFFFF" stroke="#14211F" stroke-width="2.2"/><path d="M57 57 Q60 54 63 57" fill="none" stroke="#14211F" stroke-width="2.2"/>${olhos}${BOCAS[ex]}` + (acc || '<text x="60" y="104" text-anchor="middle" font-family="Lora,Georgia,serif" font-size="15" fill="#1F5C56">Ψ</text>');
+    if(window.avPsiuPintar) sv = window.avPsiuPintar(sv);
+    const f = window.avPsiuFundo ? window.avPsiuFundo() : null;
+    const st = f ? ` style="background:${f.c};${f.anel ? ' box-shadow:0 0 0 2px ' + f.anel + ';' : ''}"` : '';
+    return `<svg class="psiu-av" data-ex="${ex}" viewBox="${acc ? '-2 -8 124 126' : '13 12 94 94'}" aria-hidden="true"${st}>${f ? '' : '<rect x="-10" y="-10" width="140" height="140" fill="#E3EFEC"/>'}${sv}</svg>`;
   }
   document.querySelectorAll('[data-psiu-av]').forEach(el => el.outerHTML = avatar('neutro'));
+  // quando a personalização muda (ou depois que ela carrega), redesenha os Psius do chat
+  window.avPsiuChatAtualizar = () => { document.querySelectorAll('#botPainel svg.psiu-av').forEach(el => { const t = document.createElement('div'); t.innerHTML = avatar(el.dataset.ex); el.replaceWith(t.firstElementChild); }); };
+  setTimeout(() => window.avPsiuChatAtualizar(), 0);
   const fab = document.getElementById('botFab'), painel = document.getElementById('botPainel');
   const msgs = document.getElementById('botMsgs'), chips = document.getElementById('botChips');
   const form = document.getElementById('botForm'), inp = document.getElementById('botInput');
@@ -23104,7 +23113,7 @@ document.addEventListener('click', e=>{
     }
   }
   function abrir(){
-    painel.hidden = false; document.body.classList.add('bot-aberto');
+    painel.hidden = false; document.body.classList.add('bot-aberto'); if(window.avPsiuChatAtualizar) window.avPsiuChatAtualizar();
     if(!iniciado){
       iniciado = true;
       const voltou = (mem.visitas || 0) > 0;
@@ -23167,7 +23176,7 @@ document.addEventListener('click', e=>{
   function acessorios(){
     return (typeof window.avPsiuAccSVG === 'function') ? window.avPsiuAccSVG() : '';
   }
-  window.avPsiuRedesenhar = () => { try{ desenhar(reacaoAtual || 'parado'); }catch(e){} };
+  window.avPsiuRedesenhar = () => { try{ desenhar(reacaoAtual || 'parado'); }catch(e){} try{ window.avPsiuChatAtualizar && window.avPsiuChatAtualizar(); }catch(e){} };
 
   // ---------- reações novas ----------
   Object.assign(REACOES, {
@@ -24786,6 +24795,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     fab.style.setProperty('--psiu-fundo', f.c); fab.style.setProperty('--psiu-anel', f.anel || 'transparent');
     fab.classList.toggle('com-fundo', f.id !== 'nenhum');
   }
+  window.avPsiuFundo = () => { const e = estilo(); const f = FUNDOS.find(x => x.id === e.fundo && pode(x)); return f && f.id !== 'nenhum' ? f : null; };
   window.avPsiuAccSVG = () => { const v = vestidos(), prog = progresso(); let out = ''; SLOTS.forEach(([sl]) => { const a = A.find(x => x.id === v[sl]); if(a && liberado(a, prog)) out += a.svg; }); return out ? `<g class="psiu-acc">${out}</g>` : ''; };
   window.avConquistasLiberadas = () => { const p = progresso(); return A.filter(a => a.grupo === 'conquista' && p[a.id].ok).map(a => a.id); };
   function vestir(id){ const a = A.find(x => x.id === id); if(!a) return; const v = vestidos(); if(v[a.slot] === id) delete v[a.slot]; else v[a.slot] = id; salvarVestidos(v); if(window.avPsiuRedesenhar) window.avPsiuRedesenhar(); }
