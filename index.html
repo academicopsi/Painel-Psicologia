@@ -4051,7 +4051,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewSobre"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="ni-text"><strong>Sobre o site</strong><small>O projeto e a organização do Drive</small></span></button>
           <button class="nav-item" data-page="viewInstalar"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><span class="ni-text"><strong>Instale o app</strong><small>Instalação no celular</small></span></button>
-          <button class="nav-item" data-page="viewRegras"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="ni-text"><strong>Regras das provas</strong><small>Notas, exame, segunda chamada</small></span></button>
+          <button class="nav-item" data-page="viewRegras"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="ni-text"><strong>Regras das provas</strong><small>Notas, prova final, segunda chamada</small></span></button>
           <button class="nav-item" data-scroll="atualizacoes"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><span class="ni-text"><strong>Últimas atualizações</strong><small>O que entrou no site</small></span></button>
         </div>
       </div>
@@ -4404,9 +4404,9 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   <div class="rg">
     <section class="rg-card"><h2>Como a nota é formada</h2>
       <div class="rg-notas"><div><b>N1</b><span>50 pontos</span><small>20 de atividades + 30 de prova</small></div><div><b>N2</b><span>50 pontos</span><small>20 de atividades + 30 de prova</small></div></div>
-      <ul class="rg-faixas"><li class="ok"><b>70 ou mais</b><span>Aprovado direto.</span></li><li class="at"><b>De 40 a 69</b><span>Exame especial de 100 pontos, com todo o conteúdo do semestre. A nota final vira a média entre o exame e a nota do semestre, e precisa chegar a 60. Na prática: você precisa tirar <strong>120 menos a sua nota</strong> no exame.</span></li><li class="ru"><b>Abaixo de 40</b><span>Reprovado, sem direito a exame.</span></li></ul>
+      <ul class="rg-faixas"><li class="ok"><b>70 ou mais</b><span>Aprovado direto.</span></li><li class="at"><b>De 40 a 69</b><span>Prova final de 100 pontos, com todo o conteúdo do semestre (no regulamento, ela se chama exame especial). A nota final vira a média entre a prova final e a nota do semestre, e precisa chegar a 60. Na prática: você precisa tirar <strong>120 menos a sua nota</strong> na prova final.</span></li><li class="ru"><b>Abaixo de 40</b><span>Reprovado, sem direito a prova final.</span></li></ul>
       <button class="rg-calc" data-rg-calc>Calcular quanto eu preciso tirar</button>
-      <p class="rg-obs">Projetos integradores, práticas, estágios e trabalho final são de nota única: aprovação com 60, sem exame especial.</p></section>
+      <p class="rg-obs">Projetos integradores, práticas, estágios e trabalho final são de nota única: aprovação com 60, sem prova final.</p></section>
     <section class="rg-card"><h2>Frequência</h2><p>Para ser aprovado é preciso ter <strong>pelo menos 75% de presença</strong> em cada disciplina, além da nota. O professor registra a presença no sistema em até 24 horas depois da aula.</p></section>
     <section class="rg-card"><h2>Segunda chamada</h2><p>Quem perder a N1 ou a N2 por motivo justificado pode pedir segunda chamada de uma das provas.</p>
       <ul class="rg-lista"><li><strong>Prazo:</strong> até 48 horas depois da prova.</li><li><strong>Como:</strong> requerimento à coordenação, com atestado ou outro documento que comprove o motivo.</li></ul>
@@ -5578,7 +5578,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   // só conteúdo e ferramentas, em uma ou duas linhas; ajustes de visual e correções ficam de fora
-  {date: '2026-11-26', disc: 'Geral', desc: 'Calculadora “Quanto preciso tirar?” na Minha área (as notas ficam só no seu aparelho), página Regras das provas com o regulamento da Unigranrio e lembrete de segunda chamada nas 48 horas depois de cada prova.'},
+  {date: '2026-11-26', disc: 'Geral', desc: 'Calculadora “Quanto preciso tirar?” na Minha área (só você vê as suas notas), página Regras das provas com o regulamento da Unigranrio e lembrete de segunda chamada nas 48 horas depois de cada prova.'},
   {date: '2026-11-25', disc: 'Geral', desc: 'Domínio por tema nos simulados: cada tema mostra se você está praticando, bom ou dominado, e os temas fracos ganham um treino próprio e entram primeiro no plano de estudos.'},
   {date: '2026-11-24', disc: 'Geral', desc: 'Três cursos novos em Cursos extras: violência de gênero e feminicídio, jogos de aposta na RAPS (Fiocruz) e metodologia da pesquisa científica (Fiocruz).'},
   {date: '2026-11-23', disc: 'Geral', desc: '15 conquistas novas para vestir o Psiu: estude, faça exercícios, refaça os erros e mantenha a constância para liberar boina, fone, gorro, chapéus e mais. Quem completar todas ganha o fundo Consultório do Psiu.', link: {url:'#minha-area'}},
@@ -21725,7 +21725,7 @@ const PAGINAS_BUSCA = [
   {t:'Vídeos', s:'Vídeo-aulas por disciplina', l:{page:'viewVideos'}},
   {t:'Cursos extras', s:'Cursos complementares', l:{page:'viewCursos'}},
   {t:'Sobre o site', s:'O projeto e a organização do Drive', l:{page:'viewSobre'}},
-  {t:'Regras das provas', s:'Notas, exame especial, frequência e segunda chamada', l:{page:'viewRegras'}},
+  {t:'Regras das provas', s:'Notas, prova final, frequência e segunda chamada', l:{page:'viewRegras'}},
   {t:'Quanto preciso tirar?', s:'Calculadora de notas na Minha área', l:{fn:'avAbrirNotas'}},
   {t:'Instale o app', s:'Instalação no celular', l:{page:'viewInstalar'}},
   {t:'Minha área', s:'Plano do dia, progresso e treinos', l:{page:'viewHoje'}},
@@ -26390,9 +26390,11 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
 // ===== Calculadora "Quanto preciso tirar?" (regulamento de avaliação da Unigranrio, dez/2022) =====
 // N1 e N2 valem 50 cada (atividades 20 + prova 30). Soma >= 70: aprovado. De 40 a 69: exame especial (100 pontos),
 // e a média (exame + nota do semestre) / 2 precisa chegar a 60. Abaixo de 40: reprovado.
-// PRIVACIDADE: as notas ficam só neste aparelho. A chave não começa com "av-", então não entra na sincronização da conta.
+// As notas entram na sincronização da conta (chave av-*), para valer em todos os aparelhos. As regras do banco
+// só deixam o próprio dono ler usuarios/{uid}; o painel do administrador não lê nem mostra essas notas.
 (function(){
-  const CHAVE = 'nl-notas-2026-2';
+  const CHAVE = 'av-notas-2026-2';
+  try{ const velho = localStorage.getItem('nl-notas-2026-2'); if(velho && !localStorage.getItem(CHAVE)) localStorage.setItem(CHAVE, velho); localStorage.removeItem('nl-notas-2026-2'); }catch(e){}
   const CAMPOS = [['a1', 'Atividades N1', 20], ['p1', 'Prova N1', 30], ['a2', 'Atividades N2', 20], ['p2', 'Prova N2', 30]];
   const ler = () => { try{ return JSON.parse(localStorage.getItem(CHAVE)) || {}; }catch(e){ return {}; } };
   const gravar = o => { try{ localStorage.setItem(CHAVE, JSON.stringify(o)); }catch(e){} };
@@ -26406,29 +26408,29 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     const soma = CAMPOS.reduce((s, [k]) => s + (v[k] || 0), 0);
     if(lanc === 4){
       if(soma >= 70) return {cls:'ok', t:`Aprovado · ${fmt(soma)} pontos`};
-      if(soma < 40) return {cls:'ruim', t:`Reprovado · ${fmt(soma)} pontos`, d:'Abaixo de 40 não há exame especial.'};
+      if(soma < 40) return {cls:'ruim', t:`Reprovado · ${fmt(soma)} pontos`, d:'Abaixo de 40 não há prova final.'};
       const ex = num(x.ex), precisa = 120 - soma;
-      if(ex !== null){ const fin = (Math.min(ex, 100) + soma) / 2; return fin >= 60 ? {cls:'ok', t:`Aprovado no exame · média ${fmt(fin)}`, exame:true} : {cls:'ruim', t:`Média final ${fmt(fin)} · abaixo de 60`, exame:true}; }
-      return {cls:'atencao', t:`Exame especial · precisa de ${fmt(precisa)}`, d:`Você fechou com ${fmt(soma)}. A média do exame com essa nota precisa dar 60, então são ${fmt(precisa)} de 100 no exame.`, exame:true};
+      if(ex !== null){ const fin = (Math.min(ex, 100) + soma) / 2; return fin >= 60 ? {cls:'ok', t:`Aprovado na prova final · média ${fmt(fin)}`, exame:true} : {cls:'ruim', t:`Média final ${fmt(fin)} · abaixo de 60`, exame:true}; }
+      return {cls:'atencao', t:`Prova final · precisa de ${fmt(precisa)}`, d:`Você fechou com ${fmt(soma)}. A média da prova final com essa nota precisa dar 60, então são ${fmt(precisa)} de 100 na prova final.`, exame:true};
     }
     // falta lançar: quanto falta para os 70, contando só o que ainda pode vir
     const resta = CAMPOS.filter(([k]) => v[k] === null).reduce((s, [, , m]) => s + m, 0);
     const falta = 70 - soma;
     if(falta <= 0) return {cls:'ok', t:'Já garantiu os 70 pontos'};
-    if(falta > resta) return {cls:'atencao', t:`Mesmo com nota máxima, vai ao exame`, d:`Faltam ${fmt(falta)} para 70 e só restam ${fmt(resta)} pontos. Para não reprovar direto, precisa de ${fmt(Math.max(0, 40 - soma))}.`};
-    return {cls:'meio', t:`Faltam ${fmt(falta)} de ${fmt(resta)} pontos`, d:`Para fechar com 70 e passar sem exame.`};
+    if(falta > resta) return {cls:'atencao', t:`Mesmo com nota máxima, vai à prova final`, d:`Faltam ${fmt(falta)} para 70 e só restam ${fmt(resta)} pontos. Para não reprovar direto, precisa de ${fmt(Math.max(0, 40 - soma))}.`};
+    return {cls:'meio', t:`Faltam ${fmt(falta)} de ${fmt(resta)} pontos`, d:`Para fechar com 70 e passar sem prova final.`};
   }
   function linhaHTML(d, x){
     const st = situacao(x);
     return `<details class="nt-item" data-nt-disc="${d.n}"${x._aberto ? ' open' : ''}><summary><span class="nt-nome">${escHTML(curto(d))}</span><span class="nt-st nt-${st.cls}">${escHTML(st.t)}</span></summary>
       <div class="nt-corpo"><div class="nt-campos">${CAMPOS.map(([k, t, m]) => `<label><span>${t}</span><span class="nt-in"><input type="number" inputmode="decimal" min="0" max="${m}" step="0.1" data-nt="${k}" value="${x[k] ?? ''}" placeholder="–"><em>/ ${m}</em></span></label>`).join('')}</div>
-      <label class="nt-ex"${st.exame ? '' : ' hidden'}><span>Exame especial</span><span class="nt-in"><input type="number" inputmode="decimal" min="0" max="100" step="0.1" data-nt="ex" value="${x.ex ?? ''}" placeholder="–"><em>/ 100</em></span></label>
+      <label class="nt-ex"${st.exame ? '' : ' hidden'}><span>Prova final</span><span class="nt-in"><input type="number" inputmode="decimal" min="0" max="100" step="0.1" data-nt="ex" value="${x.ex ?? ''}" placeholder="–"><em>/ 100</em></span></label>
       <p class="nt-det">${st.d ? escHTML(st.d) : ''}</p></div></details>`;
   }
   window.avNotasHTML = () => {
     const o = ler();
-    return `<section class="nt-card" id="ntCard"><div class="nt-topo"><div><h3>Quanto preciso tirar?</h3><p>N1 e N2 valem 50 cada. Com 70 você passa direto; de 40 a 69 vai ao exame especial.</p></div></div>
-      <p class="nt-priv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Suas notas ficam só neste aparelho.</b> Elas não vão para a sua conta nem para o servidor do site: ninguém tem acesso a elas, nem o administrador.</span></p>
+    return `<section class="nt-card" id="ntCard"><div class="nt-topo"><div><h3>Quanto preciso tirar?</h3><p>N1 e N2 valem 50 cada. Com 70 você passa direto; de 40 a 69 vai à prova final.</p></div></div>
+      <p class="nt-priv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Só você vê as suas notas.</b> Elas ficam salvas na sua conta e aparecem em todos os seus aparelhos, mas não aparecem para os colegas nem no painel do administrador.</span></p>
       <div class="nt-lista">${DISC_MEU().map(d => linhaHTML(d, o[d.n] || {})).join('')}</div>
       <p class="nt-rod">Conta do regulamento de avaliação da Unigranrio. Projetos e estágios de nota única seguem outra regra. <button class="nt-link" data-page="viewRegras">Ver as regras das provas</button></p></section>`;
   };
