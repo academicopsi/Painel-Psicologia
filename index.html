@@ -5620,6 +5620,18 @@ const TASKS = [
   {materia: 'Psicologia da Aprendizagem', tarefa: 'Prova N2', prazo: '2026-11-18', added: '2026-11-03'},
   {materia: 'Projeto de Extensão', tarefa: 'Apresentação dos projetos: Grupos 1, 2 e 3 (bancas: Grupos 4, 5 e 6). Slides no fórum da disciplina até 15 minutos antes', prazo: '2026-11-16', added: '2026-11-12'},
   {materia: 'Projeto de Extensão', tarefa: 'Apresentação dos projetos: Grupos 4, 5 e 6 (bancas: Grupos 1, 2 e 3). Slides no fórum da disciplina até 15 minutos antes', prazo: '2026-11-23', added: '2026-11-12'},
+  // segunda chamada e prova final: extra marca que não é prova da turma toda (fica fora do plano, das contagens e dos avisos de prova)
+  {materia: 'Bases Biológicas', tarefa: 'Segunda chamada da N2 (só para quem perdeu a prova e teve o pedido aceito pela coordenação)', prazo: '2026-11-30', added: '2026-11-26', extra: '2ch'},
+  {materia: 'Neuroanatomia', tarefa: 'Segunda chamada da N2 (só para quem perdeu a prova e teve o pedido aceito pela coordenação)', prazo: '2026-12-01', added: '2026-11-26', extra: '2ch'},
+  {materia: 'Desenvolvimento Adulto e Idoso', tarefa: 'Segunda chamada da N2 (só para quem perdeu a prova e teve o pedido aceito pela coordenação)', prazo: '2026-12-01', added: '2026-11-26', extra: '2ch'},
+  {materia: 'Psicologia da Aprendizagem', tarefa: 'Segunda chamada da N2 (só para quem perdeu a prova e teve o pedido aceito pela coordenação)', prazo: '2026-12-02', added: '2026-11-26', extra: '2ch'},
+  {materia: 'Psicologia Experimental', tarefa: 'Segunda chamada da N2 (só para quem perdeu a prova e teve o pedido aceito pela coordenação)', prazo: '2026-12-02', added: '2026-11-26', extra: '2ch'},
+  {materia: 'Bases Biológicas', tarefa: 'Prova final (só para quem fechou entre 40 e 69 pontos)', prazo: '2026-12-07', added: '2026-11-26', extra: 'final'},
+  {materia: 'Neuroanatomia', tarefa: 'Prova final (só para quem fechou entre 40 e 69 pontos)', prazo: '2026-12-08', added: '2026-11-26', extra: 'final'},
+  {materia: 'Desenvolvimento Adulto e Idoso', tarefa: 'Prova final (só para quem fechou entre 40 e 69 pontos)', prazo: '2026-12-08', added: '2026-11-26', extra: 'final'},
+  {materia: 'Psicologia da Aprendizagem', tarefa: 'Prova final (só para quem fechou entre 40 e 69 pontos)', prazo: '2026-12-09', added: '2026-11-26', extra: 'final'},
+  {materia: 'Psicologia Experimental', tarefa: 'Prova final (só para quem fechou entre 40 e 69 pontos)', prazo: '2026-12-09', added: '2026-11-26', extra: 'final'},
+  {materia: 'Geral', tarefa: 'Agendar a prova final das disciplinas EAD (agendamento de 30/11 a 04/12)', prazo: '2026-12-04', added: '2026-11-26', extra: 'ead'},
 ];
 
 
@@ -5638,6 +5650,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   // só conteúdo e ferramentas, em uma ou duas linhas; ajustes de visual e correções ficam de fora
+  {date: '2026-11-26', disc: 'Geral', desc: 'Datas da segunda chamada (30/11 a 02/12) e da prova final (07 a 09/12) nos prazos. A calculadora de notas mostra o dia da sua prova final, e o lembrete de segunda chamada já diz a data.', link: {url:'#prazos'}},
   {date: '2026-11-26', disc: 'Geral', desc: 'Calculadora “Quanto preciso tirar?” na Minha área (só você vê as suas notas), página Regras das provas com o regulamento da Unigranrio e lembrete de segunda chamada nas 48 horas depois de cada prova.'},
   {date: '2026-11-25', disc: 'Geral', desc: 'Domínio por tema nos simulados: cada tema mostra se você está praticando, bom ou dominado, e os temas fracos ganham um treino próprio e entram primeiro no plano de estudos.'},
   {date: '2026-11-24', disc: 'Geral', desc: 'Três cursos novos em Cursos extras: violência de gênero e feminicídio, jogos de aposta na RAPS (Fiocruz) e metodologia da pesquisa científica (Fiocruz).'},
@@ -22371,7 +22384,7 @@ document.addEventListener('click', e=>{
     return TASKS.filter(t => t.prazo && diasAte(t.prazo) >= 0 && (!filtro || filtro(t)))
                 .sort((a,b) => a.prazo.localeCompare(b.prazo));
   }
-  const ehProva = t => /prova/i.test(t.tarefa);
+  const ehProva = t => /prova/i.test(t.tarefa) && !t.extra;
   const linhaTarefa = (t, comMateria) => `<li><strong>${fmtDia(t.prazo)}</strong> (${quandoTxt(diasAte(t.prazo))}): ${comMateria ? escHTML(t.materia) + ' · ' : ''}${escHTML(t.tarefa)}</li>`;
   const calendario = {label:'Ver calendário', l:{page:'viewPrazos', target:'calendario'}};
 
@@ -22727,6 +22740,18 @@ document.addEventListener('click', e=>{
       return {h:um(['Os slides e os livros das aulas ficam todos no Drive da turma.', 'Tudo que os professores passam vai para o Drive da turma. Aqui está:']), a:[{label:'Abrir o Drive', l:{url:DRIVE_GERAL}}]};
     }
 
+    // segunda chamada e prova final têm datas próprias e valem só para parte da turma
+    const extraPedido = tem(ws, ['chamada']) ? '2ch' : (tem(ws, ['exame']) || (tem(ws, ['final']) && tem(ws, ['prova','provas','nota','notas']))) ? 'final' : null;
+    if(extraPedido){
+      const lista = futuras(t => t.extra === extraPedido && (!disc || discDaTarefa(t) === disc));
+      const nomeX = extraPedido === '2ch' ? 'segunda chamada' : 'prova final';
+      const quem = extraPedido === '2ch' ? 'Vale só para quem perdeu a N2 e teve o pedido aceito pela coordenação.' : 'Vale só para quem fechou entre 40 e 69 pontos. A calculadora de notas, na Minha área, mostra se é o seu caso.';
+      const ead = extraPedido === 'final' && !disc ? ' Nas disciplinas EAD, a prova final é agendada de 30/11 a 04/12.' : '';
+      const regras = {label:'Regras das provas', l:{page:'viewRegras'}};
+      if(!lista.length) return {x:'pensando', h:`Não achei ${nomeX} marcada daqui para frente${disc ? ' de ' + escHTML(nomeDisc(disc)) : ''}.`, a:[regras, calendario]};
+      if(disc){ const t = lista[0]; return {h:`A ${nomeX} de <strong>${escHTML(t.materia)}</strong> é em <strong>${fmtDia(t.prazo)}</strong> (${quandoTxt(diasAte(t.prazo))}). ${quem}`, a:[regras, calendario]}; }
+      return {h:`Datas da ${nomeX}:<ul>${lista.map(t => `<li><strong>${fmtDia(t.prazo)}</strong> · ${escHTML(t.materia)}</li>`).join('')}</ul>${quem}${ead}`, a:[regras, calendario]};
+    }
     const querSemana = tem(ws, ['semana','hoje','amanha']);
     if(it === 'prova'){
       let lista = futuras(t => ehProva(t) && (!disc || discDaTarefa(t) === disc));
@@ -24133,7 +24158,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   // ================= Plano de estudos automático =================
   function provasFuturas(){
     const hoje = hojeISO();
-    return (TASKS.filter(t => /^prova/i.test(t.tarefa) && t.prazo >= hoje).map(t => ({data:t.prazo, disc:(DISC_TODAS().find(d => d.name === t.materia || d.name.startsWith(t.materia) || t.materia.startsWith(d.name)) || {}).n, materia:t.materia})).filter(p => p.disc).sort((a, b) => a.data.localeCompare(b.data))).filter(p => p.disc && discDoMeuSem(p.disc));
+    return (TASKS.filter(t => /^prova/i.test(t.tarefa) && !t.extra && t.prazo >= hoje).map(t => ({data:t.prazo, disc:(DISC_TODAS().find(d => d.name === t.materia || d.name.startsWith(t.materia) || t.materia.startsWith(d.name)) || {}).n, materia:t.materia})).filter(p => p.disc).sort((a, b) => a.data.localeCompare(b.data))).filter(p => p.disc && discDoMeuSem(p.disc));
   }
   function pctParte(sim, parte){
     const o = desempLer(); const s = (o.sims || {})[sim.id] || {};
@@ -24911,7 +24936,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   function sugestoes(){
     const out = [];
     const ult = (typeof ultimoLer === 'function') ? ultimoLer() : {};
-    const prova = proximosPrazos().find(t => /^prova/i.test(t.tarefa) && discDaMateria(t.materia));
+    const prova = proximosPrazos().find(t => /^prova/i.test(t.tarefa) && !t.extra && discDaMateria(t.materia));
     if(prova){ const d = discDaMateria(prova.materia); const sm = SIM_JOGO.find(x => x.disc === d);
       if(sm) out.push({t:`Simulado de ${nomeDisc(d)}`, s:`A prova é ${dias(prova.prazo) === 0 ? 'hoje' : dias(prova.prazo) === 1 ? 'amanhã' : 'em ' + dias(prova.prazo) + ' dias'}`, ir:{tipo:'simulado', id:sm.id}}); }
     const nErr = errLista('todas').length; if(nErr) out.push({t:`Revisar ${nErr} ${nErr === 1 ? 'questão errada' : 'questões erradas'}`, s:'Só o que você errou nos simulados', ir:{tipo:'erros'}});
@@ -24990,14 +25015,16 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     try{
       const vistos = JSON.parse(localStorage.getItem('av-2chamada-visto') || '{}');
       const nomes = new Set(DISC_MEU().map(d => d.name)), agora = new Date();
-      const p = TASKS.filter(t => /prova/i.test(t.tarefa) && t.prazo && nomes.has(t.materia)).map(t => {
+      const p = TASKS.filter(t => /prova/i.test(t.tarefa) && !t.extra && t.prazo && nomes.has(t.materia)).map(t => {
         const [a, m, d] = t.prazo.split('-').map(Number), ini = new Date(a, m - 1, d, 0, 0), fim = new Date(a, m - 1, d + 2, 23, 59);
         return {t, ini, fim, id:t.materia + '|' + t.prazo};
       }).filter(x => agora >= x.ini && agora <= x.fim && !vistos[x.id]).sort((a, b) => b.ini - a.ini)[0];
       if(!p) return '';
       const dd = x => x.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
       const ate = new Date(p.ini.getTime() + 2 * 864e5);
-      return `<section class="ma-2ch"><div><b>Perdeu a ${escHTML(p.t.tarefa)} de ${escHTML(p.t.materia)} (${dd(p.ini)})?</b><span>Dá para pedir segunda chamada à coordenação em até 48 horas depois da prova, ou seja, até ${dd(ate)} no horário da aula, com atestado ou outro comprovante.</span><button class="nt-link" data-page="viewRegras">Ver motivos aceitos e regras</button></div><button class="ma-2ch-x" data-2ch-fechar="${escHTML(p.id)}" aria-label="Dispensar">×</button></section>`;
+      const sc = TASKS.find(t => t.extra === '2ch' && t.materia === p.t.materia && t.prazo > p.t.prazo);
+      const scTxt = sc ? ` A segunda chamada de ${escHTML(p.t.materia)} é em ${sc.prazo.slice(8, 10)}/${sc.prazo.slice(5, 7)}.` : '';
+      return `<section class="ma-2ch"><div><b>Perdeu a ${escHTML(p.t.tarefa)} de ${escHTML(p.t.materia)} (${dd(p.ini)})?</b><span>Dá para pedir segunda chamada à coordenação em até 48 horas depois da prova, ou seja, até ${dd(ate)} no horário da aula, com atestado ou outro comprovante.${scTxt}</span><button class="nt-link" data-page="viewRegras">Ver motivos aceitos e regras</button></div><button class="ma-2ch-x" data-2ch-fechar="${escHTML(p.id)}" aria-label="Dispensar">×</button></section>`;
     }catch(e){ return ''; }
   }
   document.addEventListener('click', e => { const b = e.target.closest('[data-2ch-fechar]'); if(!b) return; try{ const o = JSON.parse(localStorage.getItem('av-2chamada-visto') || '{}'); o[b.getAttribute('data-2ch-fechar')] = 1; localStorage.setItem('av-2chamada-visto', JSON.stringify(o)); }catch(_){} const s = b.closest('.ma-2ch'); if(s) s.remove(); });
@@ -25017,11 +25044,11 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     const saud = h < 5 ? 'Boa noite' : h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
     const nome = (window.avNome || '').split(' ')[0];
     const prazos = proximosPrazos().filter(t => { const d = typeof discOf === 'function' ? discOf(t.materia) : null; return !d || discDoMeuSem(d.n); });
-    const prova = prazos.find(t => /^prova/i.test(t.tarefa));
+    const prova = prazos.find(t => /^prova/i.test(t.tarefa) && !t.extra);
     const dp = prova ? dias(prova.prazo) : null;
-    const mesmas = prova ? prazos.filter(t => /^prova/i.test(t.tarefa) && t.prazo === prova.prazo).map(t => curto(t.materia)) : [];
+    const mesmas = prova ? prazos.filter(t => /^prova/i.test(t.tarefa) && !t.extra && t.prazo === prova.prazo).map(t => curto(t.materia)) : [];
     const quando = dp === 0 ? 'hoje' : dp === 1 ? 'amanhã' : 'em ' + dp + ' dias';
-    const provaDiscs = prova ? prazos.filter(t => /^prova/i.test(t.tarefa) && t.prazo === prova.prazo).map(t => discOf(t.materia)).filter(Boolean) : [];
+    const provaDiscs = prova ? prazos.filter(t => /^prova/i.test(t.tarefa) && !t.extra && t.prazo === prova.prazo).map(t => discOf(t.materia)).filter(Boolean) : [];
     const cont = !prova ? `<span class="ma-cont ma-cont-vazio">${maIc('cal')}</span>` : dp === 0 ? '<span class="ma-cont"><b>Hoje</b></span>' : `<span class="ma-cont"><b>${dp}</b><small>${dp === 1 ? 'dia' : 'dias'}</small></span>`;
     const chip = prova ? `<div class="ma-prova${dp <= 3 ? ' perto' : ''}">${cont}<span><small>${mesmas.length > 1 ? 'Próximas provas' : 'Próxima prova'}</small><b>${escHTML(mesmas.join(' e '))}</b><span class="ma-dots">${provaDiscs.map(d => `<i data-d="${d.n}"></i>`).join('')}</span></span></div>` : `<div class="ma-prova">${cont}<span><small>Provas</small><b>Nenhuma nos próximos dias</b></span></div>`;
     // plano (apoiador) ou sugestões (todos)
@@ -26541,6 +26568,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   const num = v => v === '' || v == null || isNaN(+v) ? null : Math.max(0, +v);
   const fmt = n => String(Math.round(n * 10) / 10).replace('.', ',');
   const curto = d => ({'01':'Bases Biológicas','02':'Neuroanatomia','03':'Aprendizagem','04':'Experimental','05':'Adulto e Idoso','06':'Extensão'})[d.n] || d.name;
+  const finalDe = dd => { const nome = dd && typeof dd === 'object' ? dd.name : String(dd || ''); const t = TASKS.find(t => t.extra === 'final' && (t.materia === nome || String(nome).startsWith(t.materia) || t.materia.startsWith(nome))); return t ? ` · dia ${t.prazo.slice(8, 10)}/${t.prazo.slice(5, 7)}` : ''; };
   function situacao(x){
     const v = {}; CAMPOS.forEach(([k, , m]) => { const n = num(x[k]); v[k] = n === null ? null : Math.min(n, m); });
     const lanc = CAMPOS.filter(([k]) => v[k] !== null).length;
@@ -26572,7 +26600,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
       <div class="nt-corpo"><div class="nt-etapas">
         <div class="nt-etapa"><div class="nt-et-h"><b>N1</b><span class="nt-sub" data-nt-sub="n1">${fmt(sm.n1)} / 50</span></div><div class="nt-campos">${campo('a1', 'Atividades', 20, x)}${campo('p1', 'Prova', 30, x)}</div></div>
         <div class="nt-etapa"><div class="nt-et-h"><b>N2</b><span class="nt-sub" data-nt-sub="n2">${fmt(sm.n2)} / 50</span></div><div class="nt-campos">${campo('a2', 'Atividades', 20, x)}${campo('p2', 'Prova', 30, x)}</div></div></div>
-      <div class="nt-ex"${st.exame ? '' : ' hidden'}><div class="nt-et-h"><b>Prova final</b><span class="nt-sub">vale 100</span></div>${campo('ex', 'Nota da prova final', 100, x)}</div>
+      <div class="nt-ex"${st.exame ? '' : ' hidden'}><div class="nt-et-h"><b>Prova final</b><span class="nt-sub">vale 100${finalDe(d)}</span></div>${campo('ex', 'Nota da prova final', 100, x)}</div>
       <p class="nt-det">${st.d ? escHTML(st.d) : ''}</p></div></details>`;
   }
   function resumo(o){
