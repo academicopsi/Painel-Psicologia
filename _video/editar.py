@@ -341,7 +341,7 @@ def cena_psiu(t):
         if 1.0<t<3.0: balao(im, cx+60, cy-larg*0.62, 'Psiu! Pode perguntar.', min(1,(t-1.0)/0.4)*(1 if t<2.6 else max(0,(3.0-t)/0.4)))
     return im
 MU_A,MU_B,MU_D=S['mural'],S['mural_fim'],11.0
-MURAL=[(0,'Mural da turma','Tópicos com título e categoria, sempre com o seu nome'),
+MURAL=[(0,'Corredor da turma','Tópicos com título e categoria, sempre com o seu nome'),
        (cena_t(MU_A,MU_B,MU_D,S['mural_reac']),'Reações','Curtir, Concordo, Haha, Amei e o Psiu'),
        (cena_t(MU_A,MU_B,MU_D,S['mural_marca']),'Marque colegas','Digite @ e a pessoa recebe uma notificação')]
 def cena_mural(t):
@@ -359,7 +359,7 @@ def cena_rec(a,b_,dur,plano,sinal=1):
 # ---------- notificações ----------
 NOTIFS=[('Psiu! Aviso da turma','A prova de Neuro foi adiada para quinta. Bora aproveitar para revisar!'),
         ('Júlia respondeu ao seu tópico','“Quem topa revisar Neuro na segunda?”: Eu vou! Fico com o trigêmeo e o facial.'),
-        ('Bruno marcou você no mural','“@Ana levo o resumo do vago!”')]
+        ('Bruno marcou você no Corredor','“@Ana levo o resumo do vago!”')]
 _lock=None
 def lock_fundo():
     global _lock
@@ -386,7 +386,7 @@ def cena_notif(t, dur):
     mapa=celular3d(im, scr, W//2, 1200, ry, rx)
     topo_escuro(im,640)
     if t<3.4: cola_legenda(im,'Avisos no celular','Os avisos da turma chegam na hora, mesmo com o site fechado',t)
-    else: cola_legenda(im,'Avisos no celular','E você fica sabendo quando respondem ou marcam você no mural',t-3.4)
+    else: cola_legenda(im,'Avisos no celular','E você fica sabendo quando respondem ou marcam você no Corredor',t-3.4)
     # cada notificação chega grande, na frente, e entra no celular
     for i,c in enumerate(chegadas):
         if c<=t<c+0.6:
@@ -408,7 +408,7 @@ CENAS=[('hook',4.8,lambda t:cena_hook(t)),
  ('apoio',AP_D,lambda t:cena_apoio(t)),
  ('c4',1.0,lambda t:cena_capitulo(t,'04','Conheça o Psiu','O colega virtual da turma')),
  ('psiu',PS_D,lambda t:cena_psiu(t)),
- ('c5',1.0,lambda t:cena_capitulo(t,'05','Mural da turma','Conversa, materiais e elogios')),
+ ('c5',1.0,lambda t:cena_capitulo(t,'05','Corredor da turma','Conversa, materiais e elogios')),
  ('mural',MU_D,lambda t:cena_mural(t)),
  ('c6',1.0,lambda t:cena_capitulo(t,'06','Avisos no celular','O site agora te avisa')),
  ('notif',7.0,lambda t:cena_notif(t,7.0)),

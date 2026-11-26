@@ -1,10 +1,10 @@
-# Vídeo de divulgação da V3
+# Vídeo de divulgação do Arquivo Vivo
 
 Pasta de trabalho do vídeo de divulgação (não é publicada no site: o GitHub Pages ignora pastas que começam com `_`).
 
 ## O que tem aqui
-- `gravar.py`: abre a V3 num navegador de teste com uma conta fictícia ("Ana Clara", apoiadora), preenche dados de estudo de demonstração e grava a tela do site rodando (Page.startScreencast), com marcas de tempo por trecho.
-- `editar.py`: monta o vídeo vertical 1080×1920 a 30 fps: abertura, números do site, capítulos 01 a 08 (plano de estudos, simulado em PDF, desempenho e story, Psiu, Mural da turma, avisos no celular, simulados, 1º período) e encerramento. Efeitos: celular girando em 3D, cartões que saltam da tela, páginas do PDF em leque, o Psiu pulando para fora do celular e notificações que entram no aparelho.
+- `gravar.py`: abre o site (raiz do repositório) num navegador de teste com uma conta fictícia ("Ana Clara", apoiadora), preenche dados de estudo de demonstração e grava a tela do site rodando (Page.startScreencast), com marcas de tempo por trecho.
+- `editar.py`: monta o vídeo vertical 1080×1920 a 30 fps: abertura, números do site, capítulos 01 a 08 (plano de estudos, simulado em PDF, desempenho e story, Psiu, Corredor da turma, avisos no celular, simulados, 1º período) e encerramento. Efeitos: celular girando em 3D, cartões que saltam da tela, páginas do PDF em leque, o Psiu pulando para fora do celular e notificações que entram no aparelho.
 - `psiu.py`: desenha o Psiu neutro em PNG transparente, com as funções de desenho do próprio site.
 - `musica.py`: compõe a trilha atual, pop acústico e ensolarado (108 bpm, Ré maior, violão dedilhado, piano, palmas, glockenspiel no gancho). A synth-pop da versão anterior ficou em `musica-synthpop.py`.
 - `mock_firebase.py`: troca o Firebase por uma versão falsa para gravar sem conta real.
@@ -23,3 +23,10 @@ Se um bloco passar do tempo da cena, aumentar a velocidade da fala (`--rate=+8%`
 - Conta fictícia no vídeo (não mostrar nome nem e-mail do Thiago).
 - Números de conteúdo reais (688 questões, 506 termos, 54 exercícios, 23 resumos, 12 disciplinas); os da área do apoiador são de demonstração.
 - Endereço no final: academicopsi.github.io/Painel-Psicologia (a V3 vira o site oficial em 26/11).
+
+## Atualização de 26/11/2026
+- O site oficial agora é a raiz (`index.html`); a pasta `v3/` só redireciona.
+- A gravação finge que é 17/11/2026, 19h30 (`DATA_FIXA` em `gravar.py`), para o plano e as provas aparecerem cheios. O lembrete de segunda chamada fica escondido na gravação.
+- "Mural" virou "Corredor da turma" no vídeo e na página de divulgação. O Corredor é aberto pela barra de baixo.
+- Versão para o site: `ffmpeg -i final.mp4 -vf scale=720:1280:flags=lanczos -c:v libx264 -preset veryfast -crf 28 -maxrate 600k -bufsize 1200k -c:a aac -b:a 96k -movflags +faststart arquivo-vivo.mp4`.
+- Capa: quadro de 20,1 s ("A semana inteira num painel só").

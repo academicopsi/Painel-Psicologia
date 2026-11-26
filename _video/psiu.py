@@ -1,6 +1,6 @@
 # Desenha o Psiu neutro (óculos e sorriso) em PNG transparente, a partir das funções de desenho do próprio site.
 import subprocess
-html=open('/home/claude/painel-psicologia/v3/index.html').read()
+html=open('/home/claude/painel-psicologia/index.html').read()
 defs=[html[html.index('  const '+n+' = '):html.index('\n',html.index('  const '+n+' = '))] for n in ['CEREBRO','OCULOS','PUPILAS','BOCA']]
 open('/tmp/vid/psiu_defs.js','w').write('\n'.join(defs)+"\nconsole.log(CEREBRO()+OCULOS()+PUPILAS()+BOCA('M50 72 Q60 80 70 72'));\n")
 s=subprocess.run(['node','/tmp/vid/psiu_defs.js'],capture_output=True,text=True).stdout

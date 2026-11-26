@@ -14,7 +14,7 @@ SEED = r"""(()=>{
   localStorage.setItem('av-tempo', JSON.stringify({total: 19 * 3600 + 1200, dias:{}}));
 })()"""
 MURAL_SEED = r"""(()=>{
-  const d = JSON.parse(sessionStorage.getItem('fakeDB') || '{"apoiadores/u1":true,"acesso/u1":true}'), h = Date.now(), m = 60000;
+  const d = JSON.parse(sessionStorage.getItem('fakeDB') || '{"apoiadores/u1":{"ate":1898000000000,"conf":1},"acesso/u1":true}'), h = Date.now(), m = 60000;
   const put = (k, v) => d[k] = v;
   put('perfis/u1', {nome:'Ana Clara', sem:'2', ap:true});
   put('perfis/t1', {nome:'Bruno Lima', sem:'2', ap:true, conq:6, conqT:15}); put('perfis/t2', {nome:'Carla Souza', sem:'2', conq:9, conqT:15});
@@ -29,6 +29,10 @@ MURAL_SEED = r"""(()=>{
   put('mural/curtidas/x3/t1', {t:'haha', em:h-600*m}); put('mural/curtidas/x3/t2', {t:'amei', em:h-500*m});
   sessionStorage.setItem('fakeDB', JSON.stringify(d)); localStorage.setItem('av-mural-ok', '1');
 })()"""
+# grava como se fosse uma noite de semana antes das provas N2, para o plano e os prazos aparecerem cheios
+DATA_FIXA = r"""(()=>{const off=new Date('2026-11-17T19:30:00-03:00').getTime()-Date.now(); const D=Date;
+  class F extends D{constructor(...a){ if(a.length) super(...a); else super(D.now()+off); } static now(){ return D.now()+off; }}
+  window.Date=F; })()"""
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--force-device-scale-factor=2'])   # sem isto o screencast sai em 390×780
     ctx=b.new_context(viewport={'width':390,'height':780}, device_scale_factor=2, service_workers='block'); pg=ctx.new_page()
@@ -36,12 +40,12 @@ with sync_playwright() as p:
     def r(route, _q=None):
         u=route.request.url; route.fulfill(status=200, content_type='application/javascript', body=APP if 'firebase-app' in u else AUTH if 'firebase-auth' in u else DB)
     pg.route('**/firebasejs/**', r)
-    pg.goto('http://localhost:8765/v3/#entrar');pg.wait_for_timeout(1500)
+    pg.add_init_script("localStorage.setItem('av-convite-2026-2b','1')"); pg.add_init_script(DATA_FIXA); pg.goto('http://localhost:8765/#entrar');pg.wait_for_timeout(1500)
     pg.fill('#cEmail','ana.clara@exemplo.com');pg.fill('#cSenha','123456');pg.click('[data-form] button[type=submit]'); pg.wait_for_timeout(4000)
     pg.evaluate(SEED)
     pg.evaluate(MURAL_SEED)
     pg.reload(); pg.wait_for_timeout(4000)
-    pg.add_style_tag(content="::-webkit-scrollbar{display:none} #psiuBalao{display:none!important} html{scroll-behavior:auto}")
+    pg.add_style_tag(content="::-webkit-scrollbar{display:none} #psiuBalao{display:none!important} .ma-2ch{display:none!important} html{scroll-behavior:auto}")
     cdp=ctx.new_cdp_session(pg)
     def onf(ev):
         i=len(frames); f=f'{OUT}/{i:05d}.jpg'; open(f,'wb').write(base64.b64decode(ev['data']))
@@ -97,7 +101,7 @@ with sync_playwright() as p:
     pg.click('#botFechar'); W(300)
     # MURAL
     pg.evaluate("location.hash='#top'"); W(500); pg.evaluate("scrollTo(0,0)"); W(300)
-    seg('mural'); W(400); toque('#muralBtn', espera=1800)
+    seg('mural'); W(400); toque('.tabbar [data-page="viewMural"], .tabbar [data-tb="mural"]', espera=1800)
     ate('.mu-feed', 230, 1100); W(900)
     toque('[data-mu-ver=x1] .mu-card-t', espera=1300)
     seg('mural_reac'); toque('[data-mu-reagir=x1]', espera=900); toque('[data-mu-reac="x1|psiu"]', espera=1000)
