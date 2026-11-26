@@ -2483,12 +2483,11 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .link-btn::after, .panel a::after, .back-link::after{content:""; position:absolute; inset:-10px -6px;}
   .drive-all, .nt-link, .ma-parou-nao, .yt-fora, .an-apagar-tudo, .name-link{position:relative;}
   .drive-all::after, .nt-link::after, .ma-parou-nao::after, .yt-fora::after, .an-apagar-tudo::after{content:""; position:absolute; inset:-12px -8px;}
-  .ma-2ch-x{min-width:40px; min-height:40px;}
-  /* botões pequenos: pelo menos 40px de altura */
-  .hero-sem button{min-height:40px; padding:8px 14px;}
-  .ma-seg button{min-height:40px; min-width:44px;}
-  .pg-montar, [data-rs-nota], .ds-mais, .an-apagar{min-height:40px;}
-  .footer-col :is(button,a){min-height:40px; display:flex; align-items:center;}
+  /* botões pequenos: área de toque maior por uma camada invisível, sem mudar o tamanho nem o desenho */
+  .hero-sem button, .ma-seg button, .pg-montar, [data-rs-nota], .ds-mais, .an-apagar, .ma-2ch-x, .footer-col :is(button,a){position:relative;}
+  .hero-sem button::after, .pg-montar::after, [data-rs-nota]::after, .ds-mais::after, .an-apagar::after, .ma-2ch-x::after{content:""; position:absolute; inset:-8px -4px;}
+  .ma-seg button::after{content:""; position:absolute; inset:-6px -2px;}
+  .footer-col :is(button,a)::after{content:""; position:absolute; inset:-5px 0;}
 
   /* V3 · organização da página da disciplina */
   .dp-etapa{font-family:var(--mono, ui-monospace, monospace); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--petrol); margin:0 0 4px;}
