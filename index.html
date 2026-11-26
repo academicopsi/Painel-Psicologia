@@ -242,6 +242,31 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 
   /* V3 · barra fixa embaixo no celular (Início, Drive, Disciplinas) */
   .tabbar, .tb-folha{display:none;}
+  /* V3 · Regras das provas */
+  .rg{display:flex; flex-direction:column; gap:14px; max-width:720px;}
+  .rg-card{padding:18px 18px 16px; border:1px solid var(--rule); border-radius:16px; background:var(--paper);}
+  .rg-card h2{margin:0 0 10px; font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600;}
+  .rg-card p{margin:0 0 8px; font-size:14.5px; line-height:1.6; color:var(--ink-soft);}
+  .rg-card strong{color:var(--ink);}
+  .rg-notas{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:0 0 12px;}
+  .rg-notas div{padding:12px; border-radius:12px; background:var(--paper-alt); text-align:center;}
+  .rg-notas b{display:block; font-family:var(--serif, Georgia, serif); font-size:22px;}
+  .rg-notas span{display:block; font-size:13px; font-weight:700; color:var(--petrol);}
+  .rg-notas small{display:block; font-size:12px; color:var(--ink-faint); margin-top:2px;}
+  .rg-faixas{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px;}
+  .rg-faixas li{display:flex; gap:12px; padding:10px 12px; border-radius:12px; border-left:4px solid; background:var(--paper-alt); font-size:14px; line-height:1.5; color:var(--ink-soft);}
+  .rg-faixas b{flex:none; width:92px; color:var(--ink);}
+  .rg-faixas .ok{border-color:#3E9B6A;} .rg-faixas .at{border-color:var(--ochre);} .rg-faixas .ru{border-color:#B03A2E;}
+  .rg-lista{margin:0 0 8px; padding-left:20px; font-size:14.5px; line-height:1.6; color:var(--ink-soft);}
+  .rg-lista li{margin:0 0 6px;}
+  .rg-sub{font-size:13px !important; font-weight:700; color:var(--ink) !important; margin:12px 0 6px !important;}
+  .rg-calc{margin-top:12px; font:inherit; font-size:14px; font-weight:700; color:#fff; background:var(--petrol); border:0; border-radius:10px; padding:10px 16px; cursor:pointer;}
+  .rg-calc.rg-sec{color:var(--petrol); background:var(--petrol-soft);}
+  .rg-obs{margin:12px 0 0 !important; font-size:12.5px !important; color:var(--ink-faint) !important;}
+  .rg-fonte{font-size:12.5px; line-height:1.55; color:var(--ink-faint); margin:4px 0 0;}
+  .rg-fonte a{color:var(--petrol);}
+  @media (max-width:520px){ .rg-faixas li{flex-direction:column; gap:2px;} .rg-faixas b{width:auto;} }
+
   .ma-parou{margin:18px 0 6px; padding:14px 16px; border:1px solid var(--rule); border-radius:16px; background:var(--paper);}
   .ma-parou-q{margin:0 0 8px; font-size:13px; color:var(--ink-soft);}
   .ma-parou-l{display:flex; align-items:center; gap:14px;}
@@ -250,6 +275,10 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .ma-parou-tx span{display:block; margin-top:2px; font-size:12.5px; color:var(--ink-faint); line-height:1.4;}
   .ma-parou-go{flex:none; font:inherit; font-size:13.5px; font-weight:700; color:var(--petrol); background:var(--petrol-soft); border:0; border-radius:10px; padding:9px 14px; cursor:pointer;}
   .ma-parou-go:hover{background:var(--petrol); color:#fff;}
+  .ma-2ch{display:flex; gap:10px; align-items:flex-start; margin:16px 0 0; padding:13px 14px; border-radius:14px; border:1px solid color-mix(in srgb, var(--ochre) 40%, var(--rule)); background:var(--ochre-soft);}
+  .ma-2ch > div{flex:1; min-width:0;} .ma-2ch b{display:block; font-size:14px; line-height:1.4;} .ma-2ch span{display:block; margin:4px 0 6px; font-size:13px; line-height:1.5; color:var(--ink-soft);}
+  .ma-2ch .nt-link{font-size:13px;}
+  .ma-2ch-x{flex:none; width:28px; height:28px; border:0; border-radius:50%; background:transparent; color:var(--ink-faint); font-size:18px; cursor:pointer;}
   .ma-reforco{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin:0 0 10px; padding:12px 14px; border:1px solid var(--rule); border-radius:14px; background:var(--paper);}
   .ma-reforco > span b{display:block; font-size:14px;} .ma-reforco small{display:block; font-size:12px; color:var(--ink-faint); margin-top:2px;}
   .ma-reforco div{display:flex; gap:6px; flex-wrap:wrap;}
@@ -4022,6 +4051,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewSobre"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="ni-text"><strong>Sobre o site</strong><small>O projeto e a organização do Drive</small></span></button>
           <button class="nav-item" data-page="viewInstalar"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><span class="ni-text"><strong>Instale o app</strong><small>Instalação no celular</small></span></button>
+          <button class="nav-item" data-page="viewRegras"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="ni-text"><strong>Regras das provas</strong><small>Notas, exame, segunda chamada</small></span></button>
           <button class="nav-item" data-scroll="atualizacoes"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><span class="ni-text"><strong>Últimas atualizações</strong><small>O que entrou no site</small></span></button>
         </div>
       </div>
@@ -4363,6 +4393,34 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   </div>
 
   <footer>Arquivo Vivo · Psicologia · por Thiago Monteiro</footer>
+</div>
+<div class="wrap" id="viewRegras" style="display:none;">
+  <button class="back-link" id="backFromRegras">← Voltar</button>
+  <header>
+    <div class="eyebrow">Sobre</div>
+    <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><h1>Regras das provas</h1></div>
+    <p>O essencial do regulamento de avaliação da Unigranrio para os cursos presenciais, em linguagem direta.</p>
+  </header>
+  <div class="rg">
+    <section class="rg-card"><h2>Como a nota é formada</h2>
+      <div class="rg-notas"><div><b>N1</b><span>50 pontos</span><small>20 de atividades + 30 de prova</small></div><div><b>N2</b><span>50 pontos</span><small>20 de atividades + 30 de prova</small></div></div>
+      <ul class="rg-faixas"><li class="ok"><b>70 ou mais</b><span>Aprovado direto.</span></li><li class="at"><b>De 40 a 69</b><span>Exame especial de 100 pontos, com todo o conteúdo do semestre. A nota final vira a média entre o exame e a nota do semestre, e precisa chegar a 60. Na prática: você precisa tirar <strong>120 menos a sua nota</strong> no exame.</span></li><li class="ru"><b>Abaixo de 40</b><span>Reprovado, sem direito a exame.</span></li></ul>
+      <button class="rg-calc" data-rg-calc>Calcular quanto eu preciso tirar</button>
+      <p class="rg-obs">Projetos integradores, práticas, estágios e trabalho final são de nota única: aprovação com 60, sem exame especial.</p></section>
+    <section class="rg-card"><h2>Frequência</h2><p>Para ser aprovado é preciso ter <strong>pelo menos 75% de presença</strong> em cada disciplina, além da nota. O professor registra a presença no sistema em até 24 horas depois da aula.</p></section>
+    <section class="rg-card"><h2>Segunda chamada</h2><p>Quem perder a N1 ou a N2 por motivo justificado pode pedir segunda chamada de uma das provas.</p>
+      <ul class="rg-lista"><li><strong>Prazo:</strong> até 48 horas depois da prova.</li><li><strong>Como:</strong> requerimento à coordenação, com atestado ou outro documento que comprove o motivo.</li></ul>
+      <p class="rg-sub">Motivos aceitos, com comprovação</p>
+      <ul class="rg-lista"><li>Doença ou problema de saúde, com atestado médico.</li><li>Ter sido vítima de ação de terceiros, com boletim de ocorrência.</li><li>Manobras ou exercícios militares.</li><li>Luto de pais, avós, filhos, netos, irmãos, tios, cônjuge ou companheiro(a), com atestado de óbito.</li><li>Convocação judicial, policial ou para eleições em entidades oficiais.</li><li>Atividades autorizadas pela coordenação ou pela universidade.</li><li>Outros direitos previstos em lei.</li></ul></section>
+    <section class="rg-card"><h2>Vista e revisão de prova</h2>
+      <ul class="rg-lista"><li><strong>Vista:</strong> a prova é devolvida e discutida com a turma em até 7 dias ou na aula seguinte.</li><li><strong>Revisão:</strong> é preciso ir à vista e apresentar a justificativa ao professor. Depois, o pedido vai à coordenação em até <strong>2 dias letivos</strong>, fundamentado na bibliografia básica da disciplina.</li><li>Se a coordenação aceitar, a revisão é feita em até 7 dias.</li></ul></section>
+    <section class="rg-card"><h2>No dia da prova</h2>
+      <ul class="rg-lista"><li>A prova acontece no horário da aula.</li><li>Leve só o essencial: caneta azul ou preta, lápis, borracha e calculadora, se o professor permitir.</li><li>Celular e outros aparelhos ficam desligados, dentro da bolsa ou mochila. Fone, relógio digital ou qualquer consulta anulam a prova.</li><li>Dá para entrar na sala até o primeiro aluno entregar a prova e sair.</li><li>Só vale o que estiver na folha de respostas. Questão sem resposta ou com duas marcações não conta.</li></ul></section>
+    <section class="rg-card"><h2>Como as provas são montadas</h2><p>Saber isso ajuda a treinar do jeito certo:</p>
+      <ul class="rg-lista"><li>As provas têm questões objetivas e discursivas.</li><li>As objetivas têm 5 alternativas e só uma correta, e <strong>não podem pedir a alternativa incorreta</strong>.</li><li>Os tipos variam: resposta única, afirmação incompleta, afirmativas, asserção e razão, interpretação, associação e ordenação.</li><li>As questões começam com um texto, tabela, gráfico ou situação, e podem ser adaptadas de avaliações externas, como o ENADE.</li><li>As discursivas partem de um problema ou de uma aplicação prática.</li></ul>
+      <button class="rg-calc rg-sec" data-page="viewSimulados">Treinar nos simulados</button></section>
+    <p class="rg-fonte">Fonte: <a href="https://cdn.prod.website-files.com/66159dd8e1b10af60e962360/66159dd8e1b10af60e962837_Regulamento%20do%20Sistema%20de%20Avalia%C3%A7%C3%A3o%20-%20dez%202022.pdf" target="_blank" rel="noopener noreferrer">Regulamento do Sistema de Avaliação de Aprendizagem da Unigranrio</a>, aprovado pelo CONSEPE em 12/12/2022. Em caso de dúvida, vale o texto oficial e a orientação da coordenação.</p>
+  </div>
 </div>
 <div class="wrap" id="viewFerramentas" style="display:none;">
   <button class="back-link" id="backFromFerramentas">← Voltar ao Arquivo Vivo</button>
@@ -5438,7 +5496,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
     </div>
     <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewSimulados">Simulados</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button><button data-page="viewCursos">Cursos extras</button></div>
     <div class="footer-col"><h4>Turma</h4><a href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer">Drive das disciplinas</a><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewMural">Corredor da turma</button></div>
-    <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button><button data-scroll="atualizacoes">Últimas atualizações</button><button data-apoio>Apoiar o Arquivo Vivo</button></div>
+    <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button><button data-page="viewRegras">Regras das provas</button><button data-scroll="atualizacoes">Últimas atualizações</button><button data-apoio>Apoiar o Arquivo Vivo</button></div>
     <div class="qr-block"><div id="qrcode"></div><span>Aponte a câmera para abrir no celular</span></div>
   </div>
   <div class="footer-bottom"><span>Arquivo Vivo · criado e mantido por <strong class="foot-autor">Thiago Monteiro</strong></span><span id="footDate"></span></div>
@@ -5520,6 +5578,7 @@ const TASKS = [
    --------------------------------------------------------------------- */
 const UPDATES = [
   // só conteúdo e ferramentas, em uma ou duas linhas; ajustes de visual e correções ficam de fora
+  {date: '2026-11-26', disc: 'Geral', desc: 'Calculadora “Quanto preciso tirar?” na Minha área (as notas ficam só no seu aparelho), página Regras das provas com o regulamento da Unigranrio e lembrete de segunda chamada nas 48 horas depois de cada prova.'},
   {date: '2026-11-25', disc: 'Geral', desc: 'Domínio por tema nos simulados: cada tema mostra se você está praticando, bom ou dominado, e os temas fracos ganham um treino próprio e entram primeiro no plano de estudos.'},
   {date: '2026-11-24', disc: 'Geral', desc: 'Três cursos novos em Cursos extras: violência de gênero e feminicídio, jogos de aposta na RAPS (Fiocruz) e metodologia da pesquisa científica (Fiocruz).'},
   {date: '2026-11-23', disc: 'Geral', desc: '15 conquistas novas para vestir o Psiu: estude, faça exercícios, refaça os erros e mantenha a constância para liberar boina, fone, gorro, chapéus e mais. Quem completar todas ganha o fundo Consultório do Psiu.', link: {url:'#minha-area'}},
@@ -8286,13 +8345,13 @@ const PROVA_ESTILO = {
     "Os dois gametas carregam X e Y, e o sexo depende de qual cromossomo é eliminado no segundo corpúsculo polar.",
     "O sexo é definido na implantação, pela posição em que o blastocisto se fixa na parede uterina."],
  c:2, w:"O ovócito sempre contribui com um X; o espermatozoide contribui com X ou Y. O sexo cromossômico é definido no momento da fertilização."},
-{tema:"Clivagem e blastocisto", p:"Em pesquisas sobre o desenvolvimento pré-natal, a primeira semana é estudada como o período em que o zigoto, ainda envolto pela zona pelúcida, passa por divisões mitóticas sucessivas enquanto é transportado pela tuba uterina até o útero.<br>Assinale a alternativa que descreve corretamente o que ocorre com o concepto durante a clivagem.",
- o:["As células se dividem e crescem a cada ciclo, de modo que o volume total do concepto aumenta proporcionalmente ao número de blastômeros.",
-    "O número de células aumenta enquanto os blastômeros ficam cada vez menores, sem aumento significativo do volume total, até a compactação em mórula.",
-    "As divisões cessam após a primeira mitose, e o zigoto permanece unicelular até a implantação no endométrio.",
-    "Os blastômeros se diferenciam em ectoderma, mesoderma e endoderma antes de deixar a ampola da tuba.",
-    "A zona pelúcida se desfaz logo na primeira divisão, permitindo que o concepto cresça livremente durante o transporte."],
- c:1, w:"Na clivagem, o número de células aumenta, mas o volume total praticamente não muda, porque cada blastômero fica menor. Por volta de 8 células ocorre a compactação; a zona pelúcida só se desfaz no blastocisto."},
+{tema:"Clivagem e blastocisto", p:"Na primeira semana do desenvolvimento, o concepto é transportado pela tuba uterina até o útero, passando por uma sequência de eventos que termina com o início da implantação.<br>Considere os eventos abaixo:<br>( ) Formação do blastocisto, com a cavidade blastocística.<br>( ) Fertilização na ampola da tuba uterina.<br>( ) Compactação dos blastômeros em mórula.<br>( ) Início da implantação no endométrio.<br>( ) Clivagem, com blastômeros cada vez menores.<br>Assinale a alternativa que apresenta a numeração correta, de 1 a 5, na ordem em que os eventos ocorrem.",
+ o:["4 – 1 – 3 – 5 – 2",
+    "3 – 1 – 4 – 5 – 2",
+    "4 – 2 – 3 – 5 – 1",
+    "5 – 1 – 2 – 4 – 3",
+    "4 – 1 – 2 – 5 – 3"],
+ c:0, w:"Ordem: fertilização na ampola (1), clivagem com blastômeros menores e volume total praticamente igual (2), compactação em mórula (3), formação do blastocisto (4) e início da implantação (5)."},
 {tema:"Clivagem e blastocisto", p:"Por volta do quinto dia, o concepto já se encontra na cavidade uterina como blastocisto, estrutura formada por uma cavidade (blastocele), uma massa celular interna e uma camada celular externa.<br>Assinale a alternativa que relaciona corretamente as estruturas do blastocisto ao seu destino.",
  o:["O trofoblasto origina o embrião, e o embrioblasto participa da formação da parte fetal da placenta.",
     "A blastocele origina o embrião, e a zona pelúcida dá origem às membranas que revestem a placenta.",
@@ -8301,7 +8360,11 @@ const PROVA_ESTILO = {
     "O trofoblasto se diferencia diretamente nos três folhetos germinativos, e o embrioblasto forma o cordão umbilical."],
  c:2, w:"A massa celular interna (embrioblasto) dá origem ao embrião; a camada externa (trofoblasto) participa da formação da placenta."},
 {tema:"Clivagem e blastocisto", p:"Considere as afirmativas sobre a primeira semana do desenvolvimento humano:<br>I. Na clivagem, os blastômeros tornam-se menores a cada divisão, sem aumento significativo do volume total do concepto.<br>II. A mórula, formada a partir da compactação, apresenta de 12 a 32 blastômeros e chega ao útero por volta do quarto dia.<br>III. A eclosão da zona pelúcida ocorre ainda na ampola, logo após a primeira divisão do zigoto.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "I e II, apenas.", "II e III, apenas.", "I e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I e III, apenas.",
+    "I, II e III."],
  c:1, w:"I e II estão corretas. A eclosão ocorre no blastocisto, já no útero, pouco antes da implantação; ela não acontece após a primeira divisão."},
 {tema:"Implantação e hCG", p:"Os testes de gravidez detectam a gonadotrofina coriônica humana (hCG) na urina ou no sangue. A produção desse hormônio está diretamente relacionada aos eventos da implantação do blastocisto no endométrio.<br>Qual mecanismo explica a positividade do teste nas primeiras semanas de gestação?",
  o:["O embrioblasto secreta progesterona, que substitui desde o início a função do corpo lúteo e é detectada pelo teste.",
@@ -8332,7 +8395,11 @@ const PROVA_ESTILO = {
     "Formam-se a mórula e o blastocisto, e a zona pelúcida passa a revestir a cavidade amniótica."],
  c:0, w:"Na 2ª semana, o trofoblasto se divide em cito e sinciciotrofoblasto, o embrioblasto em epiblasto e hipoblasto, e surgem duas cavidades: a amniótica e o saco vitelino. O disco trilaminar é da 3ª semana."},
 {tema:"Segunda semana", p:"Considere as afirmativas sobre as estruturas extraembrionárias do final da segunda semana:<br>I. A mesoderme extraembrionária divide-se em lâminas somática e esplâncnica, separadas pelo celoma extraembrionário.<br>II. O crescimento do celoma extraembrionário dá origem ao saco vitelino secundário e ao cisto exocelômico.<br>III. O pedículo de conexão, região em que o celoma não avança, dará origem à placenta definitiva.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
  c:2, w:"I e II estão corretas. O pedículo de conexão mantém o embrião ligado ao trofoblasto e dará origem ao cordão umbilical, não à placenta."},
 {tema:"Gravidez ectópica", p:"Processos inflamatórios pélvicos podem deixar cicatrizes e estreitamentos nas tubas uterinas, condição associada a maior risco de gravidez ectópica. A compreensão desse risco depende do percurso do concepto durante a primeira semana.<br>Qual é a explicação embriológica para essa associação?",
  o:["O estreitamento acelera o transporte do concepto, que chega ao útero antes de o endométrio estar receptivo e retorna à tuba.",
@@ -8356,23 +8423,39 @@ const PROVA_ESTILO = {
     "A orientação 5′ → 3′ refere-se à sequência das bases púricas, e não aos carbonos do açúcar."],
  c:1, w:"Base no carbono 1′, fosfato no 5′ e ligação ao próximo nucleotídeo pelo 3′. Cada fita tem uma extremidade 5′ e uma 3′, e as duas correm em sentidos opostos."},
 {tema:"Estrutura do DNA", p:"Em um estudo genético envolvendo marcadores moleculares, um pesquisador analisou um segmento de fita simples de DNA. A sequência apresentada no sentido convencional é 5′-GATTCA-3′.<br>Considerando a regra de Chargaff e a orientação antiparalela, qual é a sequência da fita complementar expressa no sentido 5′ → 3′?",
- o:["5′-CTAAGT-3′", "5′-TGAATC-3′", "5′-GATTCA-3′", "5′-ACTTAG-3′", "5′-UGAAUC-3′"],
+ o:["5′-CTAAGT-3′",
+    "5′-TGAATC-3′",
+    "5′-GATTCA-3′",
+    "5′-ACTTAG-3′",
+    "5′-UGAAUC-3′"],
  c:1, w:"Pareando base a base, a complementar é 3′-CTAAGT-5′. Escrita no sentido 5′ → 3′, fica 5′-TGAATC-3′. Escrever CTAAGT no sentido 5′ → 3′ ignora a orientação antiparalela."},
 {tema:"Cálculo das bases", p:"Em um fragmento de DNA de fita dupla com 200 bases, a análise de composição mostrou que 30% das bases são timina.<br>De acordo com a regra de Chargaff, qual é o número de bases citosina nesse fragmento?",
- o:["30", "40", "60", "80", "120"],
+ o:["30",
+    "40",
+    "60",
+    "80",
+    "120"],
  c:1, w:"T = 30%, então A = 30%. Restam 40% para C + G, e C = G = 20%. 20% de 200 = 40 citosinas."},
-{tema:"Pontes de hidrogênio", p:"A estabilidade térmica da dupla hélice de DNA depende diretamente da força das interações que mantêm as duas fitas unidas. Em um estudo comparativo, dois fragmentos de mesmo comprimento apresentaram temperaturas de desnaturação diferentes.<br>Qual característica da composição de bases explicaria uma temperatura de desnaturação mais alta em um dos fragmentos?",
- o:["Maior proporção de pares adenina-timina, que formam três pontes de hidrogênio por par.",
-    "Maior proporção de pares citosina-guanina, que formam três pontes de hidrogênio por par, contra duas nos pares adenina-timina.",
-    "Maior quantidade de desoxirriboses, que estabilizam as fitas por ligações covalentes entre si.",
-    "Substituição das ligações fosfodiéster por pontes de hidrogênio adicionais ao longo de cada fita.",
-    "Presença de uracila no lugar da timina, que aumenta o número de ligações entre as fitas."],
- c:1, w:"Pares C-G formam três pontes de hidrogênio, e pares A-T, duas. Quanto mais pares C-G, mais energia é necessária para separar as fitas."},
+{tema:"Pontes de hidrogênio", fixa:true, p:"A estabilidade térmica da dupla hélice depende da força das interações que mantêm as duas fitas unidas.<br>Considere as asserções a seguir e a relação proposta entre elas.<br>I. Entre dois fragmentos de DNA de mesmo comprimento, o que tem maior proporção de pares citosina-guanina tende a apresentar temperatura de desnaturação mais alta.<br>PORQUE<br>II. os pares citosina-guanina são unidos por três pontes de hidrogênio, enquanto os pares adenina-timina são unidos por duas.<br>A respeito dessas asserções, assinale a opção correta.",
+ o:["As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+    "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+    "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "As asserções I e II são proposições falsas."],
+ c:0, w:"As duas são verdadeiras, e a II explica a I: com mais pares C-G, há mais pontes de hidrogênio entre as fitas, e é preciso mais energia (temperatura) para separá-las."},
 {tema:"Pontes de hidrogênio", p:"Um trecho de DNA de fita dupla tem 15 pares de bases, unidos por um total de 40 pontes de hidrogênio.<br>Quantos desses pares são do tipo citosina-guanina?",
- o:["5", "8", "10", "12", "15"],
+ o:["5",
+    "8",
+    "10",
+    "12",
+    "15"],
  c:2, w:"Sendo x os pares C-G: 3x + 2(15 − x) = 40, logo x + 30 = 40 e x = 10."},
 {tema:"Transcrição", p:"Em um estudo de neurogenética, analisou-se o início da região codificante de um gene relacionado a um neuropeptídeo. O trecho da fita molde de DNA é 3′-TAC GGA-5′.<br>Considerando os mecanismos de transcrição, assinale a sequência do RNA mensageiro no sentido 5′ → 3′.",
- o:["5′-UAC GGA-3′", "5′-ATG CCT-3′", "5′-AUG CCU-3′", "5′-UCC GUA-3′", "5′-AGG CAU-3′"],
+ o:["5′-UAC GGA-3′",
+    "5′-ATG CCT-3′",
+    "5′-AUG CCU-3′",
+    "5′-UCC GUA-3′",
+    "5′-AGG CAU-3′"],
  c:2, w:"O RNAm é complementar e antiparalelo ao molde: 3′-TAC GGA-5′ gera 5′-AUG CCU-3′. Trocar apenas T por U mantém a sequência do molde e não é transcrição."},
 {tema:"Tradução", p:"Durante a biossíntese proteica em neurônios, o reconhecimento dos códons ocorre até que o ribossomo encontre um códon de parada. Em uma mutação pontual, um códon da região codificante que especificava um aminoácido foi substituído por UGA.<br>O resultado esperado sobre a proteína correspondente será:",
  o:["Aumento do tamanho da proteína, porque UGA codifica metionina e reinicia a tradução no mesmo ponto.",
@@ -8382,7 +8465,11 @@ const PROVA_ESTILO = {
     "Bloqueio da transcrição, com ausência completa de RNA mensageiro no citoplasma."],
  c:2, w:"UAA, UAG e UGA são códons de parada. Um UGA no meio da região codificante termina a tradução antes do previsto e gera uma proteína truncada."},
 {tema:"Tradução", p:"O código genético possui propriedades que garantem a fidelidade e a flexibilidade da tradução da informação genética em proteínas. Sobre essas propriedades, analise:<br>I. A degeneração significa que a maioria dos aminoácidos é especificada por mais de um códon.<br>II. A não ambiguidade indica que um mesmo códon pode codificar diferentes aminoácidos, conforme o tecido.<br>III. A universalidade indica que, com raras exceções, a mesma relação entre códons e aminoácidos é compartilhada pelos seres vivos.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "II, apenas.", "I e II, apenas.", "I e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e II, apenas.",
+    "I e III, apenas.",
+    "I, II e III."],
  c:3, w:"I e III estão corretas. Não ambiguidade significa justamente que cada códon corresponde a um único aminoácido, em qualquer tecido."},
 {tema:"Tradução", p:"O início da tradução depende do reconhecimento do ponto de partida no RNA mensageiro pela subunidade menor do ribossomo, mecanismo que difere entre procariotos e eucariotos.<br>Assinale a alternativa que descreve corretamente esse reconhecimento.",
  o:["Nos dois casos, a tradução começa na primeira base do RNAm, independentemente da sequência presente.",
@@ -8484,13 +8571,13 @@ const PROVA_ESTILO = {
     "Generalização, pois o indivíduo passa a responder a estímulos parecidos com o temido.",
     "Reforçamento negativo, pois a retirada do estímulo temido aumenta a resposta de medo."],
  c:2, w:"Na extinção respondente, o CS é apresentado sem o US repetidas vezes, e a CR enfraquece."},
-{tema:"Respondente e operante", p:"Considere as situações:<br>I. O coração acelera ao ouvir o toque de alarme de um antigo emprego, associado a situações de estresse.<br>II. Uma criança pede “por favor”, porque, quando pede assim, costuma ser atendida.<br>III. Uma pessoa pisca quando um inseto passa muito perto do olho.<br>Assinale a alternativa que classifica corretamente os comportamentos.",
- o:["I e III são respondentes, eliciados por estímulos antecedentes (I aprendido, III inato); II é operante, controlado pelas consequências.",
-    "I, II e III são operantes, pois todos dependem da experiência do indivíduo.",
-    "I é operante, II é respondente e III é reflexo condicionado.",
-    "I e II são respondentes, e III é operante.",
-    "Nenhum dos três pode ser classificado sem conhecer a história filogenética do indivíduo."],
- c:0, w:"I é uma CR eliciada por um CS; III é reflexo inato (US → UR). II é operante, mantido pela consequência de ser atendido."},
+{tema:"Respondente e operante", p:"A análise do comportamento distingue comportamentos eliciados por estímulos antecedentes de comportamentos controlados pelas consequências.<br>Associe cada tipo de comportamento ao exemplo correspondente.<br>1. Respondente incondicionado (reflexo inato)<br>2. Respondente condicionado<br>3. Operante<br>( ) O coração acelera ao ouvir o toque de alarme de um antigo emprego, associado a situações de estresse.<br>( ) Uma criança pede “por favor”, porque, quando pede assim, costuma ser atendida.<br>( ) Uma pessoa pisca quando um inseto passa muito perto do olho.<br>( ) Um rato pressiona a barra que, no passado, produziu alimento.<br>A sequência correta é:",
+ o:["2 – 3 – 1 – 3",
+    "1 – 3 – 2 – 3",
+    "2 – 1 – 1 – 3",
+    "3 – 2 – 1 – 1",
+    "2 – 3 – 3 – 1"],
+ c:0, w:"O coração que acelera é uma resposta condicionada eliciada por um CS (2). Piscar diante do inseto é reflexo inato, US → UR (1). Pedir “por favor” e pressionar a barra são operantes, mantidos pelas consequências (3)."},
 {tema:"Experimento do pronome", p:"No experimento adaptado de Matos e Tomanari (2002), o participante forma frases com verbos e pronomes. Nos 10 primeiros verbos, o experimentador apenas registra o pronome usado; a partir do 11º, passa a dizer “muito bem” sempre que a frase começa com o pronome escolhido.<br>Assinale a alternativa que descreve corretamente a lógica do delineamento.",
  o:["A primeira fase é a linha de base, que mede a frequência do pronome antes da introdução do elogio (variável independente), permitindo compará-la com a fase de reforço diferencial.",
     "A primeira fase treina o participante a usar o pronome escolhido, e por isso o elogio deveria começar já no primeiro verbo.",
@@ -8582,13 +8669,13 @@ const PROVA_ESTILO = {
     "Trata-se de uma contingência verdadeira, pois a repetição do comportamento comprova que as meias causam as vitórias.",
     "Trata-se de punição positiva, pois o uso das meias foi seguido de um estímulo que diminuiu a resposta."],
  c:0, w:"No experimento de 1948, a comida vinha em intervalos fixos, independentemente do que os pombos faziam, e eles repetiam o que faziam quando ela chegava. A contiguidade acidental mantém a resposta sem que haja contingência: é o comportamento supersticioso."},
-{tema:"Reforçamento", p:"Em uma escola, uma professora passou a elogiar em voz alta, diante da turma, um aluno sempre que ele participava das discussões. Ao longo das semanas seguintes, a participação desse aluno diminuiu, embora a professora considerasse o elogio algo agradável.<br>Considerando a definição de reforçamento na análise do comportamento, assinale a alternativa correta.",
- o:["O elogio foi reforçador positivo, pois estímulos agradáveis sempre aumentam a frequência das respostas.",
-    "O elogio funcionou como reforçamento negativo, pois retirou o aluno da situação de exposição.",
-    "Não houve consequência, pois o elogio é um estímulo antecedente da participação.",
-    "O elogio não funcionou como reforçador para esse aluno, pois o reforçamento se define pelo efeito: aumento ou manutenção da frequência da resposta.",
-    "O resultado indica extinção, pois o elogio deixou de ser apresentado após a participação."],
- c:3, w:"Reforçamento se define pelo efeito sobre a frequência da resposta, e não pelo que parece agradável. Como a participação diminuiu após o elogio público, ele não teve função reforçadora para esse aluno."},
+{tema:"Reforçamento", fixa:true, p:"Uma professora passou a elogiar em voz alta, diante da turma, um aluno sempre que ele participava das discussões. Nas semanas seguintes, a participação desse aluno diminuiu.<br>Considere as asserções a seguir e a relação proposta entre elas.<br>I. O elogio público, ainda que a professora o considere agradável, não funcionou como reforçador para esse aluno.<br>PORQUE<br>II. na análise do comportamento, o reforçamento é definido pelo efeito da consequência sobre a frequência da resposta, e não pelo fato de o estímulo parecer agradável.<br>A respeito dessas asserções, assinale a opção correta.",
+ o:["As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+    "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+    "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "As asserções I e II são proposições falsas."],
+ c:0, w:"As duas são verdadeiras, e a II justifica a I: como a participação diminuiu depois do elogio, ele não teve função reforçadora para esse aluno, já que reforçar é aumentar ou manter a frequência da resposta."},
 {tema:"Reforçamento negativo", p:"Considere duas situações do cotidiano:<br>I. Durante a aula, o barulho de uma obra está alto, e uma estudante fecha a janela.<br>II. Ao ver a previsão de chuva, um estudante leva o guarda-chuva ao sair de casa.<br>Nos dois casos, a resposta é mantida pela remoção ou pela prevenção de um estímulo aversivo.<br>Assinale a alternativa que classifica corretamente os comportamentos.",
  o:["I é esquiva e II é fuga; ambos são punição negativa.",
     "I e II são fuga; ambos são reforçamento positivo.",
@@ -8641,7 +8728,11 @@ const PROVA_ESTILO = {
     "Os relatos expressam traços fixos de personalidade, sem relação com a mudança de papel social."],
  c:2, w:"Para Silva e Carvalho (2019), o trabalho é central na identidade e na inserção social. A aposentadoria pode ser vivida como ganho ou perda, e as perdas costumam envolver vínculos, status e rotina."},
 {tema:"Aposentadoria", p:"Os Programas de Preparação para a Aposentadoria (PPA) são previstos na legislação brasileira e vêm sendo implantados em empresas públicas e privadas. Sobre esses programas, analise:<br>I. O Estatuto da Pessoa Idosa prevê a preparação dos trabalhadores com antecedência mínima de um ano.<br>II. Um PPA bem estruturado apoia-se nos pilares psicológico, de atividades futuras e financeiro.<br>III. O papel do psicólogo restringe-se à orientação sobre regras previdenciárias.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
  c:2, w:"I e II estão corretas. O psicólogo atua de forma preventiva, ajudando a planejar a nova fase e a reconstruir a identidade, e não só com regras previdenciárias."},
 {tema:"Aposentadoria", p:"Pinto e Alves (2014) observaram que, nas organizações, a atuação do psicólogo costuma se concentrar em atividades tradicionais de gestão de pessoas, enquanto a transição para a aposentadoria recebe pouca atenção.<br>Assinale a alternativa que descreve corretamente essa observação e a atuação ampliada discutida em aula.",
  o:["O psicólogo já atua amplamente na preparação para a aposentadoria, e não há lacunas a superar nas organizações.",
@@ -8664,13 +8755,13 @@ const PROVA_ESTILO = {
     "O idoso reduz contatos para compensar perdas cognitivas, como propõe o modelo de Baltes.",
     "A redução de contatos expressa o desespero descrito por Erikson no último estágio."],
  c:1, w:"Na seletividade socioemocional, a percepção de tempo limitado leva a priorizar vínculos próximos e significativos, sem prejuízo do bem-estar."},
-{tema:"Teorias do envelhecimento", p:"O modelo de seleção, otimização e compensação (SOC), proposto por Baltes, descreve estratégias usadas para manter o desempenho diante das perdas associadas ao envelhecimento.<br>Assinale a alternativa que exemplifica corretamente as três estratégias.",
- o:["Ampliar o número de atividades, aumentar a rede social e evitar qualquer recurso externo.",
-    "Escolher as metas prioritárias, investir mais treino e esforço nelas e utilizar recursos externos para compensar perdas, como óculos ou anotações.",
-    "Abandonar todas as atividades anteriores e substituí-las por atividades novas, sem relação com a trajetória.",
-    "Reduzir os contatos às relações afetivas mais próximas e aceitar a finitude.",
-    "Delegar todas as decisões à família, para preservar energia."],
- c:1, w:"No SOC, seleciona-se o que é prioritário, otimiza-se o desempenho com treino e esforço e compensa-se a perda com recursos e estratégias alternativas."},
+{tema:"Teorias do envelhecimento", p:"O modelo de seleção, otimização e compensação (SOC), proposto por Baltes, descreve estratégias usadas para manter o desempenho diante das perdas associadas ao envelhecimento.<br>Associe cada estratégia ao exemplo correspondente.<br>1. Seleção<br>2. Otimização<br>3. Compensação<br>( ) Uma professora aposentada deixa de lado alguns compromissos e concentra o tempo nas aulas de canto, que considera prioritárias.<br>( ) Ela passa a ensaiar com mais frequência e com orientação, para manter a qualidade do canto.<br>( ) Ela começa a usar partituras com letra ampliada e lembretes no celular para os ensaios.<br>A sequência correta é:",
+ o:["1 – 2 – 3",
+    "2 – 1 – 3",
+    "1 – 3 – 2",
+    "3 – 2 – 1",
+    "2 – 3 – 1"],
+ c:0, w:"Seleção é escolher as metas prioritárias; otimização é investir treino e esforço nelas; compensação é usar recursos externos ou estratégias alternativas para lidar com as perdas, como letra ampliada e lembretes."},
 {tema:"Teorias do envelhecimento", p:"No último estágio do desenvolvimento psicossocial proposto por Erikson, a pessoa idosa realiza com frequência uma revisão da própria história, processo que Butler denominou revisão de vida.<br>Assinale a alternativa que descreve corretamente esse estágio.",
  o:["O conflito central é generatividade × estagnação, e a revisão de vida indica estagnação.",
     "O conflito central é integridade × desespero; aceitar a própria trajetória como significativa expressa integridade, e a revisão de vida é um processo esperado.",
@@ -8693,15 +8784,19 @@ const PROVA_ESTILO = {
     "O quadro indica afasia, e não alteração de memória."],
  c:0, w:"Repetição imediata é memória primária; recordação remota, terciária. Reter informação por minutos depende da memória secundária, a que mais declina."},
 {tema:"Envelhecimento cognitivo", p:"Sobre a investigação diferencial entre envelhecimento normal e demência inicial, analise:<br>I. A evocação tardia de palavras e o Teste de Nomeação de Boston estão entre os testes mais discriminativos.<br>II. Na doença de Alzheimer, a neuroimagem pode mostrar atrofia ou hipoperfusão nas regiões entorrinal e hipocampal.<br>III. No envelhecimento normal, a memória semântica e o vocabulário costumam declinar mais do que a memória episódica.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
  c:2, w:"I e II estão corretas. No envelhecimento normal, a memória episódica sofre mais que a semântica, e o vocabulário tende a se manter."},
-{tema:"Pseudodemência", p:"Em idosos que apresentam queixas cognitivas após perdas significativas, como a viuvez, acompanhadas de tristeza intensa, insônia e perda de interesse, Damasceno (1999) recomenda cautela antes de qualquer rótulo diagnóstico.<br>Qual é a principal justificativa para essa cautela?",
- o:["A demência sempre se inicia após uma perda importante, e o diagnóstico deve ser imediato.",
-    "Na pseudodemência depressiva, a causa é tratável e o desempenho cognitivo pode melhorar com o tratamento da depressão.",
-    "Os testes neuropsicológicos não têm utilidade no diagnóstico diferencial em idosos enlutados.",
-    "A tristeza intensa é parte normal do envelhecimento e não interfere no desempenho cognitivo.",
-    "O luto impede qualquer avaliação neuropsicológica por pelo menos cinco anos."],
- c:1, w:"Na pseudodemência depressiva, o déficit acompanha a depressão e pode regredir com o tratamento. Rotular como demência levaria a deixar de tratar uma causa reversível."},
+{tema:"Pseudodemência", fixa:true, p:"Damasceno (1999) discute idosos que apresentam queixas cognitivas após perdas significativas, como a viuvez, acompanhadas de tristeza intensa, insônia e perda de interesse.<br>Considere as asserções a seguir e a relação proposta entre elas.<br>I. Nesses casos, recomenda-se cautela antes de qualquer rótulo diagnóstico de demência.<br>PORQUE<br>II. na pseudodemência depressiva, o déficit cognitivo é irreversível, mesmo com o tratamento da depressão.<br>A respeito dessas asserções, assinale a opção correta.",
+ o:["As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+    "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+    "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "As asserções I e II são proposições falsas."],
+ c:2, w:"A I é verdadeira e a II é falsa. A cautela existe justamente porque, na pseudodemência depressiva, a causa é tratável e o desempenho cognitivo pode melhorar com o tratamento da depressão."},
 {tema:"Cuidadores idosos", p:"Oliveira et al. (2018) investigaram a qualidade de vida de cuidadores com 60 anos ou mais que cuidavam de pessoas com demência ou sequelas de acidente vascular cerebral, utilizando o CASP-19 e a escala Zarit.<br>Assinale a alternativa que descreve corretamente os achados e sua interpretação.",
  o:["A sobrecarga percebida, medida pela Zarit, foi o fator mais associado à pior qualidade de vida, medida pelo CASP-19, expressando a dupla vulnerabilidade do idoso que cuida de outro idoso.",
     "A Zarit mede qualidade de vida e o CASP-19 mede sobrecarga, sem relação entre os resultados.",
@@ -8752,7 +8847,11 @@ const PROVA_ESTILO = {
     "Trata-se de luto patológico, pois toda tristeza anterior à morte é sinal de doença."],
  c:0, w:"O luto antecipatório ocorre diante de perdas que se anunciam, como na demência avançada. As reações variam e não seguem sequência rígida."},
 {tema:"Luto e morte", p:"Sobre a morte nas diferentes culturas, segundo a aula, analise:<br>I. Pesar, raiva e medo aparecem diante da morte em diferentes culturas, e cada uma tem formas aceitas de expressá-los.<br>II. Quando a morte se torna iminente, as pessoas tendem a se apegar mais à sua visão de mundo cultural e religiosa (Vail et al., 2010).<br>III. Velório, missa de sétimo dia e divisão da herança pertencem à dimensão biológica da morte.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
  c:2, w:"I e II estão corretas. Rituais e divisão de bens pertencem à dimensão social da morte."},
 {tema:"Luto e morte", p:"Na pesquisa qualitativa de Menezes e Lopes (2014) com idosos de 80 a 90 anos, os participantes afirmavam não temer a morte, mas, ao longo das entrevistas, admitiam medo de doenças e evitavam o tema, tratando-o como algo distante.<br>Assinale a alternativa que interpreta corretamente os achados.",
  o:["Os idosos vivem a morte exclusivamente de forma autêntica, sem contradições.",
@@ -8826,13 +8925,13 @@ const PROVA_ESTILO = {
     "O canal central é formado pelos axônios cruzados da via piramidal e substitui a substância cinzenta nos níveis lombares.",
     "A coluna lateral da substância cinzenta está presente em todos os níveis e contém os neurônios do parassimpático sacral."],
  c:1, w:"Na medula, a cinzenta fica no centro (em H), com corpos neuronais, e a branca na periferia, com feixes de axônios. A coluna lateral aparece de T1 a L2 (simpático)."},
-{tema:"Medula espinhal", p:"Durante o desenvolvimento, a coluna vertebral cresce mais que a medula espinhal, de modo que, no adulto, os segmentos medulares não correspondem às vértebras de mesmo número. Esse dado orienta procedimentos como a punção lombar, utilizada para coleta de líquor.<br>Assinale a alternativa que explica corretamente a segurança da punção realizada abaixo de L2.",
- o:["A medula termina no cone medular, por volta de L1–L2; abaixo, há a cauda equina, formada por raízes banhadas em líquor, que tendem a se afastar da agulha.",
-    "A medula estende-se até o sacro, mas é protegida pela dura-máter, que impede a passagem da agulha.",
-    "Na região lombar, a medula é formada apenas por substância branca, que não sofre lesão mecânica.",
-    "O líquor localiza-se no interior da medula, e a agulha atinge apenas a superfície da pia-máter.",
-    "Os segmentos lombares coincidem com as vértebras de mesmo número, o que permite localizar a medula com precisão."],
- c:0, w:"Pelo crescimento diferencial, a medula termina no cone medular (L1–L2). Abaixo, só há raízes (cauda equina) e o filamento terminal, banhados em líquor."},
+{tema:"Medula espinhal", fixa:true, p:"Durante o desenvolvimento, a coluna vertebral cresce mais que a medula espinhal, de modo que, no adulto, os segmentos medulares não correspondem às vértebras de mesmo número.<br>Considere as asserções a seguir e a relação proposta entre elas.<br>I. A punção lombar para coleta de líquor pode ser realizada com segurança abaixo da vértebra L2.<br>PORQUE<br>II. no adulto, a medula termina no cone medular, por volta de L1–L2, e abaixo há a cauda equina, formada por raízes banhadas em líquor.<br>A respeito dessas asserções, assinale a opção correta.",
+ o:["As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+    "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+    "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "As asserções I e II são proposições falsas."],
+ c:0, w:"As duas são verdadeiras, e a II justifica a I: pelo crescimento diferencial, abaixo de L2 só há raízes (cauda equina) e o filamento terminal em meio ao líquor, que tendem a se afastar da agulha."},
 {tema:"Medula espinhal", p:"Os nervos espinhais conectam-se à medula por uma raiz dorsal e uma raiz ventral, com funções distintas na condução de informações.<br>Em uma lesão que acomete exclusivamente as raízes ventrais de alguns segmentos de um lado do corpo, o resultado esperado na região correspondente será:",
  o:["Perda de sensibilidade com movimentos preservados, porque as raízes ventrais são sensitivas.",
     "Fraqueza ou paralisia com sensibilidade preservada, porque as raízes ventrais conduzem comandos motores e as dorsais trazem informações sensitivas.",
@@ -8883,7 +8982,11 @@ const PROVA_ESTILO = {
     "As duas divisões utilizam um único neurônio entre o sistema nervoso central e o órgão."],
  c:0, w:"O pré-ganglionar tem o corpo no SNC e o pós-ganglionar, num gânglio. No parassimpático, os gânglios ficam junto aos órgãos: pré longa e pós curta."},
 {tema:"Anatomia do SNA", p:"Sobre a organização anatômica do sistema nervoso autônomo, analise:<br>I. Os neurônios pré-ganglionares do simpático localizam-se na coluna lateral da medula, de T1 a L2.<br>II. A parte craniana do parassimpático segue pelos nervos cranianos III, VII, IX e X, e a sacral, de S2 a S4.<br>III. Os gânglios parassimpáticos localizam-se ao lado da coluna vertebral, distantes dos órgãos.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "I e II, apenas.", "II e III, apenas.", "I e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I e III, apenas.",
+    "I, II e III."],
  c:1, w:"I e II estão corretas. Os gânglios paravertebrais e pré-vertebrais são do simpático; os do parassimpático ficam junto aos órgãos."},
 {tema:"Nervos cranianos", p:"Em casos de aneurisma que comprime o nervo oculomotor, observam-se ptose palpebral, desvio do olho para fora e dilatação da pupila do mesmo lado.<br>Qual mecanismo explica a dilatação da pupila (midríase)?",
  o:["O oculomotor conduz fibras simpáticas ao músculo dilatador da pupila, que se contrai mais com a compressão.",
@@ -8900,7 +9003,11 @@ const PROVA_ESTILO = {
     "O vago, que controla a mímica facial e o paladar."],
  c:2, w:"O facial move a musculatura da expressão facial e conduz a gustação dos 2/3 anteriores da língua; o terço posterior é do glossofaríngeo."},
 {tema:"Nervos cranianos", p:"Sobre os nervos cranianos, analise:<br>I. Olfatório, óptico e vestibulococlear são exclusivamente sensitivos.<br>II. O trigêmeo é misto: conduz a sensibilidade da face por três ramos e inerva os músculos da mastigação.<br>III. O olfatório liga-se ao tronco encefálico, como os demais nervos cranianos.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
  c:2, w:"I e II estão corretas. O olfatório liga-se ao telencéfalo e o óptico ao diencéfalo; os outros dez se ligam ao tronco encefálico."},
 {tema:"Nervos cranianos", p:"Após uma cirurgia cervical, um paciente passou a apresentar queda do ombro e dificuldade para elevar os ombros de um lado e, ao protruir a língua, desvio para o mesmo lado.<br>Quais nervos estão mais provavelmente comprometidos?",
  o:["Facial e trigêmeo, do lado oposto ao desvio.",
@@ -8917,15 +9024,19 @@ const PROVA_ESTILO = {
     "A sinapse elétrica ocorre exclusivamente entre neurônio e fibra muscular."],
  c:1, w:"Na química, o neuromediador sai de vesículas do pré-sináptico e age em receptores; na elétrica, a corrente passa por junções comunicantes e pode ir nos dois sentidos."},
 {tema:"Neurônios e sinapses", p:"Fármacos de uso em psiquiatria e neurologia atuam sobre receptores sinápticos de tipos diferentes. Alguns receptores são canais iônicos abertos diretamente pela ligação do neurotransmissor; outros atuam por meio de segundos mensageiros.<br>Esses receptores são denominados, respectivamente:",
- o:["metabotrópico e ionotrópico.", "ionotrópico e metabotrópico.", "neuromodulador e neurotransmissor.", "pré-sináptico e axossomático.", "aminoácido e amina."],
+ o:["metabotrópico e ionotrópico.",
+    "ionotrópico e metabotrópico.",
+    "neuromodulador e neurotransmissor.",
+    "pré-sináptico e axossomático.",
+    "aminoácido e amina."],
  c:1, w:"O ionotrópico é canal iônico controlado por ligante e altera diretamente o potencial de membrana; o metabotrópico age por segundos mensageiros."},
-{tema:"Organização do sistema nervoso", p:"No desenvolvimento embrionário do encéfalo, o tubo neural forma vesículas que darão origem às grandes divisões do sistema nervoso central.<br>Assinale a alternativa que relaciona corretamente as vesículas às estruturas que formam.",
- o:["O prosencéfalo forma o telencéfalo e o diencéfalo; o rombencéfalo forma o metencéfalo (ponte e cerebelo) e o mielencéfalo (bulbo).",
-    "O prosencéfalo forma a ponte e o bulbo; o rombencéfalo forma o telencéfalo e o diencéfalo.",
-    "O mesencéfalo forma o cerebelo e a ponte; o metencéfalo forma o tálamo e o hipotálamo.",
-    "O telencéfalo forma o tronco encefálico, e o diencéfalo forma o cerebelo.",
-    "O rombencéfalo forma o hipocampo e a amígdala; o prosencéfalo forma a medula espinhal."],
- c:0, w:"Prosencéfalo → telencéfalo e diencéfalo; rombencéfalo → metencéfalo (ponte e cerebelo) e mielencéfalo (bulbo)."},
+{tema:"Organização do sistema nervoso", p:"No desenvolvimento embrionário do encéfalo, o tubo neural forma vesículas secundárias que darão origem às grandes divisões do sistema nervoso central.<br>Associe cada vesícula à estrutura que ela forma no adulto.<br>1. Telencéfalo<br>2. Diencéfalo<br>3. Metencéfalo<br>4. Mielencéfalo<br>( ) Bulbo.<br>( ) Tálamo e hipotálamo.<br>( ) Ponte e cerebelo.<br>( ) Hemisférios cerebrais.<br>A sequência correta é:",
+ o:["4 – 2 – 3 – 1",
+    "3 – 2 – 4 – 1",
+    "4 – 1 – 3 – 2",
+    "1 – 2 – 3 – 4",
+    "4 – 3 – 2 – 1"],
+ c:0, w:"O prosencéfalo forma o telencéfalo (hemisférios cerebrais) e o diencéfalo (tálamo e hipotálamo); o rombencéfalo forma o metencéfalo (ponte e cerebelo) e o mielencéfalo (bulbo)."},
 {tema:"Lobos e córtex", p:"Lesões corticais circunscritas permitem relacionar regiões do córtex a funções específicas. Após um acidente vascular, um paciente perdeu a percepção do toque em parte do corpo, mantendo normal a capacidade de movimentá-la.<br>Qual região foi mais provavelmente lesionada?",
  o:["O giro pré-central, área motora primária do lobo frontal.",
     "O giro pós-central, área somatossensorial primária do lobo parietal.",
@@ -9026,15 +9137,19 @@ const PROVA_ESTILO = {
     "A criança retorna ao mesmo equilíbrio inicial, pois a equilibração não modifica os esquemas.",
     "Assimilação e acomodação ocorrem apenas no período formal."],
  c:1, w:"Assimilar é incorporar o novo a um esquema; acomodar é modificar o esquema. O desequilíbrio leva a um equilíbrio mais amplo: a equilibração majorante."},
-{tema:"Piaget", p:"Piaget rejeita a definição de aprendizagem como “modificação do comportamento resultante da experiência”, frequente em outras abordagens teóricas.<br>Qual é o motivo dessa rejeição?",
- o:["Para Piaget, a experiência não exerce papel algum na aprendizagem.",
-    "A definição pressupõe um organismo passivo diante do meio, enquanto Piaget enfatiza a ação do sujeito na construção do conhecimento.",
-    "Piaget considera que a aprendizagem depende exclusivamente da maturação biológica.",
-    "A definição é de Vygotsky, e Piaget rejeita qualquer ideia da teoria histórico-cultural.",
-    "Piaget define aprender como memorizar respostas corretas reforçadas pelo professor."],
- c:1, w:"Para Piaget, o sujeito age sobre a realidade e constrói conhecimento por assimilação, acomodação e equilibração; a definição criticada supõe passividade."},
+{tema:"Piaget", fixa:true, p:"Diferentes abordagens teóricas definem a aprendizagem de formas distintas, e a epistemologia genética de Piaget dialoga criticamente com algumas delas.<br>Considere as asserções a seguir e a relação proposta entre elas.<br>I. Piaget rejeita a definição de aprendizagem como “modificação do comportamento resultante da experiência”.<br>PORQUE<br>II. para Piaget, a experiência não exerce papel algum na construção do conhecimento.<br>A respeito dessas asserções, assinale a opção correta.",
+ o:["As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+    "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+    "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+    "As asserções I e II são proposições falsas."],
+ c:2, w:"A I é verdadeira e a II é falsa. Piaget rejeita essa definição porque ela supõe um organismo passivo; para ele, a experiência importa, mas o sujeito age sobre a realidade e constrói o conhecimento por assimilação, acomodação e equilibração."},
 {tema:"Piaget", p:"Sobre as implicações educacionais da teoria de Piaget, analise:<br>I. O diretivismo puro tende ao conformismo, e o não diretivismo puro pode gerar desorganização e insegurança.<br>II. No ensino reversível proposto por Kubli (1979), o professor liga os esquemas do aluno aos que pretende ensinar, passando por estados próximos.<br>III. O professor deve evitar o desequilíbrio, transmitindo o conteúdo pronto para que o aluno não entre em conflito cognitivo.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "I e II, apenas.", "II e III, apenas.", "I e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I e III, apenas.",
+    "I, II e III."],
  c:1, w:"I e II estão corretas. Para Piaget, o desequilíbrio move a aprendizagem: o professor deve desafiar o que o aluno já sabe."},
 {tema:"Vygotsky", p:"Para Vygotsky, os processos mentais superiores têm origem nas relações sociais. Um bebê estica o braço em direção a um objeto distante; a mãe interpreta o gesto como pedido e entrega o objeto; com o tempo, o bebê passa a apontar para pedir.<br>Esse exemplo ilustra:",
  o:["a lei da dupla formação: as funções aparecem primeiro no plano interpsicológico (social) e depois no intrapsicológico (individual).",
@@ -9051,7 +9166,11 @@ const PROVA_ESTILO = {
     "Isolar a aluna dos colegas, pois a interação prejudica as funções superiores."],
  c:2, w:"A ZDP é a distância entre o que a criança faz sozinha e o que faz com ajuda. O bom ensino atua nessa zona, com mediação, e a aprendizagem impulsiona o desenvolvimento."},
 {tema:"Vygotsky", p:"Para Vygotsky, os signos podem ser classificados como indicadores, icônicos ou simbólicos, conforme a relação que mantêm com aquilo que representam. Considere: pegadas na areia que indicam a passagem de alguém; a figura de uma bicicleta pintada em uma ciclovia; e o numeral 7.<br>Esses signos são, respectivamente:",
- o:["simbólico, indicador e icônico.", "indicador, icônico e simbólico.", "icônico, simbólico e indicador.", "indicador, simbólico e icônico.", "icônico, indicador e simbólico."],
+ o:["simbólico, indicador e icônico.",
+    "indicador, icônico e simbólico.",
+    "icônico, simbólico e indicador.",
+    "indicador, simbólico e icônico.",
+    "icônico, indicador e simbólico."],
  c:1, w:"As pegadas mantêm relação de causa (indicador); a figura se parece com o objeto (icônico); o numeral tem relação convencional (simbólico)."},
 {tema:"Vygotsky", p:"Crianças pequenas frequentemente falam em voz alta enquanto realizam tarefas, como ao desenhar ou montar objetos, narrando e corrigindo as próprias ações.<br>Para Vygotsky, essa fala egocêntrica:",
  o:["é sinal de egocentrismo cognitivo que desaparece sem função no desenvolvimento.",
@@ -9095,18 +9214,26 @@ const PROVA_ESTILO = {
     "É sempre causado por escolarização inadequada.",
     "Só pode ser identificado após os 12 anos de idade."],
  c:1, w:"A dislexia é um transtorno neurobiológico com déficit fonológico, que ocorre mesmo com inteligência preservada e boa escolarização, e costuma ficar evidente por volta dos 6 a 7 anos."},
-{tema:"Dislexia", p:"O modelo de dupla rota de Coltheart descreve duas vias de leitura: a lexical, que reconhece palavras conhecidas como unidades, e a fonológica, que converte letras em sons. Uma criança lê corretamente pseudopalavras, mas erra palavras familiares de escrita irregular, lendo letra por letra.<br>Assinale a alternativa que classifica corretamente o quadro.",
- o:["Dislexia fonológica, com comprometimento da via fonológica.",
-    "Dislexia superficial, com comprometimento da via lexical e preservação da fonológica.",
-    "Dislexia profunda, com preservação das duas vias.",
-    "Dislexia visual, explicada apenas por alterações oftalmológicas.",
-    "O quadro não é compatível com dislexia, pois a criança lê pseudopalavras."],
- c:1, w:"Ler pseudopalavras depende da via fonológica (preservada). Errar palavras irregulares conhecidas indica falha na via lexical: dislexia superficial."},
+{tema:"Dislexia", p:"O modelo de dupla rota de Coltheart descreve duas vias de leitura: a lexical, que reconhece palavras conhecidas como unidades, e a fonológica, que converte letras em sons. Diferentes falhas nessas vias produzem quadros distintos.<br>Associe cada quadro à descrição correspondente.<br>1. Dislexia fonológica<br>2. Dislexia superficial<br>3. Dislexia mista<br>( ) Lê palavras familiares, mas erra pseudopalavras e palavras novas.<br>( ) Lê pseudopalavras, mas erra palavras conhecidas de escrita irregular, lendo letra por letra.<br>( ) Apresenta falhas nas duas vias, com erros em palavras irregulares e em pseudopalavras.<br>A sequência correta é:",
+ o:["1 – 2 – 3",
+    "2 – 1 – 3",
+    "1 – 3 – 2",
+    "3 – 2 – 1",
+    "2 – 3 – 1"],
+ c:0, w:"Errar pseudopalavras indica falha na via fonológica (dislexia fonológica). Errar palavras irregulares conhecidas indica falha na via lexical (superficial). Falhas nas duas vias caracterizam a dislexia mista."},
 {tema:"Dislexia", p:"Sobre a dislexia, analise:<br>I. A teoria do duplo déficit associa as formas mais graves à combinação de déficit fonológico e déficit na nomeação rápida automatizada.<br>II. Fatores genéticos e ambientais participam da etiologia, e a escolarização influencia a forma como o transtorno se manifesta.<br>III. Na classificação de Boder, a dislexia mista tende a ser a forma mais leve.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
  c:2, w:"I e II estão corretas. Na classificação de Boder, a forma mista tende a ser a mais grave."},
 {tema:"Discalculia", p:"No modelo do triplo código de Dehaene (1996), os números são representados em códigos distintos (verbal, arábico e analógico de quantidade), e diversas tarefas exigem passar de um código a outro.<br>Ao ouvir o professor ditar “doze” e escrever 12 no caderno, o aluno realiza:",
- o:["um processo de subitizing.", "um processo de transcodificação entre códigos.", "uma operação de complementaridade.", "uma estimativa de numerosidade.", "uma acalculia espacial."],
+ o:["um processo de subitizing.",
+    "um processo de transcodificação entre códigos.",
+    "uma operação de complementaridade.",
+    "uma estimativa de numerosidade.",
+    "uma acalculia espacial."],
  c:1, w:"Passar do código verbal para o arábico é transcodificar. O subitizing é a percepção imediata de pequenas quantidades."},
 {tema:"Discalculia", p:"Na avaliação de dificuldades em matemática, é importante distinguir alterações na compreensão de quantidades de alterações na organização espacial dos números. Um estudante compreende quantidades e resolve problemas mentalmente, mas desalinha os números nas contas armadas e confunde unidades com dezenas.<br>Assinale a alternativa que classifica corretamente a dificuldade.",
  o:["Acalculia espacial, relacionada à organização visuoespacial dos números.",
@@ -9130,7 +9257,11 @@ const PROVA_ESTILO = {
     "A mudança familiar recente confirma o diagnóstico de TDAH."],
  c:1, w:"O diagnóstico é clínico, exige sintomas em mais de um ambiente e por pelo menos seis meses; escalas como a SNAP-IV apenas auxiliam o rastreio."},
 {tema:"TDAH", p:"Sobre a etiologia e a fisiopatologia do TDAH, analise:<br>I. O transtorno é multifatorial, com genes ligados à neurotransmissão dopaminérgica, como DAT1 e DRD4.<br>II. Estão implicados circuitos do córtex pré-frontal e dos núcleos da base.<br>III. TDAH e dificuldade de aprendizagem são a mesma condição clínica.<br>Está correto o que se afirma em:",
- o:["I, apenas.", "II, apenas.", "I e II, apenas.", "II e III, apenas.", "I, II e III."],
+ o:["I, apenas.",
+    "II, apenas.",
+    "I e II, apenas.",
+    "II e III, apenas.",
+    "I, II e III."],
  c:2, w:"I e II estão corretas. TDAH e dificuldades de aprendizagem são entidades diferentes, embora frequentemente associadas."},
 {tema:"TEA", p:"A compreensão do transtorno do espectro autista (TEA) passou por mudanças importantes ao longo do século XX. Ainda hoje circula a ideia de que o autismo seria causado pela frieza afetiva das mães.<br>Assinale a alternativa que expressa a compreensão científica atual.",
  o:["A hipótese da frieza materna é aceita atualmente como principal causa do TEA.",
@@ -16644,11 +16775,11 @@ if(document.body.classList.contains('dark')){
 
 // ===== Navegação entre páginas (com endereço próprio: index.html#viewPrazos etc.) =====
 // endereços amigáveis para compartilhar (os antigos #viewX continuam funcionando)
-const PAGE_SLUG = {viewAdmin:'admin', viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'minha-area', viewMural:'mural'};
+const PAGE_SLUG = {viewAdmin:'admin', viewPrazos:'prazos', viewCursos:'cursos', viewFerramentas:'exercicios', viewVideos:'videos', viewSimulados:'modo-prova', viewApoio:'glossario-e-guias', viewEstudar:'resumos', viewSobre:'sobre', viewInstalar:'instalar', viewErros:'revisao-dos-erros', viewHoje:'minha-area', viewMural:'mural', viewRegras:'regras-das-provas'};
 const SLUG_PAGE = Object.fromEntries(Object.entries(PAGE_SLUG).map(([k, v])=>[v, k]));
 SLUG_PAGE['simulados'] = 'viewSimulados';
 SLUG_PAGE['hoje'] = 'viewHoje';
-const ALL_PAGES = ['top', 'viewAdmin', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros', 'viewHoje', 'viewMural'];
+const ALL_PAGES = ['top', 'viewAdmin', 'viewDisc', 'viewResumo', 'viewPrazos', 'viewCursos', 'viewFerramentas', 'viewVideos', 'viewSimulados', 'viewApoio', 'viewEstudar', 'viewSobre', 'viewInstalar', 'viewErros', 'viewHoje', 'viewMural', 'viewRegras'];
 let currentPage = 'top';
 
 function closeMenus(){
@@ -19837,6 +19968,7 @@ function revealTarget(id){
 }
 function navigateTo(l){
   if(!l) return;
+  if(l.fn && typeof window[l.fn] === 'function'){ window[l.fn](); return; }
   if(l.url && l.url.startsWith('#')){ irParaHash(l.url); return; }
   if(l.url){ window.open(l.url, '_blank', 'noopener'); return; }
   if(l.drive){ const d = DISC_TODAS().find(x=>x.n===l.drive) || DISC[1].find(x=>x.n===l.drive); if(d) window.open(d.url, '_blank', 'noopener'); return; }
@@ -21593,6 +21725,8 @@ const PAGINAS_BUSCA = [
   {t:'Vídeos', s:'Vídeo-aulas por disciplina', l:{page:'viewVideos'}},
   {t:'Cursos extras', s:'Cursos complementares', l:{page:'viewCursos'}},
   {t:'Sobre o site', s:'O projeto e a organização do Drive', l:{page:'viewSobre'}},
+  {t:'Regras das provas', s:'Notas, exame especial, frequência e segunda chamada', l:{page:'viewRegras'}},
+  {t:'Quanto preciso tirar?', s:'Calculadora de notas na Minha área', l:{fn:'avAbrirNotas'}},
   {t:'Instale o app', s:'Instalação no celular', l:{page:'viewInstalar'}},
   {t:'Minha área', s:'Plano do dia, progresso e treinos', l:{page:'viewHoje'}},
   {t:'Corredor da turma', s:'Avisos, recados e conversa da turma', l:{page:'viewMural'}},
@@ -24146,7 +24280,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
       if(banco){
         qs = sorteia(banco).slice(0, 10);
         // embaralha as alternativas a cada impressão (menos as de I, II, III e as numéricas, que têm ordem natural)
-        qs = qs.map(q => { if(/afirma em/.test(q.p) || q.o.every(o => o.length < 14)) return q; const ord = sorteia(q.o.map((_, k) => k)); return Object.assign({}, q, {o:ord.map(k => q.o[k]), c:ord.indexOf(q.c)}); });
+        qs = qs.map(q => { if(q.fixa || /afirma em/.test(q.p) || q.o.every(o => o.length < 14)) return q; const ord = sorteia(q.o.map((_, k) => k)); return Object.assign({}, q, {o:ord.map(k => q.o[k]), c:ord.indexOf(q.c)}); });
         titulo += ' · estilo prova';
       } else {
         const porTema = {}; sorteia(qs).forEach(q => (porTema[q.tema] = porTema[q.tema] || []).push(q));
@@ -24713,6 +24847,22 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
         <button class="ma-parou-go" ${attrs}>Continuar</button></div></section>`;
     }catch(e){ return ''; }
   }
+  // segunda chamada: nas 48 horas depois de cada prova cadastrada em Prazos, um lembrete discreto
+  function maSegundaChamada(){
+    try{
+      const vistos = JSON.parse(localStorage.getItem('av-2chamada-visto') || '{}');
+      const nomes = new Set(DISC_MEU().map(d => d.name)), agora = new Date();
+      const p = TASKS.filter(t => /prova/i.test(t.tarefa) && t.prazo && nomes.has(t.materia)).map(t => {
+        const [a, m, d] = t.prazo.split('-').map(Number), ini = new Date(a, m - 1, d, 0, 0), fim = new Date(a, m - 1, d + 2, 23, 59);
+        return {t, ini, fim, id:t.materia + '|' + t.prazo};
+      }).filter(x => agora >= x.ini && agora <= x.fim && !vistos[x.id]).sort((a, b) => b.ini - a.ini)[0];
+      if(!p) return '';
+      const dd = x => x.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
+      const ate = new Date(p.ini.getTime() + 2 * 864e5);
+      return `<section class="ma-2ch"><div><b>Perdeu a ${escHTML(p.t.tarefa)} de ${escHTML(p.t.materia)} (${dd(p.ini)})?</b><span>Dá para pedir segunda chamada à coordenação em até 48 horas depois da prova, ou seja, até ${dd(ate)} no horário da aula, com atestado ou outro comprovante.</span><button class="nt-link" data-page="viewRegras">Ver motivos aceitos e regras</button></div><button class="ma-2ch-x" data-2ch-fechar="${escHTML(p.id)}" aria-label="Dispensar">×</button></section>`;
+    }catch(e){ return ''; }
+  }
+  document.addEventListener('click', e => { const b = e.target.closest('[data-2ch-fechar]'); if(!b) return; try{ const o = JSON.parse(localStorage.getItem('av-2chamada-visto') || '{}'); o[b.getAttribute('data-2ch-fechar')] = 1; localStorage.setItem('av-2chamada-visto', JSON.stringify(o)); }catch(_){} const s = b.closest('.ma-2ch'); if(s) s.remove(); });
   // temas em "Praticando" nos simulados: uma linha discreta, só quando existe
   function maReforco(){
     try{
@@ -24779,12 +24929,12 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso'], ['ferramentas', '★ Apoiador'], ['conta', 'Conta']];
     if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
     let corpo = '';
-    if(maAba === 'hoje') corpo = (plano || '') + maContinuar() + `<div class="ma-grupo-t">Treinar</div>${maReforco()}<div class="ma-acoes">
+    if(maAba === 'hoje') corpo = maSegundaChamada() + (plano || '') + maContinuar() + `<div class="ma-grupo-t">Treinar</div>${maReforco()}<div class="ma-acoes">
         <button class="ma-acao ma-acao-verde" data-ds-escolher><span class="ma-acao-ic">${maIc('discursiva')}</span><b>Treino de discursiva</b><small>Escreva e corrija perguntas de prova e casos</small><span class="ma-acao-go">Começar <span aria-hidden="true">→</span></span></button>
         <button class="ma-acao ma-acao-ocre" data-hj-ir='{"tipo":"erros"}'><span class="ma-acao-ic">${maIc('erros')}</span>${nErr ? `<span class="ma-acao-num">${nErr}</span>` : ''}<b>Revisão dos erros</b><small>${nErr ? (nErr === 1 ? '1 questão esperando revisão' : nErr + ' questões esperando revisão') : 'Tudo em dia: nenhum erro guardado'}</small><span class="ma-acao-go">${nErr ? 'Revisar' : 'Abrir'} <span aria-hidden="true">→</span></span></button>
       </div>`;
     const pctTot = tot.caps ? Math.round(tot.lidos / tot.caps * 100) : 0;
-    if(maAba === 'progresso') corpo = `<section class="ma-resumo"><div class="ma-anel" style="--p:${pctTot}"><b>${pctTot}%</b></div><div class="ma-resumo-tx"><small>Seu ${avSemestre()}º semestre</small><b>${tot.lidos} de ${tot.caps} partes de resumo lidas</b><span>${tot.sims} de ${tot.simsTot} simulados feitos</span></div></section>
+    if(maAba === 'progresso') corpo = (window.avNotasHTML ? window.avNotasHTML() : '') + `<section class="ma-resumo"><div class="ma-anel" style="--p:${pctTot}"><b>${pctTot}%</b></div><div class="ma-resumo-tx"><small>Seu ${avSemestre()}º semestre</small><b>${tot.lidos} de ${tot.caps} partes de resumo lidas</b><span>${tot.sims} de ${tot.simsTot} simulados feitos</span></div></section>
       <div class="ma-grupo-t">Por disciplina</div><section class="hj-card ma-prog">${linhas}</section>`;
     const BEN_IC = {desempenho:['grafico', 'verde'], plano:['lista', 'cinza'], semestre:['estrela', 'ocre'], simpdf:['pdf', 'rosa'], notas:['nota', 'roxo']};
     if(maAba === 'ferramentas' && apoia) corpo = `<section class="ma-apoio-faixa"><span class="ma-apoio-estrela">★</span><div><small>Apoiador do Arquivo Vivo</small><b>Obrigado por manter o site no ar</b>${window.avApoioAte ? `<span>Seus recursos valem até ${new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</span>` : ''}</div></section><div class="ma-grupo-t">Recursos de apoiador</div><section class="hj-card ma-lista">${(window.avBeneficiosDados ? window.avBeneficiosDados() : []).map(b => maRow(`data-ben="${b.k}"`, (BEN_IC[b.k] || ['estrela'])[0], (BEN_IC[b.k] || [0, 'cinza'])[1], escHTML(b.t), escHTML(b.d))).join('')}</section>`;
@@ -24867,6 +25017,9 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     document.getElementById('navApoioT').textContent = ap ? 'Meu apoio' : 'Apoiar o Arquivo Vivo';
     document.getElementById('navApoioSub').textContent = ap ? (dd ? 'Vale até ' + dd + ' · renove quando quiser' : 'Obrigado por apoiar!') : 'Pix de R$ 10 a R$ 50 ou livre · vale 30 dias';
   };
+  // "Calcular quanto eu preciso tirar" (Regras das provas e busca): Minha área já na aba Progresso
+  window.avAbrirNotas = () => { maAba = 'progresso'; switchPage('viewHoje'); setTimeout(() => { const c = document.getElementById('ntCard'); if(c) c.scrollIntoView({behavior:'smooth', block:'start'}); }, 250); };
+  document.addEventListener('click', e => { if(e.target.closest('[data-rg-calc]')){ e.preventDefault(); window.avAbrirNotas(); } });
   // itens do menu "Sua conta": abrem a Minha área já na aba certa
   document.addEventListener('click', e => {
     const b = e.target.closest('#navConta .nav-item'); if(!b) return;
@@ -26233,5 +26386,98 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   rotular();
 })();
 </script>
+<script>
+// ===== Calculadora "Quanto preciso tirar?" (regulamento de avaliação da Unigranrio, dez/2022) =====
+// N1 e N2 valem 50 cada (atividades 20 + prova 30). Soma >= 70: aprovado. De 40 a 69: exame especial (100 pontos),
+// e a média (exame + nota do semestre) / 2 precisa chegar a 60. Abaixo de 40: reprovado.
+// PRIVACIDADE: as notas ficam só neste aparelho. A chave não começa com "av-", então não entra na sincronização da conta.
+(function(){
+  const CHAVE = 'nl-notas-2026-2';
+  const CAMPOS = [['a1', 'Atividades N1', 20], ['p1', 'Prova N1', 30], ['a2', 'Atividades N2', 20], ['p2', 'Prova N2', 30]];
+  const ler = () => { try{ return JSON.parse(localStorage.getItem(CHAVE)) || {}; }catch(e){ return {}; } };
+  const gravar = o => { try{ localStorage.setItem(CHAVE, JSON.stringify(o)); }catch(e){} };
+  const num = v => v === '' || v == null || isNaN(+v) ? null : Math.max(0, +v);
+  const fmt = n => String(Math.round(n * 10) / 10).replace('.', ',');
+  const curto = d => ({'01':'Bases Biológicas','02':'Neuroanatomia','03':'Aprendizagem','04':'Experimental','05':'Adulto e Idoso','06':'Extensão'})[d.n] || d.name;
+  function situacao(x){
+    const v = {}; CAMPOS.forEach(([k, , m]) => { const n = num(x[k]); v[k] = n === null ? null : Math.min(n, m); });
+    const lanc = CAMPOS.filter(([k]) => v[k] !== null).length;
+    if(!lanc) return {cls:'vazio', t:'Lance suas notas'};
+    const soma = CAMPOS.reduce((s, [k]) => s + (v[k] || 0), 0);
+    if(lanc === 4){
+      if(soma >= 70) return {cls:'ok', t:`Aprovado · ${fmt(soma)} pontos`};
+      if(soma < 40) return {cls:'ruim', t:`Reprovado · ${fmt(soma)} pontos`, d:'Abaixo de 40 não há exame especial.'};
+      const ex = num(x.ex), precisa = 120 - soma;
+      if(ex !== null){ const fin = (Math.min(ex, 100) + soma) / 2; return fin >= 60 ? {cls:'ok', t:`Aprovado no exame · média ${fmt(fin)}`, exame:true} : {cls:'ruim', t:`Média final ${fmt(fin)} · abaixo de 60`, exame:true}; }
+      return {cls:'atencao', t:`Exame especial · precisa de ${fmt(precisa)}`, d:`Você fechou com ${fmt(soma)}. A média do exame com essa nota precisa dar 60, então são ${fmt(precisa)} de 100 no exame.`, exame:true};
+    }
+    // falta lançar: quanto falta para os 70, contando só o que ainda pode vir
+    const resta = CAMPOS.filter(([k]) => v[k] === null).reduce((s, [, , m]) => s + m, 0);
+    const falta = 70 - soma;
+    if(falta <= 0) return {cls:'ok', t:'Já garantiu os 70 pontos'};
+    if(falta > resta) return {cls:'atencao', t:`Mesmo com nota máxima, vai ao exame`, d:`Faltam ${fmt(falta)} para 70 e só restam ${fmt(resta)} pontos. Para não reprovar direto, precisa de ${fmt(Math.max(0, 40 - soma))}.`};
+    return {cls:'meio', t:`Faltam ${fmt(falta)} de ${fmt(resta)} pontos`, d:`Para fechar com 70 e passar sem exame.`};
+  }
+  function linhaHTML(d, x){
+    const st = situacao(x);
+    return `<details class="nt-item" data-nt-disc="${d.n}"${x._aberto ? ' open' : ''}><summary><span class="nt-nome">${escHTML(curto(d))}</span><span class="nt-st nt-${st.cls}">${escHTML(st.t)}</span></summary>
+      <div class="nt-corpo"><div class="nt-campos">${CAMPOS.map(([k, t, m]) => `<label><span>${t}</span><span class="nt-in"><input type="number" inputmode="decimal" min="0" max="${m}" step="0.1" data-nt="${k}" value="${x[k] ?? ''}" placeholder="–"><em>/ ${m}</em></span></label>`).join('')}</div>
+      <label class="nt-ex"${st.exame ? '' : ' hidden'}><span>Exame especial</span><span class="nt-in"><input type="number" inputmode="decimal" min="0" max="100" step="0.1" data-nt="ex" value="${x.ex ?? ''}" placeholder="–"><em>/ 100</em></span></label>
+      <p class="nt-det">${st.d ? escHTML(st.d) : ''}</p></div></details>`;
+  }
+  window.avNotasHTML = () => {
+    const o = ler();
+    return `<section class="nt-card" id="ntCard"><div class="nt-topo"><div><h3>Quanto preciso tirar?</h3><p>N1 e N2 valem 50 cada. Com 70 você passa direto; de 40 a 69 vai ao exame especial.</p></div></div>
+      <p class="nt-priv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Suas notas ficam só neste aparelho.</b> Elas não vão para a sua conta nem para o servidor do site: ninguém tem acesso a elas, nem o administrador.</span></p>
+      <div class="nt-lista">${DISC_MEU().map(d => linhaHTML(d, o[d.n] || {})).join('')}</div>
+      <p class="nt-rod">Conta do regulamento de avaliação da Unigranrio. Projetos e estágios de nota única seguem outra regra. <button class="nt-link" data-page="viewRegras">Ver as regras das provas</button></p></section>`;
+  };
+  document.addEventListener('input', e => {
+    const inp = e.target.closest('[data-nt]'); if(!inp) return;
+    const it = inp.closest('[data-nt-disc]'); if(!it) return;
+    const o = ler(), n = it.dataset.ntDisc, x = o[n] = o[n] || {};
+    const v = inp.value.trim(); if(v === '') delete x[inp.dataset.nt]; else x[inp.dataset.nt] = v;
+    gravar(o);
+    const st = situacao(x), chip = it.querySelector('.nt-st');
+    chip.className = 'nt-st nt-' + st.cls; chip.textContent = st.t;
+    it.querySelector('.nt-det').textContent = st.d || '';
+    it.querySelector('.nt-ex').hidden = !st.exame;
+  });
+  document.addEventListener('toggle', e => { const it = e.target; if(!it.matches || !it.matches('[data-nt-disc]')) return; const o = ler(), x = o[it.dataset.ntDisc] = o[it.dataset.ntDisc] || {}; x._aberto = it.open || undefined; if(!x._aberto) delete x._aberto; gravar(o); }, true);
+})();
+</script>
+<style>
+  .nt-card{margin:18px 0 0; padding:18px; border:1px solid var(--rule); border-radius:16px; background:var(--paper);}
+  .nt-topo h3{margin:0 0 4px; font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600;}
+  .nt-topo p{margin:0; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
+  .nt-priv{display:flex; gap:10px; align-items:flex-start; margin:14px 0 12px; padding:11px 12px; border-radius:12px; background:var(--petrol-soft); font-size:12.5px; line-height:1.5; color:var(--ink-soft);}
+  .nt-priv svg{flex:none; width:18px; height:18px; color:var(--petrol); margin-top:1px;}
+  .nt-priv b{color:var(--ink);}
+  .nt-lista{display:flex; flex-direction:column; gap:8px;}
+  .nt-item{border:1px solid var(--rule); border-radius:12px; background:var(--paper);}
+  .nt-item[open]{background:var(--paper-alt);}
+  .nt-item summary{list-style:none; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; cursor:pointer;}
+  .nt-item summary::-webkit-details-marker{display:none;}
+  .nt-nome{font-weight:600; font-size:14.5px;}
+  .nt-st{flex:none; max-width:62%; text-align:right; font-size:12px; font-weight:700; padding:4px 9px; border-radius:99px; line-height:1.3;}
+  .nt-vazio{color:var(--ink-faint); background:transparent; font-weight:600;}
+  .nt-meio{color:var(--petrol); background:var(--petrol-soft);}
+  .nt-ok{color:#2F7D54; background:rgba(62,155,106,.14);}
+  .nt-atencao{color:#9A5A0E; background:var(--ochre-soft);}
+  .nt-ruim{color:#B03A2E; background:rgba(176,58,46,.1);}
+  body.dark .nt-ok{color:#7FD0A3;} body.dark .nt-atencao{color:var(--ochre);} body.dark .nt-ruim{color:#F0998F;}
+  .nt-corpo{padding:0 14px 14px;}
+  .nt-campos{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .nt-corpo label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--ink-soft);}
+  .nt-ex{margin-top:10px;} .nt-ex[hidden]{display:none;}
+  .nt-in{display:flex; align-items:center; gap:6px; padding:0 10px; border:1px solid var(--rule); border-radius:10px; background:var(--paper);}
+  .nt-in:focus-within{border-color:var(--petrol);}
+  .nt-in input{flex:1; min-width:0; width:100%; border:0; background:transparent; font:inherit; font-size:16px; padding:9px 0; color:var(--ink); outline:none;}
+  .nt-in em{font-style:normal; font-size:12.5px; color:var(--ink-faint);}
+  .nt-det{margin:10px 0 0; font-size:12.5px; line-height:1.5; color:var(--ink-soft);}
+  .nt-det:empty{display:none;}
+  .nt-rod{margin:12px 0 0; font-size:12px; line-height:1.5; color:var(--ink-faint);}
+  .nt-link{font:inherit; color:var(--petrol); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer;}
+</style>
 </body>
 </html>
