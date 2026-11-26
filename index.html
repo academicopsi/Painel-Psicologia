@@ -26420,18 +26420,35 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     if(falta > resta) return {cls:'atencao', t:`Mesmo com nota máxima, vai à prova final`, d:`Faltam ${fmt(falta)} para 70 e só restam ${fmt(resta)} pontos. Para não reprovar direto, precisa de ${fmt(Math.max(0, 40 - soma))}.`};
     return {cls:'meio', t:`Faltam ${fmt(falta)} de ${fmt(resta)} pontos`, d:`Para fechar com 70 e passar sem prova final.`};
   }
+  const somaDe = x => { let t = 0, n1 = 0, n2 = 0; CAMPOS.forEach(([k, , mx]) => { const v = num(x[k]); if(v === null) return; const w = Math.min(v, mx); t += w; if(k.endsWith('1')) n1 += w; else n2 += w; }); return {t, n1, n2}; };
+  const chev = '<svg class="nt-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  const campo = (k, t, mx, x) => `<label><span>${t}</span><span class="nt-in"><input type="number" inputmode="decimal" min="0" max="${mx}" step="0.1" data-nt="${k}" value="${x[k] ?? ''}" placeholder="–"><em>/ ${mx}</em></span></label>`;
   function linhaHTML(d, x){
-    const st = situacao(x);
-    return `<details class="nt-item" data-nt-disc="${d.n}"${x._aberto ? ' open' : ''}><summary><span class="nt-nome">${escHTML(curto(d))}</span><span class="nt-st nt-${st.cls}">${escHTML(st.t)}</span></summary>
-      <div class="nt-corpo"><div class="nt-campos">${CAMPOS.map(([k, t, m]) => `<label><span>${t}</span><span class="nt-in"><input type="number" inputmode="decimal" min="0" max="${m}" step="0.1" data-nt="${k}" value="${x[k] ?? ''}" placeholder="–"><em>/ ${m}</em></span></label>`).join('')}</div>
-      <label class="nt-ex"${st.exame ? '' : ' hidden'}><span>Prova final</span><span class="nt-in"><input type="number" inputmode="decimal" min="0" max="100" step="0.1" data-nt="ex" value="${x.ex ?? ''}" placeholder="–"><em>/ 100</em></span></label>
+    const st = situacao(x), sm = somaDe(x);
+    return `<details class="nt-item nt-c-${st.cls}" data-nt-disc="${d.n}"${x._aberto ? ' open' : ''}><summary>
+        <div class="nt-l"><span class="nt-nome">${escHTML(curto(d))}</span><span class="nt-st nt-${st.cls}">${escHTML(st.t)}</span></div>
+        <div class="nt-r"><b class="nt-tot">${fmt(sm.t)}<small>/100</small></b>${chev}</div>
+        <div class="nt-barra" aria-hidden="true"><i style="width:${Math.min(100, sm.t)}%"></i><s style="left:40%"></s><s class="m70" style="left:70%"></s></div></summary>
+      <div class="nt-corpo"><div class="nt-etapas">
+        <div class="nt-etapa"><div class="nt-et-h"><b>N1</b><span class="nt-sub" data-nt-sub="n1">${fmt(sm.n1)} / 50</span></div><div class="nt-campos">${campo('a1', 'Atividades', 20, x)}${campo('p1', 'Prova', 30, x)}</div></div>
+        <div class="nt-etapa"><div class="nt-et-h"><b>N2</b><span class="nt-sub" data-nt-sub="n2">${fmt(sm.n2)} / 50</span></div><div class="nt-campos">${campo('a2', 'Atividades', 20, x)}${campo('p2', 'Prova', 30, x)}</div></div></div>
+      <div class="nt-ex"${st.exame ? '' : ' hidden'}><div class="nt-et-h"><b>Prova final</b><span class="nt-sub">vale 100</span></div>${campo('ex', 'Nota da prova final', 100, x)}</div>
       <p class="nt-det">${st.d ? escHTML(st.d) : ''}</p></div></details>`;
   }
+  function resumo(o){
+    const c = {ok:0, final:0, vazio:0, risco:0};
+    DISC_MEU().forEach(d => { const st = situacao(o[d.n] || {}); if(st.cls === 'ok') c.ok++; else if(st.cls === 'vazio') c.vazio++; else if(st.cls === 'ruim') c.risco++; else if(st.exame || st.cls === 'atencao') c.final++; });
+    return c;
+  }
+  const resumoHTML = c => `<div class="nt-res"><span class="r-ok"><b>${c.ok}</b>aprovada${c.ok === 1 ? '' : 's'}</span><span class="r-fin"><b>${c.final}</b>prova final</span><span class="r-vz"><b>${c.vazio}</b>sem notas</span></div>`;
   window.avNotasHTML = () => {
     const o = ler();
-    return `<section class="nt-card" id="ntCard"><div class="nt-topo"><div><h3>Quanto preciso tirar?</h3><p>N1 e N2 valem 50 cada. Com 70 você passa direto; de 40 a 69 vai à prova final.</p></div></div>
-      <p class="nt-priv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Só você vê as suas notas.</b> Elas ficam salvas na sua conta e aparecem em todos os seus aparelhos, mas não aparecem para os colegas nem no painel do administrador.</span></p>
+    return `<section class="nt-card" id="ntCard"><div class="nt-hero"><span class="nt-hero-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h2M12 10h2M16 10v8M8 14h2M12 14h2M8 18h2M12 18h2"/></svg></span>
+        <div><h3>Quanto preciso tirar?</h3><p>Lance suas notas e veja na hora quanto falta para os 70.</p></div></div>
+      <div id="ntRes">${resumoHTML(resumo(o))}</div>
+      <div class="nt-regra"><span><i class="ok"></i>70 ou mais: aprovado</span><span><i class="fin"></i>40 a 69: prova final</span><span><i class="ru"></i>abaixo de 40: reprovado</span></div>
       <div class="nt-lista">${DISC_MEU().map(d => linhaHTML(d, o[d.n] || {})).join('')}</div>
+      <p class="nt-priv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Só você vê as suas notas.</b> Elas ficam salvas na sua conta e aparecem em todos os seus aparelhos, mas não aparecem para os colegas nem no painel do administrador.</span></p>
       <p class="nt-rod">Conta do regulamento de avaliação da Unigranrio. Projetos e estágios de nota única seguem outra regra. <button class="nt-link" data-page="viewRegras">Ver as regras das provas</button></p></section>`;
   };
   document.addEventListener('input', e => {
@@ -26440,45 +26457,84 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     const o = ler(), n = it.dataset.ntDisc, x = o[n] = o[n] || {};
     const v = inp.value.trim(); if(v === '') delete x[inp.dataset.nt]; else x[inp.dataset.nt] = v;
     gravar(o);
-    const st = situacao(x), chip = it.querySelector('.nt-st');
+    const st = situacao(x), sm = somaDe(x), chip = it.querySelector('.nt-st');
+    it.className = 'nt-item nt-c-' + st.cls;
     chip.className = 'nt-st nt-' + st.cls; chip.textContent = st.t;
+    it.querySelector('.nt-tot').innerHTML = `${fmt(sm.t)}<small>/100</small>`;
+    it.querySelector('.nt-barra i').style.width = Math.min(100, sm.t) + '%';
+    it.querySelector('[data-nt-sub="n1"]').textContent = `${fmt(sm.n1)} / 50`;
+    it.querySelector('[data-nt-sub="n2"]').textContent = `${fmt(sm.n2)} / 50`;
     it.querySelector('.nt-det').textContent = st.d || '';
     it.querySelector('.nt-ex').hidden = !st.exame;
+    const r = document.getElementById('ntRes'); if(r) r.innerHTML = resumoHTML(resumo(o));
   });
   document.addEventListener('toggle', e => { const it = e.target; if(!it.matches || !it.matches('[data-nt-disc]')) return; const o = ler(), x = o[it.dataset.ntDisc] = o[it.dataset.ntDisc] || {}; x._aberto = it.open || undefined; if(!x._aberto) delete x._aberto; gravar(o); }, true);
 })();
 </script>
 <style>
-  .nt-card{margin:18px 0 0; padding:18px; border:1px solid var(--rule); border-radius:16px; background:var(--paper);}
-  .nt-topo h3{margin:0 0 4px; font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600;}
-  .nt-topo p{margin:0; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
-  .nt-priv{display:flex; gap:10px; align-items:flex-start; margin:14px 0 12px; padding:11px 12px; border-radius:12px; background:var(--petrol-soft); font-size:12.5px; line-height:1.5; color:var(--ink-soft);}
-  .nt-priv svg{flex:none; width:18px; height:18px; color:var(--petrol); margin-top:1px;}
-  .nt-priv b{color:var(--ink);}
-  .nt-lista{display:flex; flex-direction:column; gap:8px;}
-  .nt-item{border:1px solid var(--rule); border-radius:12px; background:var(--paper);}
-  .nt-item[open]{background:var(--paper-alt);}
-  .nt-item summary{list-style:none; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; cursor:pointer;}
+  .nt-card{margin:18px 0 0; border:1px solid var(--rule); border-radius:20px; background:var(--paper); overflow:hidden;}
+  .nt-hero{display:flex; gap:14px; align-items:center; padding:20px 18px 18px; color:#fff; background:radial-gradient(120% 140% at 100% 0%, rgba(201,140,48,.35), transparent 55%), linear-gradient(150deg, var(--petrol) 0%, var(--petrol-dark, #123C37) 100%);}
+  body.dark .nt-hero{background:radial-gradient(120% 140% at 100% 0%, rgba(201,140,48,.28), transparent 55%), linear-gradient(150deg, #1E5A53 0%, #0F2E2A 100%);}
+  .nt-hero-ic{flex:none; width:46px; height:46px; border-radius:14px; display:grid; place-items:center; background:rgba(255,255,255,.14); box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);}
+  .nt-hero-ic svg{width:24px; height:24px;}
+  .nt-hero h3{margin:0 0 3px; font-family:var(--serif, Georgia, serif); font-size:22px; font-weight:600; color:#fff;}
+  .nt-hero p{margin:0; font-size:13.5px; line-height:1.45; color:rgba(255,255,255,.82);}
+  .nt-res{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; padding:14px 16px 0;}
+  .nt-res span{display:flex; flex-direction:column; align-items:center; padding:10px 6px; border-radius:14px; font-size:12px; font-weight:600; color:var(--ink-soft); background:var(--paper-alt);}
+  .nt-res b{font-family:var(--serif, Georgia, serif); font-size:24px; line-height:1.1; color:var(--ink);}
+  .nt-res .r-ok b{color:#2F7D54;} .nt-res .r-fin b{color:#A86A12;}
+  body.dark .nt-res .r-ok b{color:#7FD0A3;} body.dark .nt-res .r-fin b{color:var(--ochre);}
+  .nt-regra{display:flex; flex-wrap:wrap; gap:6px 14px; padding:12px 18px 4px; font-size:11.5px; color:var(--ink-faint);}
+  .nt-regra i{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:0;}
+  .nt-regra .ok{background:#3E9B6A;} .nt-regra .fin{background:var(--ochre);} .nt-regra .ru{background:#B03A2E;}
+  .nt-lista{display:flex; flex-direction:column; gap:10px; padding:12px 16px 4px;}
+  .nt-item{border:1px solid var(--rule); border-radius:16px; background:var(--paper); box-shadow:0 1px 2px var(--shadow); transition:box-shadow .2s ease, border-color .2s ease;}
+  .nt-item[open]{box-shadow:0 8px 22px -12px rgba(0,0,0,.22); border-color:color-mix(in srgb, var(--petrol) 30%, var(--rule));}
+  .nt-item summary{list-style:none; display:grid; grid-template-columns:1fr auto; grid-template-areas:"l r" "b b"; gap:10px 12px; padding:14px 16px 14px; cursor:pointer;}
   .nt-item summary::-webkit-details-marker{display:none;}
-  .nt-nome{font-weight:600; font-size:14.5px;}
-  .nt-st{flex:none; max-width:62%; text-align:right; font-size:12px; font-weight:700; padding:4px 9px; border-radius:99px; line-height:1.3;}
-  .nt-vazio{color:var(--ink-faint); background:transparent; font-weight:600;}
+  .nt-l{grid-area:l; display:flex; flex-direction:column; align-items:flex-start; gap:6px; min-width:0;}
+  .nt-r{grid-area:r; display:flex; align-items:center; gap:8px;}
+  .nt-nome{font-weight:700; font-size:15px;}
+  .nt-tot{font-family:var(--serif, Georgia, serif); font-size:26px; font-weight:600; line-height:1; color:var(--ink);}
+  .nt-tot small{font-family:inherit; font-size:13px; font-weight:500; color:var(--ink-faint); margin-left:1px;}
+  .nt-chev{width:18px; height:18px; color:var(--ink-faint); transition:transform .2s ease;}
+  .nt-item[open] .nt-chev{transform:rotate(180deg);}
+  .nt-barra{grid-area:b; position:relative; height:8px; border-radius:99px; background:var(--paper-alt); overflow:visible;}
+  .nt-barra i{position:absolute; left:0; top:0; bottom:0; border-radius:99px; background:var(--ink-faint); transition:width .35s ease, background .2s ease;}
+  .nt-barra s{position:absolute; top:-3px; bottom:-3px; width:2px; margin-left:-1px; border-radius:2px; background:color-mix(in srgb, var(--ink) 25%, transparent);}
+  .nt-barra s.m70{background:#3E9B6A;}
+  .nt-c-ok .nt-barra i{background:linear-gradient(90deg, #5DB585, #2F7D54);}
+  .nt-c-meio .nt-barra i{background:linear-gradient(90deg, color-mix(in srgb, var(--petrol) 55%, #fff), var(--petrol));}
+  .nt-c-atencao .nt-barra i{background:linear-gradient(90deg, #E2B45E, #B8791A);}
+  .nt-c-ruim .nt-barra i{background:linear-gradient(90deg, #D97A6F, #B03A2E);}
+  .nt-st{font-size:11.5px; font-weight:700; padding:3px 9px; border-radius:99px; line-height:1.35;}
+  .nt-vazio{color:var(--ink-faint); background:var(--paper-alt); font-weight:600;}
   .nt-meio{color:var(--petrol); background:var(--petrol-soft);}
   .nt-ok{color:#2F7D54; background:rgba(62,155,106,.14);}
   .nt-atencao{color:#9A5A0E; background:var(--ochre-soft);}
   .nt-ruim{color:#B03A2E; background:rgba(176,58,46,.1);}
   body.dark .nt-ok{color:#7FD0A3;} body.dark .nt-atencao{color:var(--ochre);} body.dark .nt-ruim{color:#F0998F;}
-  .nt-corpo{padding:0 14px 14px;}
-  .nt-campos{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-  .nt-corpo label{display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--ink-soft);}
-  .nt-ex{margin-top:10px;} .nt-ex[hidden]{display:none;}
-  .nt-in{display:flex; align-items:center; gap:6px; padding:0 10px; border:1px solid var(--rule); border-radius:10px; background:var(--paper);}
-  .nt-in:focus-within{border-color:var(--petrol);}
-  .nt-in input{flex:1; min-width:0; width:100%; border:0; background:transparent; font:inherit; font-size:16px; padding:9px 0; color:var(--ink); outline:none;}
-  .nt-in em{font-style:normal; font-size:12.5px; color:var(--ink-faint);}
-  .nt-det{margin:10px 0 0; font-size:12.5px; line-height:1.5; color:var(--ink-soft);}
+  .nt-corpo{padding:2px 16px 16px;}
+  .nt-etapas{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .nt-etapa, .nt-ex{padding:12px; border-radius:14px; background:var(--paper-alt);}
+  .nt-ex{margin-top:10px; border:1px dashed color-mix(in srgb, var(--ochre) 55%, transparent); background:var(--ochre-soft);}
+  .nt-ex[hidden]{display:none;}
+  .nt-et-h{display:flex; align-items:baseline; justify-content:space-between; margin:0 0 8px;}
+  .nt-et-h b{font-family:var(--serif, Georgia, serif); font-size:17px;}
+  .nt-sub{font-size:12px; font-weight:700; color:var(--petrol);}
+  .nt-campos{display:flex; flex-direction:column; gap:8px;}
+  .nt-corpo label{display:flex; flex-direction:column; gap:3px; font-size:11.5px; font-weight:600; color:var(--ink-soft);}
+  .nt-in{display:flex; align-items:center; gap:6px; padding:0 10px; border:1px solid var(--rule); border-radius:10px; background:var(--paper); transition:border-color .15s ease, box-shadow .15s ease;}
+  .nt-in:focus-within{border-color:var(--petrol); box-shadow:0 0 0 3px color-mix(in srgb, var(--petrol) 18%, transparent);}
+  .nt-in input{flex:1; min-width:0; width:100%; border:0; background:transparent; font:inherit; font-size:17px; font-weight:600; padding:8px 0; color:var(--ink); outline:none; -moz-appearance:textfield;}
+  .nt-in input::-webkit-outer-spin-button, .nt-in input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+  .nt-in em{font-style:normal; font-size:12px; color:var(--ink-faint);}
+  .nt-det{margin:12px 0 0; padding:10px 12px; border-radius:12px; font-size:13px; line-height:1.5; color:var(--ink-soft); background:var(--paper-alt);}
   .nt-det:empty{display:none;}
-  .nt-rod{margin:12px 0 0; font-size:12px; line-height:1.5; color:var(--ink-faint);}
+  .nt-priv{display:flex; gap:10px; align-items:flex-start; margin:12px 16px 0; padding:11px 12px; border-radius:12px; background:var(--petrol-soft); font-size:12.5px; line-height:1.5; color:var(--ink-soft);}
+  .nt-priv svg{flex:none; width:18px; height:18px; color:var(--petrol); margin-top:1px;}
+  .nt-priv b{color:var(--ink);}
+  .nt-rod{margin:10px 16px 16px; font-size:12px; line-height:1.5; color:var(--ink-faint);}
   .nt-link{font:inherit; color:var(--petrol); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer;}
 </style>
 </body>
