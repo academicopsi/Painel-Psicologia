@@ -4042,6 +4042,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-group-label">Turma</div>
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewPrazos"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="ni-text"><strong>Prazos e tarefas</strong><small>Calendário, provas e entregas</small></span></button>
+          <button class="nav-item" data-page="viewRegras"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="ni-text"><strong>Regras das provas</strong><small>Notas, prova final, segunda chamada</small></span></button>
           <button class="nav-item" data-page="viewMural"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.4-4.9A8.5 8.5 0 1 1 21 11.5Z"/></svg></span><span class="ni-text"><strong>Corredor da turma</strong><small>Avisos, recados e conversa da turma</small></span></button>
         </div>
       </div>
@@ -4051,7 +4052,6 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
         <div class="nav-dropdown">
           <button class="nav-item" data-page="viewSobre"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span><span class="ni-text"><strong>Sobre o site</strong><small>O projeto e a organização do Drive</small></span></button>
           <button class="nav-item" data-page="viewInstalar"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span><span class="ni-text"><strong>Instale o app</strong><small>Instalação no celular</small></span></button>
-          <button class="nav-item" data-page="viewRegras"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="ni-text"><strong>Regras das provas</strong><small>Notas, prova final, segunda chamada</small></span></button>
           <button class="nav-item" data-scroll="atualizacoes"><span class="ni-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><span class="ni-text"><strong>Últimas atualizações</strong><small>O que entrou no site</small></span></button>
         </div>
       </div>
@@ -4397,7 +4397,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
 <div class="wrap" id="viewRegras" style="display:none;">
   <button class="back-link" id="backFromRegras">← Voltar</button>
   <header>
-    <div class="eyebrow">Sobre</div>
+    <div class="eyebrow">Turma</div>
     <div class="pg-tit"><span class="pg-tit-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><h1>Regras das provas</h1></div>
     <p>O essencial do regulamento de avaliação da Unigranrio para os cursos presenciais, em linguagem direta.</p>
   </header>
@@ -5495,8 +5495,8 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       <p>Iniciativa voluntária, sem vínculo com a coordenação ou com a instituição. O conteúdo das aulas sempre prevalece como referência final.</p>
     </div>
     <div class="footer-col"><h4>Estudo</h4><button data-page="viewEstudar">Resumos</button><button data-page="viewFerramentas">Exercícios</button><button data-page="viewSimulados">Simulados</button><button data-page="viewErros">Revisão dos erros</button><button data-page="viewApoio">Glossário e guias</button><button data-page="viewVideos">Vídeos</button><button data-page="viewCursos">Cursos extras</button></div>
-    <div class="footer-col"><h4>Turma</h4><a href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer">Drive das disciplinas</a><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewMural">Corredor da turma</button></div>
-    <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button><button data-page="viewRegras">Regras das provas</button><button data-scroll="atualizacoes">Últimas atualizações</button><button data-apoio>Apoiar o Arquivo Vivo</button></div>
+    <div class="footer-col"><h4>Turma</h4><a href="https://drive.google.com/drive/folders/1k7q1HG7-IuRG-rFXfoKoUe8qW39Oj5Og?hl=pt-br" target="_blank" rel="noopener noreferrer">Drive das disciplinas</a><button data-page="viewPrazos">Prazos e tarefas</button><button data-page="viewRegras">Regras das provas</button><button data-page="viewMural">Corredor da turma</button></div>
+    <div class="footer-col"><h4>Sobre</h4><button data-page="viewSobre">Sobre o site</button><button data-page="viewInstalar">Instale o app</button><button data-scroll="atualizacoes">Últimas atualizações</button><button data-apoio>Apoiar o Arquivo Vivo</button></div>
     <div class="qr-block"><div id="qrcode"></div><span>Aponte a câmera para abrir no celular</span></div>
   </div>
   <div class="footer-bottom"><span>Arquivo Vivo · criado e mantido por <strong class="foot-autor">Thiago Monteiro</strong></span><span id="footDate"></span></div>
