@@ -1309,7 +1309,7 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   @keyframes s3brilho2{0%,100%{opacity:.5;} 50%{opacity:1;}}
   /* prévia do 3º semestre */
   .s3-caixa{max-width:430px;}
-  .s3-eb{display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8A5A14; background:linear-gradient(135deg, #FBE7C2, #F3CF8A); border-radius:999px; padding:5px 12px;}
+  .s3-eb{display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:700; letter-spacing:.05em; white-space:nowrap; text-transform:uppercase; color:#8A5A14; background:linear-gradient(135deg, #FBE7C2, #F3CF8A); border-radius:999px; padding:5px 12px;}
   .s3-brilho{color:#B7791F; animation:s3brilho2 2.4s ease-in-out infinite;}
   .s3-caixa h2{font-family:var(--serif, Georgia, serif); font-size:26px; margin:12px 0 4px;}
   .s3-lista{list-style:none; margin:14px 0 10px; padding:0; display:flex; flex-direction:column;}
@@ -16551,7 +16551,7 @@ document.querySelectorAll('.tab').forEach(btn=>{
 let gridSem = avSemestre();
 // 3º semestre: aparece como "em breve" até 01/02/2027 e até as disciplinas entrarem em DISC['3'].
 // Tocar nele abre só uma prévia, sem link do Drive (o link é liberado depois, com o material).
-const S3 = {inicio:'01/02', disc:[
+const S3 = {inicio:'fevereiro', disc:[
   ['seg', 'Projeto de Extensão II', 'Adriana de Souza Carvalho', '18h45 às 20h25'],
   ['ter', 'Teorias e Técnicas Grupais', 'Flavio Lopes Guilhon', '18h às 20h25'],
   ['ter', 'Psicologia e Saúde Mental', 'Flavio Lopes Guilhon', '20h25 às 21h55'],
@@ -16574,7 +16574,7 @@ window.avS3Previa = function(){
   const DIA = {seg:'Segunda', ter:'Terça', qui:'Quinta', sex:'Sexta'};
   f.innerHTML = `<div class="conta-caixa s3-caixa" role="dialog" aria-modal="true" aria-labelledby="s3Tit">
     <button class="conta-fechar" data-s3-fechar aria-label="Fechar">×</button>
-    <div class="s3-eb"><span class="s3-brilho" aria-hidden="true">✦</span>3º semestre · começa em ${S3.inicio}</div>
+    <div class="s3-eb"><span class="s3-brilho" aria-hidden="true">✦</span>3º semestre · em ${S3.inicio}</div>
     <h2 id="s3Tit">O que vem por aí</h2>
     <p class="conta-sub">As seis disciplinas do próximo período, com o dia e o horário de cada uma.</p>
     <ul class="s3-lista">${S3.disc.map(([d, n, p, h]) => `<li><span class="s3-dia" title="${DIA[d]}">${d}</span><div><b>${n}</b><small><span class="s3-h">${h}</span>${p}</small></div></li>`).join('')}</ul>
