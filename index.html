@@ -24965,7 +24965,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     }).join('');
     const admin = window.avEhAdmin && window.avEhAdmin(), pend = window.avPendentes ? window.avPendentes() : '';
     const nErr = errLista('todas').length;
-    const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso'], ['ferramentas', '★ Apoiador'], ['conta', 'Conta']];
+    const abas = [['hoje', 'Hoje'], ['progresso', 'Progresso'], ['notas', 'Notas'], ['ferramentas', '★ Apoiador'], ['conta', 'Conta']];
     if(!abas.some(a => a[0] === maAba)) maAba = 'hoje';
     let corpo = '';
     if(maAba === 'hoje') corpo = maSegundaChamada() + (plano || '') + maContinuar() + `<div class="ma-grupo-t">Treinar</div>${maReforco()}<div class="ma-acoes">
@@ -24973,7 +24973,8 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
         <button class="ma-acao ma-acao-ocre" data-hj-ir='{"tipo":"erros"}'><span class="ma-acao-ic">${maIc('erros')}</span>${nErr ? `<span class="ma-acao-num">${nErr}</span>` : ''}<b>Revisão dos erros</b><small>${nErr ? (nErr === 1 ? '1 questão esperando revisão' : nErr + ' questões esperando revisão') : 'Tudo em dia: nenhum erro guardado'}</small><span class="ma-acao-go">${nErr ? 'Revisar' : 'Abrir'} <span aria-hidden="true">→</span></span></button>
       </div>`;
     const pctTot = tot.caps ? Math.round(tot.lidos / tot.caps * 100) : 0;
-    if(maAba === 'progresso') corpo = (window.avNotasHTML ? window.avNotasHTML() : '') + `<section class="ma-resumo"><div class="ma-anel" style="--p:${pctTot}"><b>${pctTot}%</b></div><div class="ma-resumo-tx"><small>Seu ${avSemestre()}º semestre</small><b>${tot.lidos} de ${tot.caps} partes de resumo lidas</b><span>${tot.sims} de ${tot.simsTot} simulados feitos</span></div></section>
+    if(maAba === 'notas') corpo = window.avNotasHTML ? window.avNotasHTML() : '';
+    if(maAba === 'progresso') corpo = `<section class="ma-resumo"><div class="ma-anel" style="--p:${pctTot}"><b>${pctTot}%</b></div><div class="ma-resumo-tx"><small>Seu ${avSemestre()}º semestre</small><b>${tot.lidos} de ${tot.caps} partes de resumo lidas</b><span>${tot.sims} de ${tot.simsTot} simulados feitos</span></div></section>
       <div class="ma-grupo-t">Por disciplina</div><section class="hj-card ma-prog">${linhas}</section>`;
     const BEN_IC = {desempenho:['grafico', 'verde'], plano:['lista', 'cinza'], semestre:['estrela', 'ocre'], simpdf:['pdf', 'rosa'], notas:['nota', 'roxo']};
     if(maAba === 'ferramentas' && apoia) corpo = `<section class="ma-apoio-faixa"><span class="ma-apoio-estrela">★</span><div><small>Apoiador do Arquivo Vivo</small><b>Obrigado por manter o site no ar</b>${window.avApoioAte ? `<span>Seus recursos valem até ${new Date(window.avApoioAte).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</span>` : ''}</div></section><div class="ma-grupo-t">Recursos de apoiador</div><section class="hj-card ma-lista">${(window.avBeneficiosDados ? window.avBeneficiosDados() : []).map(b => maRow(`data-ben="${b.k}"`, (BEN_IC[b.k] || ['estrela'])[0], (BEN_IC[b.k] || [0, 'cinza'])[1], escHTML(b.t), escHTML(b.d))).join('')}</section>`;
@@ -25057,7 +25058,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     document.getElementById('navApoioSub').textContent = ap ? (dd ? 'Vale até ' + dd + ' · renove quando quiser' : 'Obrigado por apoiar!') : 'Pix de R$ 10 a R$ 50 ou livre · vale 30 dias';
   };
   // "Calcular quanto eu preciso tirar" (Regras das provas e busca): Minha área já na aba Progresso
-  window.avAbrirNotas = () => { maAba = 'progresso'; switchPage('viewHoje'); setTimeout(() => { const c = document.getElementById('ntCard'); if(c) c.scrollIntoView({behavior:'smooth', block:'start'}); }, 250); };
+  window.avAbrirNotas = () => { maAba = 'notas'; switchPage('viewHoje'); setTimeout(() => { const c = document.getElementById('ntCard'); if(c) c.scrollIntoView({behavior:'smooth', block:'start'}); }, 250); };
   document.addEventListener('click', e => { if(e.target.closest('[data-rg-calc]')){ e.preventDefault(); window.avAbrirNotas(); } });
   // itens do menu "Sua conta": abrem a Minha área já na aba certa
   document.addEventListener('click', e => {
