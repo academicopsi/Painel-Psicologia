@@ -3563,6 +3563,25 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   .adm-ic{flex:none; width:52px; height:52px; border-radius:16px; display:grid; place-items:center; color:#fff; background:linear-gradient(150deg, #2B3A38, #121B1A); box-shadow:0 6px 14px rgba(0,0,0,.15);}
   .adm-ic svg{width:26px; height:26px;}
   .adm-sts{display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;}
+  /* abas do painel em grade, com ícone e contador, sem amontoar */
+  #adminPage .ma-abas.adm-abas{display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:8px; border:0; margin:22px 0 14px; overflow:visible;}
+  #adminPage .adm-abas button{position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; min-width:0; padding:12px 6px 10px; font-size:13px; font-weight:600; color:var(--ink-soft); background:var(--paper); border:1px solid var(--rule); border-radius:14px; transition:background .15s ease, color .15s ease, border-color .15s ease;}
+  #adminPage .adm-abas button svg{width:20px; height:20px;}
+  #adminPage .adm-abas button span{max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  #adminPage .adm-abas button:hover{border-color:color-mix(in srgb, var(--petrol) 35%, var(--rule));}
+  #adminPage .adm-abas button[aria-selected="true"]{background:var(--petrol); border-color:var(--petrol); color:#fff;}
+  #adminPage .adm-abas button[aria-selected="true"]::after{display:none;}
+  #adminPage .adm-abas em{position:absolute; top:6px; right:8px; min-width:18px; height:18px; padding:0 5px; border-radius:99px; background:#C2410C; color:#fff; font-style:normal; font-size:11px; font-weight:700; line-height:18px; text-align:center;}
+  #adminPage .adm-abas em.ok{background:#2F7D54;}
+  @media (max-width:720px){
+    #adminPage .ma-abas.adm-abas{grid-template-columns:repeat(3, minmax(0, 1fr));}
+    #adminPage .ma-ola h1{font-size:30px !important; line-height:1.1;}
+    #adminPage .adm-ic{width:48px; height:48px; border-radius:14px;}
+    #adminPage .adm-sts{gap:8px;}
+    #adminPage .adm-st{padding:12px 14px;}
+    #adminPage .adm-st b{font-size:26px;}
+    #adminPage .adm-st span{font-size:13px;}
+  }
   @media (max-width:640px){ .adm-sts{grid-template-columns:repeat(2, 1fr);} }
   .adm-st[data-adm-aba="online"].tem{border-color:rgba(62,155,106,.4); background:linear-gradient(160deg, rgba(62,155,106,.09), var(--paper) 70%);}
   .adm-st[data-adm-aba="online"].tem b{color:#2F7D54;}
@@ -25849,7 +25868,19 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
 (function(){
   const EU = () => window.avEu && window.avEu(), B = () => window.avBanco, esc = t => escHTML(t == null ? '' : t);
   let aba = 'acessos', on = null, onTimer = null, cont = null, fila = {}, aparelhos = null, pessoas = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}, msg = '';
-  const ABAS = [['online', 'On-line'], ['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Corredor'], ['turma', 'Turma'], ['banco', 'Banco de questões']];
+  const ABAS = [['online', 'On-line'], ['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Corredor'], ['turma', 'Turma'], ['banco', 'Questões']];
+  const ABA_IC = {
+    online:'<circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/>',
+    acessos:'<circle cx="9" cy="8" r="4"/><path d="M2 21c1.2-3.6 3.8-5.5 7-5.5s5.8 1.9 7 5.5"/><path d="m16 11 2 2 4-4"/>',
+    avisos:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+    mural:'<path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.4-4.9A8.5 8.5 0 1 1 21 11.5Z"/>',
+    turma:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+    banco:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>'};
+  function abasHTML(){
+    const den = window.avMuralDenuncias ? window.avMuralDenuncias() : 0;
+    const n = {online:on ? on.length : 0, acessos:cont ? (cont.aguardando || 0) + (cont.pix || 0) : 0, mural:den};
+    return ABAS.map(([k, t]) => `<button role="tab" data-adm-aba="${k}" aria-selected="${aba === k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ABA_IC[k]}</svg><span>${t}</span>${n[k] ? `<em class="${k === 'online' ? 'ok' : ''}">${n[k]}</em>` : ''}</button>`).join('');
+  }
   const LINKS = [['', 'Página inicial'], ['#minha-area', 'Minha área'], ['#mural', 'Corredor da turma'], ['#modo-prova', 'Simulados'], ['#resumos', 'Resumos'], ['#prazos', 'Prazos']];
   const IC = {escudo:'<path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/>', sino:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'};
   const ic = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
@@ -25880,7 +25911,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     const st = (n, t, k) => `<button class="adm-st${n ? ' tem' : ''}" data-adm-aba="${k}"><b>${n == null ? '–' : n}</b><span>${t}</span></button>`;
     return `<div class="adm-sts">${st(on && on.length, 'on-line agora', 'online')}${st(cont && cont.aguardando, 'aguardando liberação', 'acessos')}${st(cont && cont.pix, 'Pix para conferir', 'acessos')}${st(den, den === 1 ? 'denúncia no corredor' : 'denúncias no corredor', 'mural')}</div>`;
   }
-  function desenharTopo(){ const t = document.getElementById('admTopo'); if(t) t.innerHTML = topoHTML(); }
+  function desenharTopo(){ const t = document.getElementById('admTopo'); if(t) t.innerHTML = topoHTML(); const a = document.getElementById('admAbas'); if(a) a.innerHTML = abasHTML(); }
   const haQuanto = ts => { const m = Math.floor((Date.now() - ts) / 60000); return m < 1 ? 'agora' : 'há ' + m + ' min'; };
   function onlineHTML(){
     if(on == null) return '<section class="hj-card"><p class="hj-vazio">Vendo quem está on-line…</p></section>';
@@ -25976,7 +26007,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     el.innerHTML = `<header class="hj-head"><div class="hj-topo"><div class="eyebrow adm-eyebrow">Administração</div><span class="adm-so">Só você vê esta página</span></div>
         <div class="ma-ola"><span class="adm-ic">${ic('escudo')}</span><div><h1>Painel do administrador</h1></div></div>
         <div id="admTopo">${topoHTML()}</div></header>
-      <div class="ma-abas" role="tablist">${ABAS.map(([k, t]) => `<button role="tab" data-adm-aba="${k}" aria-selected="${aba === k}">${t}</button>`).join('')}</div>
+      <div class="ma-abas adm-abas" id="admAbas" role="tablist">${abasHTML()}</div>
       <div id="admCorpo" class="adm-corpo"></div>`;
     desenharCorpo(); contar(); vigiarOnline();
     if(aba === 'avisos') lerAvisos();
