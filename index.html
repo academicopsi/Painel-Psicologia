@@ -25218,7 +25218,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     if(ate > Date.now()){ el.hidden = true; return; }
     el.hidden = false;
     el.innerHTML = `<div class="ah-card"><div class="ah-arte">${psiu}</div><div class="ah-txt"><h3>O site te ajudou?</h3>
-      <p>O Arquivo Vivo é feito por um colega, sem anúncios. Manter tudo isso no ar tem custo. Se o site te ajudou neste semestre, que tal retribuir com um apoio do valor que quiser?</p>
+      <p>O Arquivo Vivo é feito por um colega, sem anúncios. Manter tudo isso no ar tem custo. Se o site te ajudou neste semestre, que tal retribuir com um apoio no valor que quiser?</p>
       <div class="ah-bts"><button class="ah-sim" data-apoio>Quero apoiar</button><button class="ah-nao" data-apoio-adiar>Agora não</button></div></div></div>`;
   }
   document.addEventListener('click', e => { if(e.target.closest('[data-apoio-adiar]')){ try{ localStorage.setItem('av-apoio-adiado', String(Date.now() + 7 * 864e5)); }catch(_){} apoioHome(); } });
