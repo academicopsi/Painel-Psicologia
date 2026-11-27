@@ -3677,6 +3677,22 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
   body.dark .adm-st[data-adm-aba="online"].tem b{color:#7FD0A3;}
   .adm-online h3{margin:0 0 4px; font-family:var(--serif, Georgia, serif); font-size:20px; font-weight:600;}
   .adm-on-lista{list-style:none; margin:0; padding:0; display:flex; flex-direction:column;}
+  /* histórico de acessos */
+  .ac-dia{margin:10px 0 0;}
+  .ac-dia-t{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 4px;}
+  .ac-lista{list-style:none; margin:0; padding:0;}
+  .ac-lista li{display:flex; align-items:baseline; gap:8px; padding:7px 0; border-top:1px solid var(--rule); font-size:13.5px; color:var(--ink-soft);}
+  .ac-lista li:first-child{border-top:0;}
+  .ac-lista li b{color:var(--ink);}
+  .ac-txt{flex:1; min-width:0;}
+  .ac-lista small{margin-left:auto; flex:none; font-size:12px; color:var(--ink-faint);}
+  .ac-on{color:var(--petrol); font-weight:600;}
+  .adm-ass{margin:0 0 12px; padding:12px 14px; border:1px solid var(--rule); border-radius:12px; background:var(--paper);}
+  .adm-ass-t{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--petrol);}
+  .adm-ass-res{margin:4px 0 0; font-size:13.5px; color:var(--ink-soft);}
+  .adm-ass-mais{margin-top:10px; font:inherit; font-size:13px; font-weight:600; color:var(--petrol); background:none; border:0; padding:4px 0; cursor:pointer; text-decoration:underline; text-underline-offset:3px;}
+  .sobre-priv{margin:0 0 8px; padding-left:20px; display:flex; flex-direction:column; gap:8px; font-size:15px; line-height:1.55; color:var(--ink-soft);}
+  .sobre-priv b{color:var(--ink);}
   .adm-on-lista li{display:flex; align-items:center; gap:10px; padding:10px 0; border-top:1px solid var(--rule);}
   .adm-on-lista li:first-child{border-top:0;}
   .adm-on-lista b{flex:1; min-width:0; font-weight:600; overflow-wrap:anywhere;}
@@ -4354,9 +4370,19 @@ try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classLi
       <li>Não substitui os grupos oficiais da turma, que continuam sendo o canal mais confiável para avisos.</li>
       <li>O conteúdo das aulas sempre prevalece como referência final.</li>
       <li>Livros, slides e artigos pertencem aos seus autores e editoras; o site só organiza o acesso para fins didáticos.</li>
-      <li>Seu progresso (resumos estudados, exercícios, respostas) fica salvo só no aparelho em que você usa o site.</li>
     </ul>
   </div>
+
+  <h4 class="sobre-h" id="privacidade">Privacidade</h4>
+  <ul class="sobre-priv">
+    <li><b>O que fica salvo:</b> nome, e-mail, foto (se você escolher uma) e o seu progresso de estudo, como simulados, resumos lidos, anotações e as notas da calculadora. Assim tudo aparece em todos os seus aparelhos.</li>
+    <li><b>Suas notas e seu progresso:</b> só aparecem para você. Não aparecem para os colegas nem no painel de quem mantém o site.</li>
+    <li><b>Seus acessos:</b> Quem mantém o site vê quem acessou e quando. Isso ajuda a entender o que está funcionando e a melhorar o Arquivo Vivo para todo mundo. Os registros de entrada e saída ficam guardados por 90 dias.</li>
+    <li><b>No Corredor da turma:</b> o que você publica aparece com o seu nome para os colegas.</li>
+    <li><b>Onde fica:</b> no Firebase, serviço do Google. As visualizações das páginas são contadas pelo GoatCounter, sem identificar ninguém.</li>
+    <li><b>O que não fazemos:</b> não vendemos, não compartilhamos e não usamos para anúncios.</li>
+    <li><b>Apagar a conta:</b> é só pedir ao Thiago, e tudo é removido.</li>
+  </ul>
 
   <section class="stats-block sobre-numeros">
     <h4 class="sobre-h">O Arquivo Vivo em números</h4>
@@ -23678,7 +23704,7 @@ const ERROS = {
 };
 const erroTxt = e => ERROS[e && e.code] || 'Não deu certo agora. Tente de novo em instantes.';
 const quando = ts => { if(!ts) return 'ainda não sincronizado'; const m = Math.round((Date.now() - ts) / 60000); return m < 1 ? 'sincronizado agora' : m < 60 ? `sincronizado há ${m} min` : 'sincronizado em ' + new Date(ts).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}); };
-const PRIV = '<details class="conta-priv"><summary>Guardamos só o necessário para sua conta e seu progresso. Nada é compartilhado. <u>Saiba mais</u></summary><ul><li><b>O que guardamos:</b> e-mail, nome, foto (se você escolher uma ou entrar pelo Google) e o progresso de estudo, como simulados, resumos lidos e anotações.</li><li><b>Para quê:</b> liberar o acesso da turma e salvar seu progresso entre aparelhos.</li><li><b>Onde fica:</b> no Firebase, serviço do Google, em servidores fora do Brasil.</li><li><b>Sua senha:</b> fica guardada pelo Google, de forma cifrada. Ninguém tem acesso a ela, nem quem mantém o site.</li><li><b>Sua foto e seu progresso:</b> só aparecem para você no site. No painel de acessos, quem mantém o site vê apenas nome e e-mail, e não abre os dados de ninguém.</li><li><b>O que não fazemos:</b> não vendemos, não compartilhamos e não usamos para anúncios.</li><li><b>Apagar a conta:</b> é só pedir, e tudo é removido.</li></ul></details>';
+const PRIV = '<details class="conta-priv"><summary>Guardamos só o necessário para sua conta e seu progresso. Nada é compartilhado. <u>Saiba mais</u></summary><ul><li><b>O que guardamos:</b> e-mail, nome, foto (se você escolher uma ou entrar pelo Google) e o progresso de estudo, como simulados, resumos lidos e anotações.</li><li><b>Para quê:</b> liberar o acesso da turma, salvar seu progresso entre aparelhos e acompanhar o uso do site.</li><li><b>Onde fica:</b> no Firebase, serviço do Google, em servidores fora do Brasil.</li><li><b>Sua senha:</b> fica guardada pelo Google, de forma cifrada. Ninguém tem acesso a ela, nem quem mantém o site.</li><li><b>Sua foto e seu progresso:</b> só aparecem para você no site. No painel de acessos, quem mantém o site vê apenas nome e e-mail, e não abre os dados de ninguém.</li><li><b>Seus acessos:</b> Quem mantém o site vê quem acessou e quando. Isso ajuda a entender o que está funcionando e a melhorar o Arquivo Vivo para todo mundo. Os registros de entrada e saída ficam guardados por 90 dias.</li><li><b>O que não fazemos:</b> não vendemos, não compartilhamos e não usamos para anúncios.</li><li><b>Apagar a conta:</b> é só pedir, e tudo é removido.</li></ul></details>';
 const msgHTML = m => m ? `<div class="conta-msg ${m.tipo}">${esc(m.t)}</div>` : '';
 
 // ---------- formulário (usado no portão) ----------
@@ -23815,8 +23841,15 @@ function desenharPainel(){
         <span class="adm-pessoa"><b>${esc(x.nome || 'Sem nome')}</b><span class="adm-mail">${esc(x.email || 'sem e-mail')}</span></span>
         ${rapido || status}<span class="adm-chev">${ic('chev')}</span>
       </div>
-      ${ab ? `<div class="adm-det">${pix}<dl>${info.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl><div class="adm-acs">${acoes}</div></div>` : ''}
+      ${ab ? `<div class="adm-det">${pix}<dl>${info.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>${x.ok ? '<div class="adm-ass" data-ass><p class="adm-ajuda">Carregando os acessos…</p></div>' : ''}<div class="adm-acs">${acoes}</div></div>` : ''}
     </div>`; }).join('') : `<div class="adm-vazio">${vazio}</div>`;
+  const assEl = document.querySelector('#admLista [data-ass]');
+  if(assEl && window.avAcessosDe){ const uidAss = admAberto; window.avAcessosDe(uidAss).then(l => {
+    if(admAberto !== uidAss || !assEl.isConnected) return;
+    const curto = l.slice(0, 15);
+    assEl.innerHTML = `<div class="adm-ass-t">Assiduidade</div><p class="adm-ass-res">${window.avAcessosResumo(l)}</p>${window.avAcessosPorDia(curto, false)}${l.length > 15 ? `<button class="adm-ass-mais" type="button">Ver todos os ${l.length} acessos</button>` : ''}`;
+    const m = assEl.querySelector('.adm-ass-mais'); if(m) m.onclick = () => { assEl.querySelector('.adm-ass-mais').remove(); assEl.querySelectorAll('.ac-dia').forEach(e => e.remove()); assEl.insertAdjacentHTML('beforeend', window.avAcessosPorDia(l, false)); };
+  }); }
   document.querySelectorAll('#admLista [data-abre]').forEach(el => {
     const abre = e => { if(e.target.closest('[data-acao]')) return; const u = el.closest('[data-uid]').dataset.uid; admAberto = admAberto === u ? null : u; desenharPainel(); };
     el.onclick = abre; el.onkeydown = e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); abre(e); } };
@@ -24000,13 +24033,57 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   const PASSO = 60000;
   let timer = null, marcado = null;
   const pode = () => usuario && (liberado || ehAdmin(usuario));
+  // histórico de acessos (avisado na seção Privacidade da página Sobre): cada visita guarda quando entrou e
+  // quando saiu (último sinal, com precisão de 1 minuto). Voltar em até 5 minutos continua a mesma visita.
+  // Só o administrador lê; cada conta apaga sozinha os próprios registros com mais de 90 dias.
+  const SES = 'av-sessao', VOLTA = 5 * 60000;
+  let podado = false;
+  const sesLer = () => { try{ return JSON.parse(sessionStorage.getItem(SES)) || {}; }catch(e){ return {}; } };
+  function sessao(nome){
+    if(ehAdmin(usuario)) return;
+    const agora = Date.now(), st = sesLer(), base = 'acessos/' + usuario.uid + '/';
+    if(!st.sid || st.uid !== usuario.uid || agora - (st.ultimo || 0) > VOLTA){
+      st.sid = String(agora); st.uid = usuario.uid;
+      set(ref(db, base + st.sid), {n: nome, ini: {'.sv': 'timestamp'}, fim: {'.sv': 'timestamp'}}).catch(() => {});
+    } else set(ref(db, base + st.sid + '/fim'), {'.sv': 'timestamp'}).catch(() => {});
+    st.ultimo = agora; try{ sessionStorage.setItem(SES, JSON.stringify(st)); }catch(e){}
+    if(!podado){ podado = true; podar(); }
+  }
+  async function podar(){
+    const v = await get(ref(db, 'acessos/' + usuario.uid)).then(x => x.val()).catch(() => null);
+    const lim = Date.now() - 90 * 864e5;
+    Object.entries(v || {}).forEach(([k, o]) => { if(((o && +o.fim) || +k) < lim) remove(ref(db, 'acessos/' + usuario.uid + '/' + k)).catch(() => {}); });
+  }
   function marcar(){
     if(!pode() || document.visibilityState !== 'visible') return;
     const nome = (usuario.displayName || (usuario.email || '').split('@')[0] || 'Sem nome').trim().slice(0, 60);
     marcado = usuario.uid;
     set(ref(db, 'online/' + usuario.uid), {nome, em: {'.sv': 'timestamp'}}).catch(() => {});
+    sessao(nome);
   }
-  function sair(){ if(marcado){ remove(ref(db, 'online/' + marcado)).catch(() => {}); marcado = null; } }
+  function sair(){
+    if(marcado){
+      const st = sesLer();
+      if(st.sid && st.uid === marcado && !ehAdmin(usuario)){ set(ref(db, 'acessos/' + marcado + '/' + st.sid + '/fim'), {'.sv': 'timestamp'}).catch(() => {}); st.ultimo = Date.now(); try{ sessionStorage.setItem(SES, JSON.stringify(st)); }catch(e){} }
+      remove(ref(db, 'online/' + marcado)).catch(() => {}); marcado = null;
+    }
+  }
+  // o administrador consulta o histórico: de uma pessoa ou de todo mundo (mais recentes primeiro)
+  const lista = (uid, v) => Object.entries(v || {}).map(([k, o]) => ({uid, n: (o && o.n) || '', ini: (o && +o.ini) || +k, fim: (o && +o.fim) || (o && +o.ini) || +k}));
+  window.avAcessosDe = async uid => lista(uid, await get(ref(db, 'acessos/' + uid)).then(x => x.val()).catch(() => null)).sort((a, b) => b.ini - a.ini);
+  // textos do histórico de acessos (usados no painel)
+  const hh = ts => new Date(ts).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  const diaTxt = ts => { const d = new Date(ts), h = new Date(); h.setHours(0, 0, 0, 0); const o = new Date(d); o.setHours(0, 0, 0, 0); const n = Math.round((h - o) / 864e5);
+    return n === 0 ? 'Hoje' : n === 1 ? 'Ontem' : d.toLocaleDateString('pt-BR', {weekday:'short', day:'2-digit', month:'2-digit'}).replace('.', ''); };
+  const dur = (a, b) => { const m = Math.max(1, Math.round((b - a) / 60000)); return m < 60 ? m + ' min' : Math.floor(m / 60) + 'h' + String(m % 60).padStart(2, '0'); };
+  const aindaOn = x => Date.now() - x.fim < 3 * 60000;
+  window.avAcessoLinha = (x, comNome) => `<li><span class="ac-txt">${comNome ? `<b>${escHTML(x.n || 'Sem nome')}</b> ` : ''}entrou às ${hh(x.ini)}${aindaOn(x) ? ' <span class="ac-on">· ainda no site</span>' : ` · saiu às ${hh(x.fim)}`}</span><small>${dur(x.ini, x.fim)}</small></li>`;
+  window.avAcessosPorDia = (l, comNome) => { const g = []; l.forEach(x => { const d = diaTxt(x.ini); if(!g.length || g[g.length - 1][0] !== d) g.push([d, []]); g[g.length - 1][1].push(x); });
+    return g.map(([d, xs]) => `<div class="ac-dia"><div class="ac-dia-t">${d}</div><ul class="ac-lista">${xs.map(x => window.avAcessoLinha(x, comNome)).join('')}</ul></div>`).join(''); };
+  window.avAcessosResumo = l => { const lim = Date.now() - 30 * 864e5, rec = l.filter(x => x.ini >= lim), dias = new Set(rec.map(x => new Date(x.ini).toDateString())).size;
+    if(!l.length) return 'Nenhum acesso registrado ainda.';
+    const u = l[0]; return `Esteve no site em <b>${dias} ${dias === 1 ? 'dia' : 'dias'}</b> dos últimos 30 · ${rec.length} ${rec.length === 1 ? 'visita' : 'visitas'} · último acesso ${diaTxt(u.ini).toLowerCase()} às ${hh(u.fim)}`; };
+  window.avAcessosTodos = async () => { const v = await get(ref(db, 'acessos')).then(x => x.val()).catch(() => null); return Object.entries(v || {}).flatMap(([uid, o]) => lista(uid, o)).sort((a, b) => b.ini - a.ini); };
   function ligar(){ clearInterval(timer); timer = null; if(document.visibilityState === 'visible'){ marcar(); timer = setInterval(marcar, PASSO); } }
   document.addEventListener('visibilitychange', () => { if(document.visibilityState === 'visible') ligar(); else { clearInterval(timer); timer = null; sair(); } });
   window.addEventListener('pagehide', sair);
@@ -26187,7 +26264,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
 // ===== Painel do administrador: página separada, só para o administrador =====
 (function(){
   const EU = () => window.avEu && window.avEu(), B = () => window.avBanco, esc = t => escHTML(t == null ? '' : t);
-  let aba = 'acessos', on = null, onTimer = null, cont = null, fila = {}, aparelhos = null, pessoas = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}, msg = '';
+  let aba = 'acessos', on = null, acs = null, onTimer = null, cont = null, fila = {}, aparelhos = null, pessoas = null, envio = {titulo:'', mensagem:'', link:'', publico:'todos', uids:{}}, msg = '';
   const ABAS = [['online', 'On-line'], ['acessos', 'Acessos'], ['avisos', 'Avisos'], ['mural', 'Corredor'], ['turma', 'Turma'], ['banco', 'Questões']];
   const ABA_IC = {
     online:'<circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/>',
@@ -26238,13 +26315,17 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     const eu = EU(), n = on.length;
     return `<section class="hj-card adm-online"><h3>${n} ${n === 1 ? 'pessoa on-line agora' : 'pessoas on-line agora'}</h3>
       <p class="adm-ajuda">Conta quem está com o site aberto na tela nos últimos 3 minutos. Quem não entrou na conta não aparece. Atualiza sozinho a cada 30 segundos.</p>
-      ${n ? `<ul class="adm-on-lista">${on.map(x => `<li><span class="adm-on-bola"></span><b>${esc(x.nome)}${eu && x.uid === eu.uid ? ' <em>(você)</em>' : ''}</b><small>${haQuanto(x.em)}</small></li>`).join('')}</ul>` : '<p class="hj-vazio">Ninguém on-line agora.</p>'}</section>`;
+      ${n ? `<ul class="adm-on-lista">${on.map(x => `<li><span class="adm-on-bola"></span><b>${esc(x.nome)}${eu && x.uid === eu.uid ? ' <em>(você)</em>' : ''}</b><small>${haQuanto(x.em)}</small></li>`).join('')}</ul>` : '<p class="hj-vazio">Ninguém on-line agora.</p>'}</section>
+      <section class="hj-card adm-online"><h3>Entradas e saídas</h3>
+      <p class="adm-ajuda">Visitas dos últimos 2 dias, das mais recentes para as mais antigas. Para ver o histórico de uma pessoa, abra o nome dela na aba Acessos.</p>
+      ${acs == null ? '<p class="hj-vazio">Carregando…</p>' : (() => { const l = acs.filter(x => x.ini >= Date.now() - 2 * 864e5); return l.length ? window.avAcessosPorDia(l, true) : '<p class="hj-vazio">Nenhuma visita registrada nos últimos 2 dias.</p>'; })()}</section>`;
   }
   async function lerOnline(){
     const v = document.getElementById('viewAdmin');
     if(!v || v.style.display === 'none'){ clearInterval(onTimer); onTimer = null; return; }
     if(document.visibilityState !== 'visible') return;
     on = window.avOnline ? await window.avOnline() : [];
+    acs = window.avAcessosTodos ? await window.avAcessosTodos() : [];
     desenharTopo(); if(aba === 'online'){ const c = document.getElementById('admCorpo'); if(c) c.innerHTML = onlineHTML(); }
   }
   function vigiarOnline(){ lerOnline(); clearInterval(onTimer); onTimer = setInterval(lerOnline, 30000); }

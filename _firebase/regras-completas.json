@@ -112,6 +112,27 @@
       "$mes": {
         ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
       }
+    },
+    "acessos": {
+      ".read": "auth != null && auth.token.email === 'thiagodentalbeauty@gmail.com'",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        "$sid": {
+          ".validate": "newData.hasChildren(['ini','fim']) || !newData.exists()",
+          "n": {
+            ".validate": "newData.isString() && newData.val().length <= 60"
+          },
+          "ini": {
+            ".validate": "newData.isNumber() && newData.val() <= now"
+          },
+          "fim": {
+            ".validate": "newData.isNumber() && newData.val() <= now"
+          },
+          "$outro": {
+            ".validate": false
+          }
+        }
+      }
     }
   }
 }
