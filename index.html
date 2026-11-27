@@ -4,7 +4,7 @@
 <script>try{ var apc = +(localStorage.getItem('av-apoiador-cache') || 0); if(apc > 1 && apc < Date.now()) localStorage.removeItem('av-apoiador-cache'); }catch(e){}
 try{ if(!localStorage.getItem('av-acesso-ok')){ document.documentElement.classList.add('portao');
   // quem não está logado vê primeiro a apresentação; os botões dela voltam com #entrar ou #criar
-  if(!/^#(entrar|criar)$/.test(location.hash)){ try{ sessionStorage.setItem('av-destino', location.hash || ''); }catch(_){}
+  if(!/^#(entrar|criar)$/.test(location.hash) && !/[?&]oobCode=/.test(location.search)){ try{ sessionStorage.setItem('av-destino', location.hash || ''); }catch(_){}
     var p = location.pathname, v3 = /\/v3\/(index\.html)?$/.test(p); location.replace(p.replace(/(v3\/)?(index\.html)?$/, '') + 'divulgacao/' + (v3 ? '?de=v3' : '')); } } }catch(e){ document.documentElement.classList.add('portao'); }</script>
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta charset="UTF-8" />
@@ -23986,7 +23986,7 @@ document.addEventListener('click', e=>{
 </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, verifyPasswordResetCode, confirmPasswordReset, checkActionCode, applyActionCode, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 import { getDatabase, ref, get as _get, set as _set_db, remove as _remove, goOnline, goOffline } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
 const app = initializeApp({
@@ -24169,6 +24169,59 @@ function abrirSite(){
     history.replaceState(null, '', location.pathname + location.search + d); if(d && typeof routeFromHash === 'function') routeFromHash(); }
 }
 function portaoLogin(m){ fecharSite(); portao.innerHTML = formHTML(m); ligarForm(portao, portaoLogin); }
+// ---------- links que chegam por e-mail (senha nova, confirmação de e-mail) ----------
+// o modelo de e-mail do Firebase aponta para o próprio site: ?mode=resetPassword&oobCode=...
+let ACAO = (()=>{ try{ const q = new URLSearchParams(location.search), mode = q.get('mode'), code = q.get('oobCode'); return mode && code ? {mode, code} : null; }catch(_){ return null; } })();
+function limparAcao(){ ACAO = null; try{ history.replaceState(null, '', location.pathname + location.hash); }catch(_){} }
+const ACAO_ERRO = e => (e && (e.code === 'auth/expired-action-code' || e.code === 'auth/invalid-action-code')) ? 'Este link expirou ou já foi usado. Peça um link novo.' : erroTxt(e);
+function acaoFim(titulo, texto, m){
+  fecharSite();
+  portao.innerHTML = `<h2>${titulo}</h2><p class="conta-sub">${texto}</p>${msgHTML(m)}<button class="conta-btn" type="button" data-seguir>Continuar</button>`;
+  portao.querySelector('[data-seguir]').onclick = ()=>{ limparAcao(); if(usuario) verificar(usuario); else { aba = 'entrar'; portaoLogin(); } };
+}
+function acaoLinkRuim(e){
+  fecharSite();
+  portao.innerHTML = `<h2>Link inválido</h2>${msgHTML({tipo:'erro', t:ACAO_ERRO(e)})}<button class="conta-btn" type="button" data-novo>Pedir link novo</button><button class="conta-link" data-entrar>Voltar para entrar</button>`;
+  portao.querySelector('[data-novo]').onclick = ()=>{ limparAcao(); aba = 'esqueci'; portaoLogin(); };
+  portao.querySelector('[data-entrar]').onclick = ()=>{ limparAcao(); if(usuario) verificar(usuario); else { aba = 'entrar'; portaoLogin(); } };
+}
+async function portaoAcao(){
+  const {mode, code} = ACAO; fecharSite();
+  portao.innerHTML = '<h2>Só um instante</h2><p class="conta-sub">Conferindo o link…</p>';
+  if(mode === 'resetPassword'){
+    let email;
+    try{ email = await verifyPasswordResetCode(auth, code); }catch(e){ acaoLinkRuim(e); return; }
+    const desenhar = m => {
+      portao.innerHTML = `<h2>Criar senha nova</h2><p class="conta-sub">Para a conta <b>${esc(email)}</b>.</p>${msgHTML(m)}
+        <form class="conta-form" data-form><input type="email" autocomplete="username" value="${esc(email)}" hidden>
+        <label for="cSenhaNova">Senha nova (mínimo de 6 caracteres)</label><input id="cSenhaNova" type="password" autocomplete="new-password" minlength="6" required>
+        <label for="cSenhaRep">Repita a senha</label><input id="cSenhaRep" type="password" autocomplete="new-password" minlength="6" required>
+        <button class="conta-btn" type="submit">Salvar e entrar</button></form>`;
+      const f = portao.querySelector('[data-form]');
+      f.onsubmit = async ev => {
+        ev.preventDefault(); const s1 = f.querySelector('#cSenhaNova').value, s2 = f.querySelector('#cSenhaRep').value;
+        if(s1 !== s2){ desenhar({tipo:'erro', t:'As duas senhas não são iguais.'}); return; }
+        const bt = f.querySelector('button[type=submit]'); bt.disabled = true;
+        try{ await confirmPasswordReset(auth, code, s1); }catch(e){ if(e && /action-code/.test(e.code || '')) acaoLinkRuim(e); else desenhar({tipo:'erro', t:erroTxt(e)}); return; }
+        limparAcao();
+        try{ await signInWithEmailAndPassword(auth, email, s1); }
+        catch(e){ aba = 'entrar'; portaoLogin({tipo:'ok', t:'Senha nova salva. Agora é só entrar.'}); }
+      };
+    };
+    desenhar(); return;
+  }
+  if(mode === 'verifyEmail'){
+    try{ await applyActionCode(auth, code); if(usuario) await usuario.reload().catch(()=>{}); acaoFim('E-mail confirmado', 'Tudo certo com o seu e-mail.'); }catch(e){ acaoLinkRuim(e); }
+    return;
+  }
+  if(mode === 'recoverEmail'){
+    try{ const info = await checkActionCode(auth, code); await applyActionCode(auth, code); const em = info && info.data && info.data.email;
+      acaoFim('E-mail da conta restaurado', `A conta voltou a usar ${em ? '<b>' + esc(em) + '</b>' : 'o e-mail anterior'}. Se não foi você quem trocou, crie uma senha nova em "Esqueci minha senha".`); }
+    catch(e){ acaoLinkRuim(e); }
+    return;
+  }
+  limparAcao(); if(usuario) verificar(usuario); else portaoLogin();
+}
 function portaoAguardando(){
   fecharSite();
   portao.innerHTML = `<h2>Aguardando liberação</h2><p class="conta-sub">Sua conta existe, falta só a liberação. Assim que o Thiago aprovar, o site abre aqui mesmo.</p>
@@ -24429,6 +24482,7 @@ onAuthStateChanged(auth, u=>{
   window.avApoiador = false; document.dispatchEvent(new Event('av-apoio'));
   dot.hidden = true; dot.textContent = ''; dot.classList.remove('conta-num');
   pintarBotao();
+  if(ACAO){ portaoAcao(); return; }
   if(!u){ _rem.call(localStorage, 'av-acesso-ok'); aba = location.hash === '#criar' ? 'criar' : 'entrar'; portaoLogin(); return; }
   verificar(u);
 });
