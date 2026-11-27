@@ -24153,7 +24153,7 @@ function ligarForm(box, redesenhar){
     ev.preventDefault(); const bt = f.querySelector('button[type=submit]'); bt.disabled = true;
     const email = box.querySelector('#cEmail').value.trim(), senha = box.querySelector('#cSenha');
     try{
-      if(aba === 'esqueci'){ await sendPasswordResetEmail(auth, email); aba = 'entrar'; redesenhar({tipo:'ok', t:'Se existir uma conta com este e-mail, o link chega em alguns minutos.'}); return; }
+      if(aba === 'esqueci'){ try{ await sendPasswordResetEmail(auth, email, {url: location.origin + location.pathname.replace(/(v3\/)?(index\.html)?$/, '') + '#entrar'}); }catch(e1){ if(/continue-uri|domain/.test((e1 && e1.code) || '')) await sendPasswordResetEmail(auth, email); else throw e1; } aba = 'entrar'; redesenhar({tipo:'ok', t:'Se existir uma conta com este e-mail, o link chega em alguns minutos.'}); return; }
       if(aba === 'criar'){ const nome = box.querySelector('#cNome').value.trim(); const r = await createUserWithEmailAndPassword(auth, email, senha.value); if(nome){ await updateProfile(r.user, {displayName: nome}); verificar(r.user); } }
       else await signInWithEmailAndPassword(auth, email, senha.value);
     }catch(e){ bt.disabled = false; redesenhar({tipo:'erro', t:erroTxt(e)}); const em = box.querySelector('#cEmail'); if(em) em.value = email; }
