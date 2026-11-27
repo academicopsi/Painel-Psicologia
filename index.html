@@ -25203,8 +25203,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
   document.body.appendChild(offAviso);
   const offAtualizar = () => { offAviso.hidden = navigator.onLine; };
   window.addEventListener('online', offAtualizar); window.addEventListener('offline', offAtualizar); offAtualizar();
-  // ===== Apoio na home: um café para o Psiu =====
-  const XIC = '<svg class="ah-xic" viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8 q-3 4 0 8 M24 6 q-3 4 0 8 M32 8 q-3 4 0 8" stroke="#BA7517" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M8 20 h28 v12 a10 10 0 0 1 -10 10 h-8 a10 10 0 0 1 -10 -10 z" fill="#fff" stroke="#BA7517" stroke-width="2.5"/><path d="M36 23 h3 a5 5 0 0 1 0 10 h-4" fill="none" stroke="#BA7517" stroke-width="2.5"/><path d="M11 24 h22" stroke="#7A4A12" stroke-width="3"/></svg>';
+  // ===== Apoio na home =====
   function apoioHome(){
     const el = document.getElementById('apoioHome'); if(!el) return;
     if(!localStorage.getItem('av-acesso-ok')){ el.hidden = true; return; }
@@ -25213,12 +25212,12 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
     if(apoia){ const fim = +(window.avApoioAte || localStorage.getItem('av-apoiador-cache') || 0), dias = Math.ceil((fim - Date.now()) / 864e5);
       const renova = fim > 1 && dias <= 3;
       el.hidden = false; el.innerHTML = renova
-        ? `<div class="ah-card obrigado"><div class="ah-txt"><p><b>Seu apoio vale até ${new Date(fim).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}.</b> Quer manter o café do Psiu e os seus recursos? É só renovar o Pix.</p><div class="ah-bts"><button class="ah-sim" data-apoio>Renovar apoio</button></div></div></div>`
-        : `<div class="ah-card obrigado"><div class="ah-txt"><p><b>Obrigado por apoiar!</b> É o seu apoio que mantém o café do Psiu e o Arquivo Vivo no ar.</p></div></div>`; return; }
+        ? `<div class="ah-card obrigado"><div class="ah-txt"><p><b>Seu apoio vale até ${new Date(fim).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}.</b> Quer manter os seus recursos de apoiador? É só renovar o Pix.</p><div class="ah-bts"><button class="ah-sim" data-apoio>Renovar apoio</button></div></div></div>`
+        : `<div class="ah-card obrigado"><div class="ah-txt"><p><b>Obrigado por apoiar!</b> É o seu apoio que mantém o Arquivo Vivo no ar.</p></div></div>`; return; }
     const ate = +(localStorage.getItem('av-apoio-adiado') || 0);
     if(ate > Date.now()){ el.hidden = true; return; }
     el.hidden = false;
-    el.innerHTML = `<div class="ah-card"><div class="ah-arte">${psiu}${XIC}</div><div class="ah-txt"><h3>Um café para o Psiu?</h3>
+    el.innerHTML = `<div class="ah-card"><div class="ah-arte">${psiu}</div><div class="ah-txt"><h3>O site te ajudou?</h3>
       <p>O Arquivo Vivo é feito por um colega, sem anúncios. Manter tudo isso no ar tem custo. Se o site te ajudou neste semestre, que tal retribuir com um apoio do valor que quiser?</p>
       <div class="ah-bts"><button class="ah-sim" data-apoio>Quero apoiar</button><button class="ah-nao" data-apoio-adiar>Agora não</button></div></div></div>`;
   }
@@ -26467,7 +26466,7 @@ window.avEu = () => usuario ? {uid: usuario.uid, nome: (usuario.displayName || '
         <div><b>0</b><span>anúncios ou patrocínio</span></div>
       </div>
       <p class="cv-apelo">Agora ele conta com você.</p>
-      <p class="cv-txt">Se o site fez diferença no seu semestre, ajuda a mantê-lo vivo no próximo? <b>Qualquer valor conta, até o de um café.</b></p>
+      <p class="cv-txt">Se o site fez diferença no seu semestre, ajuda a mantê-lo vivo no próximo? <b>Qualquer valor conta.</b></p>
       <div class="cv-prox">
         <p>No próximo semestre ele vira uma plataforma de estudos</p>
         <ul>
